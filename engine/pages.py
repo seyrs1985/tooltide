@@ -150,6 +150,25 @@ def PAGES():
     md["args"]["rule"] = {"week": 2, "weekday": 0}  # 2nd Sunday of May
     pages.append(md)
 
+    ea = _cd("easter", "Easter", 4, 20, "days until easter",
+             "Easter Sunday is the highlight of the Christian calendar — and its date moves every year, falling on the first Sunday after the first full moon following the spring equinox, anywhere between March 22 and April 25.",
+             "The timer below computes the moving date automatically for every year, so you never need to look it up. Planning the egg hunt, family lunch or the school-holiday trip starts here.",
+             "🐣")
+    ea["args"]["rule"] = {"easter": True}
+    pages.append(ea)
+
+    xme = _cd("christmas-eve", "Christmas Eve", 12, 24, "days until christmas eve",
+              "Christmas Eve — December 24th — is when much of the world opens presents, attends midnight mass, and sits down to the main festive dinner. In many countries it is the emotional peak of the season, bigger than Christmas Day itself.",
+              "Counting down to the 24th rather than the 25th? This timer targets Christmas Eve exactly, and rolls over to next year automatically after the holiday.",
+              "🎅")
+    pages.append(xme)
+
+    sp = _cd("st-patricks-day", "St Patrick's Day", 3, 17, "days until st patricks day",
+             "St Patrick's Day — March 17th — celebrates Ireland's patron saint with parades, shamrocks and (in quite a few cities) green beer. It is one of the most widely celebrated national days on Earth.",
+             "Planning parade outfits, a pub crawl or a proper Irish breakfast? The countdown below always targets the upcoming March 17th.",
+             "☘️")
+    pages.append(sp)
+
     # ---------- Calculator family ----------
     pages.append({
         "slug": "percentage-calculator",
@@ -389,6 +408,30 @@ def PAGES():
     pages.append(_conv("mm-to-inches", "MM to Inches", "millimeters", "inches", 1 / 25.4, "length",
                        "Millimeters are the metric unit for small precision measurements — jewelry, tools, camera gear, 3D printing; inches remain the everyday small-length unit in the US. Because one inch is officially exactly 25.4 millimeters, this conversion is precise to any number of decimal places.",
                        "Handy anchors: 25.4 mm = 1 in, 10 mm = 0.39 in (about 4/10 of an inch), 100 mm = 3.94 in, 6.35 mm = exactly 1/4 inch (the common drill-bit size)."))
+    pages.append(_conv("meters-to-feet", "Meters to Feet", "meters", "feet", 3.280839895, "length",
+                       "Meters are the metric standard for height and room dimensions; feet remain the everyday unit in the US. One meter is exactly 3.280839895 feet, so converting is a single multiplication — and the reverse uses the clean factor 0.3048.",
+                       "Handy anchors: 1 m = 3.28 ft, 2 m = 6.56 ft (tall doorway height), 100 m = 328.08 ft (a short city block)."))
+    pages.append(_conv("feet-to-meters", "Feet to Meters", "feet", "meters", 0.3048, "length",
+                       "Feet are the US unit for height, rooms and real estate; meters are the global metric standard. One foot is officially exactly 0.3048 meters, making this conversion precise at any scale.",
+                       "Handy anchors: 5 ft = 1.52 m, 6 ft = 1.83 m (average adult heights), 10 ft = 3.05 m (basketball rim)."))
+    pages.append(_conv("ounces-to-grams", "Ounces to Grams", "ounces", "grams", 28.349523125, "weight",
+                       "Ounces are the US unit for food portions, ingredients and precious metals (technically troy ounces for metals); grams are the metric standard used on nutrition labels worldwide. One avoirdupois ounce is exactly 28.349523125 grams.",
+                       "Handy anchors: 1 oz = 28.35 g, 4 oz = 113.40 g (a burger patty), 8 oz = 226.80 g (half a pound)."))
+    pages.append(_conv("grams-to-ounces", "Grams to Ounces", "grams", "ounces", 1 / 28.349523125, "weight",
+                       "Convert grams — the metric unit on every nutrition label — to ounces, the US kitchen and grocery unit. Divide grams by 28.3495 or just type it below for full precision.",
+                       "Handy anchors: 100 g = 3.53 oz (a chocolate bar), 250 g = 8.82 oz (a cup of butter), 500 g = 17.64 oz (just over a pound).", dec=3))
+    pages.append(_conv("liters-to-gallons", "Liters to Gallons", "liters", "gallons (US)", 0.2641720524, "volume",
+                       "Liters are the metric unit for fuel and drinks; US gallons remain the standard at American pumps and supermarkets. One US gallon is exactly 3.785411784 liters, so a liter is about a quarter of a gallon.",
+                       "Handy anchors: 1 L = 0.26 gal, 10 L = 2.64 gal, 55 L = 14.53 gal (a car fuel tank). Note: UK (imperial) gallons are bigger — 4.546 L."))
+    pages.append(_conv("gallons-to-liters", "Gallons to Liters", "gallons (US)", "liters", 3.785411784, "volume",
+                       "Convert US gallons to liters for fuel economy comparisons, recipes and aquarium sizes. One US gallon is exactly 3.785411784 liters — multiply and done.",
+                       "Handy anchors: 1 gal = 3.79 L, 5 gal = 18.93 L (a water-cooler jug), 15 gal = 56.78 L. UK imperial gallons differ: 1 imp gal = 4.55 L."))
+    pages.append(_conv("sqft-to-sqm", "Square Feet to Square Meters", "square feet", "square meters", 0.09290304, "area",
+                       "Square feet dominate US real-estate listings; square meters are the international standard for apartments and offices. One square foot is exactly 0.09290304 square meters — roughly a tenth.",
+                       "Handy anchors: 100 sq ft = 9.29 sq m (a small bedroom), 500 sq ft = 46.45 sq m (a studio), 1,000 sq ft = 92.90 sq m (a two-bed apartment)."))
+    pages.append(_conv("sqm-to-sqft", "Square Meters to Square Feet", "square meters", "square feet", 10.76391042, "area",
+                       "Convert square meters — the global real-estate unit — to square feet for US listings and floor plans. One square meter is 10.7639 square feet, so a handy mental shortcut is '×10 then add a bit'.",
+                       "Handy anchors: 10 sq m = 107.64 sq ft, 50 sq m = 538.20 sq ft (a one-bed flat), 100 sq m = 1,076.39 sq ft."))
 
     # ---------- Text & generator family ----------
     pages.append({

@@ -41,8 +41,12 @@ function nthWeekday(y,mo,week,weekday){ // weekday: 0=Sun..6=Sat
   }
   return null;
 }
+function easterSunday(y){ // Anonymous Gregorian computus
+  var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,mm=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*mm+114)/31),da=((h+l-7*mm+114)%31)+1;
+  return new Date(y,mo-1,da,0,0,0);
+}
 function candidate(y){
-  if(rule)return nthWeekday(y,m-1,rule.week,rule.weekday);
+  if(rule){ if(rule.easter)return easterSunday(y); return nthWeekday(y,m-1,rule.week,rule.weekday); }
   return new Date(y,m-1,d,0,0,0);
 }
 function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
@@ -50,9 +54,9 @@ function target(){
   var now=new Date(),y=now.getFullYear();
   var t=candidate(y);
   if(t===null){t=candidate(y+1);}
-  if(sameDay(t,now))return {t:new Date(t.getTime()+86400000),today:true};
+  if(sameDay(t,now))return {t:new Date(t.getTime()+86400000),today:true,cand:t};
   if(t<=now){y++;t=candidate(y);if(t===null)t=candidate(y+1);}
-  return {t:t,today:false};
+  return {t:t,today:false,cand:t};
 }
 var el=function(id){return document.getElementById(id);};
 function pad(n){return (n<10?'0':'')+n;}
@@ -68,8 +72,7 @@ function tick(){
   el('cd-clock').style.display=r.today?'none':'block';
   el('cd-weeks').textContent=(diff/604800000).toFixed(1);
   el('cd-hours').textContent=Math.floor(diff/3600000).toLocaleString('en-US');
-  var show=r.t; if(r.today)show=new Date(now.getFullYear(),m-1,rule?1:d,0,0,0);
-  el('cd-date').textContent=(r.today?new Date(now.getFullYear(),m-1,1):r.t).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  el('cd-date').textContent=r.cand.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
   el('cd-today-box').style.display=r.today?'block':'none';
 }
 tick();setInterval(tick,1000);
