@@ -30,7 +30,9 @@ def main():
     payload = {
         "host": host,
         "key": key,
-        "keyLocation": base + key + ".txt",
+        # IndexNow requires the key file at the HOST ROOT, not in /tooltide/ —
+        # we serve it from the seyrs1985.github.io user-site repo.
+        "keyLocation": f"https://{host}/{key}.txt",
         "urlList": urls,
     }
     req = urllib.request.Request(
