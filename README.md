@@ -1,6 +1,6 @@
 # ToolTide — AI 全链路增长流水线
 
-免费在线工具站(https://seyrs1985.github.io/tooltide/),由 AI 自动化完成:关键词热点分析 → 程序化建站 → 部署 → 数据分析优化 → 广告/订阅变现。方案详见 [docs/strategy.md](docs/strategy.md)。
+免费在线工具站(https://seyrs1985.github.io/tooltide/),由 AI 自动化完成:关键词热点分析 → 程序化建站 → 部署 → 数据分析优化 → 广告/订阅变现。方案详见 [research/strategy.md](research/strategy.md)。
 
 ## 目录结构
 
@@ -9,7 +9,7 @@ ai-growth-engine/
 ├── engine/
 │   ├── pages.py          # 页面库:每个长尾词一页(加新页就在这里)
 │   ├── tools.py          # 14 种交互工具渲染器(纯 vanilla JS)
-│   ├── build.py          # 构建器 → site/(SEO/sitemap/JSON-LD/隐私页)
+│   ├── build.py          # 构建器 → docs/(SEO/sitemap/JSON-LD/隐私页)
 │   ├── check_site.js     # 构建后 JS/JSON-LD 语法自检
 │   ├── analyze.py        # GSC 数据 → 优化动作清单
 │   ├── revenue.py        # 收入台账 + $1 目标看板
@@ -19,8 +19,8 @@ ai-growth-engine/
 │   ├── site.json         # 站点配置:URL/GA4/AdSense/联盟/Ko-fi(填了即生效)
 │   └── goals.json        # 收入目标:$1 → $50/月
 ├── data/                 # trends快照 / metrics.csv / insights.json / revenue.csv
-├── site/                 # 构建产物(GitHub Pages 从这里发布)
-├── docs/strategy.md      # 全链路研究报告与单位经济
+├── docs/                 # 构建产物(GitHub Pages 发布目录)(GitHub Pages 从这里发布)
+├── research/strategy.md      # 全链路研究报告与单位经济
 └── STATUS.md             # 运营状态(每日自动化追加)
 ```
 

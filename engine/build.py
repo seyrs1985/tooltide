@@ -18,7 +18,7 @@ import pages as pages_mod  # noqa: E402
 import tools as tools_mod  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE_DIR = os.path.join(ROOT, "site")
+SITE_DIR = os.path.join(ROOT, "docs")  # GitHub Pages branch-source allows only / or /docs
 
 TODAY = datetime.date.today()
 YEAR = TODAY.year
@@ -364,7 +364,7 @@ def main():
     if key:
         write(key + ".txt", key)
 
-    print(f"Built {len(all_pages)} tool pages + 5 site pages → site/  ({cfg['base_url']})")
+    print(f"Built {len(all_pages)} tool pages + 5 site pages → docs/  ({cfg['base_url']})")
 
 
 if __name__ == "__main__":

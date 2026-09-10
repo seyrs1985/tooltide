@@ -10,7 +10,7 @@ import urllib.request
 from urllib.parse import urlparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = os.path.join(ROOT, "site")
+SITE = os.path.join(ROOT, "docs")
 
 
 def main():

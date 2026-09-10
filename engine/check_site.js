@@ -1,6 +1,6 @@
 // Syntax-check all inline scripts + JSON-LD in the built site.
 const fs = require('fs'), path = require('path'), vm = require('vm');
-const root = path.join(__dirname, '..', 'site');
+const root = path.join(__dirname, '..', 'docs');
 let files = [];
 (function walk(d) {
   for (const f of fs.readdirSync(d)) {

@@ -69,7 +69,7 @@ esac
 
 pcode="$(curl -s -o /tmp/tt_pages.json -w '%{http_code}' -X POST "$API/repos/$OWNER/$REPO/pages" \
   -H "Authorization: token $TOKEN" -H 'Accept: application/vnd.github+json' \
-  -d '{"source":{"branch":"main","path":"/site"}}')"
+  -d '{"source":{"branch":"main","path":"/docs"}}')"
 case "$pcode" in
   201) echo "   Pages enabled from /site" ;;
   409) echo "   Pages already enabled" ;;
