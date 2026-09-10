@@ -50,23 +50,28 @@ def report():
     goals = load_goals()
     goal = float(goals.get("revenue_goal_usd", 1.0))
     stable = float(goals.get("stable_monthly_usd", 50.0))
+    milestones = goals.get("milestones_usd") or [goal, stable]
     total = sum(float(r["amount_usd"]) for r in rows)
+    this_month = datetime.date.today().strftime("%Y-%m")
+    month_total = sum(float(r["amount_usd"]) for r in rows if r["date"].startswith(this_month))
     by_src = {}
     for r in rows:
         by_src[r["source"]] = by_src.get(r["source"], 0.0) + float(r["amount_usd"])
-    print("=" * 46)
+    print("=" * 50)
     print(f"  ToolTide 收入看板   ({datetime.date.today().isoformat()})")
-    print("=" * 46)
+    print("=" * 50)
     if not rows:
         print("  尚无收入记录。变现凭证接入后,自动化会自动记录。")
     for src, amt in sorted(by_src.items(), key=lambda x: -x[1]):
         print(f"  {src:<12} ${amt:8.2f}")
-    print("-" * 46)
+    print("-" * 50)
     print(f"  累计收入:     ${total:,.2f}")
-    bar_n = int(min(total / goal, 1.0) * 20)
-    print(f"  目标 ${goal}:      [{'#' * bar_n}{'.' * (20 - bar_n)}] {total / goal * 100:5.1f}%")
-    bar_s = int(min(total / stable, 1.0) * 20)
-    print(f"  稳定盈利 ${stable:.0f}/月: [{'#' * bar_s}{'.' * (20 - bar_s)}] {total / stable * 100:5.1f}%")
+    print(f"  本月收入:     ${month_total:,.2f}   (月度稳定目标 ${stable:,.0f})")
+    print("  里程碑阶梯:")
+    for m in milestones:
+        mark = "x" if total >= m else " "
+        bar_n = int(min(total / m, 1.0) * 24)
+        print(f"   [{mark}] ${m:>6,.0f}  [{'#' * bar_n}{'.' * (24 - bar_n)}] {min(total / m * 100, 100):5.1f}%")
     print(f"  记录笔数:     {len(rows)}")
     return total
 
