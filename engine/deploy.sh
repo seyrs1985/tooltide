@@ -56,7 +56,7 @@ EOF
   exit 2
 fi
 
-echo "== 4/6 GitHub repo + Pages =="
+echo "== 4/6 GitHub repo =="
 code="$(curl -s -o /tmp/tt_repo.json -w '%{http_code}' -X POST "$API/user/repos" \
   -H "Authorization: token $TOKEN" -H 'Accept: application/vnd.github+json' \
   -d "{\"name\":\"$REPO\",\"description\":\"Free online tools - calculators, converters, countdowns\",\"has_wiki\":false,\"has_projects\":false,\"has_issues\":true,\"auto_init\":false}")"
@@ -67,20 +67,19 @@ case "$code" in
   *)   echo "   ✗ 创建 repo 失败 HTTP $code: $(cat /tmp/tt_repo.json | head -c 300)"; exit 3 ;;
 esac
 
-pcode="$(curl -s -o /tmp/tt_pages.json -w '%{http_code}' -X POST "$API/repos/$OWNER/$REPO/pages" \
-  -H "Authorization: token $TOKEN" -H 'Accept: application/vnd.github+json' \
-  -d '{"source":{"branch":"main","path":"/docs"}}')"
-case "$pcode" in
-  201) echo "   Pages enabled from /site" ;;
-  409) echo "   Pages already enabled" ;;
-  *)   echo "   ⚠ Pages API HTTP $pcode: $(head -c 200 /tmp/tt_pages.json)" ;;
-esac
-
 echo "== 5/6 push =="
 git -c credential.helper= push -q "https://x-access-token:${TOKEN}@github.com/${OWNER}/${REPO}.git" main
 echo "   pushed main -> github.com/$OWNER/$REPO"
 
-echo "== 6/6 wait for live + IndexNow =="
+echo "== 6/6 Pages + wait for live + IndexNow =="
+pcode="$(curl -s -o /tmp/tt_pages.json -w '%{http_code}' -X POST "$API/repos/$OWNER/$REPO/pages" \
+  -H "Authorization: token $TOKEN" -H 'Accept: application/vnd.github+json' \
+  -d '{"source":{"branch":"main","path":"/docs"}}')"
+case "$pcode" in
+  201) echo "   Pages enabled from /docs" ;;
+  409) echo "   Pages already enabled" ;;
+  *)   echo "   ⚠ Pages API HTTP $pcode: $(head -c 200 /tmp/tt_pages.json)" ;;
+esac
 live=0
 for i in $(seq 1 24); do
   http="$(curl -s -o /dev/null -w '%{http_code}' -m 10 "$URL" || true)"

@@ -13,7 +13,7 @@
 
 ## 里程碑
 
-- [ ] M0 上线(deploy.sh 首跑成功,https://seyrs1985.github.io/tooltide/ 返回 200)
+- [x] M0 上线(2026-09-10,https://seyrs1985.github.io/tooltide/ HTTP 200,29 页 + sitemap)
 - [ ] M1 Bing 收录(IndexNow 提交后 1 周内)
 - [ ] M2 Google 收录 ≥20 页 + AdSense 提审
 - [ ] M3 累计收入 > $1 🎉
@@ -23,3 +23,4 @@
 
 - 2026-09-10 · 项目创建:26 页上线就绪;浏览器实测 5 类工具全部通过;策略文档完成。
 - 2026-09-10 · 每日流水线首次运行:抓取美英 Trends(体育热点,与工具站无映射,维持长尾策略);新增 3 页(4th of July 倒计时/母亲节倒计时(5月第2个周日自动推算)/毫米-英寸换算),总页数 29;自检 0 失败;部署待凭证(token 缺失,已修复脚本挂起问题);数据优化为 DEMO 模式待 GSC 接入;收入 $0.00(0/1 目标)。
+- 2026-09-10 · 🚀 M0 达成:账号切换至 seyrs1985;git 历史中 token 经压平重写彻底清除(GitHub push protection 拦截了含密钥的历史提交,未造成泄露);发布目录 site/→docs/(Pages 仅支持 / 或 /docs);Pages 启用成功,站点 HTTP 200;IndexNow 提交 33 URL(Bing 收录启动);收入 $0.00(0/1)。
