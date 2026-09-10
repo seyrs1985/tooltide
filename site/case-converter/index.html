@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case Converter — UPPERCASE, lowercase, Title Case &amp; More</title>
+<meta name="description" content="Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case and kebab-case. One click, instant, private.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/case-converter/">
+<meta property="og:title" content="Case Converter — UPPERCASE, lowercase, Title Case &amp; More">
+<meta property="og:description" content="Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case and kebab-case. One click, instant, private.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/case-converter/">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Case Converter","url":"https://seyrs1985.github.io/tooltide/case-converter/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case and kebab-case. One click, instant, private."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Title Case?","acceptedAnswer":{"@type":"Answer","text":"Title Case capitalizes the first letter of each major word ('The Quick Brown Fox'). Minor words like 'a', 'of', 'the' are traditionally lowercase unless they start the title."}},{"@type":"Question","name":"What is the difference between camelCase and snake_case?","acceptedAnswer":{"@type":"Answer","text":"camelCase removes spaces and capitalizes each word after the first ('myVariableName'). snake_case replaces spaces with underscores and lowercases everything ('my_variable_name'). kebab-case uses hyphens ('my-variable-name')."}},{"@type":"Question","name":"How do I fix text that's ALL IN CAPS?","acceptedAnswer":{"@type":"Answer","text":"Click 'Sentence case' — it lowercases everything except the first letter of each sentence. Or 'Title Case' if it is a heading."}},{"@type":"Question","name":"Is my text sent to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All conversion happens in your browser with JavaScript. Nothing is uploaded, logged or stored — refresh the page and it is gone."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Case Converter","item":"https://seyrs1985.github.io/tooltide/case-converter/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+
+</head>
+<body><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Case Converter</span></nav><main class="wrap">
+<article>
+  <div class="page-emoji">🔠</div>
+  <h1>Case Converter</h1>
+  
+  <section class="intro"><p>Paste text, click a case, copy the result. Beyond the basics (UPPERCASE, lowercase, Title Case, Sentence case), it also outputs camelCase, snake_case and kebab-case — the formats developers and writers constantly need for variable names, URLs, filenames and hashtags.</p><p>Everything runs locally in your browser, so it is safe for private or sensitive text. There is no length limit — convert a headline or an entire chapter.</p></section>
+  
+<div class="tool" id="tt-case">
+  <div class="field"><label for="case-in">Your text</label>
+    <textarea id="case-in" rows="6" placeholder="Type or paste text…"></textarea></div>
+  <div class="chips">
+    <button class="chip" data-c="upper">UPPERCASE</button>
+    <button class="chip" data-c="lower">lowercase</button>
+    <button class="chip" data-c="title">Title Case</button>
+    <button class="chip" data-c="sentence">Sentence case</button>
+    <button class="chip" data-c="camel">camelCase</button>
+    <button class="chip" data-c="snake">snake_case</button>
+    <button class="chip" data-c="kebab">kebab-case</button>
+    <button class="chip" data-c="alt">aLtErNaTiNg</button>
+  </div>
+  <div class="field"><label for="case-out">Result <button class="btn btn-sm" id="case-copy" type="button">Copy</button></label>
+    <textarea id="case-out" rows="6" readonly placeholder="Click a case above…"></textarea></div>
+</div>
+<script>(function(){
+var SMALL=['a','an','and','as','at','but','by','for','if','in','nor','of','on','or','per','the','to','v','via','vs'];
+function words(t){return t.trim().split(/\s+/).filter(Boolean);}
+function toWords(t){return t.replace(/([a-z0-9])([A-Z])/g,'$1 $2').split(/[^A-Za-z0-9]+/).filter(Boolean);}
+var F={
+ upper:function(t){return t.toUpperCase();},
+ lower:function(t){return t.toLowerCase();},
+ title:function(t){return words(t).map(function(w,i){
+   var lw=w.toLowerCase();
+   if(i>0&&SMALL.indexOf(lw)>=0)return lw;
+   return lw.charAt(0).toUpperCase()+lw.slice(1);}).join(' ');},
+ sentence:function(t){return t.toLowerCase().replace(/(^\s*[a-z])|([.!?]\s+[a-z])/g,function(m){return m.toUpperCase();});},
+ camel:function(t){return toWords(t).map(function(w,i){return i===0?w.toLowerCase():w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();}).join('');},
+ snake:function(t){return toWords(t).join('_').toLowerCase();},
+ kebab:function(t){return toWords(t).join('-').toLowerCase();},
+ alt:function(t){var n=0;return t.split('').map(function(ch){return /[a-z]/i.test(ch)?(n++%2?ch.toLowerCase():ch.toUpperCase()):ch;}).join('');}
+};
+var inp=document.getElementById('case-in'),out=document.getElementById('case-out');
+document.querySelectorAll('#tt-case .chip').forEach(function(c){c.addEventListener('click',function(){out.value=F[c.dataset.c](inp.value);});});
+document.getElementById('case-copy').addEventListener('click',function(){
+  out.select();document.execCommand('copy');
+  var b=document.getElementById('case-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+});
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Paste or type your text into the input box.</li><li>Click the case style you need — the output box updates instantly.</li><li>Use the copy button to grab the converted text.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>What is Title Case?</summary><p>Title Case capitalizes the first letter of each major word (&#x27;The Quick Brown Fox&#x27;). Minor words like &#x27;a&#x27;, &#x27;of&#x27;, &#x27;the&#x27; are traditionally lowercase unless they start the title.</p></details><details class="faq"><summary>What is the difference between camelCase and snake_case?</summary><p>camelCase removes spaces and capitalizes each word after the first (&#x27;myVariableName&#x27;). snake_case replaces spaces with underscores and lowercases everything (&#x27;my_variable_name&#x27;). kebab-case uses hyphens (&#x27;my-variable-name&#x27;).</p></details><details class="faq"><summary>How do I fix text that&#x27;s ALL IN CAPS?</summary><p>Click &#x27;Sentence case&#x27; — it lowercases everything except the first letter of each sentence. Or &#x27;Title Case&#x27; if it is a heading.</p></details><details class="faq"><summary>Is my text sent to a server?</summary><p>No. All conversion happens in your browser with JavaScript. Nothing is uploaded, logged or stored — refresh the page and it is gone.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/word-counter/"><span class="card-emoji">🔤</span><span class="card-title">Word Counter</span><span class="card-desc">Count words, characters (with and without spaces), sentences and paragraphs instantly. Live statistics with es…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-christmas/"><span class="card-emoji">🎄</span><span class="card-title">How Many Days Until Christmas?</span><span class="card-desc">See exactly how many days, hours and minutes until Christmas. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-new-year/"><span class="card-emoji">🎆</span><span class="card-title">How Many Days Until New Year?</span><span class="card-desc">See exactly how many days, hours and minutes until New Year. Free live countdown timer, updated every second —…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-halloween/"><span class="card-emoji">🎃</span><span class="card-title">How Many Days Until Halloween?</span><span class="card-desc">See exactly how many days, hours and minutes until Halloween. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-valentines-day/"><span class="card-emoji">💝</span><span class="card-title">How Many Days Until Valentine&#x27;s Day?</span><span class="card-desc">See exactly how many days, hours and minutes until Valentine&#x27;s Day. Free live countdown timer, updated every s…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-black-friday/"><span class="card-emoji">🛒</span><span class="card-title">How Many Days Until Black Friday?</span><span class="card-desc">See exactly how many days, hours and minutes until Black Friday. Free live countdown timer, updated every seco…</span></a></div></section>
+</article>
+</main><footer class="site-foot"><div class="wrap">
+  <nav><a href="https://seyrs1985.github.io/tooltide/about/">About</a><a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a><a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a></nav>
+  
+  <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+</div></footer></body></html>

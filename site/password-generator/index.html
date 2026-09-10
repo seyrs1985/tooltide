@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strong Password Generator — Random &amp; Secure, 100% Offline</title>
+<meta name="description" content="Generate strong random passwords with one click. Choose length and character sets. Runs entirely in your browser — passwords never leave your device.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/password-generator/">
+<meta property="og:title" content="Strong Password Generator — Random &amp; Secure, 100% Offline">
+<meta property="og:description" content="Generate strong random passwords with one click. Choose length and character sets. Runs entirely in your browser — passwords never leave your device.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/password-generator/">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Random Password Generator","url":"https://seyrs1985.github.io/tooltide/password-generator/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Generate strong random passwords with one click. Choose length and character sets. Runs entirely in your browser — passwords never leave your device."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What makes a password strong?","acceptedAnswer":{"@type":"Answer","text":"Length and randomness. A password's strength against guessing grows exponentially with length — each extra character multiplies the work. Random 16-character passwords are beyond practical brute-force; human-chosen passwords are not."}},{"@type":"Question","name":"Are these passwords safe to use?","acceptedAnswer":{"@type":"Answer","text":"Yes. They are generated with the browser's WebCrypto API (a cryptographically secure random source) and never leave your device — there is no server involved in generation at all."}},{"@type":"Question","name":"Should I use a passphrase instead?","acceptedAnswer":{"@type":"Answer","text":"Passphrases of 4–5 random words are as strong as long random passwords and easier to type manually. For accounts you type daily, a passphrase is a great choice; for everything else, generate and store in a password manager."}},{"@type":"Question","name":"Why shouldn't I reuse passwords?","acceptedAnswer":{"@type":"Answer","text":"Data breaches leak passwords constantly; reused passwords let one leak compromise every account that shares it. Unique passwords (stored in a manager) contain the damage to a single site."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Random Password Generator","item":"https://seyrs1985.github.io/tooltide/password-generator/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+
+</head>
+<body><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Random Password Generator</span></nav><main class="wrap">
+<article>
+  <div class="page-emoji">🔐</div>
+  <h1>Random Password Generator</h1>
+  
+  <section class="intro"><p>Generate cryptographically strong random passwords using your browser&#x27;s built-in secure random number generator (WebCrypto). Choose length and character sets; every password is created locally on your device and is never transmitted, logged or stored — you can even disconnect from the internet and it keeps working.</p><p>For most accounts, a 16-character password with mixed character types is the sweet spot of strength and memorability-with-a-manager. For high-value accounts (email, banking, password manager master key), go 20+ characters.</p></section>
+  
+<div class="tool" id="tt-pw">
+  <div class="pw-out-row"><input type="text" id="pw-out" readonly><button class="btn btn-sm" id="pw-copy" type="button">Copy</button></div>
+  <div class="pw-strength"><div class="pw-bar" id="pw-bar"></div><span id="pw-strength"></span></div>
+  <div class="fields">
+    <div class="field"><label for="pw-len">Length: <b id="pw-lenv">16</b></label><input type="range" id="pw-len" min="8" max="64" value="16"></div>
+  </div>
+  <div class="chips">
+    <button class="chip active" data-s="upper">A-Z</button>
+    <button class="chip active" data-s="lower">a-z</button>
+    <button class="chip active" data-s="digits">0-9</button>
+    <button class="chip active" data-s="symbols">!@#$%</button>
+    <button class="chip" data-s="noambig">No look-alikes (0O1lI)</button>
+  </div>
+  <button class="btn" id="pw-gen" type="button">🔐 Generate password</button>
+  <div class="tool-note">Generated with your browser's WebCrypto secure random source. Nothing is sent anywhere — this works even offline.</div>
+</div>
+<script>(function(){
+var SET={upper:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',lower:'abcdefghijklmnopqrstuvwxyz',digits:'0123456789',symbols:'!@#$%^&*()-_=+[]{};:,.<>?'};
+var AMB={'0':'O','O':'0','1':'l','l':'1','I':'|','|':'I'};
+var on={upper:true,lower:true,digits:true,symbols:true},noambig=false;
+var lenIn=document.getElementById('pw-len');
+lenIn.addEventListener('input',function(){document.getElementById('pw-lenv').textContent=lenIn.value;gen();});
+document.querySelectorAll('#tt-pw .chip[data-s]').forEach(function(c){c.addEventListener('click',function(){
+  var s=c.dataset.s;
+  if(s==='noambig'){noambig=!noambig;}
+  else{on[s]=!on[s];}
+  c.classList.toggle('active',(s==='noambig')?noambig:on[s]);
+  gen();
+});});
+function charset(){
+  var pool='';
+  Object.keys(SET).forEach(function(k){if(on[k])pool+=SET[k];});
+  if(noambig){pool=pool.split('').filter(function(ch){return !(ch in AMB);}).join('');}
+  return pool;
+}
+function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+  do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+function gen(){
+  var pool=charset();
+  if(!pool){document.getElementById('pw-out').value='Select at least one character set';return;}
+  var n=+lenIn.value,out='';
+  for(var i=0;i<n;i++)out+=pool[secureInt(pool.length)];
+  document.getElementById('pw-out').value=out;
+  var bits=n*Math.log2(pool.length);
+  var bar=document.getElementById('pw-bar'),lab=document.getElementById('pw-strength');
+  var p=Math.min(100,bits),label;
+  if(bits<40){label='Weak';}else if(bits<60){label='Fair';}else if(bits<80){label='Strong';}else if(bits<100){label='Very strong';}else{label='Excellent';}
+  bar.style.width=p+'%';
+  bar.className='pw-bar '+(bits<40?'pw-w':bits<60?'pw-f':bits<80?'pw-s':'pw-x');
+  lab.textContent=label+' — about '+Math.round(bits)+' bits of entropy';
+}
+document.getElementById('pw-gen').addEventListener('click',gen);
+document.getElementById('pw-copy').addEventListener('click',function(){
+  var o=document.getElementById('pw-out');o.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(o.value);}
+  else{document.execCommand('copy');}
+  var b=document.getElementById('pw-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+});
+gen();
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Set the length (16 is a good default; 20+ for critical accounts).</li><li>Toggle character types — keep symbols off only if the site rejects them.</li><li>Click Generate, then use the copy button and paste directly into your password manager.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>What makes a password strong?</summary><p>Length and randomness. A password&#x27;s strength against guessing grows exponentially with length — each extra character multiplies the work. Random 16-character passwords are beyond practical brute-force; human-chosen passwords are not.</p></details><details class="faq"><summary>Are these passwords safe to use?</summary><p>Yes. They are generated with the browser&#x27;s WebCrypto API (a cryptographically secure random source) and never leave your device — there is no server involved in generation at all.</p></details><details class="faq"><summary>Should I use a passphrase instead?</summary><p>Passphrases of 4–5 random words are as strong as long random passwords and easier to type manually. For accounts you type daily, a passphrase is a great choice; for everything else, generate and store in a password manager.</p></details><details class="faq"><summary>Why shouldn&#x27;t I reuse passwords?</summary><p>Data breaches leak passwords constantly; reused passwords let one leak compromise every account that shares it. Unique passwords (stored in a manager) contain the damage to a single site.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/random-name-generator/"><span class="card-emoji">🎲</span><span class="card-title">Random Name Generator</span><span class="card-desc">Generate random names for fantasy characters, game teams, babies&#x27; name inspiration, or username ideas. Click f…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-christmas/"><span class="card-emoji">🎄</span><span class="card-title">How Many Days Until Christmas?</span><span class="card-desc">See exactly how many days, hours and minutes until Christmas. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-new-year/"><span class="card-emoji">🎆</span><span class="card-title">How Many Days Until New Year?</span><span class="card-desc">See exactly how many days, hours and minutes until New Year. Free live countdown timer, updated every second —…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-halloween/"><span class="card-emoji">🎃</span><span class="card-title">How Many Days Until Halloween?</span><span class="card-desc">See exactly how many days, hours and minutes until Halloween. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-valentines-day/"><span class="card-emoji">💝</span><span class="card-title">How Many Days Until Valentine&#x27;s Day?</span><span class="card-desc">See exactly how many days, hours and minutes until Valentine&#x27;s Day. Free live countdown timer, updated every s…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-black-friday/"><span class="card-emoji">🛒</span><span class="card-title">How Many Days Until Black Friday?</span><span class="card-desc">See exactly how many days, hours and minutes until Black Friday. Free live countdown timer, updated every seco…</span></a></div></section>
+</article>
+</main><footer class="site-foot"><div class="wrap">
+  <nav><a href="https://seyrs1985.github.io/tooltide/about/">About</a><a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a><a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a></nav>
+  
+  <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+</div></footer></body></html>

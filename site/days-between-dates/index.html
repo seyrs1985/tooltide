@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Days Between Dates Calculator — With Weekdays &amp; Weeks</title>
+<meta name="description" content="Free calculator for the number of days between two dates. Shows weeks, weekdays (business days) and total hours. Instant, accurate, no sign-up.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/days-between-dates/">
+<meta property="og:title" content="Days Between Dates Calculator — With Weekdays &amp; Weeks">
+<meta property="og:description" content="Free calculator for the number of days between two dates. Shows weeks, weekdays (business days) and total hours. Instant, accurate, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/days-between-dates/">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Days Between Two Dates","url":"https://seyrs1985.github.io/tooltide/days-between-dates/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free calculator for the number of days between two dates. Shows weeks, weekdays (business days) and total hours. Instant, accurate, no sign-up."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I count days between two dates?","acceptedAnswer":{"@type":"Answer","text":"Subtract the start date from the end date. Each date is a day number on the calendar, so the difference is exact — 2026-01-01 to 2026-03-01 is 59 days. The calculator handles leap years for you."}},{"@type":"Question","name":"Does the count include both the start and end day?","acceptedAnswer":{"@type":"Answer","text":"The standard convention counts the difference (end minus start), so the start day itself is not counted. If you need both endpoints included, add one day to the result."}},{"@type":"Question","name":"How are business days calculated?","acceptedAnswer":{"@type":"Answer","text":"We count Mondays through Fridays between the two dates and skip weekends. Public holidays are not excluded because they differ by country and year."}},{"@type":"Question","name":"Can I calculate days since a past date?","acceptedAnswer":{"@type":"Answer","text":"Yes — enter the past date as the start and today as the end. It works for birthdays, anniversaries, or 'days since' counters of any kind."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Days Between Two Dates","item":"https://seyrs1985.github.io/tooltide/days-between-dates/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+
+</head>
+<body><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Days Between Two Dates</span></nav><main class="wrap">
+<article>
+  <div class="page-emoji">📅</div>
+  <h1>Days Between Two Dates</h1>
+  
+  <section class="intro"><p>Pick any two dates and this calculator tells you exactly how many days separate them — plus weeks, business days (Monday–Friday) and total hours. Useful for project deadlines, contract notice periods, pregnancy estimates, rental periods, or simple curiosity.</p><p>The calculator counts calendar days the way you expect: from a start date to an end date, swapping them automatically if you enter them in reverse. The business-day count excludes Saturdays and Sundays but does not account for public holidays, which vary by country.</p></section>
+  
+<div class="tool" id="tt-dd">
+  <div class="fields">
+    <div class="field"><label for="dd-a">Start date</label><input type="date" id="dd-a"></div>
+    <div class="field"><label for="dd-b">End date</label><input type="date" id="dd-b"></div>
+  </div>
+  <div class="result"><span class="result-num" id="dd-days">–</span><span class="result-unit">days</span>
+    <div class="result-formula" id="dd-note"></div></div>
+  <div class="stats">
+    <div class="stat"><b id="dd-weeks">–</b><span>weeks &amp; days</span></div>
+    <div class="stat"><b id="dd-wd">–</b><span>weekdays (Mon–Fri)</span></div>
+    <div class="stat"><b id="dd-hours">–</b><span>total hours</span></div>
+  </div>
+</div>
+<script>(function(){
+var a=document.getElementById('dd-a'),b=document.getElementById('dd-b');
+function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+var t=new Date();a.value=iso(t);b.value=iso(new Date(t.getTime()+12096e5));
+function run(){
+  if(!a.value||!b.value)return;
+  var d1=new Date(a.value+'T00:00:00'),d2=new Date(b.value+'T00:00:00');
+  var sign=d2<d1?-1:1,lo=sign<0?d2:d1,hi=sign<0?d1:d2;
+  var days=Math.round((hi-lo)/864e5);
+  document.getElementById('dd-days').textContent=sign*days;
+  var w=Math.floor(days/7),rd=days%7;
+  document.getElementById('dd-weeks').textContent=w+(rd===1?' week + 1 day':' weeks + '+rd+' days');
+  var wd=0,cur=new Date(lo);
+  if(days<=500000){for(var i=0;i<days;i++){cur.setDate(cur.getDate()+1);var g=cur.getDay();if(g!==0&&g!==6)wd++;}}
+  document.getElementById('dd-wd').textContent=days>500000?'—':wd;
+  document.getElementById('dd-hours').textContent=(days*24).toLocaleString('en-US');
+  var opts={weekday:'long',year:'numeric',month:'long',day:'numeric'};
+  document.getElementById('dd-note').textContent=lo.toLocaleDateString('en-US',opts)+'  →  '+hi.toLocaleDateString('en-US',opts);
+}
+a.addEventListener('input',run);b.addEventListener('input',run);run();
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Set the start date using the date picker (or type it).</li><li>Set the end date — the results update instantly.</li><li>Read total days first; check weeks, weekdays and hours below for planning detail.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>How do I count days between two dates?</summary><p>Subtract the start date from the end date. Each date is a day number on the calendar, so the difference is exact — 2026-01-01 to 2026-03-01 is 59 days. The calculator handles leap years for you.</p></details><details class="faq"><summary>Does the count include both the start and end day?</summary><p>The standard convention counts the difference (end minus start), so the start day itself is not counted. If you need both endpoints included, add one day to the result.</p></details><details class="faq"><summary>How are business days calculated?</summary><p>We count Mondays through Fridays between the two dates and skip weekends. Public holidays are not excluded because they differ by country and year.</p></details><details class="faq"><summary>Can I calculate days since a past date?</summary><p>Yes — enter the past date as the start and today as the end. It works for birthdays, anniversaries, or &#x27;days since&#x27; counters of any kind.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/percentage-calculator/"><span class="card-emoji">📊</span><span class="card-title">Percentage Calculator</span><span class="card-desc">Calculate X% of a number, what percent X is of Y, and percentage increase or decrease. Free instant percentage…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/age-calculator/"><span class="card-emoji">🎂</span><span class="card-title">Age Calculator</span><span class="card-desc">Calculate your exact age in years, months and days from your date of birth. Also shows days lived and a countd…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/tip-calculator/"><span class="card-emoji">💵</span><span class="card-title">Tip Calculator &amp; Bill Splitter</span><span class="card-desc">Calculate the tip and split the bill between friends in seconds. Preset percentages, round-up options and per-…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/discount-calculator/"><span class="card-emoji">🏷️</span><span class="card-title">Percent Off Calculator</span><span class="card-desc">Work out the sale price after any discount, see exactly how much you save, and compare stacked discounts. Inst…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/reading-time-calculator/"><span class="card-emoji">📖</span><span class="card-title">Reading Time Calculator</span><span class="card-desc">Paste any text and see how long it takes to read or speak. Uses the standard 225 words-per-minute reading spee…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/typing-speed-test/"><span class="card-emoji">⌨️</span><span class="card-title">Typing Speed Test</span><span class="card-desc">Take a free 60-second typing test and get your WPM and accuracy instantly. No sign-up, works on desktop and mo…</span></a></div></section>
+</article>
+</main><footer class="site-foot"><div class="wrap">
+  <nav><a href="https://seyrs1985.github.io/tooltide/about/">About</a><a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a><a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a></nav>
+  
+  <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+</div></footer></body></html>

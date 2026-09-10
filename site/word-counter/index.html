@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word Counter — Words, Characters, Sentences &amp; Reading Time</title>
+<meta name="description" content="Count words, characters (with and without spaces), sentences and paragraphs instantly. Live statistics with estimated reading time.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/word-counter/">
+<meta property="og:title" content="Word Counter — Words, Characters, Sentences &amp; Reading Time">
+<meta property="og:description" content="Count words, characters (with and without spaces), sentences and paragraphs instantly. Live statistics with estimated reading time.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/word-counter/">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Word Counter","url":"https://seyrs1985.github.io/tooltide/word-counter/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Count words, characters (with and without spaces), sentences and paragraphs instantly. Live statistics with estimated reading time."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do you count words?","acceptedAnswer":{"@type":"Answer","text":"Words are sequences of characters separated by whitespace. 'Don't' is one word; 'state-of-the-art' is one word; numbers count as words. This matches how Word and Google Docs count."}},{"@type":"Question","name":"Do characters include spaces?","acceptedAnswer":{"@type":"Answer","text":"We show both: characters with spaces (used by most platforms like Twitter/X) and without spaces (used in some academic contexts). Check which one your limit refers to."}},{"@type":"Question","name":"How many words is a 5 minute speech?","acceptedAnswer":{"@type":"Answer","text":"About 700 words at the standard speaking pace of 140 words per minute. Use the reading-time figure on this page with the speaking rate for rehearsal."}},{"@type":"Question","name":"Is my text uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The counting runs entirely in your browser with JavaScript — nothing is transmitted, stored or logged. You can disconnect from the internet and it still works."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Word Counter","item":"https://seyrs1985.github.io/tooltide/word-counter/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+
+</head>
+<body><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Word Counter</span></nav><main class="wrap">
+<article>
+  <div class="page-emoji">🔤</div>
+  <h1>Word Counter</h1>
+  
+  <section class="intro"><p>Type or paste text and get a live count of words, characters, sentences and paragraphs — everything updates as you type, entirely in your browser (nothing is uploaded). Reading-time estimate included, using the standard 225 words per minute.</p><p>Essay word limits, tweet and meta-description character limits, abstract minimums, cover-letter lengths — every writing context has a number attached. This counter gives you that number without the clutter of a full editor.</p></section>
+  
+<div class="tool" id="tt-wc">
+  <div class="field"><label for="wc-txt">Type or paste text</label>
+    <textarea id="wc-txt" rows="9" placeholder="Start typing — counts update live. Nothing leaves your browser."></textarea></div>
+  <div class="stats">
+    <div class="stat"><b id="wc-w">0</b><span>words</span></div>
+    <div class="stat"><b id="wc-c">0</b><span>characters</span></div>
+    <div class="stat"><b id="wc-cns">0</b><span>chars (no spaces)</span></div>
+    <div class="stat"><b id="wc-s">0</b><span>sentences</span></div>
+    <div class="stat"><b id="wc-p">0</b><span>paragraphs</span></div>
+    <div class="stat"><b id="wc-rt">–</b><span>reading time</span></div>
+  </div>
+</div>
+<script>(function(){
+function run(){
+  var t=document.getElementById('wc-txt').value;
+  var w=t.trim()?t.trim().split(/\s+/).length:0;
+  var sents=(t.match(/[^.!?]+[.!?]+(\s|$)|[^.!?]+$/g)||[]).filter(function(s){return s.trim();}).length;
+  var paras=t.split(/\n+/).filter(function(p){return p.trim();}).length;
+  document.getElementById('wc-w').textContent=w.toLocaleString('en-US');
+  document.getElementById('wc-c').textContent=t.length.toLocaleString('en-US');
+  document.getElementById('wc-cns').textContent=t.replace(/\s/g,'').length.toLocaleString('en-US');
+  document.getElementById('wc-s').textContent=sents.toLocaleString('en-US');
+  document.getElementById('wc-p').textContent=paras.toLocaleString('en-US');
+  var m=w/225;
+  document.getElementById('wc-rt').textContent=m<1?Math.max(1,Math.round(m*60))+' sec':(Math.round(m*10)/10)+' min';
+}
+document.getElementById('wc-txt').addEventListener('input',run);run();
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Paste your text into the box — statistics update on every keystroke.</li><li>Check words against your limit; check characters-with-spaces for platforms that count them.</li><li>Clear the box to start over; your text never leaves your device.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>How do you count words?</summary><p>Words are sequences of characters separated by whitespace. &#x27;Don&#x27;t&#x27; is one word; &#x27;state-of-the-art&#x27; is one word; numbers count as words. This matches how Word and Google Docs count.</p></details><details class="faq"><summary>Do characters include spaces?</summary><p>We show both: characters with spaces (used by most platforms like Twitter/X) and without spaces (used in some academic contexts). Check which one your limit refers to.</p></details><details class="faq"><summary>How many words is a 5 minute speech?</summary><p>About 700 words at the standard speaking pace of 140 words per minute. Use the reading-time figure on this page with the speaking rate for rehearsal.</p></details><details class="faq"><summary>Is my text uploaded anywhere?</summary><p>No. The counting runs entirely in your browser with JavaScript — nothing is transmitted, stored or logged. You can disconnect from the internet and it still works.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/case-converter/"><span class="card-emoji">🔠</span><span class="card-title">Case Converter</span><span class="card-desc">Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case and kebab-case. One cli…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-christmas/"><span class="card-emoji">🎄</span><span class="card-title">How Many Days Until Christmas?</span><span class="card-desc">See exactly how many days, hours and minutes until Christmas. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-new-year/"><span class="card-emoji">🎆</span><span class="card-title">How Many Days Until New Year?</span><span class="card-desc">See exactly how many days, hours and minutes until New Year. Free live countdown timer, updated every second —…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-halloween/"><span class="card-emoji">🎃</span><span class="card-title">How Many Days Until Halloween?</span><span class="card-desc">See exactly how many days, hours and minutes until Halloween. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-valentines-day/"><span class="card-emoji">💝</span><span class="card-title">How Many Days Until Valentine&#x27;s Day?</span><span class="card-desc">See exactly how many days, hours and minutes until Valentine&#x27;s Day. Free live countdown timer, updated every s…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-black-friday/"><span class="card-emoji">🛒</span><span class="card-title">How Many Days Until Black Friday?</span><span class="card-desc">See exactly how many days, hours and minutes until Black Friday. Free live countdown timer, updated every seco…</span></a></div></section>
+</article>
+</main><footer class="site-foot"><div class="wrap">
+  <nav><a href="https://seyrs1985.github.io/tooltide/about/">About</a><a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a><a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a></nav>
+  
+  <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+</div></footer></body></html>

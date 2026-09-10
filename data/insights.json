@@ -1,0 +1,35 @@
+{
+  "generated": "2026-09-10T09:10:13",
+  "source": "demo-data",
+  "pages_analyzed": 5,
+  "actions": [
+    {
+      "page": "/percentage-calculator/",
+      "priority": 1,
+      "action": "rewrite_title_desc",
+      "reason": "高曝光低点击: 540 impressions, CTR 0.7%, 平均排名 42.1 — 标题/描述不够吸引点击",
+      "how": "在 engine/pages.py 中改写该页 title 与 desc:加入数字、意图词与差异化卖点,重建部署"
+    },
+    {
+      "page": "/days-until-christmas/",
+      "priority": 2,
+      "action": "expand_content",
+      "reason": "排名 18.4 处于第2-3页冲击区 — 扩充内容与内链可推进至首页",
+      "how": "为该页追加 2-3 个 FAQ、使用场景段落,并从高分页面增加内链指向"
+    },
+    {
+      "page": "/cm-to-inches/",
+      "priority": 2,
+      "action": "expand_content",
+      "reason": "排名 12.7 处于第2-3页冲击区 — 扩充内容与内链可推进至首页",
+      "how": "为该页追加 2-3 个 FAQ、使用场景段落,并从高分页面增加内链指向"
+    },
+    {
+      "page": "/word-counter/",
+      "priority": 2,
+      "action": "expand_content",
+      "reason": "排名 9.2 处于第2-3页冲击区 — 扩充内容与内链可推进至首页",
+      "how": "为该页追加 2-3 个 FAQ、使用场景段落,并从高分页面增加内链指向"
+    }
+  ]
+}
