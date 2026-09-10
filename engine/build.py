@@ -345,6 +345,13 @@ def main():
     write("404.html", build_static(
         cfg, "404.html", ERROR404, "Page not found — ToolTide", "Page not found on ToolTide."))
 
+    # ads.txt (AdSense anti-spoofing) — emitted only once adsense_client is set
+    ads = (cfg.get("adsense_client") or "").strip()
+    if ads:
+        pub = ads[3:] if ads.startswith("ca-") else ads
+        write("ads.txt", f"google.com, {pub}, DIRECT, f08c47fec0942fa0\n")
+        print("  asset /ads.txt")
+
     # sitemap
     urls = [cfg["base_url"]] + [cfg["base_url"] + p["slug"] + "/" for p in all_pages] + \
            [cfg["base_url"] + s for s in ("about/", "privacy/", "contact/")]
