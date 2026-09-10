@@ -19,6 +19,7 @@ API="https://api.github.com"
 
 echo "== 1/6 build =="
 python engine/build.py | tail -1
+python engine/build_games.py | tail -1
 
 echo "== 2/6 git repository =="
 if [ ! -d .git ]; then

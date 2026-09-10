@@ -6,7 +6,7 @@ let files = [];
   for (const f of fs.readdirSync(d)) {
     const p = path.join(d, f);
     if (fs.statSync(p).isDirectory()) walk(p);
-    else if (f === 'index.html' || f === '404.html') files.push(p);
+    else if ((f === 'index.html' || f === '404.html') && !p.includes(`${path.sep}play${path.sep}`)) files.push(p);
   }
 })(root);
 let fail = 0, checked = 0;

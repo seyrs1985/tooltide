@@ -87,16 +87,15 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
 
 
 def header_nav(cfg, base):
-    cats = ["countdown", "calculator", "converter", "text", "generator"]
     links = "".join(
-        f'<a href="{base}#{c}">{esc(n)}</a>'
+        f'<a href="{base}">{esc(n)}</a>'
         for c, n in [("calculator", "Calculators"), ("converter", "Converters"),
                      ("countdown", "Countdowns"), ("text", "Text"), ("generator", "Generators")]
     )
     return f"""<header class="site-head">
   <div class="wrap nav-row">
     <a class="logo" href="{base}">🌊 ToolTide</a>
-    <nav>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
+    <nav><a href="{base}games/">🎮 Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
   </div>
 </header>"""
 

@@ -145,3 +145,10 @@ input[type=range]{padding:0;accent-color:#0e7490}
   .fields .field{min-width:130px}
   .result-num{font-size:1.6rem}
 }
+
+/* games */
+.game-frame{position:relative;margin:18px 0;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;background:#0f172a}
+.game-frame iframe{display:block;width:100%;height:min(72vh,640px);border:0}
+.game-frame #fs-btn{position:absolute;top:10px;right:10px;background:rgba(15,23,42,.6);color:#fff;border:0;border-radius:8px;width:38px;height:38px;font-size:1.1rem;cursor:pointer}
+.game-frame #fs-btn:hover{background:#0e7490}
+.controls-line{color:#64748b;font-size:.9rem;margin:10px 0 0}
