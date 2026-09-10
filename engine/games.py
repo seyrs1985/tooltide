@@ -109,4 +109,28 @@ GAMES = [
              "Yes, tap cards directly — the board resizes to fit your screen."),
         ],
     },
+    {
+        "slug": "tic-tac-toe",
+        "title": "Tic Tac Toe Online — Play Free vs Computer or a Friend",
+        "h1": "Tic Tac Toe",
+        "tagline": "X's, O's and one unbeatable robot. The three-in-a-row classic — now with a minimax AI you can actually beat (sometimes).",
+        "desc": "Play Tic Tac Toe free online against a smart computer AI or a friend in 2-player mode. Instant play in your browser, works on desktop and mobile.",
+        "emoji": "⭕",
+        "howto": [
+            "Tap any square (or press keys 1–9) to place your X — you always start.",
+            "The computer replies instantly with strong play; line up three in a row — across, down or diagonally — to win.",
+            "Switch to 2-player mode to pass and play with a friend on the same screen.",
+        ],
+        "controls": "Click / tap squares, or number keys 1–9.",
+        "faqs": [
+            ("Can you beat the computer at Tic Tac Toe?",
+             "Our AI plays near-perfect minimax strategy with a small dose of randomness — it never falls for the classic double-threat traps, but it leaves the door open just often enough. About one in five games is winnable with sharp play."),
+            ("Is Tic Tac Toe solved?",
+             "Yes — with perfect play from both sides, Tic Tac Toe is always a draw. That's why the interesting question is spotting your opponent's mistake first, and why our AI deliberately isn't 100% perfect."),
+            ("How do I always win Tic Tac Toe?",
+             "Against imperfect opponents: take the center first, then create a fork — two threats at once. A fork forces a loss because your opponent can only block one line."),
+            ("Is it free and private?",
+             "Completely. The game runs in your browser with no sign-up, no ads inside the board, and nothing is uploaded — scores reset when you leave."),
+        ],
+    },
 ]

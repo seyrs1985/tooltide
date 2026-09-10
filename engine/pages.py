@@ -169,6 +169,12 @@ def PAGES():
              "☘️")
     pages.append(sp)
 
+    af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
+             "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
+             "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
+             "🤡")
+    pages.append(af)
+
     # ---------- Calculator family ----------
     pages.append({
         "slug": "percentage-calculator",
@@ -432,6 +438,9 @@ def PAGES():
     pages.append(_conv("sqm-to-sqft", "Square Meters to Square Feet", "square meters", "square feet", 10.76391042, "area",
                        "Convert square meters — the global real-estate unit — to square feet for US listings and floor plans. One square meter is 10.7639 square feet, so a handy mental shortcut is '×10 then add a bit'.",
                        "Handy anchors: 10 sq m = 107.64 sq ft, 50 sq m = 538.20 sq ft (a one-bed flat), 100 sq m = 1,076.39 sq ft."))
+    pages.append(_conv("stone-to-kg", "Stone to KG", "stone", "kilograms", 6.35029318, "weight",
+                       "The stone is the traditional British unit for body weight — Brits say they weigh '11 stone', never '154 pounds'. One stone is exactly 6.35029318 kilograms (14 pounds), so converting is a single multiplication.",
+                       "Handy anchors: 10 st = 63.50 kg, 11 st = 69.85 kg (UK average adult male), 12 st = 76.20 kg, 1 st = 14 lb = 6.35 kg."))
 
     # ---------- Text & generator family ----------
     pages.append({
