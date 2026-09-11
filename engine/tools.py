@@ -2913,6 +2913,49 @@ dec.addEventListener('input',function(){
 """
 
 
+# ---------------------------------------------------------------- kelvin converter
+KELVIN = """
+<div class="tool" id="tt-kel">
+  <div class="fields">
+    <div class="field"><label for="kel-k">Kelvin (K)</label><input type="number" id="kel-k" step="any" placeholder="300"></div>
+    <div class="field"><label for="kel-c">Celsius (C)</label><input type="number" id="kel-c" step="any" placeholder="26.85"></div>
+    <div class="field"><label for="kel-f">Fahrenheit (F)</label><input type="number" id="kel-f" step="any" placeholder="80.33"></div>
+  </div>
+  <div class="result"><span class="result-num" id="kel-out">-</span><div class="result-formula" id="kel-note"></div></div>
+</div>
+<script>(function(){
+var K=document.getElementById('kel-k'),C=document.getElementById('kel-c'),F=document.getElementById('kel-f');
+var out=document.getElementById('kel-out'),note=document.getElementById('kel-note');
+var lock=false;
+function r(v){return Math.round(v*100)/100;}
+function set(k,c,f,noteTxt){
+  K.value=k===null?'':r(k);C.value=c===null?'':r(c);F.value=f===null?'':r(f);
+  out.textContent=(k===null?'-':r(k)+' K')+'  =  '+(c===null?'-':r(c)+' C')+'  =  '+(f===null?'-':r(f)+' F');
+  note.textContent=noteTxt||'';
+  document.title=r(c)+' C - ToolTide';
+}
+function fromK(k){
+  if(isNaN(k)){set(null,null,null,'');return;}
+  if(k<0){set(k,k*1-273.15,null,'Below absolute zero - physically impossible.');return;}
+  var c=k-273.15,f=c*9/5+32;
+  set(k,c,f,'K - 273.15 = C; C x 9/5 + 32 = F');
+}
+function fromC(c){
+  if(isNaN(c)){set(null,null,null,'');return;}
+  fromK(c+273.15);
+}
+function fromF(f){
+  if(isNaN(f)){set(null,null,null,'');return;}
+  fromK((f-32)*5/9+273.15);
+}
+K.addEventListener('input',function(){fromK(parseFloat(K.value));});
+C.addEventListener('input',function(){fromC(parseFloat(C.value));});
+F.addEventListener('input',function(){fromF(parseFloat(F.value));});
+fromK(300);
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2960,6 +3003,7 @@ TOOLS = {
     "sdt": lambda args: SDT,
     "reverser": lambda args: REVERSER,
     "moonweight": lambda args: MOONWEIGHT,
+    "kelvin": lambda args: KELVIN,
     "bindec": lambda args: BINDEC,
     "cylinder": lambda args: CYLINDER,
     "planets": lambda args: PLANETS,

@@ -30,7 +30,7 @@ TOOL_EMOJI = {
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
- "randomnum": "🎲", "roman": "🏛️", "wordspages": "📄", "grade": "🎓", "dedupe": "🧹", "slug": "🔗", "salestax": "🧾", "average": "🧮", "binary": "💾", "morse": "📡", "bindec": "0️⃣1️⃣", "feetyd": "🦶", "epoch": "⏱️","gramscups": "🥤", "fuel": "⛽", "salary": "💼", "sqft": "📐", "pxin": "🖨️", "unitconv": "🔄", "secondsconv": "⏱️", "coinflip": "🪙", "dice": "🎲", "half": "➗", "cubicft": "📦", "unitprice": "🏷️", "degrad": "📐", "romantable": "📜", "hexrgb": "🎨", "numwords": "🔠", "wordstonum": "🔁", "sdt": "🧭", "reverser": "🔄", "moonweight": "🌕", "planets": "🪐", "binhex": "🔮", "combiner": "💞", "whitespace": "🧽", "yesno": "🍀", "prime": "🔢", "country": "🌍", "stlb": "⚖️", "ftincm": "📏", "emoji": "🎲", "factorial": "❗", "wordfreq": "📈", "sorter": "🔤", "letter": "🔤", "dayofweek": "📆", "percent": "📊",
+ "randomnum": "🎲", "roman": "🏛️", "wordspages": "📄", "grade": "🎓", "dedupe": "🧹", "slug": "🔗", "salestax": "🧾", "average": "🧮", "binary": "💾", "morse": "📡", "kelvin": "🌡️", "bindec": "0️⃣1️⃣", "feetyd": "🦶", "epoch": "⏱️","gramscups": "🥤", "fuel": "⛽", "salary": "💼", "sqft": "📐", "pxin": "🖨️", "unitconv": "🔄", "secondsconv": "⏱️", "coinflip": "🪙", "dice": "🎲", "half": "➗", "cubicft": "📦", "unitprice": "🏷️", "degrad": "📐", "romantable": "📜", "hexrgb": "🎨", "numwords": "🔠", "wordstonum": "🔁", "sdt": "🧭", "reverser": "🔄", "moonweight": "🌕", "planets": "🪐", "binhex": "🔮", "combiner": "💞", "whitespace": "🧽", "yesno": "🍀", "prime": "🔢", "country": "🌍", "stlb": "⚖️", "ftincm": "📏", "emoji": "🎲", "factorial": "❗", "wordfreq": "📈", "sorter": "🔤", "letter": "🔤", "dayofweek": "📆", "percent": "📊",
 }
 
 
