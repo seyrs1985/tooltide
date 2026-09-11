@@ -2393,6 +2393,43 @@ def PAGES():
                        "The metric system at its simplest: 1,000 grams make a kilogram, so divide by 1,000. Kitchen scales read grams, bathroom scales read kilograms - this converter keeps recipes, parcels and fitness tracking on the same page.",
                        "Handy anchors: 500 g = 0.5 kg (a bottle of water), 750 g = 0.75 kg (a pack of flour), 1,000 g = 1 kg (a kilo of sugar), 2,500 g = 2.5 kg (a bag of rice)."))
 
+    pages.append(_conv("kilograms-to-ounces", "KG to Ounces", "kilograms", "ounces", 35.27396195, "weight",
+                       "The cross-system kitchen conversion: metric recipes in kilograms, American packaging in ounces. One kilogram is 35.27 ounces (just over 2.2 pounds of ounces), so a 1 kg bag of flour is 35 and a bit ounces.",
+                       "Handy anchors: 0.5 kg = 17.64 oz, 1 kg = 35.27 oz, 2 kg = 70.55 oz, 5 kg = 176.37 oz (a big bag of rice)."))
+    pages.append(_conv("ounces-to-kilograms", "Ounces to Kilograms", "ounces", "kilograms", 1 / 35.27396195, "weight",
+                       "Convert ounces to kilograms when American package sizes meet metric recipes or shipping forms. Divide ounces by 35.274 - or remember an ounce is about 28 grams and work in two hops. This converter skips the hops.",
+                       "Handy anchors: 8 oz = 0.23 kg (a block of cream cheese), 16 oz = 0.45 kg (a pound), 32 oz = 0.91 kg (a quart of liquid), 100 oz = 2.83 kg."))
+
+    pages.append({
+        "slug": "text-to-morse",
+        "title": "Text to Morse Code Converter — Letters ⇄ Dots and Dashes",
+        "h1": "Text to Morse Code Converter",
+        "desc": "Convert text to Morse code and back instantly. Standard International Morse with letters, numbers and punctuation. Learn, practice or send secret messages.",
+        "category": "converter",
+        "keyword": "text to morse code",
+        "tool": "morse",
+        "args": {},
+        "intro": [
+            "Type any message and read it in International Morse code - dots and dashes with proper letter spacing - or paste Morse and decode it back into readable text. Numbers and common punctuation are supported alongside the full alphabet.",
+            "Morse is the original text compression: SOS (\u00b7\u00b7\u00b7 \u2013 \u2013 \u2013 \u00b7\u00b7\u00b7) has been saving lives since 1906. Whether you are learning for a radio license, building an escape-room puzzle, or just want to tap messages on a desk, this is the two-way bridge.",
+        ],
+        "howto": [
+            "Type your message in the first box - Morse appears instantly with letters separated by spaces.",
+            "Paste Morse code in the second box (dots, dashes, spaces between letters) to decode it.",
+            "Use the SOS example to check the spacing convention works as expected.",
+        ],
+        "faqs": [
+            ("How does Morse code encode letters?",
+             "Each letter is a unique sequence of dots (short marks) and dashes (long marks): A is \u00b7\u2013, B is \u2013\u00b7\u00b7\u00b7, and the most common letters get the shortest codes - E is a single dot. Spaces separate letters; a slash or wider gap separates words."),
+            ("What is SOS in Morse code?",
+             "SOS is \u00b7\u00b7\u00b7 \u2013 \u2013 \u2013 \u00b7\u00b7\u00b7. It was chosen for its unmistakable pattern, not as an abbreviation - it is not actually 'Save Our Souls'."),
+            ("Is Morse code still used today?",
+             "Yes - amateur radio operators, aviation navigation beacons, assistive technology for people with limited mobility, and a surprising number of escape rooms and puzzles. It is no longer required for maritime licenses, retired in 1999."),
+            ("Can I decode Morse without spaces between letters?",
+             "Not reliably - letter spacing is part of the code. ...-.. could be many things. The decoder needs spaces between letters (and slashes or extra gaps between words) to parse honestly."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

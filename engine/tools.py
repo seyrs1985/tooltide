@@ -2608,6 +2608,47 @@ r.addEventListener('input',run);h.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- morse code
+MORSE = """
+<div class="tool" id="tt-mo">
+  <div class="field"><label for="mo-txt">Text</label>
+    <textarea id="mo-txt" rows="3" placeholder="SOS"></textarea></div>
+  <div class="field" style="margin-top:10px"><label for="mo-code">Morse code (dots and dashes, / between words)</label>
+    <textarea id="mo-code" rows="3" placeholder="... --- ..."></textarea></div>
+  <div class="tool-note">International Morse: letters separated by spaces, words by /.</div>
+</div>
+<script>(function(){
+var T={a:'.-',b:'-...',c:'-.-.',d:'-..',e:'.',f:'..-.',g:'--.',h:'....',i:'..',j:'.---',k:'-.-',l:'.-..',m:'--',n:'-.',o:'---',p:'.--.',q:'--.-',r:'.-.',s:'...',t:'-',u:'..-',v:'...-',w:'.--',x:'-..-',y:'-.--',z:'--..','0':'-----','1':'.----','2':'..---','3':'...--','4':'....-','5':'.....','6':'-....','7':'--...','8':'---..','9':'----.','.':'.-.-.-',',':'--..--','?':'..--..','!':'-.-.--','/':'-..-.','(':'-.--.',')':'-.--.-','&':'.-...',':':'---...','=':'-...-','+':'.-.-.','"':'.-..-.','@':'.--.-.'};
+var R={};Object.keys(T).forEach(function(k){R[T[k]]=k;});
+var txt=document.getElementById('mo-txt'),code=document.getElementById('mo-code');
+var lock=false;
+function toMorse(s){
+  return s.toLowerCase().split(/\s+/).map(function(word){
+    return word.split('').map(function(ch){return T[ch]||null;}).filter(Boolean).join(' ');
+  }).filter(Boolean).join(' / ');
+}
+function fromMorse(m){
+  return m.trim().split(/\s*\/\s*/).map(function(word){
+    return word.split(/\s+/).filter(Boolean).map(function(sym){return R[sym]||'?';}).join('');
+  }).join(' ');
+}
+txt.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  code.value=this.value.trim()?toMorse(this.value):'';
+  lock=false;
+});
+code.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  var v=this.value.trim();
+  txt.value=v?fromMorse(v):'';
+  lock=false;
+});
+txt.value='SOS';
+txt.dispatchEvent(new Event('input'));
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2660,6 +2701,7 @@ TOOLS = {
     "factorial": lambda args: FACTORIAL,
     "country": lambda args: COUNTRY,
     "stlb": lambda args: STLB,
+    "morse": lambda args: MORSE,
     "ftincm": lambda args: FTINCM,
     "emoji": lambda args: EMOJI,
     "sqft": lambda args: SQFT,
