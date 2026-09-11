@@ -75,3 +75,4 @@
 - 2026-09-11-1950 · 自动化第33轮:新增 质数检测(Miller-Rabin+试除,15位内)、阶乘计算器(BigInt精确千位级,数学族);129工具页,自检0失败;数据 DEMO;收入 $0.00。
 - 2026-09-11-2005 · 自动化第34轮:新增 随机国家生成器(195国+国旗+大洲过滤,地理课堂词)、英石+磅→公斤(双单位组合,UK真实体重表达,新渲染器);131工具页,自检0失败;数据 DEMO;收入 $0.00。
 - 2026-09-11-2013 · 体验优化轮(SearchAction兑现+美术打磨):①修复首页搜索契约失守——WebSite JSON-LD早已声明?q={search_term_string}目标URL但页面从不读取,现首页加载时解析?q=参数自动填充并触发检索(check_site.js新增桩DOM端到端验证:?q=f to c出结果卡/?q=乱串出空态提示,永久闸门);②CSS细节——FAQ折叠改"+"→"×"旋转自定义标记(去默认三角,兼容Safari webkit-details-marker)、section/main锚点scroll-margin-top跳转留白、::selection品牌青着色、copytable行hover、按钮按压反馈;③工具页<noscript>诚实提示"本工具需JavaScript";reduced-motion同步守护新动效;148文件583检查0失败,线上抽查首页URLSearchParams/工具页noscript/style.css新规则/GA4注入(G-PCBQMW2SR1)全部生效(首轮grep 0系CDN旧缓存,Last-Modified刷新后复验通过);IndexNow 147 URL→200;137工具页。
+- 2026-09-11-2020 · 自动化第35轮:新增 英尺+英寸→厘米(5'7双单位身高→cm,美国身高真实表达)、随机Emoji生成器(分类+批量+复制,趣味传播词);135工具页,自检0失败;数据 DEMO;收入 $0.00。注:修复了注入脚本TOOLS行堆叠问题。
