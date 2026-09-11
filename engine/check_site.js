@@ -283,6 +283,25 @@ try {
   assert(/class="card cat-/.test(relSec[0]) && (relSec[0].match(/class="card-tag"/g) || []).length >= 5,
     'tool page: related-tools cards carry category classes + tags');
 
+  // dark tint pairs must exist for BOTH dark paths, written flat (no nesting):
+  // OS dark without a toggle used to fall back to the light chip colors
+  const flatCss = css.replace(/\n/g, '');
+  assert(CATS.every(k => new RegExp('html\\[data-theme="dark"\\] \\.cat-' + k + '\\{--cat-tint:rgba\\(').test(flatCss)),
+    'style.css: manual dark theme has flat tint pairs for all 5 categories');
+  assert(CATS.every(k => new RegExp('html:not\\(\\[data-theme="light"\\]\\) \\.cat-' + k + '\\{--cat-tint:rgba\\(').test(flatCss)),
+    'style.css: OS-dark fallback carries the 5 dark tint pairs too');
+  // touch devices have no hover: the card lift must sit behind (hover:hover)
+  assert(/@media\(hover:hover\)\{\.card:hover\{transform:translateY\(-2px\)\}\}/.test(flatCss)
+    && /\.card:hover\{border-color:var\(--accent-soft\);box-shadow:var\(--shadow-hover\)\}/.test(flatCss),
+    'style.css: card hover lift guarded behind hover:hover (no sticky tap hover)');
+  // print: light palette forced over both dark triggers, gradient headline
+  // un-clipped (backgrounds do not print), interactive chrome hidden
+  assert(/@media print\{\s*\.cat\{content-visibility:visible\}/.test(flatCss)
+    && /@media print\{[\s\S]*html:not\(\[data-theme="light"\]\)\{\s*--bg:#fff/.test(css)
+    && /@media print\{[\s\S]*\.hero h1\{background-image:none;-webkit-text-fill-color:currentColor/.test(flatCss)
+    && /\.site-head nav,\.head-search,\.theme-toggle,\.to-top,\.hero-chips,#tool-search,\.search-status,\.ad,\.four04-search,\.cat-more\{display:none!important\}/.test(flatCss),
+    'style.css: print forces light palette, plain headline, hides chrome');
+
   // stub-DOM behavior of CATS_JS
   const catsScript = [...idx.matchAll(/<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g)]
     .map(m => m[1]).find(s => s.includes("querySelector('.cat-more')"));

@@ -32,12 +32,14 @@ html[data-theme="dark"]{
   --hero-grad:linear-gradient(92deg,#67e8f9,#22d3ee 55%,#38bdf8);
   --shadow-hover:0 6px 20px rgba(34,211,238,.12);
   --shadow-tool:0 1px 3px rgba(0,0,0,.35);
-  .cat-countdown{--cat-tint:rgba(139,92,246,.16);--cat-ink:#c4b5fd}
-  .cat-calculator{--cat-tint:rgba(245,158,11,.12);--cat-ink:#fcd34d}
-  .cat-converter{--cat-tint:rgba(34,211,238,.12);--cat-ink:#67e8f9}
-  .cat-text{--cat-tint:rgba(244,63,94,.12);--cat-ink:#fda4af}
-  .cat-generator{--cat-tint:rgba(34,197,94,.12);--cat-ink:#86efac}
 }
+/* Dark category tint pairs — written flat (not nested) so browsers without
+   CSS-nesting support still get them under the manual dark theme. */
+html[data-theme="dark"] .cat-countdown{--cat-tint:rgba(139,92,246,.16);--cat-ink:#c4b5fd}
+html[data-theme="dark"] .cat-calculator{--cat-tint:rgba(245,158,11,.12);--cat-ink:#fcd34d}
+html[data-theme="dark"] .cat-converter{--cat-tint:rgba(34,211,238,.12);--cat-ink:#67e8f9}
+html[data-theme="dark"] .cat-text{--cat-tint:rgba(244,63,94,.12);--cat-ink:#fda4af}
+html[data-theme="dark"] .cat-generator{--cat-tint:rgba(34,197,94,.12);--cat-ink:#86efac}
 @media(prefers-color-scheme:dark){
   html:not([data-theme="light"]){
     color-scheme:dark;
@@ -54,6 +56,13 @@ html[data-theme="dark"]{
     --shadow-hover:0 6px 20px rgba(34,211,238,.12);
     --shadow-tool:0 1px 3px rgba(0,0,0,.35);
   }
+  /* OS-dark visitors without an explicit toggle need the same dark tints —
+     without these they got the light chip pairs on the dark surfaces. */
+  html:not([data-theme="light"]) .cat-countdown{--cat-tint:rgba(139,92,246,.16);--cat-ink:#c4b5fd}
+  html:not([data-theme="light"]) .cat-calculator{--cat-tint:rgba(245,158,11,.12);--cat-ink:#fcd34d}
+  html:not([data-theme="light"]) .cat-converter{--cat-tint:rgba(34,211,238,.12);--cat-ink:#67e8f9}
+  html:not([data-theme="light"]) .cat-text{--cat-tint:rgba(244,63,94,.12);--cat-ink:#fda4af}
+  html:not([data-theme="light"]) .cat-generator{--cat-tint:rgba(34,197,94,.12);--cat-ink:#86efac}
 }
 html[data-theme="light"]{color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -123,7 +132,10 @@ body.fourohfour .head-search{display:none}
 /* card grid */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:16px 0}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:7px;text-decoration:none;color:inherit;transition:box-shadow .15s,transform .15s,border-color .15s}
-.card:hover{border-color:var(--accent-soft);box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.card:hover{border-color:var(--accent-soft);box-shadow:var(--shadow-hover)}
+/* the lift is hover-only: on touch devices a media-query-less :hover sticks
+   after the first tap, so the transform is guarded behind (hover:hover) */
+@media(hover:hover){.card:hover{transform:translateY(-2px)}}
 .card:focus-visible{border-color:var(--accent-soft);box-shadow:var(--shadow-hover)}
 .card-emoji{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:var(--cat-tint);font-size:1.4rem}
 .card-title{font-weight:700;font-size:1rem}
@@ -279,7 +291,25 @@ html.js .cat:not(.open) .card.extra{display:none}
 @media print{
   .cat{content-visibility:visible}
   html.js .cat .card.extra{display:flex}
-  .cat-more{display:none!important}
+  /* Paper wants the light palette regardless of the OS/toggle dark choice
+     (printing dark wastes ink), so every dark consumer var is restated here.
+     The gradient headline must be un-clipped: print drops background images
+     but keeps -webkit-text-fill-color, which would leave the h1 invisible. */
+  :root,html[data-theme="dark"],html:not([data-theme="light"]){
+    --bg:#fff; --surface:#fff; --surface-2:#f1f5f9; --th-bg:#f8fafc;
+    --border:#e2e8f0; --border-faint:#f1f5f9; --input-border:#cbd5e1;
+    --text:#0f172a; --text-2:#334155; --text-3:#475569; --muted:#64748b;
+    --brand:#0e7490; --brand-fill:#0e7490; --accent-soft:#67e8f9;
+    --result-bg:#ecfeff; --result-border:#a5f3fc; --result-num:#155e75;
+    --note-bg:#fffbeb; --note-border:#fde68a; --note-text:#713f12;
+    --tip-bg:#f0fdf4; --tip-border:#bbf7d0; --tip-text:#14532d;
+    --ok:#059669; --bad:#b91c1c; --bad-bg:#fee2e2; --mark:#fef08a;
+    --shadow-tool:none; --shadow-hover:none;
+  }
+  .hero h1{background-image:none;-webkit-text-fill-color:currentColor;color:var(--text)}
+  .hero{background:none;border-bottom-color:var(--border)}
+  .card,.page-emoji,.card-tag{--cat-tint:#f1f5f9!important;--cat-ink:#0e7490!important}
+  .site-head nav,.head-search,.theme-toggle,.to-top,.hero-chips,#tool-search,.search-status,.ad,.four04-search,.cat-more{display:none!important}
 }
 
 /* back-to-top floating button */
