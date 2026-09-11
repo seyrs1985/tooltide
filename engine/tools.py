@@ -515,6 +515,8 @@ function conv(v){
 function run(){
   var v=parseFloat(a.value);
   var out=isNaN(v)?null:conv(v);
+  if(out!==null&&out!==undefined){document.title=fmt(v)+' '+A.a+' = '+fmt(out)+' '+(swapped?A.a:A.b)+' - ToolTide';}
+  else{document.title='Converter - ToolTide';}
   b.value=out===null?'':out;
   r.textContent=out===null?'–':fmt(out)+' '+(swapped?A.a:A.b);
   f.textContent=isNaN(v)?'':(swapped

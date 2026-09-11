@@ -1,0 +1,7 @@
+{
+  "date": "2026-09-12",
+  "slot": "0612",
+  "us": ["falcons depth chart 1000+", "pirates vs cubs 2000+", "contexto 500+", "kj biermann 1000+", "ilhan omar 200+", "corte suprema 1000+", "emergency landing 2000+", "florida a&m 100000+", "princess astrid 5000+"],
+  "gb": ["ryan gosling 500+", "st mirren 200+", "man city vs arsenal 1000+", "nhs 500+"],
+  "analysis": "RSS周期内(体育开季/游戏),不蹭。本轮2页:days-until-the-weekend(weekly倒计时周六版,与friday成对,title钩子+A2HS双留存自动满足)、hours-to-days(24:1,unitconv渲染器新增title结果钩子——全站换算页留存#2一次覆盖)。"
+}

@@ -2545,6 +2545,40 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "days-until-the-weekend",
+        "title": "How Many Days Until the Weekend? Live Saturday Countdown",
+        "h1": "How Many Days Until the Weekend?",
+        "desc": "Live countdown to the weekend - Saturday, 00:00, updating every second and rolling over every week. The tab title keeps the count visible all week long.",
+        "category": "countdown",
+        "keyword": "how many days until the weekend",
+        "tool": "countdown",
+        "args": {"event": "the Weekend", "titleUnit": "days to Weekend", "emoji": "🏖️", "rule": {"weekly": True, "weekday": 6}},
+        "intro": [
+            "The weekend officially starts at midnight on Saturday - and this countdown counts down to that exact moment, every week, forever. If you count Friday night as the weekend too, our Friday countdown is one tab away; this one is for the purists.",
+            "The browser tab title carries the days remaining at all times, so the number follows you across your seventeen open work tabs - a little reminder that Saturday is mathematically approaching.",
+        ],
+        "howto": [
+            "Open the page any day - it locks onto the upcoming Saturday midnight automatically.",
+            "Watch the final Saturday countdown in hours; after midnight it rolls to next week.",
+            "Keep the tab pinned - the title keeps the countdown visible from any other tab.",
+        ],
+        "faqs": [
+            ("How many days until the weekend?",
+             "Between 0 and 6 depending on today - Saturday morning counts as arrived (0 days), Sunday night is 6 days away. The countdown targets Saturday 00:00 exactly."),
+            ("Does Friday night count as the weekend?",
+             "Culturally yes, technically no - the calendar weekend is Saturday-Sunday, so this page counts to Saturday 00:00. If your weekend starts Friday evening, the Friday countdown is the one for you."),
+            ("Does it work all week?",
+             "Yes - it rolls over automatically every Saturday midnight to the next one. There is always another weekend coming."),
+            ("Why keep it in a tab all week?",
+             "The tab title shows the live days-remaining, so the weekend follows you across every tab - half motivation, half countdown clock."),
+        ],
+    })
+
+    pages.append(_conv("hours-to-days", "Hours to Days", "hours", "days", 1 / 24, "time",
+                       "Shift logs, hospital rotas, battery life and marathon streams all produce hours that only make sense as days. Divide hours by 24 - a 72-hour fast is exactly 3 days, a 8,760-hour year is 365.",
+                       "Handy anchors: 24 hr = 1 day, 48 hr = 2 days, 72 hr = 3 days (the classic movie title), 168 hr = 1 week."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
