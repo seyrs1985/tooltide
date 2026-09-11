@@ -74,6 +74,15 @@ section[id],main[id]{scroll-margin-top:16px}
 html.js .theme-toggle{display:inline-flex}
 .theme-toggle:hover{border-color:var(--brand);color:var(--brand)}
 
+/* header search — GET form into the homepage ?q= contract, zero JS; hidden
+   where a search box is already on screen (homepage hero, 404 page) */
+.head-search{display:flex;align-items:center;gap:6px;flex:1 1 150px;min-width:120px;max-width:240px}
+.head-search input{width:auto;flex:1 1 auto;min-width:0;height:40px;padding:0 12px;font-size:1rem}
+.head-search button{flex:0 0 auto;width:40px;height:40px;padding:0;border:1px solid var(--input-border);border-radius:10px;background:var(--surface);color:var(--text-2);font:inherit;font-size:.95rem;line-height:1;cursor:pointer;transition:border-color .15s,color .15s}
+.head-search button:hover{border-color:var(--brand);color:var(--brand)}
+body.home .head-search{display:none}
+body.fourohfour .head-search{display:none}
+
 /* breadcrumbs */
 .crumbs{font-size:.85rem;color:var(--muted);margin-top:16px}
 .crumbs a{color:var(--muted);text-decoration:none}
@@ -218,6 +227,8 @@ input[type=range]{padding:0;accent-color:var(--brand)}
 /* homepage live search */
 #search-results mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
 .card-tag{align-self:flex-start;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);background:var(--surface-2);border-radius:6px;padding:2px 7px}
+/* reserved height keeps the hero from jumping when the count appears */
+.search-status{min-height:1.5em;margin:10px 0 0;font-size:.92rem;font-weight:600;color:var(--muted)}
 
 /* category counts (section headings + hero chips) */
 .cat-count{font-size:.72rem;font-weight:700;line-height:1;color:var(--muted);background:var(--surface-2);border-radius:999px;padding:3px 8px;vertical-align:2px;margin-left:4px}
@@ -231,13 +242,15 @@ input[type=range]{padding:0;accent-color:var(--brand)}
 
 @media(max-width:700px){
   .foot-brand p{max-width:none}
-  .nav-row{flex-wrap:nowrap;justify-content:space-between;gap:8px;padding-top:10px;padding-bottom:10px}
+  .nav-row{flex-wrap:wrap;justify-content:space-between;gap:8px;padding-top:10px;padding-bottom:10px}
   .logo{flex:0 0 auto}
-  .site-head nav{flex:1 1 auto;min-width:0;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .site-head nav{flex:1 1 0;min-width:0;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .site-head nav::-webkit-scrollbar{display:none}
   .site-head nav a{white-space:nowrap;padding:9px 2px}
+  .head-search{order:4;flex:1 1 100%;max-width:none;margin-top:2px}
+  .head-search input,.head-search button{height:44px}
 }
-@media(prefers-reduced-motion:reduce){.card,.pw-bar,.hero-chips a,.to-top,.faq summary::after,.theme-toggle{transition:none}.card:hover,.to-top,.btn:active{transform:none}html{scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){.card,.pw-bar,.hero-chips a,.to-top,.faq summary::after,.theme-toggle,.head-search button{transition:none}.card:hover,.to-top,.btn:active{transform:none}html{scroll-behavior:auto}}
 
 /* static pages */
 .static-page{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;margin:18px 0}

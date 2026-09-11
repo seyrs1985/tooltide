@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>ToolTide</ShortName>
+  <Description>Search free online tools on ToolTide</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Url type="text/html" method="get" template="https://seyrs1985.github.io/tooltide/?q={searchTerms}"/>
+</OpenSearchDescription>

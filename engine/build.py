@@ -108,7 +108,7 @@ def ensure_og_image():
     print(f"  asset /{OG_IMAGE} (generated)")
 
 
-def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
+def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls=""):
     ga = (cfg.get("ga4_id") or "").strip()
     gsc = (cfg.get("gsc_verification") or "").strip()
     ads = (cfg.get("adsense_client") or "").strip()
@@ -152,6 +152,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
 <meta name="theme-color" content="#0e7490" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="{fav}">
+<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
 {PREPAINT_THEME}
@@ -159,7 +160,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
 {f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={esc(ads)}" crossorigin="anonymous"></script>' if ads else ''}
 {f'<script async src="https://www.googletagmanager.com/gtag/js?id={esc(ga)}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag("js",new Date());gtag("config","{esc(ga)}");</script>' if ga else ''}
 </head>
-<body><a class="skip" href="#main">Skip to content</a>"""
+<body{f' class="{esc(body_cls)}"' if body_cls else ''}><a class="skip" href="#main">Skip to content</a>"""
     return h
 
 
@@ -170,9 +171,15 @@ def header_nav(cfg, base):
                      ("countdown", "Countdowns"), ("text", "Text"), ("generator", "Generators")]
     )
     games_url = (cfg.get("sister_site") or {}).get("url", "https://seyrs1985.github.io/neonplay/")
+    # GET form into the homepage ?q= contract — search works from every page
+    # with zero JS; hidden via CSS where a search box is already on screen.
     return f"""<header class="site-head">
   <div class="wrap nav-row">
     <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolTide</a>
+    <form class="head-search" role="search" action="{base}" method="get">
+      <input type="search" name="q" placeholder="Search tools…" aria-label="Search tools">
+      <button type="submit" aria-label="Search"><span aria-hidden="true">🔍</span></button>
+    </form>
     <nav aria-label="Primary"><a href="{esc(games_url)}" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
     <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"><span aria-hidden="true">🌙</span></button>
   </div>
@@ -404,13 +411,14 @@ def build_index(cfg, all_pages, cat_info):
                       "query-input": "required name=search_term_string"}}
 
     doc = head_tags(cfg, "ToolTide — Free Online Tools: Calculators, Converters & Countdowns",
-                    desc, canonical, [website_ld], root=True)
+                    desc, canonical, [website_ld], root=True, body_cls="home")
     doc += header_nav(cfg, base)
     doc += f"""<main class="wrap" id="main">
 <section class="hero">
   <h1>Free online tools that just work</h1>
   <p>Countdowns, calculators, converters and generators — fast, private, and free. Everything runs in your browser; nothing you type ever leaves your device.</p>
   <input type="search" id="tool-search" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools">
+  <p class="search-status" id="search-status" role="status"></p>
   <nav class="hero-chips" aria-label="Browse tools by category">{chips}</nav>
 </section>
 <div id="search-results" class="grid" style="display:none"></div>
@@ -424,7 +432,7 @@ def build_index(cfg, all_pages, cat_info):
     doc += THEME_JS
     doc += f"""<script>(function(){{
 var CARDS={cards_js};
-var inp=document.getElementById('tool-search'),out=document.getElementById('search-results');
+var inp=document.getElementById('tool-search'),out=document.getElementById('search-results'),live=document.getElementById('search-status');
 function esc(s){{return s.replace(/[&<>"']/g,function(m){{return{{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[m];}});}}
 var ALIAS={{f:'fahrenheit',c:'celsius',k:'kilogram',kg:'kilogram kilograms',lb:'pound pounds',lbs:'pound pounds',km:'kilometer',mi:'mile',cm:'centimeter',mm:'millimeter',ft:'feet',yd:'yard',oz:'ounce',gal:'gallon',pt:'pint',qt:'quart'}};
 function hay(c){{return (c.t+' '+c.d+' '+c.c+' '+c.s).toLowerCase();}}
@@ -452,10 +460,11 @@ function hiTok(s,flat){{var low=s.toLowerCase(),res='',pos=0;
 function card(c,flat){{return '<a class="card" href="'+c.u+'"><span class="card-emoji" aria-hidden="true">'+c.e+'</span><span class="card-title">'+hiTok(c.t,flat)+'</span><span class="card-tag">'+esc(c.c)+'</span><span class="card-desc">'+hiTok(c.d.slice(0,110),flat)+'</span></a>';}}
 inp.addEventListener('input',function(){{
   var q=this.value.trim().toLowerCase();
-  if(!q){{out.style.display='none';out.innerHTML='';document.querySelectorAll('.cat').forEach(function(c){{if(c.id!=='all')c.style.display='';}});return;}}
+  if(!q){{out.style.display='none';out.innerHTML='';if(live)live.textContent='';document.querySelectorAll('.cat').forEach(function(c){{if(c.id!=='all')c.style.display='';}});return;}}
   document.querySelectorAll('.cat').forEach(function(c){{if(c.id!=='all')c.style.display='none';}});
   var gs=groups(q),flat=[];gs.forEach(function(g){{flat=flat.concat(g);}});
   var hits=find(q,gs);
+  if(live)live.textContent=hits.length?hits.length+(hits.length===1?' tool matches':' tools match')+' “'+q+'”':'No tools match “'+q+'”';
   out.innerHTML=hits.map(function(c){{return card(c,flat);}}).join('')
     || '<p class="cat-blurb">No tools match “'+esc(q)+'” — try “calculator”, “convert” or “days”, or <a href="#all">browse all tools</a>.</p>';
   out.style.display='grid';
@@ -512,10 +521,10 @@ ERROR404 = """<h1>404 — page drifted out with the tide</h1>
 <p>Or <a href="{base}#all">browse all tools</a> instead.</p>"""
 
 
-def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None):
+def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None, body_cls=""):
     base = cfg["base_url"]
     canonical = base + path.strip("/") + ("/" if path.strip("/") and not path.endswith(".html") else "")
-    doc = head_tags(cfg, title, desc, canonical, root=True)
+    doc = head_tags(cfg, title, desc, canonical, root=True, body_cls=body_cls)
     doc += header_nav(cfg, base)
     doc += crumb(base, [("🌊 ToolTide", base), (title.split("—")[0].strip(), None)])
     inner2 = (inner.replace("{date}", TODAY.isoformat())
@@ -578,7 +587,7 @@ def main():
         "Contact the ToolTide team: bug reports, tool ideas and business questions.", all_pages, cat_info))
     write("404.html", build_static(
         cfg, "404.html", ERROR404, "Page not found — ToolTide", "Page not found on ToolTide.",
-        all_pages, cat_info))
+        all_pages, cat_info, body_cls="fourohfour"))
 
     # ads.txt (AdSense anti-spoofing) — emitted only once adsense_client is set
     ads = (cfg.get("adsense_client") or "").strip()
@@ -600,6 +609,18 @@ def main():
 
     # robots
     write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {cfg['base_url']}sitemap.xml\n")
+
+    # OpenSearch description — lets browsers register ToolTide as a site search
+    # engine; template reuses the homepage ?q= deep-link contract.
+    write("opensearch.xml", f"""<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>ToolTide</ShortName>
+  <Description>Search free online tools on ToolTide</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Url type="text/html" method="get" template="{cfg['base_url']}?q={{searchTerms}}"/>
+</OpenSearchDescription>
+""")
+    print("  asset /opensearch.xml")
 
     # IndexNow key file (Bing instant submission) — key persisted in config
     key = cfg.get("indexnow_key") or ""

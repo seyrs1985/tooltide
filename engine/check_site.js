@@ -35,6 +35,12 @@ try {
   const tool = fs.readFileSync(path.join(root, 'celsius-to-fahrenheit', 'index.html'), 'utf8');
   const crumbNav = tool.match(/<nav class="crumbs[\s\S]*?<\/nav>/);
   assert(!!crumbNav && crumbNav[0].includes('#converter'), 'tool page: crumb links category anchor');
+  // header search: every non-home page GETs the homepage ?q= contract
+  const hsForm = tool.match(/<form class="head-search"[^>]*>/);
+  const canon = (tool.match(/<link rel="canonical" href="([^"]+)"/) || [])[1] || '';
+  const hsBase = canon.replace(/celsius-to-fahrenheit\/$/, '');
+  assert(!!hsForm && hsForm[0].includes('action="' + hsBase + '"') && hsForm[0].includes('method="get"')
+    && /<input[^>]*name="q"/.test(tool), 'tool page: header search form GETs site base with q param');
   const graph = [...tool.matchAll(/<script[^>]*ld\+json[^>]*>([\s\S]*?)<\/script>/g)]
     .map(m => JSON.parse(m[1])).flatMap(j => j['@graph'] || []);
   const bc = graph.find(n => n['@type'] === 'BreadcrumbList');
@@ -62,9 +68,11 @@ try {
       const inp = { value: '', addEventListener: (t, f) => { listeners[t] = f; },
         dispatchEvent: ev => { listeners[ev.type].call(inp, ev); } };
       const out = { style: {}, innerHTML: '' };
+      const live = { textContent: '' };
       const sb = {
         document: {
-          getElementById: id => (id === 'tool-search' ? inp : id === 'search-results' ? out : null),
+          getElementById: id => (id === 'tool-search' ? inp : id === 'search-results' ? out
+            : id === 'search-status' ? live : null),
           querySelectorAll: () => [],
           addEventListener: (t, f) => { listeners['doc:' + t] = f; },
           activeElement: { tagName: '' }
@@ -84,10 +92,25 @@ try {
       run('?q=f%20to%20c');
       assert(inp.value === 'f to c' && out.style.display === 'grid'
         && /Fahrenheit/i.test(out.innerHTML), 'homepage: ?q=f to c deep-link renders results');
+      assert(/match/i.test(live.textContent) && live.textContent.includes('f to c'),
+        'homepage: search status announces the match count');
+      inp.value = '';
+      inp.dispatchEvent({ type: 'input' });
+      assert(live.textContent === '', 'homepage: clearing the query clears the status line');
       run('?q=zzqqxx');
       assert(/No tools match/.test(out.innerHTML), 'homepage: ?q= empty state message');
     } catch (e) { fail++; console.log('SITE FAIL search deep-link:', e.message); }
   } else { fail++; console.log('SITE FAIL homepage: search script not found'); }
+
+  // header search hidden where a search box is already on screen
+  assert(idx.includes('body class="home"') && /body\.home \.head-search\{display:none\}/.test(css)
+    && /body\.fourohfour \.head-search\{display:none\}/.test(css),
+    'header search hidden on homepage/404 (duplicate search box)');
+  // OpenSearch autodiscovery + description file reusing the ?q= contract
+  assert(/rel="search"[^>]*opensearchdescription/.test(idx), 'homepage: OpenSearch autodiscovery link');
+  const osd = fs.readFileSync(path.join(root, 'opensearch.xml'), 'utf8');
+  assert(/<OpenSearchDescription/.test(osd) && osd.includes('?q={searchTerms}'),
+    'opensearch.xml: search template hits the ?q= contract');
 
   // manual theme toggle: CSS coverage + markup + stub-DOM behavior of THEME_JS
   assert(/html\[data-theme="dark"\]\{[^}]*--bg:#0f172a/.test(css.replace(/\n/g, '')),
@@ -142,10 +165,11 @@ try {
     } catch (e) { fail++; console.log('SITE FAIL theme toggle stub:', e.message); }
   } else { fail++; console.log('SITE FAIL homepage: theme toggle script not found'); }
 
-  // 404 page: search form feeding the homepage ?q= contract
+  // 404 page: dedicated search form feeding the homepage ?q= contract
   const p404 = fs.readFileSync(path.join(root, '404.html'), 'utf8');
-  assert(/<form[^>]*action="[^"]*"[^>]*method="get"[^>]*>\s*<input[^>]*name="q"/.test(p404.replace(/\n/g, ' ')),
+  assert(/<form class="four04-search"[^>]*action="[^"]*"[^>]*method="get"[^>]*>\s*<input[^>]*name="q"/.test(p404.replace(/\n/g, ' ')),
     '404 page: GET search form with q param');
+  assert(p404.includes('body class="fourohfour"'), '404 page: body class for header-search hide');
   const priv = fs.readFileSync(path.join(root, 'privacy', 'index.html'), 'utf8');
   assert(/theme choice, saved via local storage/.test(priv),
     'privacy page: theme localStorage disclosure matches behavior');
