@@ -2116,6 +2116,105 @@ inp.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- random country
+COUNTRY = """
+<div class="tool" id="tt-co">
+  <div class="field"><label for="co-cont">Continent</label>
+    <select id="co-cont">
+      <option value="all">Anywhere on Earth</option>
+      <option value="Africa">Africa</option>
+      <option value="Americas">Americas</option>
+      <option value="Asia">Asia</option>
+      <option value="Europe">Europe</option>
+      <option value="Oceania">Oceania</option>
+    </select></div>
+  <button class="btn" id="co-go" type="button">🌍 Generate country</button>
+  <div class="result" style="text-align:center"><span class="result-num" id="co-flag" style="font-size:3.2rem">🌍</span></div>
+  <div class="result" style="margin-top:-8px"><span class="result-num" id="co-name" style="font-size:1.4rem">?</span>
+    <div class="result-formula" id="co-cont2"></div></div>
+</div>
+<script>(function(){
+var C=[
+["Afghanistan","Asia","🇦🇫"],["Albania","Europe","🇦🇱"],["Algeria","Africa","🇩🇿"],["Andorra","Europe","🇦🇩"],["Angola","Africa","🇦🇴"],["Argentina","Americas","🇦🇷"],["Armenia","Asia","🇦🇲"],["Australia","Oceania","🇦🇺"],["Austria","Europe","🇦🇹"],["Azerbaijan","Asia","🇦🇿"],
+["Bahamas","Americas","🇧🇸"],["Bahrain","Asia","🇧🇭"],["Bangladesh","Asia","🇧🇩"],["Barbados","Americas","🇧🇧"],["Belarus","Europe","🇧🇾"],["Belgium","Europe","🇧🇪"],["Belize","Americas","🇧🇿"],["Benin","Africa","🇧🇯"],["Bhutan","Asia","🇧🇹"],["Bolivia","Americas","🇧🇴"],
+["Botswana","Africa","🇧🇼"],["Brazil","Americas","🇧🇷"],["Brunei","Asia","🇧🇳"],["Bulgaria","Europe","🇧🇬"],["Burkina Faso","Africa","🇧🇫"],["Burundi","Africa","🇧🇮"],["Cambodia","Asia","🇰🇭"],["Cameroon","Africa","🇨🇲"],["Canada","Americas","🇨🇦"],["Chad","Africa","🇹🇩"],
+["Chile","Americas","🇨🇱"],["China","Asia","🇨🇳"],["Colombia","Americas","🇨🇴"],["Costa Rica","Americas","🇨🇷"],["Croatia","Europe","🇭🇷"],["Cuba","Americas","🇨🇺"],["Cyprus","Europe","🇨🇾"],["Czechia","Europe","🇨🇿"],["Denmark","Europe","🇩🇰"],["Djibouti","Africa","🇩🇯"],
+["Dominica","Americas","🇩🇲"],["Ecuador","Americas","🇪🇨"],["Egypt","Africa","🇪🇬"],["El Salvador","Americas","🇸🇻"],["Estonia","Europe","🇪🇪"],["Eswatini","Africa","🇸🇿"],["Ethiopia","Africa","🇪🇹"],["Fiji","Oceania","🇫🇯"],["Finland","Europe","🇫🇮"],["France","Europe","🇫🇷"],
+["Gabon","Africa","🇬🇦"],["Gambia","Africa","🇬🇲"],["Georgia","Asia","🇬🇪"],["Germany","Europe","🇩🇪"],["Ghana","Africa","🇬🇭"],["Greece","Europe","🇬🇷"],["Grenada","Americas","🇬🇩"],["Guatemala","Americas","🇬🇹"],["Guinea","Africa","🇬🇳"],["Guyana","Americas","🇬🇾"],
+["Haiti","Americas","🇭🇹"],["Honduras","Americas","🇭🇳"],["Hungary","Europe","🇭🇺"],["Iceland","Europe","🇮🇸"],["India","Asia","🇮🇳"],["Indonesia","Asia","🇮🇩"],["Iran","Asia","🇮🇷"],["Iraq","Asia","🇮🇶"],["Ireland","Europe","🇮🇪"],["Israel","Asia","🇮🇱"],
+["Italy","Europe","🇮🇹"],["Jamaica","Americas","🇯🇲"],["Japan","Asia","🇯🇵"],["Jordan","Asia","🇯🇴"],["Kazakhstan","Asia","🇰🇿"],["Kenya","Africa","🇰🇪"],["Kiribati","Oceania","🇰🇮"],["Kuwait","Asia","🇰🇼"],["Kyrgyzstan","Asia","🇰🇬"],["Laos","Asia","🇱🇦"],
+["Latvia","Europe","🇱🇻"],["Lebanon","Asia","🇱🇧"],["Lesotho","Africa","🇱🇸"],["Liberia","Africa","🇱🇷"],["Liechtenstein","Europe","🇱🇮"],["Lithuania","Europe","🇱🇹"],["Luxembourg","Europe","🇱🇺"],["Madagascar","Africa","🇲🇬"],["Malawi","Africa","🇲🇼"],["Malaysia","Asia","🇲🇾"],
+["Maldives","Asia","🇲🇻"],["Mali","Africa","🇲🇱"],["Malta","Europe","🇲🇹"],["Marshall Islands","Oceania","🇲🇭"],["Mauritania","Africa","🇲🇷"],["Mauritius","Africa","🇲🇺"],["Mexico","Americas","🇲🇽"],["Moldova","Europe","🇲🇩"],["Monaco","Europe","🇲🇨"],["Mongolia","Asia","🇲🇳"],
+["Montenegro","Europe","🇲🇪"],["Morocco","Africa","🇲🇦"],["Mozambique","Africa","🇲🇿"],["Myanmar","Asia","🇲🇲"],["Namibia","Africa","🇳🇦"],["Nauru","Oceania","🇳🇷"],["Nepal","Asia","🇳🇵"],["Netherlands","Europe","🇳🇱"],["New Zealand","Oceania","🇳🇿"],["Nicaragua","Americas","🇳🇮"],
+["Niger","Africa","🇳🇪"],["Nigeria","Africa","🇳🇬"],["North Korea","Asia","🇰🇵"],["North Macedonia","Europe","🇲🇰"],["Norway","Europe","🇳🇴"],["Oman","Asia","🇴🇲"],["Pakistan","Asia","🇵🇰"],["Palau","Oceania","🇵🇼"],["Panama","Americas","🇵🇦"],["Papua New Guinea","Oceania","🇵🇬"],
+["Paraguay","Americas","🇵🇾"],["Peru","Americas","🇵🇪"],["Philippines","Asia","🇵🇭"],["Poland","Europe","🇵🇱"],["Portugal","Europe","🇵🇹"],["Qatar","Asia","🇶🇦"],["Romania","Europe","🇷🇴"],["Russia","Europe","🇷🇺"],["Rwanda","Africa","🇷🇼"],["Samoa","Oceania","🇼🇸"],
+["San Marino","Europe","🇸🇲"],["Sao Tome and Principe","Africa","🇸🇹"],["Saudi Arabia","Asia","🇸🇦"],["Senegal","Africa","🇸🇳"],["Serbia","Europe","🇷🇸"],["Seychelles","Africa","🇸🇨"],["Sierra Leone","Africa","🇸🇱"],["Singapore","Asia","🇸🇬"],["Slovakia","Europe","🇸🇰"],["Slovenia","Europe","🇸🇮"],
+["Solomon Islands","Oceania","🇸🇧"],["Somalia","Africa","🇸🇴"],["South Africa","Africa","🇿🇦"],["South Korea","Asia","🇰🇷"],["South Sudan","Africa","🇸🇸"],["Spain","Europe","🇪🇸"],["Sri Lanka","Asia","🇱🇰"],["Sudan","Africa","🇸🇩"],["Suriname","Americas","🇸🇷"],["Sweden","Europe","🇸🇪"],
+["Switzerland","Europe","🇨🇭"],["Syria","Asia","🇸🇾"],["Tajikistan","Asia","🇹🯯"],["Tanzania","Africa","🇹🇿"],["Thailand","Asia","🇹🇭"],["Timor-Leste","Asia","🇹🇱"],["Togo","Africa","🇹🇬"],["Tonga","Oceania","🇹🇴"],["Trinidad and Tobago","Americas","🇹🇹"],["Tunisia","Africa","🇹🇳"],
+["Turkey","Asia","🇹🇷"],["Turkmenistan","Asia","🇹🇲"],["Tuvalu","Oceania","🇹🇻"],["Uganda","Africa","🇺🇬"],["Ukraine","Europe","🇺🇦"],["United Arab Emirates","Asia","🇦🇪"],["United Kingdom","Europe","🇬🇧"],["United States","Americas","🇺🇸"],["Uruguay","Americas","🇺🇾"],["Uzbekistan","Asia","🇺🇿"],
+["Vanuatu","Oceania","🇻🇺"],["Vatican City","Europe","🇻🇦"],["Venezuela","Americas","🇻🇪"],["Vietnam","Asia","🇻🇳"],["Yemen","Asia","🇾🇪"],["Zambia","Africa","🇿🇲"],["Zimbabwe","Africa","🇿🇼"]
+];
+var cont=document.getElementById('co-cont');
+function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+  do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+document.getElementById('co-go').addEventListener('click',function(){
+  var pool=cont.value==='all'?C:C.filter(function(c){return c[1]===cont.value;});
+  if(!pool.length)return;
+  var pick=pool[secureInt(pool.length)];
+  document.getElementById('co-flag').textContent=pick[2];
+  document.getElementById('co-name').textContent=pick[0];
+  document.getElementById('co-cont2').textContent=pick[1];
+});
+})();</script>
+"""
+
+
+# ---------------------------------------------------------------- st+lb <-> kg
+STLB = """
+<div class="tool" id="tt-sl">
+  <div class="fields">
+    <div class="field"><label for="sl-st">Stone</label><input type="number" id="sl-st" min="0" step="1" value="11"></div>
+    <div class="field"><label for="sl-lb">Pounds</label><input type="number" id="sl-lb" min="0" max="13" step="1" value="7"></div>
+  </div>
+  <div class="result"><span class="result-num" id="sl-kg">-</span><span class="result-unit">kg</span></div>
+  <div class="field" style="margin-top:12px"><label for="sl-kg2">Kilograms (reverse)</label><input type="number" id="sl-kg2" step="any" min="0" placeholder="70"></div>
+  <div class="stats">
+    <div class="stat"><b id="sl-total-lb">-</b><span>pounds only</span></div>
+    <div class="stat"><b id="sl-split">-</b><span>st + lb split</span></div>
+  </div>
+</div>
+<script>(function(){
+var st=document.getElementById('sl-st'),lb=document.getElementById('sl-lb'),kg2=document.getElementById('sl-kg2');
+var lock=false;
+function kgFrom(st_,lb_){return st_*6.35029318+lb_*0.45359237;}
+function runSTLB(){
+  if(lock)return;lock=true;kg2.value='';
+  var s=parseFloat(st.value)||0,p=parseFloat(lb.value)||0;
+  var kg=kgFrom(s,p);
+  document.getElementById('sl-kg').textContent=(Math.round(kg*100)/100).toLocaleString('en-US');
+  document.getElementById('sl-total-lb').textContent=Math.round(s*14+p).toLocaleString('en-US');
+  document.getElementById('sl-split').textContent='-';
+  lock=false;
+}
+function runKG(){
+  if(lock)return;lock=true;st.value='';lb.value='';
+  var k=parseFloat(kg2.value);
+  if(isNaN(k)||k<0){lock=false;return;}
+  var totalLb=k/0.45359237,stones=Math.floor(totalLb/14),lbs=totalLb-stones*14;
+  document.getElementById('sl-st').value=stones;
+  document.getElementById('sl-lb').value=Math.round(lbs);
+  document.getElementById('sl-kg').textContent=(Math.round(k*100)/100).toLocaleString('en-US');
+  document.getElementById('sl-total-lb').textContent=Math.round(totalLb).toLocaleString('en-US');
+  document.getElementById('sl-split').textContent=stones+' st '+Math.round(lbs)+' lb';
+  lock=false;
+}
+st.addEventListener('input',runSTLB);lb.addEventListener('input',runSTLB);
+kg2.addEventListener('input',runKG);
+runSTLB();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2159,6 +2258,8 @@ TOOLS = {
     "yesno": lambda args: YESNO,
     "prime": lambda args: PRIME,
     "factorial": lambda args: FACTORIAL,
+    "country": lambda args: COUNTRY,
+    "stlb": lambda args: STLB,
     "sqft": lambda args: SQFT,
     "secondsconv": lambda args: SECONDS,
     "pxin": lambda args: PXIN,

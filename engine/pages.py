@@ -1929,6 +1929,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "random-country-generator",
+        "title": "Random Country Generator — Pick a Country, Any Continent",
+        "h1": "Random Country Generator",
+        "desc": "Get a random country with its flag — filter by continent if you like. For geography class, travel dice, quiz nights and picking where to eat next. Free and instant.",
+        "category": "generator",
+        "keyword": "random country generator",
+        "tool": "country",
+        "args": {},
+        "intro": [
+            "Spin the globe: get a random country with its flag, optionally filtered to one continent. Teachers use it for geography quizzes ('find this country on the map'), travelers use it as a destination dice, quiz teams use it to settle 'name a country starting with K' disputes.",
+            "All 195 UN-recognized countries are in the pot, each with equal probability, drawn from your browser's secure random source. Nothing is recorded — your dream (or dreaded) destination stays between you and the button.",
+        ],
+        "howto": [
+            "Optionally pick a continent to narrow the pool.",
+            "Press Generate — a country and its flag appear instantly.",
+            "Keep rolling for travel inspiration or classroom quizzes.",
+        ],
+        "faqs": [
+            ("How many countries are in the generator?",
+             "All 195 UN-recognized countries — 193 member states plus the two observer states (Vatican City and Palestine). Dependencies and territories are excluded to keep the list standard."),
+            ("Can I limit it to one continent?",
+             "Yes — pick Africa, Americas, Asia, Europe or Oceania from the filter, and draws come from that continent only."),
+            ("Is each country equally likely?",
+             "Yes — the draw is uniform over the current pool using the browser's WebCrypto secure random source. Small countries are not weighted by size or population."),
+            ("Does it show which continent the country is in?",
+             "Yes — the result includes the continent and the flag, so it doubles as a flashcard for geography revision."),
+        ],
+    })
+
+    pages.append({
+        "slug": "stones-and-pounds-to-kg",
+        "title": "Stone and Pounds to KG — British Weight, Metric Answer",
+        "h1": "Stones and Pounds to Kilograms",
+        "desc": "Convert the British double-unit weight (like 11 st 7 lb) into kilograms in one step — and back. The way UK bathroom scales and US forms finally agree.",
+        "category": "converter",
+        "keyword": "stones and pounds to kg",
+        "tool": "stlb",
+        "args": {},
+        "intro": [
+            "British weight comes in two parts — 'eleven stone seven' — and converting that to kilograms normally means two steps. This converter takes stones and pounds together (11 st + 7 lb) and returns the exact kilogram value, or runs in reverse from kilograms to the stone-and-pounds split.",
+            "One stone is 14 pounds and 6.35029318 kilograms, so the math is simple twice over — but doing it while standing on a scale is exactly the wrong time for arithmetic. Type, read, done.",
+        ],
+        "howto": [
+            "Enter the stones and the extra pounds separately — 11 st 7 lb, not 11.5 st.",
+            "The kilogram answer updates instantly; switch to enter kg and get the split back.",
+            "Check the pounds-only equivalent below for US-style comparisons.",
+        ],
+        "faqs": [
+            ("How many kg is 11 stone 7 pounds?",
+             "11 stone = 69.85 kg; 7 pounds = 3.18 kg; total is about 73.03 kg. The converter does the two-part arithmetic in one step."),
+            ("How do I convert stones and pounds to kilograms?",
+             "Multiply stones by 6.35029318, multiply pounds by 0.45359237, and add the two. Or just enter both numbers above — same answer, no arithmetic."),
+            ("Why do Brits use two units for one weight?",
+             "History: the stone was the traditional trade weight for centuries and survived metrication for body weight specifically. So a person is '11 stone 7', never '161 pounds' — even though it is the same thing."),
+            ("What is 70 kg in stones and pounds?",
+             "About 11 stone and 0.2 pounds (70 kg is 11.02 stone, which is 11 st plus a fraction of a pound). Enter 70 kg in the reverse direction to see the exact split."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
