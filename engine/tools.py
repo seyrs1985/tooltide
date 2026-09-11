@@ -895,6 +895,49 @@ cur.addEventListener('input',runTarget);wt.addEventListener('input',runTarget);t
 """
 
 
+# ---------------------------------------------------------------- duplicate line remover
+DEDUPE = """
+<div class="tool" id="tt-dd2">
+  <div class="field"><label for="dd2-in">Paste your list or text</label>
+    <textarea id="dd2-in" rows="9" placeholder="one item per line…"></textarea></div>
+  <div class="stats">
+    <div class="stat"><b id="dd2-orig">0</b><span>original lines</span></div>
+    <div class="stat"><b id="dd2-uniq">0</b><span>unique lines</span></div>
+    <div class="stat"><b id="dd2-rem">0</b><span>duplicates removed</span></div>
+  </div>
+  <div class="field" style="margin-top:12px"><label for="dd2-out">Cleaned output <button class="btn btn-sm" id="dd2-copy" type="button">Copy</button></label>
+    <textarea id="dd2-out" rows="9" readonly placeholder="cleaned list appears here…"></textarea></div>
+</div>
+<script>(function(){
+var inp=document.getElementById('dd2-in'),out=document.getElementById('dd2-out');
+function run(){
+  var t=inp.value;
+  if(!t){document.getElementById('dd2-orig').textContent='0';document.getElementById('dd2-uniq').textContent='0';
+    document.getElementById('dd2-rem').textContent='0';out.value='';return;}
+  var lines=t.split(/\\n/),seen={},res=[];
+  for(var i=0;i<lines.length;i++){
+    var L=lines[i];
+    if(i===lines.length-1&&L===''){continue;}  // trailing newline
+    if(seen.hasOwnProperty(L))continue;
+    seen[L]=1;res.push(L);
+  }
+  document.getElementById('dd2-orig').textContent=lines.length.toLocaleString('en-US');
+  document.getElementById('dd2-uniq').textContent=res.length.toLocaleString('en-US');
+  document.getElementById('dd2-rem').textContent=(lines.length-res.length).toLocaleString('en-US');
+  out.value=res.join('\\n');
+}
+inp.addEventListener('input',run);
+document.getElementById('dd2-copy').addEventListener('click',function(){
+  out.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
+  else{document.execCommand('copy');}
+  var b=document.getElementById('dd2-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+});
+run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -914,6 +957,7 @@ TOOLS = {
     "randomnum": lambda args: RANDOMNUM,
     "roman": lambda args: ROMAN,
     "grade": lambda args: GRADE,
+    "dedupe": lambda args: DEDUPE,
 }
 
 

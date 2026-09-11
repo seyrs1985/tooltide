@@ -237,6 +237,18 @@ def PAGES():
              "🌸")
     pages.append(sp)
 
+    jn = _cd("june", "June", 6, 1, "how many days until june",
+             "June is the finish line month: finals end, school lets out, and the summer holidays officially begin. 'How many days until June' spikes every spring as students count down to freedom.",
+             "This timer targets the upcoming June 1st and rolls over automatically — the moment June arrives, it quietly starts counting to next year.",
+             "🎓")
+    pages.append(jn)
+
+    dc = _cd("december", "December", 12, 1, "how many days until december",
+             "December is the month everything fun piles into: advent calendars, Christmas markets, Hanukkah nights, office parties and the first proper snow in half the world. It also happens to be the month most budgets die.",
+             "Whether you are planning gifts, travel or the work party rota, this timer targets the upcoming December 1st and rolls over automatically.",
+             "🎄")
+    pages.append(dc)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -543,6 +555,9 @@ def PAGES():
     pages.append(_conv("ounces-to-cups", "Ounces to Cups", "fluid ounces", "cups (US)", 1 / 8, "volume",
                        "American recipes bounce between fluid ounces and cups mid-ingredient-list — a can says 12 fl oz, the recipe asks for 1½ cups. Since one US cup is exactly 8 fluid ounces, the conversion is a simple divide by 8.",
                        "Handy anchors: 8 fl oz = 1 cup, 12 fl oz = 1.5 cups (a soda can), 16 fl oz = 2 cups (a pint), 32 fl oz = 4 cups (a quart).", dec=2))
+    pages.append(_conv("tablespoons-to-cups", "Tablespoons to Cups", "tablespoons", "cups (US)", 1 / 16, "volume",
+                       "Scaling recipes up or down means hopping between tablespoons and cups — and 16 tablespoons per cup is not mental math anyone enjoys mid-recipe. Type the tablespoons, get the cups, get back to the oven.",
+                       "Handy anchors: 4 tbsp = 1/4 cup, 8 tbsp = 1/2 cup (a stick of butter), 12 tbsp = 3/4 cup, 16 tbsp = 1 cup.", dec=3))
     pages.append(_conv("yards-to-meters", "Yards to Meters", "yards", "meters", 0.9144, "length",
                        "Yards rule American football fields, golf courses and fabric counters; meters rule everything else. One yard is exactly 0.9144 meters — so a 100-yard football field is 91.44 meters of pure metric confusion.",
                        "Handy anchors: 1 yd = 0.91 m, 10 yd = 9.14 m, 100 yd = 91.44 m, 1 m = 1.09 yd (slightly more than a yard)."))
@@ -791,6 +806,36 @@ def PAGES():
              "Use the target-grade box: enter your current average and the final's share of the total grade, and it shows the exact final-exam percentage required. If the number is over 100%, the target is mathematically out of reach — talk to your teacher about extra credit."),
             ("Does it work for weighted grading categories?",
              "Yes for a single category: enter your average within that category and its weight in the target section. For multiple weighted categories, average each category first, then combine by weight before entering it."),
+        ],
+    })
+
+    pages.append({
+        "slug": "duplicate-line-remover",
+        "title": "Remove Duplicate Lines Online — Keep Order, Instant Results",
+        "h1": "Duplicate Line Remover",
+        "desc": "Paste any list or text and remove duplicate lines instantly — original order preserved. Shows exactly how many lines were removed. 100% in-browser, nothing uploaded.",
+        "category": "text",
+        "keyword": "remove duplicate lines",
+        "tool": "dedupe",
+        "args": {},
+        "intro": [
+            "Paste a list — keywords, emails, log lines, CSV rows, URLs — and strip out every duplicate while keeping the first-seen order. Cleaned output appears instantly with a count of what was removed, and one click copies the result.",
+            "This is the everyday data-cleaning chore: deduplicating keyword exports before analysis, merging mailing lists, tidying SQL results, or trimming a wordlist. Everything runs locally in your browser — your data never touches a server, which matters when the list contains something private.",
+        ],
+        "howto": [
+            "Paste your text or list into the input box.",
+            "The cleaned output appears instantly — duplicates removed, first-seen order kept.",
+            "Check the removed-lines count, then hit Copy to take the result.",
+        ],
+        "faqs": [
+            ("How does it decide which duplicate to keep?",
+             "It keeps the first occurrence and drops every later repeat — so the order of your original list is preserved. This matters for ranked lists, logs and timelines."),
+            ("Does it treat lines that differ only by spaces as duplicates?",
+             "Each line is compared exactly, including leading and trailing spaces. If your data has messy whitespace, trim the lines first — case is also preserved (Apple and apple are different)."),
+            ("Is there a size limit?",
+             "The practical limit is your browser tab's memory — lists of hundreds of thousands of lines process in a second or two. Everything runs locally, so there is no upload bottleneck."),
+            ("Is my data uploaded anywhere?",
+             "No. The deduplication runs entirely in your browser with JavaScript. Nothing is transmitted or logged — you can disconnect from the internet and it still works."),
         ],
     })
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Remove Duplicate Lines Online — Keep Order, Instant Results</title>
+<meta name="description" content="Paste any list or text and remove duplicate lines instantly — original order preserved. Shows exactly how many lines were removed. 100% in-browser, nothing uploaded.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/duplicate-line-remover/">
+<meta property="og:title" content="Remove Duplicate Lines Online — Keep Order, Instant Results">
+<meta property="og:description" content="Paste any list or text and remove duplicate lines instantly — original order preserved. Shows exactly how many lines were removed. 100% in-browser, nothing uploaded.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/duplicate-line-remover/">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+<meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Duplicate Line Remover","url":"https://seyrs1985.github.io/tooltide/duplicate-line-remover/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Paste any list or text and remove duplicate lines instantly — original order preserved. Shows exactly how many lines were removed. 100% in-browser, nothing uploaded."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does it decide which duplicate to keep?","acceptedAnswer":{"@type":"Answer","text":"It keeps the first occurrence and drops every later repeat — so the order of your original list is preserved. This matters for ranked lists, logs and timelines."}},{"@type":"Question","name":"Does it treat lines that differ only by spaces as duplicates?","acceptedAnswer":{"@type":"Answer","text":"Each line is compared exactly, including leading and trailing spaces. If your data has messy whitespace, trim the lines first — case is also preserved (Apple and apple are different)."}},{"@type":"Question","name":"Is there a size limit?","acceptedAnswer":{"@type":"Answer","text":"The practical limit is your browser tab's memory — lists of hundreds of thousands of lines process in a second or two. Everything runs locally, so there is no upload bottleneck."}},{"@type":"Question","name":"Is my data uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. The deduplication runs entirely in your browser with JavaScript. Nothing is transmitted or logged — you can disconnect from the internet and it still works."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Duplicate Line Remover","item":"https://seyrs1985.github.io/tooltide/duplicate-line-remover/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
+</head>
+<body><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a><a href="https://seyrs1985.github.io/tooltide/">Calculators</a><a href="https://seyrs1985.github.io/tooltide/">Converters</a><a href="https://seyrs1985.github.io/tooltide/">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/">Text</a><a href="https://seyrs1985.github.io/tooltide/">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Duplicate Line Remover</span></nav><main class="wrap">
+<article>
+  <div class="page-emoji">🔧</div>
+  <h1>Duplicate Line Remover</h1>
+  
+  <section class="intro"><p>Paste a list — keywords, emails, log lines, CSV rows, URLs — and strip out every duplicate while keeping the first-seen order. Cleaned output appears instantly with a count of what was removed, and one click copies the result.</p><p>This is the everyday data-cleaning chore: deduplicating keyword exports before analysis, merging mailing lists, tidying SQL results, or trimming a wordlist. Everything runs locally in your browser — your data never touches a server, which matters when the list contains something private.</p></section>
+  
+<div class="tool" id="tt-dd2">
+  <div class="field"><label for="dd2-in">Paste your list or text</label>
+    <textarea id="dd2-in" rows="9" placeholder="one item per line…"></textarea></div>
+  <div class="stats">
+    <div class="stat"><b id="dd2-orig">0</b><span>original lines</span></div>
+    <div class="stat"><b id="dd2-uniq">0</b><span>unique lines</span></div>
+    <div class="stat"><b id="dd2-rem">0</b><span>duplicates removed</span></div>
+  </div>
+  <div class="field" style="margin-top:12px"><label for="dd2-out">Cleaned output <button class="btn btn-sm" id="dd2-copy" type="button">Copy</button></label>
+    <textarea id="dd2-out" rows="9" readonly placeholder="cleaned list appears here…"></textarea></div>
+</div>
+<script>(function(){
+var inp=document.getElementById('dd2-in'),out=document.getElementById('dd2-out');
+function run(){
+  var t=inp.value;
+  if(!t){document.getElementById('dd2-orig').textContent='0';document.getElementById('dd2-uniq').textContent='0';
+    document.getElementById('dd2-rem').textContent='0';out.value='';return;}
+  var lines=t.split(/\n/),seen={},res=[];
+  for(var i=0;i<lines.length;i++){
+    var L=lines[i];
+    if(i===lines.length-1&&L===''){continue;}  // trailing newline
+    if(seen.hasOwnProperty(L))continue;
+    seen[L]=1;res.push(L);
+  }
+  document.getElementById('dd2-orig').textContent=lines.length.toLocaleString('en-US');
+  document.getElementById('dd2-uniq').textContent=res.length.toLocaleString('en-US');
+  document.getElementById('dd2-rem').textContent=(lines.length-res.length).toLocaleString('en-US');
+  out.value=res.join('\n');
+}
+inp.addEventListener('input',run);
+document.getElementById('dd2-copy').addEventListener('click',function(){
+  out.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
+  else{document.execCommand('copy');}
+  var b=document.getElementById('dd2-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+});
+run();
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Paste your text or list into the input box.</li><li>The cleaned output appears instantly — duplicates removed, first-seen order kept.</li><li>Check the removed-lines count, then hit Copy to take the result.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>How does it decide which duplicate to keep?</summary><p>It keeps the first occurrence and drops every later repeat — so the order of your original list is preserved. This matters for ranked lists, logs and timelines.</p></details><details class="faq"><summary>Does it treat lines that differ only by spaces as duplicates?</summary><p>Each line is compared exactly, including leading and trailing spaces. If your data has messy whitespace, trim the lines first — case is also preserved (Apple and apple are different).</p></details><details class="faq"><summary>Is there a size limit?</summary><p>The practical limit is your browser tab&#x27;s memory — lists of hundreds of thousands of lines process in a second or two. Everything runs locally, so there is no upload bottleneck.</p></details><details class="faq"><summary>Is my data uploaded anywhere?</summary><p>No. The deduplication runs entirely in your browser with JavaScript. Nothing is transmitted or logged — you can disconnect from the internet and it still works.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/word-counter/"><span class="card-emoji">🔤</span><span class="card-title">Word Counter</span><span class="card-desc">Count words, characters (with and without spaces), sentences and paragraphs instantly. Live statistics with es…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/case-converter/"><span class="card-emoji">🔠</span><span class="card-title">Case Converter</span><span class="card-desc">Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case and kebab-case. One cli…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-christmas/"><span class="card-emoji">🎄</span><span class="card-title">How Many Days Until Christmas?</span><span class="card-desc">See exactly how many days, hours and minutes until Christmas. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-new-year/"><span class="card-emoji">🎆</span><span class="card-title">How Many Days Until New Year?</span><span class="card-desc">See exactly how many days, hours and minutes until New Year. Free live countdown timer, updated every second —…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-halloween/"><span class="card-emoji">🎃</span><span class="card-title">How Many Days Until Halloween?</span><span class="card-desc">See exactly how many days, hours and minutes until Halloween. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-valentines-day/"><span class="card-emoji">💝</span><span class="card-title">How Many Days Until Valentine&#x27;s Day?</span><span class="card-desc">See exactly how many days, hours and minutes until Valentine&#x27;s Day. Free live countdown timer, updated every s…</span></a></div></section>
+</article>
+</main><footer class="site-foot"><div class="wrap">
+  <nav><a href="https://seyrs1985.github.io/tooltide/about/">About</a><a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a><a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a></nav>
+  
+  <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+</div></footer></body></html>
