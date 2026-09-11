@@ -1730,6 +1730,102 @@ document.getElementById('rl-go').addEventListener('click',function(){
 """
 
 
+# ---------------------------------------------------------------- cubic feet
+CUBICFT = """
+<div class="tool" id="tt-cf">
+  <div class="chips" role="tablist">
+    <button class="chip active" data-u="ft">Feet</button>
+    <button class="chip" data-u="cm">Centimeters</button>
+  </div>
+  <div class="fields">
+    <div class="field"><label id="cf-l1" for="cf-l">Length (ft)</label><input type="number" id="cf-l" step="any" min="0" placeholder="2"></div>
+    <div class="field"><label id="cf-l2" for="cf-w">Width (ft)</label><input type="number" id="cf-w" step="any" min="0" placeholder="2"></div>
+    <div class="field"><label id="cf-l3" for="cf-h">Height (ft)</label><input type="number" id="cf-h" step="any" min="0" placeholder="1"></div>
+  </div>
+  <div class="result"><span class="result-num" id="cf-out">-</span><span class="result-unit">cubic feet</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cf-cuft">-</b><span>cubic feet</span></div>
+    <div class="stat"><b id="cf-cum">-</b><span>cubic meters</span></div>
+  </div>
+</div>
+<script>(function(){
+var unit='ft';
+var l=document.getElementById('cf-l'),w=document.getElementById('cf-w'),h=document.getElementById('cf-h');
+document.querySelectorAll('#tt-cf .chip').forEach(function(c){c.addEventListener('click',function(){
+  unit=c.dataset.u;
+  document.querySelectorAll('#tt-cf .chip').forEach(function(x){x.classList.toggle('active',x===c);});
+  document.getElementById('cf-l1').textContent='Length ('+unit+')';
+  document.getElementById('cf-l2').textContent='Width ('+unit+')';
+  document.getElementById('cf-l3').textContent='Height ('+unit+')';
+  run();
+});});
+function run(){
+  var a=parseFloat(l.value),b=parseFloat(w.value),c=parseFloat(h.value);
+  if(isNaN(a)||isNaN(b)||isNaN(c)){document.getElementById('cf-cuft').textContent='-';document.getElementById('cf-cum').textContent='-';return;}
+  var cuft=unit==='ft'?a*b*c:(a*b*c)/28316.846592;
+  document.getElementById('cf-cuft').textContent=(Math.round(cuft*100)/100).toLocaleString('en-US');
+  document.getElementById('cf-cum').textContent=(Math.round(cuft*0.0283168466*1000)/1000).toLocaleString('en-US');
+  document.getElementById('cf-out').textContent=(Math.round(cuft*100)/100).toLocaleString('en-US');
+}
+l.addEventListener('input',run);w.addEventListener('input',run);h.addEventListener('input',run);run();
+})();</script>
+"""
+
+
+# ---------------------------------------------------------------- line sorter
+SORTER = """
+<div class="tool" id="tt-sort">
+  <div class="chips">
+    <button class="chip active" data-d="az">A-Z</button>
+    <button class="chip" data-d="za">Z-A</button>
+    <button class="chip active" id="sort-ci" type="button">Case-insensitive</button>
+    <button class="chip" id="sort-blank" type="button">Remove blank lines</button>
+    <button class="chip" id="sort-dup" type="button">Remove duplicates</button>
+  </div>
+  <div class="field"><label for="sort-in">Paste your list</label>
+    <textarea id="sort-in" rows="8" placeholder="one item per line…"></textarea></div>
+  <div class="field" style="margin-top:10px"><label for="sort-out">Sorted <button class="btn btn-sm" id="sort-copy" type="button">Copy</button></label>
+    <textarea id="sort-out" rows="8" readonly placeholder="sorted list appears here…"></textarea></div>
+  <div class="stats"><div class="stat"><b id="sort-n">0</b><span>lines out</span></div></div>
+</div>
+<script>(function(){
+var dir='az',ci=true,blank=false,dedupe=false;
+var inp=document.getElementById('sort-in'),out=document.getElementById('sort-out');
+function bind(id,set){document.getElementById(id).addEventListener('click',function(){set(!set.__v||set.__v===undefined?true:false);});}
+var state={ci:true,blank:false,dedupe:false};
+['ci','blank','dup'].forEach(function(k){
+  var id=k==='ci'?'sort-ci':k==='blank'?'sort-blank':'sort-dup';
+  var el=document.getElementById(id);
+  el.addEventListener('click',function(){state[k]=!state[k];el.classList.toggle('active',state[k]);run();});
+});
+document.querySelectorAll('#tt-sort .chip[data-d]').forEach(function(c){c.addEventListener('click',function(){
+  dir=c.dataset.d;
+  document.querySelectorAll('#tt-sort .chip[data-d]').forEach(function(x){x.classList.toggle('active',x===c);});
+  run();
+});});
+function run(){
+  var lines=inp.value.split('\n');
+  if(state.blank)lines=lines.filter(function(L){return L.trim();});
+  if(state.dedupe){var seen={};lines=lines.filter(function(L){if(seen.hasOwnProperty(L))return false;seen[L]=1;return true;});}
+  lines.sort(function(x,y){
+    var a=ci?x.toLowerCase():x,b=ci?y.toLowerCase():y;
+    return dir==='az'?a.localeCompare(b):b.localeCompare(a);
+  });
+  out.value=lines.join('\n');
+  document.getElementById('sort-n').textContent=lines.length;
+}
+inp.addEventListener('input',run);
+document.getElementById('sort-copy').addEventListener('click',function(){
+  out.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
+  else{document.execCommand('copy');}
+  var b=document.getElementById('sort-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+});
+run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1764,6 +1860,8 @@ TOOLS = {
     "dice": lambda args: DICE,
     "half": lambda args: HALF,
     "letter": lambda args: LETTER,
+    "cubicft": lambda args: CUBICFT,
+    "sorter": lambda args: SORTER,
     "sqft": lambda args: SQFT,
     "secondsconv": lambda args: SECONDS,
     "pxin": lambda args: PXIN,

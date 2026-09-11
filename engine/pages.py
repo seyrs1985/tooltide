@@ -1652,6 +1652,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "cubic-feet-calculator",
+        "title": "Cubic Feet Calculator — Volume from Length, Width & Height",
+        "h1": "Cubic Feet Calculator",
+        "desc": "Calculate cubic feet from length, width and height — for moving trucks, storage units, fridges and shipping. Works in feet or cm and converts to cubic meters.",
+        "category": "calculator",
+        "keyword": "cubic feet calculator",
+        "tool": "cubicft",
+        "args": {},
+        "intro": [
+            "Enter length, width and height to get the volume in cubic feet — the number that decides which moving truck to book, whether the fridge fits the alcove, and what the shipping company will charge. It works in feet or centimeters and shows cubic meters alongside, because the rest of the world quotes volumes that way.",
+            "Everything updates as you type, and the cm mode means European appliance specs and American shelf measurements can finally be compared on one screen.",
+        ],
+        "howto": [
+            "Choose feet or centimeters, then enter length, width and height.",
+            "Read the volume in cubic feet and cubic meters side by side.",
+            "Add a margin for packing — moving boxes never pack at 100% density.",
+        ],
+        "faqs": [
+            ("How do I calculate cubic feet?",
+             "Multiply length × width × height, all in feet. A box measuring 2 ft × 2 ft × 1 ft is 4 cubic feet. Measure the largest points (including handles and feet on appliances) to be safe."),
+            ("How many cubic feet is a standard fridge?",
+             "A typical fridge-freezer holds 18–25 cubic feet; a compact dorm fridge around 3–4. Check the interior capacity spec, not the exterior size — walls and compressors eat space."),
+            ("What size moving truck do I need?",
+             "A studio flat fits in a 10–12 ft truck (about 350–450 cu ft), a one-bedroom in a 15–16 ft truck, and a 3-bedroom house usually needs a 20–26 ft truck (1,400+ cu ft). Measure your largest furniture first."),
+            ("How do I convert cubic feet to cubic meters?",
+             "Multiply by 0.0283. A 40 cu ft storage crate is about 1.13 cubic meters. The calculator shows both units automatically."),
+        ],
+    })
+
+    pages.append({
+        "slug": "line-sorter",
+        "title": "Line Sorter — Alphabetize Text Lists Online (A-Z or Z-A)",
+        "h1": "Line Sorter",
+        "desc": "Sort text lines alphabetically A-Z or Z-A instantly. Case-insensitive option, duplicate and blank line cleanup, live line counts. 100% in your browser.",
+        "category": "text",
+        "keyword": "alphabetize lines",
+        "tool": "sorter",
+        "args": {},
+        "intro": [
+            "Paste any list — names, keywords, URLs, tasks — and sort the lines alphabetically in one pass. A-Z or Z-A, with case-insensitive comparison so 'apple' and 'Apple' sort together instead of by capital letter. Blank lines can be dropped, duplicates collapsed, and the line count updates live.",
+            "It pairs naturally with the duplicate remover for list cleaning: dedupe first, sort second, copy the result. Like every ToolTide text tool, it runs entirely in your browser — private by architecture.",
+        ],
+        "howto": [
+            "Paste your list into the input box.",
+            "Choose A-Z or Z-A; toggle case-insensitive, remove blanks or dedupe as needed.",
+            "The sorted list and line count update live — copy when it looks right.",
+        ],
+        "faqs": [
+            ("How do I alphabetize a list of names?",
+             "Paste the names one per line and click A-Z. Case-insensitive sorting keeps 'smith' and 'Smith' together instead of putting all lowercase names after all uppercase ones."),
+            ("Does sorting change my original text?",
+             "No — the sorted output appears in its own box. Your input stays untouched until you clear or edit it."),
+            ("What does case-insensitive mean here?",
+             "The sort compares letters without caring about capitalization, which is what humans expect: 'banana' sorts between 'Apple' and 'Cherry' rather than at the end."),
+            ("Is there a line limit?",
+             "The practical limit is browser memory — tens of thousands of lines sort instantly. Nothing is uploaded; sorting is local JavaScript."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
