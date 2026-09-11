@@ -267,6 +267,37 @@ def PAGES():
              "🎒")
     pages.append(sb)
 
+    pages.append({
+        "slug": "strip-html",
+        "title": "Strip HTML Tags Online — Convert HTML to Plain Text",
+        "h1": "Strip HTML Tags",
+        "desc": "Remove HTML tags from any text instantly — convert markup to clean plain text, decode entities, and see how many tags were stripped. 100% in-browser.",
+        "category": "text",
+        "keyword": "strip html tags",
+        "tool": "striphtml",
+        "args": {},
+        "intro": [
+            "Paste HTML — an email template, a scraped page, a CMS export — and get clean plain text with every tag removed: no divs, no spans, no inline styles, no surprise &nbsp; characters. The tag count shows how much markup was hiding in there.",
+            "It exists for the moment every developer, marketer and data analyst has: text arrives full of markup and something downstream needs it naked. Everything runs locally in your browser, so it is safe for confidential content.",
+        ],
+        "howto": [
+            "Paste your HTML into the input box — a fragment or a full document both work.",
+            "The plain-text version appears instantly, with HTML entities like &amp; decoded to real characters.",
+            "Check how many tags were stripped, then copy the clean text with one click.",
+        ],
+        "faqs": [
+            ("How does HTML stripping work?",
+             "Every <tag> is removed with a pattern match, then common HTML entities (&amp;, &lt;, &gt; and friends) are decoded into their real characters. What remains is the human-readable text content."),
+            ("Is it safe to paste confidential HTML here?",
+             "Yes — stripping runs entirely in your browser with JavaScript. Nothing is transmitted, logged or stored; you can disconnect from the internet and it still works."),
+            ("Does it handle script and style tags?",
+             "Yes — their entire contents are removed, not just the tags, so no stray CSS rules or JavaScript survive into the output."),
+            ("Will the formatting survive?",
+             "Plain text has no formatting by definition — headings become lines, links become their visible text, bold becomes normal. Line breaks between blocks are preserved so paragraphs stay readable."),
+        ],
+    })
+
+
     ja = _cd("january", "January", 1, 1, "how many days until january",
              "January is the reset button: new year resolutions, gym memberships, dry January and the long, quiet walk back to work. 'How many days until January' is usually someone planning a fresh start — or bracing for the credit card bill.",
              "This timer targets the upcoming January 1st and rolls over automatically — the moment the new year begins, it starts counting to the next one.",
@@ -627,6 +658,9 @@ def PAGES():
     pages.append(_conv("quarts-to-liters", "Quarts to Liters", "quarts (US)", "liters", 0.946352946, "volume",
                        "Engine oil, stock pots and paint cans are measured in quarts in the US and liters everywhere else — and they are annoyingly close in size, which is exactly why guessing goes wrong. One US quart is 0.946353 liters, just shy of a liter.",
                        "Handy anchors: 1 qt = 0.95 L (an oil change), 4 qt = 3.79 L (a gallon), 6 qt = 5.68 L (an Instant Pot)."))
+    pages.append(_conv("liters-to-quarts", "Liters to Quarts", "liters", "quarts (US)", 1 / 0.946352946, "volume",
+                       "Recipes and engine capacities in liters need to become quarts for US kitchens and garages. One liter is 1.05669 US quarts — slightly bigger, which is why a 5.7-liter V8 is a 6-quart oil change territory.",
+                       "Handy anchors: 1 L = 1.06 qt, 2 L = 2.11 qt, 4 L = 4.23 qt (just over a gallon), 6 L = 6.34 qt."))
     pages.append(_conv("gallons-to-pints", "Gallons to Pints", "gallons (US)", "pints (US)", 8, "volume",
                        "The US volume ladder is delightfully odd — 8 pints to a gallon, 2 pints to a quart, 4 quarts to a gallon — and milk comes in all of them. One US gallon is exactly 8 US pints, so multiply by 8 and pour.",
                        "Handy anchors: 1 gal = 8 pt, 0.5 gal = 4 pt (half-gallon of milk), 2 gal = 16 pt. UK imperial pints are bigger: 1 imperial gallon = 8 imperial pints but 20% more liquid."))
@@ -924,6 +958,7 @@ def PAGES():
              "Divide points earned by points possible and multiply by 100. Scoring 85 out of 100 points is 85%; scoring 17 out of 20 is also 85% — the ratio is what matters, not the raw numbers."),
             ("What do I need on the final to pass?",
              "Use the target-grade box: enter your current average and the final's share of the total grade, and it shows the exact final-exam percentage required. If the number is over 100%, the target is mathematically out of reach — talk to your teacher about extra credit."),
+
             ("Does it work for weighted grading categories?",
              "Yes for a single category: enter your average within that category and its weight in the target section. For multiple weighted categories, average each category first, then combine by weight before entering it."),
         ],

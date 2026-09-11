@@ -1085,6 +1085,42 @@ a.addEventListener('input',run);b.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- strip html
+STRIPHTML = """
+<div class="tool" id="tt-sh">
+  <div class="field"><label for="sh-in">Paste HTML</label>
+    <textarea id="sh-in" rows="8" placeholder="<div>Hello <b>world</b></div>"></textarea></div>
+  <div class="field" style="margin-top:10px"><label for="sh-out">Plain text <button class="btn btn-sm" id="sh-copy" type="button">Copy</button></label>
+    <textarea id="sh-out" rows="8" readonly placeholder="clean text appears here…"></textarea></div>
+  <div class="stats"><div class="stat"><b id="sh-tags">0</b><span>tags stripped</span></div></div>
+</div>
+<script>(function(){
+var inp=document.getElementById('sh-in'),out=document.getElementById('sh-out');
+var ENT={'&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&#39;':"'",'&nbsp;':' '};
+function run(){
+  var t=inp.value;
+  var tags=0;
+  t=t.replace(/<(script|style)[^>]*>[\s\S]*?<\/>/gi,function(m){tags++;return '';});
+  t=t.replace(/<[^>]*>/g,function(m){tags++;return '';});
+  t=t.replace(/&amp;|&lt;|&gt;|&quot;|&#39;|&nbsp;/gi,function(m){
+    var k=m.toLowerCase();
+    return ENT[m.toLowerCase()];
+  });
+  out.value=t;
+  document.getElementById('sh-tags').textContent=tags.toLocaleString('en-US');
+}
+inp.addEventListener('input',run);
+document.getElementById('sh-copy').addEventListener('click',function(){
+  out.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
+  else{document.execCommand('copy');}
+  var b=document.getElementById('sh-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+});
+run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1108,6 +1144,7 @@ TOOLS = {
     "slug": lambda args: SLUG,
     "upside": lambda args: UPSIDE,
     "hoursdiff": lambda args: HOURSDIFF,
+    "striphtml": lambda args: STRIPHTML,
     "salestax": lambda args: SALESTAX,
 }
 
