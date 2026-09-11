@@ -255,6 +255,18 @@ def PAGES():
              "🌼")
     pages.append(my)
 
+    jl = _cd("july", "July", 7, 1, "how many days until july",
+             "July is peak summer: the longest days of the year, school fully out, Independence Day fireworks and the year's biggest beach and lake weekends. It is also the month people realize the year is half gone.",
+             "This timer targets the upcoming July 1st and rolls over automatically — when July arrives, it starts counting to the next one.",
+             "🎆")
+    pages.append(jl)
+
+    sb = _cd("september", "September", 9, 1, "how many days until september",
+             "September is the other new year: back to school, back to routine, autumn clothes in the shops and the last warm weekends. 'How many days until September' is the sound of summer ending — and of students dreading or welcoming it.",
+             "This timer targets the upcoming September 1st and rolls over automatically after the month begins.",
+             "🎒")
+    pages.append(sb)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -561,6 +573,12 @@ def PAGES():
     pages.append(_conv("ounces-to-cups", "Ounces to Cups", "fluid ounces", "cups (US)", 1 / 8, "volume",
                        "American recipes bounce between fluid ounces and cups mid-ingredient-list — a can says 12 fl oz, the recipe asks for 1½ cups. Since one US cup is exactly 8 fluid ounces, the conversion is a simple divide by 8.",
                        "Handy anchors: 8 fl oz = 1 cup, 12 fl oz = 1.5 cups (a soda can), 16 fl oz = 2 cups (a pint), 32 fl oz = 4 cups (a quart).", dec=2))
+    pages.append(_conv("liters-to-pints", "Liters to Pints", "liters", "pints (US)", 1 / 0.473176473, "volume",
+                       "Convert liters — on every bottle outside the US — into American pints for recipes, brewing and bar orders. One liter is just over 2.11 US pints, so a liter of beer is two pints plus a generous head.",
+                       "Handy anchors: 1 L = 2.11 pt, 2 L = 4.23 pt (a big bottle), 0.5 L = 1.06 pt. UK pints are bigger: 1 L = 1.76 imperial pints."))
+    pages.append(_conv("kilograms-to-stones", "KG to Stone", "kilograms", "stone", 1 / 6.35029318, "weight",
+                       "Reading a UK gym programme or a British boxing weigh-in with metric numbers? Kilograms convert to stone by dividing by 6.35029318 — the unit Brits use for body weight in everyday speech.",
+                       "Handy anchors: 50 kg = 7.87 st, 70 kg = 11.02 st, 90 kg = 14.17 st, 100 kg = 15.75 st."))
     pages.append(_conv("tablespoons-to-cups", "Tablespoons to Cups", "tablespoons", "cups (US)", 1 / 16, "volume",
                        "Scaling recipes up or down means hopping between tablespoons and cups — and 16 tablespoons per cup is not mental math anyone enjoys mid-recipe. Type the tablespoons, get the cups, get back to the oven.",
                        "Handy anchors: 4 tbsp = 1/4 cup, 8 tbsp = 1/2 cup (a stick of butter), 12 tbsp = 3/4 cup, 16 tbsp = 1 cup.", dec=3))
