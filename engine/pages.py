@@ -1524,6 +1524,40 @@ def PAGES():
         ],
     })
 
+    pages.append(_conv("ounces-to-ml", "Ounces to ML", "fluid ounces (US)", "milliliters", 29.5735295625, "volume",
+                       "US recipes and nutrition labels speak in fluid ounces; the rest of the world pours in milliliters. One US fluid ounce is 29.5735 ml — about 30, which is why the two units feel like near-twins even though they are not twins.",
+                       "Handy anchors: 1 fl oz = 29.57 ml, 8 fl oz = 236.6 ml (a cup), 12 fl oz = 354.9 ml (a can), 16 fl oz = 473.2 ml (a pint).", dec=1))
+
+    pages.append({
+        "slug": "dice-roller",
+        "title": "Online Dice Roller — D6, D20 & Any Dice, Cryptographically Fair",
+        "h1": "Dice Roller",
+        "desc": "Roll virtual dice online: pick how many dice and how many faces (D6, D20, anything). Cryptographically fair results with per-die outcomes and totals. Perfect for board games and D&D.",
+        "category": "generator",
+        "keyword": "dice roller",
+        "tool": "dice",
+        "args": {},
+        "intro": [
+            "Roll up to 12 dice with any number of faces — the classic D6, the D20 that decides dungeons, or an exotic D7 if your board game demands it. Each die's result is shown individually plus the total, and every roll comes from your browser's cryptographically secure random source.",
+            "No physical dice to lose under the sofa, no suspicious thumb techniques, no arguments about whether the roll was fair. The randomness is the same quality used for encryption keys — the fairest dice you will ever throw.",
+        ],
+        "howto": [
+            "Choose the number of dice (1–12) and the number of faces per die (2–100).",
+            "Hit Roll — each die shows its result, and the total appears underneath.",
+            "Roll again for another set; the table shows the last roll's individual outcomes.",
+        ],
+        "faqs": [
+            ("What is a D20?",
+             "A 20-sided die, the signature die of Dungeons & Dragons — a natural 20 (rolling a 20) is the legendary critical success. This roller supports D20 and every other face count from 2 to 100."),
+            ("Are online dice rolls actually random?",
+             "This one uses the browser's WebCrypto secure random source — cryptographically stronger than most physical dice, which can be slightly unbalanced by weight and shape. Each roll is independent."),
+            ("How do I roll 2d6?",
+             "Set dice count to 2 and faces to 6 — that is the standard 2d6 notation used in Monopoly, Catan and backgammon. The roller shows each die plus the total."),
+            ("Can I use this for a classroom or raffle?",
+             "Yes — assign numbers to participants and roll one die with the matching face count. The cryptographic randomness makes it demonstrably fair if anyone questions the result."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

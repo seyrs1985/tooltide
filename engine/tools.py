@@ -1624,6 +1624,33 @@ run();
 """
 
 
+# ---------------------------------------------------------------- dice roller
+DICE = """
+<div class="tool" id="tt-dice">
+  <div class="fields">
+    <div class="field"><label for="dc-count">Number of dice</label><input type="number" id="dc-count" min="1" max="12" step="1" value="2"></div>
+    <div class="field"><label for="dc-faces">Faces per die</label><input type="number" id="dc-faces" min="2" max="100" step="1" value="6"></div>
+  </div>
+  <button class="btn" id="dc-go" type="button">🎲 Roll</button>
+  <div class="result"><span class="result-num" id="dc-total">-</span><span class="result-unit">total</span>
+    <div class="result-formula" id="dc-each"></div></div>
+</div>
+<script>(function(){
+var count=document.getElementById('dc-count'),faces=document.getElementById('dc-faces');
+function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+  do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+document.getElementById('dc-go').addEventListener('click',function(){
+  var n=Math.min(12,Math.max(1,parseInt(count.value)||1));
+  var f=Math.min(100,Math.max(2,parseInt(faces.value)||6));
+  var rolls=[],sum=0;
+  for(var i=0;i<n;i++){var r=secureInt(f)+1;rolls.push(r);sum+=r;}
+  document.getElementById('dc-total').textContent=sum.toLocaleString('en-US');
+  document.getElementById('dc-each').textContent='each die: '+rolls.join(',  ')+'  (D'+f+' x '+n+')';
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1655,6 +1682,7 @@ TOOLS = {
     "fuel": lambda args: FUEL,
     "salary": lambda args: SALARY,
     "coinflip": lambda args: COINFLIP,
+    "dice": lambda args: DICE,
     "sqft": lambda args: SQFT,
     "secondsconv": lambda args: SECONDS,
     "pxin": lambda args: PXIN,
