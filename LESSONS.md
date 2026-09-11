@@ -7,3 +7,9 @@
 5. **check_site.js 0 failures 是部署红线**；GA4/GSC/adsense 注入字段(ga4_id/gsc_verification/adsense_client)不得破坏。
 6. **并发**：与体验 Agent 共仓——开工前 git pull --rebase；部署锁会串行化 push；STATUS.md 里【UX任务】标记的条目优先处理。
 7. **体验 Agent 与本流水线分工**：本流水线=扩页(pages.py)+数据+收入；体验=style.css/build.py 模板。勿越界。
+
+8. **差异化红线（每个新页面/新功能必须回答）**：
+   - "比 Google 搜索前 3 名多做了什么？"——写不出一句具体答案就不做。
+   - 禁止生产纯模板换皮页（同渲染器+同结构仅换关键词不算差异化，除非内容深度明显超越竞品）。
+   - 新工具有满足一条：解决 Reddit/Quora 上有人抱怨"找不到好XX工具"的问题 / 比现有头部工具快或简单 10 倍 / 填补站内品类空白且 GSC 显示有搜索量。
+   - 扩页 Agent 每轮选题必须附带"为什么这个页面比竞品好"的一句话理由，写进 STATUS.md 日志。
