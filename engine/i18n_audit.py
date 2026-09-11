@@ -44,7 +44,8 @@ for dirpath, _dirs, files in os.walk(DOCS):
             continue
         p = os.path.join(dirpath, fn)
         rel = os.path.relpath(p, DOCS).replace("\\", "/")
-        if "/play/" in rel:
+        if "/play/" in rel or rel.startswith("games/"):
+            # games/* are meta-refresh redirect stubs to the games site — no chrome, no i18n
             continue
         html_txt = open(p, encoding="utf-8").read()
         pages += 1
