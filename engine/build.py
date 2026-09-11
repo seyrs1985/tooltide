@@ -30,7 +30,7 @@ TOOL_EMOJI = {
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
- "randomnum": "🎲", "roman": "🏛️", "wordspages": "📄", "grade": "🎓", "dedupe": "🧹", "slug": "🔗", "salestax": "🧾", "average": "🧮", "binary": "💾", "morse": "📡","gramscups": "🥤", "fuel": "⛽", "salary": "💼", "sqft": "📐", "pxin": "🖨️", "unitconv": "🔄", "secondsconv": "⏱️", "coinflip": "🪙", "dice": "🎲", "half": "➗", "cubicft": "📦", "unitprice": "🏷️", "degrad": "📐", "romantable": "📜", "hexrgb": "🎨", "numwords": "🔠", "planets": "🪐", "binhex": "🔮", "combiner": "💞", "whitespace": "🧽", "yesno": "🍀", "prime": "🔢", "country": "🌍", "stlb": "⚖️", "ftincm": "📏", "emoji": "🎲", "factorial": "❗", "wordfreq": "📈", "sorter": "🔤", "letter": "🔤", "dayofweek": "📆", "percent": "📊",
+ "randomnum": "🎲", "roman": "🏛️", "wordspages": "📄", "grade": "🎓", "dedupe": "🧹", "slug": "🔗", "salestax": "🧾", "average": "🧮", "binary": "💾", "morse": "📡", "feetyd": "🦶", "epoch": "⏱️","gramscups": "🥤", "fuel": "⛽", "salary": "💼", "sqft": "📐", "pxin": "🖨️", "unitconv": "🔄", "secondsconv": "⏱️", "coinflip": "🪙", "dice": "🎲", "half": "➗", "cubicft": "📦", "unitprice": "🏷️", "degrad": "📐", "romantable": "📜", "hexrgb": "🎨", "numwords": "🔠", "planets": "🪐", "binhex": "🔮", "combiner": "💞", "whitespace": "🧽", "yesno": "🍀", "prime": "🔢", "country": "🌍", "stlb": "⚖️", "ftincm": "📏", "emoji": "🎲", "factorial": "❗", "wordfreq": "📈", "sorter": "🔤", "letter": "🔤", "dayofweek": "📆", "percent": "📊",
 }
 
 
@@ -532,6 +532,7 @@ def build_page(cfg, p, all_pages, cat_info):
         for q, a in p["faqs"])
 
     doc = head_tags(cfg, p["title"], p["desc"], canonical, [webapp_ld, faq_ld, crumb_ld], root=False)
+    doc = doc.replace('<div class="result">', '<div class="result" aria-live="polite" aria-atomic="true">')
     doc += header_nav(cfg, base)
     doc += crumb(base, crumb_items)
     doc += f"""<main class="wrap" id="main">
@@ -746,6 +747,11 @@ def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None, bod
 
 
 def write(path, content):
+    # a11y: every live result region announces updates to screen readers
+    content = re.sub(r'<div class="result"([^>]*?)>',
+                     lambda m: m.group(0) if "aria-live" in m.group(1)
+                     else '<div class="result"' + m.group(1) + ' aria-live="polite" aria-atomic="true">',
+                     content)
     full = os.path.join(SITE_DIR, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w", encoding="utf-8", newline="\n") as f:

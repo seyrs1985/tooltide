@@ -2649,6 +2649,54 @@ txt.dispatchEvent(new Event('input'));
 """
 
 
+# ---------------------------------------------------------------- epoch timestamp
+EPOCH = """
+<div class="tool" id="tt-ep">
+  <div class="chips"><button class="chip active" id="ep-ms" type="button">Milliseconds (13 digits)</button></div>
+  <div class="fields two">
+    <div class="field"><label for="ep-ts">Timestamp</label><input type="number" id="ep-ts" step="any" placeholder="1767000000"></div>
+    <div class="field"><label for="ep-date">Date & time (local)</label><input type="datetime-local" id="ep-date"></div>
+  </div>
+  <div class="result"><span class="result-num" id="ep-utc">-</span><span class="result-unit">UTC</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ep-now">-</b><span>current timestamp</span></div>
+    <div class="stat"><b id="ep-local">-</b><span>your local time</span></div>
+  </div>
+</div>
+<script>(function(){
+var ts=document.getElementById('ep-ts'),dt=document.getElementById('ep-date');
+var ms=document.getElementById('ep-ms').classList.contains('active');
+document.getElementById('ep-ms').addEventListener('click',function(){
+  this.classList.toggle('active');
+  ms=this.classList.contains('active');
+  runTs();
+});
+function factor(){return ms?1000:1;}
+function runTs(){
+  var v=parseFloat(ts.value);
+  if(isNaN(v)){return;}
+  var d=new Date(v*factor());
+  if(isNaN(d.getTime())){document.getElementById('ep-utc').textContent='out of range';return;}
+  document.getElementById('ep-utc').textContent=d.toISOString().slice(0,19).replace('T',' ')+' UTC';
+  document.getElementById('ep-local').textContent=d.toLocaleString('en-US');
+}
+function runDate(){
+  if(!dt.value)return;
+  var d=new Date(dt.value);
+  var secs=Math.floor(d.getTime()/1000);
+  ts.value=secs;
+  document.getElementById('ep-utc').textContent=d.toISOString().slice(0,19).replace('T',' ')+' UTC';
+  document.getElementById('ep-local').textContent=d.toLocaleString('en-US');
+}
+ts.addEventListener('input',runTs);
+dt.addEventListener('input',runDate);
+var now=document.getElementById('ep-now');
+function tick(){now.textContent=Math.floor(Date.now()/(ms?1:1000)).toLocaleString('en-US');}
+setInterval(tick,1000);tick();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2702,6 +2750,7 @@ TOOLS = {
     "country": lambda args: COUNTRY,
     "stlb": lambda args: STLB,
     "morse": lambda args: MORSE,
+    "epoch": lambda args: EPOCH,
     "ftincm": lambda args: FTINCM,
     "emoji": lambda args: EMOJI,
     "sqft": lambda args: SQFT,

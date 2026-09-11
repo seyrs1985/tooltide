@@ -2430,6 +2430,40 @@ def PAGES():
         ],
     })
 
+    pages.append(_conv("feet-to-yards", "Feet to Yards", "feet", "yards", 1 / 3, "length",
+                       "Three feet make a yard - the tailoring, football and landscaping conversion. Divide feet by 3, or count yards in threes: a 6-foot person is exactly 2 yards tall.",
+                       "Handy anchors: 3 ft = 1 yd, 6 ft = 2 yd, 30 ft = 10 yd (first-down marker), 100 ft = 33.33 yd."))
+
+    pages.append({
+        "slug": "epoch-timestamp",
+        "title": "Epoch Timestamp Converter — Unix Time to Date and Back",
+        "h1": "Epoch Timestamp Converter",
+        "desc": "Convert Unix epoch timestamps to human dates and back, live. Shows the current timestamp ticking, accepts seconds or milliseconds, all local JavaScript.",
+        "category": "converter",
+        "keyword": "epoch timestamp converter",
+        "tool": "epoch",
+        "args": {},
+        "intro": [
+            "Every API response, database row and log line stores time as a Unix timestamp - seconds since January 1, 1970, UTC. This converter turns those numbers back into dates humans can read, and turns dates into timestamps for the query you are about to write. It also shows the current timestamp ticking live, which is the fastest way to check whether a mystery number is in seconds or milliseconds.",
+            "Developers live in this conversion daily; everyone else meets it once and never forgets it. Paste, read, move on - all locally in your browser.",
+        ],
+        "howto": [
+            "Paste a Unix timestamp (seconds) - the UTC and local date appear instantly.",
+            "Toggle the milliseconds switch if your number is 13 digits.",
+            "Or pick a date and time to get its timestamp for your API call.",
+        ],
+        "faqs": [
+            ("What is a Unix timestamp?",
+             "The number of seconds elapsed since 00:00:00 UTC on January 1, 1970 - the moment computers agreed to call zero. Right now it is a 10-digit number; in 2038 the 32-bit version overflows, which is the Y2K of embedded systems."),
+            ("Why is my timestamp 13 digits?",
+             "It is in milliseconds, not seconds - common in JavaScript (Date.now()). Divide by 1,000 or use the milliseconds toggle to convert honestly."),
+            ("Does the timestamp depend on my time zone?",
+             "The number itself is always UTC-based. The converter shows it both as UTC and in your local time zone, so the same timestamp reads differently but means identically."),
+            ("What happens at timestamp 0?",
+             "That is the Unix epoch: January 1, 1970, 00:00:00 UTC. Negative timestamps count backwards from it - historical dates before 1970 work fine."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
