@@ -1586,6 +1586,44 @@ hms.addEventListener('input',function(){
 """
 
 
+# ---------------------------------------------------------------- pixels <-> inches
+PXIN = """
+<div class="tool" id="tt-px">
+  <div class="fields">
+    <div class="field"><label for="px-w">Width (px)</label><input type="number" id="px-w" step="any" min="0" placeholder="3000"></div>
+    <div class="field"><label for="px-h">Height (px)</label><input type="number" id="px-h" step="any" min="0" placeholder="2000"></div>
+    <div class="field"><label for="px-dpi">DPI / PPI</label><input type="number" id="px-dpi" step="any" min="1" value="300"></div>
+  </div>
+  <div class="chips">
+    <button class="chip" data-d="300">Print 300 DPI</button>
+    <button class="chip" data-d="150">Poster 150</button>
+    <button class="chip active" data-d="96">Screen 96</button>
+  </div>
+  <div class="result"><span class="result-num" id="px-out">-</span><span class="result-unit" id="px-unit"></span>
+    <div class="result-formula" id="px-note"></div></div>
+</div>
+<script>(function(){
+var w=document.getElementById('px-w'),h=document.getElementById('px-h'),dpi=document.getElementById('px-dpi');
+function run(){
+  var W=parseFloat(w.value),H=parseFloat(h.value),D=parseFloat(dpi.value);
+  var o=document.getElementById('px-out'),u=document.getElementById('px-unit'),n=document.getElementById('px-note');
+  if(!D||D<=0||isNaN(W)||isNaN(H)||!W||!H){o.textContent='-';u.textContent='';n.textContent='';return;}
+  var wi=W/D,hi=H/D;
+  o.textContent=Math.round(wi*100)/100+' x '+Math.round(hi*100)/100;
+  u.textContent='inches';
+  n.textContent=Math.round(wi*2.54*100)/100+' x '+Math.round(hi*2.54*100)/100+' cm  ('+W+'px / '+D+'dpi)';
+}
+[w,h,dpi].forEach(function(el){el.addEventListener('input',run);});
+document.querySelectorAll('#tt-px .chip').forEach(function(c){c.addEventListener('click',function(){
+  dpi.value=c.dataset.d;
+  document.querySelectorAll('#tt-px .chip').forEach(function(x){x.classList.toggle('active',x===c);});
+  run();
+});});
+run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1619,6 +1657,7 @@ TOOLS = {
     "coinflip": lambda args: COINFLIP,
     "sqft": lambda args: SQFT,
     "secondsconv": lambda args: SECONDS,
+    "pxin": lambda args: PXIN,
     "striphtml": lambda args: STRIPHTML,
     "salestax": lambda args: SALESTAX,
 }

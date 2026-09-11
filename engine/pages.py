@@ -1487,6 +1487,43 @@ def PAGES():
         ],
     })
 
+    pages.append(_conv("gb-to-mb", "GB to MB", "gigabytes", "megabytes", 1000, "storage",
+                       "Storage makers use decimal gigabytes: 1 GB = 1,000 MB. Your operating system may display binary gibibytes (1 GiB = 1,024 MiB), which is why a '256 GB' drive shows as about 238 GiB in Windows — the drive is not lying, the units are different.",
+                       "Handy anchors: 1 GB = 1,000 MB, 5 GB = 5,000 MB (a phone plan), 64 GB = 64,000 MB (a flash drive), 500 GB = 500,000 MB (a laptop SSD)."))
+    pages.append(_conv("mb-to-gb", "MB to GB", "megabytes", "gigabytes", 1 / 1000, "storage",
+                       "Convert megabytes to gigabytes by dividing by 1,000 — the decimal definition storage and telecom companies use. A 5,000 MB photo collection is 5 GB of cloud storage you did not know you needed.",
+                       "Handy anchors: 100 MB = 0.1 GB (an app), 700 MB = 0.7 GB (a CD), 4,700 MB = 4.7 GB (a DVD), 50,000 MB = 50 GB (a video game)."))
+
+    pages.append({
+        "slug": "pixels-to-inches",
+        "title": "Pixels to Inches Calculator — Print Size at Any DPI",
+        "h1": "Pixels to Inches Calculator",
+        "desc": "Convert pixels to inches for print or screen: enter pixel dimensions and DPI/PPI to get exact physical size. Includes print-quality DPI guidance.",
+        "category": "calculator",
+        "keyword": "pixels to inches",
+        "tool": "pxin",
+        "args": {},
+        "intro": [
+            "Pixels have no physical size until you give them a density: the same 3,000-pixel image is 10 inches wide at 300 DPI (print quality) or 31 inches at 96 DPI (a screen). Enter pixel dimensions and the DPI, and this calculator gives the exact physical width and height in inches and centimeters.",
+            "The print rule of thumb: 300 DPI for photos in the hand, 150 DPI acceptable for posters viewed at arm's length, 96–72 DPI is screen territory. Work backwards from a target print size and the calculator tells you the pixel dimensions your camera or export needs.",
+        ],
+        "howto": [
+            "Enter the pixel width and height of your image.",
+            "Enter the DPI/PPI — 300 for photo prints, 150 for posters, 96 for screens.",
+            "Read the physical size in inches and centimeters; adjust DPI to fit a target print size.",
+        ],
+        "faqs": [
+            ("How do I convert pixels to inches?",
+             "Divide the pixel count by the DPI (dots per inch). A 1,200-pixel-wide image at 300 DPI prints 4 inches wide: 1,200 ÷ 300 = 4. The calculator does this for width and height together."),
+            ("What DPI should I use for printing photos?",
+             "300 DPI is the photo-lab standard viewed at reading distance. 150 DPI works for posters and wall art viewed from a meter or more; large-format banners can go as low as 100 DPI."),
+            ("How many pixels is an 8x10 print at 300 DPI?",
+             "2,400 × 3,000 pixels — 7.2 megapixels. Any modern phone camera exceeds this, which is why phone photos generally print beautifully at ordinary sizes."),
+            ("Why does my 4000-pixel image look blurry when printed?",
+             "Because it was stretched beyond its pixel budget: at 4,000 pixels and 300 DPI the sharp size is 13.3 inches. Printing it at 20 inches means 200 DPI, and the softness you see is interpolation filling in pixels that were never captured."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
