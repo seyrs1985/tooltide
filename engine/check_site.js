@@ -45,6 +45,49 @@ try {
   const css = fs.readFileSync(path.join(root, 'style.css'), 'utf8');
   assert(/\.to-top\b/.test(css) && /\.cat-count\b/.test(css) && /\.chip-n\b/.test(css),
     'style.css: to-top/cat-count/chip-n rules');
+  assert(/\.faq summary::after/.test(css) && /\.faq\[open\] summary::after/.test(css),
+    'style.css: faq disclosure marker');
+  assert(/scroll-margin-top/.test(css), 'style.css: anchor scroll-margin');
+  assert(/::selection/.test(css), 'style.css: selection tint');
+  assert(/noscript-note/.test(css), 'style.css: noscript notice style');
+  assert(tool.includes('<noscript') && tool.includes('noscript-note'),
+    'tool page: noscript JS-required notice');
+
+  // homepage ?q= deep-link search must actually run (SearchAction contract)
+  const searchScript = [...idx.matchAll(/<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g)]
+    .map(m => m[1]).find(s => s.includes('var CARDS='));
+  if (searchScript) {
+    try {
+      const listeners = {};
+      const inp = { value: '', addEventListener: (t, f) => { listeners[t] = f; },
+        dispatchEvent: ev => { listeners[ev.type].call(inp, ev); } };
+      const out = { style: {}, innerHTML: '' };
+      const sb = {
+        document: {
+          getElementById: id => (id === 'tool-search' ? inp : id === 'search-results' ? out : null),
+          querySelectorAll: () => [],
+          addEventListener: (t, f) => { listeners['doc:' + t] = f; },
+          activeElement: { tagName: '' }
+        },
+        location: { search: '' },
+        URLSearchParams, Event: class { constructor(t) { this.type = t; } },
+        console
+      };
+      vm.createContext(sb);
+      const run = search => {
+        inp.value = ''; out.innerHTML = ''; out.style.display = '';
+        sb.location = { search };
+        new vm.Script(searchScript, { filename: 'index.html#search' }).runInContext(sb);
+      };
+      assert(searchScript.includes('URLSearchParams(location.search)'),
+        'homepage: search script reads ?q= param');
+      run('?q=f%20to%20c');
+      assert(inp.value === 'f to c' && out.style.display === 'grid'
+        && /Fahrenheit/i.test(out.innerHTML), 'homepage: ?q=f to c deep-link renders results');
+      run('?q=zzqqxx');
+      assert(/No tools match/.test(out.innerHTML), 'homepage: ?q= empty state message');
+    } catch (e) { fail++; console.log('SITE FAIL search deep-link:', e.message); }
+  } else { fail++; console.log('SITE FAIL homepage: search script not found'); }
 } catch (e) { fail++; console.log('SITE FAIL round-assertions:', e.message); }
 
 console.log('files:', files.length, '| checks passed:', checked, '| failures:', fail);

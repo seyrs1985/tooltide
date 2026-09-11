@@ -325,6 +325,7 @@ def build_page(cfg, p, all_pages, cat_info):
 <article>
   <div class="page-emoji" aria-hidden="true">{emoji}</div>
   <h1>{esc(p['h1'])}</h1>
+  <noscript><p class="noscript-note">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
   <section class="intro">{intro_html}</section>
   {tool_html}
@@ -430,6 +431,8 @@ inp.addEventListener('keydown',function(e){{
 document.addEventListener('keydown',function(e){{
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{{}}).tagName||'')){{e.preventDefault();inp.focus();}}
 }});
+var qs=new URLSearchParams(location.search).get('q');
+if(qs){{inp.value=qs;inp.dispatchEvent(new Event('input'));}}
 }})();</script></body></html>"""
     return doc
 
