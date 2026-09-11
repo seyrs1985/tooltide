@@ -2379,6 +2379,13 @@ def PAGES():
                        "Multiply pints by 2 and you have cups - the friendliest member of the US volume family. A pint of blueberries is 2 cups; a pint of cream is 2 cups; the pattern is mercifully simple.",
                        "Handy anchors: 1 pt = 2 cups, 2 pt = 4 cups, 3 pt = 6 cups, 4 pt = 8 cups (half a gallon)."))
 
+    pages.append(_conv("cm-to-feet", "CM to Feet", "centimeters", "feet", 0.03280839895, "length",
+                       "Convert centimeters straight to feet - skipping the inches detour. One centimeter is 0.0328 feet, so 170 cm is 5.58 feet (5 feet 6.9 inches if you want the split). Room dimensions, TV sizes and European furniture specs all need this hop.",
+                       "Handy anchors: 100 cm = 3.28 ft, 180 cm = 5.91 ft, 200 cm = 6.56 ft, 250 cm = 8.20 ft (a large sofa length)."))
+    pages.append(_conv("meters-to-inches", "Meters to Inches", "meters", "inches", 39.37007874, "length",
+                       "One meter is 39.37007874 inches - a number engineers memorize as 'about 39.37'. Television diagonals, lumber lengths and fabric bolts bounce between the two, and this converter keeps every decimal place honest.",
+                       "Handy anchors: 1 m = 39.37 in, 2 m = 78.74 in, 0.5 m = 19.69 in, 3 m = 118.11 in (a large TV is 75 in diagonal)."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
