@@ -35,3 +35,4 @@
 - 2026-09-11 · 🎮 Games 版块上线:/games/ 大厅 + 4 款独占游戏(Neon Tide 自研移植/贪吃蛇/2048/记忆翻牌,均浏览器实测可玩);游戏页=VideoGame schema+iframe 全屏;sitemap 49 URL,IndexNow 50 URL 提交(密钥验证通过,HTTP 200);全站 40 工具页 + 4 游戏页 + 5 站务页。
 - 2026-09-11-0701 · 自动化第2轮:新增英石→公斤换算、愚人节倒计时、第5款游戏井字棋(vs AI minimax + 2人模式);热点快照已存(美区体育新闻,英区FC27发布日信号);全站41工具页+5游戏页,52 URL 进 sitemap,IndexNow 200;数据 DEMO 待 GSC;收入 $0.00。
 - 2026-09-11 · 站点拆分:游戏版块迁出为独立姐妹站 NeonPlay(seyrs1985.github.io/neonplay/,已上线并提交 IndexNow);ToolTide 回归纯工具站(导航/页脚保留 NeonPlay 互链),旧 /games/* 全部 meta 跳转到新站,sitemap 已清除游戏 URL。
+- 2026-09-11-1220 · 自动化第3轮(拆分后首轮):新增 kg→英石、劳工节倒计时(9月第1个周一)、杯→毫升、随机数生成器(新渲染器,WebCrypto安全源);热点快照已存(美英均为影视/体育新闻,不蹭);45工具页,自检0失败;数据 DEMO 待 GSC;收入 $0.00。
