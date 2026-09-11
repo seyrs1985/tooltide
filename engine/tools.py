@@ -2368,6 +2368,29 @@ document.getElementById('hr-sh').addEventListener('click',function(){
 """
 
 
+# ---------------------------------------------------------------- age on planets
+PLANETS = """
+<div class="tool" id="tt-pl">
+  <div class="field"><label for="pl-age">Your age in Earth years</label><input type="number" id="pl-age" step="any" min="0" value="30"></div>
+  <table class="copytable"><thead><tr><th>Planet</th><th>Your age</th><th>Orbit (Earth years)</th></tr></thead><tbody id="pl-tb"></tbody></table>
+</div>
+<script>(function(){
+var P=[["Mercury",0.2408467,"\u2605"],["Venus",0.61519726,"\u2605"],["Mars",1.8808158,"\u2605"],["Jupiter",11.862615,"\u2605"],["Saturn",29.447498,"\u2605"],["Uranus",84.016846,"\u2605"],["Neptune",164.79132,"\u2605"]];
+var inp=document.getElementById('pl-age'),tb=document.getElementById('pl-tb');
+function run(){
+  var age=parseFloat(inp.value);
+  if(isNaN(age)){tb.innerHTML='';return;}
+  var html=P.map(function(p){
+    var a=Math.round(age/p[1]*100)/100;
+    return '<tr><td>'+p[0]+'</td><td><b>'+a+'</b></td><td>'+p[1]+'</td></tr>';
+  }).join('');
+  tb.innerHTML=html;
+}
+inp.addEventListener('input',run);run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2410,6 +2433,7 @@ TOOLS = {
     "romantable": _render_romantable,
     "yesno": lambda args: YESNO,
     "hexrgb": lambda args: HEXRGB,
+    "planets": lambda args: PLANETS,
     "prime": lambda args: PRIME,
     "factorial": lambda args: FACTORIAL,
     "country": lambda args: COUNTRY,

@@ -2117,6 +2117,40 @@ def PAGES():
                        "The US volume ladder's final step: 1 gallon is exactly 4 quarts. Milk jugs, engine oil and soup pots all speak this language — multiply gallons by 4 and the recipe or oil change is settled.",
                        "Handy anchors: 1 gal = 4 qt, 2 gal = 8 qt, 0.5 gal = 2 qt (those half-gallon milk cartons)."))
 
+    pages.append(_conv("kb-to-gb", "KB to GB", "kilobytes", "gigabytes", 1 / 1000000, "storage",
+                       "The long jump of the storage ladder: divide kilobytes by 1,000,000 to reach gigabytes (decimal scale). A 500,000 KB photo library is 0.5 GB of cloud space; a 2,000,000 KB video is 2 GB.",
+                       "Handy anchors: 100,000 KB = 0.1 GB, 500,000 KB = 0.5 GB, 1,000,000 KB = 1 GB, 10,000,000 KB = 10 GB (a movie download)."))
+
+    pages.append({
+        "slug": "age-on-other-planets",
+        "title": "Age on Other Planets — Your Age on Mars, Jupiter & More",
+        "h1": "Your Age on Other Planets",
+        "desc": "Enter your Earth age and see how old you would be on Mercury, Venus, Mars, Jupiter and the rest — each planet's year is a different length. Space science made personal.",
+        "category": "calculator",
+        "keyword": "age on other planets",
+        "tool": "planets",
+        "args": {},
+        "intro": [
+            "A year is one trip around the Sun — but every planet takes a different time to make that trip. Enter your age in Earth years and this calculator shows your age on all eight planets: a 30-year-old is 124 on Mercury (its year is 88 days), just 12 on Uranus, and hasn't even finished one Neptune year.",
+            "It is the friendliest possible introduction to orbital periods: the numbers stick because they are about you. Teachers use it for solar system units; everyone else uses it to feel young again (Mercury birthdays come around four times an Earth year).",
+        ],
+        "howto": [
+            "Enter your age in Earth years.",
+            "Read your age on all eight planets — each converted by that planet's orbital period.",
+            "Note Mercury: you would celebrate a birthday roughly every 88 Earth days.",
+        ],
+        "faqs": [
+            ("How old would I be on Mars?",
+             "Divide your Earth age by 1.881 (Mars's year is 1.881 Earth years). A 30-year-old is about 16 on Mars — teenagers on the red planet are in their forties on Earth."),
+            ("Why is my age different on other planets?",
+             "Age in years counts orbits around the Sun. Mercury orbits in 88 Earth days, Neptune in nearly 165 Earth years — same you, different number of laps completed."),
+            ("How old would I be on Mercury?",
+             "Multiply your Earth age by about 4.15 — Mercury's year is only 88 days. A 1-year-old baby has already celebrated four Mercury birthdays."),
+            ("Which planet makes you oldest?",
+             "Mercury, by far — its short orbit means the most birthdays. Neptune is the opposite: no human has completed a single Neptune year since it was discovered in 1846."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
