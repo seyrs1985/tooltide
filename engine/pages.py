@@ -267,6 +267,12 @@ def PAGES():
              "🎒")
     pages.append(sb)
 
+    nv = _cd("november", "November", 11, 1, "how many days until november",
+             "November is the gateway to the holiday season: No Shave November, Thanksgiving travel chaos, Black Friday countdowns and the first Christmas ads of the year. The clocks have changed, the mornings are dark, and online carts are filling up.",
+             "This timer targets the upcoming November 1st and rolls over automatically — shoppers use it to plan Black Friday budgets and holiday shipping deadlines.",
+             "🗓️")
+    pages.append(nv)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -585,6 +591,12 @@ def PAGES():
     pages.append(_conv("quarts-to-liters", "Quarts to Liters", "quarts (US)", "liters", 0.946352946, "volume",
                        "Engine oil, stock pots and paint cans are measured in quarts in the US and liters everywhere else — and they are annoyingly close in size, which is exactly why guessing goes wrong. One US quart is 0.946353 liters, just shy of a liter.",
                        "Handy anchors: 1 qt = 0.95 L (an oil change), 4 qt = 3.79 L (a gallon), 6 qt = 5.68 L (an Instant Pot)."))
+    pages.append(_conv("gallons-to-pints", "Gallons to Pints", "gallons (US)", "pints (US)", 8, "volume",
+                       "The US volume ladder is delightfully odd — 8 pints to a gallon, 2 pints to a quart, 4 quarts to a gallon — and milk comes in all of them. One US gallon is exactly 8 US pints, so multiply by 8 and pour.",
+                       "Handy anchors: 1 gal = 8 pt, 0.5 gal = 4 pt (half-gallon of milk), 2 gal = 16 pt. UK imperial pints are bigger: 1 imperial gallon = 8 imperial pints but 20% more liquid."))
+    pages.append(_conv("pounds-to-ounces", "Pounds to Ounces", "pounds", "ounces", 16, "weight",
+                       "US kitchens and post offices both live in pounds and ounces — 16 ounces to the pound, always. Convert a 2.5-pound flour bag into ounces, or a newborn's weight from pounds into ounces for the baby book.",
+                       "Handy anchors: 1 lb = 16 oz, 0.5 lb = 8 oz, 2 lb = 32 oz. Baby weights: 7 lb 8 oz = 120 oz."))
     pages.append(_conv("grams-to-pounds", "Grams to Pounds", "grams", "pounds", 1 / 453.59237, "weight",
                        "Convert grams — the unit on every packaged-food label — to pounds, the unit on every American bathroom scale. One pound is exactly 453.59237 grams, so 500 g is just over a pound and 1,000 g (a kilo) is 2.2 pounds.",
                        "Handy anchors: 250 g = 0.55 lb, 454 g = 1 lb (a butter block), 1,000 g = 2.20 lb. Quick trick: grams ÷ 454."))
@@ -935,6 +947,36 @@ def PAGES():
              "Modern browsers handle them, but they turn into ugly percent-encoded strings when shared (caf%C3%A9). Folding accents to plain letters keeps URLs clean and shareable."),
             ("Can I change a slug after publishing?",
              "Only with a redirect. Changing a published URL breaks any links pointing to it — set up a 301 redirect from the old slug to the new one, then update internal links."),
+        ],
+    })
+
+    pages.append({
+        "slug": "upside-down-text",
+        "title": "Upside Down Text Generator — Flip Text for Bios & Messages",
+        "h1": "Upside Down Text",
+        "desc": "Flip your text upside down with real Unicode characters — works in Instagram bios, WhatsApp, TikTok and anywhere you paste it. Free, instant, nothing uploaded.",
+        "category": "generator",
+        "keyword": "upside down text",
+        "tool": "upside",
+        "args": {},
+        "intro": [
+            "Type any text and get it flipped upside down — sᴉɥʇ ǝʞᴉl — using genuine Unicode characters, not an image. The flipped text copies and pastes anywhere: Instagram and TikTok bios, WhatsApp messages, Twitter/X posts, Discord names and game chat.",
+            "It also reverses the reading order automatically, so the result reads (upside down) from left to right the way you typed it. Everything runs locally in your browser; the flipped text is just characters, so it survives copy-paste across every app.",
+        ],
+        "howto": [
+            "Type or paste your text into the first box.",
+            "The upside-down version appears instantly in the output box.",
+            "Hit Copy and paste it into your bio, chat or post — it flips right side up when readers turn their phone.",
+        ],
+        "faqs": [
+            ("How does upside-down text work?",
+             "It swaps each letter for a Unicode character that looks like the original rotated 180 degrees (a becomes ɐ, e becomes ǝ), then reverses the order. The result is ordinary text — just written with strange letters."),
+            ("Will it work in my Instagram bio?",
+             "Yes — the characters are standard Unicode, supported by Instagram, TikTok, WhatsApp, Twitter/X, Discord, and virtually every modern app. A few rare fonts may render odd shapes."),
+            ("Is it readable by screen readers?",
+             "Poorly — screen readers may read the substitute letters strangely or skip them. It is fun decoration, not accessible text; keep important information in normal characters."),
+            ("Does the flipped text count as different characters?",
+             "It counts the same number of characters, but they are different ones — some platforms with strict username rules may reject exotic characters in usernames. Bios and messages are fine."),
         ],
     })
 

@@ -1025,6 +1025,32 @@ function clear(){document.getElementById('stx-out').textContent='–';document.g
 """
 
 
+# ---------------------------------------------------------------- upside down text
+UPSIDE = """
+<div class="tool" id="tt-flip">
+  <div class="field"><label for="fl-in">Your text</label>
+    <textarea id="fl-in" rows="4" placeholder="Type something…"></textarea></div>
+  <div class="field" style="margin-top:10px"><label for="fl-out">Flipped upside down <button class="btn btn-sm" id="fl-copy" type="button">Copy</button></label>
+    <textarea id="fl-out" rows="4" readonly></textarea></div>
+  <div class="tool-note">Uses real Unicode upside-down characters — it survives copy-paste into WhatsApp, Instagram, Twitter/X and bios. Purely local, nothing recorded.</div>
+</div>
+<script>(function(){
+var MAP={'a':'ɐ','b':'q','c':'ɔ','d':'p','e':'ǝ','f':'ɟ','g':'ƃ','h':'ɥ','i':'ᴉ','j':'ɾ','k':'ʞ','l':'l','m':'ɯ','n':'u','o':'o','p':'d','q':'b','r':'ɹ','s':'s','t':'ʇ','u':'n','v':'ʌ','w':'ʍ','x':'x','y':'ʎ','z':'z','A':'∀','B':'𐐒','C':'Ɔ','D':'p','E':'Ǝ','F':'Ⅎ','G':'⅁','H':'H','I':'I','J':'ſ','K':'ʞ','L':'˥','M':'W','N':'N','O':'O','P':'Ԁ','Q':'Ό','R':'ᴚ','S':'S','T':'⊥','U':'∩','V':'Λ','W':'M','X':'X','Y':'⅄','Z':'Z','1':'Ɩ','2':'ᄅ','3':'Ɛ','4':'ㄣ','5':'ϛ','6':'9','7':'ㄥ','8':'8','9':'6','0':'0','.':'˙',',':"'",'?':'¿','!':'¡','"':'„',"'":',','(':')',')':'(','[':']',']':'[','{':'}','}':'{','<':'>','>':'<','&':'⅋','_':'‾'};
+var inp=document.getElementById('fl-in'),out=document.getElementById('fl-out');
+function flip(t){
+  return t.split('').map(function(ch){return MAP[ch]!==undefined?MAP[ch]:ch;}).reverse().join('');
+}
+inp.addEventListener('input',function(){out.value=flip(inp.value);});
+document.getElementById('fl-copy').addEventListener('click',function(){
+  out.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
+  else{document.execCommand('copy');}
+  var b=document.getElementById('fl-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1046,6 +1072,7 @@ TOOLS = {
     "grade": lambda args: GRADE,
     "dedupe": lambda args: DEDUPE,
     "slug": lambda args: SLUG,
+    "upside": lambda args: UPSIDE,
     "salestax": lambda args: SALESTAX,
 }
 
