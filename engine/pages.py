@@ -2471,6 +2471,13 @@ def PAGES():
                        "One mile is exactly 1,609.344 meters - the conversion that makes American race distances readable to the metric world. A mile of running is 1,609 meters of track laps.",
                        "Handy anchors: 1 mi = 1,609 m, 2 mi = 3,219 m, 5 mi = 8,047 m, 10 mi = 16,093 m (a 10-miler)."))
 
+    pages.append(_conv("km-to-yards", "KM to Yards", "kilometers", "yards", 1093.6132983, "distance",
+                       "Golf courses, athletic tracks and cross-country courses mix kilometers and yards more often than any sane person expects. One kilometer is 1,093.61 yards - just over a kilometer of fairway per thousand yards on the card.",
+                       "Handy anchors: 1 km = 1,093.61 yd, 2 km = 2,187.23 yd, 5 km = 5,468 yd (a parkrun), 10 km = 10,936 yd."))
+    pages.append(_conv("minutes-to-days", "Minutes to Days", "minutes", "days", 1 / 1440, "time",
+                       "Uptime logs, billing records and binge-watching tallies all end up in minutes - and humans think in days. Divide minutes by 1,440 (60 x 24) and the number finally means something: 10,080 minutes is exactly one week.",
+                       "Handy anchors: 60 min = 1 hr, 1,440 min = 1 day, 10,080 min = 1 week, 43,200 min = 30 days."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
