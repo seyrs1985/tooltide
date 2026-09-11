@@ -482,7 +482,7 @@ PRIVACY = """<h1>Privacy Policy</h1>
 <h2>Analytics</h2>
 <p>{ga_line}</p>
 <h2>Local storage</h2>
-<p>We do not use browser local storage or cookies for our own purposes.</p>
+<p>The only thing we keep in your browser is one preference: your light or dark theme choice, saved via local storage when you use the theme toggle in the header. It never leaves your device and you can clear it anytime from your browser settings. We set no cookies of our own.</p>
 <h2>Changes</h2>
 <p>If this policy changes, the updated date at the top will change with it.</p>
 <h2>Contact</h2>
@@ -504,8 +504,12 @@ CONTACT = """<h1>Contact</h1>
 <p>We usually reply within a few days. For privacy questions, see the <a href="/privacy/">privacy policy</a>.</p>"""
 
 ERROR404 = """<h1>404 — page drifted out with the tide</h1>
-<p>The page you're looking for doesn't exist (or moved). Try one of our tools instead:</p>
-<p><a class="btn" href="/">← Back to all tools</a></p>"""
+<p>The page you're looking for doesn't exist (or moved). Search our tools:</p>
+<form class="four04-search" action="{base}" method="get">
+  <input type="search" name="q" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools">
+  <button class="btn" type="submit">Search</button>
+</form>
+<p>Or <a href="{base}#all">browse all tools</a> instead.</p>"""
 
 
 def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None):
