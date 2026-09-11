@@ -1497,6 +1497,95 @@ document.getElementById('cf-reset').addEventListener('click',function(){
 """
 
 
+# ---------------------------------------------------------------- square footage
+SQFT = """
+<div class="tool" id="tt-sq">
+  <div class="chips" role="tablist">
+    <button class="chip active" data-u="ft">Feet</button>
+    <button class="chip" data-u="m">Meters</button>
+  </div>
+  <div class="fields">
+    <div class="field"><label for="sq-l">Length</label><input type="number" id="sq-l" step="any" min="0" placeholder="12"></div>
+    <div class="field"><label for="sq-w">Width</label><input type="number" id="sq-w" step="any" min="0" placeholder="15"></div>
+  </div>
+  <div class="result"><span class="result-num" id="sq-ft">-</span><span class="result-unit">sq ft</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sq-sqft">-</b><span>square feet</span></div>
+    <div class="stat"><b id="sq-sqm">-</b><span>square meters</span></div>
+    <div class="stat"><b id="sq-total">-</b><span>running total</span></div>
+  </div>
+  <button class="btn btn-sm" id="sq-add" type="button">+ Add to running total</button>
+</div>
+<script>(function(){
+var unit='ft',total=0;
+var l=document.getElementById('sq-l'),w=document.getElementById('sq-w');
+document.querySelectorAll('#tt-sq .chip').forEach(function(c){c.addEventListener('click',function(){
+  unit=c.dataset.u;
+  document.querySelectorAll('#tt-sq .chip').forEach(function(x){x.classList.toggle('active',x===c);});
+  var labels=document.querySelectorAll('#tt-sq label');
+  labels[1].textContent='Length ('+unit+')';labels[2].textContent='Width ('+unit+')';
+  run();
+});});
+function run(){
+  var a=parseFloat(l.value),b=parseFloat(w.value);
+  var sq=(isNaN(a)||isNaN(b))?null:a*b;
+  var sqft=unit==='ft'?sq:sq*10.76391042;
+  var sqm=unit==='ft'?sq*0.09290304:sq;
+  document.getElementById('sq-ft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString('en-US');
+  document.getElementById('sq-sqft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString('en-US');
+  document.getElementById('sq-sqm').textContent=sq===null?'-':(Math.round(sqm*10)/10).toLocaleString('en-US');
+}
+l.addEventListener('input',run);w.addEventListener('input',run);
+document.getElementById('sq-add').addEventListener('click',function(){
+  var v=parseFloat(document.getElementById('sq-sqft').textContent.replace(/,/g,''));
+  if(!isNaN(v)){total+=v;document.getElementById('sq-total').textContent=Math.round(total*10)/10;}
+});
+})();</script>
+"""
+
+
+# ---------------------------------------------------------------- seconds converter
+SECONDS = """
+<div class="tool" id="tt-sec">
+  <div class="field"><label for="sec-in">Total seconds</label><input type="number" id="sec-in" step="1" min="0" placeholder="3725"></div>
+  <div class="result"><span class="result-num" id="sec-out">-</span></div>
+  <div class="field" style="margin-top:12px"><label for="sec-hms">Duration (h:mm:ss or mm:ss)</label><input type="text" id="sec-hms" placeholder="1:02:05"></div>
+</div>
+<script>(function(){
+var sIn=document.getElementById('sec-in'),hms=document.getElementById('sec-hms');
+var out=document.getElementById('sec-out');
+var lock=false;
+function pad(n){return (n<10?'0':'')+n;}
+function fromSeconds(v){
+  var h=Math.floor(v/3600),m=Math.floor(v%3600/60),s=v%60;
+  return h>0?h+':'+pad(m)+':'+pad(s):m+':'+pad(s);
+}
+function toSeconds(v){
+  var parts=v.trim().split(':').map(Number);
+  if(parts.some(isNaN))return null;
+  if(parts.length===3)return parts[0]*3600+parts[1]*60+parts[2];
+  if(parts.length===2)return parts[0]*60+parts[1];
+  if(parts.length===1)return parts[0];
+  return null;
+}
+sIn.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  var v=parseInt(sIn.value);
+  if(isNaN(v)){out.textContent='-';hms.value='';lock=false;return;}
+  out.textContent=fromSeconds(v);hms.value=fromSeconds(v);
+  lock=false;
+});
+hms.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  var v=toSeconds(this.value);
+  if(v===null){out.textContent='(use h:mm:ss)';sIn.value='';lock=false;return;}
+  out.textContent=v.toLocaleString('en-US')+' seconds';sIn.value=v;
+  lock=false;
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1528,6 +1617,8 @@ TOOLS = {
     "fuel": lambda args: FUEL,
     "salary": lambda args: SALARY,
     "coinflip": lambda args: COINFLIP,
+    "sqft": lambda args: SQFT,
+    "secondsconv": lambda args: SECONDS,
     "striphtml": lambda args: STRIPHTML,
     "salestax": lambda args: SALESTAX,
 }
