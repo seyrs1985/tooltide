@@ -1558,6 +1558,40 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "roman-numeral-date-converter",
+        "title": "Roman Numeral Date Converter — Weddings, Tattoos & Anniversaries",
+        "h1": "Roman Numeral Date Converter",
+        "desc": "Convert any date into Roman numerals — the classic wedding date and tattoo format (like XII·XXV·MMXXIV). Type a date, get the numerals, copy the style you want.",
+        "category": "converter",
+        "keyword": "roman numeral date converter",
+        "tool": "roman",
+        "args": {},
+        "intro": [
+            "Turn any date — a wedding day, an anniversary, a child's birth — into Roman numerals in the classic engraved format: 12·25·2024 becomes XII·XXV·MMXXIV. Roman numeral dates appear on invitation suites, wedding bands, tattoos and family wall art precisely because they look timeless.",
+            "Type your date below and the numerals render instantly. The separator dot (·) is the traditional engraved style, but hyphens or plain spacing are equally correct — the numerals themselves are what matter.",
+        ],
+        "howto": [
+            "Set the month, day and year of your date — the Roman numeral form renders instantly.",
+            "Read the result in the engraved style: month · day · year in Roman numerals.",
+            "Copy the numerals for your invitation, engraving or design mockup.",
+        ],
+        "faqs": [
+            ("How do you write a date in Roman numerals?",
+             "Convert each part of the date separately: the month, the day, and the year each become Roman numerals, traditionally joined by dots. June 15, 2025 becomes VI·XV·MMXXV."),
+            ("What is my wedding date in Roman numerals?",
+             "Type the date into the converter — for example, September 12, 2026 becomes IX·XII·MMXXVI. Couples usually engrave it with raised dots between the groups."),
+            ("Are Roman numeral date tattoos done in a specific order?",
+             "Most common is month·day·year (the American order), but day·month·year (European) is equally valid — choose the order that matches how you say the date, and keep it consistent across the design."),
+            ("Do Roman numerals have a year zero problem?",
+             "No — the calendar simply counts years forward, and every year from 1 to 3999 converts cleanly. All modern dates fit comfortably."),
+        ],
+    })
+
+    pages.append(_conv("mm-to-cm", "MM to CM", "millimeters", "centimeters", 1 / 10, "length",
+                       "The metric system's two everyday small units differ by exactly one factor of ten: 1 centimeter is 10 millimeters. Divide by 10 to go from mm to cm — or slide the decimal point one place left, which is all this converter is really doing.",
+                       "Handy anchors: 10 mm = 1 cm, 45 mm = 4.5 cm (a golf ball), 100 mm = 10 cm, 250 mm = 25 cm (a ruler's length)."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
