@@ -1243,6 +1243,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "grams-to-cups",
+        "title": "Grams to Cups Converter — By Ingredient (Flour, Sugar, Butter)",
+        "h1": "Grams to Cups Converter",
+        "desc": "Convert grams to cups by ingredient: flour, sugar, butter, oats, cocoa and more. Ingredient density matters — 200 g of flour is not 200 g of sugar in cups.",
+        "category": "converter",
+        "keyword": "grams to cups",
+        "tool": "gramscups",
+        "args": {},
+        "intro": [
+            "Converting grams to cups is the one baking conversion where the ingredient itself matters: a cup of flour weighs 125 g, but a cup of sugar weighs 200 g and a cup of honey nearly 340 g. Pick the ingredient from the list and both directions convert with the right density.",
+            "Results include a friendly fraction estimate (like \u2154 cup) because nobody measures 0.67 cups. For best baking results, grams win — a scale removes the packing-error that makes cup measurements unreliable — but when only cups exist, this converter keeps the recipe honest.",
+        ],
+        "howto": [
+            "Choose the ingredient from the dropdown — density differs for every one.",
+            "Type grams to see cups, or type cups to see grams; both directions update live.",
+            "Use the fraction shown as the practical measuring-cup answer.",
+        ],
+        "faqs": [
+            ("How many grams is a cup of flour?",
+             "About 125 g for all-purpose flour spooned and leveled. Scooping directly from the bag compresses it and can reach 150 g+ — which is why weight recipes beat cup recipes."),
+            ("How many grams is a cup of sugar?",
+             "Granulated sugar: about 200 g per cup. Brown sugar (packed): about 213 g. Powdered sugar is much lighter: about 120 g per cup."),
+            ("Why do grams and cups disagree between websites?",
+             "Because cups measure volume, not weight — the answer depends on how densely the ingredient is packed. Reputable sources agree closely on standard weights (flour 120–130 g per cup), and this converter uses the widely accepted values."),
+            ("Should I switch my recipes to grams?",
+             "If you bake regularly, yes: a scale costs little and removes the single biggest source of baking failure. Use this converter to translate your existing cup recipes once, then weigh forever after."),
+        ],
+    })
+
+    pages.append({
+        "slug": "day-of-week",
+        "title": "What Day of the Week Was I Born? — Day of Week Calculator",
+        "h1": "Day of the Week Calculator",
+        "desc": "Find the day of the week for any date in history — birthdays, historical events, or the date of your next anniversary. Instant, with the day-of-year and week number.",
+        "category": "calculator",
+        "keyword": "what day of the week was i born",
+        "tool": "dayofweek",
+        "args": {},
+        "intro": [
+            "Pick any date and see the day of the week it fell on — or will fall on. It answers the classic 'what day was I born on?' (and whether your birthday lands on a weekend next year), plus historical curiosity: moon landings, royal weddings, and that concert you remember being at.",
+            "Alongside the weekday you get the day-of-year number and the ISO week number, which is the detail project plans and European calendars quietly rely on.",
+        ],
+        "howto": [
+            "Pick any date — past or future — from the date picker.",
+            "Read the weekday instantly, plus the day-of-year and ISO week number.",
+            "Change the year to plan birthdays: see whether yours falls on a weekend next time.",
+        ],
+        "faqs": [
+            ("What day of the week was I born?",
+             "Enter your date of birth and the weekday appears instantly. The pattern repeats every 28 years (the solar cycle), so your birth date falls on the same weekday as it did 28 years ago."),
+            ("Does the calculator work for any year in history?",
+             "It uses your browser's proleptic Gregorian calendar, accurate across a huge historical range. For dates before 1582 (when the Gregorian calendar was introduced) historians use the Julian calendar, so results may differ from historical records."),
+            ("Why do dates fall on different weekdays each year?",
+             "A year is 365 days — one day longer than 52 weeks — so each year's dates shift one weekday later (two after a leap year). That is why your birthday keeps moving."),
+            ("What is the ISO week number?",
+             "A standard way of numbering weeks (1–52/53) used in European business calendars: week 1 is the week containing the first Thursday of January."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

@@ -1259,6 +1259,113 @@ code.addEventListener('input',function(){
 """
 
 
+# ---------------------------------------------------------------- grams <-> cups (by ingredient)
+GRAMSCUPS = """
+<div class="tool" id="tt-gc">
+  <div class="field"><label for="gc-ing">Ingredient</label>
+    <select id="gc-ing">
+      <option value="125">All-purpose flour (125 g/cup)</option>
+      <option value="200">Granulated sugar (200 g/cup)</option>
+      <option value="213">Brown sugar, packed (213 g/cup)</option>
+      <option value="120">Powdered sugar (120 g/cup)</option>
+      <option value="227">Butter (227 g/cup)</option>
+      <option value="240">Water / milk (240 g/cup)</option>
+      <option value="340">Honey (340 g/cup)</option>
+      <option value="90">Rolled oats (90 g/cup)</option>
+      <option value="100">Cocoa powder (100 g/cup)</option>
+      <option value="180">Rice, uncooked (180 g/cup)</option>
+    </select></div>
+  <div class="fields">
+    <div class="field"><label for="gc-g">Grams</label><input type="number" id="gc-g" step="any" min="0" placeholder="250"></div>
+    <div class="field"><label for="gc-c">Cups</label><input type="number" id="gc-c" step="any" min="0" placeholder=""></div>
+  </div>
+  <div class="result"><span class="result-num" id="gc-frac">–</span><span class="result-unit" id="gc-fr2"></span>
+    <div class="result-formula" id="gc-note"></div></div>
+</div>
+<script>(function(){
+var ing=document.getElementById('gc-ing'),G=document.getElementById('gc-g'),C=document.getElementById('gc-c');
+var frac=document.getElementById('gc-frac'),fr2=document.getElementById('gc-fr2'),note=document.getElementById('gc-note');
+var lock=false;
+function nice(n){
+  var common=[0,0.25,0.333,0.5,0.666,0.75,1];
+  var best=0,bd=9;
+  common.forEach(function(c){var d=Math.abs(n-c);if(d<bd){bd=d;best=c;}});
+  var names={0:'',0.25:'1/4',0.333:'1/3',0.5:'1/2',0.666:'2/3',0.75:'3/4',1:'1'};
+  var whole=Math.floor(n),rem=n-whole,remR=Math.round(rem*100)/100;
+  var base=whole?whole+' ':'';
+  var rn=names[best]||null;
+  if(remR>0.02&&remR<0.98&&rn&&best!==1)return base+rn;
+  if(best===1&&whole)return (whole+1)+'';
+  return (Math.round(n*100)/100)+'';
+}
+function runG(){
+  if(lock)return;lock=true;C.value='';
+  var g=parseFloat(G.value);
+  if(isNaN(g)||!g){frac.textContent='-';fr2.textContent='';note.textContent='';lock=false;return;}
+  var c=g/(parseFloat(ing.value));
+  var nc=Math.round(c*100)/100;
+  C.value=nc;
+  frac.textContent=nice(c);fr2.textContent='cup'+(c>1?'s':'');
+  note.textContent=g+' g \u00f7 '+ing.value+' g per cup';
+  lock=false;
+}
+function runC(){
+  if(lock)return;lock=true;G.value='';
+  var c=parseFloat(C.value);
+  if(isNaN(c)||!c){frac.textContent='-';fr2.textContent='';note.textContent='';lock=false;return;}
+  var g=c*(parseFloat(ing.value));
+  var gr=Math.round(g*10)/10;
+  G.value=gr;
+  frac.textContent=gr+' g';fr2.textContent='';
+  note.textContent=c+' cup(s) \u00d7 '+ing.value+' g per cup';
+  lock=false;
+}
+ing.addEventListener('change',runG);
+G.addEventListener('input',runG);
+C.addEventListener('input',runC);
+})();</script>
+"""
+
+
+# ---------------------------------------------------------------- day of week
+DAYOFWEEK = """
+<div class="tool" id="tt-dw">
+  <div class="field"><label for="dw-date">Any date</label><input type="date" id="dw-date"></div>
+  <div class="result"><span class="result-num" id="dw-out">-</span>
+    <div class="result-formula" id="dw-note"></div></div>
+  <div class="stats">
+    <div class="stat"><b id="dw-doy">-</b><span>day of year</span></div>
+    <div class="stat"><b id="dw-iso">-</b><span>ISO week</span></div>
+  </div>
+</div>
+<script>(function(){
+var d=document.getElementById('dw-date');
+var now=new Date();
+d.value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+function isoWeek(dt){
+  var t=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));
+  var day=(t.getUTCDay()+6)%7;
+  t.setUTCDate(t.getUTCDate()-day+3);
+  var firstThu=new Date(Date.UTC(t.getUTCFullYear(),0,4));
+  var fday=(firstThu.getUTCDay()+6)%7;
+  firstThu.setUTCDate(firstThu.getUTCDate()-fday+3);
+  return 1+Math.round((t-firstThu)/604800000);
+}
+function run(){
+  if(!d.value)return;
+  var dt=new Date(d.value+'T00:00:00');
+  if(isNaN(dt))return;
+  document.getElementById('dw-out').textContent=dt.toLocaleDateString('en-US',{weekday:'long'});
+  document.getElementById('dw-note').textContent=dt.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  var start=new Date(dt.getFullYear(),0,1);
+  document.getElementById('dw-doy').textContent=Math.round((dt-start)/864e5)+1;
+  document.getElementById('dw-iso').textContent='W'+isoWeek(dt);
+}
+d.addEventListener('input',run);run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1285,6 +1392,8 @@ TOOLS = {
     "inchfrac": lambda args: INCHFRAC,
     "average": lambda args: AVERAGE,
     "binary": lambda args: BINARY,
+    "gramscups": lambda args: GRAMSCUPS,
+    "dayofweek": lambda args: DAYOFWEEK,
     "striphtml": lambda args: STRIPHTML,
     "salestax": lambda args: SALESTAX,
 }
