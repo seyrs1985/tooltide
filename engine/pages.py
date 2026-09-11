@@ -558,6 +558,15 @@ def PAGES():
     pages.append(_conv("tablespoons-to-cups", "Tablespoons to Cups", "tablespoons", "cups (US)", 1 / 16, "volume",
                        "Scaling recipes up or down means hopping between tablespoons and cups — and 16 tablespoons per cup is not mental math anyone enjoys mid-recipe. Type the tablespoons, get the cups, get back to the oven.",
                        "Handy anchors: 4 tbsp = 1/4 cup, 8 tbsp = 1/2 cup (a stick of butter), 12 tbsp = 3/4 cup, 16 tbsp = 1 cup.", dec=3))
+    pages.append(_conv("quarts-to-liters", "Quarts to Liters", "quarts (US)", "liters", 0.946352946, "volume",
+                       "Engine oil, stock pots and paint cans are measured in quarts in the US and liters everywhere else — and they are annoyingly close in size, which is exactly why guessing goes wrong. One US quart is 0.946353 liters, just shy of a liter.",
+                       "Handy anchors: 1 qt = 0.95 L (an oil change), 4 qt = 3.79 L (a gallon), 6 qt = 5.68 L (an Instant Pot)."))
+    pages.append(_conv("grams-to-pounds", "Grams to Pounds", "grams", "pounds", 1 / 453.59237, "weight",
+                       "Convert grams — the unit on every packaged-food label — to pounds, the unit on every American bathroom scale. One pound is exactly 453.59237 grams, so 500 g is just over a pound and 1,000 g (a kilo) is 2.2 pounds.",
+                       "Handy anchors: 250 g = 0.55 lb, 454 g = 1 lb (a butter block), 1,000 g = 2.20 lb. Quick trick: grams ÷ 454."))
+    pages.append(_conv("stones-to-pounds", "Stone to Pounds", "stone", "pounds", 14, "weight",
+                       "Within the British weight system you often need both: someone weighs '11 and a half stone', a US form wants pounds. One stone is exactly 14 pounds — the one conversion in this family that is pure mental math, but this one's faster and shows decimals.",
+                       "Handy anchors: 1 st = 14 lb, 10 st = 140 lb, 12 st = 168 lb, 15 st = 210 lb. Halve the stone figure and add a tenth for rough pounds."))
     pages.append(_conv("yards-to-meters", "Yards to Meters", "yards", "meters", 0.9144, "length",
                        "Yards rule American football fields, golf courses and fabric counters; meters rule everything else. One yard is exactly 0.9144 meters — so a 100-yard football field is 91.44 meters of pure metric confusion.",
                        "Handy anchors: 1 yd = 0.91 m, 10 yd = 9.14 m, 100 yd = 91.44 m, 1 m = 1.09 yd (slightly more than a yard)."))
@@ -836,6 +845,36 @@ def PAGES():
              "The practical limit is your browser tab's memory — lists of hundreds of thousands of lines process in a second or two. Everything runs locally, so there is no upload bottleneck."),
             ("Is my data uploaded anywhere?",
              "No. The deduplication runs entirely in your browser with JavaScript. Nothing is transmitted or logged — you can disconnect from the internet and it still works."),
+        ],
+    })
+
+    pages.append({
+        "slug": "slug-generator",
+        "title": "URL Slug Generator — Clean, SEO-Friendly Slugs Instantly",
+        "h1": "URL Slug Generator",
+        "desc": "Turn any title into a clean URL slug: lowercase, accents stripped, spaces to hyphens. Perfect for blog posts, product pages and SEO. Runs entirely in your browser.",
+        "category": "text",
+        "keyword": "url slug generator",
+        "tool": "slug",
+        "args": {},
+        "intro": [
+            "Paste a headline and get the URL slug a search engine would want: lowercase, spaces and punctuation converted to hyphens, accents folded to their plain equivalents (café → cafe), and no stray dashes. The slug is the part of the URL that humans and Google both read — 'my-ultimate-cold-brew-guide' beats '/post?id=4171' every time.",
+            "It also reports slug length, because best practice keeps slugs short: 3–5 meaningful words, under about 60 characters. Edit the input live and the slug updates as you type; everything runs in your browser.",
+        ],
+        "howto": [
+            "Paste or type your page title into the box.",
+            "The clean slug appears instantly — accents folded, symbols stripped, words joined by hyphens.",
+            "Check the length readout, copy the slug, and paste it into your CMS or router.",
+        ],
+        "faqs": [
+            ("What makes a good URL slug?",
+             "Lowercase, hyphens between words, no punctuation, no filler words like 'a' or 'the', and 3–6 words that describe the content. Keywords near the front help slightly; readability matters more."),
+            ("Should slugs use hyphens or underscores?",
+             "Hyphens. Google treats hyphens as word separators but treats underscores as word joiners — 'cold-brew-guide' reads as three words, 'cold_brew_guide' reads as one."),
+            ("Do accented characters hurt SEO?",
+             "Modern browsers handle them, but they turn into ugly percent-encoded strings when shared (caf%C3%A9). Folding accents to plain letters keeps URLs clean and shareable."),
+            ("Can I change a slug after publishing?",
+             "Only with a redirect. Changing a published URL breaks any links pointing to it — set up a 301 redirect from the old slug to the new one, then update internal links."),
         ],
     })
 

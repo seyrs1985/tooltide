@@ -938,6 +938,32 @@ run();
 """
 
 
+# ---------------------------------------------------------------- slug generator
+SLUG = """
+<div class="tool" id="tt-slug">
+  <div class="field"><label for="sl-in">Title or text</label>
+    <textarea id="sl-in" rows="4" placeholder="My Ultimate Guide to Cold Brew Coffee (2026 Edition)!"></textarea></div>
+  <div class="result"><span class="result-num" id="sl-out" style="word-break:break-all">–</span>
+    <div class="result-formula" id="sl-len"></div></div>
+  <div class="tool-note">Lowercase · accents folded · hyphen-separated · trimmed to your spec below.</div>
+  <div class="fields"><div class="field"><label for="sl-max">Max length <small>(0 = no limit)</small></label><input type="number" id="sl-max" value="0" min="0" step="1"></div></div>
+</div>
+<script>(function(){
+var inp=document.getElementById('sl-in'),out=document.getElementById('sl-out'),len=document.getElementById('sl-len'),mx=document.getElementById('sl-max');
+function slugify(t){
+  var from="àáâãäåæçèéêëìíîïðñòóôõöøùúûüýþßłđđšžœ",to="aaaaaaaceeeeiiiionoooooouuuuythsddsoe";
+  t=t.toLowerCase().replace(/[-ɏ]/g,function(ch){var i=from.indexOf(ch);return i>=0?to.charAt(i):ch;});
+  t=t.replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  var m=parseInt(mx.value)||0;
+  if(m>0&&t.length>m){t=t.slice(0,m);var cut=t.lastIndexOf('-');if(cut>10)t=t.slice(0,cut);}
+  return t;
+}
+function run(){var s=slugify(inp.value);out.textContent=s||'–';len.textContent=s?(s.length+' characters · '+s.split('-').filter(Boolean).length+' words'):'Type a title above…';}
+inp.addEventListener('input',run);mx.addEventListener('input',run);run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -958,6 +984,7 @@ TOOLS = {
     "roman": lambda args: ROMAN,
     "grade": lambda args: GRADE,
     "dedupe": lambda args: DEDUPE,
+    "slug": lambda args: SLUG,
 }
 
 
