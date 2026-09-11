@@ -142,7 +142,9 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
 <meta property="og:url" content="{esc(canonical)}">
 <meta property="og:site_name" content="ToolTide">
 <meta property="og:locale" content="en_US">
-{og_img}<meta name="theme-color" content="#0e7490">
+{og_img}<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0e7490" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="{fav}">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
