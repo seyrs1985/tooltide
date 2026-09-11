@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Binary to Hex Converter — Binary ⇄ Hexadecimal, Instant</title>
+<meta name="description" content="Convert binary to hexadecimal and back instantly. Byte-grouped, standard notation, with the 4-bit nibble trick explained. Computer science homework solved.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/binary-to-hex/">
+<meta property="og:title" content="Binary to Hex Converter — Binary ⇄ Hexadecimal, Instant">
+<meta property="og:description" content="Convert binary to hexadecimal and back instantly. Byte-grouped, standard notation, with the 4-bit nibble trick explained. Computer science homework solved.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/binary-to-hex/">
+<meta property="og:site_name" content="ToolTide">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://seyrs1985.github.io/tooltide/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ToolTide — free online tools">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Binary to Hex Converter — Binary ⇄ Hexadecimal, Instant">
+<meta name="twitter:description" content="Convert binary to hexadecimal and back instantly. Byte-grouped, standard notation, with the 4-bit nibble trick explained. Computer science homework solved.">
+<meta name="twitter:image" content="https://seyrs1985.github.io/tooltide/og-image.png">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0e7490" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+<link rel="apple-touch-icon" href="https://seyrs1985.github.io/tooltide/apple-touch-icon.png">
+<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="https://seyrs1985.github.io/tooltide/opensearch.xml">
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Binary to Hex Converter","url":"https://seyrs1985.github.io/tooltide/binary-to-hex/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert binary to hexadecimal and back instantly. Byte-grouped, standard notation, with the 4-bit nibble trick explained. Computer science homework solved."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do you convert binary to hex?","acceptedAnswer":{"@type":"Answer","text":"Group the bits in fours from the right, then convert each group: 0100 = 4, 1001 = 9, so 01001001 = 49 in hex. Four bits (a nibble) cover exactly 0–15, the range of one hex digit."}},{"@type":"Question","name":"Why do programmers use hexadecimal?","acceptedAnswer":{"@type":"Answer","text":"It is readable shorthand for binary: every byte is exactly two hex digits instead of eight bits. Memory dumps, color codes and MAC addresses all use hex for this reason."}},{"@type":"Question","name":"What is 11111111 in hex?","acceptedAnswer":{"@type":"Answer","text":"FF — the maximum value of one byte, 255 in decimal. Eight 1-bits map to two F digits, one per nibble."}},{"@type":"Question","name":"Does the converter handle values longer than a byte?","acceptedAnswer":{"@type":"Answer","text":"Yes — groups are converted independently, so 16-bit, 32-bit and arbitrary-length binary strings all work. Keep the groups separated with spaces for reliable parsing."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"🌊 ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Converters","item":"https://seyrs1985.github.io/tooltide/#converter"},{"@type":"ListItem","position":3,"name":"Binary to Hex Converter","item":"https://seyrs1985.github.io/tooltide/binary-to-hex/"}]}]}</script>
+<script>(function(){var d=document.documentElement;d.classList.add("js");try{var t=localStorage.getItem("tt-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="stylesheet" href="../style.css?v=1bea7d95c9">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
+</head>
+<body><a class="skip" href="#main">Skip to content</a><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/"><span aria-hidden="true">🌊</span> ToolTide</a>
+    <form class="head-search" role="search" action="https://seyrs1985.github.io/tooltide/" method="get">
+      <input type="search" name="q" placeholder="Search tools…" aria-label="Search tools">
+      <button type="submit" aria-label="Search"><span aria-hidden="true">🔍</span></button>
+    </form>
+    <nav aria-label="Primary"><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games</a><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"><span aria-hidden="true">🌙</span></button>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a>  ›  <span>Binary to Hex Converter</span></nav><main class="wrap" id="main">
+<article>
+  <div class="page-emoji" aria-hidden="true">🔮</div>
+  <h1>Binary to Hex Converter</h1>
+  <noscript><p class="noscript-note">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
+  
+  <section class="intro"><p>Paste binary code (space-separated bytes like 01001000 01101001) and get clean hexadecimal — 48 69 — or paste hex and get the binary. The conversion works in groups of four bits: each binary nibble maps to exactly one hex digit, which is why programmers write memory dumps in hex.</p><p>Both directions update live and strict validation rejects malformed groups instead of guessing. It pairs with the text-to-binary converter for the full journey from human text to machine notation.</p></section>
+  
+<div class="tool" id="tt-bh">
+  <div class="field"><label for="bh-bin">Binary (space-separated groups)</label>
+    <textarea id="bh-bin" rows="3" placeholder="01001000 01101001"></textarea></div>
+  <div class="field" style="margin-top:10px"><label for="bh-hex">Hexadecimal (space-separated)</label>
+    <textarea id="bh-hex" rows="3" placeholder="48 69"></textarea></div>
+  <div class="tool-note">Each binary group converts to one hex digit pair. Max 8 bits per group; invalid groups are flagged, not guessed.</div>
+</div>
+<script>(function(){
+var bin=document.getElementById('bh-bin'),hex=document.getElementById('bh-hex');
+var lock=false;
+function binToHex(v){
+  return v.trim().split(/\s+/).filter(Boolean).map(function(g){
+    if(!/^[01]{1,8}$/.test(g))throw 'bad';
+    return parseInt(g,2).toString(16).toUpperCase().padStart(Math.ceil(g.length/4),'0');
+  }).join(' ');
+}
+function hexToBin(v){
+  return v.trim().split(/\s+/).filter(Boolean).map(function(g){
+    if(!/^[0-9a-fA-F]{1,4}$/.test(g))throw 'bad';
+    var n=parseInt(g,16);
+    var bits=Math.ceil(g.length*4/8)*8;
+    return n.toString(2).padStart(bits,'0');
+  }).join(' ');
+}
+bin.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  try{hex.value=this.value.trim()?binToHex(this.value):'';}
+  catch(e){hex.value='(invalid binary groups)';}
+  lock=false;
+});
+hex.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  try{bin.value=this.value.trim()?hexToBin(this.value):'';}
+  catch(e){bin.value='(invalid hex groups)';}
+  lock=false;
+});
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Paste binary in the first box — space-separated groups of up to 8 bits.</li><li>Read the hexadecimal in the second box, one or two hex digits per group.</li><li>Paste hex (like 48 69) in the second box to convert back to binary.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>How do you convert binary to hex?</summary><p>Group the bits in fours from the right, then convert each group: 0100 = 4, 1001 = 9, so 01001001 = 49 in hex. Four bits (a nibble) cover exactly 0–15, the range of one hex digit.</p></details><details class="faq"><summary>Why do programmers use hexadecimal?</summary><p>It is readable shorthand for binary: every byte is exactly two hex digits instead of eight bits. Memory dumps, color codes and MAC addresses all use hex for this reason.</p></details><details class="faq"><summary>What is 11111111 in hex?</summary><p>FF — the maximum value of one byte, 255 in decimal. Eight 1-bits map to two F digits, one per nibble.</p></details><details class="faq"><summary>Does the converter handle values longer than a byte?</summary><p>Yes — groups are converted independently, so 16-bit, 32-bit and arbitrary-length binary strings all work. Keep the groups separated with spaces for reliable parsing.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/cm-to-inches/"><span class="card-emoji" aria-hidden="true">🔄</span><span class="card-title">centimeters to inches Converter</span><span class="card-desc">Convert centimeters to inches instantly. Exact formula, quick reference table, and a free two-way converter — …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/inches-to-cm/"><span class="card-emoji" aria-hidden="true">🔄</span><span class="card-title">inches to centimeters Converter</span><span class="card-desc">Convert inches to centimeters instantly. Exact formula, quick reference table, and a free two-way converter — …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/kg-to-lbs/"><span class="card-emoji" aria-hidden="true">🔄</span><span class="card-title">kilograms to pounds Converter</span><span class="card-desc">Convert kilograms to pounds instantly. Exact formula, quick reference table, and a free two-way converter — no…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/lbs-to-kg/"><span class="card-emoji" aria-hidden="true">🔄</span><span class="card-title">pounds to kilograms Converter</span><span class="card-desc">Convert pounds to kilograms instantly. Exact formula, quick reference table, and a free two-way converter — no…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/celsius-to-fahrenheit/"><span class="card-emoji" aria-hidden="true">🔄</span><span class="card-title">Celsius to Fahrenheit Converter</span><span class="card-desc">Convert Celsius to Fahrenheit instantly. Exact formula, quick reference table, and a free two-way converter — …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/fahrenheit-to-celsius/"><span class="card-emoji" aria-hidden="true">🔄</span><span class="card-title">Fahrenheit to Celsius Converter</span><span class="card-desc">Convert Fahrenheit to Celsius instantly. Exact formula, quick reference table, and a free two-way converter — …</span></a></div></section>
+</article>
+</main><footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-brand">
+      <a class="logo" href="https://seyrs1985.github.io/tooltide/"><span aria-hidden="true">🌊</span> ToolTide</a>
+      <p>Free online tools that run in your browser. No sign-up, no installs, no tracking of your inputs.</p>
+      <nav class="foot-site" aria-label="Site"><a href="https://seyrs1985.github.io/tooltide/about/">About</a>
+      <a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a>
+      <a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a>
+      <a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games on NeonPlay</a></nav>
+    </div>
+    <div class="foot-matrix"><nav class="foot-col" aria-label="Countdowns"><h3><a href="https://seyrs1985.github.io/tooltide/#countdown"><span aria-hidden="true">⏳</span> Countdowns</a></h3><a href="https://seyrs1985.github.io/tooltide/days-until-christmas/">Christmas</a><a href="https://seyrs1985.github.io/tooltide/days-until-christmas-eve/">Christmas Eve</a><a href="https://seyrs1985.github.io/tooltide/days-until-summer/">Summer</a><a href="https://seyrs1985.github.io/tooltide/days-until-january/">January</a></nav><nav class="foot-col" aria-label="Calculators"><h3><a href="https://seyrs1985.github.io/tooltide/#calculator"><span aria-hidden="true">🧮</span> Calculators</a></h3><a href="https://seyrs1985.github.io/tooltide/inch-fraction-calculator/">Inch Fraction Calculator</a><a href="https://seyrs1985.github.io/tooltide/tip-calculator/">Tip Calculator &amp; Bill Splitter</a><a href="https://seyrs1985.github.io/tooltide/hours-calculator/">Hours Calculator</a><a href="https://seyrs1985.github.io/tooltide/half-calculator/">Half Calculator</a></nav><nav class="foot-col" aria-label="Converters"><h3><a href="https://seyrs1985.github.io/tooltide/#converter"><span aria-hidden="true">🔄</span> Converters</a></h3><a href="https://seyrs1985.github.io/tooltide/cm-to-inches/">centimeters to inches</a><a href="https://seyrs1985.github.io/tooltide/kg-to-stone/">kilograms to stone</a><a href="https://seyrs1985.github.io/tooltide/stones-to-pounds/">stone to pounds</a><a href="https://seyrs1985.github.io/tooltide/roman-numeral-date-converter/">Roman Numeral Date</a></nav><nav class="foot-col" aria-label="Text Tools"><h3><a href="https://seyrs1985.github.io/tooltide/#text"><span aria-hidden="true">🔤</span> Text Tools</a></h3><a href="https://seyrs1985.github.io/tooltide/strip-html/">Strip HTML Tags</a><a href="https://seyrs1985.github.io/tooltide/case-converter/">Case</a><a href="https://seyrs1985.github.io/tooltide/slug-generator/">URL Slug Generator</a><a href="https://seyrs1985.github.io/tooltide/word-frequency-counter/">Word Frequency Counter</a></nav><nav class="foot-col" aria-label="Generators"><h3><a href="https://seyrs1985.github.io/tooltide/#generator"><span aria-hidden="true">🎲</span> Generators</a></h3><a href="https://seyrs1985.github.io/tooltide/random-name-generator/">Random Name Generator</a><a href="https://seyrs1985.github.io/tooltide/random-number-generator/">Random Number Generator</a><a href="https://seyrs1985.github.io/tooltide/dice-roller/">Dice Roller</a><a href="https://seyrs1985.github.io/tooltide/random-country-generator/">Random Country Generator</a></nav></div>
+    <div class="foot-legal">
+      
+      <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+    </div>
+  </div>
+</footer><button class="to-top" id="to-top" type="button" aria-label="Back to top">↑ <span aria-hidden="true">Top</span></button>
+<script>(function(){
+var b=document.getElementById('to-top');
+if(!b)return;
+var pending=false;
+function update(){
+  b.classList.toggle('show',window.scrollY>600);
+}
+window.addEventListener('scroll',function(){
+  if(pending)return;
+  pending=true;
+  requestAnimationFrame(function(){update();pending=false;});
+},{passive:true});
+update();
+b.addEventListener('click',function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  var h=document.querySelector('h1');
+  if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true});}
+});
+})();</script><script>(function(){
+var b=document.getElementById('theme-toggle');
+if(!b)return;
+var icon=b.querySelector('span');
+function osDark(){return !!(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);}
+function current(){var a=document.documentElement.getAttribute('data-theme');return a==='dark'||a==='light'?a:(osDark()?'dark':'light');}
+function syncMeta(t){var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++){m[i].removeAttribute('media');m[i].setAttribute('content',t==='dark'?'#1e293b':'#0e7490');}}
+function paint(t){
+  document.documentElement.setAttribute('data-theme',t);
+  icon.textContent=t==='dark'?'\u2600\uFE0F':'\uD83C\uDF19';
+  b.setAttribute('aria-label',t==='dark'?'Switch to light theme':'Switch to dark theme');
+}
+b.addEventListener('click',function(){
+  var t=current()==='dark'?'light':'dark';
+  paint(t);syncMeta(t);
+  try{localStorage.setItem('tt-theme',t);}catch(e){}
+});
+var saved=null;
+try{saved=localStorage.getItem('tt-theme');}catch(e){}
+if(saved==='dark'||saved==='light'){paint(saved);syncMeta(saved);}
+else{paint(current());}
+})();</script></body></html>

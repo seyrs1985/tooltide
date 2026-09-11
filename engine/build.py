@@ -29,7 +29,7 @@ TOOL_EMOJI = {
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
- "randomnum": "🎲", "roman": "🏛️", "wordspages": "📄", "grade": "🎓", "dedupe": "🧹", "slug": "🔗", "salestax": "🧾", "average": "🧮", "binary": "💾", "gramscups": "🥤", "fuel": "⛽", "salary": "💼", "sqft": "📐", "pxin": "🖨️", "unitconv": "🔄", "secondsconv": "⏱️", "coinflip": "🪙", "dice": "🎲", "half": "➗", "cubicft": "📦", "unitprice": "🏷️", "degrad": "📐", "romantable": "📜", "hexrgb": "🎨", "planets": "🪐", "combiner": "💞", "whitespace": "🧽", "yesno": "🍀", "prime": "🔢", "country": "🌍", "stlb": "⚖️", "ftincm": "📏", "emoji": "🎲", "factorial": "❗", "wordfreq": "📈", "sorter": "🔤", "letter": "🔤", "dayofweek": "📆", "percent": "📊",
+ "randomnum": "🎲", "roman": "🏛️", "wordspages": "📄", "grade": "🎓", "dedupe": "🧹", "slug": "🔗", "salestax": "🧾", "average": "🧮", "binary": "💾", "gramscups": "🥤", "fuel": "⛽", "salary": "💼", "sqft": "📐", "pxin": "🖨️", "unitconv": "🔄", "secondsconv": "⏱️", "coinflip": "🪙", "dice": "🎲", "half": "➗", "cubicft": "📦", "unitprice": "🏷️", "degrad": "📐", "romantable": "📜", "hexrgb": "🎨", "numwords": "🔠", "planets": "🪐", "binhex": "🔮", "combiner": "💞", "whitespace": "🧽", "yesno": "🍀", "prime": "🔢", "country": "🌍", "stlb": "⚖️", "ftincm": "📏", "emoji": "🎲", "factorial": "❗", "wordfreq": "📈", "sorter": "🔤", "letter": "🔤", "dayofweek": "📆", "percent": "📊",
 }
 
 
@@ -356,6 +356,71 @@ if(saved==='dark'||saved==='light'){paint(saved);syncMeta(saved);}
 else{paint(current());}
 })();</script>"""
 
+# Cards shown per homepage section before the "Show all" toggle takes over.
+SECTION_TOP = 12
+
+# Homepage section collapse: big categories hide cards beyond SECTION_TOP
+# behind a "Show all" button. The hiding CSS is gated on html.js (set
+# pre-paint by PREPAINT_THEME), so without JS nothing collapses and no card is
+# ever lost. Deep links to a section anchor (hero chips, crumbs, footer)
+# auto-expand it, and a second click re-collapses.
+CATS_JS = """<script>(function(){
+function setLabel(b,open){
+  b.textContent=open?'Show fewer tools':'Show all '+b.getAttribute('data-count')+' tools';
+}
+function expand(sec){
+  if(sec.classList.contains('open'))return;
+  sec.classList.add('open');
+  var b=sec.querySelector('.cat-more');
+  if(b){b.setAttribute('aria-expanded','true');setLabel(b,true);}
+}
+// Anchor deep links (#converter from chips/crumbs/footer) must land exactly on
+// the section: content-visibility placeholders make the pre-expand offsets
+// lie, so re-anchor instantly after expanding instead of trusting the
+// browser's fragment scroll.
+function reveal(sec){
+  expand(sec);
+  if(sec.scrollIntoView){
+    try{sec.scrollIntoView({behavior:'instant',block:'start'});}
+    catch(e){sec.scrollIntoView();}
+  }
+}
+function collapse(sec){
+  if(!sec.classList.contains('open'))return;
+  sec.classList.remove('open');
+  var b=sec.querySelector('.cat-more');
+  if(b){b.setAttribute('aria-expanded','false');setLabel(b,false);}
+}
+var secs=document.querySelectorAll('.cat');
+for(var i=0;i<secs.length;i++){(function(sec){
+  var b=sec.querySelector('.cat-more');
+  if(!b)return;
+  b.addEventListener('click',function(){
+    if(sec.classList.contains('open'))collapse(sec);else expand(sec);
+  });
+})(secs[i]);}
+function hashExpand(){
+  var id=(location.hash||'').slice(1);
+  if(!id)return;
+  var sec=document.getElementById(id);
+  if(sec&&sec.classList.contains('cat'))reveal(sec);
+}
+if(window.addEventListener)window.addEventListener('hashchange',hashExpand);
+// Clicking a section anchor when the hash is already that value never fires
+// hashchange — watch anchor clicks directly so a second chip click still
+// expands and lands (reveal is idempotent).
+if(document.addEventListener)document.addEventListener('click',function(e){
+  var t=e.target,a=t&&t.closest?t.closest('a'):null;
+  if(!a)return;
+  var href=a.getAttribute('href')||'';
+  var i=href.lastIndexOf('#');
+  if(i<0)return;
+  var sec=document.getElementById(href.slice(i+1));
+  if(sec&&sec.classList.contains('cat'))reveal(sec);
+});
+hashExpand();
+})();</script>"""
+
 
 def tool_card(p, base, extra=False):
     emoji = (p.get("args") or {}).get("emoji") or TOOL_EMOJI.get(p["tool"], "🔧")
@@ -487,6 +552,7 @@ def build_index(cfg, all_pages, cat_info):
     doc += footer(cfg, base, all_pages, cat_info)
     doc += BACKTOP
     doc += THEME_JS
+    doc += CATS_JS
     doc += f"""<script>(function(){{
 var CARDS={cards_js};
 var inp=document.getElementById('tool-search'),out=document.getElementById('search-results'),live=document.getElementById('search-status');

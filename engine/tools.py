@@ -2496,6 +2496,92 @@ run();
 """
 
 
+# ---------------------------------------------------------------- binary <-> hex
+BINHEX = """
+<div class="tool" id="tt-bh">
+  <div class="field"><label for="bh-bin">Binary (space-separated groups)</label>
+    <textarea id="bh-bin" rows="3" placeholder="01001000 01101001"></textarea></div>
+  <div class="field" style="margin-top:10px"><label for="bh-hex">Hexadecimal (space-separated)</label>
+    <textarea id="bh-hex" rows="3" placeholder="48 69"></textarea></div>
+  <div class="tool-note">Each binary group converts to one hex digit pair. Max 8 bits per group; invalid groups are flagged, not guessed.</div>
+</div>
+<script>(function(){
+var bin=document.getElementById('bh-bin'),hex=document.getElementById('bh-hex');
+var lock=false;
+function binToHex(v){
+  return v.trim().split(/\s+/).filter(Boolean).map(function(g){
+    if(!/^[01]{1,8}$/.test(g))throw 'bad';
+    return parseInt(g,2).toString(16).toUpperCase().padStart(Math.ceil(g.length/4),'0');
+  }).join(' ');
+}
+function hexToBin(v){
+  return v.trim().split(/\s+/).filter(Boolean).map(function(g){
+    if(!/^[0-9a-fA-F]{1,4}$/.test(g))throw 'bad';
+    var n=parseInt(g,16);
+    var bits=Math.ceil(g.length*4/8)*8;
+    return n.toString(2).padStart(bits,'0');
+  }).join(' ');
+}
+bin.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  try{hex.value=this.value.trim()?binToHex(this.value):'';}
+  catch(e){hex.value='(invalid binary groups)';}
+  lock=false;
+});
+hex.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  try{bin.value=this.value.trim()?hexToBin(this.value):'';}
+  catch(e){bin.value='(invalid hex groups)';}
+  lock=false;
+});
+})();</script>
+"""
+
+
+# ---------------------------------------------------------------- number to words
+NUMWORDS = """
+<div class="tool" id="tt-nw">
+  <div class="field"><label for="nw-in">Number (0 - 999,999,999,999,999)</label>
+    <input type="text" id="nw-in" inputmode="numeric" placeholder="1234"></div>
+  <div class="result"><span class="result-num" id="nw-out" style="text-transform:capitalize">-</span></div>
+  <div class="tool-note">Standard American wording: no "and" before the tens, hyphenated compounds (forty-two), scale words up to trillion.</div>
+</div>
+<script>(function(){
+var ONES=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+var TENS=["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+var SCALES=[""," thousand"," million"," billion"," trillion"];
+function under1000(n){
+  var s="";
+  if(n>=100){s+=ONES[Math.floor(n/100)]+" hundred";n%=100;if(n)s+=" ";}
+  if(n>=20){s+=TENS[Math.floor(n/10)];if(n%10)s+="-"+ONES[n%10];}
+  else if(n>0)s+=ONES[n];
+  return s;
+}
+function toWords(numStr){
+  numStr=numStr.replace(/,/g,"").replace(/^0+(?=\d)/,"");
+  if(!/^\d{1,15}$/.test(numStr))return null;
+  var groups=[];
+  var v=numStr;
+  while(v.length>0){groups.unshift(v.slice(-3));v=v.slice(0,-3);}
+  var parts=[];
+  groups.forEach(function(g,i){
+    var n=parseInt(g,10);
+    if(n)parts.push(under1000(n)+SCALES[groups.length-1-i]);
+  });
+  if(!parts.length)return "zero";
+  return parts.join(" ");
+}
+var inp=document.getElementById("nw-in"),out=document.getElementById("nw-out");
+inp.addEventListener("input",function(){
+  var v=this.value.trim();
+  if(!v){out.textContent="-";return;}
+  var w=toWords(v);
+  out.textContent=w||"0 to 999,999,999,999,999 only, digits only";
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2538,9 +2624,11 @@ TOOLS = {
     "romantable": _render_romantable,
     "yesno": lambda args: YESNO,
     "hexrgb": lambda args: HEXRGB,
+    "numwords": lambda args: NUMWORDS,
     "planets": lambda args: PLANETS,
     "combiner": lambda args: COMBINER,
     "whitespace": lambda args: WHITESPACE,
+    "binhex": lambda args: BINHEX,
     "prime": lambda args: PRIME,
     "factorial": lambda args: FACTORIAL,
     "country": lambda args: COUNTRY,

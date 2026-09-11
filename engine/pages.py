@@ -2226,6 +2226,70 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "binary-to-hex",
+        "title": "Binary to Hex Converter — Binary ⇄ Hexadecimal, Instant",
+        "h1": "Binary to Hex Converter",
+        "desc": "Convert binary to hexadecimal and back instantly. Byte-grouped, standard notation, with the 4-bit nibble trick explained. Computer science homework solved.",
+        "category": "converter",
+        "keyword": "binary to hex",
+        "tool": "binhex",
+        "args": {},
+        "intro": [
+            "Paste binary code (space-separated bytes like 01001000 01101001) and get clean hexadecimal — 48 69 — or paste hex and get the binary. The conversion works in groups of four bits: each binary nibble maps to exactly one hex digit, which is why programmers write memory dumps in hex.",
+            "Both directions update live and strict validation rejects malformed groups instead of guessing. It pairs with the text-to-binary converter for the full journey from human text to machine notation.",
+        ],
+        "howto": [
+            "Paste binary in the first box — space-separated groups of up to 8 bits.",
+            "Read the hexadecimal in the second box, one or two hex digits per group.",
+            "Paste hex (like 48 69) in the second box to convert back to binary.",
+        ],
+        "faqs": [
+            ("How do you convert binary to hex?",
+             "Group the bits in fours from the right, then convert each group: 0100 = 4, 1001 = 9, so 01001001 = 49 in hex. Four bits (a nibble) cover exactly 0–15, the range of one hex digit."),
+            ("Why do programmers use hexadecimal?",
+             "It is readable shorthand for binary: every byte is exactly two hex digits instead of eight bits. Memory dumps, color codes and MAC addresses all use hex for this reason."),
+            ("What is 11111111 in hex?",
+             "FF — the maximum value of one byte, 255 in decimal. Eight 1-bits map to two F digits, one per nibble."),
+            ("Does the converter handle values longer than a byte?",
+             "Yes — groups are converted independently, so 16-bit, 32-bit and arbitrary-length binary strings all work. Keep the groups separated with spaces for reliable parsing."),
+        ],
+    })
+
+    pages.append({
+        "slug": "number-to-words",
+        "title": "Number to Words Converter — Numbers in English Text",
+        "h1": "Number to Words Converter",
+        "desc": "Convert any number to English words instantly: 1234 becomes one thousand two hundred thirty-four. For checks, contracts, invoices and formal documents.",
+        "category": "converter",
+        "keyword": "number to words",
+        "tool": "numwords",
+        "args": {},
+        "intro": [
+            "Type any whole number from 0 to 999 trillion and see it written out in English words — the format legal documents, checks and formal contracts require. Handles hyphenated compound numbers (forty-two), the word 'and' conventions, and the full scale ladder from thousand up to trillion.",
+            "Writing amounts in words is not decoration: banks and legal systems require the word form precisely because digits are easy to alter. This converter produces the standard American wording, instantly and without the spelling anxiety.",
+        ],
+        "howto": [
+            "Type your number — digits only, no commas needed.",
+            "Read the word form; hyphens and scale words (thousand, million, trillion) are handled automatically.",
+            "Copy the result into your document, check or contract.",
+        ],
+        "faqs": [
+            ("How do you write 1234 in words?",
+             "One thousand two hundred thirty-four. American convention omits 'and' before the tens (British style would say 'one thousand two hundred and thirty-four') — both are understood."),
+            ("How do you write amounts on a check?",
+             "Write the cents as a fraction: 'One thousand two hundred thirty-four and 56/100 dollars'. The word form controls the legal amount, which is why it must match the digits exactly."),
+            ("What is the biggest number this converts?",
+             "Up to 999,999,999,999,999 — the trillions scale. Beyond that, scientific notation is the clearer choice for everyone involved."),
+            ("Why do hyphens appear in some numbers?",
+             "Compound numbers from twenty-one to ninety-nine take a hyphen (forty-two, seventy-five). It is standard English orthography, and the converter applies it automatically."),
+        ],
+    })
+
+    pages.append(_conv("gallons-to-cups", "Gallons to Cups", "gallons (US)", "cups (US)", 16, "volume",
+                       "The extreme ends of the US volume ladder meet here: 1 gallon is exactly 16 cups. Punch recipes, beverage dispensers and big-batch cooking are where this conversion actually happens.",
+                       "Handy anchors: 1 gal = 16 cups, 0.5 gal = 8 cups, 2 gal = 32 cups (a party dispenser), 1 cup = 1/16 gal."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

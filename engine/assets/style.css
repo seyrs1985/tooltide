@@ -244,6 +244,28 @@ input[type=range]{padding:0;accent-color:var(--brand)}
 .cat-count{font-size:.72rem;font-weight:700;line-height:1;color:var(--muted);background:var(--surface-2);border-radius:999px;padding:3px 8px;vertical-align:2px;margin-left:4px}
 .chip-n{font-weight:600;color:var(--muted);margin-left:2px}
 
+/* section collapse — cards beyond SECTION_TOP sit behind a "Show all" toggle.
+   Hiding is gated on html.js (set pre-paint), so no-JS visitors see everything
+   and crawlers without JS never lose a link. */
+.cat-more{display:none;margin:6px 0 0;padding:9px 16px;border:1px solid var(--input-border);border-radius:999px;background:var(--surface);color:var(--brand);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer;transition:border-color .15s,color .15s}
+html.js .cat-more{display:inline-flex;align-items:center;gap:7px}
+html.js .cat:not(.open) .card.extra{display:none}
+.cat-more::after{content:'▾';font-size:.75rem;line-height:1;transition:transform .2s}
+.cat-more[aria-expanded="true"]::after{transform:rotate(180deg)}
+.cat-more:hover{border-color:var(--brand);color:var(--brand)}
+
+/* long-page render perf — the browser skips layout/paint of offscreen
+   category sections until they scroll into view (progressive enhancement) */
+@supports (content-visibility:auto){
+  .cat{content-visibility:auto;contain-intrinsic-size:420px}
+  .cat{contain-intrinsic-size:auto 760px}
+}
+@media print{
+  .cat{content-visibility:visible}
+  html.js .cat .card.extra{display:flex}
+  .cat-more{display:none!important}
+}
+
 /* back-to-top floating button */
 .to-top{position:fixed;right:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:5px;padding:11px 15px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--brand);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:var(--shadow-hover);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,transform .2s,visibility 0s .2s}
 .to-top.show{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s,visibility 0s}
@@ -261,7 +283,7 @@ input[type=range]{padding:0;accent-color:var(--brand)}
   .head-search{order:4;flex:1 1 100%;max-width:none;margin-top:2px}
   .head-search input,.head-search button{height:44px}
 }
-@media(prefers-reduced-motion:reduce){.card,.pw-bar,.hero-chips a,.to-top,.faq summary::after,.theme-toggle,.head-search button{transition:none}.card:hover,.to-top,.btn:active{transform:none}html{scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){.card,.pw-bar,.hero-chips a,.to-top,.faq summary::after,.theme-toggle,.head-search button,.cat-more,.cat-more::after{transition:none}.card:hover,.to-top,.btn:active,.cat-more[aria-expanded="true"]::after{transform:none}html{scroll-behavior:auto}}
 
 /* static pages */
 .static-page{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;margin:18px 0}
