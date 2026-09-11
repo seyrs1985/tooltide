@@ -512,6 +512,30 @@ def build_page(cfg, p, all_pages, cat_info):
     return doc
 
 
+# Homepage closing section: the three principles from the About page as
+# scannable cards, so the long tool list ends by setting expectations
+# (private / fast / free) instead of trailing off into a paragraph.
+VALUE_CARDS = [
+    ("🔒", "Private by architecture",
+     "Every tool runs entirely in your browser. The numbers and text you type "
+     "never reach a server — there is simply nothing to send."),
+    ("⚡", "Fast on any device",
+     "No frameworks, no bloat, no spinner. Pages are tiny and load instantly, "
+     "even on a slow mobile connection or an older device."),
+    ("💚", "Free, forever",
+     "No accounts, no paywalls, no locked features. Supported by unobtrusive "
+     "ads — never by selling data or gating the tool you need."),
+]
+
+
+def values_html():
+    cards = "".join(
+        f'<div class="value-card"><span class="value-emoji" aria-hidden="true">{e}</span>'
+        f'<h3>{esc(t)}</h3><p>{esc(d)}</p></div>'
+        for e, t, d in VALUE_CARDS)
+    return f'<div class="values">{cards}</div>'
+
+
 def build_index(cfg, all_pages, cat_info):
     base = cfg["base_url"]
     canonical = base
@@ -562,7 +586,8 @@ def build_index(cfg, all_pages, cat_info):
 {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
 {chr(10).join(sections)}
 <section class="cat" id="all"><h2>About ToolTide</h2>
-<p class="cat-blurb">ToolTide is a collection of small, fast, honest web tools. No accounts, no paywalls, no selling your data — each tool does one job and gets out of your way. Bookmark us and the tide of small annoyances goes out.</p></section>
+<p class="cat-blurb">ToolTide is a collection of small, fast, honest web tools. No accounts, no paywalls, no selling your data — each tool does one job and gets out of your way. Bookmark us and the tide of small annoyances goes out.</p>
+{values_html()}</section>
 </main>"""
     doc += footer(cfg, base, all_pages, cat_info)
     doc += BACKTOP
