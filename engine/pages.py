@@ -267,6 +267,30 @@ def PAGES():
              "🎒")
     pages.append(sb)
 
+    ja = _cd("january", "January", 1, 1, "how many days until january",
+             "January is the reset button: new year resolutions, gym memberships, dry January and the long, quiet walk back to work. 'How many days until January' is usually someone planning a fresh start — or bracing for the credit card bill.",
+             "This timer targets the upcoming January 1st and rolls over automatically — the moment the new year begins, it starts counting to the next one.",
+             "🎊")
+    pages.append(ja)
+
+    fb = _cd("february", "February", 2, 1, "how many days until february",
+             "February is the short month with the biggest romantic deadline: Valentine's Day lands on the 14th, and the whole month is either a countdown to romance or to discount chocolate on the 15th. It is also, thanks to leap years, the only month that occasionally refuses to end.",
+             "This timer targets the upcoming February 1st and rolls over automatically — leap years included.",
+             "💘")
+    pages.append(fb)
+
+    ap = _cd("april", "April", 4, 1, "how many days until april",
+             "April brings spring properly: cherry blossoms, Easter weekend most years, spring break trips, and (for Americans) the tax deadline on the 15th looming like a storm cloud over the tulips.",
+             "This timer targets the upcoming April 1st and rolls over automatically — spring planners and filers alike.",
+             "🌱")
+    pages.append(ap)
+
+    au = _cd("august", "August", 8, 1, "how many days until august",
+             "August is summer's last stand: the big family holiday, the county fair, back-to-school sales creeping in, and evenings that start noticeably earlier by the end of the month.",
+             "This timer targets the upcoming August 1st and rolls over automatically — holiday countdowns and school-supply triage both start here.",
+             "🏖️")
+    pages.append(au)
+
     nv = _cd("november", "November", 11, 1, "how many days until november",
              "November is the gateway to the holiday season: No Shave November, Thanksgiving travel chaos, Black Friday countdowns and the first Christmas ads of the year. The clocks have changed, the mornings are dark, and online carts are filling up.",
              "This timer targets the upcoming November 1st and rolls over automatically — shoppers use it to plan Black Friday budgets and holiday shipping deadlines.",
