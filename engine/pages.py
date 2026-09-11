@@ -1809,6 +1809,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "roman-numerals-1-100",
+        "title": "Roman Numerals 1-100 — Complete Chart (I to C)",
+        "h1": "Roman Numerals 1–100 Chart",
+        "desc": "The complete Roman numerals chart from 1 to 100 (I to C): every number with its Roman numeral, plus the rules for reading them. Free printable reference table.",
+        "category": "converter",
+        "keyword": "roman numerals 1-100",
+        "tool": "romantable",
+        "args": {},
+        "intro": [
+            "The full Roman numerals chart from 1 to 100 — every number with its Roman numeral in a clean four-column table, ready to read at a glance or print for homework. The pattern becomes obvious after 10 rows: tens build on X, XX, XXX, and units repeat I through IX inside each decade.",
+            "Below the chart you will find the seven symbols and the one rule that generates the whole system: subtract when a smaller numeral stands before a larger one (IV = 4, XC = 90), otherwise add. That single rule plus seven letters covers every number from 1 to 3,999.",
+        ],
+        "howto": [
+            "Scan the table for your number — rows run 1–25, 26–50, 51–75 and 76–100.",
+            "Check the symbols box below to learn the seven letters and their values.",
+            "Need a number outside 1–100? Use the full Roman numeral converter linked below the chart.",
+        ],
+        "faqs": [
+            ("What is the Roman numeral for 100?",
+             "100 is C (from the Latin centum). Numbers 100–399 then build with C, CC, CCC, and 400 is CD (100 before 500)."),
+            ("What are the seven Roman numeral symbols?",
+             "I (1), V (5), X (10), L (50), C (100), D (500) and M (1,000). Every Roman number is written with combinations of only these seven letters."),
+            ("How do you write 99 in Roman numerals?",
+             "XCIX: XC is 90 (100 minus 10) and IX is 9 (10 minus 1). The subtract-before rule applies at both ends of the number."),
+            ("Is IIII a valid Roman numeral?",
+             "On clocks, traditionally yes (clock faces often show IIII for visual symmetry). In standard written Roman numerals, 4 is always IV."),
+        ],
+    })
+
+    pages.append({
+        "slug": "yes-or-no",
+        "title": "Yes or No Decision Maker — Random Answer, Cryptographically Fair",
+        "h1": "Yes or No?",
+        "desc": "Can't decide? Get a random Yes or No answer instantly. Cryptographically fair 50/50, with a running tally. The fastest decision tool on the internet.",
+        "category": "generator",
+        "keyword": "yes or no",
+        "tool": "yesno",
+        "args": {},
+        "intro": [
+            "Ask a yes/no question, press the button, get an answer. It uses the browser's cryptographically secure random source, so the 50/50 is genuinely fair — no hidden bias toward the answer you were hoping for (that part is still on you).",
+            "The tally tracks your session so you can spot when luck keeps saying no. Decisions with real consequences deserve more than a coin toss — but for pizza-or-pasta, this is the tool.",
+        ],
+        "howto": [
+            "Think of your yes/no question.",
+            "Press the big button — the answer appears instantly.",
+            "Keep asking for best-of series; the tally tracks yes and no counts.",
+        ],
+        "faqs": [
+            ("Is the yes or no answer really random?",
+             "Yes — each answer draws from the browser's WebCrypto secure random source, the same generator class used for encryption. Exactly 50/50 in expectation, no patterns."),
+            ("Should I make real decisions with this?",
+             "For pizza toppings and movie picks, absolutely. For anything with lasting consequences, use it as a tiebreaker after real deliberation, not instead of it."),
+            ("Does it remember my questions?",
+             "No — the tool sees nothing you are deciding about; it only produces the answer. The tally resets when you leave the page."),
+            ("Can I ask more than once?",
+             "As many times as you like — the tally counts each answer so you can run best-of-three or spot a suspicious streak."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

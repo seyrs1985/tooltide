@@ -1952,6 +1952,64 @@ RAD.addEventListener('input',function(){
 """
 
 
+# ---------------------------------------------------------------- roman table 1-100
+def _roman_static(n):
+    M = [(1000,"M"),(900,"CM"),(500,"D"),(400,"CD"),(100,"C"),(90,"XC"),(50,"L"),(40,"XL"),(10,"X"),(9,"IX"),(5,"V"),(4,"IV"),(1,"I")]
+    out = ""
+    for v, sym in M:
+        while n >= v:
+            out += sym
+            n -= v
+    return out
+
+ROMANTABLE = """
+<table class="copytable" id="tt-rt100">
+<thead><tr><th>1-25</th><th>26-50</th><th>51-75</th><th>76-100</th></tr></thead>
+<tbody>__ROWS__</tbody>
+</table>
+<div class="tool-note">Seven symbols, one rule: smaller numeral before a larger one subtracts (IV = 4, XC = 90). Everything else adds.</div>
+"""
+
+def _render_romantable(args):
+    vals = {n: _roman_static(n) for n in range(1, 101)}
+    rows = []
+    for r in range(25):
+        cells = []
+        for off in (0, 25, 50, 75):
+            n = r + 1 + off
+            cells.append(f"<td>{n} = <b>{vals[n]}</b></td>")
+        rows.append("<tr>" + "".join(cells) + "</tr>")
+    return ROMANTABLE.replace("__ROWS__", "\n".join(rows))
+
+
+
+# ---------------------------------------------------------------- yes or no
+YESNO = """
+<div class="tool" id="tt-yn" style="text-align:center">
+  <div class="result" style="border:0;background:transparent"><span class="result-num" id="yn-out" style="font-size:3rem">?</span></div>
+  <button class="btn" id="yn-go" type="button" style="font-size:1.1rem;padding:14px 34px">Ask</button>
+  <div class="stats" style="max-width:320px;margin:14px auto 0">
+    <div class="stat"><b id="yn-y">0</b><span>yes</span></div>
+    <div class="stat"><b id="yn-n">0</b><span>no</span></div>
+  </div>
+</div>
+<script>(function(){
+var y=0,n=0;
+function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+  do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+document.getElementById("yn-go").addEventListener("click",function(){
+  var yes=secureInt(2);
+  var o=document.getElementById("yn-out");
+  o.textContent=yes?"YES":"NO";
+  o.style.color=yes?"#16a34a":"#dc2626";
+  if(yes)y++;else n++;
+  document.getElementById("yn-y").textContent=y;
+  document.getElementById("yn-n").textContent=n;
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1991,6 +2049,8 @@ TOOLS = {
     "unitprice": lambda args: UNITPRICE,
     "wordfreq": lambda args: WORDFREQ,
     "degrad": lambda args: DEGRAD,
+    "romantable": _render_romantable,
+    "yesno": lambda args: YESNO,
     "sqft": lambda args: SQFT,
     "secondsconv": lambda args: SECONDS,
     "pxin": lambda args: PXIN,
