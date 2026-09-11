@@ -69,7 +69,12 @@ case "$code" in
 esac
 
 echo "== 5/6 push =="
-git -c credential.helper= push -q "https://x-access-token:${TOKEN}@github.com/${OWNER}/${REPO}.git" main
+PUSH_URL="https://x-access-token:${TOKEN}@github.com/${OWNER}/${REPO}.git"
+# shared repo: rebase onto remote tip first (another agent may have pushed)
+if ! git -c credential.helper= pull -q --rebase "$PUSH_URL" main 2>/dev/null; then
+  echo "   ✗ rebase failed — remote history diverged badly; manual fix needed"; exit 4
+fi
+git -c credential.helper= push -q "$PUSH_URL" main
 echo "   pushed main -> github.com/$OWNER/$REPO"
 
 echo "== 6/6 Pages + wait for live + IndexNow =="
