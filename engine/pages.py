@@ -2639,6 +2639,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "reverse-text",
+        "title": "Reverse Text Generator — Flip Words & Characters Backwards",
+        "h1": "Reverse Text Generator",
+        "desc": "Reverse text two ways: flip the whole string character-by-character, or reverse word order only. Live output, one-tap copy, everything local.",
+        "category": "text",
+        "keyword": "reverse text",
+        "tool": "reverser",
+        "args": {},
+        "intro": [
+            "Paste text and read it backwards - either character-by-character (esrever) or with the word order reversed (backwards the in order word). Puzzle makers, bio stylers and anyone playing with palindromes use both modes constantly.",
+            "The output updates live and copies in one tap. Unlike the upside-down generator (which substitutes look-alike Unicode letters), reversing keeps your exact original characters in a new order - so it survives every platform perfectly.",
+        ],
+        "howto": [
+            "Paste or type your text into the input box.",
+            "Toggle between reversing characters and reversing word order.",
+            "Copy the result with one tap - it pastes as plain text everywhere.",
+        ],
+        "faqs": [
+            ("How do I reverse text?",
+             "Paste it and switch to character mode - the whole string flips end-to-end. Word mode keeps each word intact but reverses their order, which is handy for lists."),
+            ("What is a palindrome checker trick?",
+             "Reverse a word in character mode: if the output reads identically (like racecar), it is a palindrome. The visual match is the fastest palindrome test there is."),
+            ("Does reversed text work on social media?",
+             "Yes - unlike upside-down text, reversed characters are your own ordinary letters, so they paste cleanly everywhere including strict platforms."),
+            ("Is my text uploaded?",
+             "No - reversing runs entirely in your browser. Nothing is transmitted or stored."),
+        ],
+    })
+
+    pages.append({
+        "slug": "weight-on-moon",
+        "title": "Weight on the Moon Calculator — Your Moon Weight in Seconds",
+        "h1": "Weight on the Moon",
+        "desc": "Enter your Earth weight and see what you would weigh on the Moon (x0.165), Mars, Jupiter and every planet. Same body, different gravity - science class made personal.",
+        "category": "calculator",
+        "keyword": "weight on the moon",
+        "tool": "moonweight",
+        "args": {},
+        "intro": [
+            "Your weight is your mass times local gravity - and lunar gravity is one-sixth of Earth's. Enter your Earth weight and see your Moon weight instantly, plus Mars, Jupiter and the rest of the solar system, because the scale reading is a local opinion.",
+            "Important distinction for science class: your mass never changes anywhere in the universe; weight is just the force your mass experiences under local gravity. On the Moon you would weigh 16% of Earth - but you would still be exactly you.",
+        ],
+        "howto": [
+            "Enter your weight on Earth (kg or lb - the ratio works the same in any unit).",
+            "Read your weight on the Moon, Mars, Jupiter and the other planets.",
+            "Note Jupiter: heavier gravity means the same you weighs 2.5 times more there.",
+        ],
+        "faqs": [
+            ("How much would I weigh on the Moon?",
+             "Multiply your Earth weight by 0.165 (lunar gravity is 1.62 m/s2 versus Earth's 9.81). A 60 kg person weighs about 9.9 kg-force on the Moon - light enough to jump over a car, in theory."),
+            ("Why is weight different but mass the same?",
+             "Mass is the amount of matter in you - constant everywhere. Weight is mass times local gravitational acceleration, so it changes with location while you stay the same size."),
+            ("Where would I weigh the most in the solar system?",
+             "Jupiter: its gravity is 2.53 times Earth's, so a 70 kg person weighs 177 kg there. You could not stand, breathe or survive - but the scale reading would be impressive."),
+            ("Is this calculation scientifically accurate?",
+             "The gravity ratios are the standard values used in physics education. Real weight also varies slightly with altitude and latitude even on Earth, by about 0.5% - far less than the planetary differences shown here."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

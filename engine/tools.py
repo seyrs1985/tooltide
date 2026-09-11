@@ -2806,6 +2806,67 @@ run();
 """
 
 
+# ---------------------------------------------------------------- reverse text
+REVERSER = """
+<div class="tool" id="tt-rv">
+  <div class="chips">
+    <button class="chip active" data-m="chars">Reverse characters</button>
+    <button class="chip" data-m="words">Reverse word order</button>
+  </div>
+  <div class="field"><label for="rv-in">Your text</label>
+    <textarea id="rv-in" rows="4" placeholder="Type something to reverse..."></textarea></div>
+  <div class="field" style="margin-top:10px"><label for="rv-out">Reversed <button class="btn btn-sm" id="rv-copy" type="button">Copy</button></label>
+    <textarea id="rv-out" rows="4" readonly placeholder="result appears here..."></textarea></div>
+</div>
+<script>(function(){
+var mode="chars";
+var inp=document.getElementById('rv-in'),out=document.getElementById('rv-out');
+document.querySelectorAll('#tt-rv .chip').forEach(function(c){c.addEventListener('click',function(){
+  mode=c.dataset.m;
+  document.querySelectorAll('#tt-rv .chip').forEach(function(x){x.classList.toggle('active',x===c);});
+  run();
+});});
+function run(){
+  var v=inp.value;
+  out.value=mode==='chars'?v.split('').reverse().join(''):v.split(/\s+/).filter(Boolean).reverse().join(' ');
+  document.title=(out.value||'Reverse Text')+' - ToolTide';
+}
+inp.addEventListener('input',run);
+document.getElementById('rv-copy').addEventListener('click',function(){
+  out.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
+  else{document.execCommand('copy');}
+  var b=document.getElementById('rv-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+});
+run();
+})();</script>
+"""
+
+
+# ---------------------------------------------------------------- weight on moon
+MOONWEIGHT = """
+<div class="tool" id="tt-mw">
+  <div class="field"><label for="mw-in">Your weight on Earth</label>
+    <input type="number" id="mw-in" step="any" min="0" value="70"></div>
+  <table class="copytable"><thead><tr><th>Location</th><th>Gravity</th><th>You would weigh</th></tr></thead><tbody id="mw-tb"></tbody></table>
+</div>
+<script>(function(){
+var P=[["Moon",0.165],["Mars",0.377],["Venus",0.905],["Earth",1],["Saturn",1.065],["Uranus",0.886],["Jupiter",2.528],["Neptune",1.137]];
+var inp=document.getElementById('mw-in'),tb=document.getElementById('mw-tb');
+function run(){
+  var w=parseFloat(inp.value);
+  if(isNaN(w)){tb.innerHTML='';return;}
+  tb.innerHTML=P.map(function(p){
+    var v=Math.round(w*p[1]*100)/100;
+    return '<tr><td>'+p[0]+(p[0]==='Earth'?' (reference)':'')+'</td><td>x'+p[1]+'</td><td><b>'+v+'</b></td></tr>';
+  }).join('');
+  document.title='Moon weight: '+Math.round(w*0.165*10)/10+' - ToolTide';
+}
+inp.addEventListener('input',run);run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2851,6 +2912,8 @@ TOOLS = {
     "numwords": lambda args: NUMWORDS,
     "wordstonum": lambda args: WORDSTONUM,
     "sdt": lambda args: SDT,
+    "reverser": lambda args: REVERSER,
+    "moonweight": lambda args: MOONWEIGHT,
     "cylinder": lambda args: CYLINDER,
     "planets": lambda args: PLANETS,
     "combiner": lambda args: COMBINER,
