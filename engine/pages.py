@@ -2151,6 +2151,40 @@ def PAGES():
         ],
     })
 
+    pages.append(_conv("km-to-feet", "KM to Feet", "kilometers", "feet", 3280.839895, "distance",
+                       "Aviation altitudes, hiking trails and running elevation are quoted in feet even when the distances underneath are metric. One kilometer is 3,280.84 feet — so a 5 km trail climb chart in feet needs this exact factor, not the rough 3,280.",
+                       "Handy anchors: 1 km = 3,280.84 ft, 3 km = 9,842 ft (a park loop), 10 km = 32,808 ft, 42 km = 137,795 ft (marathon distance)."))
+
+    pages.append({
+        "slug": "name-combiner",
+        "title": "Name Combiner — Merge Two Names into One",
+        "h1": "Name Combiner",
+        "desc": "Blend two names into one: couple names, ship names, baby names, team names or brand ideas. Multiple merge styles, click to copy, everything local.",
+        "category": "generator",
+        "keyword": "name combiner",
+        "tool": "combiner",
+        "args": {},
+        "intro": [
+            "Type two names and get a list of blended possibilities — the classic couple-name game (Brad + Angelina), ship names for fandoms, baby-name brainstorming, or company and product name ideas from two founder names. Several merge styles run at once: front-half + back-half, overlapping sounds, and alternating letters.",
+            "Every combination is generated locally in your browser from the two names you type — nothing is sent anywhere, and nothing is recorded. Copy the ones you like and ignore the rest; half the fun is the terrible ones.",
+        ],
+        "howto": [
+            "Type the two names you want to blend.",
+            "Read the merged candidates — different splice points produce different styles.",
+            "Click any result to copy it; regenerate with different spellings for fresh options.",
+        ],
+        "faqs": [
+            ("How does name blending work?",
+             "Each name is split at every syllable-ish boundary, and the front half of one is joined to the back half of the other — both directions. Overlaps where the ending of one name matches the start of the other produce the smoothest blends."),
+            ("What is a ship name?",
+             "Fandom shorthand for a fictional (or real) couple: Brad + Angelina became 'Brangelina'. Ship names work the same way for TV characters, K-pop pairings and book couples."),
+            ("Can I use a blended name for my business?",
+             "Blends make memorable brand names (think Pinterest = pin + interest). Before committing, search trademark databases and domain availability — the generator cannot check those for you."),
+            ("Does it work with any language?",
+             "It works best with Latin-alphabet names. Accented characters are kept as-is, so Spanish, French and Nordic names blend fine."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

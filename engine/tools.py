@@ -2391,6 +2391,56 @@ inp.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- name combiner
+COMBINER = """
+<div class="tool" id="tt-nc">
+  <div class="fields">
+    <div class="field"><label for="nc-a">First name</label><input type="text" id="nc-a" placeholder="Brad" autocomplete="off"></div>
+    <div class="field"><label for="nc-b">Second name</label><input type="text" id="nc-b" placeholder="Angelina" autocomplete="off"></div>
+  </div>
+  <div class="names-grid" id="nc-out"></div>
+  <div class="tool-note">Click any blend to copy it. Same-name pairs produce the funniest failures - try it.</div>
+</div>
+<script>(function(){
+var A=document.getElementById('nc-a'),B=document.getElementById('nc-b'),out=document.getElementById('nc-out');
+function cap(v){return v.charAt(0).toUpperCase()+v.slice(1).toLowerCase();}
+function splits(name){
+  var res=[name.toLowerCase()];
+  for(var i=1;i<name.length;i++){res.push([name.slice(0,i).toLowerCase(),name.slice(i).toLowerCase()]);}
+  return res;
+}
+function blends(a,b){
+  var sa=splits(a),sb=splits(b),res=[];
+  sa.forEach(function(x){
+    sb.forEach(function(y){
+      if(typeof x==='string'&&typeof y==='string'){res.push(cap(x+y));return;}
+      var front=Array.isArray(x)?x[0]:x, back=Array.isArray(x)?x[1]:'';
+      var f2=Array.isArray(y)?y[0]:y, b2=Array.isArray(y)?y[1]:y;
+      res.push(cap(front+b2));
+      res.push(cap(f2+back));
+    });
+  });
+  return res.filter(function(v,i,arr){return v&&arr.indexOf(v)===i&&v.toLowerCase()!==a.toLowerCase()&&v.toLowerCase()!==b.toLowerCase();});
+}
+function run(){
+  var a=A.value.trim(),b=B.value.trim();
+  out.innerHTML='';
+  if(!a||!b)return;
+  var list=blends(cap(a),cap(b)).slice(0,12);
+  list.forEach(function(v){
+    var d=document.createElement('button');d.className='name-card';d.type='button';d.textContent=v;
+    d.addEventListener('click',function(){
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v);}
+      d.classList.add('copied');var s=this;setTimeout(function(){s.classList.remove('copied');},900);
+    });
+    out.appendChild(d);
+  });
+}
+A.addEventListener('input',run);B.addEventListener('input',run);run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2434,6 +2484,7 @@ TOOLS = {
     "yesno": lambda args: YESNO,
     "hexrgb": lambda args: HEXRGB,
     "planets": lambda args: PLANETS,
+    "combiner": lambda args: COMBINER,
     "prime": lambda args: PRIME,
     "factorial": lambda args: FACTORIAL,
     "country": lambda args: COUNTRY,
