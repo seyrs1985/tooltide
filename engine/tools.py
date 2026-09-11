@@ -2582,6 +2582,32 @@ inp.addEventListener("input",function(){
 """
 
 
+# ---------------------------------------------------------------- cylinder volume
+CYLINDER = """
+<div class="tool" id="tt-cy">
+  <div class="fields">
+    <div class="field"><label for="cy-r">Radius</label><input type="number" id="cy-r" step="any" min="0" placeholder="5"></div>
+    <div class="field"><label for="cy-h">Height</label><input type="number" id="cy-h" step="any" min="0" placeholder="10"></div>
+  </div>
+  <div class="result"><span class="result-num" id="cy-out">-</span><span class="result-unit" id="cy-unit">cubic units</span></div>
+  <div class="result"><span class="result-num" id="cy-liters">-</span><span class="result-unit">liters (if cm)</span></div>
+  <div class="tool-note">V = πr²h - enter radius (not diameter) and height in the same unit.</div>
+</div>
+<script>(function(){
+var r=document.getElementById('cy-r'),h=document.getElementById('cy-h');
+function run(){
+  var rr=parseFloat(r.value),hh=parseFloat(h.value);
+  if(isNaN(rr)||isNaN(hh)){document.getElementById('cy-out').textContent='-';document.getElementById('cy-liters').textContent='-';return;}
+  var v=Math.PI*rr*rr*hh;
+  document.getElementById('cy-out').textContent=(Math.round(v*100)/100).toLocaleString('en-US');
+  document.getElementById('cy-unit').textContent='cubic '+('units');
+  document.getElementById('cy-liters').textContent=(Math.round(v/1000*1000)/1000).toLocaleString('en-US');
+}
+r.addEventListener('input',run);h.addEventListener('input',run);run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2625,6 +2651,7 @@ TOOLS = {
     "yesno": lambda args: YESNO,
     "hexrgb": lambda args: HEXRGB,
     "numwords": lambda args: NUMWORDS,
+    "cylinder": lambda args: CYLINDER,
     "planets": lambda args: PLANETS,
     "combiner": lambda args: COMBINER,
     "whitespace": lambda args: WHITESPACE,

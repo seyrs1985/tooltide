@@ -11,6 +11,7 @@ import hashlib
 import html
 import json
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -60,18 +61,27 @@ og_image_ready = False
 TOUCH_ICON = "apple-touch-icon.png"
 touch_icon_ready = False
 
-# Cache-busting query for the stylesheet: Pages' CDN serves stale copies for a
-# while after each deploy, so the HTML references style.css?v=<content hash>
-# and a changed stylesheet can never be paired with old cached CSS.
-CSS_VER = ""
+# The stylesheet is inlined into every page's <head>: the site CSS is small
+# (~4 KB gzipped), so inlining costs less per page than the render-blocking
+# second request it replaces — first paint now needs only the HTML document.
+# It also makes Pages' CDN staleness (~10 min after each deploy) harmless:
+# HTML and CSS can never desync again. docs/style.css is still written as the
+# canonical copy for anyone hot-linking it.
+_css_cache = ""
 
 
-def css_version():
-    global CSS_VER
-    if not CSS_VER:
-        with open(os.path.join(ROOT, "engine", "assets", "style.css"), "rb") as f:
-            CSS_VER = "?v=" + hashlib.sha1(f.read()).hexdigest()[:10]
-    return CSS_VER
+def inline_css():
+    """Minified stylesheet for inlining (comments stripped, whitespace folded)."""
+    global _css_cache
+    if not _css_cache:
+        with open(os.path.join(ROOT, "engine", "assets", "style.css"), encoding="utf-8") as f:
+            css = f.read()
+        css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+        css = re.sub(r"\s+", " ", css)
+        css = re.sub(r"\s*([{}:;,>])\s*", r"\1", css).strip()
+        assert "--brand" in css and "@media" in css and ".site-head" in css
+        _css_cache = css
+    return _css_cache
 
 # Runs before first paint: marks <html class="js"> (reveals the theme toggle)
 # and re-applies a visitor's saved light/dark choice ahead of the stylesheet.
@@ -165,7 +175,6 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
            esc('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">🌊</text></svg>'))
     touch = (f'<link rel="apple-touch-icon" href="{esc(cfg["base_url"])}{TOUCH_ICON}">\n'
              if touch_icon_ready else "")
-    css = ("style.css" if root else "../style.css") + css_version()
     og_abs = cfg["base_url"] + OG_IMAGE
     hints = ""
     if ga:
@@ -205,7 +214,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
 {PREPAINT_THEME}
-<link rel="stylesheet" href="{css}">
+<style>{inline_css()}</style>
 {f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={esc(ads)}" crossorigin="anonymous"></script>' if ads else ''}
 {f'<script async src="https://www.googletagmanager.com/gtag/js?id={esc(ga)}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag("js",new Date());gtag("config","{esc(ga)}");</script>' if ga else ''}
 </head>
@@ -422,12 +431,15 @@ hashExpand();
 })();</script>"""
 
 
-def tool_card(p, base, extra=False):
+def tool_card(p, base, extra=False, cat_label=""):
     emoji = (p.get("args") or {}).get("emoji") or TOOL_EMOJI.get(p["tool"], "🔧")
-    cls = ' class="card extra"' if extra else ' class="card"'
+    cls = f' class="card extra cat-{p["category"]}"' if extra \
+        else f' class="card cat-{p["category"]}"'
+    tag = f'<span class="card-tag">{esc(cat_label)}</span>' if cat_label else ""
     return (f'<a{cls} href="{base}{p["slug"]}/">'
             f'<span class="card-emoji" aria-hidden="true">{emoji}</span>'
             f'<span class="card-title">{esc(p["h1"])}</span>'
+            f'{tag}'
             f'<span class="card-desc">{esc(p["desc"][:110])}…</span></a>')
 
 
@@ -458,7 +470,9 @@ def build_page(cfg, p, all_pages, cat_info):
 
     related = [x for x in all_pages if x["category"] == p["category"] and x["slug"] != p["slug"]]
     related += [x for x in all_pages if x["category"] != p["category"]]
-    related_html = "".join(tool_card(x, base) for x in related[:6])
+    related_html = "".join(
+        tool_card(x, base, cat_label=(cat_info or {}).get(x["category"], ("",))[0])
+        for x in related[:6])
 
     tool_html = tools_mod.render(p["tool"], p.get("args", {}))
 
@@ -478,7 +492,7 @@ def build_page(cfg, p, all_pages, cat_info):
     doc += crumb(base, crumb_items)
     doc += f"""<main class="wrap" id="main">
 <article>
-  <div class="page-emoji" aria-hidden="true">{emoji}</div>
+  <div class="page-emoji cat-{p['category']}" aria-hidden="true">{emoji}</div>
   <h1>{esc(p['h1'])}</h1>
   <noscript><p class="noscript-note">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
@@ -508,7 +522,7 @@ def build_index(cfg, all_pages, cat_info):
     for cat, (label, blurb) in cat_info.items():
         cat_pages = [x for x in all_pages if x["category"] == cat]
         # collapse big sections: the rest sit behind a "Show all" toggle
-        cards = "".join(tool_card(x, base, extra=i >= SECTION_TOP)
+        cards = "".join(tool_card(x, base, extra=i >= SECTION_TOP, cat_label=label)
                         for i, x in enumerate(cat_pages))
         more = ""
         if len(cat_pages) > SECTION_TOP:
@@ -519,9 +533,10 @@ def build_index(cfg, all_pages, cat_info):
                         f'<div class="grid">{cards}</div>{more}</section>')
         for x in cat_pages:
             search_cards.append((x["h1"], x["desc"], base + x["slug"] + "/",
-                                 TOOL_EMOJI.get(x["tool"], "🔧"), label, x["slug"]))
-    cards_js = json.dumps([{"t": t, "d": d, "u": u, "e": e, "c": c, "s": s}
-                           for t, d, u, e, c, s in search_cards],
+                                 TOOL_EMOJI.get(x["tool"], "🔧"), label, x["slug"],
+                                 x["category"]))
+    cards_js = json.dumps([{"t": t, "d": d, "u": u, "e": e, "c": c, "s": s, "k": k}
+                           for t, d, u, e, c, s, k in search_cards],
                           ensure_ascii=False)
     chips = "".join(
         f'<a href="#{cat}">{cat_emoji_html(cat)}{esc(label)} <span class="chip-n">{counts[cat]}</span></a>'
@@ -580,7 +595,7 @@ function hiTok(s,flat){{var low=s.toLowerCase(),res='',pos=0;
     if(best<0){{res+=esc(s.slice(pos));break;}}
     res+=esc(s.slice(pos,best))+'<mark>'+esc(s.substr(best,bl))+'</mark>';pos=best+bl;}}
   return res;}}
-function card(c,flat){{return '<a class="card" href="'+c.u+'"><span class="card-emoji" aria-hidden="true">'+c.e+'</span><span class="card-title">'+hiTok(c.t,flat)+'</span><span class="card-tag">'+esc(c.c)+'</span><span class="card-desc">'+hiTok(c.d.slice(0,110),flat)+'</span></a>';}}
+function card(c,flat){{return '<a class="card cat-'+c.k+'" href="'+c.u+'"><span class="card-emoji" aria-hidden="true">'+c.e+'</span><span class="card-title">'+hiTok(c.t,flat)+'</span><span class="card-tag">'+esc(c.c)+'</span><span class="card-desc">'+hiTok(c.d.slice(0,110),flat)+'</span></a>';}}
 inp.addEventListener('input',function(){{
   var q=this.value.trim().toLowerCase();
   if(!q){{out.style.display='none';out.innerHTML='';if(live)live.textContent='';document.querySelectorAll('.cat').forEach(function(c){{if(c.id!=='all')c.style.display='';}});return;}}

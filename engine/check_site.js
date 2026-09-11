@@ -92,6 +92,9 @@ try {
       run('?q=f%20to%20c');
       assert(inp.value === 'f to c' && out.style.display === 'grid'
         && /Fahrenheit/i.test(out.innerHTML), 'homepage: ?q=f to c deep-link renders results');
+      assert(/class="card cat-[a-z]+"/.test(out.innerHTML)
+        && /card-emoji/.test(out.innerHTML) && /card-tag/.test(out.innerHTML),
+        'homepage: live-search cards carry category class, emoji chip and tag');
       assert(/match/i.test(live.textContent) && live.textContent.includes('f to c'),
         'homepage: search status announces the match count');
       inp.value = '';
@@ -201,12 +204,24 @@ try {
       `sitemap: count/dedupe mismatch (sitemap ${locs.length} vs built ${built.length})`);
   }
 
-  // stylesheet cache-busting + iOS touch icon
-  assert(/rel="stylesheet" href="(\.\.\/)?style\.css\?v=[0-9a-f]{10}"/.test(idx),
-    'head: stylesheet carries ?v= content-hash cache buster');
-  const idxCssVer = (idx.match(/style\.css\?v=([0-9a-f]{10})/) || [])[1];
-  const toolCssVer = (tool.match(/style\.css\?v=([0-9a-f]{10})/) || [])[1];
-  assert(!!idxCssVer && idxCssVer === toolCssVer, 'head: same ?v= hash on homepage and tool page');
+  // full stylesheet inlined in <head> — no render-blocking CSS request left,
+  // identical minified CSS on every page type, canonical copy still served
+  const idxCssInline = (idx.match(/<style>([\s\S]*?)<\/style>/) || [])[1] || '';
+  const toolCssInline = (tool.match(/<style>([\s\S]*?)<\/style>/) || [])[1] || '';
+  const staticCssInline = (fs.readFileSync(path.join(root, 'about', 'index.html'), 'utf8')
+    .match(/<style>([\s\S]*?)<\/style>/) || [])[1] || '';
+  assert(idxCssInline.includes(':root{') && idxCssInline.includes('--brand:#0e7490')
+    && idxCssInline.includes('@media(max-width:700px)')
+    && idxCssInline.includes('.site-head'),
+    'head: full minified stylesheet inlined (vars, dark/media rules, header)');
+  assert(!/rel="stylesheet"/.test(idx) && !/style\.css\?v=/.test(idx),
+    'head: no render-blocking external stylesheet link remains');
+  assert(idxCssInline && idxCssInline === toolCssInline && idxCssInline === staticCssInline,
+    'head: identical inlined CSS on homepage, tool page and static page');
+  assert(idxCssInline.length > 4000 && !/\s{2}/.test(idxCssInline) && !idxCssInline.includes('/*'),
+    'head: inlined CSS is minified (whitespace folded, comments stripped)');
+  assert(fs.existsSync(path.join(root, 'style.css')),
+    'canonical style.css copy still served alongside inlined CSS');
   assert(idx.includes('rel="apple-touch-icon"') && fs.existsSync(path.join(root, 'apple-touch-icon.png')),
     'head: apple-touch-icon link + generated file');
 
@@ -233,8 +248,8 @@ try {
   for (const m of idx.matchAll(/<section class="cat" id="([^"]+)">([\s\S]*?)<\/section>/g)) {
     const [, sid, inner] = m;
     if (sid === 'all') continue;
-    const extras = (inner.match(/class="card extra"/g) || []).length;
-    const plain = (inner.match(/class="card"/g) || []).length;
+    const extras = (inner.match(/class="card extra cat-/g) || []).length;
+    const plain = (inner.match(/class="card cat-/g) || []).length;
     const btn = inner.match(/<button class="cat-more"[^>]*>/);
     if (extras > 0) {
       collapsedSecs++;
@@ -246,6 +261,28 @@ try {
     }
   }
   assert(collapsedSecs >= 2, 'homepage: big categories actually collapse (>=2 toggles)');
+
+  // category accent system: every card carries .cat-<key>, emoji chips and
+  // tags share the category tint pair, light + dark both covered
+  const CATS = ['countdown', 'calculator', 'converter', 'text', 'generator'];
+  const catRe = k => new RegExp('\\.cat-' + k + '\\{--cat-tint:#[0-9a-f]{6};--cat-ink:#[0-9a-f]{6}\\}');
+  assert(CATS.every(k => catRe(k).test(css)),
+    'style.css: light tint pair defined for all 5 categories');
+  assert(CATS.every(k => new RegExp('\\.cat-' + k + '\\{--cat-tint:rgba\\(').test(css.replace(/\n/g, ''))),
+    'style.css: dark tint pair defined for all 5 categories');
+  assert(/\.card-emoji\{[^}]*background:var\(--cat-tint\)/.test(css)
+    && /\.card-tag\{[^}]*color:var\(--cat-ink\)/.test(css)
+    && /\.page-emoji\{[^}]*background:var\(--cat-tint\)/.test(css),
+    'style.css: emoji chips and tags consume the category tint variables');
+  const homeCards = (idx.match(/class="card[^"]*cat-/g) || []).length;
+  assert(homeCards >= 100 && (idx.match(/class="card-tag"/g) || []).length === homeCards,
+    'homepage: every card carries a category class + visible tag (' + homeCards + ' cards)');
+  assert(/class="page-emoji cat-[a-z]+"/.test(tool),
+    'tool page: page emoji carries the category class');
+  const relSec = tool.match(/<section class="seo-block"><h2>Related tools<\/h2>[\s\S]*?<\/section>/) || [''];
+  assert(/class="card cat-/.test(relSec[0]) && (relSec[0].match(/class="card-tag"/g) || []).length >= 5,
+    'tool page: related-tools cards carry category classes + tags');
+
   // stub-DOM behavior of CATS_JS
   const catsScript = [...idx.matchAll(/<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g)]
     .map(m => m[1]).find(s => s.includes("querySelector('.cat-more')"));
