@@ -175,6 +175,13 @@ def PAGES():
              "📦")
     pages.append(bd)
 
+    fd = _cd("fathers-day", "Father's Day", 6, 21, "days until fathers day",
+             "Father's Day falls on the third Sunday of June in the US, UK and dozens of other countries — the barbecue-and-tools holiday, and the third-biggest day for restaurant bookings after Mother's Day and Valentine's.",
+             "The timer computes the third Sunday of June for the upcoming year automatically. Planning the gift, the grill or the visit starts here.",
+             "👨")
+    fd["args"]["rule"] = {"week": 3, "weekday": 0}  # 3rd Sunday of June
+    pages.append(fd)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -463,9 +470,18 @@ def PAGES():
     pages.append(_conv("minutes-to-hours", "Minutes to Hours", "minutes", "hours", 1 / 60, "time",
                        "Payroll systems, timesheets and invoices want hours in decimals — 7 hours 30 minutes must be entered as 7.5, not 7:30. Divide minutes by 60 for the decimal form; the converter handles any value including awkward ones like 17 minutes.",
                        "Handy anchors: 30 min = 0.50 hr, 15 min = 0.25 hr, 45 min = 0.75 hr, 90 min = 1.50 hr. Multiply hours by 60 to go back.", dec=3))
+    pages.append(_conv("inches-to-feet", "Inches to Feet", "inches", "feet", 1 / 12, "length",
+                       "Both are US customary units, but they answer different questions: inches for screens, tools and small measurements; feet for height, rooms and lumber. Divide inches by 12 to get feet — 60 inches is 5 feet exactly.",
+                       "Handy anchors: 12 in = 1 ft, 60 in = 5 ft, 66 in = 5 ft 6 in, 72 in = 6 ft. For mixed units like 5 ft 7 in, convert the leftover inches separately.", dec=3))
+    pages.append(_conv("kmh-to-mph", "KMH to MPH", "kilometers per hour", "miles per hour", 0.6213711922, "speed",
+                       "Speed limits and car dashboards use km/h almost everywhere; the US and UK still speak in mph. One km/h is 0.6214 mph, so 100 km/h on a European motorway is a legal 62 mph — and 60 mph is a ticket-prone 96.6 km/h.",
+                       "Handy anchors: 30 km/h = 18.6 mph (city), 50 km/h = 31.1 mph, 100 km/h = 62.1 mph (motorway), 120 km/h = 74.6 mph. Quick trick: km/h × 0.62.", dec=1))
     pages.append(_conv("cups-to-ml", "Cups to ML", "cups (US)", "milliliters", 236.5882365, "volume",
                        "US recipes measure by cups; nearly every other country — and every scale — uses milliliters. One US customary cup is 236.588 milliliters, which is why American and metric recipes never quite line up without a converter.",
                        "Handy anchors: 1 cup = 236.6 ml (round to 240 when eyeballing), 2 cups = 473 ml (a pint), 4 cups = 946 ml (a quart), half a cup = 118 ml.", dec=1))
+    pages.append(_conv("tablespoons-to-teaspoons", "Tablespoons to Teaspoons", "tablespoons", "teaspoons", 3, "volume",
+                       "The most common baking substitution there is: 1 tablespoon (tbsp) equals exactly 3 teaspoons (tsp). When you are out of one spoon size mid-recipe, the conversion saves the batch — no scale, no math beyond ×3.",
+                       "Handy anchors: 1 tbsp = 3 tsp, 2 tbsp = 6 tsp, 1 tbsp = 15 ml, 1 tsp = 5 ml. Four tablespoons = a quarter cup."))
 
     # ---------- Text & generator family ----------
     pages.append({
