@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Random Number Generator — Truly Random, Cryptographically Secure</title>
+<meta name="description" content="Generate random numbers in any range, with or without duplicates. Uses your browser&#x27;s cryptographic random source — perfect for draws, games and picking winners.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/random-number-generator/">
+<meta property="og:title" content="Random Number Generator — Truly Random, Cryptographically Secure">
+<meta property="og:description" content="Generate random numbers in any range, with or without duplicates. Uses your browser&#x27;s cryptographic random source — perfect for draws, games and picking winners.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/random-number-generator/">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+<meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Random Number Generator","url":"https://seyrs1985.github.io/tooltide/random-number-generator/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Generate random numbers in any range, with or without duplicates. Uses your browser's cryptographic random source — perfect for draws, games and picking winners."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this random number generator truly random?","acceptedAnswer":{"@type":"Answer","text":"It uses the browser's WebCrypto API — a cryptographically secure random source seeded by your operating system. This is the same quality of randomness used for encryption keys, which is far stronger than typical Math.random() generators."}},{"@type":"Question","name":"Can I use it for a raffle or prize draw?","acceptedAnswer":{"@type":"Answer","text":"Yes. Set the range to your number of entries, turn on 'no duplicates' if you are picking multiple winners, and generate. The cryptographic source makes the draw fair and verifiable."}},{"@type":"Question","name":"How do I generate a number between 1 and 100?","acceptedAnswer":{"@type":"Answer","text":"Set minimum to 1, maximum to 100, count to 1, keep 'whole numbers only' on, and press Generate. Both endpoints of the range are included."}},{"@type":"Question","name":"What happens if duplicates are off and the range is too small?","acceptedAnswer":{"@type":"Answer","text":"You cannot pick 50 unique numbers from a 10-number range, so the tool shows a clear message instead of looping forever. Turn duplicates on or widen the range."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Random Number Generator","item":"https://seyrs1985.github.io/tooltide/random-number-generator/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
+</head>
+<body><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a><a href="https://seyrs1985.github.io/tooltide/">Calculators</a><a href="https://seyrs1985.github.io/tooltide/">Converters</a><a href="https://seyrs1985.github.io/tooltide/">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/">Text</a><a href="https://seyrs1985.github.io/tooltide/">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Random Number Generator</span></nav><main class="wrap">
+<article>
+  <div class="page-emoji">🔧</div>
+  <h1>Random Number Generator</h1>
+  
+  <section class="intro"><p>Pick random numbers in any range — for prize draws, raffle winners, picking who goes first, sampling, or games. Choose whole numbers or decimals, allow or ban duplicates, and generate up to 100 at once. Results come from your browser&#x27;s WebCrypto cryptographically secure random source, not a predictable pseudo-random shortcut.</p><p>Fairness matters when a draw has real consequences. Cryptographic randomness is the same class of generator used for security keys, so every number in the range is equally likely and impossible to predict in advance — even by this page.</p></section>
+  
+<div class="tool" id="tt-rng">
+  <div class="fields">
+    <div class="field"><label for="rng-min">Minimum</label><input type="number" id="rng-min" value="1" step="any"></div>
+    <div class="field"><label for="rng-max">Maximum</label><input type="number" id="rng-max" value="100" step="any"></div>
+    <div class="field"><label for="rng-count">How many numbers</label><input type="number" id="rng-count" value="1" min="1" max="100" step="1"></div>
+  </div>
+  <div class="chips">
+    <button class="chip active" id="rng-int" type="button">Whole numbers only</button>
+    <button class="chip" id="rng-unique" type="button">No duplicates</button>
+  </div>
+  <button class="btn" id="rng-go" type="button">🎲 Generate</button>
+  <div class="result" id="rng-out" style="display:none"><span class="result-num" id="rng-res"></span></div>
+  <div class="tool-note" id="rng-note">Uses your browser's cryptographically secure random source — fair draws, nothing recorded.</div>
+</div>
+<script>(function(){
+var whole=true,unique=false;
+var $=function(id){return document.getElementById(id);};
+$('rng-int').addEventListener('click',function(){whole=!whole;this.classList.toggle('active',whole);});
+$('rng-unique').addEventListener('click',function(){unique=!unique;this.classList.toggle('active',unique);});
+function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+  do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+$('rng-go').addEventListener('click',function(){
+  var min=parseFloat($('rng-min').value),max=parseFloat($('rng-max').value);
+  var count=parseInt($('rng-count').value)||1;
+  var note=$('rng-note');
+  if(isNaN(min)||isNaN(max)||max<=min){note.textContent='Maximum must be greater than minimum.';return;}
+  if(count<1||count>100){note.textContent='Count must be between 1 and 100.';return;}
+  var out=[],seen={};
+  if(whole){
+    var size=Math.floor(max)-Math.ceil(min)+1;
+    if(unique&&count>size){note.textContent='Cannot pick '+count+' unique numbers from a range of '+size+'. Widen the range or allow duplicates.';return;}
+    while(out.length<count){
+      var v=Math.ceil(min)+secureInt(size);
+      if(unique&&seen[v])continue;
+      seen[v]=1;out.push(v);
+    }
+  }else{
+    if(unique){note.textContent='No-duplicates applies to whole numbers only.';return;}
+    for(var i=0;i<count;i++){out.push((min+(max-min)*secureInt(100000)/100000).toFixed(4));}
+  }
+  $('rng-res').textContent=out.join(',  ');
+  $('rng-out').style.display='block';
+  note.textContent='Generated '+out.length+' number'+(out.length>1?'s':'')+' · crypto-secure · nothing recorded.';
+});
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Set the minimum and maximum of your range — anything from -1,000,000 to 1,000,000.</li><li>Choose how many numbers you need, and toggle whole-numbers-only or no-duplicates as you prefer.</li><li>Hit Generate — results appear instantly; generate again for a fresh set.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>Is this random number generator truly random?</summary><p>It uses the browser&#x27;s WebCrypto API — a cryptographically secure random source seeded by your operating system. This is the same quality of randomness used for encryption keys, which is far stronger than typical Math.random() generators.</p></details><details class="faq"><summary>Can I use it for a raffle or prize draw?</summary><p>Yes. Set the range to your number of entries, turn on &#x27;no duplicates&#x27; if you are picking multiple winners, and generate. The cryptographic source makes the draw fair and verifiable.</p></details><details class="faq"><summary>How do I generate a number between 1 and 100?</summary><p>Set minimum to 1, maximum to 100, count to 1, keep &#x27;whole numbers only&#x27; on, and press Generate. Both endpoints of the range are included.</p></details><details class="faq"><summary>What happens if duplicates are off and the range is too small?</summary><p>You cannot pick 50 unique numbers from a 10-number range, so the tool shows a clear message instead of looping forever. Turn duplicates on or widen the range.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/random-name-generator/"><span class="card-emoji">🎲</span><span class="card-title">Random Name Generator</span><span class="card-desc">Generate random names for fantasy characters, game teams, babies&#x27; name inspiration, or username ideas. Click f…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/password-generator/"><span class="card-emoji">🔐</span><span class="card-title">Random Password Generator</span><span class="card-desc">Generate strong random passwords with one click. Choose length and character sets. Runs entirely in your brows…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-christmas/"><span class="card-emoji">🎄</span><span class="card-title">How Many Days Until Christmas?</span><span class="card-desc">See exactly how many days, hours and minutes until Christmas. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-new-year/"><span class="card-emoji">🎆</span><span class="card-title">How Many Days Until New Year?</span><span class="card-desc">See exactly how many days, hours and minutes until New Year. Free live countdown timer, updated every second —…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-halloween/"><span class="card-emoji">🎃</span><span class="card-title">How Many Days Until Halloween?</span><span class="card-desc">See exactly how many days, hours and minutes until Halloween. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-valentines-day/"><span class="card-emoji">💝</span><span class="card-title">How Many Days Until Valentine&#x27;s Day?</span><span class="card-desc">See exactly how many days, hours and minutes until Valentine&#x27;s Day. Free live countdown timer, updated every s…</span></a></div></section>
+</article>
+</main><footer class="site-foot"><div class="wrap">
+  <nav><a href="https://seyrs1985.github.io/tooltide/about/">About</a><a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a><a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a></nav>
+  
+  <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+</div></footer></body></html>

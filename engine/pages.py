@@ -175,6 +175,13 @@ def PAGES():
              "🤡")
     pages.append(af)
 
+    ld = _cd("labor-day", "Labor Day", 9, 1, "days until labor day",
+             "Labor Day — the first Monday of September — is the American tribute to workers, and the unofficial end of summer: barbecues, one last lake weekend, and the biggest back-to-school sales of the year.",
+             "The timer computes the first Monday of September for the upcoming year automatically, including years when the date shifts. Planning the weekend trip or the sale shopping starts here.",
+             "🛠️")
+    ld["args"]["rule"] = {"week": 1, "weekday": 1}  # 1st Monday of September
+    pages.append(ld)
+
     # ---------- Calculator family ----------
     pages.append({
         "slug": "percentage-calculator",
@@ -441,6 +448,12 @@ def PAGES():
     pages.append(_conv("stone-to-kg", "Stone to KG", "stone", "kilograms", 6.35029318, "weight",
                        "The stone is the traditional British unit for body weight — Brits say they weigh '11 stone', never '154 pounds'. One stone is exactly 6.35029318 kilograms (14 pounds), so converting is a single multiplication.",
                        "Handy anchors: 10 st = 63.50 kg, 11 st = 69.85 kg (UK average adult male), 12 st = 76.20 kg, 1 st = 14 lb = 6.35 kg."))
+    pages.append(_conv("kg-to-stone", "KG to Stone", "kilograms", "stone", 1 / 6.35029318, "weight",
+                       "Convert your weight in kilograms to the British stone unit — the way UK scales, GP charts and newspaper height-and-weight columns actually read. Divide kilograms by 6.35029318, or just type it below.",
+                       "Handy anchors: 60 kg = 9.45 st, 70 kg = 11.02 st, 80 kg = 12.60 st, 100 kg = 15.75 st. For quick mental math: divide kg by 6.35."))
+    pages.append(_conv("cups-to-ml", "Cups to ML", "cups (US)", "milliliters", 236.5882365, "volume",
+                       "US recipes measure by cups; nearly every other country — and every scale — uses milliliters. One US customary cup is 236.588 milliliters, which is why American and metric recipes never quite line up without a converter.",
+                       "Handy anchors: 1 cup = 236.6 ml (round to 240 when eyeballing), 2 cups = 473 ml (a pint), 4 cups = 946 ml (a quart), half a cup = 118 ml.", dec=1))
 
     # ---------- Text & generator family ----------
     pages.append({
@@ -560,6 +573,36 @@ def PAGES():
              "Passphrases of 4–5 random words are as strong as long random passwords and easier to type manually. For accounts you type daily, a passphrase is a great choice; for everything else, generate and store in a password manager."),
             ("Why shouldn't I reuse passwords?",
              "Data breaches leak passwords constantly; reused passwords let one leak compromise every account that shares it. Unique passwords (stored in a manager) contain the damage to a single site."),
+        ],
+    })
+
+    pages.append({
+        "slug": "random-number-generator",
+        "title": "Random Number Generator — Truly Random, Cryptographically Secure",
+        "h1": "Random Number Generator",
+        "desc": "Generate random numbers in any range, with or without duplicates. Uses your browser's cryptographic random source — perfect for draws, games and picking winners.",
+        "category": "generator",
+        "keyword": "random number generator",
+        "tool": "randomnum",
+        "args": {},
+        "intro": [
+            "Pick random numbers in any range — for prize draws, raffle winners, picking who goes first, sampling, or games. Choose whole numbers or decimals, allow or ban duplicates, and generate up to 100 at once. Results come from your browser's WebCrypto cryptographically secure random source, not a predictable pseudo-random shortcut.",
+            "Fairness matters when a draw has real consequences. Cryptographic randomness is the same class of generator used for security keys, so every number in the range is equally likely and impossible to predict in advance — even by this page.",
+        ],
+        "howto": [
+            "Set the minimum and maximum of your range — anything from -1,000,000 to 1,000,000.",
+            "Choose how many numbers you need, and toggle whole-numbers-only or no-duplicates as you prefer.",
+            "Hit Generate — results appear instantly; generate again for a fresh set.",
+        ],
+        "faqs": [
+            ("Is this random number generator truly random?",
+             "It uses the browser's WebCrypto API — a cryptographically secure random source seeded by your operating system. This is the same quality of randomness used for encryption keys, which is far stronger than typical Math.random() generators."),
+            ("Can I use it for a raffle or prize draw?",
+             "Yes. Set the range to your number of entries, turn on 'no duplicates' if you are picking multiple winners, and generate. The cryptographic source makes the draw fair and verifiable."),
+            ("How do I generate a number between 1 and 100?",
+             "Set minimum to 1, maximum to 100, count to 1, keep 'whole numbers only' on, and press Generate. Both endpoints of the range are included."),
+            ("What happens if duplicates are off and the range is too small?",
+             "You cannot pick 50 unique numbers from a 10-number range, so the tool shows a clear message instead of looping forever. Turn duplicates on or widen the range."),
         ],
     })
 

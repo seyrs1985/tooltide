@@ -722,6 +722,56 @@ gen();
 """
 
 
+# ---------------------------------------------------------------- random numbers
+RANDOMNUM = """
+<div class="tool" id="tt-rng">
+  <div class="fields">
+    <div class="field"><label for="rng-min">Minimum</label><input type="number" id="rng-min" value="1" step="any"></div>
+    <div class="field"><label for="rng-max">Maximum</label><input type="number" id="rng-max" value="100" step="any"></div>
+    <div class="field"><label for="rng-count">How many numbers</label><input type="number" id="rng-count" value="1" min="1" max="100" step="1"></div>
+  </div>
+  <div class="chips">
+    <button class="chip active" id="rng-int" type="button">Whole numbers only</button>
+    <button class="chip" id="rng-unique" type="button">No duplicates</button>
+  </div>
+  <button class="btn" id="rng-go" type="button">🎲 Generate</button>
+  <div class="result" id="rng-out" style="display:none"><span class="result-num" id="rng-res"></span></div>
+  <div class="tool-note" id="rng-note">Uses your browser's cryptographically secure random source — fair draws, nothing recorded.</div>
+</div>
+<script>(function(){
+var whole=true,unique=false;
+var $=function(id){return document.getElementById(id);};
+$('rng-int').addEventListener('click',function(){whole=!whole;this.classList.toggle('active',whole);});
+$('rng-unique').addEventListener('click',function(){unique=!unique;this.classList.toggle('active',unique);});
+function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+  do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+$('rng-go').addEventListener('click',function(){
+  var min=parseFloat($('rng-min').value),max=parseFloat($('rng-max').value);
+  var count=parseInt($('rng-count').value)||1;
+  var note=$('rng-note');
+  if(isNaN(min)||isNaN(max)||max<=min){note.textContent='Maximum must be greater than minimum.';return;}
+  if(count<1||count>100){note.textContent='Count must be between 1 and 100.';return;}
+  var out=[],seen={};
+  if(whole){
+    var size=Math.floor(max)-Math.ceil(min)+1;
+    if(unique&&count>size){note.textContent='Cannot pick '+count+' unique numbers from a range of '+size+'. Widen the range or allow duplicates.';return;}
+    while(out.length<count){
+      var v=Math.ceil(min)+secureInt(size);
+      if(unique&&seen[v])continue;
+      seen[v]=1;out.push(v);
+    }
+  }else{
+    if(unique){note.textContent='No-duplicates applies to whole numbers only.';return;}
+    for(var i=0;i<count;i++){out.push((min+(max-min)*secureInt(100000)/100000).toFixed(4));}
+  }
+  $('rng-res').textContent=out.join(',  ');
+  $('rng-out').style.display='block';
+  note.textContent='Generated '+out.length+' number'+(out.length>1?'s':'')+' · crypto-secure · nothing recorded.';
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -737,6 +787,7 @@ TOOLS = {
     "typing": lambda args: TYPING,
     "names": lambda args: NAMES,
     "password": lambda args: PASSWORD,
+    "randomnum": lambda args: RANDOMNUM,
 }
 
 
