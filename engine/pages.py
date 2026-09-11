@@ -2049,6 +2049,40 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "cm-to-feet-and-inches",
+        "title": "CM to Feet and Inches — Height Converter (170 cm and Beyond)",
+        "h1": "Centimeters to Feet and Inches",
+        "desc": "Convert centimeters to feet and inches in one step — 170 cm is 5 ft 6.9 in. Exact splits for medical forms, dating profiles and US-size clothing.",
+        "category": "converter",
+        "keyword": "cm to feet and inches",
+        "tool": "ftincm",
+        "args": {},
+        "intro": [
+            "Metric height in centimeters translates into the American two-part format — 170 cm becomes 5 feet 6.9 inches — with one division and one remainder. Enter centimeters and get the exact feet-and-inches split, or type feet and inches to go the other way.",
+            "This is the conversion behind international paperwork: US medical forms, dating profiles and clothing sizes all want imperial height, while passports and metric countries use centimeters. One converter, both formats, no guessing whether 1.7 m counts as 5'7″.",
+        ],
+        "howto": [
+            "Type your height in centimeters — the feet-and-inches split appears instantly.",
+            "Check the inches-only total too, since some US forms ask height purely in inches.",
+            "Go the other direction by typing feet and inches into the top fields.",
+        ],
+        "faqs": [
+            ("How many feet and inches is 170 cm?",
+             "170 cm is 5 feet 6.93 inches — which everyone rounds to 5'7″. The converter shows the exact decimal so forms can be filled precisely."),
+            ("How do I convert cm to feet and inches manually?",
+             "Divide centimeters by 2.54 to get total inches (170 ÷ 2.54 = 66.93). Divide that by 12 for feet (5) and multiply the remainder decimal by 12 for the leftover inches (0.93 × 12 ≈ 11.2? no — 66.93 − 60 = 6.93 inches). The converter removes the two-step risk."),
+            ("Is 180 cm 6 feet?",
+             "Close but not exact: 180 cm is 70.87 inches = 5 feet 10.87 inches. Six feet is 182.88 cm — nearly 3 cm more than 180."),
+            ("What height is 160 cm?",
+             "160 cm is 5 feet 2.99 inches — commonly rounded to 5'3″. Enter it above to see the exact figure with the inches-only total."),
+        ],
+    })
+
+    pages.append(_conv("cubic-meters-to-liters", "Cubic Meters to Liters", "cubic meters", "liters", 1000, "volume",
+                       "One cubic meter is exactly 1,000 liters — a neat 1:1,000 that makes aquariums, concrete pours and hot tub sizing straightforward. A 60-liter tank is 0.06 cubic meters; a 2-cubic-meter concrete order is 2,000 liters of the mix.",
+                       "Handy anchors: 0.1 m³ = 100 L (a big aquarium), 1 m³ = 1,000 L, 4 m³ = 4,000 L (a small hot tub), 30 m³ = 30,000 L (a garden pond)."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
