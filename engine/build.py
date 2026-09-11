@@ -562,7 +562,45 @@ def build_page(cfg, p, all_pages, cat_info):
     doc += footer(cfg, base, all_pages, cat_info)
     doc += BACKTOP
     doc += THEME_JS
-    doc += "</body></html>"
+    doc += """<div id='a2hs-bar' hidden style='position:fixed;left:12px;right:12px;bottom:12px;z-index:50;background:var(--brand,#0e7490);color:#fff;border-radius:12px;padding:10px 14px;font-size:.9rem;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 6px 20px rgba(0,0,0,.25)'>
+<span id='a2hs-tip' data-i18n='a2hs.tip'>Add ToolTide to your home screen</span>
+<span style='display:flex;gap:8px'><button id='a2hs-yes' type='button' style='border:0;border-radius:8px;padding:6px 12px;font:inherit;font-weight:700;cursor:pointer;background:#fff;color:#0e7490' data-i18n='a2hs.btn'>Install</button>
+<button id='a2hs-no' type='button' aria-label='Close' style='border:0;background:transparent;color:#fff;font-size:1.1rem;cursor:pointer'>x</button></span>
+</div>
+<script>(function(){
+try{
+var KEY='tt_a2hs_dismissed';
+if(localStorage.getItem(KEY)){return;}
+var iOS=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!/crios|fxios/i.test(navigator.userAgent);
+var standalone=window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+if(standalone){return;}
+var bar=document.getElementById('a2hs-bar');
+var tip=document.getElementById('a2hs-tip');
+var deferred=null;
+function show(){bar.hidden=false;}
+if(iOS){
+  tip.setAttribute('data-i18n','a2hs.ios');
+  tip.textContent='Tap Share, then Add to Home Screen';
+  setTimeout(show,4000);
+}else if(window.beforeinstallprompt){
+  window.beforeinstallprompt.then(function(e){
+    deferred=e;tip.removeAttribute('data-i18n');
+    tip.textContent='Add ToolTide to your home screen';
+    setTimeout(show,4000);
+  }).catch(function(){});
+}
+document.getElementById('a2hs-yes').addEventListener('click',function(){
+  if(deferred){deferred.prompt();deferred=null;}
+  try{localStorage.setItem(KEY,'1');}catch(e){}
+  bar.hidden=true;
+});
+document.getElementById('a2hs-no').addEventListener('click',function(){
+  try{localStorage.setItem(KEY,'1');}catch(e){}
+  bar.hidden=true;
+});
+}catch(e){}
+})();</script>
+</body></html>"""
     return doc
 
 

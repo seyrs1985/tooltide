@@ -107,7 +107,10 @@ zh:{
  "e404.search":"搜索",
  "e404.a":"或",
  "e404.link":"浏览全部工具",
- "e404.b":"。"
+ "e404.b":"。",
+ "a2hs.tip":"把 ToolTide 添加到主屏幕",
+ "a2hs.btn":"安装",
+ "a2hs.ios":"点分享,然后选添加到主屏幕"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -196,7 +199,10 @@ es:{
  "e404.search":"Buscar",
  "e404.a":"O",
  "e404.link":"explora todas las herramientas",
- "e404.b":"."
+ "e404.b":".",
+ "a2hs.tip":"Añade ToolTide a tu pantalla de inicio",
+ "a2hs.btn":"Instalar",
+ "a2hs.ios":"Toca Compartir y luego Añadir a inicio"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -285,7 +291,10 @@ pt:{
  "e404.search":"Pesquisar",
  "e404.a":"Ou",
  "e404.link":"explore todas as ferramentas",
- "e404.b":"."
+ "e404.b":".",
+ "a2hs.tip":"Adicione o ToolTide à tela inicial",
+ "a2hs.btn":"Instalar",
+ "a2hs.ios":"Toque em Compartilhar e depois Adicionar à tela"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -374,7 +383,10 @@ ru:{
  "e404.search":"Найти",
  "e404.a":"Или",
  "e404.link":"просмотрите все инструменты",
- "e404.b":"."
+ "e404.b":".",
+ "a2hs.tip":"Добавьте ToolTide на главный экран",
+ "a2hs.btn":"Установить",
+ "a2hs.ios":"Нажмите Поделиться, затем На экран Домой"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -463,7 +475,10 @@ ja:{
  "e404.search":"検索",
  "e404.a":"または",
  "e404.link":"すべてのツールを見る",
- "e404.b":"。"
+ "e404.b":"。",
+ "a2hs.tip":"ToolTideをホーム画面に追加",
+ "a2hs.btn":"インストール",
+ "a2hs.ios":"共有をタップしてホーム画面に追加"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -552,7 +567,10 @@ ko:{
  "e404.search":"검색",
  "e404.a":"또는",
  "e404.link":"모든 도구 둘러보기",
- "e404.b":"."
+ "e404.b":".",
+ "a2hs.tip":"ToolTide를 홈 화면에 추가",
+ "a2hs.btn":"설치",
+ "a2hs.ios":"공유를 누른 뒤 홈 화면에 추가"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -641,7 +659,10 @@ de:{
  "e404.search":"Suchen",
  "e404.a":"Oder",
  "e404.link":"alle Werkzeuge ansehen",
- "e404.b":"."
+ "e404.b":".",
+ "a2hs.tip":"ToolTide zum Startbildschirm hinzufügen",
+ "a2hs.btn":"Installieren",
+ "a2hs.ios":"Teilen tippen, dann Zum Home-Bildschirm"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -730,7 +751,10 @@ fr:{
  "e404.search":"Rechercher",
  "e404.a":"Ou",
  "e404.link":"parcourez tous les outils",
- "e404.b":"."
+ "e404.b":".",
+ "a2hs.tip":"Ajoutez ToolTide à votre écran d'accueil",
+ "a2hs.btn":"Installer",
+ "a2hs.ios":"Touchez Partager puis Ajouter à l'écran d'accueil"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -819,7 +843,10 @@ id:{
  "e404.search":"Cari",
  "e404.a":"Atau",
  "e404.link":"jelajahi semua alat",
- "e404.b":"."
+ "e404.b":".",
+ "a2hs.tip":"Tambahkan ToolTide ke layar utama",
+ "a2hs.btn":"Instal",
+ "a2hs.ios":"Ketuk Bagikan lalu Tambahkan ke Layar Utama"
 }
 };
 function detect(){

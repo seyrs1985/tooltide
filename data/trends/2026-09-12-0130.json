@@ -1,0 +1,7 @@
+{
+  "date": "2026-09-12",
+  "slot": "0130",
+  "us": ["i5 14600k vs 7600x benchmarks 500+", "josh allen 1000+", "jets 500+", "giants 500+", "week 2 nfl 1000+", "cowboys 500+", "eagles 1000+", "jets vs patriots 500+"],
+  "gb": ["ryan gosling 500+", "project runaway 200+", "st mirren 200+", "man city vs arsenal 1000+", "princess kiko 100+", "nhs 500+"],
+  "analysis": "美区NFL第二周开打(周期性体育热),英文'how many days until friday'为周期性大词。本轮2页均带留存基线:days-until-friday(每周循环倒计时+title钩子+A2HS站点提示条)、business-days-calculator(工作日计算landing复用datediff+localStorage输入记忆+title结果)。"
+}

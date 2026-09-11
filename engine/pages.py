@@ -2485,6 +2485,66 @@ def PAGES():
                        "Divide inches by 39,370.08 to reach kilometers - the reverse of the most lopsided conversion on the length ladder. Odometer discrepancies, model scales and printable map bars all produce inches that reports want in kilometers.",
                        "Handy anchors: 39,370 in = 1 km, 19,685 in = 0.5 km, 3,937 in = 0.1 km, 787 in = 0.02 km."))
 
+    pages.append({
+        "slug": "days-until-friday",
+        "title": "How Many Days Until Friday? Live Weekly Countdown",
+        "h1": "How Many Days Until Friday?",
+        "desc": "Live countdown to the next Friday - updates every second and rolls over automatically every week. The weekend countdown that never lies.",
+        "category": "countdown",
+        "keyword": "how many days until friday",
+        "tool": "countdown",
+        "args": {"event": "Friday", "titleUnit": "days to Friday", "emoji": "🏭", "rule": {"weekly": True, "weekday": 5}},
+        "intro": [
+            "The honest answer to the most-asked workplace question on Earth, refreshed every second. This countdown targets the upcoming Friday automatically - once Friday arrives it rolls to the next one, so it never shows a stale number or counts down to a Friday months away.",
+            "Fridays recur every seven days, which makes this the only countdown with a guaranteed next date forever. Bookmark it: the tab title keeps the days-remaining visible even when you are buried in seventeen other tabs.",
+        ],
+        "howto": [
+            "Open the page any day of the week - the countdown targets the upcoming Friday automatically.",
+            "Watch the timer through Friday itself; after midnight it rolls to next week.",
+            "Keep the tab open - the browser tab title shows the days remaining at all times.",
+        ],
+        "faqs": [
+            ("How many days until Friday?",
+             "Between 0 and 6, depending on today. The countdown shows the exact days, hours and minutes to midnight of the upcoming Friday, updating live."),
+            ("Does the countdown roll over after Friday?",
+             "Yes - the moment Friday ends it starts counting to the next one. There is always a Friday coming, which is the quiet beauty of this page."),
+            ("What about Saturday - is it 6 or 7 days until Friday?",
+             "On Saturday the countdown reads 6 days (the next Friday). Counting Saturday-to-Friday as 6 matches how calendars and every other countdown handle weekly recurrences."),
+            ("Why do people search for days until Friday?",
+             "Because the weekend is the finish line of the working week - search interest for Friday countdowns spikes every Sunday evening and Monday morning worldwide. This page is the answer, permanently accurate."),
+        ],
+    })
+
+    pages.append({
+        "slug": "business-days-calculator",
+        "title": "Business Days Calculator — Working Days Between Two Dates",
+        "h1": "Business Days Calculator",
+        "desc": "Count working days (Monday-Friday) between two dates instantly, with weekend days shown separately. For deadlines, SLA clocks, lead times and notice periods.",
+        "category": "calculator",
+        "keyword": "business days calculator",
+        "tool": "datediff",
+        "args": {},
+        "intro": [
+            "Pick two dates and see the working days between them - the count that actually matters for SLA clocks, shipping lead times, contract notice periods and 'we need it by Friday' promises. Weekend days are counted separately so both numbers are on screen.",
+            "The weekday count excludes Saturdays and Sundays automatically; public holidays vary by country, so add those on top of this number for your region. Your last inputs are remembered on the page between visits.",
+        ],
+        "howto": [
+            "Set the start date - your inputs are remembered for next visit.",
+            "Set the end date - weekdays, weeks and total days update instantly.",
+            "Add public holidays manually if your deadline logic counts them as non-working.",
+        ],
+        "faqs": [
+            ("How do I calculate business days between two dates?",
+             "Count every Monday-Friday between the dates and skip weekends. A Monday-to-Friday span is 4 business days (or 5 if you count the end date). This calculator shows the count automatically."),
+            ("How long is 10 business days?",
+             "Exactly two calendar weeks, when no public holidays interfere. 'Ships in 10 business days' from a Wednesday means roughly two and a half calendar weeks."),
+            ("Does the count include public holidays?",
+             "No - holidays differ by country and year. Add them manually on top of the weekday count for your region's calendar."),
+            ("Can I count business days since a past date?",
+             "Yes - set the past date as start and today as end. Useful for SLA breach checks, invoice aging and probation periods."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

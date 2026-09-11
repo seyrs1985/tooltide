@@ -45,8 +45,16 @@ function easterSunday(y){ // Anonymous Gregorian computus
   var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,mm=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*mm+114)/31),da=((h+l-7*mm+114)%31)+1;
   return new Date(y,mo-1,da,0,0,0);
 }
+function nextWeekly(y){
+  var now=new Date();
+  var t=new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
+  var delta=(rule.weekday-t.getDay()+7)%7;
+  if(delta===0)delta=7;
+  t.setDate(t.getDate()+delta);
+  return t;
+}
 function candidate(y){
-  if(rule){ if(rule.easter)return easterSunday(y); return nthWeekday(y,m-1,rule.week,rule.weekday); }
+  if(rule){ if(rule.easter)return easterSunday(y); if(rule.weekly)return nextWeekly(y); return nthWeekday(y,m-1,rule.week,rule.weekday); }
   return new Date(y,m-1,d,0,0,0);
 }
 function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
@@ -74,6 +82,7 @@ function tick(){
   el('cd-hours').textContent=Math.floor(diff/3600000).toLocaleString('en-US');
   el('cd-date').textContent=r.cand.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
   el('cd-today-box').style.display=r.today?'block':'none';
+  document.title=(real>0?real+'d to '+A.event:A.event)+' - ToolTide';
 }
 tick();setInterval(tick,1000);
 })();</script>
@@ -115,6 +124,11 @@ function run(){
   document.getElementById('dd-note').textContent=lo.toLocaleDateString('en-US',opts)+'  →  '+hi.toLocaleDateString('en-US',opts);
 }
 a.addEventListener('input',run);b.addEventListener('input',run);run();
+try{
+  var mem=JSON.parse(localStorage.getItem('tt_datediff')||'null');
+  if(mem&&mem.a&&mem.b){a.value=mem.a;b.value=mem.b;run();}
+  setInterval(function(){try{localStorage.setItem('tt_datediff',JSON.stringify({a:a.value,b:b.value}));}catch(e){}},2000);
+}catch(e){}
 })();</script>
 """
 
