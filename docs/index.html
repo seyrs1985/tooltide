@@ -133,4 +133,6 @@ inp.addEventListener('keydown',function(e){
 document.addEventListener('keydown',function(e){
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{}).tagName||'')){e.preventDefault();inp.focus();}
 });
+var qs=new URLSearchParams(location.search).get('q');
+if(qs){inp.value=qs;inp.dispatchEvent(new Event('input'));}
 })();</script></body></html>
