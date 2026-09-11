@@ -2324,6 +2324,40 @@ def PAGES():
         ],
     })
 
+    pages.append(_conv("ounces-to-tablespoons", "Ounces to Tablespoons", "fluid ounces", "tablespoons", 2, "volume",
+                       "The kitchen's smallest ladder: one US fluid ounce is exactly 2 tablespoons. Syrup doses, cocktail recipes and half-recipe scaling all land on this conversion — and since it is a clean 2:1, the only real risk is using the weight ounce instead of the fluid ounce.",
+                       "Handy anchors: 1 fl oz = 2 tbsp, 2 fl oz = 4 tbsp (a quarter cup), 4 fl oz = 8 tbsp (half a cup), 8 fl oz = 16 tbsp (a full cup)."))
+
+    pages.append({
+        "slug": "days-until-tax-day",
+        "title": "How Many Days Until Tax Day? April 15 Countdown",
+        "h1": "How Many Days Until Tax Day?",
+        "desc": "Live countdown to Tax Day - April 15. Track the filing deadline for federal taxes, extensions and quarterly estimated payments. Updates every second.",
+        "category": "countdown",
+        "keyword": "days until tax day",
+        "tool": "countdown",
+        "args": {"event": "Tax Day", "month": 4, "day": 15, "emoji": "💰"},
+        "intro": [
+            "This live countdown shows exactly how long until Tax Day - April 15, the federal income tax filing deadline in the United States. The timer computes the next April 15 automatically and rolls over the moment it passes, so you always know the real number of filing days left.",
+            "Procrastinators, extension filers and quarterly estimated-payment taxpayers all share the same April anxiety. Bookmark the page and check the honest number instead of guessing.",
+        ],
+        "howto": [
+            "Open the page - the countdown to April 15 starts immediately.",
+            "Read days remaining for filing planning, or watch the final-hours timer in April.",
+            "After Tax Day passes, the timer rolls to next year automatically.",
+        ],
+        "faqs": [
+            ("When is Tax Day?",
+             "April 15 in most years - the federal individual income tax filing deadline. When April 15 falls on a weekend or a DC holiday, the deadline shifts to the next business day (in 2026 it is Wednesday, April 15)."),
+            ("What happens if I miss Tax Day?",
+             "File as fast as possible: the late-filing penalty is 5% of unpaid taxes per month, capped at 25%. Filing an extension by the deadline moves the paperwork deadline to October - but not the payment deadline."),
+            ("When are quarterly estimated taxes due?",
+             "For self-employed taxpayers: April 15, June 15, September 15 and January 15 of the following year. The countdown above tracks the April one; the others follow the same quarterly rhythm."),
+            ("Does the countdown include state tax deadlines?",
+             "Most states align their deadline with the federal April 15 date, but a few differ. Check your state revenue department for local deadlines - the federal countdown above is the one almost everyone shares."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
