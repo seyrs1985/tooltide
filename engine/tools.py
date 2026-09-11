@@ -2215,6 +2215,104 @@ runSTLB();
 """
 
 
+
+# ---------------------------------------------------------------- ft+in <-> cm
+FTINCM = """
+<div class="tool" id="tt-fi">
+  <div class="fields">
+    <div class="field"><label for="fi-ft">Feet</label><input type="number" id="fi-ft" min="0" step="1" value="5"></div>
+    <div class="field"><label for="fi-in">Inches</label><input type="number" id="fi-in" min="0" max="11" step="any" value="7"></div>
+  </div>
+  <div class="result"><span class="result-num" id="fi-cm">-</span><span class="result-unit">cm</span></div>
+  <div class="field" style="margin-top:12px"><label for="fi-cm2">Centimeters (reverse)</label><input type="number" id="fi-cm2" step="any" min="0" placeholder="170"></div>
+  <div class="stats">
+    <div class="stat"><b id="fi-inonly">-</b><span>inches only</span></div>
+    <div class="stat"><b id="fi-split">-</b><span>ft + in split</span></div>
+  </div>
+</div>
+<script>(function(){
+var ft=document.getElementById('fi-ft'),inch=document.getElementById('fi-in'),cm2=document.getElementById('fi-cm2');
+var lock=false;
+function cmFrom(f,i){return f*30.48+i*2.54;}
+function runFI(){
+  if(lock)return;lock=true;cm2.value='';
+  var f=parseFloat(ft.value)||0,i=parseFloat(inch.value)||0;
+  var cm=cmFrom(f,i);
+  document.getElementById('fi-cm').textContent=(Math.round(cm*100)/100).toLocaleString('en-US');
+  document.getElementById('fi-inonly').textContent=(Math.round(cm/2.54*10)/10).toLocaleString('en-US');
+  document.getElementById('fi-split').textContent='-';
+  lock=false;
+}
+function runCM(){
+  if(lock)return;lock=true;ft.value='';inch.value='';
+  var c=parseFloat(cm2.value);
+  if(isNaN(c)||c<0){lock=false;return;}
+  var inOnly=c/2.54,feet=Math.floor(inOnly/12),ins=inOnly-feet*12;
+  document.getElementById('fi-ft').value=feet;
+  document.getElementById('fi-in').value=Math.round(ins*10)/10;
+  document.getElementById('fi-cm').textContent=(Math.round(c*100)/100).toLocaleString('en-US');
+  document.getElementById('fi-inonly').textContent=(Math.round(inOnly*10)/10).toLocaleString('en-US');
+  document.getElementById('fi-split').textContent=feet+' ft '+Math.round(ins*10)/10+' in';
+  lock=false;
+}
+ft.addEventListener('input',runFI);inch.addEventListener('input',runFI);
+cm2.addEventListener('input',runCM);
+runFI();
+})();</script>
+"""
+
+
+
+# ---------------------------------------------------------------- random emoji
+EMOJI = """
+<div class="tool" id="tt-em">
+  <div class="chips" id="em-cat">
+    <button class="chip active" data-c="all">All</button>
+    <button class="chip" data-c="face">Faces</button>
+    <button class="chip" data-c="animal">Animals</button>
+    <button class="chip" data-c="food">Food</button>
+    <button class="chip" data-c="object">Objects</button>
+    <button class="chip" data-c="symbol">Symbols</button>
+  </div>
+  <div class="field"><label for="em-n">How many</label><input type="number" id="em-n" min="1" max="12" step="1" value="3"></div>
+  <button class="btn" id="em-go" type="button">Generate</button>
+  <div class="result" style="text-align:center"><span class="result-num" id="em-out" style="font-size:2.2rem;letter-spacing:.15em">?</span></div>
+  <button class="btn btn-sm" id="em-copy" type="button">Copy batch</button>
+</div>
+<script>(function(){
+var E={
+face:["😀","😁","😂","🤣","😊","😍","🥰","😎","🤩","🥳","😢","😭","😡","🤯","😱","🤔","😴","🤒","🥶","🥵","😈","🤡","👻","💀","🤖"],
+animal:["🐶","🐱","🦊","🐻","🐼","🐨","🦁","🐮","🐷","🐸","🐵","🐔","🐧","🦅","🦉","🦄","🐝","🦋","🐢","🐙","🦈","🐬","🐳","🦕","🦖"],
+food:["🍎","🍊","🍋","🍉","🍇","🍓","🫐","🍒","🥑"," broccoli".slice(0,0)+"🥦","🌽","🍕","🍔","🌮","🍣","🍦","🍩","🍪","🎂","☕","🍺","🥑"],
+object:["📱","💻","⌚","📷","🎧","🎮","📚","✏️","💡","🔑","🔒","💎","🚗","✈️","🚀","⚽","🏀","🎸","🎨","🧸"],
+symbol:["❤️","🧡","💛","💚","💙","💜","🔥","⭐","🌟","✨","⚡","🌈","☀️","🌙","☔","💯","✅","❌","♻️","🔔"]
+};
+var cat="all";
+var out=document.getElementById('em-out');
+function pool(){return cat==="all"?Object.values(E).flat():E[cat];}
+function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+  do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+var last="";
+document.getElementById('em-go').addEventListener('click',function(){
+  var n=Math.min(12,Math.max(1,parseInt(document.getElementById('em-n').value)||3));
+  var p=pool(),res=[];
+  for(var i=0;i<n;i++)res.push(p[secureInt(p.length)]);
+  last=res.join(" ");
+  out.textContent=last;
+});
+document.getElementById('em-copy').addEventListener('click',function(){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(last||out.textContent);}
+  else{out.select();document.execCommand("copy");}
+  var b=document.getElementById("em-copy");b.textContent="Copied!";setTimeout(function(){b.textContent="Copy batch";},1200);
+});
+document.querySelectorAll('#em-cat .chip').forEach(function(c){c.addEventListener('click',function(){
+  cat=c.dataset.c;
+  document.querySelectorAll('#em-cat .chip').forEach(function(x){x.classList.toggle('active',x===c);});
+});});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2260,6 +2358,8 @@ TOOLS = {
     "factorial": lambda args: FACTORIAL,
     "country": lambda args: COUNTRY,
     "stlb": lambda args: STLB,
+    "ftincm": lambda args: FTINCM,
+    "emoji": lambda args: EMOJI,
     "sqft": lambda args: SQFT,
     "secondsconv": lambda args: SECONDS,
     "pxin": lambda args: PXIN,

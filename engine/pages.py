@@ -1989,6 +1989,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "feet-and-inches-to-cm",
+        "title": "Feet and Inches to CM — Height Converter (5'7\u2033 and Beyond)",
+        "h1": "Feet and Inches to Centimeters",
+        "desc": "Convert height in feet and inches (like 5'7\u2033) to centimeters in one step — and back. The two-unit height Americans use, translated for the metric world.",
+        "category": "converter",
+        "keyword": "feet and inches to cm",
+        "tool": "ftincm",
+        "args": {},
+        "intro": [
+            "American height comes as two numbers — 5 feet 7 inches — and translating that to centimeters normally means two conversions plus an addition. Enter the feet and inches separately and get the exact centimeter value in one step; enter centimeters to get the feet-and-inches split back.",
+            "One foot is exactly 30.48 cm and one inch 2.54 cm, so 5'7\u2033 becomes 170.18 cm. Medical forms, dating profiles and driver's licences finally speak the same language.",
+        ],
+        "howto": [
+            "Enter feet and inches separately — 5 and 7, not 5.7.",
+            "The centimeter answer updates instantly (or type cm to get the split back).",
+            "Round down or up depending on whether you are filling a form or flattering a profile.",
+        ],
+        "faqs": [
+            ("How many cm is 5 feet 7 inches?",
+             "5 ft 7 in = 67 inches total = 170.18 cm. Multiply feet by 30.48, inches by 2.54, and add — or let the converter do both steps."),
+            ("How many cm is 6 feet?",
+             "Exactly 182.88 cm. Six feet is the classic 'tall' threshold in the US — in most of Europe that is a comfortably above-average 1 m 83."),
+            ("Why do Americans use feet and inches for height?",
+             "Tradition: the imperial system survived metrication in the US, and height stuck as its stronghold — two units for one measurement, the same way the UK weighs people in stones and pounds."),
+            ("Is 170 cm 5 feet 7?",
+             "Almost — 170 cm is 5 feet 6.93 inches, which rounds to 5'7\u2033. The reverse converter shows the exact split so forms match precisely."),
+        ],
+    })
+
+    pages.append({
+        "slug": "random-emoji-generator",
+        "title": "Random Emoji Generator — Spin the Unicode Wheel",
+        "h1": "Random Emoji Generator",
+        "desc": "Get random emoji instantly — one at a time or batches, with category filters for faces, animals, food and more. Cryptographically fair, nothing recorded.",
+        "category": "generator",
+        "keyword": "random emoji generator",
+        "tool": "emoji",
+        "args": {},
+        "intro": [
+            "One button, one emoji: draw from a hand-picked pool of hundreds, filtered by category if you want faces, animals, food, objects or symbols only. Generate batches for Slack reactions, creative prompts, social media games and 'describe your day in three emoji' challenges.",
+            "Every draw uses the browser's cryptographically secure random source — each emoji is equally likely, and nothing you generate is recorded anywhere.",
+        ],
+        "howto": [
+            "Pick a category or leave it on All.",
+            "Set how many emoji you want (1–12) and hit Generate.",
+            "Copy the batch with one tap for your bio, message or game.",
+        ],
+        "faqs": [
+            ("How many emoji are in the generator?",
+             "Hundreds, spanning faces, animals, food, activities, objects, symbols and travel — curated for ones that display reliably across platforms."),
+            ("Why do emoji look different on iPhone vs Android?",
+             "Each platform draws its own emoji artwork from the same Unicode standard — same character, different art. The character you copy is identical everywhere; only the picture varies."),
+            ("Can I use these commercially?",
+             "Emoji characters themselves are just Unicode text and free to use. Platform-specific artwork is copyrighted by its creator, so design your own graphics for commercial artwork."),
+            ("Is the draw random?",
+             "Yes — powered by the browser's WebCrypto secure random source, so every emoji in the pool is equally likely on every draw."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
