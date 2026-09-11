@@ -292,13 +292,17 @@ html.js .cat:not(.open) .card.extra{display:none}
 .cat-more:hover{border-color:var(--brand);color:var(--brand)}
 
 /* long-page render perf — the browser skips layout/paint of offscreen
-   category sections until they scroll into view (progressive enhancement) */
+   category sections and tool-page SEO sections until they scroll into
+   view (progressive enhancement) */
 @supports (content-visibility:auto){
   .cat{content-visibility:auto;contain-intrinsic-size:420px}
   .cat{contain-intrinsic-size:auto 760px}
+  .seo-block{content-visibility:auto;contain-intrinsic-size:900px}
+  .seo-block{contain-intrinsic-size:auto 1400px}
 }
 @media print{
   .cat{content-visibility:visible}
+  .seo-block{content-visibility:visible}
   html.js .cat .card.extra{display:flex}
   /* Paper wants the light palette regardless of the OS/toggle dark choice
      (printing dark wastes ink), so every dark consumer var is restated here.
