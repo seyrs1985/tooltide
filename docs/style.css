@@ -7,6 +7,11 @@ a{color:#0e7490}
 h1{font-size:clamp(1.7rem,3.5vw,2.3rem);line-height:1.2;margin:6px 0 14px;letter-spacing:-.02em}
 h2{font-size:1.25rem;margin:26px 0 10px}
 
+/* skip link + keyboard focus */
+.skip{position:absolute;left:-9999px;top:0;z-index:60;background:#0e7490;color:#fff;padding:10px 18px;border-radius:0 0 10px 0;font-weight:600;text-decoration:none}
+.skip:focus{left:0}
+:focus-visible{outline:2px solid #0e7490;outline-offset:2px}
+
 /* header / nav */
 .site-head{background:#fff;border-bottom:1px solid #e2e8f0}
 .nav-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
@@ -127,12 +132,21 @@ input[type=range]{padding:0;accent-color:#0e7490}
 /* ads (render only when configured) */
 .ad{margin:20px 0;min-height:0}
 
-/* footer */
-.site-foot{margin-top:52px;border-top:1px solid #e2e8f0;background:#fff;padding:26px 0 34px;font-size:.88rem;color:#64748b}
-.site-foot nav{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:10px}
+/* footer — brand + site matrix */
+.site-foot{margin-top:52px;border-top:1px solid #e2e8f0;background:#fff;padding:30px 0 34px;font-size:.88rem;color:#64748b}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:28px}
+.foot-brand .logo{display:inline-block;margin-bottom:8px}
+.foot-brand p{max-width:300px;color:#64748b;margin:0}
+.foot-col h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:10px}
+.foot-col a{display:block;padding:4px 0;color:#475569;text-decoration:none}
+.foot-col a:hover{color:#0e7490}
+.foot-legal{margin-top:26px;padding-top:16px;border-top:1px solid #f1f5f9}
+.foot-legal p{margin:0}
 .site-foot a{color:#475569;text-decoration:none}
 .site-foot a:hover{color:#0e7490}
-.aff-note{margin-top:6px;font-size:.8rem;color:#94a3b8}
+.aff-note{margin:0 0 8px;font-size:.8rem;color:#94a3b8}
+@media(max-width:700px){.foot-grid{grid-template-columns:1fr;gap:22px}.foot-brand p{max-width:none}}
+@media(prefers-reduced-motion:reduce){.card,.pw-bar{transition:none}.card:hover{transform:none}}
 
 /* static pages */
 .static-page{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;margin:18px 0}

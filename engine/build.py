@@ -53,6 +53,54 @@ def ad_slot(cfg, slot_id, where):
     )
 
 
+OG_IMAGE = "og-image.png"
+og_image_ready = False
+
+
+def ensure_og_image():
+    """Generate docs/og-image.png (1200x630 share card) once; reused on rebuilds."""
+    global og_image_ready
+    out = os.path.join(SITE_DIR, OG_IMAGE)
+    if os.path.exists(out):
+        og_image_ready = True
+        return
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError:
+        return
+    bold_candidates = [r"C:\Windows\Fonts\segoeuib.ttf", r"C:\Windows\Fonts\arialbd.ttf",
+                       "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"]
+    reg_candidates = [r"C:\Windows\Fonts\segoeui.ttf", r"C:\Windows\Fonts\arial.ttf",
+                      "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"]
+    bold = next((f for f in bold_candidates if os.path.exists(f)), None)
+    reg = next((f for f in reg_candidates if os.path.exists(f)), None)
+    if not (bold and reg):
+        return
+    W, H = 1200, 630
+    top, bot = (10, 58, 94), (14, 116, 144)  # deep ocean → tooltide teal
+    img = Image.new("RGB", (W, H))
+    d = ImageDraw.Draw(img)
+    for y in range(H):
+        t = y / (H - 1)
+        d.line([(0, y), (W, y)],
+               fill=tuple(int(top[i] + (bot[i] - top[i]) * t) for i in range(3)))
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ov = ImageDraw.Draw(overlay)
+    import math
+    for amp, base_y, alpha, phase in [(26, 492, 42, 0.0), (20, 534, 26, 2.1)]:
+        pts = [(x, base_y + amp * math.sin(x / 140.0 + phase)) for x in range(0, W + 1, 6)]
+        ov.polygon(pts + [(W, H), (0, H)], fill=(255, 255, 255, alpha))
+    img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
+    d = ImageDraw.Draw(img)
+    d.text((80, 185), "ToolTide", font=ImageFont.truetype(bold, 128), fill=(255, 255, 255))
+    d.text((84, 375), "Free online tools — fast, private, no sign-up",
+           font=ImageFont.truetype(reg, 44), fill=(165, 243, 252))
+    os.makedirs(SITE_DIR, exist_ok=True)
+    img.save(out, "PNG", optimize=True)
+    og_image_ready = True
+    print(f"  asset /{OG_IMAGE} (generated)")
+
+
 def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
     ga = (cfg.get("ga4_id") or "").strip()
     gsc = (cfg.get("gsc_verification") or "").strip()
@@ -62,6 +110,16 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
     fav = ("data:image/svg+xml," +
            esc('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">🌊</text></svg>'))
     css = "style.css" if root else "../style.css"
+    og_abs = cfg["base_url"] + OG_IMAGE
+    og_img = f'<meta property="og:image" content="{esc(og_abs)}">\n' \
+             f'<meta property="og:image:width" content="1200">\n' \
+             f'<meta property="og:image:height" content="630">\n' \
+             f'<meta property="og:image:alt" content="ToolTide — free online tools">\n' \
+             f'<meta name="twitter:card" content="summary_large_image">\n' \
+             f'<meta name="twitter:title" content="{esc(title)}">\n' \
+             f'<meta name="twitter:description" content="{esc(desc)}">\n' \
+             f'<meta name="twitter:image" content="{esc(og_abs)}">\n' \
+        if og_image_ready else ""
     h = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,7 +132,9 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{esc(canonical)}">
-<meta name="theme-color" content="#0e7490">
+<meta property="og:site_name" content="ToolTide">
+<meta property="og:locale" content="en_US">
+{og_img}<meta name="theme-color" content="#0e7490">
 <link rel="icon" href="{fav}">
 {f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
@@ -82,7 +142,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
 {f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={esc(ads)}" crossorigin="anonymous"></script>' if ads else ''}
 {f'<script async src="https://www.googletagmanager.com/gtag/js?id={esc(ga)}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag("js",new Date());gtag("config","{esc(ga)}");</script>' if ga else ''}
 </head>
-<body>"""
+<body><a class="skip" href="#main">Skip to content</a>"""
     return h
 
 
@@ -96,30 +156,52 @@ def header_nav(cfg, base):
     return f"""<header class="site-head">
   <div class="wrap nav-row">
     <a class="logo" href="{base}">🌊 ToolTide</a>
-    <nav><a href="{esc(games_url)}" title="Our sister site: free online games">🎮 Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
+    <nav aria-label="Primary"><a href="{esc(games_url)}" title="Our sister site: free online games">🎮 Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
   </div>
 </header>"""
+
+
+# footer tool matrix — keep slugs in sync with the homepage section ids in pages.py
+FOOT_CATS = [("calculator", "Calculators"), ("converter", "Converters"),
+             ("countdown", "Countdowns"), ("text", "Text tools"),
+             ("generator", "Generators")]
 
 
 def footer(cfg, base):
     kofi = (cfg.get("kofi_url") or "").strip()
     affiliate = cfg.get("affiliate") or {}
     year = YEAR
-    parts = [f'<a href="{base}about/">About</a>',
-             f'<a href="{base}privacy/">Privacy</a>',
-             f'<a href="{base}contact/">Contact</a>']
     games_url = (cfg.get("sister_site") or {}).get("url", "https://seyrs1985.github.io/neonplay/")
-    parts.append(f'<a href="{esc(games_url)}" title="Our sister site: free online games">🎮 Games</a>')
+    cat_links = "".join(f'<a href="{base}#{c}">{esc(n)}</a>' for c, n in FOOT_CATS)
+    site_links = f"""<a href="{base}about/">About</a>
+      <a href="{base}privacy/">Privacy</a>
+      <a href="{base}contact/">Contact</a>
+      <a href="{esc(games_url)}" title="Our sister site: free online games">🎮 Games on NeonPlay</a>"""
     if kofi:
-        parts.append(f'<a href="{esc(kofi)}" rel="noopener" target="_blank">☕ Support us</a>')
+        site_links += f'\n      <a href="{esc(kofi)}" rel="noopener" target="_blank">☕ Support us</a>'
     aff = ""
     if affiliate.get("url"):
         aff = f'<p class="aff-note">{esc(affiliate.get("disclosure", ""))} <a href="{esc(affiliate["url"])}" rel="sponsored noopener" target="_blank">{esc(affiliate.get("text", ""))}</a></p>'
-    return f"""<footer class="site-foot"><div class="wrap">
-  <nav>{''.join(parts)}</nav>
-  {aff}
-  <p>© {year} ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
-</div></footer>"""
+    return f"""<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="logo" href="{base}">🌊 ToolTide</a>
+      <p>Free online tools that run in your browser. No sign-up, no installs, no tracking of your inputs.</p>
+    </div>
+    <nav class="foot-col" aria-label="Tool categories">
+      <h3>Tools</h3>
+      {cat_links}
+    </nav>
+    <nav class="foot-col" aria-label="Site">
+      <h3>Site</h3>
+      {site_links}
+    </nav>
+  </div>
+  <div class="wrap foot-legal">
+    {aff}
+    <p>© {year} ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+  </div>
+</footer>"""
 
 
 def crumb(base, items):
@@ -175,7 +257,7 @@ def build_page(cfg, p, all_pages):
     doc = head_tags(cfg, p["title"], p["desc"], canonical, [webapp_ld, faq_ld, crumb_ld], root=False)
     doc += header_nav(cfg, base)
     doc += crumb(base, [("🌊 ToolTide", base), (p["h1"], None)])
-    doc += f"""<main class="wrap">
+    doc += f"""<main class="wrap" id="main">
 <article>
   <div class="page-emoji">{emoji}</div>
   <h1>{esc(p['h1'])}</h1>
@@ -219,7 +301,7 @@ def build_index(cfg, all_pages, cat_info):
     doc = head_tags(cfg, "ToolTide — Free Online Tools: Calculators, Converters & Countdowns",
                     desc, canonical, [website_ld], root=True)
     doc += header_nav(cfg, base)
-    doc += f"""<main class="wrap">
+    doc += f"""<main class="wrap" id="main">
 <section class="hero">
   <h1>Free online tools that just work</h1>
   <p>Countdowns, calculators, converters and generators — fast, private, and free. Everything runs in your browser; nothing you type ever leaves your device.</p>
@@ -293,7 +375,7 @@ def build_static(cfg, path, inner, title, desc):
     inner2 = (inner.replace("{date}", TODAY.isoformat())
                    .replace("{base}", base)
                    .replace("{email}", cfg.get("contact_email", "hello@example.com")))
-    doc += f'<main class="wrap"><article class="static-page">{inner2}</article></main>'
+    doc += f'<main class="wrap" id="main"><article class="static-page">{inner2}</article></main>'
     doc += footer(cfg, base)
     doc += "</body></html>"
     return doc
@@ -309,6 +391,7 @@ def write(path, content):
 def main():
     cfg = load_config()
     os.makedirs(SITE_DIR, exist_ok=True)
+    ensure_og_image()
     all_pages, cat_info = pages_mod.get_pages()
 
     # shared stylesheet
