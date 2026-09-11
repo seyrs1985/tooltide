@@ -2185,6 +2185,13 @@ def PAGES():
         ],
     })
 
+    pages.append(_conv("miles-to-feet", "Miles to Feet", "miles", "feet", 5280, "distance",
+                       "The most American conversion there is: one mile is exactly 5,280 feet — a number everyone in the US has memorized and nobody outside can explain. Runners, pilots and real estate listings all hop between these units.",
+                       "Handy anchors: 1 mi = 5,280 ft, 3 mi = 15,840 ft (a 5K in feet), 26.2 mi = 138,336 ft (marathon), 100 mi = 528,000 ft (century ride)."))
+    pages.append(_conv("yards-to-miles", "Yards to Miles", "yards", "miles", 1 / 1760, "distance",
+                       "Football fields are measured in yards, road trips in miles — and 1,760 yards make a mile. Divide yards by 1,760, or remember that 10 football fields (including end zones) is just about a mile.",
+                       "Handy anchors: 1,760 yd = 1 mi, 880 yd = 0.5 mi (half-mile track), 100 yd = 0.057 mi (a football field), 1,500 yd = 0.85 mi."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
