@@ -165,8 +165,8 @@ def header_nav(cfg, base):
     games_url = (cfg.get("sister_site") or {}).get("url", "https://seyrs1985.github.io/neonplay/")
     return f"""<header class="site-head">
   <div class="wrap nav-row">
-    <a class="logo" href="{base}">🌊 ToolTide</a>
-    <nav aria-label="Primary"><a href="{esc(games_url)}" title="Our sister site: free online games">🎮 Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
+    <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolTide</a>
+    <nav aria-label="Primary"><a href="{esc(games_url)}" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
   </div>
 </header>"""
 
@@ -174,6 +174,12 @@ def header_nav(cfg, base):
 # footer tool matrix + hero chips — category keys must match the homepage section ids in pages.py
 CAT_EMOJI = {"countdown": "⏳", "calculator": "🧮", "converter": "🔄",
              "text": "🔤", "generator": "🎲"}
+
+
+def cat_emoji_html(cat):
+    """Category emoji as a decorative span — kept out of link accessible names."""
+    emo = CAT_EMOJI.get(cat, "")
+    return f'<span aria-hidden="true">{emo}</span> ' if emo else ""
 
 
 def foot_label(p):
@@ -202,7 +208,7 @@ def footer(cfg, base, all_pages=(), cat_info=None):
     site_links = f"""<a href="{base}about/">About</a>
       <a href="{base}privacy/">Privacy</a>
       <a href="{base}contact/">Contact</a>
-      <a href="{esc(games_url)}" title="Our sister site: free online games">🎮 Games on NeonPlay</a>"""
+      <a href="{esc(games_url)}" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games on NeonPlay</a>"""
     if kofi:
         site_links += f'\n      <a href="{esc(kofi)}" rel="noopener" target="_blank">☕ Support us</a>'
     cols = ""
@@ -210,7 +216,7 @@ def footer(cfg, base, all_pages=(), cat_info=None):
         cat_pages = spread([x for x in all_pages if x["category"] == cat], 4)
         items = "".join(f'<a href="{base}{x["slug"]}/">{esc(foot_label(x))}</a>' for x in cat_pages)
         cols += (f'<nav class="foot-col" aria-label="{esc(label)}">'
-                 f'<h3><a href="{base}#{cat}">{CAT_EMOJI.get(cat, "")} {esc(label)}</a></h3>'
+                 f'<h3><a href="{base}#{cat}">{cat_emoji_html(cat)}{esc(label)}</a></h3>'
                  f'{items}</nav>')
     aff = ""
     if affiliate.get("url"):
@@ -218,7 +224,7 @@ def footer(cfg, base, all_pages=(), cat_info=None):
     return f"""<footer class="site-foot">
   <div class="wrap">
     <div class="foot-brand">
-      <a class="logo" href="{base}">🌊 ToolTide</a>
+      <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolTide</a>
       <p>Free online tools that run in your browser. No sign-up, no installs, no tracking of your inputs.</p>
       <nav class="foot-site" aria-label="Site">{site_links}</nav>
     </div>
@@ -240,7 +246,7 @@ def crumb(base, items):
 def tool_card(p, base):
     emoji = (p.get("args") or {}).get("emoji") or TOOL_EMOJI.get(p["tool"], "🔧")
     return (f'<a class="card" href="{base}{p["slug"]}/">'
-            f'<span class="card-emoji">{emoji}</span>'
+            f'<span class="card-emoji" aria-hidden="true">{emoji}</span>'
             f'<span class="card-title">{esc(p["h1"])}</span>'
             f'<span class="card-desc">{esc(p["desc"][:110])}…</span></a>')
 
@@ -286,7 +292,7 @@ def build_page(cfg, p, all_pages, cat_info):
     doc += crumb(base, [("🌊 ToolTide", base), (p["h1"], None)])
     doc += f"""<main class="wrap" id="main">
 <article>
-  <div class="page-emoji">{emoji}</div>
+  <div class="page-emoji" aria-hidden="true">{emoji}</div>
   <h1>{esc(p['h1'])}</h1>
   {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
   <section class="intro">{intro_html}</section>
@@ -316,11 +322,12 @@ def build_index(cfg, all_pages, cat_info):
                         f'<div class="grid">{cards}</div></section>')
         for x in cat_pages:
             search_cards.append((x["h1"], x["desc"], base + x["slug"] + "/",
-                                 TOOL_EMOJI.get(x["tool"], "🔧")))
-    cards_js = json.dumps([{"t": t, "d": d, "u": u, "e": e} for t, d, u, e in search_cards],
+                                 TOOL_EMOJI.get(x["tool"], "🔧"), label, x["slug"]))
+    cards_js = json.dumps([{"t": t, "d": d, "u": u, "e": e, "c": c, "s": s}
+                           for t, d, u, e, c, s in search_cards],
                           ensure_ascii=False)
     chips = "".join(
-        f'<a href="#{cat}">{CAT_EMOJI.get(cat, "")} {esc(label)}</a>'
+        f'<a href="#{cat}">{cat_emoji_html(cat)}{esc(label)}</a>'
         for cat, (label, _blurb) in cat_info.items())
     website_ld = {"@type": "WebSite", "name": "ToolTide", "url": base,
                   "description": desc, "potentialAction": {
@@ -348,14 +355,46 @@ def build_index(cfg, all_pages, cat_info):
     doc += f"""<script>(function(){{
 var CARDS={cards_js};
 var inp=document.getElementById('tool-search'),out=document.getElementById('search-results');
+function esc(s){{return s.replace(/[&<>"']/g,function(m){{return{{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[m];}});}}
+var ALIAS={{f:'fahrenheit',c:'celsius',k:'kilogram',kg:'kilogram kilograms',lb:'pound pounds',lbs:'pound pounds',km:'kilometer',mi:'mile',cm:'centimeter',mm:'millimeter',ft:'feet',yd:'yard',oz:'ounce',gal:'gallon',pt:'pint',qt:'quart'}};
+function hay(c){{return (c.t+' '+c.d+' '+c.c+' '+c.s).toLowerCase();}}
+function groups(q){{return q.split(/\\s+/).filter(Boolean).map(function(t){{
+  var v=[t];if(ALIAS[t])v=v.concat(ALIAS[t].split(' '));return v;}});}}
+function grpLen(t,s,g){{var bt=0,bs=0;g.forEach(function(v){{
+  var i=t.indexOf(v);if(i>=0&&v.length>bt)bt=v.length;
+  i=s.indexOf(v);if(i>=0&&v.length>bs)bs=v.length;}});return bt*2+bs;}}
+function find(q,gs){{
+  var ph=CARDS.filter(function(c){{return hay(c).indexOf(q)>=0;}});
+  if(ph.length||gs.length<2)return ph.slice(0,12);
+  var all=CARDS.filter(function(c){{var h=hay(c);
+    return gs.every(function(g){{return g.some(function(v){{return h.indexOf(v)>=0;}});}});}});
+  all.sort(function(a,b){{return score(b,gs)-score(a,gs);}});
+  return all.slice(0,12);
+}}
+function score(c,gs){{var t=c.t.toLowerCase(),n=0;gs.forEach(function(g){{n+=grpLen(t,c.s,g);}});return n;}}
+function hiTok(s,flat){{var low=s.toLowerCase(),res='',pos=0;
+  flat=flat.filter(function(t){{return t.length>=2;}});
+  for(;;){{var best=-1,bl=0;
+    flat.forEach(function(t){{var i=low.indexOf(t,pos);if(i>=0&&(best<0||i<best)){{best=i;bl=t.length;}}}});
+    if(best<0){{res+=esc(s.slice(pos));break;}}
+    res+=esc(s.slice(pos,best))+'<mark>'+esc(s.substr(best,bl))+'</mark>';pos=best+bl;}}
+  return res;}}
+function card(c,flat){{return '<a class="card" href="'+c.u+'"><span class="card-emoji" aria-hidden="true">'+c.e+'</span><span class="card-title">'+hiTok(c.t,flat)+'</span><span class="card-tag">'+esc(c.c)+'</span><span class="card-desc">'+hiTok(c.d.slice(0,110),flat)+'</span></a>';}}
 inp.addEventListener('input',function(){{
   var q=this.value.trim().toLowerCase();
-  if(!q){{out.style.display='none';document.querySelectorAll('.cat').forEach(function(c){{if(c.id!=='all')c.style.display='block';}});return;}}
+  if(!q){{out.style.display='none';out.innerHTML='';document.querySelectorAll('.cat').forEach(function(c){{if(c.id!=='all')c.style.display='';}});return;}}
   document.querySelectorAll('.cat').forEach(function(c){{if(c.id!=='all')c.style.display='none';}});
-  var hits=CARDS.filter(function(c){{return (c.t+' '+c.d).toLowerCase().indexOf(q)>=0;}}).slice(0,12);
-  out.innerHTML=hits.map(function(c){{return '<a class="card" href="'+c.u+'"><span class="card-emoji">'+c.e+'</span><span class="card-title">'+c.t+'</span><span class="card-desc">'+c.d.slice(0,110)+'…</span></a>';}}).join('')
-    || '<p class="cat-blurb">No tools match “'+q+'” — try “calculator”, “convert” or “days”.</p>';
-  out.style.display='block';
+  var gs=groups(q),flat=[];gs.forEach(function(g){{flat=flat.concat(g);}});
+  var hits=find(q,gs);
+  out.innerHTML=hits.map(function(c){{return card(c,flat);}}).join('')
+    || '<p class="cat-blurb">No tools match “'+esc(q)+'” — try “calculator”, “convert” or “days”, or <a href="#all">browse all tools</a>.</p>';
+  out.style.display='grid';
+}});
+inp.addEventListener('keydown',function(e){{
+  if(e.key==='Enter'){{var first=out.querySelector('a.card');if(first){{e.preventDefault();location.assign(first.href);}}}}
+}});
+document.addEventListener('keydown',function(e){{
+  if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{{}}).tagName||'')){{e.preventDefault();inp.focus();}}
 }});
 }})();</script></body></html>"""
     return doc

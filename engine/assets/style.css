@@ -86,7 +86,7 @@ article>.page-emoji{font-size:2.3rem;margin-top:18px}
 .fields{display:flex;flex-wrap:wrap;gap:14px;margin:6px 0}
 .fields .field{flex:1;min-width:150px;display:flex;flex-direction:column;gap:6px}
 .field label{font-size:.83rem;font-weight:600;color:var(--text-3)}
-.field label small{font-weight:400;color:var(--faint)}
+.field label small{font-weight:400;color:var(--muted)}
 input,select,textarea{font:inherit;color:inherit;padding:10px 12px;border:1px solid var(--input-border);border-radius:10px;background:var(--surface);width:100%}
 textarea{resize:vertical;line-height:1.6}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);border-color:var(--brand)}
@@ -169,7 +169,7 @@ input[type=range]{padding:0;accent-color:var(--brand)}
 .foot-brand p{max-width:420px;color:var(--muted);margin:0}
 .foot-site{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
 .foot-matrix{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 28px;margin-top:26px;padding-top:22px;border-top:1px solid var(--border-faint)}
-.foot-col h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:0 0 10px}
+.foot-col h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 0 10px}
 .foot-col h3 a{color:inherit;text-decoration:none}
 .foot-col h3 a:hover{color:var(--brand)}
 .foot-col a{display:block;padding:4px 0;color:var(--text-3);text-decoration:none}
@@ -178,12 +178,16 @@ input[type=range]{padding:0;accent-color:var(--brand)}
 .foot-legal p{margin:0}
 .site-foot a{color:var(--text-3);text-decoration:none}
 .site-foot a:hover{color:var(--brand)}
-.aff-note{margin:0 0 8px;font-size:.8rem;color:var(--faint)}
+.aff-note{margin:0 0 8px;font-size:.8rem;color:var(--muted)}
 
 /* hero category chips */
 .hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .hero-chips a{padding:7px 14px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:.88rem;font-weight:600;color:var(--text-2);text-decoration:none;transition:border-color .15s,color .15s}
 .hero-chips a:hover{border-color:var(--accent-soft);color:var(--brand)}
+
+/* homepage live search */
+#search-results mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
+.card-tag{align-self:flex-start;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--brand);background:var(--surface-2);border-radius:6px;padding:2px 7px}
 
 @media(max-width:700px){
   .foot-brand p{max-width:none}
