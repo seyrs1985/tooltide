@@ -2386,6 +2386,13 @@ def PAGES():
                        "One meter is 39.37007874 inches - a number engineers memorize as 'about 39.37'. Television diagonals, lumber lengths and fabric bolts bounce between the two, and this converter keeps every decimal place honest.",
                        "Handy anchors: 1 m = 39.37 in, 2 m = 78.74 in, 0.5 m = 19.69 in, 3 m = 118.11 in (a large TV is 75 in diagonal)."))
 
+    pages.append(_conv("yards-to-inches", "Yards to Inches", "yards", "inches", 36, "length",
+                       "Fabric stores sell by the yard; pattern pieces are marked in inches. One yard is exactly 36 inches, so the math is a clean multiply by 36 - two yards of fabric is 72 inches of material.",
+                       "Handy anchors: 1 yd = 36 in, 2 yd = 72 in (fabric length), 10 yd = 360 in, 100 yd = 3,600 in (a football field minus end zones)."))
+    pages.append(_conv("grams-to-kilograms", "Grams to Kilograms", "grams", "kilograms", 1 / 1000, "weight",
+                       "The metric system at its simplest: 1,000 grams make a kilogram, so divide by 1,000. Kitchen scales read grams, bathroom scales read kilograms - this converter keeps recipes, parcels and fitness tracking on the same page.",
+                       "Handy anchors: 500 g = 0.5 kg (a beer mats worth of steel? no - a bottle of water), 750 g = 0.75 kg (flour pack), 1,000 g = 1 kg, 2,500 g = 2.5 kg (a bag of rice)."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
