@@ -173,6 +173,51 @@ try {
   const priv = fs.readFileSync(path.join(root, 'privacy', 'index.html'), 'utf8');
   assert(/theme choice, saved via local storage/.test(priv),
     'privacy page: theme localStorage disclosure matches behavior');
+
+  // sitemap ↔ built pages, both directions. games/ holds redirect stubs to the
+  // sister site and is intentionally absent from the sitemap.
+  const sm = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+  const base = ((idx.match(/<link rel="canonical" href="([^"]+)"/) || [])[1] || '').replace(/\/$/, '');
+  assert(!!base, 'homepage: canonical present as sitemap base');
+  if (base) {
+    const locs = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1].replace(/\/$/, ''));
+    const built = [];
+    (function walkDirs(d) {
+      for (const f of fs.readdirSync(d)) {
+        const p = path.join(d, f);
+        if (fs.statSync(p).isDirectory()) { if (f !== 'games' && f !== 'play') walkDirs(p); }
+        else if (f === 'index.html') {
+          const rel = path.relative(root, p).split(path.sep).join('/');
+          built.push(rel === 'index.html' ? base
+            : base + '/' + rel.slice(0, -'index.html'.length).replace(/\/$/, ''));
+        }
+      }
+    })(root);
+    const missing = built.filter(u => !locs.includes(u));
+    const extra = locs.filter(u => !built.includes(u));
+    assert(missing.length === 0, 'sitemap: built pages missing from sitemap: ' + missing.slice(0, 5).join(' '));
+    assert(extra.length === 0, 'sitemap: stale URLs pointing nowhere: ' + extra.slice(0, 5).join(' '));
+    assert(locs.length === built.length && new Set(locs).size === locs.length,
+      `sitemap: count/dedupe mismatch (sitemap ${locs.length} vs built ${built.length})`);
+  }
+
+  // stylesheet cache-busting + iOS touch icon
+  assert(/rel="stylesheet" href="(\.\.\/)?style\.css\?v=[0-9a-f]{10}"/.test(idx),
+    'head: stylesheet carries ?v= content-hash cache buster');
+  const idxCssVer = (idx.match(/style\.css\?v=([0-9a-f]{10})/) || [])[1];
+  const toolCssVer = (tool.match(/style\.css\?v=([0-9a-f]{10})/) || [])[1];
+  assert(!!idxCssVer && idxCssVer === toolCssVer, 'head: same ?v= hash on homepage and tool page');
+  assert(idx.includes('rel="apple-touch-icon"') && fs.existsSync(path.join(root, 'apple-touch-icon.png')),
+    'head: apple-touch-icon link + generated file');
+
+  // hero ocean band + gradient headline
+  assert(/--hero-glow:/.test(css) && /--hero-grad:/.test(css),
+    'style.css: hero glow/gradient variables');
+  assert(/\.hero\{position:relative;margin:0 -20px;/.test(css.replace(/\n/g, '')),
+    'style.css: full-wrap hero band');
+  assert(/@supports \(\(-webkit-background-clip:text\)\)/.test(css)
+    && /\.hero h1\{background-image:var\(--hero-grad\)/.test(css),
+    'style.css: gradient headline behind @supports fallback');
 } catch (e) { fail++; console.log('SITE FAIL round-assertions:', e.message); }
 
 console.log('files:', files.length, '| checks passed:', checked, '| failures:', fail);

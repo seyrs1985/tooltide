@@ -7,6 +7,7 @@ Only the Python standard library is used.
 """
 
 import datetime
+import hashlib
 import html
 import json
 import os
@@ -56,6 +57,21 @@ def ad_slot(cfg, slot_id, where):
 
 OG_IMAGE = "og-image.png"
 og_image_ready = False
+TOUCH_ICON = "apple-touch-icon.png"
+touch_icon_ready = False
+
+# Cache-busting query for the stylesheet: Pages' CDN serves stale copies for a
+# while after each deploy, so the HTML references style.css?v=<content hash>
+# and a changed stylesheet can never be paired with old cached CSS.
+CSS_VER = ""
+
+
+def css_version():
+    global CSS_VER
+    if not CSS_VER:
+        with open(os.path.join(ROOT, "engine", "assets", "style.css"), "rb") as f:
+            CSS_VER = "?v=" + hashlib.sha1(f.read()).hexdigest()[:10]
+    return CSS_VER
 
 # Runs before first paint: marks <html class="js"> (reveals the theme toggle)
 # and re-applies a visitor's saved light/dark choice ahead of the stylesheet.
@@ -108,6 +124,37 @@ def ensure_og_image():
     print(f"  asset /{OG_IMAGE} (generated)")
 
 
+def ensure_touch_icon():
+    """Generate docs/apple-touch-icon.png (180x180 iOS home-screen icon)."""
+    global touch_icon_ready
+    out = os.path.join(SITE_DIR, TOUCH_ICON)
+    if os.path.exists(out):
+        touch_icon_ready = True
+        return
+    try:
+        from PIL import Image, ImageDraw
+    except ImportError:
+        return
+    import math
+    W = H = 180
+    top, bot = (10, 58, 94), (14, 116, 144)  # same ocean ramp as the OG card
+    img = Image.new("RGB", (W, H))
+    d = ImageDraw.Draw(img)
+    for y in range(H):
+        t = y / (H - 1)
+        d.line([(0, y), (W, y)],
+               fill=tuple(int(top[i] + (bot[i] - top[i]) * t) for i in range(3)))
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ov = ImageDraw.Draw(overlay)
+    for amp, base_y, alpha in [(14, 112, 70), (11, 134, 46), (8, 152, 30)]:
+        pts = [(x, base_y + amp * math.sin(x / 26.0)) for x in range(0, W + 1, 4)]
+        ov.line(pts, fill=(255, 255, 255, alpha), width=6)
+    img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
+    img.save(out, "PNG", optimize=True)
+    touch_icon_ready = True
+    print(f"  asset /{TOUCH_ICON} (generated)")
+
+
 def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls=""):
     ga = (cfg.get("ga4_id") or "").strip()
     gsc = (cfg.get("gsc_verification") or "").strip()
@@ -116,7 +163,9 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
                     ensure_ascii=False, separators=(",", ":"))
     fav = ("data:image/svg+xml," +
            esc('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">🌊</text></svg>'))
-    css = "style.css" if root else "../style.css"
+    touch = (f'<link rel="apple-touch-icon" href="{esc(cfg["base_url"])}{TOUCH_ICON}">\n'
+             if touch_icon_ready else "")
+    css = ("style.css" if root else "../style.css") + css_version()
     og_abs = cfg["base_url"] + OG_IMAGE
     hints = ""
     if ga:
@@ -152,7 +201,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
 <meta name="theme-color" content="#0e7490" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="{fav}">
-<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
+{touch}<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
 {PREPAINT_THEME}
@@ -549,6 +598,7 @@ def main():
     cfg = load_config()
     os.makedirs(SITE_DIR, exist_ok=True)
     ensure_og_image()
+    ensure_touch_icon()
     all_pages, cat_info = pages_mod.get_pages()
 
     # shared stylesheet

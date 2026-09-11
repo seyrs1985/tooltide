@@ -11,6 +11,8 @@
   --note-bg:#fffbeb; --note-border:#fde68a; --note-text:#713f12;
   --tip-bg:#f0fdf4; --tip-border:#bbf7d0; --tip-text:#14532d;
   --ok:#059669; --bad:#b91c1c; --bad-bg:#fee2e2; --mark:#fef08a;
+  --hero-glow:#cffafe;
+  --hero-grad:linear-gradient(92deg,#155e75,#0e7490 55%,#0891b2);
   --shadow-hover:0 6px 20px rgba(14,116,144,.10);
   --shadow-tool:0 1px 3px rgba(15,23,42,.04);
 }
@@ -26,6 +28,8 @@ html[data-theme="dark"]{
   --note-bg:#451a03; --note-border:#b45309; --note-text:#fde68a;
   --tip-bg:#052e16; --tip-border:#15803d; --tip-text:#bbf7d0;
   --ok:#34d399; --bad:#fca5a5; --bad-bg:#7f1d1d; --mark:#854d0e;
+  --hero-glow:rgba(34,211,238,.08);
+  --hero-grad:linear-gradient(92deg,#67e8f9,#22d3ee 55%,#38bdf8);
   --shadow-hover:0 6px 20px rgba(34,211,238,.12);
   --shadow-tool:0 1px 3px rgba(0,0,0,.35);
 }
@@ -40,6 +44,8 @@ html[data-theme="dark"]{
     --note-bg:#451a03; --note-border:#b45309; --note-text:#fde68a;
     --tip-bg:#052e16; --tip-border:#15803d; --tip-text:#bbf7d0;
     --ok:#34d399; --bad:#fca5a5; --bad-bg:#7f1d1d; --mark:#854d0e;
+    --hero-glow:rgba(34,211,238,.08);
+    --hero-grad:linear-gradient(92deg,#67e8f9,#22d3ee 55%,#38bdf8);
     --shadow-hover:0 6px 20px rgba(34,211,238,.12);
     --shadow-tool:0 1px 3px rgba(0,0,0,.35);
   }
@@ -88,8 +94,12 @@ body.fourohfour .head-search{display:none}
 .crumbs a{color:var(--muted);text-decoration:none}
 .crumbs a:hover{color:var(--brand)}
 
-/* hero */
-.hero{padding:44px 0 10px}
+/* hero — a soft ocean band behind the intro, full wrap width, with the
+   headline tinted by the brand gradient (solid color kept as fallback) */
+.hero{position:relative;margin:0 -20px;padding:44px 20px 26px;background:linear-gradient(180deg,var(--hero-glow),rgba(0,0,0,0) 90%);border-bottom:1px solid var(--border-faint)}
+@supports ((-webkit-background-clip:text)){
+  .hero h1{background-image:var(--hero-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+}
 .hero p{color:var(--text-3);max-width:640px;margin-bottom:18px}
 #tool-search{width:100%;max-width:560px;padding:13px 16px;border:1px solid var(--input-border);border-radius:12px;font-size:1rem;background:var(--surface);color:var(--text)}
 #tool-search:focus{outline:2px solid var(--brand);border-color:var(--brand)}
@@ -241,6 +251,7 @@ input[type=range]{padding:0;accent-color:var(--brand)}
 [tabindex="-1"]:focus{outline:none}
 
 @media(max-width:700px){
+  .hero{padding-top:34px;padding-bottom:22px}
   .foot-brand p{max-width:none}
   .nav-row{flex-wrap:wrap;justify-content:space-between;gap:8px;padding-top:10px;padding-bottom:10px}
   .logo{flex:0 0 auto}
