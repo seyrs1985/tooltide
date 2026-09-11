@@ -1366,6 +1366,50 @@ d.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- fuel economy
+FUEL = """
+<div class="tool" id="tt-fuel">
+  <div class="fields two">
+    <div class="field"><label for="fu-l">Liters per 100 km</label><input type="number" id="fu-l" step="any" min="0" placeholder="6.5"></div>
+    <div class="field"><label for="fu-m">Miles per gallon (US)</label><input type="number" id="fu-m" step="any" min="0" placeholder="36.2"></div>
+  </div>
+  <div class="result"><span class="result-num" id="fu-out">–</span><span class="result-unit" id="fu-unit"></span>
+    <div class="result-formula" id="fu-note"></div></div>
+  <div class="tool-note" id="fu-hint">Lower L/100km is better · higher MPG is better — the scales run in opposite directions.</div>
+</div>
+<script>(function(){
+var L=document.getElementById('fu-l'),M=document.getElementById('fu-m');
+var out=document.getElementById('fu-out'),unit=document.getElementById('fu-unit'),hint=document.getElementById('fu-hint');
+var lock=false;
+function good(l){return l<=6?'efficient':l<=9?'typical':'thirsty';}
+function runL(){
+  if(lock)return;lock=true;M.value='';
+  var v=parseFloat(L.value);
+  if(isNaN(v)||v<=0){out.textContent='-';unit.textContent='';hint.textContent='Lower L/100km is better · higher MPG is better.';lock=false;return;}
+  var mpg=235.215/v;
+  M.value=Math.round(mpg*10)/10;
+  out.textContent=Math.round(mpg*10)/10+' mpg';
+  unit.textContent='(US)';
+  hint.textContent=v+' L/100km = '+Math.round(mpg*10)/10+' US mpg — '+good(v)+' for a petrol car.';
+  lock=false;
+}
+function runM(){
+  if(lock)return;lock=true;L.value='';
+  var v=parseFloat(M.value);
+  if(isNaN(v)||v<=0){out.textContent='-';unit.textContent='';lock=false;return;}
+  var l=235.215/v;
+  L.value=Math.round(l*100)/100;
+  out.textContent=Math.round(l*100)/100+' L/100km';
+  unit.textContent='';
+  hint.textContent=v+' mpg = '+Math.round(l*100)/100+' L/100km - '+good(l)+' for a petrol car.';
+  lock=false;
+}
+L.addEventListener('input',runL);
+M.addEventListener('input',runM);
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1394,6 +1438,7 @@ TOOLS = {
     "binary": lambda args: BINARY,
     "gramscups": lambda args: GRAMSCUPS,
     "dayofweek": lambda args: DAYOFWEEK,
+    "fuel": lambda args: FUEL,
     "striphtml": lambda args: STRIPHTML,
     "salestax": lambda args: SALESTAX,
 }
