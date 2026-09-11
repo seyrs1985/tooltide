@@ -297,6 +297,37 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "inch-fraction-calculator",
+        "title": "Inch Fraction Calculator — Fractions ⇄ Decimals ⇄ MM",
+        "h1": "Inch Fraction Calculator",
+        "desc": "Convert fractional inches (like 3/8 or 1-3/4) to decimal inches and millimeters — and back. Rounded to the nearest 1/16. Built for woodworkers, DIY and hardware shopping.",
+        "category": "calculator",
+        "keyword": "inch fraction calculator",
+        "tool": "inchfrac",
+        "args": {},
+        "intro": [
+            "The tape measure speaks fractions — 3/8, 7/16, 1-3/4 — while plans, 3D printers and product pages speak decimals and millimeters. This calculator translates both ways: type a fraction and get the decimal and millimeter value, or type a decimal and get the nearest fraction to the 1/16th of an inch.",
+            "It also knows mixed fractions: 1-3/4 inches is one entry, not two fields. Everything updates as you type, so you can check 'is 14 mm closer to 9/16 or 5/8?' without leaving the page.",
+        ],
+        "howto": [
+            "Type a fraction like 3/8 or a mixed one like 1-3/4 — decimal inches and millimeters appear instantly.",
+            "Type a decimal like 0.375 to get the nearest fraction to the 1/16th of an inch.",
+            "Check the nearest-16th table below for the tape-measure reading you need.",
+        ],
+        "faqs": [
+            ("What is 3/8 of an inch in decimals and mm?",
+             "3/8 inch = 0.375 inches = 9.525 mm. Type it into the converter to confirm, and check neighboring fractions (11/32 = 0.344, 13/32 = 0.406) when a measurement sits between marks."),
+            ("How do I read fractions on a tape measure?",
+             "Between each inch mark, a tape divides into 16ths: the longest halfway mark is 1/2, quarter marks are 1/4 and 3/4, eighths next, and the shortest lines are 1/16 steps. Count lines from the inch mark and read top-down."),
+            ("What is 0.375 inches as a fraction?",
+             "0.375 = 3/8 exactly. Multiply the decimal by 16: 0.375 × 16 = 6, so it is 6/16, which simplifies to 3/8. The calculator does this rounding automatically."),
+            ("Why do my digital calipers disagree with the tape?",
+             "Calipers show decimal inches (or mm) to three places; tapes show fractions to the nearest 1/16 (0.0625). A tape reading of 9/16 (0.5625) and a caliper reading of 0.567 are the same measurement, rounded differently."),
+        ],
+    })
+
+
 
     ja = _cd("january", "January", 1, 1, "how many days until january",
              "January is the reset button: new year resolutions, gym memberships, dry January and the long, quiet walk back to work. 'How many days until January' is usually someone planning a fresh start — or bracing for the credit card bill.",
@@ -658,6 +689,9 @@ def PAGES():
     pages.append(_conv("quarts-to-liters", "Quarts to Liters", "quarts (US)", "liters", 0.946352946, "volume",
                        "Engine oil, stock pots and paint cans are measured in quarts in the US and liters everywhere else — and they are annoyingly close in size, which is exactly why guessing goes wrong. One US quart is 0.946353 liters, just shy of a liter.",
                        "Handy anchors: 1 qt = 0.95 L (an oil change), 4 qt = 3.79 L (a gallon), 6 qt = 5.68 L (an Instant Pot)."))
+    pages.append(_conv("quarts-to-gallons", "Quarts to Gallons", "quarts (US)", "gallons (US)", 1 / 4, "volume",
+                       "The last hop on the US volume ladder: 4 quarts make a gallon, so divide by 4 — or let the converter handle the awkward numbers like 5 quarts of soup for a party of twelve.",
+                       "Handy anchors: 4 qt = 1 gal, 8 qt = 2 gal, 6 qt = 1.5 gal. Oil changes: most cars take 4–6 quarts, roughly 1–1.5 gallons."))
     pages.append(_conv("liters-to-quarts", "Liters to Quarts", "liters", "quarts (US)", 1 / 0.946352946, "volume",
                        "Recipes and engine capacities in liters need to become quarts for US kitchens and garages. One liter is 1.05669 US quarts — slightly bigger, which is why a 5.7-liter V8 is a 6-quart oil change territory.",
                        "Handy anchors: 1 L = 1.06 qt, 2 L = 2.11 qt, 4 L = 4.23 qt (just over a gallon), 6 L = 6.34 qt."))
