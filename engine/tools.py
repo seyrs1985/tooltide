@@ -2313,6 +2313,61 @@ document.querySelectorAll('#em-cat .chip').forEach(function(c){c.addEventListene
 """
 
 
+# ---------------------------------------------------------------- hex <-> rgb
+HEXRGB = """
+<div class="tool" id="tt-hr">
+  <div class="fields">
+    <div class="field"><label for="hr-hex">HEX color</label><input type="text" id="hr-hex" placeholder="#1A73E8" autocomplete="off"></div>
+    <div class="field"><label for="hr-r">R (0-255)</label><input type="number" id="hr-r" min="0" max="255" step="1" placeholder="26"></div>
+    <div class="field"><label for="hr-g">G (0-255)</label><input type="number" id="hr-g" min="0" max="255" step="1" placeholder="115"></div>
+    <div class="field"><label for="hr-b">B (0-255)</label><input type="number" id="hr-b" min="0" max="255" step="1" placeholder="232"></div>
+  </div>
+  <div class="chips"><button class="chip" id="hr-sh" type="button">Random color</button></div>
+  <div class="color-preview" id="hr-preview"></div>
+  <div class="stats">
+    <div class="stat"><b id="hr-hexout">-</b><span>hex</span></div>
+    <div class="stat"><b id="hr-rgbout">-</b><span>rgb()</span></div>
+  </div>
+</div>
+<script>(function(){
+var HEX=document.getElementById('hr-hex'),R=document.getElementById('hr-r'),G=document.getElementById('hr-g'),B=document.getElementById('hr-b');
+var prev=document.getElementById('hr-preview');
+var lock=false;
+function clamp(v){return Math.max(0,Math.min(255,Math.round(v)||0));}
+function hex2rgb(v){
+  v=v.trim().replace('#','');
+  if(/^[0-9a-fA-F]{3}$/.test(v))v=v.split('').map(function(c){return c+c;}).join('');
+  if(!/^[0-9a-fA-F]{6}$/.test(v))return null;
+  return {r:parseInt(v.slice(0,2),16),g:parseInt(v.slice(2,4),16),b:parseInt(v.slice(4,6),16),hex:'#'+v.toUpperCase()};
+}
+function upd(r,g,b){
+  prev.style.background='rgb('+r+','+g+','+b+')';
+  var hx='#'+[r,g,b].map(function(x){return x.toString(16).padStart(2,'0').toUpperCase();}).join('');
+  document.getElementById('hr-hexout').textContent=hx;
+  document.getElementById('hr-rgbout').textContent='rgb('+r+', '+g+', '+b+')';
+}
+HEX.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  var c=hex2rgb(this.value);
+  if(c){R.value=c.r;G.value=c.g;B.value=c.b;upd(c.r,c.g,c.b);}
+  lock=false;
+});
+[R,G,B].forEach(function(el){el.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  var r=clamp(parseFloat(R.value)),g=clamp(parseFloat(G.value)),b=clamp(parseFloat(B.value));
+  upd(r,g,b);
+  lock=false;
+});});
+document.getElementById('hr-sh').addEventListener('click',function(){
+  var r=Math.floor(Math.random()*256),g=Math.floor(Math.random()*256),b=Math.floor(Math.random()*256);
+  lock=true;R.value=r;G.value=g;B.value=b;upd(r,g,b);
+  HEX.value='#'+[r,g,b].map(function(x){return x.toString(16).padStart(2,'0').toUpperCase();}).join('');
+  lock=false;
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2354,6 +2409,7 @@ TOOLS = {
     "degrad": lambda args: DEGRAD,
     "romantable": _render_romantable,
     "yesno": lambda args: YESNO,
+    "hexrgb": lambda args: HEXRGB,
     "prime": lambda args: PRIME,
     "factorial": lambda args: FACTORIAL,
     "country": lambda args: COUNTRY,

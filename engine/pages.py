@@ -2083,6 +2083,40 @@ def PAGES():
                        "One cubic meter is exactly 1,000 liters — a neat 1:1,000 that makes aquariums, concrete pours and hot tub sizing straightforward. A 60-liter tank is 0.06 cubic meters; a 2-cubic-meter concrete order is 2,000 liters of the mix.",
                        "Handy anchors: 0.1 m³ = 100 L (a big aquarium), 1 m³ = 1,000 L, 4 m³ = 4,000 L (a small hot tub), 30 m³ = 30,000 L (a garden pond)."))
 
+    pages.append({
+        "slug": "hex-to-rgb",
+        "title": "Hex to RGB Converter — Color Codes Both Ways, Live Preview",
+        "h1": "Hex to RGB Converter",
+        "desc": "Convert HEX color codes to RGB and back instantly, with a live color preview. For designers, front-end developers and anyone stuck reading #1A73E8 in a spec.",
+        "category": "converter",
+        "keyword": "hex to rgb",
+        "tool": "hexrgb",
+        "args": {},
+        "intro": [
+            "Paste a hex code like #1A73E8 and get its RGB equivalent (26, 115, 232) instantly — or paste RGB values and get the hex. A live swatch shows the actual color, so you can confirm you have the right shade before it goes into CSS, Figma or a brand guide.",
+            "Both notations describe the same color: hex is just RGB written in base 16 (1A hex = 26). The converter accepts 3-digit shorthand too (#F00 = #FF0000) and outputs the 6-digit canonical form.",
+        ],
+        "howto": [
+            "Type a hex code (with or without the #) — RGB values and the color swatch appear instantly.",
+            "Or type R, G, B numbers (0–255) to get the hex code.",
+            "Copy either format straight into CSS, design tools or documentation.",
+        ],
+        "faqs": [
+            ("How do I convert HEX to RGB?",
+             "Split the hex code into three pairs and convert each from base 16 to base 10. #1A73E8: 1A = 26, 73 = 115, E8 = 232 — so RGB(26, 115, 232). The converter does both pairs live."),
+            ("What is the difference between HEX and RGB?",
+             "None in color — they are two notations for the same values. HEX is compact and universal in design handoffs; RGB(A) supports alpha transparency and reads more explicitly in CSS."),
+            ("What are 3-digit hex codes?",
+             "Shorthand where each digit is doubled: #F00 expands to #FF0000 (red). It exists for brevity; the converter accepts it and outputs the full 6-digit form."),
+            ("What is RGBA?",
+             "RGB plus an alpha channel for opacity (0–1). This converter handles opaque colors; add the alpha in CSS separately, e.g. rgba(26, 115, 232, 0.5)."),
+        ],
+    })
+
+    pages.append(_conv("gallons-to-quarts", "Gallons to Quarts", "gallons (US)", "quarts (US)", 4, "volume",
+                       "The US volume ladder's final step: 1 gallon is exactly 4 quarts. Milk jugs, engine oil and soup pots all speak this language — multiply gallons by 4 and the recipe or oil change is settled.",
+                       "Handy anchors: 1 gal = 4 qt, 2 gal = 8 qt, 0.5 gal = 2 qt (those half-gallon milk cartons)."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
