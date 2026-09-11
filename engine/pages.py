@@ -1869,6 +1869,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "prime-checker",
+        "title": "Prime Number Checker — Is It Prime? Instant Test",
+        "h1": "Prime Number Checker",
+        "desc": "Check if any number is prime instantly, with the first factor shown when it is not. Handles numbers up to 15 digits using fast trial division and Miller-Rabin.",
+        "category": "calculator",
+        "keyword": "prime number checker",
+        "tool": "prime",
+        "args": {},
+        "intro": [
+            "Type any whole number and find out whether it is prime — and if it is not, one of its factors is shown, so you can see exactly why. Numbers up to 15 digits are checked with deterministic Miller-Rabin plus trial division, which is instant for homework numbers and fast well beyond them.",
+            "Prime numbers are the atoms of arithmetic: divisible only by 1 and themselves. They drive cryptography, appear in nature (cicada life cycles), and are the endless fascination of number theory — this checker settles any 'is 1,009 prime?' argument in a keystroke.",
+        ],
+        "howto": [
+            "Type any whole number (2 or greater).",
+            "Read the verdict instantly — prime, or composite with a factor shown.",
+            "Try famous cases: Mersenne suspects like 2,147,483,647, or your phone number.",
+        ],
+        "faqs": [
+            ("What is a prime number?",
+             "A whole number greater than 1 whose only divisors are 1 and itself: 2, 3, 5, 7, 11, 13… Every other number (composites) breaks into prime factors, which is why primes are called the atoms of arithmetic."),
+            ("Is 1 a prime number?",
+             "No — by definition primes need exactly two distinct divisors, and 1 has only one (itself). Mathematicians agreed on this convention precisely so that unique factorization works."),
+            ("What is the largest known prime number?",
+             "The largest known primes are Mersenne primes of the form 2^p − 1 — the record has millions of digits and is found by distributed GIMPS projects. This checker handles everyday numbers up to 15 digits instantly."),
+            ("Why do primes matter outside math class?",
+             "Internet encryption (RSA, Diffie-Hellman) is built on the difficulty of factoring huge composite numbers made of two large primes. Every HTTPS connection starts with prime number mathematics."),
+        ],
+    })
+
+    pages.append({
+        "slug": "factorial-calculator",
+        "title": "Factorial Calculator — n! up to 1000, Exact Digits",
+        "h1": "Factorial Calculator",
+        "desc": "Calculate n! for any n up to 1,000 with full precision — every digit, not scientific notation. Shows the multiplication chain and digit count.",
+        "category": "calculator",
+        "keyword": "factorial calculator",
+        "tool": "factorial",
+        "args": {},
+        "intro": [
+            "Enter n and get n! — the product of every whole number from 1 to n — computed exactly, with all digits shown. Factorials explode fast (10! already has 7 digits, 100! has 158), and most calculators quietly switch to scientific notation and lose the digits. This one keeps every single one.",
+            "Factorials count arrangements: 5! is the number of ways to order five things (120), which makes it the backbone of probability, combinatorics, and the permutation formulas behind shuffles, rankings and lottery odds.",
+        ],
+        "howto": [
+            "Type a whole number n between 0 and 1,000.",
+            "Read n! with every digit displayed — 0! is defined as 1.",
+            "Check the digit count to appreciate how fast factorials grow.",
+        ],
+        "faqs": [
+            ("What is 5 factorial?",
+             "5! = 5 × 4 × 3 × 2 × 1 = 120. It counts the ways to arrange 5 items in order — five books on a shelf have 120 possible orders."),
+            ("Why is 0 factorial equal to 1?",
+             "By definition: there is exactly one way to arrange zero items (do nothing). The convention also makes formulas like n! = n × (n−1)! work for n = 1."),
+            ("How big is 100 factorial?",
+             "158 digits long — roughly 9.33 × 10^157. It exceeds the number of atoms in the observable universe by a wide margin, which is why exact-digit display matters."),
+            ("Where are factorials used?",
+             "Counting permutations and combinations, probability (card shuffles, lottery odds), Taylor series in calculus, and algorithm analysis. Anywhere 'how many orderings' appears, factorials are hiding."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
