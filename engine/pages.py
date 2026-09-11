@@ -2365,6 +2365,13 @@ def PAGES():
                        "Big-batch cooking jumps from cups straight to quarts — 16 cups to a quart, so halving a 50-serving punch recipe is division the recipe never warns you about. Type the cups, get the quarts, get back to the kitchen.",
                        "Handy anchors: 4 cups = 1 qt, 8 cups = 2 qt, 12 cups = 3 qt, 16 cups = 4 qt (a full gallon)."))
 
+    pages.append(_conv("gb-to-kb", "GB to KB", "gigabytes", "kilobytes", 1000000, "storage",
+                       "The full storage ladder in one hop: multiply gigabytes by 1,000,000 (a million) to reach kilobytes on the decimal scale. Useful when a system asks for KB and all you know is the GB figure.",
+                       "Handy anchors: 1 GB = 1,000,000 KB, 16 GB = 16,000,000 KB (a phone plan), 64 GB = 64,000,000 KB (a flash drive), 1 TB = 1,000,000,000 KB."))
+    pages.append(_conv("liters-to-cups", "Liters to Cups", "liters", "cups (US)", 4.1666667, "volume",
+                       "Convert liter-bottle recipes into American cup measurements: one liter is about 4.17 cups (4 cups plus a splash). Metric recipe in hand, US measuring cups in the drawer - this is the bridge.",
+                       "Handy anchors: 0.5 L = 2.11 cups, 1 L = 4.17 cups, 2 L = 8.45 cups, 4 L = 16.9 cups (roughly a gallon)."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
