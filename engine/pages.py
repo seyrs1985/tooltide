@@ -194,6 +194,19 @@ def PAGES():
              "🌍")
     pages.append(ed)
 
+    cd = _cd("cinco-de-mayo", "Cinco de Mayo", 5, 5, "days until cinco de mayo",
+             "Cinco de Mayo — May 5th — celebrates the Mexican victory at the Battle of Puebla in 1862. In the United States it has become a nationwide celebration of Mexican food, music and culture — bigger, ironically, than in most of Mexico itself.",
+             "Planning the tacos, the playlist or the fiesta? The countdown always targets the upcoming May 5th and rolls over automatically after the day.",
+             "🌮")
+    pages.append(cd)
+
+    ctd = _cd("thanksgiving-canada", "Canadian Thanksgiving", 10, 12, "canadian thanksgiving countdown",
+              "Canadian Thanksgiving falls on the second Monday of October — six weeks before the American holiday, timed to the earlier harvest. It is a quieter affair: turkey, stuffing, and a long weekend with family.",
+              "The timer computes the second Monday of October for the upcoming year automatically — handy for planning the drive home or the dinner menu.",
+              "🍁")
+    ctd["args"]["rule"] = {"week": 2, "weekday": 1}  # 2nd Monday of October
+    pages.append(ctd)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -497,6 +510,12 @@ def PAGES():
     pages.append(_conv("tablespoons-to-teaspoons", "Tablespoons to Teaspoons", "tablespoons", "teaspoons", 3, "volume",
                        "The most common baking substitution there is: 1 tablespoon (tbsp) equals exactly 3 teaspoons (tsp). When you are out of one spoon size mid-recipe, the conversion saves the batch — no scale, no math beyond ×3.",
                        "Handy anchors: 1 tbsp = 3 tsp, 2 tbsp = 6 tsp, 1 tbsp = 15 ml, 1 tsp = 5 ml. Four tablespoons = a quarter cup."))
+    pages.append(_conv("ounces-to-cups", "Ounces to Cups", "fluid ounces", "cups (US)", 1 / 8, "volume",
+                       "American recipes bounce between fluid ounces and cups mid-ingredient-list — a can says 12 fl oz, the recipe asks for 1½ cups. Since one US cup is exactly 8 fluid ounces, the conversion is a simple divide by 8.",
+                       "Handy anchors: 8 fl oz = 1 cup, 12 fl oz = 1.5 cups (a soda can), 16 fl oz = 2 cups (a pint), 32 fl oz = 4 cups (a quart).", dec=2))
+    pages.append(_conv("yards-to-meters", "Yards to Meters", "yards", "meters", 0.9144, "length",
+                       "Yards rule American football fields, golf courses and fabric counters; meters rule everything else. One yard is exactly 0.9144 meters — so a 100-yard football field is 91.44 meters of pure metric confusion.",
+                       "Handy anchors: 1 yd = 0.91 m, 10 yd = 9.14 m, 100 yd = 91.44 m, 1 m = 1.09 yd (slightly more than a yard)."))
 
     # ---------- Text & generator family ----------
     pages.append({
