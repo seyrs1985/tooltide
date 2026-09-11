@@ -24,6 +24,12 @@ for (const f of files) {
     catch (e) { fail++; console.log('LD FAIL', f, e.message); }
   }
   if (!/canonical/.test(html)) { fail++; console.log('NO CANONICAL', f); }
+  // screen readers must hear calculator results: every .result container announces
+  const rTags = html.match(/<div class="result"[^>]*>/g) || [];
+  if (rTags.length) {
+    checked++;
+    if (!rTags.every(t => t.includes('aria-live="polite"') && t.includes('aria-atomic="true"'))) { fail++; console.log('A11Y FAIL', f, '.result missing aria-live/aria-atomic'); }
+  }
 }
 // site-level assertions: back-to-top, 3-level breadcrumbs, category counts
 try {
@@ -56,6 +62,12 @@ try {
   assert(/scroll-margin-top/.test(css), 'style.css: anchor scroll-margin');
   assert(/::selection/.test(css), 'style.css: selection tint');
   assert(/noscript-note/.test(css), 'style.css: noscript notice style');
+  assert(css.includes('.seo-block{content-visibility:auto') && css.includes('.seo-block{contain-intrinsic-size:auto'),
+    'style.css: seo-block render skipping');
+  assert(css.includes('.seo-block{content-visibility:visible}'),
+    'style.css: print fallback for render skipping');
+  assert((tool.match(/<div class="result"[^>]*aria-live="polite"/g) || []).length > 0,
+    'tool page: .result containers aria-live');
   assert(tool.includes('<noscript') && tool.includes('noscript-note'),
     'tool page: noscript JS-required notice');
 

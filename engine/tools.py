@@ -87,7 +87,7 @@ DATEDIFF = """
     <div class="field"><label for="dd-a">Start date</label><input type="date" id="dd-a"></div>
     <div class="field"><label for="dd-b">End date</label><input type="date" id="dd-b"></div>
   </div>
-  <div class="result"><span class="result-num" id="dd-days">–</span><span class="result-unit">days</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dd-days">–</span><span class="result-unit">days</span>
     <div class="result-formula" id="dd-note"></div></div>
   <div class="stats">
     <div class="stat"><b id="dd-weeks">–</b><span>weeks &amp; days</span></div>
@@ -126,7 +126,7 @@ AGE = """
     <div class="field"><label for="age-b">Date of birth</label><input type="date" id="age-b"></div>
     <div class="field"><label for="age-a">Age at date</label><input type="date" id="age-a"></div>
   </div>
-  <div class="result"><span class="result-num" id="age-main">–</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="age-main">–</span>
     <div class="result-formula" id="age-total"></div></div>
   <div class="stats">
     <div class="stat"><b id="age-days">–</b><span>days lived</span></div>
@@ -280,7 +280,7 @@ DISCOUNT = """
     <div class="field"><label for="dc-d2">Extra discount % <small>(optional)</small></label><input type="number" id="dc-d2" step="any" min="0" max="100" placeholder="20"></div>
     <div class="field"><label for="dc-tax">Tax % <small>(optional)</small></label><input type="number" id="dc-tax" step="any" min="0" placeholder="8.5"></div>
   </div>
-  <div class="result"><span class="result-num" id="dc-final">–</span><span class="result-unit">final price</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dc-final">–</span><span class="result-unit">final price</span>
     <div class="result-formula" id="dc-note"></div></div>
   <div class="stats">
     <div class="stat"><b id="dc-save">–</b><span>you save</span></div>
@@ -444,7 +444,7 @@ ASPECT = """
     <div class="field"><label for="ar-h">Height (px)</label><input type="number" id="ar-h" min="1" step="any" placeholder="→ 1080"></div>
   </div>
   <div class="tool-note">Type either width or height — the other dimension fills in to keep the ratio. Or type both to detect the ratio you have.</div>
-  <div class="result"><span class="result-num" id="ar-out">–</span><span class="result-unit" id="ar-out-unit"></span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ar-out">–</span><span class="result-unit" id="ar-out-unit"></span>
     <div class="result-formula" id="ar-detect"></div></div>
 </div>
 <script>(function(){
@@ -479,7 +479,7 @@ UNITCONV = """
     <div class="field"><label for="uc-b" id="uc-lb">Result</label><input type="number" id="uc-b" step="any" placeholder="" readonly></div>
   </div>
   <div class="chips" id="uc-swap-row"><button class="chip" id="uc-swap">⇄ Swap direction</button></div>
-  <div class="result"><span class="result-num" id="uc-r">–</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="uc-r">–</span>
     <div class="result-formula" id="uc-f"></div></div>
   <table class="copytable" id="uc-table"><thead><tr><th id="uc-th1"></th><th id="uc-th2"></th></tr></thead><tbody></tbody></table>
 </div>
@@ -738,7 +738,7 @@ RANDOMNUM = """
     <button class="chip" id="rng-unique" type="button">No duplicates</button>
   </div>
   <button class="btn" id="rng-go" type="button">🎲 Generate</button>
-  <div class="result" id="rng-out" style="display:none"><span class="result-num" id="rng-res"></span></div>
+  <div class="result" aria-live="polite" aria-atomic="true" id="rng-out" style="display:none"><span class="result-num" id="rng-res"></span></div>
   <div class="tool-note" id="rng-note">Uses your browser's cryptographically secure random source — fair draws, nothing recorded.</div>
 </div>
 <script>(function(){
@@ -786,7 +786,7 @@ WORDSPAGES = """
         <option value="500" selected>Single-spaced (500 words/page)</option>
       </select></div>
   </div>
-  <div class="result"><span class="result-num" id="wp-out">–</span><span class="result-unit">pages</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wp-out">–</span><span class="result-unit">pages</span>
     <div class="result-formula" id="wp-note"></div></div>
   <div class="tool-note">Assumes 12pt Times New Roman / Arial, 1-inch margins. Handwritten pages hold roughly half as many words.</div>
 </div>
@@ -810,7 +810,7 @@ ROMAN = """
     <div class="field"><label for="rn-num">Number (1–3999)</label><input type="number" id="rn-num" min="1" max="3999" step="1" placeholder="2026"></div>
     <div class="field"><label for="rn-rom">Roman numeral</label><input type="text" id="rn-rom" placeholder="MMXXVI" autocomplete="off" style="text-transform:uppercase"></div>
   </div>
-  <div class="result"><span class="result-num" id="rn-out">–</span><div class="result-formula" id="rn-note"></div></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rn-out">–</span><div class="result-formula" id="rn-note"></div></div>
   <table class="copytable"><thead><tr><th>Symbol</th><th>Value</th></tr></thead>
   <tbody><tr><td>I · V · X</td><td>1 · 5 · 10</td></tr><tr><td>L · C · D</td><td>50 · 100 · 500</td></tr><tr><td>M</td><td>1000</td></tr><tr><td>IV · IX</td><td>4 · 9 (subtract before)</td></tr><tr><td>XL · XC</td><td>40 · 90</td></tr><tr><td>CD · CM</td><td>400 · 900</td></tr></tbody></table>
 </div>
@@ -856,7 +856,7 @@ GRADE = """
     <div class="field"><label for="gr-earned">Points earned</label><input type="number" id="gr-earned" min="0" step="any" placeholder="42"></div>
     <div class="field"><label for="gr-total">Points possible</label><input type="number" id="gr-total" min="0" step="any" placeholder="50"></div>
   </div>
-  <div class="result"><span class="result-num" id="gr-pct">–</span><span class="result-unit" id="gr-letter"></span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gr-pct">–</span><span class="result-unit" id="gr-letter"></span>
     <div class="result-formula" id="gr-note"></div></div>
   <div class="chips"><span class="of" style="padding:0 6px">Standard scale:</span>
     <span class="chip" style="pointer-events:none">A ≥ 90</span><span class="chip" style="pointer-events:none">B 80–89</span>
@@ -868,7 +868,7 @@ GRADE = """
     <div class="field"><label for="gr-target">Target grade letter</label>
       <select id="gr-target"><option value="90">A (90%)</option><option value="80">B (80%)</option><option value="70">C (70%)</option><option value="60">D (60%)</option></select></div>
   </div>
-  <div class="result"><span class="result-num" id="gr-need">–</span><span class="result-unit" id="gr-need-txt">needed on the final</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gr-need">–</span><span class="result-unit" id="gr-need-txt">needed on the final</span></div>
 </div>
 <script>(function(){
 var e=document.getElementById('gr-earned'),t=document.getElementById('gr-total');
@@ -946,7 +946,7 @@ SLUG = """
 <div class="tool" id="tt-slug">
   <div class="field"><label for="sl-in">Title or text</label>
     <textarea id="sl-in" rows="4" placeholder="My Ultimate Guide to Cold Brew Coffee (2026 Edition)!"></textarea></div>
-  <div class="result"><span class="result-num" id="sl-out" style="word-break:break-all">–</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sl-out" style="word-break:break-all">–</span>
     <div class="result-formula" id="sl-len"></div></div>
   <div class="tool-note">Lowercase · accents folded · hyphen-separated · trimmed to your spec below.</div>
   <div class="fields"><div class="field"><label for="sl-max">Max length <small>(0 = no limit)</small></label><input type="number" id="sl-max" value="0" min="0" step="1"></div></div>
@@ -979,7 +979,7 @@ SALESTAX = """
     <div class="field" id="stx-f2" style="display:none"><label for="stx-total">Tax-inclusive total ($)</label><input type="number" id="stx-total" step="0.01" min="0" placeholder="110"></div>
     <div class="field"><label for="stx-rate">Tax rate %</label><input type="number" id="stx-rate" step="0.01" min="0" placeholder="10"></div>
   </div>
-  <div class="result"><span class="result-num" id="stx-out">–</span><span class="result-unit" id="stx-unit"></span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="stx-out">–</span><span class="result-unit" id="stx-unit"></span>
     <div class="result-formula" id="stx-note"></div></div>
   <div class="stats">
     <div class="stat"><b id="stx-tax">–</b><span>tax amount</span></div>
@@ -1061,7 +1061,7 @@ HOURSDIFF = """
     <div class="field"><label for="hd-start">Start time</label><input type="time" id="hd-start" value="09:00"></div>
     <div class="field"><label for="hd-end">End time</label><input type="time" id="hd-end" value="17:00"></div>
   </div>
-  <div class="result"><span class="result-num" id="hd-hm">–</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hd-hm">–</span>
     <div class="result-formula" id="hd-note"></div></div>
   <div class="stats">
     <div class="stat"><b id="hd-dec">–</b><span>decimal hours (for timesheets)</span></div>
@@ -1132,7 +1132,7 @@ INCHFRAC = """
     <div class="field"><label for="if-dec">Decimal inches</label><input type="number" id="if-dec" step="any" min="0" placeholder="1.75"></div>
     <div class="field"><label for="if-mm">Millimeters</label><input type="number" id="if-mm" step="any" min="0" placeholder="44.45"></div>
   </div>
-  <div class="result"><span class="result-num" id="if-out">-</span><span class="result-unit" id="if-unit"></span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="if-out">-</span><span class="result-unit" id="if-unit"></span></div>
   <table class="copytable"><thead><tr><th>Fraction</th><th>Decimal</th><th>MM</th></tr></thead><tbody>
   <tr><td>1/8</td><td>0.125</td><td>3.175</td></tr><tr><td>1/4</td><td>0.25</td><td>6.35</td></tr>
   <tr><td>3/8</td><td>0.375</td><td>9.525</td></tr><tr><td>1/2</td><td>0.5</td><td>12.7</td></tr>
@@ -1190,7 +1190,7 @@ AVERAGE = """
 <div class="tool" id="tt-avg">
   <div class="field"><label for="avg-in">Numbers <small>(comma, space or line separated)</small></label>
     <textarea id="avg-in" rows="5" placeholder="4, 8, 15, 16, 23, 42"></textarea></div>
-  <div class="result"><span class="result-num" id="avg-mean">–</span><span class="result-unit">average</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="avg-mean">–</span><span class="result-unit">average</span>
     <div class="result-formula" id="avg-note"></div></div>
   <div class="stats">
     <div class="stat"><b id="avg-sum">–</b><span>sum</span></div>
@@ -1279,7 +1279,7 @@ GRAMSCUPS = """
     <div class="field"><label for="gc-g">Grams</label><input type="number" id="gc-g" step="any" min="0" placeholder="250"></div>
     <div class="field"><label for="gc-c">Cups</label><input type="number" id="gc-c" step="any" min="0" placeholder=""></div>
   </div>
-  <div class="result"><span class="result-num" id="gc-frac">–</span><span class="result-unit" id="gc-fr2"></span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gc-frac">–</span><span class="result-unit" id="gc-fr2"></span>
     <div class="result-formula" id="gc-note"></div></div>
 </div>
 <script>(function(){
@@ -1331,7 +1331,7 @@ C.addEventListener('input',runC);
 DAYOFWEEK = """
 <div class="tool" id="tt-dw">
   <div class="field"><label for="dw-date">Any date</label><input type="date" id="dw-date"></div>
-  <div class="result"><span class="result-num" id="dw-out">-</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dw-out">-</span>
     <div class="result-formula" id="dw-note"></div></div>
   <div class="stats">
     <div class="stat"><b id="dw-doy">-</b><span>day of year</span></div>
@@ -1373,7 +1373,7 @@ FUEL = """
     <div class="field"><label for="fu-l">Liters per 100 km</label><input type="number" id="fu-l" step="any" min="0" placeholder="6.5"></div>
     <div class="field"><label for="fu-m">Miles per gallon (US)</label><input type="number" id="fu-m" step="any" min="0" placeholder="36.2"></div>
   </div>
-  <div class="result"><span class="result-num" id="fu-out">–</span><span class="result-unit" id="fu-unit"></span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fu-out">–</span><span class="result-unit" id="fu-unit"></span>
     <div class="result-formula" id="fu-note"></div></div>
   <div class="tool-note" id="fu-hint">Lower L/100km is better · higher MPG is better — the scales run in opposite directions.</div>
 </div>
@@ -1508,7 +1508,7 @@ SQFT = """
     <div class="field"><label for="sq-l">Length</label><input type="number" id="sq-l" step="any" min="0" placeholder="12"></div>
     <div class="field"><label for="sq-w">Width</label><input type="number" id="sq-w" step="any" min="0" placeholder="15"></div>
   </div>
-  <div class="result"><span class="result-num" id="sq-ft">-</span><span class="result-unit">sq ft</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sq-ft">-</span><span class="result-unit">sq ft</span></div>
   <div class="stats">
     <div class="stat"><b id="sq-sqft">-</b><span>square feet</span></div>
     <div class="stat"><b id="sq-sqm">-</b><span>square meters</span></div>
@@ -1548,7 +1548,7 @@ document.getElementById('sq-add').addEventListener('click',function(){
 SECONDS = """
 <div class="tool" id="tt-sec">
   <div class="field"><label for="sec-in">Total seconds</label><input type="number" id="sec-in" step="1" min="0" placeholder="3725"></div>
-  <div class="result"><span class="result-num" id="sec-out">-</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sec-out">-</span></div>
   <div class="field" style="margin-top:12px"><label for="sec-hms">Duration (h:mm:ss or mm:ss)</label><input type="text" id="sec-hms" placeholder="1:02:05"></div>
 </div>
 <script>(function(){
@@ -1599,7 +1599,7 @@ PXIN = """
     <button class="chip" data-d="150">Poster 150</button>
     <button class="chip active" data-d="96">Screen 96</button>
   </div>
-  <div class="result"><span class="result-num" id="px-out">-</span><span class="result-unit" id="px-unit"></span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="px-out">-</span><span class="result-unit" id="px-unit"></span>
     <div class="result-formula" id="px-note"></div></div>
 </div>
 <script>(function(){
@@ -1632,7 +1632,7 @@ DICE = """
     <div class="field"><label for="dc-faces">Faces per die</label><input type="number" id="dc-faces" min="2" max="100" step="1" value="6"></div>
   </div>
   <button class="btn" id="dc-go" type="button">🎲 Roll</button>
-  <div class="result"><span class="result-num" id="dc-total">-</span><span class="result-unit">total</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dc-total">-</span><span class="result-unit">total</span>
     <div class="result-formula" id="dc-each"></div></div>
 </div>
 <script>(function(){
@@ -1656,7 +1656,7 @@ HALF = """
 <div class="tool" id="tt-half">
   <div class="field"><label for="hf-in">Number, fraction or mixed (3/4, 2-1/2, 0.8)</label>
     <input type="text" id="hf-in" placeholder="3/4"></div>
-  <div class="result"><span class="result-num" id="hf-out">-</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hf-out">-</span></div>
   <div class="stats">
     <div class="stat"><b id="hf-frac">-</b><span>exact fraction</span></div>
     <div class="stat"><b id="hf-dec">-</b><span>decimal</span></div>
@@ -1703,7 +1703,7 @@ LETTER = """
   </div>
   <div class="field"><label for="rl-count">How many letters</label><input type="number" id="rl-count" min="1" max="26" step="1" value="1"></div>
   <button class="btn" id="rl-go" type="button">🔤 Generate</button>
-  <div class="result"><span class="result-num" id="rl-out" style="letter-spacing:.2em">-</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rl-out" style="letter-spacing:.2em">-</span></div>
 </div>
 <script>(function(){
 var uniq=false;
@@ -1742,7 +1742,7 @@ CUBICFT = """
     <div class="field"><label id="cf-l2" for="cf-w">Width (ft)</label><input type="number" id="cf-w" step="any" min="0" placeholder="2"></div>
     <div class="field"><label id="cf-l3" for="cf-h">Height (ft)</label><input type="number" id="cf-h" step="any" min="0" placeholder="1"></div>
   </div>
-  <div class="result"><span class="result-num" id="cf-out">-</span><span class="result-unit">cubic feet</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cf-out">-</span><span class="result-unit">cubic feet</span></div>
   <div class="stats">
     <div class="stat"><b id="cf-cuft">-</b><span>cubic feet</span></div>
     <div class="stat"><b id="cf-cum">-</b><span>cubic meters</span></div>
@@ -1837,7 +1837,7 @@ UNITPRICE = """
     <div class="field"><label for="up-bp">Pack B price ($)</label><input type="number" id="up-bp" step="0.01" min="0" placeholder="5.10"></div>
     <div class="field"><label for="up-bq">Pack B quantity</label><input type="number" id="up-bq" step="any" min="0" placeholder="1500"></div>
   </div>
-  <div class="result"><span class="result-num" id="up-win">-</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="up-win">-</span></div>
   <div class="stats">
     <div class="stat"><b id="up-ua">-</b><span>A per unit</span></div>
     <div class="stat"><b id="up-ub">-</b><span>B per unit</span></div>
@@ -1906,7 +1906,7 @@ DEGRAD = """
     <div class="field"><label for="dr-deg">Degrees (°)</label><input type="number" id="dr-deg" step="any" placeholder="90"></div>
     <div class="field"><label for="dr-rad">Radians (number or 3pi/4)</label><input type="text" id="dr-rad" placeholder="1.5708"></div>
   </div>
-  <div class="result"><span class="result-num" id="dr-out">-</span><div class="result-formula" id="dr-note"></div></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dr-out">-</span><div class="result-formula" id="dr-note"></div></div>
   <table class="copytable"><thead><tr><th>Degrees</th><th>Radians (exact)</th><th>Decimal</th></tr></thead><tbody>
   <tr><td>30</td><td>pi/6</td><td>0.5236</td></tr><tr><td>45</td><td>pi/4</td><td>0.7854</td></tr>
   <tr><td>60</td><td>pi/3</td><td>1.0472</td></tr><tr><td>90</td><td>pi/2</td><td>1.5708</td></tr>
@@ -1986,7 +1986,7 @@ def _render_romantable(args):
 # ---------------------------------------------------------------- yes or no
 YESNO = """
 <div class="tool" id="tt-yn" style="text-align:center">
-  <div class="result" style="border:0;background:transparent"><span class="result-num" id="yn-out" style="font-size:3rem">?</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true" style="border:0;background:transparent"><span class="result-num" id="yn-out" style="font-size:3rem">?</span></div>
   <button class="btn" id="yn-go" type="button" style="font-size:1.1rem;padding:14px 34px">Ask</button>
   <div class="stats" style="max-width:320px;margin:14px auto 0">
     <div class="stat"><b id="yn-y">0</b><span>yes</span></div>
@@ -2015,7 +2015,7 @@ PRIME = """
 <div class="tool" id="tt-pr">
   <div class="field"><label for="pr-in">Whole number (up to 15 digits)</label>
     <input type="number" id="pr-in" step="1" placeholder="1009"></div>
-  <div class="result"><span class="result-num" id="pr-out">-</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pr-out">-</span>
     <div class="result-formula" id="pr-note"></div></div>
 </div>
 <script>(function(){
@@ -2084,7 +2084,7 @@ function probablePrime(n){
 FACTORIAL = """
 <div class="tool" id="tt-fa">
   <div class="field"><label for="fa-n">n (0 - 1000)</label><input type="number" id="fa-n" min="0" max="1000" step="1" value="5"></div>
-  <div class="result"><span class="result-num" id="fa-out" style="word-break:break-all">-</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fa-out" style="word-break:break-all">-</span></div>
   <div class="stats">
     <div class="stat"><b id="fa-digits">-</b><span>digits</span></div>
     <div class="stat"><b id="fa-chain">-</b><span>multiplication</span></div>
@@ -2129,8 +2129,8 @@ COUNTRY = """
       <option value="Oceania">Oceania</option>
     </select></div>
   <button class="btn" id="co-go" type="button">🌍 Generate country</button>
-  <div class="result" style="text-align:center"><span class="result-num" id="co-flag" style="font-size:3.2rem">🌍</span></div>
-  <div class="result" style="margin-top:-8px"><span class="result-num" id="co-name" style="font-size:1.4rem">?</span>
+  <div class="result" aria-live="polite" aria-atomic="true" style="text-align:center"><span class="result-num" id="co-flag" style="font-size:3.2rem">🌍</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true" style="margin-top:-8px"><span class="result-num" id="co-name" style="font-size:1.4rem">?</span>
     <div class="result-formula" id="co-cont2"></div></div>
 </div>
 <script>(function(){
@@ -2176,7 +2176,7 @@ STLB = """
     <div class="field"><label for="sl-st">Stone</label><input type="number" id="sl-st" min="0" step="1" value="11"></div>
     <div class="field"><label for="sl-lb">Pounds</label><input type="number" id="sl-lb" min="0" max="13" step="1" value="7"></div>
   </div>
-  <div class="result"><span class="result-num" id="sl-kg">-</span><span class="result-unit">kg</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sl-kg">-</span><span class="result-unit">kg</span></div>
   <div class="field" style="margin-top:12px"><label for="sl-kg2">Kilograms (reverse)</label><input type="number" id="sl-kg2" step="any" min="0" placeholder="70"></div>
   <div class="stats">
     <div class="stat"><b id="sl-total-lb">-</b><span>pounds only</span></div>
@@ -2223,7 +2223,7 @@ FTINCM = """
     <div class="field"><label for="fi-ft">Feet</label><input type="number" id="fi-ft" min="0" step="1" value="5"></div>
     <div class="field"><label for="fi-in">Inches</label><input type="number" id="fi-in" min="0" max="11" step="any" value="7"></div>
   </div>
-  <div class="result"><span class="result-num" id="fi-cm">-</span><span class="result-unit">cm</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fi-cm">-</span><span class="result-unit">cm</span></div>
   <div class="field" style="margin-top:12px"><label for="fi-cm2">Centimeters (reverse)</label><input type="number" id="fi-cm2" step="any" min="0" placeholder="170"></div>
   <div class="stats">
     <div class="stat"><b id="fi-inonly">-</b><span>inches only</span></div>
@@ -2276,7 +2276,7 @@ EMOJI = """
   </div>
   <div class="field"><label for="em-n">How many</label><input type="number" id="em-n" min="1" max="12" step="1" value="3"></div>
   <button class="btn" id="em-go" type="button">Generate</button>
-  <div class="result" style="text-align:center"><span class="result-num" id="em-out" style="font-size:2.2rem;letter-spacing:.15em">?</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true" style="text-align:center"><span class="result-num" id="em-out" style="font-size:2.2rem;letter-spacing:.15em">?</span></div>
   <button class="btn btn-sm" id="em-copy" type="button">Copy batch</button>
 </div>
 <script>(function(){
@@ -2543,7 +2543,7 @@ NUMWORDS = """
 <div class="tool" id="tt-nw">
   <div class="field"><label for="nw-in">Number (0 - 999,999,999,999,999)</label>
     <input type="text" id="nw-in" inputmode="numeric" placeholder="1234"></div>
-  <div class="result"><span class="result-num" id="nw-out" style="text-transform:capitalize">-</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="nw-out" style="text-transform:capitalize">-</span></div>
   <div class="tool-note">Standard American wording: no "and" before the tens, hyphenated compounds (forty-two), scale words up to trillion.</div>
 </div>
 <script>(function(){
@@ -2589,8 +2589,8 @@ CYLINDER = """
     <div class="field"><label for="cy-r">Radius</label><input type="number" id="cy-r" step="any" min="0" placeholder="5"></div>
     <div class="field"><label for="cy-h">Height</label><input type="number" id="cy-h" step="any" min="0" placeholder="10"></div>
   </div>
-  <div class="result"><span class="result-num" id="cy-out">-</span><span class="result-unit" id="cy-unit">cubic units</span></div>
-  <div class="result"><span class="result-num" id="cy-liters">-</span><span class="result-unit">liters (if cm)</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cy-out">-</span><span class="result-unit" id="cy-unit">cubic units</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cy-liters">-</span><span class="result-unit">liters (if cm)</span></div>
   <div class="tool-note">V = πr²h - enter radius (not diameter) and height in the same unit.</div>
 </div>
 <script>(function(){
