@@ -2372,6 +2372,13 @@ def PAGES():
                        "Convert liter-bottle recipes into American cup measurements: one liter is about 4.17 cups (4 cups plus a splash). Metric recipe in hand, US measuring cups in the drawer - this is the bridge.",
                        "Handy anchors: 0.5 L = 2.11 cups, 1 L = 4.17 cups, 2 L = 8.45 cups, 4 L = 16.9 cups (roughly a gallon)."))
 
+    pages.append(_conv("cups-to-pints", "Cups to Pints", "cups (US)", "pints (US)", 1 / 2, "volume",
+                       "Two cups make a pint - the conversion hiding in every 'a pint is a pound the world around' saying (for water, close enough). Ice cream pints, pub glasses and recipe halvings all cross this line.",
+                       "Handy anchors: 2 cups = 1 pt, 4 cups = 2 pt, 6 cups = 3 pt, 1 pt = 2 cups (remember it by the pint of ice cream you finished alone)."))
+    pages.append(_conv("pints-to-cups", "Pints to Cups", "pints (US)", "cups (US)", 2, "volume",
+                       "Multiply pints by 2 and you have cups - the friendliest member of the US volume family. A pint of blueberries is 2 cups; a pint of cream is 2 cups; the pattern is mercifully simple.",
+                       "Handy anchors: 1 pt = 2 cups, 2 pt = 4 cups, 3 pt = 6 cups, 4 pt = 8 cups (half a gallon)."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
