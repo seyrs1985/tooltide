@@ -2358,6 +2358,13 @@ def PAGES():
         ],
     })
 
+    pages.append(_conv("quarts-to-pints", "Quarts to Pints", "quarts (US)", "pints (US)", 2, "volume",
+                       "The middle rung of the US volume ladder: 1 quart is exactly 2 pints. Soup recipes say quarts, milk cartons say pints, and this converter keeps the conversation going without a calculator.",
+                       "Handy anchors: 1 qt = 2 pt, 4 qt = 8 pt (a gallon), 0.5 qt = 1 pt (a big soda), 3 qt = 6 pt (an ice cream haul)."))
+    pages.append(_conv("cups-to-quarts", "Cups to Quarts", "cups (US)", "quarts (US)", 1 / 4, "volume",
+                       "Big-batch cooking jumps from cups straight to quarts — 16 cups to a quart, so halving a 50-serving punch recipe is division the recipe never warns you about. Type the cups, get the quarts, get back to the kitchen.",
+                       "Handy anchors: 4 cups = 1 qt, 8 cups = 2 qt, 12 cups = 3 qt, 16 cups = 4 qt (a full gallon)."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
