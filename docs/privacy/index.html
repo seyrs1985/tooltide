@@ -67,4 +67,24 @@
       <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
     </div>
   </div>
-</footer></body></html>
+</footer><button class="to-top" id="to-top" type="button" aria-label="Back to top">↑ <span aria-hidden="true">Top</span></button>
+<script>(function(){
+var b=document.getElementById('to-top');
+if(!b)return;
+var pending=false;
+function update(){
+  b.classList.toggle('show',window.scrollY>600);
+}
+window.addEventListener('scroll',function(){
+  if(pending)return;
+  pending=true;
+  requestAnimationFrame(function(){update();pending=false;});
+},{passive:true});
+update();
+b.addEventListener('click',function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  var h=document.querySelector('h1');
+  if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true});}
+});
+})();</script></body></html>

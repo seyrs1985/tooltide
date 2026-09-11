@@ -243,6 +243,31 @@ def crumb(base, items):
     return f'<nav class="crumbs wrap" aria-label="Breadcrumb">{inner}</nav>'
 
 
+# Floating back-to-top button — shared by every page. Hidden until the reader
+# scrolls past the fold; smooth-scrolls unless the OS asks for reduced motion.
+BACKTOP = """<button class="to-top" id="to-top" type="button" aria-label="Back to top">↑ <span aria-hidden="true">Top</span></button>
+<script>(function(){
+var b=document.getElementById('to-top');
+if(!b)return;
+var pending=false;
+function update(){
+  b.classList.toggle('show',window.scrollY>600);
+}
+window.addEventListener('scroll',function(){
+  if(pending)return;
+  pending=true;
+  requestAnimationFrame(function(){update();pending=false;});
+},{passive:true});
+update();
+b.addEventListener('click',function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  var h=document.querySelector('h1');
+  if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true});}
+});
+})();</script>"""
+
+
 def tool_card(p, base):
     emoji = (p.get("args") or {}).get("emoji") or TOOL_EMOJI.get(p["tool"], "🔧")
     return (f'<a class="card" href="{base}{p["slug"]}/">'
@@ -266,9 +291,15 @@ def build_page(cfg, p, all_pages, cat_info):
     faq_ld = {"@type": "FAQPage", "mainEntity": [
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
         for q, a in p["faqs"]]}
+    cat_label = (cat_info or {}).get(p["category"], ("",))[0]
+    crumb_items = [("🌊 ToolTide", base)]
+    if cat_label:
+        crumb_items.append((cat_label, base + "#" + p["category"]))
+    crumb_items.append((p["h1"], None))
     crumb_ld = {"@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "ToolTide", "item": base},
-        {"@type": "ListItem", "position": 2, "name": p["h1"], "item": canonical}]}
+        {"@type": "ListItem", "position": i + 1, "name": name,
+         "item": (url or canonical)}
+        for i, (name, url) in enumerate(crumb_items)]}
 
     related = [x for x in all_pages if x["category"] == p["category"] and x["slug"] != p["slug"]]
     related += [x for x in all_pages if x["category"] != p["category"]]
@@ -289,7 +320,7 @@ def build_page(cfg, p, all_pages, cat_info):
 
     doc = head_tags(cfg, p["title"], p["desc"], canonical, [webapp_ld, faq_ld, crumb_ld], root=False)
     doc += header_nav(cfg, base)
-    doc += crumb(base, [("🌊 ToolTide", base), (p["h1"], None)])
+    doc += crumb(base, crumb_items)
     doc += f"""<main class="wrap" id="main">
 <article>
   <div class="page-emoji" aria-hidden="true">{emoji}</div>
@@ -305,6 +336,7 @@ def build_page(cfg, p, all_pages, cat_info):
 </article>
 </main>"""
     doc += footer(cfg, base, all_pages, cat_info)
+    doc += BACKTOP
     doc += "</body></html>"
     return doc
 
@@ -315,10 +347,11 @@ def build_index(cfg, all_pages, cat_info):
     desc = "ToolTide — free online tools: countdown timers, calculators, unit converters, word counter, password generator and more. Fast, private, no sign-up."
     sections = []
     search_cards = []
+    counts = {c: sum(1 for x in all_pages if x["category"] == c) for c in cat_info}
     for cat, (label, blurb) in cat_info.items():
         cat_pages = [x for x in all_pages if x["category"] == cat]
         cards = "".join(tool_card(x, base) for x in cat_pages)
-        sections.append(f'<section class="cat" id="{cat}"><h2>{esc(label)}</h2><p class="cat-blurb">{esc(blurb)}</p>'
+        sections.append(f'<section class="cat" id="{cat}"><h2>{esc(label)} <span class="cat-count">{counts[cat]}</span></h2><p class="cat-blurb">{esc(blurb)}</p>'
                         f'<div class="grid">{cards}</div></section>')
         for x in cat_pages:
             search_cards.append((x["h1"], x["desc"], base + x["slug"] + "/",
@@ -327,7 +360,7 @@ def build_index(cfg, all_pages, cat_info):
                            for t, d, u, e, c, s in search_cards],
                           ensure_ascii=False)
     chips = "".join(
-        f'<a href="#{cat}">{cat_emoji_html(cat)}{esc(label)}</a>'
+        f'<a href="#{cat}">{cat_emoji_html(cat)}{esc(label)} <span class="chip-n">{counts[cat]}</span></a>'
         for cat, (label, _blurb) in cat_info.items())
     website_ld = {"@type": "WebSite", "name": "ToolTide", "url": base,
                   "description": desc, "potentialAction": {
@@ -352,6 +385,7 @@ def build_index(cfg, all_pages, cat_info):
 <p class="cat-blurb">ToolTide is a collection of small, fast, honest web tools. No accounts, no paywalls, no selling your data — each tool does one job and gets out of your way. Bookmark us and the tide of small annoyances goes out.</p></section>
 </main>"""
     doc += footer(cfg, base, all_pages, cat_info)
+    doc += BACKTOP
     doc += f"""<script>(function(){{
 var CARDS={cards_js};
 var inp=document.getElementById('tool-search'),out=document.getElementById('search-results');
@@ -447,6 +481,7 @@ def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None):
                    .replace("{email}", cfg.get("contact_email", "hello@example.com")))
     doc += f'<main class="wrap"><article class="static-page">{inner2}</article></main>'
     doc += footer(cfg, base, all_pages, cat_info)
+    doc += BACKTOP
     doc += "</body></html>"
     return doc
 
