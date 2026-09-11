@@ -273,6 +273,18 @@ def PAGES():
              "🗓️")
     pages.append(nv)
 
+    mr = _cd("march", "March", 3, 1, "how many days until march",
+             "March is the month winter loses its grip: the equinox brings spring, the clocks jump forward, March Madness tips off, and St Patrick's Day gives everyone a Tuesday excuse. 'How many days until March' is usually about one of those four things.",
+             "This timer targets the upcoming March 1st and rolls over automatically — when March arrives, it starts counting to the next one.",
+             "🌈")
+    pages.append(mr)
+
+    oc = _cd("october", "October", 10, 1, "how many days until october",
+             "October is the month of flannel, pumpkin patches, horror movie marathons and the year's most important child-planning question: how many days until Halloween. It also holds the trick for retailers — Q4 begins here.",
+             "This timer targets the upcoming October 1st and rolls over automatically — costume planners and deal hunters alike.",
+             "🎃")
+    pages.append(oc)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -618,6 +630,9 @@ def PAGES():
     pages.append(_conv("inches-to-mm", "Inches to MM", "inches", "millimeters", 25.4, "length",
                        "Precision work — drill bits, camera mounts, 3D printing, jewelry — lives in millimeters, while US tools and hardware still speak inches. One inch is officially exactly 25.4 millimeters, so this conversion is precise to any decimal place.",
                        "Handy anchors: 1 in = 25.4 mm, 1/2 in = 12.7 mm, 1/4 in = 6.35 mm, 2 in = 50.8 mm. Woodworkers: 3/4 in stock = 19.05 mm."))
+    pages.append(_conv("feet-to-cm", "Feet to CM", "feet", "centimeters", 30.48, "length",
+                       "Convert US height and furniture measurements straight into centimeters in one hop — no inches in between. One foot is exactly 30.48 centimeters, so 6 feet is 182.88 cm and a 5-foot sofa is 152.4 cm.",
+                       "Handy anchors: 1 ft = 30.48 cm, 5 ft = 152.4 cm, 6 ft = 182.88 cm, 7 ft = 213.36 cm (a door is 6 ft 8 in = 203 cm)."))
 
     # ---------- Text & generator family ----------
     pages.append({
@@ -977,6 +992,36 @@ def PAGES():
              "Poorly — screen readers may read the substitute letters strangely or skip them. It is fun decoration, not accessible text; keep important information in normal characters."),
             ("Does the flipped text count as different characters?",
              "It counts the same number of characters, but they are different ones — some platforms with strict username rules may reject exotic characters in usernames. Bios and messages are fine."),
+        ],
+    })
+
+    pages.append({
+        "slug": "hours-calculator",
+        "title": "Hours Calculator — Time Between Start and End Times",
+        "h1": "Hours Calculator",
+        "desc": "Calculate hours and minutes between a start and end time — handles overnight shifts and gives decimal hours for timesheets. Free and instant.",
+        "category": "calculator",
+        "keyword": "hours calculator",
+        "tool": "hoursdiff",
+        "args": {},
+        "intro": [
+            "Enter a start time and an end time and get the duration in hours and minutes — plus the decimal form (8 hours 30 minutes = 8.5) that timesheet systems actually want. Shifts that cross midnight are handled automatically: 10 PM to 6 AM is a clean 8 hours, not a negative number.",
+            "It exists because 'hours calculator' is secretly a payroll question. Hourly workers checking a paycheck, freelancers logging billable time, managers building rotas — everyone needs the same boring subtraction, done reliably, with the decimal version ready to paste into whatever system the company uses.",
+        ],
+        "howto": [
+            "Set the start time (your time picker uses 24-hour format; 22:00 is 10 PM).",
+            "Set the end time — if it is earlier than the start, the shift is treated as crossing midnight.",
+            "Read the duration in hours:minutes, and copy the decimal hours into your timesheet.",
+        ],
+        "faqs": [
+            ("How do I calculate hours between two times?",
+             "Convert both to minutes since midnight, subtract the start from the end, and divide by 60. From 9:00 AM (540) to 5:00 PM (1,020): 1020 − 540 = 480 minutes = 8 hours. This calculator does the subtraction and shows both formats."),
+            ("How do I calculate a night shift that crosses midnight?",
+             "If the end time is earlier than the start time, add 24 hours to the end before subtracting. 10 PM to 6 AM becomes 22:00 to 30:00 — exactly 8 hours. The calculator detects this automatically."),
+            ("What is 8 hours 30 minutes in decimal hours?",
+             "8.5 hours — divide the minutes by 60 and add to the hours. Timesheet and payroll systems almost always want the decimal form, which this calculator shows alongside the hours:minutes version."),
+            ("Does it include breaks?",
+             "Not automatically — enter your break as a separate calculation, or subtract it yourself from the duration. Some employers round breaks to 15 minutes; check your workplace rules."),
         ],
     })
 

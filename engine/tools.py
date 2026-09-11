@@ -1051,6 +1051,40 @@ document.getElementById('fl-copy').addEventListener('click',function(){
 """
 
 
+# ---------------------------------------------------------------- hours calculator
+HOURSDIFF = """
+<div class="tool" id="tt-hd">
+  <div class="fields">
+    <div class="field"><label for="hd-start">Start time</label><input type="time" id="hd-start" value="09:00"></div>
+    <div class="field"><label for="hd-end">End time</label><input type="time" id="hd-end" value="17:00"></div>
+  </div>
+  <div class="result"><span class="result-num" id="hd-hm">–</span>
+    <div class="result-formula" id="hd-note"></div></div>
+  <div class="stats">
+    <div class="stat"><b id="hd-dec">–</b><span>decimal hours (for timesheets)</span></div>
+    <div class="stat"><b id="hd-mins">–</b><span>total minutes</span></div>
+  </div>
+</div>
+<script>(function(){
+var a=document.getElementById('hd-start'),b=document.getElementById('hd-end');
+function toMin(v){var p=v.split(':');return (+p[0])*60+(+p[1]);}
+function run(){
+  if(!a.value||!b.value)return;
+  var s=toMin(a.value),e=toMin(b.value),overnight=false;
+  if(e<s){e+=1440;overnight=true;}
+  var d=e-s,h=Math.floor(d/60),m=d%60;
+  document.getElementById('hd-hm').textContent=h+' h '+m+' min';
+  var dec=(Math.round(d/6)/100);
+  document.getElementById('hd-dec').textContent=dec;
+  document.getElementById('hd-mins').textContent=d.toLocaleString('en-US');
+  document.getElementById('hd-note').textContent=(overnight?'overnight shift · ':'')+
+    a.value+' → '+b.value+'  ·  '+d+' minutes ÷ 60 = '+dec;
+}
+a.addEventListener('input',run);b.addEventListener('input',run);run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1073,6 +1107,7 @@ TOOLS = {
     "dedupe": lambda args: DEDUPE,
     "slug": lambda args: SLUG,
     "upside": lambda args: UPSIDE,
+    "hoursdiff": lambda args: HOURSDIFF,
     "salestax": lambda args: SALESTAX,
 }
 
