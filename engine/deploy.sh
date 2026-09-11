@@ -71,7 +71,12 @@ acquire_lock(){
   fi
   return 1
 }
-release_lock(){ rm -rf "$LOCK_DIR" 2>/dev/null; }
+release_lock(){
+  # 只释放自己持有的锁(跳过路径不得误删他人锁)
+  if [ -f "$LOCK_DIR/pid" ] && [ "$(cat "$LOCK_DIR/pid" 2>/dev/null)" = "$$" ]; then
+    rm -rf "$LOCK_DIR" 2>/dev/null
+  fi
+}
 trap 'release_lock' EXIT
 if ! acquire_lock; then
   echo "   ⏳ 另一个部署进程持有锁, 等待最多3分钟..."
