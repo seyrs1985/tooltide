@@ -28,6 +28,7 @@
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Half Calculator","url":"https://seyrs1985.github.io/tooltide/half-calculator/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"What is half of 3/4 cup, half of 150, or half of 2-1/2? Split any number, fraction or mixed amount in half — exact fractional answers for recipes and math homework."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is half of 3/4?","acceptedAnswer":{"@type":"Answer","text":"3/8. Dividing a fraction by 2 doubles its bottom number: 3/4 becomes 3/8. In cups, 3/8 cup is 6 tablespoons — a common half-batch conversion."}},{"@type":"Question","name":"What is half of 2/3?","acceptedAnswer":{"@type":"Answer","text":"2/3 halved is 1/3 (double the bottom number: 2/3 → 2/6 = 1/3). This trips people up because the decimal form, 0.333, looks nothing like 0.666 halved — but it is exactly half."}},{"@type":"Question","name":"What is half of 1 and 3/4 cups?","acceptedAnswer":{"@type":"Answer","text":"7/8 cup. Convert 1-3/4 to 7/4 first, halve it to 7/8 — just under a full cup. Practically: a scant cup."}},{"@type":"Question","name":"How do I halve an odd number?","acceptedAnswer":{"@type":"Answer","text":"Odd whole numbers halve to .5 — half of 7 is 3.5. For fractions with odd denominators (like 1/2), double the denominator instead: half of 1/2 is 1/4."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"🌊 ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Calculators","item":"https://seyrs1985.github.io/tooltide/#calculator"},{"@type":"ListItem","position":3,"name":"Half Calculator","item":"https://seyrs1985.github.io/tooltide/half-calculator/"}]}]}</script>
+<script>(function(){var d=document.documentElement;d.classList.add("js");try{var t=localStorage.getItem("tt-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);}catch(e){}})();</script>
 <link rel="stylesheet" href="../style.css">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
@@ -36,6 +37,7 @@
   <div class="wrap nav-row">
     <a class="logo" href="https://seyrs1985.github.io/tooltide/"><span aria-hidden="true">🌊</span> ToolTide</a>
     <nav aria-label="Primary"><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games</a><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"><span aria-hidden="true">🌙</span></button>
   </div>
 </header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a>  ›  <span>Half Calculator</span></nav><main class="wrap" id="main">
 <article>
@@ -127,4 +129,25 @@ b.addEventListener('click',function(){
   var h=document.querySelector('h1');
   if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true});}
 });
+})();</script><script>(function(){
+var b=document.getElementById('theme-toggle');
+if(!b)return;
+var icon=b.querySelector('span');
+function osDark(){return !!(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);}
+function current(){var a=document.documentElement.getAttribute('data-theme');return a==='dark'||a==='light'?a:(osDark()?'dark':'light');}
+function syncMeta(t){var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++){m[i].removeAttribute('media');m[i].setAttribute('content',t==='dark'?'#1e293b':'#0e7490');}}
+function paint(t){
+  document.documentElement.setAttribute('data-theme',t);
+  icon.textContent=t==='dark'?'\u2600\uFE0F':'\uD83C\uDF19';
+  b.setAttribute('aria-label',t==='dark'?'Switch to light theme':'Switch to dark theme');
+}
+b.addEventListener('click',function(){
+  var t=current()==='dark'?'light':'dark';
+  paint(t);syncMeta(t);
+  try{localStorage.setItem('tt-theme',t);}catch(e){}
+});
+var saved=null;
+try{saved=localStorage.getItem('tt-theme');}catch(e){}
+if(saved==='dark'||saved==='light'){paint(saved);syncMeta(saved);}
+else{paint(current());}
 })();</script></body></html>

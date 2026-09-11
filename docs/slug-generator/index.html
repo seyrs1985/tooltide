@@ -28,6 +28,7 @@
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"URL Slug Generator","url":"https://seyrs1985.github.io/tooltide/slug-generator/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Turn any title into a clean URL slug: lowercase, accents stripped, spaces to hyphens. Perfect for blog posts, product pages and SEO. Runs entirely in your browser."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What makes a good URL slug?","acceptedAnswer":{"@type":"Answer","text":"Lowercase, hyphens between words, no punctuation, no filler words like 'a' or 'the', and 3–6 words that describe the content. Keywords near the front help slightly; readability matters more."}},{"@type":"Question","name":"Should slugs use hyphens or underscores?","acceptedAnswer":{"@type":"Answer","text":"Hyphens. Google treats hyphens as word separators but treats underscores as word joiners — 'cold-brew-guide' reads as three words, 'cold_brew_guide' reads as one."}},{"@type":"Question","name":"Do accented characters hurt SEO?","acceptedAnswer":{"@type":"Answer","text":"Modern browsers handle them, but they turn into ugly percent-encoded strings when shared (caf%C3%A9). Folding accents to plain letters keeps URLs clean and shareable."}},{"@type":"Question","name":"Can I change a slug after publishing?","acceptedAnswer":{"@type":"Answer","text":"Only with a redirect. Changing a published URL breaks any links pointing to it — set up a 301 redirect from the old slug to the new one, then update internal links."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"🌊 ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Text Tools","item":"https://seyrs1985.github.io/tooltide/#text"},{"@type":"ListItem","position":3,"name":"URL Slug Generator","item":"https://seyrs1985.github.io/tooltide/slug-generator/"}]}]}</script>
+<script>(function(){var d=document.documentElement;d.classList.add("js");try{var t=localStorage.getItem("tt-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);}catch(e){}})();</script>
 <link rel="stylesheet" href="../style.css">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
@@ -36,6 +37,7 @@
   <div class="wrap nav-row">
     <a class="logo" href="https://seyrs1985.github.io/tooltide/"><span aria-hidden="true">🌊</span> ToolTide</a>
     <nav aria-label="Primary"><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games</a><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"><span aria-hidden="true">🌙</span></button>
   </div>
 </header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <a href="https://seyrs1985.github.io/tooltide/#text">Text Tools</a>  ›  <span>URL Slug Generator</span></nav><main class="wrap" id="main">
 <article>
@@ -109,4 +111,25 @@ b.addEventListener('click',function(){
   var h=document.querySelector('h1');
   if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true});}
 });
+})();</script><script>(function(){
+var b=document.getElementById('theme-toggle');
+if(!b)return;
+var icon=b.querySelector('span');
+function osDark(){return !!(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);}
+function current(){var a=document.documentElement.getAttribute('data-theme');return a==='dark'||a==='light'?a:(osDark()?'dark':'light');}
+function syncMeta(t){var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++){m[i].removeAttribute('media');m[i].setAttribute('content',t==='dark'?'#1e293b':'#0e7490');}}
+function paint(t){
+  document.documentElement.setAttribute('data-theme',t);
+  icon.textContent=t==='dark'?'\u2600\uFE0F':'\uD83C\uDF19';
+  b.setAttribute('aria-label',t==='dark'?'Switch to light theme':'Switch to dark theme');
+}
+b.addEventListener('click',function(){
+  var t=current()==='dark'?'light':'dark';
+  paint(t);syncMeta(t);
+  try{localStorage.setItem('tt-theme',t);}catch(e){}
+});
+var saved=null;
+try{saved=localStorage.getItem('tt-theme');}catch(e){}
+if(saved==='dark'||saved==='light'){paint(saved);syncMeta(saved);}
+else{paint(current());}
 })();</script></body></html>

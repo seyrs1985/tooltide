@@ -2071,7 +2071,7 @@ def PAGES():
             ("How many feet and inches is 170 cm?",
              "170 cm is 5 feet 6.93 inches — which everyone rounds to 5'7″. The converter shows the exact decimal so forms can be filled precisely."),
             ("How do I convert cm to feet and inches manually?",
-             "Divide centimeters by 2.54 to get total inches (170 ÷ 2.54 = 66.93). Divide that by 12 for feet (5) and multiply the remainder decimal by 12 for the leftover inches (0.93 × 12 ≈ 11.2? no — 66.93 − 60 = 6.93 inches). The converter removes the two-step risk."),
+             "Divide centimeters by 2.54 to get total inches (170 ÷ 2.54 = 66.93). That is 5 whole feet (60 inches) plus 6.93 inches — so 170 cm is 5 feet 6.93 inches. The converter removes the two-step risk."),
             ("Is 180 cm 6 feet?",
              "Close but not exact: 180 cm is 70.87 inches = 5 feet 10.87 inches. Six feet is 182.88 cm — nearly 3 cm more than 180."),
             ("What height is 160 cm?",

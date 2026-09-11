@@ -28,6 +28,7 @@
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Stones and Pounds to Kilograms","url":"https://seyrs1985.github.io/tooltide/stones-and-pounds-to-kg/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert the British double-unit weight (like 11 st 7 lb) into kilograms in one step — and back. The way UK bathroom scales and US forms finally agree."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many kg is 11 stone 7 pounds?","acceptedAnswer":{"@type":"Answer","text":"11 stone = 69.85 kg; 7 pounds = 3.18 kg; total is about 73.03 kg. The converter does the two-part arithmetic in one step."}},{"@type":"Question","name":"How do I convert stones and pounds to kilograms?","acceptedAnswer":{"@type":"Answer","text":"Multiply stones by 6.35029318, multiply pounds by 0.45359237, and add the two. Or just enter both numbers above — same answer, no arithmetic."}},{"@type":"Question","name":"Why do Brits use two units for one weight?","acceptedAnswer":{"@type":"Answer","text":"History: the stone was the traditional trade weight for centuries and survived metrication for body weight specifically. So a person is '11 stone 7', never '161 pounds' — even though it is the same thing."}},{"@type":"Question","name":"What is 70 kg in stones and pounds?","acceptedAnswer":{"@type":"Answer","text":"About 11 stone and 0.2 pounds (70 kg is 11.02 stone, which is 11 st plus a fraction of a pound). Enter 70 kg in the reverse direction to see the exact split."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"🌊 ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Converters","item":"https://seyrs1985.github.io/tooltide/#converter"},{"@type":"ListItem","position":3,"name":"Stones and Pounds to Kilograms","item":"https://seyrs1985.github.io/tooltide/stones-and-pounds-to-kg/"}]}]}</script>
+<script>(function(){var d=document.documentElement;d.classList.add("js");try{var t=localStorage.getItem("tt-theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);}catch(e){}})();</script>
 <link rel="stylesheet" href="../style.css">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
@@ -36,6 +37,7 @@
   <div class="wrap nav-row">
     <a class="logo" href="https://seyrs1985.github.io/tooltide/"><span aria-hidden="true">🌊</span> ToolTide</a>
     <nav aria-label="Primary"><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games</a><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"><span aria-hidden="true">🌙</span></button>
   </div>
 </header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a>  ›  <span>Stones and Pounds to Kilograms</span></nav><main class="wrap" id="main">
 <article>
@@ -129,4 +131,25 @@ b.addEventListener('click',function(){
   var h=document.querySelector('h1');
   if(h){h.setAttribute('tabindex','-1');h.focus({preventScroll:true});}
 });
+})();</script><script>(function(){
+var b=document.getElementById('theme-toggle');
+if(!b)return;
+var icon=b.querySelector('span');
+function osDark(){return !!(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);}
+function current(){var a=document.documentElement.getAttribute('data-theme');return a==='dark'||a==='light'?a:(osDark()?'dark':'light');}
+function syncMeta(t){var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++){m[i].removeAttribute('media');m[i].setAttribute('content',t==='dark'?'#1e293b':'#0e7490');}}
+function paint(t){
+  document.documentElement.setAttribute('data-theme',t);
+  icon.textContent=t==='dark'?'\u2600\uFE0F':'\uD83C\uDF19';
+  b.setAttribute('aria-label',t==='dark'?'Switch to light theme':'Switch to dark theme');
+}
+b.addEventListener('click',function(){
+  var t=current()==='dark'?'light':'dark';
+  paint(t);syncMeta(t);
+  try{localStorage.setItem('tt-theme',t);}catch(e){}
+});
+var saved=null;
+try{saved=localStorage.getItem('tt-theme');}catch(e){}
+if(saved==='dark'||saved==='light'){paint(saved);syncMeta(saved);}
+else{paint(current());}
 })();</script></body></html>

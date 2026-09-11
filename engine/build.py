@@ -57,6 +57,12 @@ def ad_slot(cfg, slot_id, where):
 OG_IMAGE = "og-image.png"
 og_image_ready = False
 
+# Runs before first paint: marks <html class="js"> (reveals the theme toggle)
+# and re-applies a visitor's saved light/dark choice ahead of the stylesheet.
+PREPAINT_THEME = ('<script>(function(){var d=document.documentElement;d.classList.add("js");'
+                  'try{var t=localStorage.getItem("tt-theme");'
+                  'if(t==="light"||t==="dark")d.setAttribute("data-theme",t);}catch(e){}})();</script>')
+
 
 def ensure_og_image():
     """Generate docs/og-image.png (1200x630 share card) once; reused on rebuilds."""
@@ -148,6 +154,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
 <link rel="icon" href="{fav}">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
+{PREPAINT_THEME}
 <link rel="stylesheet" href="{css}">
 {f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={esc(ads)}" crossorigin="anonymous"></script>' if ads else ''}
 {f'<script async src="https://www.googletagmanager.com/gtag/js?id={esc(ga)}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag("js",new Date());gtag("config","{esc(ga)}");</script>' if ga else ''}
@@ -167,6 +174,7 @@ def header_nav(cfg, base):
   <div class="wrap nav-row">
     <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolTide</a>
     <nav aria-label="Primary"><a href="{esc(games_url)}" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"><span aria-hidden="true">🌙</span></button>
   </div>
 </header>"""
 
@@ -267,6 +275,31 @@ b.addEventListener('click',function(){
 });
 })();</script>"""
 
+# Manual light/dark switch — the single piece of state we keep on a visitor's
+# device (localStorage "tt-theme"), disclosed in the privacy policy.
+THEME_JS = """<script>(function(){
+var b=document.getElementById('theme-toggle');
+if(!b)return;
+var icon=b.querySelector('span');
+function osDark(){return !!(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);}
+function current(){var a=document.documentElement.getAttribute('data-theme');return a==='dark'||a==='light'?a:(osDark()?'dark':'light');}
+function syncMeta(t){var m=document.querySelectorAll('meta[name="theme-color"]');for(var i=0;i<m.length;i++){m[i].removeAttribute('media');m[i].setAttribute('content',t==='dark'?'#1e293b':'#0e7490');}}
+function paint(t){
+  document.documentElement.setAttribute('data-theme',t);
+  icon.textContent=t==='dark'?'\\u2600\\uFE0F':'\\uD83C\\uDF19';
+  b.setAttribute('aria-label',t==='dark'?'Switch to light theme':'Switch to dark theme');
+}
+b.addEventListener('click',function(){
+  var t=current()==='dark'?'light':'dark';
+  paint(t);syncMeta(t);
+  try{localStorage.setItem('tt-theme',t);}catch(e){}
+});
+var saved=null;
+try{saved=localStorage.getItem('tt-theme');}catch(e){}
+if(saved==='dark'||saved==='light'){paint(saved);syncMeta(saved);}
+else{paint(current());}
+})();</script>"""
+
 
 def tool_card(p, base):
     emoji = (p.get("args") or {}).get("emoji") or TOOL_EMOJI.get(p["tool"], "🔧")
@@ -338,6 +371,7 @@ def build_page(cfg, p, all_pages, cat_info):
 </main>"""
     doc += footer(cfg, base, all_pages, cat_info)
     doc += BACKTOP
+    doc += THEME_JS
     doc += "</body></html>"
     return doc
 
@@ -387,6 +421,7 @@ def build_index(cfg, all_pages, cat_info):
 </main>"""
     doc += footer(cfg, base, all_pages, cat_info)
     doc += BACKTOP
+    doc += THEME_JS
     doc += f"""<script>(function(){{
 var CARDS={cards_js};
 var inp=document.getElementById('tool-search'),out=document.getElementById('search-results');
@@ -485,6 +520,7 @@ def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None):
     doc += f'<main class="wrap"><article class="static-page">{inner2}</article></main>'
     doc += footer(cfg, base, all_pages, cat_info)
     doc += BACKTOP
+    doc += THEME_JS
     doc += "</body></html>"
     return doc
 
