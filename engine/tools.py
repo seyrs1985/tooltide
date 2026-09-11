@@ -2867,6 +2867,52 @@ inp.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- binary <-> decimal
+BINDEC = """
+<div class="tool" id="tt-bd">
+  <div class="fields two">
+    <div class="field"><label for="bd-bin">Binary (0s and 1s)</label>
+      <input type="text" id="bd-bin" placeholder="1010" autocomplete="off"></div>
+    <div class="field"><label for="bd-dec">Decimal</label>
+      <input type="number" id="bd-dec" step="1" placeholder="10"></div>
+  </div>
+  <div class="result"><span class="result-num" id="bd-out">-</span><div class="result-formula" id="bd-note"></div></div>
+  <table class="copytable"><thead><tr><th>Bit position</th><th>Value</th></tr></thead><tbody>
+  <tr><td>bit 0 (rightmost)</td><td>1</td></tr><tr><td>bit 1</td><td>2</td></tr>
+  <tr><td>bit 2</td><td>4</td></tr><tr><td>bit 3</td><td>8</td></tr>
+  <tr><td>bit 7 (a byte)</td><td>128</td></tr></tbody></table>
+</div>
+<script>(function(){
+var bin=document.getElementById('bd-bin'),dec=document.getElementById('bd-dec');
+var out=document.getElementById('bd-out'),note=document.getElementById('bd-note');
+var lock=false;
+bin.addEventListener('input',function(){
+  if(lock)return;lock=true;dec.value='';
+  var v=this.value.trim();
+  if(!v){out.textContent='-';note.textContent='';lock=false;return;}
+  if(!/^[01]+$/.test(v)){out.textContent='-';note.textContent='Only 0s and 1s are valid in binary.';lock=false;return;}
+  var d=BigInt('0b'+v);
+  dec.value=d.toString();
+  out.textContent=d.toLocaleString('en-US');
+  note.textContent=v+' binary = '+d.toLocaleString('en-US')+' decimal';
+  lock=false;
+});
+dec.addEventListener('input',function(){
+  if(lock)return;lock=true;bin.value='';
+  var v=this.value.trim();
+  if(!v||isNaN(Number(v))){out.textContent='-';note.textContent='';lock=false;return;}
+  try{
+    var b=BigInt(v).toString(2);
+    bin.value=b;
+    out.textContent=b;
+    note.textContent=v+' decimal = '+b+' binary';
+  }catch(e){out.textContent='-';note.textContent='Number too large.';}
+  lock=false;
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2914,6 +2960,7 @@ TOOLS = {
     "sdt": lambda args: SDT,
     "reverser": lambda args: REVERSER,
     "moonweight": lambda args: MOONWEIGHT,
+    "bindec": lambda args: BINDEC,
     "cylinder": lambda args: CYLINDER,
     "planets": lambda args: PLANETS,
     "combiner": lambda args: COMBINER,

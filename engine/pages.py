@@ -2699,6 +2699,36 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "binary-to-decimal",
+        "title": "Binary to Decimal Converter — Base 2 to Base 10 and Back",
+        "h1": "Binary to Decimal Converter",
+        "desc": "Convert binary to decimal and decimal to binary instantly. Positional values explained (128 64 32 16 8 4 2 1), strict validation, CS homework solved.",
+        "category": "converter",
+        "keyword": "binary to decimal",
+        "tool": "bindec",
+        "args": {},
+        "intro": [
+            "Type a binary number (only 0s and 1s) and get its decimal value instantly - or type a decimal and get the binary form. The positional logic is what makes it click: each bit is worth double the one to its right, so 1010 is 8+0+2+0 = 10.",
+            "This is the foundation under every hex conversion and every bit of computer memory. The converter validates strictly - a stray 2 or a malformed group is flagged rather than silently misread, because in base-2 arithmetic there is no almost.",
+        ],
+        "howto": [
+            "Type a binary number (0s and 1s only) in the first box - the decimal appears instantly.",
+            "Type a decimal number in the second box to get its binary form.",
+            "Try 11111111 and watch it become 255 - the biggest number one byte can hold.",
+        ],
+        "faqs": [
+            ("How do you convert binary to decimal?",
+             "Each bit is worth a power of 2, doubling right to left: 1, 2, 4, 8, 16... Add the values of the 1-bits. 1101 = 8 + 4 + 0 + 1 = 13. The converter does the sum as you type."),
+            ("How do you convert decimal to binary?",
+             "Divide by 2 repeatedly and read the remainders bottom-up - or subtract the largest power of 2 at each step. The converter uses the same algorithm internally and shows the binary padded to full bytes."),
+            ("Why do computers use binary?",
+             "Two states (on/off, high/low voltage) are physically reliable; ten states are not. Every number, letter and pixel ends up as patterns of bits, which is why binary conversion is CS 101."),
+            ("What is 2 to the power of 10 in binary terms?",
+             "1 followed by ten zeros: 10000000000 binary = 1,024 decimal. That near-thousand is why 'kilo' in computing historically meant 1,024 - the kilobyte that was secretly 1,024 bytes."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
