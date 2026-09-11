@@ -1712,6 +1712,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "unit-price-calculator",
+        "title": "Unit Price Calculator — Which Pack Is Actually Cheaper?",
+        "h1": "Unit Price Calculator",
+        "desc": "Compare two packs by unit price: price ÷ quantity for A and B, winner highlighted. Works with any unit — per 100g, per liter, per sheet. Stop falling for bulk illusions.",
+        "category": "calculator",
+        "keyword": "unit price calculator",
+        "tool": "unitprice",
+        "args": {},
+        "intro": [
+            "The shelf price lies by omission: the 900 ml bottle at $3.40 versus the 1.5 L jug at $5.10 — which is cheaper per drink? Enter price and quantity for each pack, and the calculator computes the unit price of both and names the winner instantly.",
+            "Bulk is usually cheaper per unit — but not always, and supermarkets know shoppers assume it is. Ten seconds with this calculator pays for itself the first time it catches a 'family size' that costs more per gram than the regular box.",
+        ],
+        "howto": [
+            "Enter pack A's price and quantity, then pack B's.",
+            "Read both unit prices — the cheaper one is highlighted automatically.",
+            "Use any quantity unit you like (grams, ml, sheets, tablets); just use the same unit for both packs.",
+        ],
+        "faqs": [
+            ("How do I calculate unit price?",
+             "Divide the price by the quantity: $3.40 for 900 ml is 3.40 ÷ 900 = $0.00378 per ml (or 37.8 cents per 100 ml). Do the same for the other pack and compare — the calculator does both divisions at once."),
+            ("Is bigger always cheaper per unit?",
+             "Usually, but not always. Discount lines sometimes cost more per gram than the standard size, and sale prices can invert the rule. That is exactly why shelf tags saying 'value size' deserve a quick unit-price check."),
+            ("What unit should I compare in?",
+             "Any unit, as long as both packs use the same one. Per 100 g or per liter reads most naturally; for paper goods, per sheet or per 100 sheets is the honest comparison."),
+            ("Does it work for three or more packs?",
+             "Compare in pairs — A against B, then the winner against C. Two rounds settle a three-way comparison."),
+        ],
+    })
+
+    pages.append({
+        "slug": "word-frequency-counter",
+        "title": "Word Frequency Counter — Top Words in Any Text",
+        "h1": "Word Frequency Counter",
+        "desc": "Paste text and see which words appear most often, ranked by count with percentages. Live TOP table, stopwords toggle, 100% in-browser.",
+        "category": "text",
+        "keyword": "word frequency counter",
+        "tool": "wordfreq",
+        "args": {},
+        "intro": [
+            "Paste an article, essay or transcript and instantly see which words you use most: a ranked table of every word with its count and percentage of the text. Toggle small function words (the, a, of…) off to reveal the words that actually carry your meaning — writers use this to catch overused words; SEO folks, to check keyword balance.",
+            "The analysis runs entirely in your browser: nothing you paste is uploaded anywhere. Case is folded (The and the count together), punctuation is ignored, and the table re-ranks live as you edit.",
+        ],
+        "howto": [
+            "Paste your text into the box — the frequency table builds instantly.",
+            "Toggle 'ignore common words' to hide the/a/of-style fillers and see content words.",
+            "Scan the top of the table for accidental repetition, then copy or re-edit your text.",
+        ],
+        "faqs": [
+            ("What is word frequency analysis used for?",
+             "Writers catch overused words; students check vocabulary variety in essays; SEO writers verify keyword balance; linguists and teachers study text style. It is the fastest way to see what a text is really made of."),
+            ("How are words counted?",
+             "Text is split on anything that is not a letter or number, and case is folded — 'Dog', 'dog' and 'DOG!' all count as the same word. Numbers count as words too."),
+            ("What are stopwords?",
+             "High-frequency function words (the, and, of, to…) that carry grammar but little meaning. Hiding them lets the content words rise to the top of the table — usually where the insight is."),
+            ("Is my text private?",
+             "Completely — counting happens in your browser's JavaScript. Nothing is transmitted, stored or logged, so confidential drafts are safe here."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
