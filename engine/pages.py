@@ -249,6 +249,12 @@ def PAGES():
              "🎄")
     pages.append(dc)
 
+    my = _cd("may", "May", 5, 1, "how many days until may",
+             "May is the doorway to summer: Memorial Day weekend, Cinco de Mayo, Mother's Day in most of the world, and the last school month before the holidays. Gardens are planted, barbecues come out of the garage, and everyone's mood improves.",
+             "This timer targets the upcoming May 1st and rolls over automatically — the moment May arrives, it starts counting to next year.",
+             "🌼")
+    pages.append(my)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -567,6 +573,12 @@ def PAGES():
     pages.append(_conv("stones-to-pounds", "Stone to Pounds", "stone", "pounds", 14, "weight",
                        "Within the British weight system you often need both: someone weighs '11 and a half stone', a US form wants pounds. One stone is exactly 14 pounds — the one conversion in this family that is pure mental math, but this one's faster and shows decimals.",
                        "Handy anchors: 1 st = 14 lb, 10 st = 140 lb, 12 st = 168 lb, 15 st = 210 lb. Halve the stone figure and add a tenth for rough pounds."))
+    pages.append(_conv("ml-to-l", "ML to Liters", "milliliters", "liters", 1 / 1000, "volume",
+                       "Milliliters handle drinks, doses and recipes; liters handle bottles, tanks and fuel. The conversion is a clean divide by 1,000 — but doing it while pouring is how people end up with 10x the cordial in the glass. This one keeps it straight.",
+                       "Handy anchors: 100 ml = 0.1 L, 330 ml = 0.33 L (a can), 500 ml = 0.5 L (a water bottle), 1,500 ml = 1.5 L (a big soda bottle)."))
+    pages.append(_conv("cups-to-fluid-ounces", "Cups to Fluid Ounces", "cups (US)", "fluid ounces", 8, "volume",
+                       "The reverse of the classic: your recipe asks for 2 cups, the measuring jug only shows fluid ounces. One US cup is exactly 8 fluid ounces, so multiply by 8 — and stop doing it in your head while holding a whisk.",
+                       "Handy anchors: 1 cup = 8 fl oz, 1.5 cups = 12 fl oz, 2 cups = 16 fl oz (a pint), 4 cups = 32 fl oz (a quart)."))
     pages.append(_conv("yards-to-meters", "Yards to Meters", "yards", "meters", 0.9144, "length",
                        "Yards rule American football fields, golf courses and fabric counters; meters rule everything else. One yard is exactly 0.9144 meters — so a 100-yard football field is 91.44 meters of pure metric confusion.",
                        "Handy anchors: 1 yd = 0.91 m, 10 yd = 9.14 m, 100 yd = 91.44 m, 1 m = 1.09 yd (slightly more than a yard)."))
@@ -785,6 +797,36 @@ def PAGES():
              "With the standard seven symbols and no overline notation, the largest is 3999 (MMMCMXCIX). Larger numbers historically used a bar over a symbol to multiply by 1,000 — the converter sticks to the standard 1–3999 range."),
             ("Are zero and negative numbers possible in Roman numerals?",
              "No. The Romans had no symbol for zero and no negative numbers, which is one reason the system was eventually replaced by Arabic numerals for mathematics."),
+        ],
+    })
+
+    pages.append({
+        "slug": "sales-tax-calculator",
+        "title": "Sales Tax Calculator — Add or Remove Tax From Any Price",
+        "h1": "Sales Tax Calculator",
+        "desc": "Add sales tax to a price, or remove tax to find the pre-tax amount. Two-direction calculator for US shoppers, freelancers and small businesses. Instant results.",
+        "category": "calculator",
+        "keyword": "sales tax calculator",
+        "tool": "salestax",
+        "args": {},
+        "intro": [
+            "Two directions, one tool: type a price and a tax rate to see the total at checkout, or type a tax-inclusive total and strip the tax back out to find the pre-tax amount — the thing freelancers need when an invoice total includes VAT or sales tax and the books need it separate.",
+            "US sales tax rates vary by state, county and even city, from 0% to over 10%, which is why the rate is always an input here, never a guess. Enter the rate printed on your receipt or your state's published rate and everything calculates instantly.",
+        ],
+        "howto": [
+            "To add tax: type the pre-tax price and your tax rate — the tax amount and total appear instantly.",
+            "To remove tax: switch to the reverse tab, type the tax-inclusive total and the rate — the pre-tax price appears.",
+            "Check the breakdown line for the exact tax amount to record in your books.",
+        ],
+        "faqs": [
+            ("How do I calculate sales tax backwards from a total?",
+             "Divide the total by (1 + rate). A $110 total at 10% tax contains $10 of tax: 110 ÷ 1.10 = $100 pre-tax. The reverse tab does this instantly — subtracting 10% directly would give the wrong answer ($99)."),
+            ("How much is sales tax in the US?",
+             "There is no federal sales tax. State rates run from 0% (Oregon, Montana, New Hampshire) to 7.25%+ in California, and local additions can push combined rates past 9–10% in some cities. Use the combined rate for your address."),
+            ("Is sales tax charged on top of shipping?",
+             "Increasingly yes — most states now require tax on shipping when the shipped item is taxable. The rules are state-specific, so check your state's department of revenue page."),
+            ("Why can't I just subtract the tax percentage from the total?",
+             "Because the tax was calculated on the smaller pre-tax amount. Subtracting 10% from $110 gives $99, but the true pre-tax price is $100. Division by (1 + rate) is the correct reversal — this calculator handles it."),
         ],
     })
 

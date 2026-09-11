@@ -964,6 +964,67 @@ inp.addEventListener('input',run);mx.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- sales tax
+SALESTAX = """
+<div class="tool" id="tt-stx">
+  <div class="chips" role="tablist">
+    <button class="chip active" data-m="add">Add tax</button>
+    <button class="chip" data-m="rev">Remove tax</button>
+  </div>
+  <div class="fields">
+    <div class="field" id="stx-f1"><label for="stx-price">Pre-tax price ($)</label><input type="number" id="stx-price" step="0.01" min="0" placeholder="100"></div>
+    <div class="field" id="stx-f2" style="display:none"><label for="stx-total">Tax-inclusive total ($)</label><input type="number" id="stx-total" step="0.01" min="0" placeholder="110"></div>
+    <div class="field"><label for="stx-rate">Tax rate %</label><input type="number" id="stx-rate" step="0.01" min="0" placeholder="10"></div>
+  </div>
+  <div class="result"><span class="result-num" id="stx-out">–</span><span class="result-unit" id="stx-unit"></span>
+    <div class="result-formula" id="stx-note"></div></div>
+  <div class="stats">
+    <div class="stat"><b id="stx-tax">–</b><span>tax amount</span></div>
+    <div class="stat"><b id="stx-base">–</b><span>pre-tax price</span></div>
+    <div class="stat"><b id="stx-tot">–</b><span>total</span></div>
+  </div>
+</div>
+<script>(function(){
+var mode='add';
+var price=document.getElementById('stx-price'),total=document.getElementById('stx-total'),rate=document.getElementById('stx-rate');
+document.querySelectorAll('#tt-stx .chip').forEach(function(c){c.addEventListener('click',function(){
+  mode=c.dataset.m;
+  document.querySelectorAll('#tt-stx .chip').forEach(function(x){x.classList.toggle('active',x===c);});
+  document.getElementById('stx-f1').style.display=mode==='add'?'flex':'none';
+  document.getElementById('stx-f2').style.display=mode==='rev'?'flex':'none';
+  run();
+});});
+function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function run(){
+  var r=(parseFloat(rate.value)||0)/100;
+  var base,tax,tot;
+  if(mode==='add'){
+    base=parseFloat(price.value);
+    if(isNaN(base)){clear();return;}
+    tax=base*r;tot=base+tax;
+    document.getElementById('stx-out').textContent=money(tot);
+    document.getElementById('stx-unit').textContent='total';
+    document.getElementById('stx-note').textContent=base+' × '+(1+r)+' = '+money(tot);
+  }else{
+    tot=parseFloat(total.value);
+    if(isNaN(tot)){clear();return;}
+    base=tot/(1+r);tax=tot-base;
+    document.getElementById('stx-out').textContent=money(base);
+    document.getElementById('stx-unit').textContent='pre-tax';
+    document.getElementById('stx-note').textContent=tot+' ÷ '+(1+r)+' = '+money(base)+'  (not '+money(tot*(1-r))+')';
+  }
+  document.getElementById('stx-tax').textContent=money(tax);
+  document.getElementById('stx-base').textContent=money(base);
+  document.getElementById('stx-tot').textContent=money(tot);
+}
+function clear(){document.getElementById('stx-out').textContent='–';document.getElementById('stx-unit').textContent='';
+  document.getElementById('stx-note').textContent='';document.getElementById('stx-tax').textContent='–';
+  document.getElementById('stx-base').textContent='–';document.getElementById('stx-tot').textContent='–';}
+[price,total,rate].forEach(function(el){el.addEventListener('input',run);});run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -985,6 +1046,7 @@ TOOLS = {
     "grade": lambda args: GRADE,
     "dedupe": lambda args: DEDUPE,
     "slug": lambda args: SLUG,
+    "salestax": lambda args: SALESTAX,
 }
 
 
