@@ -2478,6 +2478,13 @@ def PAGES():
                        "Uptime logs, billing records and binge-watching tallies all end up in minutes - and humans think in days. Divide minutes by 1,440 (60 x 24) and the number finally means something: 10,080 minutes is exactly one week.",
                        "Handy anchors: 60 min = 1 hr, 1,440 min = 1 day, 10,080 min = 1 week, 43,200 min = 30 days."))
 
+    pages.append(_conv("km-to-inches", "KM to Inches", "kilometers", "inches", 39370.07874, "distance",
+                       "The longest leap on the length ladder: one kilometer is 39,370.08 inches. rarely needed by hand, constantly needed by spreadsheets - map scales, pacing charts and model railroading all hit it eventually.",
+                       "Handy anchors: 1 km = 39,370 in, 0.5 km = 19,685 in, 2 km = 78,740 in, 42.2 km = 1,661,457 in (a marathon, in inches)."))
+    pages.append(_conv("inches-to-km", "Inches to KM", "inches", "kilometers", 1 / 39370.07874, "distance",
+                       "Divide inches by 39,370.08 to reach kilometers - the reverse of the most lopsided conversion on the length ladder. Odometer discrepancies, model scales and printable map bars all produce inches that reports want in kilometers.",
+                       "Handy anchors: 39,370 in = 1 km, 19,685 in = 0.5 km, 3,937 in = 0.1 km, 787 in = 0.02 km."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
