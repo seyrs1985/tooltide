@@ -1651,6 +1651,85 @@ document.getElementById('dc-go').addEventListener('click',function(){
 """
 
 
+# ---------------------------------------------------------------- half calculator
+HALF = """
+<div class="tool" id="tt-half">
+  <div class="field"><label for="hf-in">Number, fraction or mixed (3/4, 2-1/2, 0.8)</label>
+    <input type="text" id="hf-in" placeholder="3/4"></div>
+  <div class="result"><span class="result-num" id="hf-out">-</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hf-frac">-</b><span>exact fraction</span></div>
+    <div class="stat"><b id="hf-dec">-</b><span>decimal</span></div>
+  </div>
+</div>
+<script>(function(){
+var inp=document.getElementById('hf-in');
+var out=document.getElementById('hf-out'),fr=document.getElementById('hf-frac'),dc=document.getElementById('hf-dec');
+function gcd(a,b){return b?gcd(b,a%b):a;}
+function parse(v){
+  v=v.trim().replace(/"/g,'');
+  var m=v.match(/^(\d+)?[- ]?(\d+)\/(\d+)$/);
+  if(m){var w=m[1]?+m[1]:0;return {n:w*(+m[3])+(+m[2]),d:+m[3]};}
+  var f=parseFloat(v);
+  if(isNaN(f))return null;
+  if(Number.isInteger(f))return {n:f,d:1};
+  var s=f.toFixed(6).replace(/0+$/,'');
+  var dec=s.split('.')[1];
+  var den=Math.pow(10,dec.length);
+  return {n:Math.round(f*den),d:den};
+}
+function show(v){
+  var h=parse(v);
+  if(!h||!h.d){out.textContent='-';fr.textContent='-';dc.textContent='-';return;}
+  var n=h.n,d=h.d*2,g=gcd(n,d);
+  n/=g;d/=g;
+  var whole=Math.floor(n/d),rem=n%d;
+  var fs=rem?(whole?whole+'-':'')+rem+'/'+d:(whole+'');
+  out.textContent=fs;
+  fr.textContent=fs;
+  dc.textContent=Math.round((h.n/h.d/2)*1e6)/1e6;
+}
+inp.addEventListener('input',function(){show(this.value);});
+show('3/4');
+})();</script>
+"""
+
+
+# ---------------------------------------------------------------- random letter
+LETTER = """
+<div class="tool" id="tt-rl">
+  <div class="chips">
+    <button class="chip active" id="rl-uniq" type="button">No repeats</button>
+  </div>
+  <div class="field"><label for="rl-count">How many letters</label><input type="number" id="rl-count" min="1" max="26" step="1" value="1"></div>
+  <button class="btn" id="rl-go" type="button">🔤 Generate</button>
+  <div class="result"><span class="result-num" id="rl-out" style="letter-spacing:.2em">-</span></div>
+</div>
+<script>(function(){
+var uniq=false;
+document.getElementById('rl-uniq').addEventListener('click',function(){
+  uniq=!uniq;this.classList.toggle('active',uniq);
+});
+document.getElementById('rl-go').addEventListener('click',function(){
+  var n=Math.min(26,Math.max(1,parseInt(document.getElementById('rl-count').value)||1));
+  var A='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+    do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+  var out=[],seen={};
+  if(uniq&&n===26){out=A.split('').sort(function(){return secureInt(3)-1;});}
+  else{
+    while(out.length<n){
+      var ch=A[secureInt(26)];
+      if(uniq&&seen[ch])continue;
+      seen[ch]=1;out.push(ch);
+    }
+  }
+  document.getElementById('rl-out').textContent=out.join(' ');
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1683,6 +1762,8 @@ TOOLS = {
     "salary": lambda args: SALARY,
     "coinflip": lambda args: COINFLIP,
     "dice": lambda args: DICE,
+    "half": lambda args: HALF,
+    "letter": lambda args: LETTER,
     "sqft": lambda args: SQFT,
     "secondsconv": lambda args: SECONDS,
     "pxin": lambda args: PXIN,

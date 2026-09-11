@@ -1592,6 +1592,66 @@ def PAGES():
                        "The metric system's two everyday small units differ by exactly one factor of ten: 1 centimeter is 10 millimeters. Divide by 10 to go from mm to cm — or slide the decimal point one place left, which is all this converter is really doing.",
                        "Handy anchors: 10 mm = 1 cm, 45 mm = 4.5 cm (a golf ball), 100 mm = 10 cm, 250 mm = 25 cm (a ruler's length)."))
 
+    pages.append({
+        "slug": "half-calculator",
+        "title": "Half Calculator — Half of Any Number, Fraction or Amount",
+        "h1": "Half Calculator",
+        "desc": "What is half of 3/4 cup, half of 150, or half of 2-1/2? Split any number, fraction or mixed amount in half — exact fractional answers for recipes and math homework.",
+        "category": "calculator",
+        "keyword": "half calculator",
+        "tool": "half",
+        "args": {},
+        "intro": [
+            "Halving sounds trivial until the number is 3/4 cup of cocoa and you are making a half batch. This calculator halves anything: whole numbers, decimals, fractions (3/4), and mixed amounts (2-1/2) — giving the exact fractional answer (3/8) alongside the decimal, so the reduced recipe stays correct.",
+            "It is the quiet hero of batch cooking, scaling down for two, dividing bills between two people, and every math worksheet with the word 'half' in it.",
+        ],
+        "howto": [
+            "Type any amount — whole number, decimal, fraction like 3/4, or mixed like 2-1/2.",
+            "Read the exact half as a fraction and as a decimal.",
+            "Halve several ingredients in a row while scaling a recipe down.",
+        ],
+        "faqs": [
+            ("What is half of 3/4?",
+             "3/8. Dividing a fraction by 2 doubles its bottom number: 3/4 becomes 3/8. In cups, 3/8 cup is 6 tablespoons — a common half-batch conversion."),
+            ("What is half of 2/3?",
+             "2/3 halved is 1/3 (double the bottom number: 2/3 → 2/6 = 1/3). This trips people up because the decimal form, 0.333, looks nothing like 0.666 halved — but it is exactly half."),
+            ("What is half of 1 and 3/4 cups?",
+             "7/8 cup. Convert 1-3/4 to 7/4 first, halve it to 7/8 — just under a full cup. Practically: a scant cup."),
+            ("How do I halve an odd number?",
+             "Odd whole numbers halve to .5 — half of 7 is 3.5. For fractions with odd denominators (like 1/2), double the denominator instead: half of 1/2 is 1/4."),
+        ],
+    })
+
+    pages.append({
+        "slug": "random-letter-generator",
+        "title": "Random Letter Generator — Pick Letters A to Z Instantly",
+        "h1": "Random Letter Generator",
+        "desc": "Generate random letters A–Z for classroom games, giveaways and puzzles. Cryptographically fair, no repeats option, instant results.",
+        "category": "generator",
+        "keyword": "random letter generator",
+        "tool": "letter",
+        "args": {},
+        "intro": [
+            "Generate random letters from A to Z — for classroom activities, drinking-game safe editions, brainstorming ('name a fruit starting with…'), giveaways, or word games. Cryptographically fair, so every letter is equally likely and nobody can predict the pick.",
+            "Generate one letter at a time or a batch, with an optional no-repeats mode for letter-bingo style games. Everything runs locally — nothing is recorded anywhere.",
+        ],
+        "howto": [
+            "Set how many letters you need (1–26).",
+            "Toggle no-repeats for bingo-style draws, or leave it off for independent picks.",
+            "Hit Generate — letters appear instantly; generate again for a fresh set.",
+        ],
+        "faqs": [
+            ("Is the letter pick truly random?",
+             "Yes — letters are drawn from your browser's WebCrypto secure random source, the cryptographic-grade generator. Every letter has exactly a 1-in-26 chance."),
+            ("Can I generate the whole alphabet in random order?",
+             "Set count to 26 with no-repeats on — you get all 26 letters in a random order, ready for letter-bingo or alphabet challenge games."),
+            ("What can I use a random letter for?",
+             "Classroom games (name a country starting with M), art prompts, assigning fair letter grades to presentations, passwords, brainstorming constraints, and board game substitutes for lost letter tiles."),
+            ("Does it work offline?",
+             "Yes — generation runs in your browser. Once the page is loaded, no connection is needed."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
