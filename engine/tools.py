@@ -772,6 +772,34 @@ $('rng-go').addEventListener('click',function(){
 """
 
 
+# ---------------------------------------------------------------- words to pages
+WORDSPAGES = """
+<div class="tool" id="tt-wp">
+  <div class="fields">
+    <div class="field"><label for="wp-words">Word count</label><input type="number" id="wp-words" min="0" step="1" placeholder="1000"></div>
+    <div class="field"><label for="wp-space">Spacing</label>
+      <select id="wp-space">
+        <option value="250">Double-spaced (250 words/page)</option>
+        <option value="500" selected>Single-spaced (500 words/page)</option>
+      </select></div>
+  </div>
+  <div class="result"><span class="result-num" id="wp-out">–</span><span class="result-unit">pages</span>
+    <div class="result-formula" id="wp-note"></div></div>
+  <div class="tool-note">Assumes 12pt Times New Roman / Arial, 1-inch margins. Handwritten pages hold roughly half as many words.</div>
+</div>
+<script>(function(){
+var w=document.getElementById('wp-words'),s=document.getElementById('wp-space');
+function run(){
+  var v=parseFloat(w.value)||0,per=parseFloat(s.value);
+  var pages=v/per;
+  document.getElementById('wp-out').textContent=v?(Math.round(pages*10)/10).toLocaleString('en-US'):'–';
+  document.getElementById('wp-note').textContent=v?('≈ '+Math.ceil(pages)+' full page'+(Math.ceil(pages)>1?'s':'')+' · '+v.toLocaleString('en-US')+' words ÷ '+per+' words per page'):'';
+}
+w.addEventListener('input',run);s.addEventListener('change',run);run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -787,6 +815,7 @@ TOOLS = {
     "typing": lambda args: TYPING,
     "names": lambda args: NAMES,
     "password": lambda args: PASSWORD,
+    "wordspages": lambda args: WORDSPAGES,
     "randomnum": lambda args: RANDOMNUM,
 }
 

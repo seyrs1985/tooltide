@@ -169,6 +169,12 @@ def PAGES():
              "☘️")
     pages.append(sp)
 
+    bd = _cd("boxing-day", "Boxing Day", 12, 26, "days until boxing day",
+             "Boxing Day — December 26th — is a public holiday across the UK, Canada, Australia and much of the Commonwealth: a day of leftover sandwiches, Boxing Day sales, and full football fixtures.",
+             "Counting down to the sales, the fixtures or the family visit? The timer targets December 26th and rolls over to next year automatically after the day passes.",
+             "📦")
+    pages.append(bd)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -451,6 +457,12 @@ def PAGES():
     pages.append(_conv("kg-to-stone", "KG to Stone", "kilograms", "stone", 1 / 6.35029318, "weight",
                        "Convert your weight in kilograms to the British stone unit — the way UK scales, GP charts and newspaper height-and-weight columns actually read. Divide kilograms by 6.35029318, or just type it below.",
                        "Handy anchors: 60 kg = 9.45 st, 70 kg = 11.02 st, 80 kg = 12.60 st, 100 kg = 15.75 st. For quick mental math: divide kg by 6.35."))
+    pages.append(_conv("ml-to-oz", "ML to OZ", "milliliters", "fluid ounces (US)", 1 / 29.5735295625, "volume",
+                       "Nutrition labels outside the US print milliliters; American labels and recipe cards use fluid ounces. One US fluid ounce is 29.5735 milliliters, so 30 ml is a hair more than an ounce — close enough for the kitchen, not for chemistry.",
+                       "Handy anchors: 30 ml ≈ 1 fl oz, 250 ml ≈ 8.45 fl oz (a standard glass), 355 ml = 12 fl oz (a soda can), 750 ml = 25.36 fl oz (a wine bottle).", dec=2))
+    pages.append(_conv("minutes-to-hours", "Minutes to Hours", "minutes", "hours", 1 / 60, "time",
+                       "Payroll systems, timesheets and invoices want hours in decimals — 7 hours 30 minutes must be entered as 7.5, not 7:30. Divide minutes by 60 for the decimal form; the converter handles any value including awkward ones like 17 minutes.",
+                       "Handy anchors: 30 min = 0.50 hr, 15 min = 0.25 hr, 45 min = 0.75 hr, 90 min = 1.50 hr. Multiply hours by 60 to go back.", dec=3))
     pages.append(_conv("cups-to-ml", "Cups to ML", "cups (US)", "milliliters", 236.5882365, "volume",
                        "US recipes measure by cups; nearly every other country — and every scale — uses milliliters. One US customary cup is 236.588 milliliters, which is why American and metric recipes never quite line up without a converter.",
                        "Handy anchors: 1 cup = 236.6 ml (round to 240 when eyeballing), 2 cups = 473 ml (a pint), 4 cups = 946 ml (a quart), half a cup = 118 ml.", dec=1))
@@ -603,6 +615,36 @@ def PAGES():
              "Set minimum to 1, maximum to 100, count to 1, keep 'whole numbers only' on, and press Generate. Both endpoints of the range are included."),
             ("What happens if duplicates are off and the range is too small?",
              "You cannot pick 50 unique numbers from a 10-number range, so the tool shows a clear message instead of looping forever. Turn duplicates on or widen the range."),
+        ],
+    })
+
+    pages.append({
+        "slug": "words-to-pages",
+        "title": "Words to Pages Converter — Essays, Reports & Assignments",
+        "h1": "Words to Pages Converter",
+        "desc": "Convert word counts to page estimates for essays and reports: 250 words per page single-spaced, 500 double-spaced. Handles 300, 500, 1000, 2500 words and more.",
+        "category": "calculator",
+        "keyword": "words to pages",
+        "tool": "wordspages",
+        "args": {},
+        "intro": [
+            "Convert any word count into an estimated page count for an essay, report or assignment. The calculation uses the academic standard: 12-point Times New Roman, one-inch margins, ~250 words per single-spaced page or ~500 words per double-spaced page.",
+            "It answers the question behind every assignment brief: 'how long is 500 words?', 'is 1000 words a lot?' (about two double-spaced pages — not much), and 'how many pages is my 3000-word dissertation chapter?' (six single-spaced). Exact layout varies with fonts and headings, so treat the result as a solid estimate.",
+        ],
+        "howto": [
+            "Type your word count — or paste text and let the counter fill it in.",
+            "Pick single or double spacing to match your assignment's formatting rules.",
+            "Read the estimated page count; check the handwriting note if your school counts handwritten pages.",
+        ],
+        "faqs": [
+            ("How many pages is 500 words?",
+             "About 1 page single-spaced or 2 pages double-spaced, using the standard 12-point font with one-inch margins. Handwritten, it is roughly 2 pages."),
+            ("How many pages is 1000 words?",
+             "About 2 pages single-spaced or 4 pages double-spaced. Most 'short essay' assignments of 1000 words are a 4-page double-spaced document."),
+            ("How many words fit on one page?",
+             "Single-spaced: about 500–550 words. Double-spaced: about 250–275 words. Headings, quotes and paragraph breaks reduce the count, which is why estimates use the lower numbers."),
+            ("Does font size change the answer?",
+             "Yes — this converter assumes 12-point Times New Roman (or Arial, similar metrics) with 1-inch margins. A larger 14-point font adds roughly 20% more pages; tighter layouts fit more."),
         ],
     })
 
