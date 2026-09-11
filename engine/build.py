@@ -357,9 +357,10 @@ else{paint(current());}
 })();</script>"""
 
 
-def tool_card(p, base):
+def tool_card(p, base, extra=False):
     emoji = (p.get("args") or {}).get("emoji") or TOOL_EMOJI.get(p["tool"], "🔧")
-    return (f'<a class="card" href="{base}{p["slug"]}/">'
+    cls = ' class="card extra"' if extra else ' class="card"'
+    return (f'<a{cls} href="{base}{p["slug"]}/">'
             f'<span class="card-emoji" aria-hidden="true">{emoji}</span>'
             f'<span class="card-title">{esc(p["h1"])}</span>'
             f'<span class="card-desc">{esc(p["desc"][:110])}…</span></a>')
@@ -441,9 +442,16 @@ def build_index(cfg, all_pages, cat_info):
     counts = {c: sum(1 for x in all_pages if x["category"] == c) for c in cat_info}
     for cat, (label, blurb) in cat_info.items():
         cat_pages = [x for x in all_pages if x["category"] == cat]
-        cards = "".join(tool_card(x, base) for x in cat_pages)
+        # collapse big sections: the rest sit behind a "Show all" toggle
+        cards = "".join(tool_card(x, base, extra=i >= SECTION_TOP)
+                        for i, x in enumerate(cat_pages))
+        more = ""
+        if len(cat_pages) > SECTION_TOP:
+            more = (f'<button class="cat-more" type="button" aria-expanded="false" '
+                    f'aria-controls="{cat}" data-count="{len(cat_pages)}">'
+                    f'Show all {len(cat_pages)} tools</button>')
         sections.append(f'<section class="cat" id="{cat}"><h2>{esc(label)} <span class="cat-count">{counts[cat]}</span></h2><p class="cat-blurb">{esc(blurb)}</p>'
-                        f'<div class="grid">{cards}</div></section>')
+                        f'<div class="grid">{cards}</div>{more}</section>')
         for x in cat_pages:
             search_cards.append((x["h1"], x["desc"], base + x["slug"] + "/",
                                  TOOL_EMOJI.get(x["tool"], "🔧"), label, x["slug"]))
