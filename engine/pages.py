@@ -2192,6 +2192,40 @@ def PAGES():
                        "Football fields are measured in yards, road trips in miles — and 1,760 yards make a mile. Divide yards by 1,760, or remember that 10 football fields (including end zones) is just about a mile.",
                        "Handy anchors: 1,760 yd = 1 mi, 880 yd = 0.5 mi (half-mile track), 100 yd = 0.057 mi (a football field), 1,500 yd = 0.85 mi."))
 
+    pages.append(_conv("inches-to-meters", "Inches to Meters", "inches", "meters", 0.0254, "length",
+                       "One inch is exactly 0.0254 meters — a small number that trips mental math constantly. The converter keeps all the decimals straight for TV sizes, tool specs and any spec sheet that mixes the two systems.",
+                       "Handy anchors: 1 in = 0.0254 m, 10 in = 0.254 m, 39.37 in = 1 m (the memorable reverse), 70 in = 1.778 m (a tall TV diagonal).", dec=4))
+
+    pages.append({
+        "slug": "whitespace-cleaner",
+        "title": "Whitespace Cleaner — Trim Lines & Collapse Extra Spaces",
+        "h1": "Whitespace Cleaner",
+        "desc": "Clean messy text instantly: trim leading and trailing spaces on every line, collapse double spaces, and remove blank lines. Live stats and one-click copy.",
+        "category": "text",
+        "keyword": "remove extra spaces",
+        "tool": "whitespace",
+        "args": {},
+        "intro": [
+            "Copied-from-PDF text, CSV exports and pasted emails all carry the same disease: stray leading spaces, doubled spaces and random blank lines. This cleaner trims every line, squeezes space runs down to a single space, and optionally drops blank lines — with a live count of what was removed.",
+            "It pairs with the duplicate remover and line sorter as the list-cleaning toolkit: dedupe, sort, strip whitespace, done. All processing is local JavaScript — nothing you paste leaves your browser.",
+        ],
+        "howto": [
+            "Paste the messy text into the input box.",
+            "Toggle trims on or off — trim line edges, collapse inner space runs, drop blank lines.",
+            "Read the removal stats, then copy the cleaned result.",
+        ],
+        "faqs": [
+            ("What is whitespace?",
+             "Any invisible spacing character: regular spaces, tabs, and the line breaks themselves. Cleaner text with tidy whitespace compiles better, sorts better, and pastes into spreadsheets without phantom columns."),
+            ("Does it remove spaces inside sentences?",
+             "Only the extra ones: 'hello    world' becomes 'hello world' with one space kept, when collapse mode is on. You choose which cleanups run."),
+            ("Is my text uploaded anywhere?",
+             "No — cleaning is pure JavaScript in your browser. Disconnect from the internet and it still works; nothing is logged anywhere."),
+            ("Can it clean tabs too?",
+             "Yes — tab characters are treated as whitespace and handled by the trims and collapsing, alongside regular spaces."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

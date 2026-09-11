@@ -2441,6 +2441,61 @@ A.addEventListener('input',run);B.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- whitespace cleaner
+WHITESPACE = """
+<div class="tool" id="tt-ws">
+  <div class="chips">
+    <button class="chip active" id="ws-trim" type="button">Trim line edges</button>
+    <button class="chip active" id="ws-collapse" type="button">Collapse space runs</button>
+    <button class="chip" id="ws-blank" type="button">Remove blank lines</button>
+  </div>
+  <div class="field"><label for="ws-in">Messy text</label>
+    <textarea id="ws-in" rows="8" placeholder="   paste  text with   stray spaces…  "></textarea></div>
+  <div class="stats">
+    <div class="stat"><b id="ws-inlines">-</b><span>lines in</span></div>
+    <div class="stat"><b id="ws-chars">-</b><span>chars removed</span></div>
+  </div>
+  <div class="field" style="margin-top:10px"><label for="ws-out">Cleaned <button class="btn btn-sm" id="ws-copy" type="button">Copy</button></label>
+    <textarea id="ws-out" rows="8" readonly placeholder="clean text appears here…"></textarea></div>
+</div>
+<script>(function(){
+var inp=document.getElementById('ws-in'),out=document.getElementById('ws-out');
+var st={trim:true,collapse:true,blank:false};
+['ws-trim','ws-collapse','ws-blank'].forEach(function(id){
+  var key=id.replace('ws-','');
+  var el=document.getElementById(id);
+  el.addEventListener('click',function(){st[key]=!st[key];el.classList.toggle('active',st[key]);run();});
+});
+function run(){
+  var t=inp.value;
+  if(!t){out.value='';document.getElementById('ws-inlines').textContent='0';document.getElementById('ws-chars').textContent='0';return;}
+  var before=t.length;
+  var lines=t.split('\\n');
+  lines=lines.map(function(L){
+    var x=L;
+    if(st.trim)x=x.trim();
+    if(st.collapse)x=x.replace(/ {2,}/g,' ');
+    return x;
+  });
+  if(st.blank)lines=lines.filter(function(L){return L.trim();});
+  var res=lines.join('\\n');
+  out.value=res;
+  document.getElementById('ws-inlines').textContent=lines.length.toLocaleString('en-US');
+  document.getElementById('ws-chars').textContent=Math.max(0,before-res.length).toLocaleString('en-US');
+}
+inp.addEventListener('input',run);
+['ws-trim','ws-collapse','ws-blank'].forEach(function(id){document.getElementById(id).addEventListener('click',run);});
+document.getElementById('ws-copy').addEventListener('click',function(){
+  out.select();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
+  else{document.execCommand('copy');}
+  var b=document.getElementById('ws-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+});
+run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2485,6 +2540,7 @@ TOOLS = {
     "hexrgb": lambda args: HEXRGB,
     "planets": lambda args: PLANETS,
     "combiner": lambda args: COMBINER,
+    "whitespace": lambda args: WHITESPACE,
     "prime": lambda args: PRIME,
     "factorial": lambda args: FACTORIAL,
     "country": lambda args: COUNTRY,
