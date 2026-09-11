@@ -2579,6 +2579,66 @@ def PAGES():
                        "Shift logs, hospital rotas, battery life and marathon streams all produce hours that only make sense as days. Divide hours by 24 - a 72-hour fast is exactly 3 days, a 8,760-hour year is 365.",
                        "Handy anchors: 24 hr = 1 day, 48 hr = 2 days, 72 hr = 3 days (the classic movie title), 168 hr = 1 week."))
 
+    pages.append({
+        "slug": "words-to-number",
+        "title": "Words to Number Converter — English Number Words to Digits",
+        "h1": "Words to Number Converter",
+        "desc": "Convert English number words to digits: 'two thousand three hundred forty-two' becomes 2,342. Handles negatives, hyphens, 'and', up to trillions.",
+        "category": "converter",
+        "keyword": "words to number",
+        "tool": "wordstonum",
+        "args": {},
+        "intro": [
+            "Paste an amount written out in words - from a check, a contract clause, or an old legal document - and get the digits: 'two thousand three hundred forty-two' becomes 2,342. Handles negatives, hyphenated compounds, the British 'and', and scale words up to trillion.",
+            "It is the exact reverse of our number-to-words converter, and together the pair verifies legal amounts in both directions: write it in words, convert it back to digits, and confirm the numbers match before anyone signs anything.",
+        ],
+        "howto": [
+            "Type or paste the number in words - capitalization does not matter.",
+            "The digits appear instantly, formatted with thousand separators.",
+            "Check the negative and scale handling on tricky inputs like 'minus twelve billion'.",
+        ],
+        "faqs": [
+            ("How do you convert number words to digits?",
+             "Small words map to values (twenty = 20, hundred = 100), scale words multiply (thousand, million), and everything adds up left to right - 'forty-two hundred' is 42 x 100 = 4,200. The parser handles the whole grammar."),
+            ("Does it understand the word 'and'?",
+             "Yes - 'one hundred and five' parses the same as 'one hundred five'. Both British and American conventions are accepted."),
+            ("What about hyphenated numbers?",
+             "Hyphens are handled natively: 'forty-two' and 'forty two' both parse to 42, matching how the number-to-words converter writes them back."),
+            ("How large can the number be?",
+             "Up to the trillions scale - the same ceiling as legal and financial documents actually use. Beyond that, scientific notation serves better than words anyway."),
+        ],
+    })
+
+    pages.append({
+        "slug": "speed-distance-time",
+        "title": "Speed Distance Time Calculator — Find the Missing Value",
+        "h1": "Speed, Distance & Time Calculator",
+        "desc": "Enter any two of speed, distance or time and get the third - in km/h, mph, or your own units. With h:mm:ss output for runs, drives and deliveries.",
+        "category": "calculator",
+        "keyword": "speed distance time calculator",
+        "tool": "sdt",
+        "args": {},
+        "intro": [
+            "The triangle every driving instructor, runner and dispatcher draws on a napkin: speed = distance / time. Enter any two of the three values and this calculator solves the third - a 120 km trip at 80 km/h takes exactly 1.5 hours, shown as 1:30:00 for the trip computer.",
+            "Distance and speed default to kilometers and km/h but accept any consistent units - miles with mph, meters with seconds - because the formula does not care as long as the units agree. The time field accepts h:mm:ss, which is how GPS watches and delivery apps actually report durations.",
+        ],
+        "howto": [
+            "Fill in any two fields: distance, speed, or time.",
+            "The third value solves instantly - time appears in both decimal and h:mm:ss form.",
+            "Leave the field blank for the value you want to find; changing inputs re-solves live.",
+        ],
+        "faqs": [
+            ("How do you calculate speed, distance and time?",
+             "The triangle: speed = distance / time, distance = speed x time, time = distance / speed. Cover the value you want and the formula remains. Fill any two fields above and the third solves itself."),
+            ("How long does it take to drive 100 km at 80 km/h?",
+             "100 / 80 = 1.25 hours = 1 hour 15 minutes. The calculator shows both forms so the answer drops straight into a log or trip plan."),
+            ("How do I calculate average speed from a journey?",
+             "Enter the total distance and the total duration (in h:mm:ss) - the speed field solves as the true average, including stops. Note it is average speed, not the maximum shown on the dashboard."),
+            ("Does it work for running pace?",
+             "Yes - enter the race distance and your finishing time, and the speed field gives your average speed; divide further for pace per kilometer if you think in minutes-per-km."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

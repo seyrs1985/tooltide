@@ -2713,6 +2713,99 @@ setInterval(tick,1000);tick();
 """
 
 
+# ---------------------------------------------------------------- words to number
+WORDSTONUM = """
+<div class="tool" id="tt-w2n">
+  <div class="field"><label for="w2n-in">Number in words</label>
+    <textarea id="w2n-in" rows="3" placeholder="two thousand three hundred forty-two"></textarea></div>
+  <div class="result"><span class="result-num" id="w2n-out">-</span></div>
+  <div class="tool-note">Handles negatives, hyphens, the British "and", and scales up to trillion.</div>
+</div>
+<script>(function(){
+var SMALL={zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19};
+var TENS={twenty:20,thirty:30,forty:40,fourty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90};
+var SCALES={hundred:100,thousand:1000,million:1000000,billion:1000000000,trillion:1000000000000};
+var inp=document.getElementById('w2n-in'),out=document.getElementById('w2n-out');
+function parse(s){
+  s=s.toLowerCase().replace(/-/g,' ').replace(/\band\b/g,' ').replace(/,/g,' ').replace(/\s+/g,' ').trim();
+  var neg=false;
+  if(/^(minus|negative) /.test(s)){neg=true;s=s.replace(/^(minus|negative) /,'');}
+  if(!s)return null;
+  var total=0,current=0,ok=true;
+  s.split(' ').forEach(function(w){
+    if(w in SMALL){current+=SMALL[w];}
+    else if(w in TENS){current+=TENS[w];}
+    else if(w in SCALES){
+      var sc=SCALES[w];
+      if(sc===100){current=Math.max(current,1)*100;}
+      else{total+=Math.max(current,1)*sc;current=0;}
+    }
+    else if(/^\d+$/.test(w)){current+=parseInt(w,10);}
+    else{ok=false;}
+  });
+  if(!ok)return null;
+  var v=total+current;
+  return neg?-v:v;
+}
+inp.addEventListener('input',function(){
+  var v=this.value.trim();
+  if(!v){out.textContent='-';return;}
+  var n=parse(v);
+  out.textContent=(n===null)?'(could not parse - check the spelling)':n.toLocaleString('en-US');
+});
+})();</script>
+"""
+
+
+# ---------------------------------------------------------------- speed distance time
+SDT = """
+<div class="tool" id="tt-sdt">
+  <div class="fields">
+    <div class="field"><label for="sdt-d">Distance</label><input type="number" id="sdt-d" step="any" min="0" placeholder="120"></div>
+    <div class="field"><label for="sdt-s">Speed (per hour)</label><input type="number" id="sdt-s" step="any" min="0" placeholder="80"></div>
+    <div class="field"><label for="sdt-t">Time (h:mm:ss)</label><input type="text" id="sdt-t" placeholder="1:30:00"></div>
+  </div>
+  <div class="result"><span class="result-num" id="sdt-out">-</span><span class="result-unit" id="sdt-unit"></span></div>
+  <div class="tool-note">Use consistent units - km with km/h, miles with mph. Fill any two fields and the third solves.</div>
+</div>
+<script>(function(){
+var D=document.getElementById('sdt-d'),S=document.getElementById('sdt-s'),T=document.getElementById('sdt-t');
+var lock=false;
+function toSec(v){var p=v.split(':').map(Number);if(p.some(isNaN))return null;
+  if(p.length===3)return p[0]*3600+p[1]*60+p[2];
+  if(p.length===2)return p[0]*60+p[1];
+  if(p.length===1)return p[0];return null;}
+function fmtHMS(sec){var h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=Math.round(sec%60);
+  return h+' h '+m+' min'+(s?' '+s+' sec':'');}
+function hmsStr(sec){var h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),ss=Math.round(sec%60);
+  return h+':'+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+function run(){
+  if(lock)return;lock=true;
+  var d=parseFloat(D.value),s=parseFloat(S.value),tSec=T.value.trim()?toSec(T.value):null;
+  if(d>0&&s>0){var sec=d/s*3600;
+    T.value=hmsStr(sec);
+    document.getElementById('sdt-out').textContent=fmtHMS(sec);
+    document.getElementById('sdt-unit').textContent='total time';
+    document.title=fmtHMS(sec)+' - ToolTide';
+  } else if(d>0&&tSec>0){var sp=d/(tSec/3600);
+    S.value=Math.round(sp*100)/100;
+    document.getElementById('sdt-out').textContent=Math.round(sp*100)/100+' /hour';
+    document.getElementById('sdt-unit').textContent='average speed';
+    document.title=Math.round(sp*100)/100+'/hour - ToolTide';
+  } else if(s>0&&tSec>0){var dist=s*(tSec/3600);
+    D.value=Math.round(dist*100)/100;
+    document.getElementById('sdt-out').textContent=Math.round(dist*100)/100;
+    document.getElementById('sdt-unit').textContent='total distance';
+    document.title=Math.round(dist*100)/100+' - ToolTide';
+  }
+  lock=false;
+}
+[D,S,T].forEach(function(el){el.addEventListener('input',function(){lock=false;run();});});
+run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -2756,6 +2849,8 @@ TOOLS = {
     "yesno": lambda args: YESNO,
     "hexrgb": lambda args: HEXRGB,
     "numwords": lambda args: NUMWORDS,
+    "wordstonum": lambda args: WORDSTONUM,
+    "sdt": lambda args: SDT,
     "cylinder": lambda args: CYLINDER,
     "planets": lambda args: PLANETS,
     "combiner": lambda args: COMBINER,
