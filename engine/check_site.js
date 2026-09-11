@@ -26,3 +26,4 @@ for (const f of files) {
   if (!/canonical/.test(html)) { fail++; console.log('NO CANONICAL', f); }
 }
 console.log('files:', files.length, '| checks passed:', checked, '| failures:', fail);
+if (fail > 0) process.exit(1);

@@ -1804,14 +1804,14 @@ document.querySelectorAll('#tt-sort .chip[data-d]').forEach(function(c){c.addEve
   run();
 });});
 function run(){
-  var lines=inp.value.split('\n');
+  var lines=inp.value.split('\\n');
   if(state.blank)lines=lines.filter(function(L){return L.trim();});
   if(state.dedupe){var seen={};lines=lines.filter(function(L){if(seen.hasOwnProperty(L))return false;seen[L]=1;return true;});}
   lines.sort(function(x,y){
     var a=ci?x.toLowerCase():x,b=ci?y.toLowerCase():y;
     return dir==='az'?a.localeCompare(b):b.localeCompare(a);
   });
-  out.value=lines.join('\n');
+  out.value=lines.join('\\n');
   document.getElementById('sort-n').textContent=lines.length;
 }
 inp.addEventListener('input',run);
