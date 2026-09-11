@@ -213,6 +213,30 @@ def PAGES():
              "🌹")
     pages.append(rd)
 
+    sm = _cd("summer", "Summer", 6, 21, "how many days until summer",
+             "Summer — the season of school holidays, beach days and long evenings — begins with the summer solstice, around June 21st in the Northern Hemisphere (the date can shift by a day from year to year).",
+             "Whether you are counting down to the last day of school, a booked vacation or just the return of barbecue weather, this timer always targets the upcoming June 21st and rolls over automatically.",
+             "☀️")
+    pages.append(sm)
+
+    at = _cd("autumn", "Autumn", 9, 22, "how many days until fall",
+             "Autumn — or fall, if you are American — arrives with the autumnal equinox around September 22nd: sweater weather, pumpkin everything, and the best sleeping temperatures of the year.",
+             "Counting down to hoodie season, the leaves changing, or the holiday run that starts right after it? This timer always targets the upcoming equinox date.",
+             "🍂")
+    pages.append(at)
+
+    wt = _cd("winter", "Winter", 12, 21, "how many days until winter",
+             "Winter begins with the winter solstice around December 21st — the shortest day of the year in the Northern Hemisphere, and the official start of ski season, hot chocolate season and early nights.",
+             "Whether you want snow, skiing or just an excuse to stay in, the countdown always targets the upcoming solstice date and rolls over automatically.",
+             "❄️")
+    pages.append(wt)
+
+    sp = _cd("spring", "Spring", 3, 20, "how many days until spring",
+             "Spring begins with the vernal equinox around March 20th — the day daylight finally overtakes night, gardens wake up, and everyone remembers what warm air feels like.",
+             "Counting down to lighter evenings, the first picnic or allergy season (sorry)? The timer always targets the upcoming equinox and rolls over automatically.",
+             "🌸")
+    pages.append(sp)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
