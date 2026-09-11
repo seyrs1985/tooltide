@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roman Numerals Converter — Numbers ⇄ Roman (1–3999)</title>
+<meta name="description" content="Convert numbers to Roman numerals and back instantly: 2026 = MMXXVI. Full 1–3999 range, bidirectional, with the subtraction rules explained. Great for dates, tattoos and homework.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/roman-numerals-converter/">
+<meta property="og:title" content="Roman Numerals Converter — Numbers ⇄ Roman (1–3999)">
+<meta property="og:description" content="Convert numbers to Roman numerals and back instantly: 2026 = MMXXVI. Full 1–3999 range, bidirectional, with the subtraction rules explained. Great for dates, tattoos and homework.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/roman-numerals-converter/">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+<meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Roman Numerals Converter","url":"https://seyrs1985.github.io/tooltide/roman-numerals-converter/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert numbers to Roman numerals and back instantly: 2026 = MMXXVI. Full 1–3999 range, bidirectional, with the subtraction rules explained. Great for dates, tattoos and homework."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is 2026 in Roman numerals?","acceptedAnswer":{"@type":"Answer","text":"2026 is MMXXVI: MM (2000) + XX (20) + VI (6). Type any year into the converter to see it instantly — 2025 is MMXXV, 2027 will be MMXXVII."}},{"@type":"Question","name":"Why is 4 written IV and not IIII?","acceptedAnswer":{"@type":"Answer","text":"The modern standard uses subtraction: a smaller numeral before a larger one means 'take it away', so IV = 5 − 1 = 4. Old clock faces often show IIII for visual balance, but IV is the correct written form."}},{"@type":"Question","name":"What is the biggest number in Roman numerals?","acceptedAnswer":{"@type":"Answer","text":"With the standard seven symbols and no overline notation, the largest is 3999 (MMMCMXCIX). Larger numbers historically used a bar over a symbol to multiply by 1,000 — the converter sticks to the standard 1–3999 range."}},{"@type":"Question","name":"Are zero and negative numbers possible in Roman numerals?","acceptedAnswer":{"@type":"Answer","text":"No. The Romans had no symbol for zero and no negative numbers, which is one reason the system was eventually replaced by Arabic numerals for mathematics."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Roman Numerals Converter","item":"https://seyrs1985.github.io/tooltide/roman-numerals-converter/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
+</head>
+<body><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a><a href="https://seyrs1985.github.io/tooltide/">Calculators</a><a href="https://seyrs1985.github.io/tooltide/">Converters</a><a href="https://seyrs1985.github.io/tooltide/">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/">Text</a><a href="https://seyrs1985.github.io/tooltide/">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Roman Numerals Converter</span></nav><main class="wrap">
+<article>
+  <div class="page-emoji">🔧</div>
+  <h1>Roman Numerals Converter</h1>
+  
+  <section class="intro"><p>Type a number to see it in Roman numerals — or type Roman numerals to see the number. The full classic range 1–3999 is supported, both directions, instantly. Wedding dates, tattoo ideas, movie credits, chapter numbers and homework all land here eventually.</p><p>Roman numerals obey a small set of rules: I, X, C and M repeat; V, L and D never do; and a smaller symbol before a larger one subtracts (IV = 4, CM = 900). The converter produces the standard modern form and rejects invalid strings like IIIV rather than guessing.</p></section>
+  
+<div class="tool" id="tt-roman">
+  <div class="fields two">
+    <div class="field"><label for="rn-num">Number (1–3999)</label><input type="number" id="rn-num" min="1" max="3999" step="1" placeholder="2026"></div>
+    <div class="field"><label for="rn-rom">Roman numeral</label><input type="text" id="rn-rom" placeholder="MMXXVI" autocomplete="off" style="text-transform:uppercase"></div>
+  </div>
+  <div class="result"><span class="result-num" id="rn-out">–</span><div class="result-formula" id="rn-note"></div></div>
+  <table class="copytable"><thead><tr><th>Symbol</th><th>Value</th></tr></thead>
+  <tbody><tr><td>I · V · X</td><td>1 · 5 · 10</td></tr><tr><td>L · C · D</td><td>50 · 100 · 500</td></tr><tr><td>M</td><td>1000</td></tr><tr><td>IV · IX</td><td>4 · 9 (subtract before)</td></tr><tr><td>XL · XC</td><td>40 · 90</td></tr><tr><td>CD · CM</td><td>400 · 900</td></tr></tbody></table>
+</div>
+<script>(function(){
+var M=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
+var num=document.getElementById('rn-num'),rom=document.getElementById('rn-rom');
+var out=document.getElementById('rn-out'),note=document.getElementById('rn-note');
+var lock=false;
+function toRoman(n){var s='';M.forEach(function(p){while(n>=p[0]){s+=p[1];n-=p[0];}});return s;}
+function fromRoman(s){
+  s=s.toUpperCase().trim();
+  if(!/^[MDCLXVI]+$/.test(s))return null;
+  var V={I:1,V:5,X:10,L:50,C:100,D:500,M:1000},t=0;
+  for(var i=0;i<s.length;i++){
+    var v=V[s.charAt(i)],n2=i+1<s.length?V[s.charAt(i+1)]:0;
+    t+=v<n2?-v:v;
+  }
+  return toRoman(t)===s?t:null;  // reject non-standard forms like IIIV
+}
+num.addEventListener('input',function(){
+  if(lock)return;
+  var n=parseInt(num.value);
+  if(!n||n<1||n>3999){out.textContent='–';note.textContent=n?'Range is 1–3999.':'';return;}
+  var r=toRoman(n);rom.value=r;out.textContent=r;note.textContent=n+' in Roman numerals';
+});
+rom.addEventListener('input',function(){
+  lock=true;num.value='';
+  var v=this.value.trim();
+  if(!v){out.textContent='–';note.textContent='';lock=false;return;}
+  var n=fromRoman(v);
+  if(n===null){out.textContent='–';note.textContent='Not a valid standard Roman numeral (1–3999).';}
+  else{num.value=n;out.textContent=n.toLocaleString('en-US');note.textContent=v.toUpperCase()+' = '+n.toLocaleString('en-US');}
+  lock=false;
+});
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Type an ordinary number (1–3999) in the first box — the Roman form appears as you type.</li><li>Type Roman numerals in the second box (like MMXXVI) — the number appears instantly.</li><li>Both boxes stay in sync, so you can flip direction at any time without pressing anything.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>What is 2026 in Roman numerals?</summary><p>2026 is MMXXVI: MM (2000) + XX (20) + VI (6). Type any year into the converter to see it instantly — 2025 is MMXXV, 2027 will be MMXXVII.</p></details><details class="faq"><summary>Why is 4 written IV and not IIII?</summary><p>The modern standard uses subtraction: a smaller numeral before a larger one means &#x27;take it away&#x27;, so IV = 5 − 1 = 4. Old clock faces often show IIII for visual balance, but IV is the correct written form.</p></details><details class="faq"><summary>What is the biggest number in Roman numerals?</summary><p>With the standard seven symbols and no overline notation, the largest is 3999 (MMMCMXCIX). Larger numbers historically used a bar over a symbol to multiply by 1,000 — the converter sticks to the standard 1–3999 range.</p></details><details class="faq"><summary>Are zero and negative numbers possible in Roman numerals?</summary><p>No. The Romans had no symbol for zero and no negative numbers, which is one reason the system was eventually replaced by Arabic numerals for mathematics.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/cm-to-inches/"><span class="card-emoji">🔄</span><span class="card-title">centimeters to inches Converter</span><span class="card-desc">Convert centimeters to inches instantly. Exact formula, quick reference table, and a free two-way converter — …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/inches-to-cm/"><span class="card-emoji">🔄</span><span class="card-title">inches to centimeters Converter</span><span class="card-desc">Convert inches to centimeters instantly. Exact formula, quick reference table, and a free two-way converter — …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/kg-to-lbs/"><span class="card-emoji">🔄</span><span class="card-title">kilograms to pounds Converter</span><span class="card-desc">Convert kilograms to pounds instantly. Exact formula, quick reference table, and a free two-way converter — no…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/lbs-to-kg/"><span class="card-emoji">🔄</span><span class="card-title">pounds to kilograms Converter</span><span class="card-desc">Convert pounds to kilograms instantly. Exact formula, quick reference table, and a free two-way converter — no…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/celsius-to-fahrenheit/"><span class="card-emoji">🔄</span><span class="card-title">Celsius to Fahrenheit Converter</span><span class="card-desc">Convert Celsius to Fahrenheit instantly. Exact formula, quick reference table, and a free two-way converter — …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/fahrenheit-to-celsius/"><span class="card-emoji">🔄</span><span class="card-title">Fahrenheit to Celsius Converter</span><span class="card-desc">Convert Fahrenheit to Celsius instantly. Exact formula, quick reference table, and a free two-way converter — …</span></a></div></section>
+</article>
+</main><footer class="site-foot"><div class="wrap">
+  <nav><a href="https://seyrs1985.github.io/tooltide/about/">About</a><a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a><a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a></nav>
+  
+  <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+</div></footer></body></html>

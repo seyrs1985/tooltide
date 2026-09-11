@@ -800,6 +800,52 @@ w.addEventListener('input',run);s.addEventListener('change',run);run();
 """
 
 
+# ---------------------------------------------------------------- roman numerals
+ROMAN = """
+<div class="tool" id="tt-roman">
+  <div class="fields two">
+    <div class="field"><label for="rn-num">Number (1–3999)</label><input type="number" id="rn-num" min="1" max="3999" step="1" placeholder="2026"></div>
+    <div class="field"><label for="rn-rom">Roman numeral</label><input type="text" id="rn-rom" placeholder="MMXXVI" autocomplete="off" style="text-transform:uppercase"></div>
+  </div>
+  <div class="result"><span class="result-num" id="rn-out">–</span><div class="result-formula" id="rn-note"></div></div>
+  <table class="copytable"><thead><tr><th>Symbol</th><th>Value</th></tr></thead>
+  <tbody><tr><td>I · V · X</td><td>1 · 5 · 10</td></tr><tr><td>L · C · D</td><td>50 · 100 · 500</td></tr><tr><td>M</td><td>1000</td></tr><tr><td>IV · IX</td><td>4 · 9 (subtract before)</td></tr><tr><td>XL · XC</td><td>40 · 90</td></tr><tr><td>CD · CM</td><td>400 · 900</td></tr></tbody></table>
+</div>
+<script>(function(){
+var M=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
+var num=document.getElementById('rn-num'),rom=document.getElementById('rn-rom');
+var out=document.getElementById('rn-out'),note=document.getElementById('rn-note');
+var lock=false;
+function toRoman(n){var s='';M.forEach(function(p){while(n>=p[0]){s+=p[1];n-=p[0];}});return s;}
+function fromRoman(s){
+  s=s.toUpperCase().trim();
+  if(!/^[MDCLXVI]+$/.test(s))return null;
+  var V={I:1,V:5,X:10,L:50,C:100,D:500,M:1000},t=0;
+  for(var i=0;i<s.length;i++){
+    var v=V[s.charAt(i)],n2=i+1<s.length?V[s.charAt(i+1)]:0;
+    t+=v<n2?-v:v;
+  }
+  return toRoman(t)===s?t:null;  // reject non-standard forms like IIIV
+}
+num.addEventListener('input',function(){
+  if(lock)return;
+  var n=parseInt(num.value);
+  if(!n||n<1||n>3999){out.textContent='–';note.textContent=n?'Range is 1–3999.':'';return;}
+  var r=toRoman(n);rom.value=r;out.textContent=r;note.textContent=n+' in Roman numerals';
+});
+rom.addEventListener('input',function(){
+  lock=true;num.value='';
+  var v=this.value.trim();
+  if(!v){out.textContent='–';note.textContent='';lock=false;return;}
+  var n=fromRoman(v);
+  if(n===null){out.textContent='–';note.textContent='Not a valid standard Roman numeral (1–3999).';}
+  else{num.value=n;out.textContent=n.toLocaleString('en-US');note.textContent=v.toUpperCase()+' = '+n.toLocaleString('en-US');}
+  lock=false;
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -817,6 +863,7 @@ TOOLS = {
     "password": lambda args: PASSWORD,
     "wordspages": lambda args: WORDSPAGES,
     "randomnum": lambda args: RANDOMNUM,
+    "roman": lambda args: ROMAN,
 }
 
 

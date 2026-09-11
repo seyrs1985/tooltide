@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Many Days Until Earth Day? Live Earth Day Countdown</title>
+<meta name="description" content="See exactly how many days, hours and minutes until Earth Day. Free live countdown timer, updated every second — no sign-up, works on any device.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/days-until-earth-day/">
+<meta property="og:title" content="How Many Days Until Earth Day? Live Earth Day Countdown">
+<meta property="og:description" content="See exactly how many days, hours and minutes until Earth Day. Free live countdown timer, updated every second — no sign-up, works on any device.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/days-until-earth-day/">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+<meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"How Many Days Until Earth Day?","url":"https://seyrs1985.github.io/tooltide/days-until-earth-day/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"See exactly how many days, hours and minutes until Earth Day. Free live countdown timer, updated every second — no sign-up, works on any device."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many days until Earth Day?","acceptedAnswer":{"@type":"Answer","text":"The timer at the top of this page shows the exact number of days until Earth Day, calculated from your device's clock right now. It updates every second, so the answer you see is always current."}},{"@type":"Question","name":"What day of the week is Earth Day?","acceptedAnswer":{"@type":"Answer","text":"The countdown's facts panel shows the day of the week for the upcoming date, so you can plan time off, travel or celebrations around it."}},{"@type":"Question","name":"How many weeks until Earth Day?","acceptedAnswer":{"@type":"Answer","text":"Divide the days shown by 7 — or just read the weeks figure directly under the timer. We show days, weeks, hours and minutes so you can plan at whatever scale you need."}},{"@type":"Question","name":"Does the countdown work for Earth Day next year too?","acceptedAnswer":{"@type":"Answer","text":"Yes. Once the date passes, the timer automatically rolls over to next year's date, so this page is a permanent, always-correct countdown."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"How Many Days Until Earth Day?","item":"https://seyrs1985.github.io/tooltide/days-until-earth-day/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
+</head>
+<body><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a><a href="https://seyrs1985.github.io/tooltide/">Calculators</a><a href="https://seyrs1985.github.io/tooltide/">Converters</a><a href="https://seyrs1985.github.io/tooltide/">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/">Text</a><a href="https://seyrs1985.github.io/tooltide/">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>How Many Days Until Earth Day?</span></nav><main class="wrap">
+<article>
+  <div class="page-emoji">⏳</div>
+  <h1>How Many Days Until Earth Day?</h1>
+  
+  <section class="intro"><p>This live countdown shows exactly how long until Earth Day — down to the second. The timer works out the next occurrence of Earth Day automatically, so this page is always accurate, whether you are checking months ahead or counting down the final hours.</p><p>Teachers, students and organizers use this countdown to plan events and project deadlines. It always targets the upcoming April 22nd and rolls over automatically.</p></section>
+  
+<div class="tool" id="tt-cd">
+  <div class="cd-event"><span id="cd-emoji"></span><span id="cd-name"></span></div>
+  <div class="cd-big" id="cd-days">–</div>
+  <div class="cd-big-label" id="cd-days-label">days to go</div>
+  <div class="cd-clock" id="cd-clock">–</div>
+  <div class="stats">
+    <div class="stat"><b id="cd-weeks">–</b><span>weeks</span></div>
+    <div class="stat"><b id="cd-hours">–</b><span>total hours</span></div>
+    <div class="stat"><b id="cd-date">–</b><span>the date</span></div>
+    <div class="stat" id="cd-today-box" style="display:none"><b>🎉</b><span>It's today!</span></div>
+  </div>
+</div>
+<script>(function(){
+var A={"event": "Earth Day", "month": 4, "day": 22, "emoji": "🌍"};
+var m=A.month, d=A.day, rule=A.rule||null;
+document.getElementById('cd-emoji').textContent=A.emoji||'📅';
+document.getElementById('cd-name').textContent=A.event;
+function daysInMonth(y,mo){return new Date(y,mo+1,0).getDate();}
+function nthWeekday(y,mo,week,weekday){ // weekday: 0=Sun..6=Sat
+  var count=0;
+  for(var day=1;day<=daysInMonth(y,mo);day++){
+    var dt=new Date(y,mo,day);
+    if(dt.getDay()===weekday){count++;if(count===week)return new Date(y,mo,day,0,0,0);}
+  }
+  return null;
+}
+function easterSunday(y){ // Anonymous Gregorian computus
+  var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,mm=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*mm+114)/31),da=((h+l-7*mm+114)%31)+1;
+  return new Date(y,mo-1,da,0,0,0);
+}
+function candidate(y){
+  if(rule){ if(rule.easter)return easterSunday(y); return nthWeekday(y,m-1,rule.week,rule.weekday); }
+  return new Date(y,m-1,d,0,0,0);
+}
+function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
+function target(){
+  var now=new Date(),y=now.getFullYear();
+  var t=candidate(y);
+  if(t===null){t=candidate(y+1);}
+  if(sameDay(t,now))return {t:new Date(t.getTime()+86400000),today:true,cand:t};
+  if(t<=now){y++;t=candidate(y);if(t===null)t=candidate(y+1);}
+  return {t:t,today:false,cand:t};
+}
+var el=function(id){return document.getElementById(id);};
+function pad(n){return (n<10?'0':'')+n;}
+function tick(){
+  var r=target(),now=new Date(),diff=r.t-now;
+  if(diff<0)diff=0;
+  var days=Math.floor(diff/86400000);
+  var hours=Math.floor(diff/3600000)%24, mins=Math.floor(diff/60000)%60, secs=Math.floor(diff/1000)%60;
+  var real=r.today?0:days;
+  el('cd-days').textContent=real;
+  el('cd-days-label').textContent=r.today?("It's "+A.event+" today! 🎉"):('days to go');
+  el('cd-clock').textContent=pad(hours)+':'+pad(mins)+':'+pad(secs)+'  h:m:s remaining today';
+  el('cd-clock').style.display=r.today?'none':'block';
+  el('cd-weeks').textContent=(diff/604800000).toFixed(1);
+  el('cd-hours').textContent=Math.floor(diff/3600000).toLocaleString('en-US');
+  el('cd-date').textContent=r.cand.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  el('cd-today-box').style.display=r.today?'block':'none';
+}
+tick();setInterval(tick,1000);
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Open this page any time — the countdown to Earth Day starts updating immediately.</li><li>Read the big number for whole days remaining, or watch the timer for days, hours, minutes and seconds.</li><li>Check the facts panel below the timer for the exact date, day of the week, and weeks remaining.</li></ol></section>
+  <div class="info-box"><strong>Good to know</strong> — Earth Day — April 22nd — is the world&#x27;s largest environmental movement event: school projects, tree plantings, cleanups and climate campaigns in more than 190 countries.</div>
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>How many days until Earth Day?</summary><p>The timer at the top of this page shows the exact number of days until Earth Day, calculated from your device&#x27;s clock right now. It updates every second, so the answer you see is always current.</p></details><details class="faq"><summary>What day of the week is Earth Day?</summary><p>The countdown&#x27;s facts panel shows the day of the week for the upcoming date, so you can plan time off, travel or celebrations around it.</p></details><details class="faq"><summary>How many weeks until Earth Day?</summary><p>Divide the days shown by 7 — or just read the weeks figure directly under the timer. We show days, weeks, hours and minutes so you can plan at whatever scale you need.</p></details><details class="faq"><summary>Does the countdown work for Earth Day next year too?</summary><p>Yes. Once the date passes, the timer automatically rolls over to next year&#x27;s date, so this page is a permanent, always-correct countdown.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-christmas/"><span class="card-emoji">🎄</span><span class="card-title">How Many Days Until Christmas?</span><span class="card-desc">See exactly how many days, hours and minutes until Christmas. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-new-year/"><span class="card-emoji">🎆</span><span class="card-title">How Many Days Until New Year?</span><span class="card-desc">See exactly how many days, hours and minutes until New Year. Free live countdown timer, updated every second —…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-halloween/"><span class="card-emoji">🎃</span><span class="card-title">How Many Days Until Halloween?</span><span class="card-desc">See exactly how many days, hours and minutes until Halloween. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-valentines-day/"><span class="card-emoji">💝</span><span class="card-title">How Many Days Until Valentine&#x27;s Day?</span><span class="card-desc">See exactly how many days, hours and minutes until Valentine&#x27;s Day. Free live countdown timer, updated every s…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-black-friday/"><span class="card-emoji">🛒</span><span class="card-title">How Many Days Until Black Friday?</span><span class="card-desc">See exactly how many days, hours and minutes until Black Friday. Free live countdown timer, updated every seco…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-thanksgiving/"><span class="card-emoji">🦃</span><span class="card-title">How Many Days Until Thanksgiving?</span><span class="card-desc">See exactly how many days, hours and minutes until Thanksgiving. Free live countdown timer, updated every seco…</span></a></div></section>
+</article>
+</main><footer class="site-foot"><div class="wrap">
+  <nav><a href="https://seyrs1985.github.io/tooltide/about/">About</a><a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a><a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a></nav>
+  
+  <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+</div></footer></body></html>

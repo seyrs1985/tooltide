@@ -182,6 +182,18 @@ def PAGES():
     fd["args"]["rule"] = {"week": 3, "weekday": 0}  # 3rd Sunday of June
     pages.append(fd)
 
+    nye = _cd("new-years-eve", "New Year's Eve", 12, 31, "days until new years eve",
+              "New Year's Eve — December 31st — is the year's last party: countdowns, fireworks at midnight, Auld Lang Syne, and resolutions you will keep for at least a week. For hosts it is also the most demanding night of the year.",
+              "Planning the party, the outfits or the midnight toast? This timer targets December 31st exactly — the countdown to the party, not just the calendar year.",
+              "🥂")
+    pages.append(nye)
+
+    ed = _cd("earth-day", "Earth Day", 4, 22, "days until earth day",
+             "Earth Day — April 22nd — is the world's largest environmental movement event: school projects, tree plantings, cleanups and climate campaigns in more than 190 countries.",
+             "Teachers, students and organizers use this countdown to plan events and project deadlines. It always targets the upcoming April 22nd and rolls over automatically.",
+             "🌍")
+    pages.append(ed)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -476,6 +488,9 @@ def PAGES():
     pages.append(_conv("kmh-to-mph", "KMH to MPH", "kilometers per hour", "miles per hour", 0.6213711922, "speed",
                        "Speed limits and car dashboards use km/h almost everywhere; the US and UK still speak in mph. One km/h is 0.6214 mph, so 100 km/h on a European motorway is a legal 62 mph — and 60 mph is a ticket-prone 96.6 km/h.",
                        "Handy anchors: 30 km/h = 18.6 mph (city), 50 km/h = 31.1 mph, 100 km/h = 62.1 mph (motorway), 120 km/h = 74.6 mph. Quick trick: km/h × 0.62.", dec=1))
+    pages.append(_conv("mph-to-kmh", "MPH to KMH", "miles per hour", "kilometers per hour", 1.609344, "speed",
+                       "Driving from the US or UK into a km/h country? The numbers on the dashboard and the signs suddenly disagree. One mph is exactly 1.609344 km/h — multiply by 1.6 for a road-safe estimate.",
+                       "Handy anchors: 30 mph = 48.3 km/h, 60 mph = 96.6 km/h, 70 mph = 112.7 km/h (UK motorway), 80 mph = 128.7 km/h. Quick trick: mph × 1.6."))
     pages.append(_conv("cups-to-ml", "Cups to ML", "cups (US)", "milliliters", 236.5882365, "volume",
                        "US recipes measure by cups; nearly every other country — and every scale — uses milliliters. One US customary cup is 236.588 milliliters, which is why American and metric recipes never quite line up without a converter.",
                        "Handy anchors: 1 cup = 236.6 ml (round to 240 when eyeballing), 2 cups = 473 ml (a pint), 4 cups = 946 ml (a quart), half a cup = 118 ml.", dec=1))
@@ -661,6 +676,36 @@ def PAGES():
              "Single-spaced: about 500–550 words. Double-spaced: about 250–275 words. Headings, quotes and paragraph breaks reduce the count, which is why estimates use the lower numbers."),
             ("Does font size change the answer?",
              "Yes — this converter assumes 12-point Times New Roman (or Arial, similar metrics) with 1-inch margins. A larger 14-point font adds roughly 20% more pages; tighter layouts fit more."),
+        ],
+    })
+
+    pages.append({
+        "slug": "roman-numerals-converter",
+        "title": "Roman Numerals Converter — Numbers ⇄ Roman (1–3999)",
+        "h1": "Roman Numerals Converter",
+        "desc": "Convert numbers to Roman numerals and back instantly: 2026 = MMXXVI. Full 1–3999 range, bidirectional, with the subtraction rules explained. Great for dates, tattoos and homework.",
+        "category": "converter",
+        "keyword": "roman numerals converter",
+        "tool": "roman",
+        "args": {},
+        "intro": [
+            "Type a number to see it in Roman numerals — or type Roman numerals to see the number. The full classic range 1–3999 is supported, both directions, instantly. Wedding dates, tattoo ideas, movie credits, chapter numbers and homework all land here eventually.",
+            "Roman numerals obey a small set of rules: I, X, C and M repeat; V, L and D never do; and a smaller symbol before a larger one subtracts (IV = 4, CM = 900). The converter produces the standard modern form and rejects invalid strings like IIIV rather than guessing.",
+        ],
+        "howto": [
+            "Type an ordinary number (1–3999) in the first box — the Roman form appears as you type.",
+            "Type Roman numerals in the second box (like MMXXVI) — the number appears instantly.",
+            "Both boxes stay in sync, so you can flip direction at any time without pressing anything.",
+        ],
+        "faqs": [
+            ("What is 2026 in Roman numerals?",
+             "2026 is MMXXVI: MM (2000) + XX (20) + VI (6). Type any year into the converter to see it instantly — 2025 is MMXXV, 2027 will be MMXXVII."),
+            ("Why is 4 written IV and not IIII?",
+             "The modern standard uses subtraction: a smaller numeral before a larger one means 'take it away', so IV = 5 − 1 = 4. Old clock faces often show IIII for visual balance, but IV is the correct written form."),
+            ("What is the biggest number in Roman numerals?",
+             "With the standard seven symbols and no overline notation, the largest is 3999 (MMMCMXCIX). Larger numbers historically used a bar over a symbol to multiply by 1,000 — the converter sticks to the standard 1–3999 range."),
+            ("Are zero and negative numbers possible in Roman numerals?",
+             "No. The Romans had no symbol for zero and no negative numbers, which is one reason the system was eventually replaced by Arabic numerals for mathematics."),
         ],
     })
 
