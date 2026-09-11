@@ -257,6 +257,15 @@ input[type=range]{padding:0;accent-color:var(--brand)}
 .site-foot a:hover{color:var(--brand)}
 .aff-note{margin:0 0 8px;font-size:.8rem;color:var(--muted)}
 
+/* homepage closing value cards — the About-page principles where the long
+   tool list ends; same family look as tool cards but not links */
+.values{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:16px}
+.value-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;transition:border-color .15s}
+.value-card:hover{border-color:var(--accent-soft)}
+.value-card h3{font-size:1.02rem;margin:10px 0 6px}
+.value-card p{font-size:.9rem;color:var(--text-3);margin:0}
+.value-emoji{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:var(--result-bg);font-size:1.3rem}
+
 /* hero category chips */
 .hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .hero-chips a{padding:7px 14px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:.88rem;font-weight:600;color:var(--text-2);text-decoration:none;transition:border-color .15s,color .15s}

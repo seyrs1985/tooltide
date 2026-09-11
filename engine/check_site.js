@@ -386,6 +386,36 @@ try {
       } else { fail++; console.log('SITE FAIL collapse stub:', e.message); }
     }
   } else { fail++; console.log('SITE FAIL homepage: collapse script not found'); }
+
+  // homepage closing value cards — the About-page principles as scannable cards
+  assert((idx.match(/class="value-card"/g) || []).length === 3
+    && idx.includes('Private by architecture') && idx.includes('Fast on any device')
+    && idx.includes('Free, forever'),
+    'homepage: closing value-card trio present');
+  assert(/\.values\{[^}]*grid-template-columns/.test(css) && /\.value-card\{/.test(css)
+    && /\.value-emoji\{[^}]*background:var\(--result-bg\)/.test(css),
+    'style.css: value-card grid + emoji chip on brand tint');
+
+  // PWA manifest — link injected on every page, valid JSON, icons on disk,
+  // start_url pinned to the site base, theme matching the light theme-color
+  assert(/rel="manifest"[^>]*manifest\.webmanifest/.test(idx)
+    && /rel="manifest"/.test(tool),
+    'head: manifest link injected on homepage + tool pages');
+  let mf = null;
+  try {
+    mf = JSON.parse(fs.readFileSync(path.join(root, 'manifest.webmanifest'), 'utf8'));
+    checked++;
+  } catch (e) { fail++; console.log('SITE FAIL manifest: invalid JSON —', e.message); }
+  if (mf) {
+    assert(mf.start_url === base + '/' && mf.scope === base + '/' && mf.display === 'standalone'
+      && !!mf.name && !!mf.short_name,
+      'manifest: start_url/scope pinned to site base, display standalone');
+    assert(mf.theme_color === '#0e7490' && mf.background_color === '#f8fafc',
+      'manifest: theme/background colors match the site palette');
+    assert(Array.isArray(mf.icons) && mf.icons.length >= 2
+      && mf.icons.every(i => fs.existsSync(path.join(root, path.basename(new URL(i.src).pathname)))),
+      'manifest: >=2 icon entries whose files exist on disk');
+  }
 } catch (e) { fail++; console.log('SITE FAIL round-assertions:', e.message); }
 
 console.log('files:', files.length, '| checks passed:', checked, '| failures:', fail);

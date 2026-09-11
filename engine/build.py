@@ -60,6 +60,8 @@ OG_IMAGE = "og-image.png"
 og_image_ready = False
 TOUCH_ICON = "apple-touch-icon.png"
 touch_icon_ready = False
+MANIFEST = "manifest.webmanifest"
+manifest_ready = False
 
 # The stylesheet is inlined into every page's <head>: the site CSS is small
 # (~4 KB gzipped), so inlining costs less per page than the render-blocking
@@ -134,6 +136,29 @@ def ensure_og_image():
     print(f"  asset /{OG_IMAGE} (generated)")
 
 
+def _ocean_icon(size, out):
+    """Square ocean gradient + three waves — shared art for the iOS touch
+    icon and the PWA manifest icons."""
+    from PIL import Image, ImageDraw
+    import math
+    top, bot = (10, 58, 94), (14, 116, 144)  # same ocean ramp as the OG card
+    img = Image.new("RGB", (size, size))
+    d = ImageDraw.Draw(img)
+    for y in range(size):
+        t = y / (size - 1)
+        d.line([(0, y), (size, y)],
+               fill=tuple(int(top[i] + (bot[i] - top[i]) * t) for i in range(3)))
+    overlay = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    ov = ImageDraw.Draw(overlay)
+    for amp, base_y, alpha in [(int(size * .078), int(size * .62), 70),
+                               (int(size * .061), int(size * .74), 46),
+                               (int(size * .044), int(size * .84), 30)]:
+        pts = [(x, base_y + amp * math.sin(x / (size / 6.9))) for x in range(0, size + 1, 4)]
+        ov.line(pts, fill=(255, 255, 255, alpha), width=max(4, size // 30))
+    img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
+    img.save(out, "PNG", optimize=True)
+
+
 def ensure_touch_icon():
     """Generate docs/apple-touch-icon.png (180x180 iOS home-screen icon)."""
     global touch_icon_ready
@@ -142,27 +167,44 @@ def ensure_touch_icon():
         touch_icon_ready = True
         return
     try:
-        from PIL import Image, ImageDraw
+        _ocean_icon(180, out)
     except ImportError:
         return
-    import math
-    W = H = 180
-    top, bot = (10, 58, 94), (14, 116, 144)  # same ocean ramp as the OG card
-    img = Image.new("RGB", (W, H))
-    d = ImageDraw.Draw(img)
-    for y in range(H):
-        t = y / (H - 1)
-        d.line([(0, y), (W, y)],
-               fill=tuple(int(top[i] + (bot[i] - top[i]) * t) for i in range(3)))
-    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ov = ImageDraw.Draw(overlay)
-    for amp, base_y, alpha in [(14, 112, 70), (11, 134, 46), (8, 152, 30)]:
-        pts = [(x, base_y + amp * math.sin(x / 26.0)) for x in range(0, W + 1, 4)]
-        ov.line(pts, fill=(255, 255, 255, alpha), width=6)
-    img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
-    img.save(out, "PNG", optimize=True)
     touch_icon_ready = True
     print(f"  asset /{TOUCH_ICON} (generated)")
+
+
+def ensure_manifest(cfg):
+    """docs/manifest.webmanifest — PWA install metadata. Icon files are shared
+    square art at the two sizes Chrome's install prompt wants; without PIL the
+    manifest is simply not injected (site works unchanged without it)."""
+    global manifest_ready
+    icons = []
+    for size, name in ((192, "icon-192.png"), (512, "icon-512.png")):
+        out = os.path.join(SITE_DIR, name)
+        if not os.path.exists(out):
+            try:
+                _ocean_icon(size, out)
+            except ImportError:
+                return
+            print(f"  asset /{name} (generated)")
+        icons.append({"src": cfg["base_url"] + name, "sizes": f"{size}x{size}",
+                      "type": "image/png", "purpose": "any"})
+    manifest = {
+        "name": "ToolTide — Free Online Tools",
+        "short_name": "ToolTide",
+        "description": "Free online tools: countdown timers, calculators, unit "
+                       "converters and generators. Fast, private, no sign-up.",
+        "start_url": cfg["base_url"],
+        "scope": cfg["base_url"],
+        "display": "standalone",
+        "background_color": "#f8fafc",
+        "theme_color": "#0e7490",
+        "icons": icons,
+    }
+    write(MANIFEST, json.dumps(manifest, indent=2) + "\n")
+    manifest_ready = True
+    print(f"  asset /{MANIFEST}")
 
 
 def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls=""):
@@ -175,6 +217,8 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
            esc('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">🌊</text></svg>'))
     touch = (f'<link rel="apple-touch-icon" href="{esc(cfg["base_url"])}{TOUCH_ICON}">\n'
              if touch_icon_ready else "")
+    pwa = (f'<link rel="manifest" href="{esc(cfg["base_url"])}{MANIFEST}">\n'
+           if manifest_ready else "")
     og_abs = cfg["base_url"] + OG_IMAGE
     hints = ""
     if ga:
@@ -210,7 +254,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
 <meta name="theme-color" content="#0e7490" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="{fav}">
-{touch}<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
+{touch}{pwa}<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
 {PREPAINT_THEME}
@@ -713,6 +757,7 @@ def main():
     os.makedirs(SITE_DIR, exist_ok=True)
     ensure_og_image()
     ensure_touch_icon()
+    ensure_manifest(cfg)
     all_pages, cat_info = pages_mod.get_pages()
 
     # shared stylesheet
