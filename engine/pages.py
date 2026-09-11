@@ -1209,6 +1209,40 @@ def PAGES():
         ],
     })
 
+    pages.append(_conv("liters-to-ml", "Liters to ML", "liters", "milliliters", 1000, "volume",
+                       "The cleanest conversion in the metric system: one liter is exactly 1,000 milliliters, always, everywhere. Multiply by 1,000 for bottles, doses and recipes — the converter keeps the zeros straight when the number gets long.",
+                       "Handy anchors: 0.5 L = 500 ml (a water bottle), 1.5 L = 1,500 ml (a big soda bottle), 2 L = 2,000 ml, 5 L = 5,000 ml (a water cooler jug)."))
+
+    pages.append({
+        "slug": "text-to-binary",
+        "title": "Text to Binary Converter — Text ⇄ Binary Code, Instant",
+        "h1": "Text to Binary Converter",
+        "desc": "Convert text to binary code and binary back to text instantly. Every character becomes 8 bits (UTF-8). Great for CS homework, puzzles and understanding how computers store text.",
+        "category": "converter",
+        "keyword": "text to binary",
+        "tool": "binary",
+        "args": {},
+        "intro": [
+            "Type any text and see exactly how a computer stores it: every character becomes a byte of 8 binary digits (UTF-8 encoding), with spaces between bytes so you can read the pattern. Paste binary code — space-separated bytes — and it decodes back into text in the other direction.",
+            "This is the classic computer-science exercise: seeing that 'Hi' is 01001000 01101001 makes abstract bits concrete. It works for emoji too (they take more than one byte, which is the lesson hiding in plain sight).",
+        ],
+        "howto": [
+            "Type text in the first box — the binary (UTF-8) appears instantly, one group of 8 bits per character.",
+            "Paste binary code into the second box to decode it back into readable text.",
+            "Note how many bytes emoji take compared to plain letters — that is UTF-8 in action.",
+        ],
+        "faqs": [
+            ("How does text become binary?",
+             "Each character is mapped to a number by the UTF-8 standard, and that number is written in base 2 (binary). The letter H is number 72, which is 01001000 in binary — one byte per character for plain English text."),
+            ("Why do emoji take more bits than letters?",
+             "Emoji are characters outside the basic ASCII range, so UTF-8 encodes them as multiple bytes — often 4, or 32 binary digits. The converter shows this live: type one letter, then one emoji, and compare."),
+            ("Can I decode binary I found online?",
+             "Yes, if it is standard space-separated 8-bit UTF-8 bytes like 01001000 01101001. The decoder is strict about grouping so partial bytes fail loudly instead of decoding to nonsense."),
+            ("Is this the same as encryption?",
+             "No — binary is an encoding, not a cipher. Anyone can decode it. Encryption transforms data with a secret key; this simply shows the same text in a different notation."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

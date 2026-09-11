@@ -1221,6 +1221,44 @@ inp.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- text <-> binary
+BINARY = """
+<div class="tool" id="tt-bin">
+  <div class="field"><label for="bin-txt">Text</label>
+    <textarea id="bin-txt" rows="4" placeholder="Hi"></textarea></div>
+  <div class="field" style="margin-top:10px"><label for="bin-code">Binary (UTF-8, space-separated bytes)</label>
+    <textarea id="bin-code" rows="4" placeholder="01001000 01101001"></textarea></div>
+</div>
+<script>(function(){
+var txt=document.getElementById('bin-txt'),code=document.getElementById('bin-code');
+var lock=false;
+function toBin(s){
+  var bytes=new TextEncoder().encode(s);
+  return Array.from(bytes).map(function(b){return b.toString(2).padStart(8,'0');}).join(' ');
+}
+function fromBin(v){
+  var parts=v.trim().split(/\s+/).filter(Boolean),bytes=[];
+  for(var i=0;i<parts.length;i++){
+    if(!/^[01]{1,8}$/.test(parts[i]))throw 'bad';
+    bytes.push(parseInt(parts[i],2));
+  }
+  return new TextDecoder().decode(new Uint8Array(bytes));
+}
+txt.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  code.value=this.value?toBin(this.value):'';
+  lock=false;
+});
+code.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  try{txt.value=this.value.trim()?fromBin(this.value):'';}
+  catch(e){txt.value='(invalid binary - bytes must be 1-8 bits of 0/1)';}
+  lock=false;
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1246,6 +1284,7 @@ TOOLS = {
     "hoursdiff": lambda args: HOURSDIFF,
     "inchfrac": lambda args: INCHFRAC,
     "average": lambda args: AVERAGE,
+    "binary": lambda args: BINARY,
     "striphtml": lambda args: STRIPHTML,
     "salestax": lambda args: SALESTAX,
 }
