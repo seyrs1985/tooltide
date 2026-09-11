@@ -1410,6 +1410,93 @@ M.addEventListener('input',runM);
 """
 
 
+# ---------------------------------------------------------------- salary <-> hourly
+SALARY = """
+<div class="tool" id="tt-sal">
+  <div class="fields">
+    <div class="field"><label for="sal-yr">Annual salary ($)</label><input type="number" id="sal-yr" step="any" min="0" placeholder="65000"></div>
+    <div class="field"><label for="sal-hr">Hourly wage ($)</label><input type="number" id="sal-hr" step="any" min="0" placeholder="31.25"></div>
+  </div>
+  <div class="fields">
+    <div class="field"><label for="sal-hpw">Hours per week</label><input type="number" id="sal-hpw" value="40" step="any" min="1"></div>
+    <div class="field"><label for="sal-wpy">Weeks per year</label><input type="number" id="sal-wpy" value="52" step="any" min="1"></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="sal-m">-</b><span>per month</span></div>
+    <div class="stat"><b id="sal-w">-</b><span>per week</span></div>
+    <div class="stat"><b id="sal-d">-</b><span>per day (5-day week)</span></div>
+    <div class="stat"><b id="sal-h">-</b><span>per hour</span></div>
+  </div>
+</div>
+<script>(function(){
+var yr=document.getElementById('sal-yr'),hr=document.getElementById('sal-hr');
+var hpw=document.getElementById('sal-hpw'),wpy=document.getElementById('sal-wpy');
+var lock=false;
+function hoursPerYear(){return (parseFloat(hpw.value)||0)*(parseFloat(wpy.value)||0);}
+function money(n){return '$'+n.toLocaleString('en-US',{maximumFractionDigits:2});}
+function runY(){
+  if(lock)return;lock=true;hr.value='';
+  var y=parseFloat(yr.value),h=hoursPerYear();
+  if(!y||!h){document.getElementById('sal-m').textContent='-';document.getElementById('sal-w').textContent='-';document.getElementById('sal-d').textContent='-';document.getElementById('sal-h').textContent='-';lock=false;return;}
+  document.getElementById('sal-m').textContent=money(y/12);
+  document.getElementById('sal-w').textContent=money(y/wpy.value);
+  document.getElementById('sal-d').textContent=money(y/wpy.value/5);
+  document.getElementById('sal-h').textContent=money(y/h);
+  lock=false;
+}
+function runH(){
+  if(lock)return;lock=true;yr.value='';
+  var r=parseFloat(hr.value),h=hoursPerYear();
+  if(!r||!h){lock=false;return;}
+  var y=r*h;
+  document.getElementById('sal-m').textContent=money(y/12);
+  document.getElementById('sal-w').textContent=money(y/wpy.value);
+  document.getElementById('sal-d').textContent=money(y/wpy.value/5);
+  document.getElementById('sal-h').textContent=money(r);
+  lock=false;
+}
+yr.addEventListener('input',runY);
+hr.addEventListener('input',runH);
+hpw.addEventListener('input',runY);
+wpy.addEventListener('input',runY);
+})();</script>
+"""
+
+
+# ---------------------------------------------------------------- coin flip
+COINFLIP = """
+<div class="tool" id="tt-cf">
+  <div class="cf-coin" id="cf-face">?</div>
+  <button class="btn" id="cf-go" type="button">🪙 Flip</button>
+  <button class="btn btn-sm" id="cf-reset" type="button">↻ Reset</button>
+  <div class="stats">
+    <div class="stat"><b id="cf-h">0</b><span>heads</span></div>
+    <div class="stat"><b id="cf-t">0</b><span>tails</span></div>
+    <div class="stat"><b id="cf-n">0</b><span>total flips</span></div>
+  </div>
+</div>
+<script>(function(){
+var h=0,tt=0;
+var face=document.getElementById('cf-face');
+function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+  do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+document.getElementById('cf-go').addEventListener('click',function(){
+  var r=secureInt(2);
+  if(r){h++;face.textContent='HEADS';}else{tt++;face.textContent='TAILS';}
+  document.getElementById('cf-h').textContent=h;
+  document.getElementById('cf-t').textContent=tt;
+  document.getElementById('cf-n').textContent=h+tt;
+});
+document.getElementById('cf-reset').addEventListener('click',function(){
+  h=0;tt=0;face.textContent='?';
+  document.getElementById('cf-h').textContent='0';
+  document.getElementById('cf-t').textContent='0';
+  document.getElementById('cf-n').textContent='0';
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1439,6 +1526,8 @@ TOOLS = {
     "gramscups": lambda args: GRAMSCUPS,
     "dayofweek": lambda args: DAYOFWEEK,
     "fuel": lambda args: FUEL,
+    "salary": lambda args: SALARY,
+    "coinflip": lambda args: COINFLIP,
     "striphtml": lambda args: STRIPHTML,
     "salestax": lambda args: SALESTAX,
 }

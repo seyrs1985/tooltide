@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coin Flip Online — Fair, Cryptographically Random Heads or Tails</title>
+<meta name="description" content="Flip a coin online: cryptographically fair heads or tails with a running tally. Can&#x27;t decide? Let 256 bits of entropy do it. Free, instant, nothing recorded.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/coin-flip/">
+<meta property="og:title" content="Coin Flip Online — Fair, Cryptographically Random Heads or Tails">
+<meta property="og:description" content="Flip a coin online: cryptographically fair heads or tails with a running tally. Can&#x27;t decide? Let 256 bits of entropy do it. Free, instant, nothing recorded.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/coin-flip/">
+<meta property="og:site_name" content="ToolTide">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://seyrs1985.github.io/tooltide/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ToolTide — free online tools">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Coin Flip Online — Fair, Cryptographically Random Heads or Tails">
+<meta name="twitter:description" content="Flip a coin online: cryptographically fair heads or tails with a running tally. Can&#x27;t decide? Let 256 bits of entropy do it. Free, instant, nothing recorded.">
+<meta name="twitter:image" content="https://seyrs1985.github.io/tooltide/og-image.png">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+<meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Coin Flip","url":"https://seyrs1985.github.io/tooltide/coin-flip/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Flip a coin online: cryptographically fair heads or tails with a running tally. Can't decide? Let 256 bits of entropy do it. Free, instant, nothing recorded."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this online coin flip fair?","acceptedAnswer":{"@type":"Answer","text":"Yes — each flip uses the browser's WebCrypto secure random source, the same class of generator used for encryption. Every flip is independent and exactly 50/50 in expectation."}},{"@type":"Question","name":"Can I use this for a sports coin toss?","acceptedAnswer":{"@type":"Answer","text":"You can, but a physical coin is more ceremonial. This version is handy for remote games, online debates and quick decisions where nobody has a coin."}},{"@type":"Question","name":"What are the odds of flipping 5 heads in a row?","acceptedAnswer":{"@type":"Answer","text":"1 in 32 (2 to the power of 5, about 3.1%). The tally makes it easy to spot streaks — which appear more often than intuition expects, a famous quirk of true randomness."}},{"@type":"Question","name":"Does the coin remember previous flips?","acceptedAnswer":{"@type":"Answer","text":"No — every flip is independent. The tally is just for record-keeping; past results have zero influence on the next flip."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Coin Flip","item":"https://seyrs1985.github.io/tooltide/coin-flip/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
+</head>
+<body><a class="skip" href="#main">Skip to content</a><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav aria-label="Primary"><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Coin Flip</span></nav><main class="wrap" id="main">
+<article>
+  <div class="page-emoji">🪙</div>
+  <h1>Coin Flip</h1>
+  
+  <section class="intro"><p>Flip a fair coin as many times as you like — each result comes from your browser&#x27;s cryptographically secure random source, so heads and tails are equally likely every single time, with no hidden patterns. The tally keeps count across flips so you can settle best-of-three, best-of-five, or a best-of-nineteen argument.</p><p>The classic use is the decision you already know the answer to: flip the coin and notice which side you were hoping for while it spins. For group decisions, the tally doubles as a neutral referee.</p></section>
+  
+<div class="tool" id="tt-cf">
+  <div class="cf-coin" id="cf-face">?</div>
+  <button class="btn" id="cf-go" type="button">🪙 Flip</button>
+  <button class="btn btn-sm" id="cf-reset" type="button">↻ Reset</button>
+  <div class="stats">
+    <div class="stat"><b id="cf-h">0</b><span>heads</span></div>
+    <div class="stat"><b id="cf-t">0</b><span>tails</span></div>
+    <div class="stat"><b id="cf-n">0</b><span>total flips</span></div>
+  </div>
+</div>
+<script>(function(){
+var h=0,tt=0;
+var face=document.getElementById('cf-face');
+function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
+  do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
+document.getElementById('cf-go').addEventListener('click',function(){
+  var r=secureInt(2);
+  if(r){h++;face.textContent='HEADS';}else{tt++;face.textContent='TAILS';}
+  document.getElementById('cf-h').textContent=h;
+  document.getElementById('cf-t').textContent=tt;
+  document.getElementById('cf-n').textContent=h+tt;
+});
+document.getElementById('cf-reset').addEventListener('click',function(){
+  h=0;tt=0;face.textContent='?';
+  document.getElementById('cf-h').textContent='0';
+  document.getElementById('cf-t').textContent='0';
+  document.getElementById('cf-n').textContent='0';
+});
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Press Flip — the coin lands heads or tails instantly.</li><li>Keep flipping for best-of series; the running tally tracks heads, tails and total flips.</li><li>Hit Reset to clear the tally for the next decision.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>Is this online coin flip fair?</summary><p>Yes — each flip uses the browser&#x27;s WebCrypto secure random source, the same class of generator used for encryption. Every flip is independent and exactly 50/50 in expectation.</p></details><details class="faq"><summary>Can I use this for a sports coin toss?</summary><p>You can, but a physical coin is more ceremonial. This version is handy for remote games, online debates and quick decisions where nobody has a coin.</p></details><details class="faq"><summary>What are the odds of flipping 5 heads in a row?</summary><p>1 in 32 (2 to the power of 5, about 3.1%). The tally makes it easy to spot streaks — which appear more often than intuition expects, a famous quirk of true randomness.</p></details><details class="faq"><summary>Does the coin remember previous flips?</summary><p>No — every flip is independent. The tally is just for record-keeping; past results have zero influence on the next flip.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/random-name-generator/"><span class="card-emoji">🎲</span><span class="card-title">Random Name Generator</span><span class="card-desc">Generate random names for fantasy characters, game teams, babies&#x27; name inspiration, or username ideas. Click f…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/password-generator/"><span class="card-emoji">🔐</span><span class="card-title">Random Password Generator</span><span class="card-desc">Generate strong random passwords with one click. Choose length and character sets. Runs entirely in your brows…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/random-number-generator/"><span class="card-emoji">🎲</span><span class="card-title">Random Number Generator</span><span class="card-desc">Generate random numbers in any range, with or without duplicates. Uses your browser&#x27;s cryptographic random sou…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/upside-down-text/"><span class="card-emoji">🔧</span><span class="card-title">Upside Down Text</span><span class="card-desc">Flip your text upside down with real Unicode characters — works in Instagram bios, WhatsApp, TikTok and anywhe…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-christmas/"><span class="card-emoji">🎄</span><span class="card-title">How Many Days Until Christmas?</span><span class="card-desc">See exactly how many days, hours and minutes until Christmas. Free live countdown timer, updated every second …</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-until-new-year/"><span class="card-emoji">🎆</span><span class="card-title">How Many Days Until New Year?</span><span class="card-desc">See exactly how many days, hours and minutes until New Year. Free live countdown timer, updated every second —…</span></a></div></section>
+</article>
+</main><footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-brand">
+      <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+      <p>Free online tools that run in your browser. No sign-up, no installs, no tracking of your inputs.</p>
+      <nav class="foot-site" aria-label="Site"><a href="https://seyrs1985.github.io/tooltide/about/">About</a>
+      <a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a>
+      <a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a>
+      <a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games on NeonPlay</a></nav>
+    </div>
+    <div class="foot-matrix"><nav class="foot-col" aria-label="Countdowns"><h3><a href="https://seyrs1985.github.io/tooltide/#countdown">⏳ Countdowns</a></h3><a href="https://seyrs1985.github.io/tooltide/days-until-christmas/">Christmas</a><a href="https://seyrs1985.github.io/tooltide/days-until-christmas-eve/">Christmas Eve</a><a href="https://seyrs1985.github.io/tooltide/days-until-summer/">Summer</a><a href="https://seyrs1985.github.io/tooltide/days-until-january/">January</a></nav><nav class="foot-col" aria-label="Calculators"><h3><a href="https://seyrs1985.github.io/tooltide/#calculator">🧮 Calculators</a></h3><a href="https://seyrs1985.github.io/tooltide/inch-fraction-calculator/">Inch Fraction Calculator</a><a href="https://seyrs1985.github.io/tooltide/days-between-dates/">Days Between Two Dates</a><a href="https://seyrs1985.github.io/tooltide/reading-time-calculator/">Reading Time Calculator</a><a href="https://seyrs1985.github.io/tooltide/grade-calculator/">Grade Calculator</a></nav><nav class="foot-col" aria-label="Converters"><h3><a href="https://seyrs1985.github.io/tooltide/#converter">🔄 Converters</a></h3><a href="https://seyrs1985.github.io/tooltide/cm-to-inches/">centimeters to inches</a><a href="https://seyrs1985.github.io/tooltide/grams-to-ounces/">grams to ounces</a><a href="https://seyrs1985.github.io/tooltide/tablespoons-to-teaspoons/">tablespoons to teaspoons</a><a href="https://seyrs1985.github.io/tooltide/ml-to-l/">milliliters to liters</a></nav><nav class="foot-col" aria-label="Text Tools"><h3><a href="https://seyrs1985.github.io/tooltide/#text">🔤 Text Tools</a></h3><a href="https://seyrs1985.github.io/tooltide/strip-html/">Strip HTML Tags</a><a href="https://seyrs1985.github.io/tooltide/word-counter/">Word Counter</a><a href="https://seyrs1985.github.io/tooltide/case-converter/">Case</a><a href="https://seyrs1985.github.io/tooltide/duplicate-line-remover/">Duplicate Line Remover</a></nav><nav class="foot-col" aria-label="Generators"><h3><a href="https://seyrs1985.github.io/tooltide/#generator">🎲 Generators</a></h3><a href="https://seyrs1985.github.io/tooltide/random-name-generator/">Random Name Generator</a><a href="https://seyrs1985.github.io/tooltide/password-generator/">Random Password Generator</a><a href="https://seyrs1985.github.io/tooltide/random-number-generator/">Random Number Generator</a><a href="https://seyrs1985.github.io/tooltide/upside-down-text/">Upside Down Text</a></nav></div>
+    <div class="foot-legal">
+      
+      <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+    </div>
+  </div>
+</footer></body></html>

@@ -1367,6 +1367,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "salary-to-hourly",
+        "title": "Salary to Hourly Calculator — Annual Pay to Hourly Wage",
+        "h1": "Salary to Hourly Calculator",
+        "desc": "Convert your annual salary to an hourly wage (and back). Uses the standard 2,080-hour work year, with custom hours-per-week support. Know what your time is worth.",
+        "category": "calculator",
+        "keyword": "salary to hourly",
+        "tool": "salary",
+        "args": {},
+        "intro": [
+            "Enter an annual salary and see the equivalent hourly wage — or type an hourly rate and get the yearly figure. The default assumes the American standard of 2,080 work hours per year (40 hours × 52 weeks); adjust hours per week and weeks per year for your reality, including part-time schedules and unpaid leave.",
+            "It matters for job comparisons (a $65,000 salary against a $35/hour contract is not obvious until both are on the same scale), for freelancers setting rates, and for anyone working out whether overtime at time-and-a-half actually pays better than the salaried offer.",
+        ],
+        "howto": [
+            "Type your annual salary — the hourly, monthly and weekly equivalents appear instantly.",
+            "Adjust hours per week and weeks per year if your schedule differs from 40 × 52.",
+            "Or enter an hourly rate to convert upward to yearly pay.",
+        ],
+        "faqs": [
+            ("How do I convert salary to hourly wage?",
+             "Divide the annual salary by the hours worked per year. The standard assumption is 2,080 hours (40 hours × 52 weeks), so $52,000 a year is $25 per hour. Adjust the hours if you work part-time or take unpaid leave."),
+            ("What is $50,000 a year per hour?",
+             "About $24.04 per hour at 2,080 hours a year — roughly $961 a week or $4,167 a month before taxes. Enter it above to see the breakdown at your actual hours."),
+            ("Should I compare jobs by hourly or annual pay?",
+             "Convert both to the same scale first, then account for benefits: salaried roles often include paid leave and health insurance that hourly rates exclude. A slightly lower salary with paid time off can beat a higher hourly contract."),
+            ("How many hours is full-time?",
+             "The US standard is 40 hours a week for 52 weeks = 2,080 hours a year. If you take 2 weeks unpaid leave, use 2,000; many contractors bill 1,800–1,900 billable hours a year after non-billable time."),
+        ],
+    })
+
+    pages.append({
+        "slug": "coin-flip",
+        "title": "Coin Flip Online — Fair, Cryptographically Random Heads or Tails",
+        "h1": "Coin Flip",
+        "desc": "Flip a coin online: cryptographically fair heads or tails with a running tally. Can't decide? Let 256 bits of entropy do it. Free, instant, nothing recorded.",
+        "category": "generator",
+        "keyword": "coin flip",
+        "tool": "coinflip",
+        "args": {},
+        "intro": [
+            "Flip a fair coin as many times as you like — each result comes from your browser's cryptographically secure random source, so heads and tails are equally likely every single time, with no hidden patterns. The tally keeps count across flips so you can settle best-of-three, best-of-five, or a best-of-nineteen argument.",
+            "The classic use is the decision you already know the answer to: flip the coin and notice which side you were hoping for while it spins. For group decisions, the tally doubles as a neutral referee.",
+        ],
+        "howto": [
+            "Press Flip — the coin lands heads or tails instantly.",
+            "Keep flipping for best-of series; the running tally tracks heads, tails and total flips.",
+            "Hit Reset to clear the tally for the next decision.",
+        ],
+        "faqs": [
+            ("Is this online coin flip fair?",
+             "Yes — each flip uses the browser's WebCrypto secure random source, the same class of generator used for encryption. Every flip is independent and exactly 50/50 in expectation."),
+            ("Can I use this for a sports coin toss?",
+             "You can, but a physical coin is more ceremonial. This version is handy for remote games, online debates and quick decisions where nobody has a coin."),
+            ("What are the odds of flipping 5 heads in a row?",
+             "1 in 32 (2 to the power of 5, about 3.1%). The tally makes it easy to spot streaks — which appear more often than intuition expects, a famous quirk of true randomness."),
+            ("Does the coin remember previous flips?",
+             "No — every flip is independent. The tally is just for record-keeping; past results have zero influence on the next flip."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
