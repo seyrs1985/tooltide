@@ -1899,6 +1899,59 @@ inp.addEventListener('input',run);run();
 """
 
 
+# ---------------------------------------------------------------- degrees <-> radians
+DEGRAD = """
+<div class="tool" id="tt-dr">
+  <div class="fields two">
+    <div class="field"><label for="dr-deg">Degrees (°)</label><input type="number" id="dr-deg" step="any" placeholder="90"></div>
+    <div class="field"><label for="dr-rad">Radians (number or 3pi/4)</label><input type="text" id="dr-rad" placeholder="1.5708"></div>
+  </div>
+  <div class="result"><span class="result-num" id="dr-out">-</span><div class="result-formula" id="dr-note"></div></div>
+  <table class="copytable"><thead><tr><th>Degrees</th><th>Radians (exact)</th><th>Decimal</th></tr></thead><tbody>
+  <tr><td>30</td><td>pi/6</td><td>0.5236</td></tr><tr><td>45</td><td>pi/4</td><td>0.7854</td></tr>
+  <tr><td>60</td><td>pi/3</td><td>1.0472</td></tr><tr><td>90</td><td>pi/2</td><td>1.5708</td></tr>
+  <tr><td>180</td><td>pi</td><td>3.1416</td></tr><tr><td>270</td><td>3pi/2</td><td>4.7124</td></tr>
+  <tr><td>360</td><td>2pi</td><td>6.2832</td></tr></tbody></table>
+</div>
+<script>(function(){
+var DEG=document.getElementById('dr-deg'),RAD=document.getElementById('dr-rad');
+var out=document.getElementById('dr-out'),note=document.getElementById('dr-note');
+var lock=false;
+function cleanPi(v){
+  v=v.trim().toLowerCase().replace(/\s/g,'');
+  var m=v.match(/^(-?)(\d*\.?\d*)\*?pi(?:\/(\d+))?$/);
+  if(m){var k=m[2]===''?1:parseFloat(m[2]);var r=m[3]?k/(+m[3]):k;return (m[1]==='-'?-1:1)*r*Math.PI;}
+  var f=parseFloat(v);
+  return isNaN(f)?null:f;
+}
+function exactForm(deg){
+  var common={30:'pi/6',45:'pi/4',60:'pi/3',90:'pi/2',120:'2pi/3',135:'3pi/4',150:'5pi/6',180:'pi',270:'3pi/2',360:'2pi'};
+  return common[deg]||null;
+}
+DEG.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  var d=parseFloat(DEG.value);
+  if(isNaN(d)){out.textContent='-';note.textContent='';RAD.value='';lock=false;return;}
+  var r=d*Math.PI/180,ex=exactForm(Math.abs(d));
+  RAD.value=(Math.round(r*10000)/10000)+'';
+  out.textContent=(Math.round(r*10000)/10000)+' rad';
+  note.textContent=ex?(d+' deg = '+ex+' rad (exact)'):(d+' deg = '+d+' x pi/180 rad');
+  lock=false;
+});
+RAD.addEventListener('input',function(){
+  if(lock)return;lock=true;
+  var r=cleanPi(this.value);
+  if(r===null){out.textContent='-';note.textContent='';DEG.value='';lock=false;return;}
+  var d=r*180/Math.PI;
+  DEG.value=Math.round(d*100)/100+'';
+  out.textContent=(Math.round(d*100)/100)+' deg';
+  note.textContent=(Math.round(r*10000)/10000)+' rad = '+Math.round(d*100)/100+' deg';
+  lock=false;
+});
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -1937,6 +1990,7 @@ TOOLS = {
     "sorter": lambda args: SORTER,
     "unitprice": lambda args: UNITPRICE,
     "wordfreq": lambda args: WORDFREQ,
+    "degrad": lambda args: DEGRAD,
     "sqft": lambda args: SQFT,
     "secondsconv": lambda args: SECONDS,
     "pxin": lambda args: PXIN,
