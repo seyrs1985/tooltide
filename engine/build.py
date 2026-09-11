@@ -92,10 +92,11 @@ def header_nav(cfg, base):
         for c, n in [("calculator", "Calculators"), ("converter", "Converters"),
                      ("countdown", "Countdowns"), ("text", "Text"), ("generator", "Generators")]
     )
+    games_url = (cfg.get("sister_site") or {}).get("url", "https://seyrs1985.github.io/neonplay/")
     return f"""<header class="site-head">
   <div class="wrap nav-row">
     <a class="logo" href="{base}">🌊 ToolTide</a>
-    <nav><a href="{base}games/">🎮 Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
+    <nav><a href="{esc(games_url)}" title="Our sister site: free online games">🎮 Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
   </div>
 </header>"""
 
@@ -107,6 +108,8 @@ def footer(cfg, base):
     parts = [f'<a href="{base}about/">About</a>',
              f'<a href="{base}privacy/">Privacy</a>',
              f'<a href="{base}contact/">Contact</a>']
+    games_url = (cfg.get("sister_site") or {}).get("url", "https://seyrs1985.github.io/neonplay/")
+    parts.append(f'<a href="{esc(games_url)}" title="Our sister site: free online games">🎮 Games</a>')
     if kofi:
         parts.append(f'<a href="{esc(kofi)}" rel="noopener" target="_blank">☕ Support us</a>')
     aff = ""
