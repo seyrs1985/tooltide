@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Average Calculator — Mean of Any Number List</title>
+<meta name="description" content="Paste a list of numbers and get the average (mean), plus sum and count. Handles comma, space or line-separated values. Instant and private.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/average-calculator/">
+<meta property="og:title" content="Average Calculator — Mean of Any Number List">
+<meta property="og:description" content="Paste a list of numbers and get the average (mean), plus sum and count. Handles comma, space or line-separated values. Instant and private.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/average-calculator/">
+<meta property="og:site_name" content="ToolTide">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://seyrs1985.github.io/tooltide/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ToolTide — free online tools">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Average Calculator — Mean of Any Number List">
+<meta name="twitter:description" content="Paste a list of numbers and get the average (mean), plus sum and count. Handles comma, space or line-separated values. Instant and private.">
+<meta name="twitter:image" content="https://seyrs1985.github.io/tooltide/og-image.png">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+<meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Average Calculator","url":"https://seyrs1985.github.io/tooltide/average-calculator/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Paste a list of numbers and get the average (mean), plus sum and count. Handles comma, space or line-separated values. Instant and private."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I calculate the average?","acceptedAnswer":{"@type":"Answer","text":"Add all the numbers together, then divide by how many there are. The average of 4, 8 and 12 is (4 + 8 + 12) ÷ 3 = 8. This calculator does the arithmetic and tolerates messy formatting."}},{"@type":"Question","name":"What is the difference between mean, median and mode?","acceptedAnswer":{"@type":"Answer","text":"The mean is the sum divided by the count (what this tool computes); the median is the middle value when sorted; the mode is the most frequent value. Mean is best for well-behaved data; median resists outliers like one huge salary skewing an average."}},{"@type":"Question","name":"Does it handle negative numbers and decimals?","acceptedAnswer":{"@type":"Answer","text":"Yes — any numeric values work: negatives, decimals, even scientific notation like 1.5e3. Non-numeric text between numbers is ignored."}},{"@type":"Question","name":"Is my data uploaded?","acceptedAnswer":{"@type":"Answer","text":"No — the calculation runs entirely in your browser with JavaScript. Nothing is sent or stored anywhere."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Average Calculator","item":"https://seyrs1985.github.io/tooltide/average-calculator/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
+</head>
+<body><a class="skip" href="#main">Skip to content</a><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav aria-label="Primary"><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a><a href="https://seyrs1985.github.io/tooltide/#calculator">Calculators</a><a href="https://seyrs1985.github.io/tooltide/#converter">Converters</a><a href="https://seyrs1985.github.io/tooltide/#countdown">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/#text">Text</a><a href="https://seyrs1985.github.io/tooltide/#generator">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Average Calculator</span></nav><main class="wrap" id="main">
+<article>
+  <div class="page-emoji">🧮</div>
+  <h1>Average Calculator</h1>
+  
+  <section class="intro"><p>Paste any list of numbers — test scores, monthly bills, race times, sales figures — and get the average instantly, along with the sum and how many numbers you entered. Values can be separated by commas, spaces or new lines, in any mix.</p><p>The average (strictly, the arithmetic mean) is the single most useful summary of a list: one number that represents the typical value. It also shows the sum, because half the time the follow-up question is &#x27;so what was the total?&#x27;</p></section>
+  
+<div class="tool" id="tt-avg">
+  <div class="field"><label for="avg-in">Numbers <small>(comma, space or line separated)</small></label>
+    <textarea id="avg-in" rows="5" placeholder="4, 8, 15, 16, 23, 42"></textarea></div>
+  <div class="result"><span class="result-num" id="avg-mean">–</span><span class="result-unit">average</span>
+    <div class="result-formula" id="avg-note"></div></div>
+  <div class="stats">
+    <div class="stat"><b id="avg-sum">–</b><span>sum</span></div>
+    <div class="stat"><b id="avg-n">–</b><span>count</span></div>
+    <div class="stat"><b id="avg-min">–</b><span>min</span></div>
+    <div class="stat"><b id="avg-max">–</b><span>max</span></div>
+  </div>
+</div>
+<script>(function(){
+var inp=document.getElementById('avg-in');
+function run(){
+  var nums=(inp.value.match(/-?\d+(?:\.\d+)?(?:e[+-]?\d+)?/gi)||[]).map(Number);
+  if(!nums.length){document.getElementById('avg-mean').textContent='-';
+    document.getElementById('avg-sum').textContent='-';document.getElementById('avg-n').textContent='0';
+    document.getElementById('avg-min').textContent='-';document.getElementById('avg-max').textContent='-';
+    document.getElementById('avg-note').textContent='';return;}
+  var sum=nums.reduce(function(a,b){return a+b;},0);
+  var mean=sum/nums.length;
+  document.getElementById('avg-mean').textContent=(Math.round(mean*1e6)/1e6).toLocaleString('en-US');
+  document.getElementById('avg-sum').textContent=(Math.round(sum*1e6)/1e6).toLocaleString('en-US');
+  document.getElementById('avg-n').textContent=nums.length.toLocaleString('en-US');
+  document.getElementById('avg-min').textContent=Math.min.apply(null,nums).toLocaleString('en-US');
+  document.getElementById('avg-max').textContent=Math.max.apply(null,nums).toLocaleString('en-US');
+  document.getElementById('avg-note').textContent='Sum '+nums.length+' values ÷ '+nums.length+' = mean';
+}
+inp.addEventListener('input',run);run();
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Paste or type your numbers into the box — commas, spaces and line breaks all work.</li><li>The average, sum and count update as you type.</li><li>Fix any typos in place; the result recalculates on every keystroke.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>How do I calculate the average?</summary><p>Add all the numbers together, then divide by how many there are. The average of 4, 8 and 12 is (4 + 8 + 12) ÷ 3 = 8. This calculator does the arithmetic and tolerates messy formatting.</p></details><details class="faq"><summary>What is the difference between mean, median and mode?</summary><p>The mean is the sum divided by the count (what this tool computes); the median is the middle value when sorted; the mode is the most frequent value. Mean is best for well-behaved data; median resists outliers like one huge salary skewing an average.</p></details><details class="faq"><summary>Does it handle negative numbers and decimals?</summary><p>Yes — any numeric values work: negatives, decimals, even scientific notation like 1.5e3. Non-numeric text between numbers is ignored.</p></details><details class="faq"><summary>Is my data uploaded?</summary><p>No — the calculation runs entirely in your browser with JavaScript. Nothing is sent or stored anywhere.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/inch-fraction-calculator/"><span class="card-emoji">🔧</span><span class="card-title">Inch Fraction Calculator</span><span class="card-desc">Convert fractional inches (like 3/8 or 1-3/4) to decimal inches and millimeters — and back. Rounded to the nea…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/percentage-increase/"><span class="card-emoji">📊</span><span class="card-title">Percentage Increase Calculator</span><span class="card-desc">Calculate percentage increase (or decrease) between two numbers instantly: salary raises, price changes, growt…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/percentage-calculator/"><span class="card-emoji">📊</span><span class="card-title">Percentage Calculator</span><span class="card-desc">Calculate X% of a number, what percent X is of Y, and percentage increase or decrease. Free instant percentage…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-between-dates/"><span class="card-emoji">📅</span><span class="card-title">Days Between Two Dates</span><span class="card-desc">Free calculator for the number of days between two dates. Shows weeks, weekdays (business days) and total hour…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/age-calculator/"><span class="card-emoji">🎂</span><span class="card-title">Age Calculator</span><span class="card-desc">Calculate your exact age in years, months and days from your date of birth. Also shows days lived and a countd…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/tip-calculator/"><span class="card-emoji">💵</span><span class="card-title">Tip Calculator &amp; Bill Splitter</span><span class="card-desc">Calculate the tip and split the bill between friends in seconds. Preset percentages, round-up options and per-…</span></a></div></section>
+</article>
+</main><footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-brand">
+      <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+      <p>Free online tools that run in your browser. No sign-up, no installs, no tracking of your inputs.</p>
+      <nav class="foot-site" aria-label="Site"><a href="https://seyrs1985.github.io/tooltide/about/">About</a>
+      <a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a>
+      <a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a>
+      <a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games on NeonPlay</a></nav>
+    </div>
+    <div class="foot-matrix"><nav class="foot-col" aria-label="Countdowns"><h3><a href="https://seyrs1985.github.io/tooltide/#countdown">⏳ Countdowns</a></h3><a href="https://seyrs1985.github.io/tooltide/days-until-christmas/">Christmas</a><a href="https://seyrs1985.github.io/tooltide/days-until-christmas-eve/">Christmas Eve</a><a href="https://seyrs1985.github.io/tooltide/days-until-summer/">Summer</a><a href="https://seyrs1985.github.io/tooltide/days-until-january/">January</a></nav><nav class="foot-col" aria-label="Calculators"><h3><a href="https://seyrs1985.github.io/tooltide/#calculator">🧮 Calculators</a></h3><a href="https://seyrs1985.github.io/tooltide/inch-fraction-calculator/">Inch Fraction Calculator</a><a href="https://seyrs1985.github.io/tooltide/percentage-calculator/">Percentage Calculator</a><a href="https://seyrs1985.github.io/tooltide/discount-calculator/">Percent Off Calculator</a><a href="https://seyrs1985.github.io/tooltide/sales-tax-calculator/">Sales Tax Calculator</a></nav><nav class="foot-col" aria-label="Converters"><h3><a href="https://seyrs1985.github.io/tooltide/#converter">🔄 Converters</a></h3><a href="https://seyrs1985.github.io/tooltide/cm-to-inches/">centimeters to inches</a><a href="https://seyrs1985.github.io/tooltide/ounces-to-grams/">ounces to grams</a><a href="https://seyrs1985.github.io/tooltide/kmh-to-mph/">kilometers per hour to miles per hour</a><a href="https://seyrs1985.github.io/tooltide/gallons-to-pints/">gallons (US) to pints (US)</a></nav><nav class="foot-col" aria-label="Text Tools"><h3><a href="https://seyrs1985.github.io/tooltide/#text">🔤 Text Tools</a></h3><a href="https://seyrs1985.github.io/tooltide/strip-html/">Strip HTML Tags</a><a href="https://seyrs1985.github.io/tooltide/word-counter/">Word Counter</a><a href="https://seyrs1985.github.io/tooltide/case-converter/">Case</a><a href="https://seyrs1985.github.io/tooltide/duplicate-line-remover/">Duplicate Line Remover</a></nav><nav class="foot-col" aria-label="Generators"><h3><a href="https://seyrs1985.github.io/tooltide/#generator">🎲 Generators</a></h3><a href="https://seyrs1985.github.io/tooltide/random-name-generator/">Random Name Generator</a><a href="https://seyrs1985.github.io/tooltide/password-generator/">Random Password Generator</a><a href="https://seyrs1985.github.io/tooltide/random-number-generator/">Random Number Generator</a><a href="https://seyrs1985.github.io/tooltide/upside-down-text/">Upside Down Text</a></nav></div>
+    <div class="foot-legal">
+      
+      <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+    </div>
+  </div>
+</footer></body></html>

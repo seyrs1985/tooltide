@@ -188,8 +188,11 @@ PERCENT = """
   <div class="tool-note" id="pc-formula"></div>
 </div>
 <script>(function(){
-var mode=0;
+var A;try{A=JSON.parse('__ARGS__');}catch(e){A={};}
+var mode=(A&&A.default)?A.default:0;
 var chips=document.querySelectorAll('#tt-pc .chip');
+chips.forEach(function(c){c.classList.toggle('active',+c.dataset.t===mode);});
+document.querySelectorAll('#tt-pc .pane').forEach(function(p){p.style.display=+p.dataset.p===mode?'block':'none';});
 chips.forEach(function(c){c.addEventListener('click',function(){
   mode=+c.dataset.t;
   chips.forEach(function(x){x.classList.toggle('active',x===c);});
@@ -1182,11 +1185,47 @@ M.addEventListener('input',function(){
 """
 
 
+# ---------------------------------------------------------------- average
+AVERAGE = """
+<div class="tool" id="tt-avg">
+  <div class="field"><label for="avg-in">Numbers <small>(comma, space or line separated)</small></label>
+    <textarea id="avg-in" rows="5" placeholder="4, 8, 15, 16, 23, 42"></textarea></div>
+  <div class="result"><span class="result-num" id="avg-mean">–</span><span class="result-unit">average</span>
+    <div class="result-formula" id="avg-note"></div></div>
+  <div class="stats">
+    <div class="stat"><b id="avg-sum">–</b><span>sum</span></div>
+    <div class="stat"><b id="avg-n">–</b><span>count</span></div>
+    <div class="stat"><b id="avg-min">–</b><span>min</span></div>
+    <div class="stat"><b id="avg-max">–</b><span>max</span></div>
+  </div>
+</div>
+<script>(function(){
+var inp=document.getElementById('avg-in');
+function run(){
+  var nums=(inp.value.match(/-?\d+(?:\.\d+)?(?:e[+-]?\d+)?/gi)||[]).map(Number);
+  if(!nums.length){document.getElementById('avg-mean').textContent='-';
+    document.getElementById('avg-sum').textContent='-';document.getElementById('avg-n').textContent='0';
+    document.getElementById('avg-min').textContent='-';document.getElementById('avg-max').textContent='-';
+    document.getElementById('avg-note').textContent='';return;}
+  var sum=nums.reduce(function(a,b){return a+b;},0);
+  var mean=sum/nums.length;
+  document.getElementById('avg-mean').textContent=(Math.round(mean*1e6)/1e6).toLocaleString('en-US');
+  document.getElementById('avg-sum').textContent=(Math.round(sum*1e6)/1e6).toLocaleString('en-US');
+  document.getElementById('avg-n').textContent=nums.length.toLocaleString('en-US');
+  document.getElementById('avg-min').textContent=Math.min.apply(null,nums).toLocaleString('en-US');
+  document.getElementById('avg-max').textContent=Math.max.apply(null,nums).toLocaleString('en-US');
+  document.getElementById('avg-note').textContent='Sum '+nums.length+' values ÷ '+nums.length+' = mean';
+}
+inp.addEventListener('input',run);run();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
     "age": lambda args: AGE,
-    "percent": lambda args: PERCENT,
+    "percent": lambda args: PERCENT.replace("__ARGS__", json.dumps(args or {})),
     "tip": lambda args: TIP,
     "discount": lambda args: DISCOUNT,
     "readingtime": lambda args: READINGTIME,
@@ -1206,6 +1245,7 @@ TOOLS = {
     "upside": lambda args: UPSIDE,
     "hoursdiff": lambda args: HOURSDIFF,
     "inchfrac": lambda args: INCHFRAC,
+    "average": lambda args: AVERAGE,
     "striphtml": lambda args: STRIPHTML,
     "salestax": lambda args: SALESTAX,
 }

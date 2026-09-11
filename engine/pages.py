@@ -328,6 +328,67 @@ def PAGES():
     })
 
 
+    pages.append({
+        "slug": "percentage-increase",
+        "title": "Percentage Increase Calculator — Percent Change Between Two Numbers",
+        "h1": "Percentage Increase Calculator",
+        "desc": "Calculate percentage increase (or decrease) between two numbers instantly: salary raises, price changes, growth rates. Formula shown, decrease detected automatically.",
+        "category": "calculator",
+        "keyword": "percentage increase calculator",
+        "tool": "percent",
+        "args": {"default": 2},
+        "intro": [
+            "Enter the old value and the new value to get the percentage change between them — the number behind salary negotiations ('a 5% raise'), price tracking ('eggs up 30%'), fitness PRs and revenue reports. If the value went down instead of up, the calculator says so automatically: the answer becomes a percentage decrease.",
+            "The formula is (new − old) ÷ old × 100. A raise from $50,000 to $55,000 is (55,000 − 50,000) ÷ 50,000 × 100 = 10%. Enter any two numbers below and the working is shown line by line, so you can sanity-check the math.",
+        ],
+        "howto": [
+            "Type the original (old) value in the first box.",
+            "Type the new value in the second — the percentage change appears instantly.",
+            "Read whether it is an increase or decrease; check the formula line to verify the working.",
+        ],
+        "faqs": [
+            ("How do I calculate percentage increase?",
+             "Subtract the old value from the new value, divide by the old value, and multiply by 100. From 40 to 50: (50 − 40) ÷ 40 × 100 = 25% increase."),
+            ("What is the difference between percentage increase and percentage points?",
+             "Percentage points compare two percentages directly (from 10% to 15% is 5 percentage points), while percentage increase is relative (10% to 15% is a 50% increase). News headlines mix them up constantly."),
+            ("Why is my percentage decrease bigger than the matching increase?",
+             "Because the base changes direction: going from 100 to 80 is a 20% decrease, but 80 back to 100 is a 25% increase — the second step divides by the smaller number. This asymmetry is normal, not a bug."),
+            ("Can the result be more than 100%?",
+             "Yes. A value that doubles (50 to 100) is a 100% increase; tripling is 200%. Anything over 100% simply means the value more than doubled."),
+        ],
+    })
+
+    pages.append({
+        "slug": "average-calculator",
+        "title": "Average Calculator — Mean of Any Number List",
+        "h1": "Average Calculator",
+        "desc": "Paste a list of numbers and get the average (mean), plus sum and count. Handles comma, space or line-separated values. Instant and private.",
+        "category": "calculator",
+        "keyword": "average calculator",
+        "tool": "average",
+        "args": {},
+        "intro": [
+            "Paste any list of numbers — test scores, monthly bills, race times, sales figures — and get the average instantly, along with the sum and how many numbers you entered. Values can be separated by commas, spaces or new lines, in any mix.",
+            "The average (strictly, the arithmetic mean) is the single most useful summary of a list: one number that represents the typical value. It also shows the sum, because half the time the follow-up question is 'so what was the total?'",
+        ],
+        "howto": [
+            "Paste or type your numbers into the box — commas, spaces and line breaks all work.",
+            "The average, sum and count update as you type.",
+            "Fix any typos in place; the result recalculates on every keystroke.",
+        ],
+        "faqs": [
+            ("How do I calculate the average?",
+             "Add all the numbers together, then divide by how many there are. The average of 4, 8 and 12 is (4 + 8 + 12) ÷ 3 = 8. This calculator does the arithmetic and tolerates messy formatting."),
+            ("What is the difference between mean, median and mode?",
+             "The mean is the sum divided by the count (what this tool computes); the median is the middle value when sorted; the mode is the most frequent value. Mean is best for well-behaved data; median resists outliers like one huge salary skewing an average."),
+            ("Does it handle negative numbers and decimals?",
+             "Yes — any numeric values work: negatives, decimals, even scientific notation like 1.5e3. Non-numeric text between numbers is ignored."),
+            ("Is my data uploaded?",
+             "No — the calculation runs entirely in your browser with JavaScript. Nothing is sent or stored anywhere."),
+        ],
+    })
+
+
 
     ja = _cd("january", "January", 1, 1, "how many days until january",
              "January is the reset button: new year resolutions, gym memberships, dry January and the long, quiet walk back to work. 'How many days until January' is usually someone planning a fresh start — or bracing for the credit card bill.",
