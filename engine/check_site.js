@@ -291,7 +291,7 @@ try {
     'homepage: every card carries a category class + visible tag (' + homeCards + ' cards)');
   assert(/class="page-emoji cat-[a-z]+"/.test(tool),
     'tool page: page emoji carries the category class');
-  const relSec = tool.match(/<section class="seo-block"><h2>Related tools<\/h2>[\s\S]*?<\/section>/) || [''];
+  const relSec = tool.match(/<section class="seo-block"><h2[^>]*>Related tools<\/h2>[\s\S]*?<\/section>/) || [''];
   assert(/class="card cat-/.test(relSec[0]) && (relSec[0].match(/class="card-tag"/g) || []).length >= 5,
     'tool page: related-tools cards carry category classes + tags');
 

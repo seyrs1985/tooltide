@@ -2464,6 +2464,13 @@ def PAGES():
         ],
     })
 
+    pages.append(_conv("inches-to-yards", "Inches to Yards", "inches", "yards", 1 / 36, "length",
+                       "Fabric and flooring measurements collapse from inches into yards by dividing by 36. A 54-inch-wide bolt of fabric is 1.5 yards wide - the number the cutting table actually works with.",
+                       "Handy anchors: 36 in = 1 yd, 18 in = 0.5 yd, 54 in = 1.5 yd (fabric width), 72 in = 2 yd (a tall person in yards)."))
+    pages.append(_conv("miles-to-meters", "Miles to Meters", "miles", "meters", 1609.344, "distance",
+                       "One mile is exactly 1,609.344 meters - the conversion that makes American race distances readable to the metric world. A mile of running is 1,609 meters of track laps.",
+                       "Handy anchors: 1 mi = 1,609 m, 2 mi = 3,219 m, 5 mi = 8,047 m, 10 mi = 16,093 m (a 10-miler)."))
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

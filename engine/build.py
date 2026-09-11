@@ -257,18 +257,19 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
 {touch}{pwa}<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
+<script src="{esc(cfg['base_url'])}i18n.js"></script>
 {PREPAINT_THEME}
 <style>{inline_css()}</style>
 {f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={esc(ads)}" crossorigin="anonymous"></script>' if ads else ''}
 {f'<script async src="https://www.googletagmanager.com/gtag/js?id={esc(ga)}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag("js",new Date());gtag("config","{esc(ga)}");</script>' if ga else ''}
 </head>
-<body{f' class="{esc(body_cls)}"' if body_cls else ''}><a class="skip" href="#main">Skip to content</a>"""
+<body{f' class="{esc(body_cls)}"' if body_cls else ''}><a class="skip" href="#main" data-i18n="skip">Skip to content</a>"""
     return h
 
 
 def header_nav(cfg, base):
     links = "".join(
-        f'<a href="{base}#{c}">{esc(n)}</a>'
+        f'<a href="{base}#{c}"><span data-i18n="cat.{c}">{esc(n)}</span></a>'
         for c, n in [("calculator", "Calculators"), ("converter", "Converters"),
                      ("countdown", "Countdowns"), ("text", "Text"), ("generator", "Generators")]
     )
@@ -279,11 +280,11 @@ def header_nav(cfg, base):
   <div class="wrap nav-row">
     <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolTide</a>
     <form class="head-search" role="search" action="{base}" method="get">
-      <input type="search" name="q" placeholder="Search tools…" aria-label="Search tools">
-      <button type="submit" aria-label="Search"><span aria-hidden="true">🔍</span></button>
+      <input type="search" name="q" placeholder="Search tools…" aria-label="Search tools" data-i18n-placeholder="search.ph" data-i18n-aria="search.aria">
+      <button type="submit" aria-label="Search" data-i18n-aria="search.btn"><span aria-hidden="true">🔍</span></button>
     </form>
-    <nav aria-label="Primary"><a href="{esc(games_url)}" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games</a>{links}<a href="{base}#all" class="nav-all">All tools</a></nav>
-    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"><span aria-hidden="true">🌙</span></button>
+    <nav aria-label="Primary"><a href="{esc(games_url)}" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> <span data-i18n="nav.games">Games</span></a>{links}<a href="{base}#all" class="nav-all" data-i18n="nav.all">All tools</a></nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" data-i18n-aria="theme.aria"><span aria-hidden="true">🌙</span></button>
   </div>
 </header>"""
 
@@ -322,18 +323,18 @@ def footer(cfg, base, all_pages=(), cat_info=None):
     affiliate = cfg.get("affiliate") or {}
     year = YEAR
     games_url = (cfg.get("sister_site") or {}).get("url", "https://seyrs1985.github.io/neonplay/")
-    site_links = f"""<a href="{base}about/">About</a>
-      <a href="{base}privacy/">Privacy</a>
-      <a href="{base}contact/">Contact</a>
-      <a href="{esc(games_url)}" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> Games on NeonPlay</a>"""
+    site_links = f"""<a href="{base}about/" data-i18n="foot.about">About</a>
+      <a href="{base}privacy/" data-i18n="foot.privacy">Privacy</a>
+      <a href="{base}contact/" data-i18n="foot.contact">Contact</a>
+      <a href="{esc(games_url)}" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> <span data-i18n="foot.games">Games on NeonPlay</span></a>"""
     if kofi:
-        site_links += f'\n      <a href="{esc(kofi)}" rel="noopener" target="_blank">☕ Support us</a>'
+        site_links += f'\n      <a href="{esc(kofi)}" rel="noopener" target="_blank" data-i18n="foot.support">☕ Support us</a>'
     cols = ""
     for cat, (label, _blurb) in (cat_info or {}).items():
         cat_pages = spread([x for x in all_pages if x["category"] == cat], 4)
         items = "".join(f'<a href="{base}{x["slug"]}/">{esc(foot_label(x))}</a>' for x in cat_pages)
-        cols += (f'<nav class="foot-col" aria-label="{esc(label)}">'
-                 f'<h3><a href="{base}#{cat}">{cat_emoji_html(cat)}{esc(label)}</a></h3>'
+        cols += (f'<nav class="foot-col" aria-label="{esc(label)}" data-i18n-aria="cat.{cat}">'
+                 f'<h3><a href="{base}#{cat}">{cat_emoji_html(cat)}<span data-i18n="cat.{cat}">{esc(label)}</span></a></h3>'
                  f'{items}</nav>')
     aff = ""
     if affiliate.get("url"):
@@ -342,27 +343,32 @@ def footer(cfg, base, all_pages=(), cat_info=None):
   <div class="wrap">
     <div class="foot-brand">
       <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolTide</a>
-      <p>Free online tools that run in your browser. No sign-up, no installs, no tracking of your inputs.</p>
+      <p data-i18n="foot.brand">Free online tools that run in your browser. No sign-up, no installs, no tracking of your inputs.</p>
       <nav class="foot-site" aria-label="Site">{site_links}</nav>
     </div>
     <div class="foot-matrix">{cols}</div>
     <div class="foot-legal">
       {aff}
-      <p>© {year} ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+      <p data-i18n="foot.legal">© {year} ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
     </div>
   </div>
 </footer>"""
 
 
 def crumb(base, items):
-    inner = "  ›  ".join(f'<a href="{esc(u)}">{esc(t)}</a>' if u else f"<span>{esc(t)}</span>"
-                         for t, u in items)
+    parts = []
+    for item in items:
+        t, u = item[0], item[1]
+        k = item[2] if len(item) > 2 else None
+        label = f'<span data-i18n="{esc(k)}">{esc(t)}</span>' if k else esc(t)
+        parts.append(f'<a href="{esc(u)}">{label}</a>' if u else f"<span>{esc(t)}</span>")
+    inner = "  ›  ".join(parts)
     return f'<nav class="crumbs wrap" aria-label="Breadcrumb">{inner}</nav>'
 
 
 # Floating back-to-top button — shared by every page. Hidden until the reader
 # scrolls past the fold; smooth-scrolls unless the OS asks for reduced motion.
-BACKTOP = """<button class="to-top" id="to-top" type="button" aria-label="Back to top">↑ <span aria-hidden="true">Top</span></button>
+BACKTOP = """<button class="to-top" id="to-top" type="button" aria-label="Back to top" data-i18n-aria="backtop.aria">↑ <span aria-hidden="true" data-i18n="backtop">Top</span></button>
 <script>(function(){
 var b=document.getElementById('to-top');
 if(!b)return;
@@ -419,7 +425,10 @@ SECTION_TOP = 12
 # auto-expand it, and a second click re-collapses.
 CATS_JS = """<script>(function(){
 function setLabel(b,open){
-  b.textContent=open?'Show fewer tools':'Show all '+b.getAttribute('data-count')+' tools';
+  var T=window.npT||function(){return null;};
+  if(open){b.textContent=T('tt.showfewer')||'Show fewer tools';return;}
+  var tpl=T('tt.showall');
+  b.textContent=tpl?tpl.replace('{n}',b.getAttribute('data-count')):'Show all '+b.getAttribute('data-count')+' tools';
 }
 function expand(sec){
   if(sec.classList.contains('open'))return;
@@ -479,7 +488,7 @@ def tool_card(p, base, extra=False, cat_label=""):
     emoji = (p.get("args") or {}).get("emoji") or TOOL_EMOJI.get(p["tool"], "🔧")
     cls = f' class="card extra cat-{p["category"]}"' if extra \
         else f' class="card cat-{p["category"]}"'
-    tag = f'<span class="card-tag">{esc(cat_label)}</span>' if cat_label else ""
+    tag = f'<span class="card-tag" data-i18n="cat.{p["category"]}">{esc(cat_label)}</span>' if cat_label else ""
     return (f'<a{cls} href="{base}{p["slug"]}/">'
             f'<span class="card-emoji" aria-hidden="true">{emoji}</span>'
             f'<span class="card-title">{esc(p["h1"])}</span>'
@@ -505,12 +514,12 @@ def build_page(cfg, p, all_pages, cat_info):
     cat_label = (cat_info or {}).get(p["category"], ("",))[0]
     crumb_items = [("🌊 ToolTide", base)]
     if cat_label:
-        crumb_items.append((cat_label, base + "#" + p["category"]))
+        crumb_items.append((cat_label, base + "#" + p["category"], "cat." + p["category"]))
     crumb_items.append((p["h1"], None))
     crumb_ld = {"@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": i + 1, "name": name,
-         "item": (url or canonical)}
-        for i, (name, url) in enumerate(crumb_items)]}
+        {"@type": "ListItem", "position": i + 1, "name": item[0],
+         "item": (item[1] or canonical)}
+        for i, item in enumerate(crumb_items)]}
 
     related = [x for x in all_pages if x["category"] == p["category"] and x["slug"] != p["slug"]]
     related += [x for x in all_pages if x["category"] != p["category"]]
@@ -522,8 +531,8 @@ def build_page(cfg, p, all_pages, cat_info):
 
     facts = p.get("facts") or ""
     tip = p.get("tip") or ""
-    info_box = f'<div class="info-box"><strong>Good to know</strong> — {esc(facts)}</div>' if facts else ""
-    tip_box = f'<div class="info-box tip"><strong>Quick reference</strong> — {esc(tip)}</div>' if tip else ""
+    info_box = f'<div class="info-box"><strong data-i18n="tool.goodtoknow">Good to know</strong> — {esc(facts)}</div>' if facts else ""
+    tip_box = f'<div class="info-box tip"><strong data-i18n="tool.quickref">Quick reference</strong> — {esc(tip)}</div>' if tip else ""
 
     intro_html = "".join(f"<p>{esc(par)}</p>" for par in p["intro"])
     howto_html = "".join(f"<li>{esc(s)}</li>" for s in p["howto"])
@@ -539,15 +548,15 @@ def build_page(cfg, p, all_pages, cat_info):
 <article>
   <div class="page-emoji cat-{p['category']}" aria-hidden="true">{emoji}</div>
   <h1>{esc(p['h1'])}</h1>
-  <noscript><p class="noscript-note">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
+  <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
   <section class="intro">{intro_html}</section>
   {tool_html}
-  <section class="seo-block"><h2>How to use</h2><ol class="howto">{howto_html}</ol></section>
+  <section class="seo-block"><h2 data-i18n="tool.howto">How to use</h2><ol class="howto">{howto_html}</ol></section>
   {info_box}{tip_box}
   {ad_slot(cfg, cfg.get('ad_slot_mid', '2222222222'), 'mid')}
-  <section class="seo-block"><h2>Frequently asked questions</h2>{faq_html}</section>
-  <section class="seo-block"><h2>Related tools</h2><div class="grid">{related_html}</div></section>
+  <section class="seo-block"><h2 data-i18n="tool.faq">Frequently asked questions</h2>{faq_html}</section>
+  <section class="seo-block"><h2 data-i18n="tool.related">Related tools</h2><div class="grid">{related_html}</div></section>
 </article>
 </main>"""
     doc += footer(cfg, base, all_pages, cat_info)
@@ -576,8 +585,8 @@ VALUE_CARDS = [
 def values_html():
     cards = "".join(
         f'<div class="value-card"><span class="value-emoji" aria-hidden="true">{e}</span>'
-        f'<h3>{esc(t)}</h3><p>{esc(d)}</p></div>'
-        for e, t, d in VALUE_CARDS)
+        f'<h3 data-i18n="home.value{i}.t">{esc(t)}</h3><p data-i18n="home.value{i}.d">{esc(d)}</p></div>'
+        for i, (e, t, d) in enumerate(VALUE_CARDS, start=1))
     return f'<div class="values">{cards}</div>'
 
 
@@ -598,7 +607,7 @@ def build_index(cfg, all_pages, cat_info):
             more = (f'<button class="cat-more" type="button" aria-expanded="false" '
                     f'aria-controls="{cat}" data-count="{len(cat_pages)}">'
                     f'Show all {len(cat_pages)} tools</button>')
-        sections.append(f'<section class="cat" id="{cat}"><h2>{esc(label)} <span class="cat-count">{counts[cat]}</span></h2><p class="cat-blurb">{esc(blurb)}</p>'
+        sections.append(f'<section class="cat" id="{cat}"><h2><span data-i18n="cat.{cat}">{esc(label)}</span> <span class="cat-count">{counts[cat]}</span></h2><p class="cat-blurb" data-i18n="cat.{cat}.blurb">{esc(blurb)}</p>'
                         f'<div class="grid">{cards}</div>{more}</section>')
         for x in cat_pages:
             search_cards.append((x["h1"], x["desc"], base + x["slug"] + "/",
@@ -608,7 +617,7 @@ def build_index(cfg, all_pages, cat_info):
                            for t, d, u, e, c, s, k in search_cards],
                           ensure_ascii=False)
     chips = "".join(
-        f'<a href="#{cat}">{cat_emoji_html(cat)}{esc(label)} <span class="chip-n">{counts[cat]}</span></a>'
+        f'<a href="#{cat}">{cat_emoji_html(cat)}<span data-i18n="cat.{cat}">{esc(label)}</span> <span class="chip-n">{counts[cat]}</span></a>'
         for cat, (label, _blurb) in cat_info.items())
     website_ld = {"@type": "WebSite", "name": "ToolTide", "url": base,
                   "description": desc, "potentialAction": {
@@ -621,17 +630,17 @@ def build_index(cfg, all_pages, cat_info):
     doc += header_nav(cfg, base)
     doc += f"""<main class="wrap" id="main">
 <section class="hero">
-  <h1>Free online tools that just work</h1>
-  <p>Countdowns, calculators, converters and generators — fast, private, and free. Everything runs in your browser; nothing you type ever leaves your device.</p>
-  <input type="search" id="tool-search" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools">
+  <h1 data-i18n="home.hero.h1">Free online tools that just work</h1>
+  <p data-i18n="home.hero.sub">Countdowns, calculators, converters and generators — fast, private, and free. Everything runs in your browser; nothing you type ever leaves your device.</p>
+  <input type="search" id="tool-search" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools" data-i18n-placeholder="home.search.ph" data-i18n-aria="search.aria">
   <p class="search-status" id="search-status" role="status"></p>
   <nav class="hero-chips" aria-label="Browse tools by category">{chips}</nav>
 </section>
 <div id="search-results" class="grid" style="display:none"></div>
 {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
 {chr(10).join(sections)}
-<section class="cat" id="all"><h2>About ToolTide</h2>
-<p class="cat-blurb">ToolTide is a collection of small, fast, honest web tools. No accounts, no paywalls, no selling your data — each tool does one job and gets out of your way. Bookmark us and the tide of small annoyances goes out.</p>
+<section class="cat" id="all"><h2 data-i18n="home.about.h2">About ToolTide</h2>
+<p class="cat-blurb" data-i18n="home.about.blurb">ToolTide is a collection of small, fast, honest web tools. No accounts, no paywalls, no selling your data — each tool does one job and gets out of your way. Bookmark us and the tide of small annoyances goes out.</p>
 {values_html()}</section>
 </main>"""
     doc += footer(cfg, base, all_pages, cat_info)
@@ -665,16 +674,23 @@ function hiTok(s,flat){{var low=s.toLowerCase(),res='',pos=0;
     if(best<0){{res+=esc(s.slice(pos));break;}}
     res+=esc(s.slice(pos,best))+'<mark>'+esc(s.substr(best,bl))+'</mark>';pos=best+bl;}}
   return res;}}
-function card(c,flat){{return '<a class="card cat-'+c.k+'" href="'+c.u+'"><span class="card-emoji" aria-hidden="true">'+c.e+'</span><span class="card-title">'+hiTok(c.t,flat)+'</span><span class="card-tag">'+esc(c.c)+'</span><span class="card-desc">'+hiTok(c.d.slice(0,110),flat)+'</span></a>';}}
+function card(c,flat){{var T=(typeof window!=='undefined'&&window.npT)||function(){{return null;}},cn=T('cat.'+c.k)||c.c;return '<a class="card cat-'+c.k+'" href="'+c.u+'"><span class="card-emoji" aria-hidden="true">'+c.e+'</span><span class="card-title">'+hiTok(c.t,flat)+'</span><span class="card-tag">'+esc(cn)+'</span><span class="card-desc">'+hiTok(c.d.slice(0,110),flat)+'</span></a>';}}
 inp.addEventListener('input',function(){{
+  var T=(typeof window!=='undefined'&&window.npT)||function(){{return null;}};
   var q=this.value.trim().toLowerCase();
   if(!q){{out.style.display='none';out.innerHTML='';if(live)live.textContent='';document.querySelectorAll('.cat').forEach(function(c){{if(c.id!=='all')c.style.display='';}});return;}}
   document.querySelectorAll('.cat').forEach(function(c){{if(c.id!=='all')c.style.display='none';}});
   var gs=groups(q),flat=[];gs.forEach(function(g){{flat=flat.concat(g);}});
   var hits=find(q,gs);
-  if(live)live.textContent=hits.length?hits.length+(hits.length===1?' tool matches':' tools match')+' “'+q+'”':'No tools match “'+q+'”';
+  if(live){{
+    var en=hits.length?hits.length+(hits.length===1?' tool matches':' tools match')+' \\u201C'+q+'\\u201D':'No tools match \\u201C'+q+'\\u201D';
+    var tpl=T(hits.length?(hits.length===1?'sr.match1':'sr.matchn'):'sr.none');
+    live.textContent=tpl?tpl.replace('{{n}}',hits.length).replace('{{q}}',q):en;
+  }}
+  var noneEn='<p class="cat-blurb">No tools match \\u201C'+esc(q)+'\\u201D \\u2014 try \\u201Ccalculator\\u201D, \\u201Cconvert\\u201D or \\u201Cdays\\u201D, or <a href="#all">browse all tools</a>.</p>';
+  var nh=T('sr.nonehint');
   out.innerHTML=hits.map(function(c){{return card(c,flat);}}).join('')
-    || '<p class="cat-blurb">No tools match “'+esc(q)+'” — try “calculator”, “convert” or “days”, or <a href="#all">browse all tools</a>.</p>';
+    || (nh?'<p class="cat-blurb">'+nh.replace('{{q}}',esc(q))+'</p>':noneEn);
   out.style.display='grid';
 }});
 inp.addEventListener('keydown',function(e){{
@@ -689,44 +705,44 @@ if(qs){{inp.value=qs;inp.dispatchEvent(new Event('input'));}}
     return doc
 
 
-PRIVACY = """<h1>Privacy Policy</h1>
-<p><em>Last updated: {date}</em></p>
-<p>ToolTide is built to need as little of your data as possible. This policy explains what that means in practice.</p>
-<h2>Tool inputs never leave your browser</h2>
-<p>Every tool on this site — calculators, converters, counters, generators — runs entirely in your browser with JavaScript. The text, numbers and files you enter into a tool are processed on your device and are <strong>never transmitted to us, logged, or stored</strong>.</p>
-<h2>Cookies and advertising</h2>
-<p>{ads_line}</p>
-<h2>Analytics</h2>
-<p>{ga_line}</p>
-<h2>Local storage</h2>
-<p>The only thing we keep in your browser is one preference: your light or dark theme choice, saved via local storage when you use the theme toggle in the header. It never leaves your device and you can clear it anytime from your browser settings. We set no cookies of our own.</p>
-<h2>Changes</h2>
-<p>If this policy changes, the updated date at the top will change with it.</p>
-<h2>Contact</h2>
-<p>Questions about privacy? Use the <a href="{base}contact/">contact page</a>.</p>"""
+PRIVACY = """<h1 data-i18n="pv.h1">Privacy Policy</h1>
+<p><em data-i18n="pv.upd">Last updated:</em> {date}</p>
+<p data-i18n="pv.p1">ToolTide is built to need as little of your data as possible. This policy explains what that means in practice.</p>
+<h2 data-i18n="pv.h2a">Tool inputs never leave your browser</h2>
+<p data-i18n-html="pv.p2">Every tool on this site — calculators, converters, counters, generators — runs entirely in your browser with JavaScript. The text, numbers and files you enter into a tool are processed on your device and are <strong>never transmitted to us, logged, or stored</strong>.</p>
+<h2 data-i18n="pv.h2b">Cookies and advertising</h2>
+<p data-i18n="pv.ads">{ads_line}</p>
+<h2 data-i18n="pv.h2c">Analytics</h2>
+<p data-i18n="pv.ga">{ga_line}</p>
+<h2 data-i18n="pv.h2d">Local storage</h2>
+<p data-i18n="pv.p4">The only thing we keep in your browser is one preference: your light or dark theme choice, saved via local storage when you use the theme toggle in the header. It never leaves your device and you can clear it anytime from your browser settings. We set no cookies of our own.</p>
+<h2 data-i18n="pv.h2e">Changes</h2>
+<p data-i18n="pv.p5">If this policy changes, the updated date at the top will change with it.</p>
+<h2 data-i18n="pv.h2f">Contact</h2>
+<p><span data-i18n="pv.p6a">Questions about privacy? Use the</span> <a href="{base}contact/"><span data-i18n="pv.contact_link">contact page</span></a><span data-i18n="pv.p6b">.</span></p>"""
 
-ABOUT = """<h1>About ToolTide</h1>
-<p>ToolTide is a collection of small, fast, honest web tools. Each tool does exactly one job — count down to a date, split a dinner bill, convert kilometers to miles — and does it without asking you for an account, a download, or your personal data.</p>
-<h2>Our principles</h2>
+ABOUT = """<h1 data-i18n="ab.h1">About ToolTide</h1>
+<p data-i18n="ab.p1">ToolTide is a collection of small, fast, honest web tools. Each tool does exactly one job — count down to a date, split a dinner bill, convert kilometers to miles — and does it without asking you for an account, a download, or your personal data.</p>
+<h2 data-i18n="ab.h2">Our principles</h2>
 <ul>
-<li><strong>Private by architecture.</strong> Tools run in your browser. We couldn't see your inputs even if we wanted to.</li>
-<li><strong>Fast on any device.</strong> No frameworks, no bloat — pages load instantly, even on slow connections.</li>
-<li><strong>Free forever.</strong> The site is supported by unobtrusive advertising, never by selling your data or paywalling a tool you need.</li>
+<li data-i18n-html="ab.li1"><strong>Private by architecture.</strong> Tools run in your browser. We couldn't see your inputs even if we wanted to.</li>
+<li data-i18n-html="ab.li2"><strong>Fast on any device.</strong> No frameworks, no bloat — pages load instantly, even on slow connections.</li>
+<li data-i18n-html="ab.li3"><strong>Free forever.</strong> The site is supported by unobtrusive advertising, never by selling your data or paywalling a tool you need.</li>
 </ul>
-<p>The site is actively maintained — new tools are added regularly based on what people actually search for.</p>"""
+<p data-i18n="ab.p2">The site is actively maintained — new tools are added regularly based on what people actually search for.</p>"""
 
-CONTACT = """<h1>Contact</h1>
-<p>Found a bug, have an idea for a tool, or a business question? We read everything.</p>
-<p><strong>Email:</strong> <a href="mailto:{email}" id="contact-email">{email}</a></p>
-<p>We usually reply within a few days. For privacy questions, see the <a href="/privacy/">privacy policy</a>.</p>"""
+CONTACT = """<h1 data-i18n="ct.h1">Contact</h1>
+<p data-i18n="ct.p1">Found a bug, have an idea for a tool, or a business question? We read everything.</p>
+<p><strong data-i18n="ct.email">Email:</strong> <a href="mailto:{email}" id="contact-email">{email}</a></p>
+<p><span data-i18n="ct.p3a">We usually reply within a few days. For privacy questions, see the</span> <a href="/privacy/"><span data-i18n="ct.contact_link">privacy policy</span></a><span data-i18n="ct.p3b">.</span></p>"""
 
-ERROR404 = """<h1>404 — page drifted out with the tide</h1>
-<p>The page you're looking for doesn't exist (or moved). Search our tools:</p>
+ERROR404 = """<h1 data-i18n="e404.h1">404 — page drifted out with the tide</h1>
+<p data-i18n="e404.p">The page you're looking for doesn't exist (or moved). Search our tools:</p>
 <form class="four04-search" action="{base}" method="get">
-  <input type="search" name="q" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools">
-  <button class="btn" type="submit">Search</button>
+  <input type="search" name="q" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools" data-i18n-placeholder="home.search.ph" data-i18n-aria="search.aria">
+  <button class="btn" type="submit" data-i18n="e404.search">Search</button>
 </form>
-<p>Or <a href="{base}#all">browse all tools</a> instead.</p>"""
+<p><span data-i18n="e404.a">Or</span> <a href="{base}#all"><span data-i18n="e404.link">browse all tools</span></a><span data-i18n="e404.b"> instead.</span></p>"""
 
 
 def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None, body_cls=""):
@@ -771,6 +787,11 @@ def main():
         write("style.css", f.read())
         print("  asset /style.css")
 
+    # i18n runtime + dictionaries (site-wide language switching)
+    with open(os.path.join(ROOT, "engine", "assets", "i18n.js"), encoding="utf-8") as f:
+        write("i18n.js", f.read())
+        print("  asset /i18n.js")
+
     # tool pages
     for p in all_pages:
         write(os.path.join(p["slug"], "index.html"), build_page(cfg, p, all_pages, cat_info))
@@ -781,6 +802,10 @@ def main():
     print("  page  /")
 
     # static pages
+    # NOTE: pv.ads / pv.ga keys in engine/assets/i18n.js translate the CURRENT
+    # baked variants below (no-adsense line + GA4 line). If adsense_client is
+    # ever set, the AdSense line becomes the baked EN text and the i18n tables
+    # must be updated to translate that variant instead (see _gen_i18n.py).
     ads_line = ("We use Google AdSense to show ads. AdSense may use cookies (including the Google advertising "
                 "cookie) to serve ads based on your prior visits. You can opt out of personalized advertising at "
                 "<a href=\"https://adssettings.google.com\" rel=\"noopener\" target=\"_blank\">Google Ads Settings</a>. "
