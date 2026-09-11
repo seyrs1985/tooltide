@@ -148,7 +148,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
 
 def header_nav(cfg, base):
     links = "".join(
-        f'<a href="{base}">{esc(n)}</a>'
+        f'<a href="{base}#{c}">{esc(n)}</a>'
         for c, n in [("calculator", "Calculators"), ("converter", "Converters"),
                      ("countdown", "Countdowns"), ("text", "Text"), ("generator", "Generators")]
     )
@@ -161,45 +161,62 @@ def header_nav(cfg, base):
 </header>"""
 
 
-# footer tool matrix — keep slugs in sync with the homepage section ids in pages.py
-FOOT_CATS = [("calculator", "Calculators"), ("converter", "Converters"),
-             ("countdown", "Countdowns"), ("text", "Text tools"),
-             ("generator", "Generators")]
+# footer tool matrix + hero chips — category keys must match the homepage section ids in pages.py
+CAT_EMOJI = {"countdown": "⏳", "calculator": "🧮", "converter": "🔄",
+             "text": "🔤", "generator": "🎲"}
 
 
-def footer(cfg, base):
+def foot_label(p):
+    """Short footer label: 'How Many Days Until Christmas?' -> 'Christmas'."""
+    h = p["h1"]
+    if h.startswith("How Many Days Until "):
+        return h[len("How Many Days Until "):].rstrip("?")
+    if h.endswith(" Converter"):
+        return h[:-len(" Converter")]
+    return h
+
+
+def spread(pages, n):
+    """n evenly spaced picks — keeps reverse-direction converter pairs from crowding out variety."""
+    if len(pages) <= n:
+        return list(pages)
+    step = len(pages) / n
+    return [pages[int(i * step)] for i in range(n)]
+
+
+def footer(cfg, base, all_pages=(), cat_info=None):
     kofi = (cfg.get("kofi_url") or "").strip()
     affiliate = cfg.get("affiliate") or {}
     year = YEAR
     games_url = (cfg.get("sister_site") or {}).get("url", "https://seyrs1985.github.io/neonplay/")
-    cat_links = "".join(f'<a href="{base}#{c}">{esc(n)}</a>' for c, n in FOOT_CATS)
     site_links = f"""<a href="{base}about/">About</a>
       <a href="{base}privacy/">Privacy</a>
       <a href="{base}contact/">Contact</a>
       <a href="{esc(games_url)}" title="Our sister site: free online games">🎮 Games on NeonPlay</a>"""
     if kofi:
         site_links += f'\n      <a href="{esc(kofi)}" rel="noopener" target="_blank">☕ Support us</a>'
+    cols = ""
+    for cat, (label, _blurb) in (cat_info or {}).items():
+        cat_pages = spread([x for x in all_pages if x["category"] == cat], 4)
+        items = "".join(f'<a href="{base}{x["slug"]}/">{esc(foot_label(x))}</a>' for x in cat_pages)
+        cols += (f'<nav class="foot-col" aria-label="{esc(label)}">'
+                 f'<h3><a href="{base}#{cat}">{CAT_EMOJI.get(cat, "")} {esc(label)}</a></h3>'
+                 f'{items}</nav>')
     aff = ""
     if affiliate.get("url"):
         aff = f'<p class="aff-note">{esc(affiliate.get("disclosure", ""))} <a href="{esc(affiliate["url"])}" rel="sponsored noopener" target="_blank">{esc(affiliate.get("text", ""))}</a></p>'
     return f"""<footer class="site-foot">
-  <div class="wrap foot-grid">
+  <div class="wrap">
     <div class="foot-brand">
       <a class="logo" href="{base}">🌊 ToolTide</a>
       <p>Free online tools that run in your browser. No sign-up, no installs, no tracking of your inputs.</p>
+      <nav class="foot-site" aria-label="Site">{site_links}</nav>
     </div>
-    <nav class="foot-col" aria-label="Tool categories">
-      <h3>Tools</h3>
-      {cat_links}
-    </nav>
-    <nav class="foot-col" aria-label="Site">
-      <h3>Site</h3>
-      {site_links}
-    </nav>
-  </div>
-  <div class="wrap foot-legal">
-    {aff}
-    <p>© {year} ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+    <div class="foot-matrix">{cols}</div>
+    <div class="foot-legal">
+      {aff}
+      <p>© {year} ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+    </div>
   </div>
 </footer>"""
 
@@ -218,7 +235,7 @@ def tool_card(p, base):
             f'<span class="card-desc">{esc(p["desc"][:110])}…</span></a>')
 
 
-def build_page(cfg, p, all_pages):
+def build_page(cfg, p, all_pages, cat_info):
     base = cfg["base_url"]
     canonical = base + p["slug"] + "/"
     emoji = TOOL_EMOJI.get(p["tool"], "🔧")
@@ -271,7 +288,7 @@ def build_page(cfg, p, all_pages):
   <section class="seo-block"><h2>Related tools</h2><div class="grid">{related_html}</div></section>
 </article>
 </main>"""
-    doc += footer(cfg, base)
+    doc += footer(cfg, base, all_pages, cat_info)
     doc += "</body></html>"
     return doc
 
@@ -292,6 +309,9 @@ def build_index(cfg, all_pages, cat_info):
                                  TOOL_EMOJI.get(x["tool"], "🔧")))
     cards_js = json.dumps([{"t": t, "d": d, "u": u, "e": e} for t, d, u, e in search_cards],
                           ensure_ascii=False)
+    chips = "".join(
+        f'<a href="#{cat}">{CAT_EMOJI.get(cat, "")} {esc(label)}</a>'
+        for cat, (label, _blurb) in cat_info.items())
     website_ld = {"@type": "WebSite", "name": "ToolTide", "url": base,
                   "description": desc, "potentialAction": {
                       "@type": "SearchAction",
@@ -306,6 +326,7 @@ def build_index(cfg, all_pages, cat_info):
   <h1>Free online tools that just work</h1>
   <p>Countdowns, calculators, converters and generators — fast, private, and free. Everything runs in your browser; nothing you type ever leaves your device.</p>
   <input type="search" id="tool-search" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools">
+  <nav class="hero-chips" aria-label="Browse tools by category">{chips}</nav>
 </section>
 <div id="search-results" class="grid" style="display:none"></div>
 {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
@@ -313,7 +334,7 @@ def build_index(cfg, all_pages, cat_info):
 <section class="cat" id="all"><h2>About ToolTide</h2>
 <p class="cat-blurb">ToolTide is a collection of small, fast, honest web tools. No accounts, no paywalls, no selling your data — each tool does one job and gets out of your way. Bookmark us and the tide of small annoyances goes out.</p></section>
 </main>"""
-    doc += footer(cfg, base)
+    doc += footer(cfg, base, all_pages, cat_info)
     doc += f"""<script>(function(){{
 var CARDS={cards_js};
 var inp=document.getElementById('tool-search'),out=document.getElementById('search-results');
@@ -366,7 +387,7 @@ ERROR404 = """<h1>404 — page drifted out with the tide</h1>
 <p><a class="btn" href="/">← Back to all tools</a></p>"""
 
 
-def build_static(cfg, path, inner, title, desc):
+def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None):
     base = cfg["base_url"]
     canonical = base + path.strip("/") + ("/" if path.strip("/") and not path.endswith(".html") else "")
     doc = head_tags(cfg, title, desc, canonical, root=True)
@@ -375,8 +396,8 @@ def build_static(cfg, path, inner, title, desc):
     inner2 = (inner.replace("{date}", TODAY.isoformat())
                    .replace("{base}", base)
                    .replace("{email}", cfg.get("contact_email", "hello@example.com")))
-    doc += f'<main class="wrap" id="main"><article class="static-page">{inner2}</article></main>'
-    doc += footer(cfg, base)
+    doc += f'<main class="wrap"><article class="static-page">{inner2}</article></main>'
+    doc += footer(cfg, base, all_pages, cat_info)
     doc += "</body></html>"
     return doc
 
@@ -401,7 +422,7 @@ def main():
 
     # tool pages
     for p in all_pages:
-        write(os.path.join(p["slug"], "index.html"), build_page(cfg, p, all_pages))
+        write(os.path.join(p["slug"], "index.html"), build_page(cfg, p, all_pages, cat_info))
         print(f"  page  /{p['slug']}/")
 
     # index
@@ -420,15 +441,17 @@ def main():
                "We run no analytics on individual visitors. Aggregate, anonymous page counts may be collected by our host.")
     write("privacy/index.html", build_static(
         cfg, "privacy/", PRIVACY.replace("{ads_line}", ads_line).replace("{ga_line}", ga_line),
-        "Privacy Policy — ToolTide", "ToolTide privacy policy: your tool inputs never leave your browser. Details on cookies, ads and analytics."))
+        "Privacy Policy — ToolTide", "ToolTide privacy policy: your tool inputs never leave your browser. Details on cookies, ads and analytics.",
+        all_pages, cat_info))
     write("about/index.html", build_static(
         cfg, "about/", ABOUT, "About ToolTide — Free Online Tools",
-        "About ToolTide: small, fast, honest web tools. Private by architecture, free forever."))
+        "About ToolTide: small, fast, honest web tools. Private by architecture, free forever.", all_pages, cat_info))
     write("contact/index.html", build_static(
         cfg, "contact/", CONTACT, "Contact — ToolTide",
-        "Contact the ToolTide team: bug reports, tool ideas and business questions."))
+        "Contact the ToolTide team: bug reports, tool ideas and business questions.", all_pages, cat_info))
     write("404.html", build_static(
-        cfg, "404.html", ERROR404, "Page not found — ToolTide", "Page not found on ToolTide."))
+        cfg, "404.html", ERROR404, "Page not found — ToolTide", "Page not found on ToolTide.",
+        all_pages, cat_info))
 
     # ads.txt (AdSense anti-spoofing) — emitted only once adsense_client is set
     ads = (cfg.get("adsense_client") or "").strip()
