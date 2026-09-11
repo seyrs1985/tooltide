@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade Calculator — Test Score to Percentage &amp; Letter Grade</title>
+<meta name="description" content="Turn any test score into a percentage and letter grade instantly. Enter points earned and points possible — see the grade, plus what you&#x27;d need on the final.">
+<link rel="canonical" href="https://seyrs1985.github.io/tooltide/grade-calculator/">
+<meta property="og:title" content="Grade Calculator — Test Score to Percentage &amp; Letter Grade">
+<meta property="og:description" content="Turn any test score into a percentage and letter grade instantly. Enter points earned and points possible — see the grade, plus what you&#x27;d need on the final.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seyrs1985.github.io/tooltide/grade-calculator/">
+<meta name="theme-color" content="#0e7490">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 100 100&quot;&gt;&lt;text y=&quot;0.9em&quot; font-size=&quot;90&quot;&gt;🌊&lt;/text&gt;&lt;/svg&gt;">
+<meta name="google-site-verification" content="k2uIEKYkISMx4oYalcwsZr5W_HwkM5K_Dv_PBaomNpc">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"Grade Calculator","url":"https://seyrs1985.github.io/tooltide/grade-calculator/","applicationCategory":"UtilityApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Turn any test score into a percentage and letter grade instantly. Enter points earned and points possible — see the grade, plus what you'd need on the final."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What percentage is an A?","acceptedAnswer":{"@type":"Answer","text":"On the standard US scale, an A is 90% or above, B is 80–89%, C is 70–79%, D is 60–69%, and F is below 60%. Some schools use plus/minus cutoffs (93% = A, 90% = A−); check your syllabus for the exact scheme."}},{"@type":"Question","name":"How do I calculate my grade percentage?","acceptedAnswer":{"@type":"Answer","text":"Divide points earned by points possible and multiply by 100. Scoring 85 out of 100 points is 85%; scoring 17 out of 20 is also 85% — the ratio is what matters, not the raw numbers."}},{"@type":"Question","name":"What do I need on the final to pass?","acceptedAnswer":{"@type":"Answer","text":"Use the target-grade box: enter your current average and the final's share of the total grade, and it shows the exact final-exam percentage required. If the number is over 100%, the target is mathematically out of reach — talk to your teacher about extra credit."}},{"@type":"Question","name":"Does it work for weighted grading categories?","acceptedAnswer":{"@type":"Answer","text":"Yes for a single category: enter your average within that category and its weight in the target section. For multiple weighted categories, average each category first, then combine by weight before entering it."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ToolTide","item":"https://seyrs1985.github.io/tooltide/"},{"@type":"ListItem","position":2,"name":"Grade Calculator","item":"https://seyrs1985.github.io/tooltide/grade-calculator/"}]}]}</script>
+<link rel="stylesheet" href="../style.css">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PCBQMW2SR1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-PCBQMW2SR1");</script>
+</head>
+<body><header class="site-head">
+  <div class="wrap nav-row">
+    <a class="logo" href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>
+    <nav><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a><a href="https://seyrs1985.github.io/tooltide/">Calculators</a><a href="https://seyrs1985.github.io/tooltide/">Converters</a><a href="https://seyrs1985.github.io/tooltide/">Countdowns</a><a href="https://seyrs1985.github.io/tooltide/">Text</a><a href="https://seyrs1985.github.io/tooltide/">Generators</a><a href="https://seyrs1985.github.io/tooltide/#all" class="nav-all">All tools</a></nav>
+  </div>
+</header><nav class="crumbs wrap" aria-label="Breadcrumb"><a href="https://seyrs1985.github.io/tooltide/">🌊 ToolTide</a>  ›  <span>Grade Calculator</span></nav><main class="wrap">
+<article>
+  <div class="page-emoji">🔧</div>
+  <h1>Grade Calculator</h1>
+  
+  <section class="intro"><p>Enter the points you earned and the points possible, and get your percentage and letter grade instantly — A through F on the standard US scale. Built for the post-exam ritual of every student: &#x27;what did 42 out of 50 actually get me?&#x27; (84% — a solid B).</p><p>It also answers the forward-looking question: what do you need on the final to hit your target grade? Enter what you have so far plus the final&#x27;s weight, and the target box shows the exact score required — sometimes reassuring, sometimes a wake-up call.</p></section>
+  
+<div class="tool" id="tt-grade">
+  <div class="fields">
+    <div class="field"><label for="gr-earned">Points earned</label><input type="number" id="gr-earned" min="0" step="any" placeholder="42"></div>
+    <div class="field"><label for="gr-total">Points possible</label><input type="number" id="gr-total" min="0" step="any" placeholder="50"></div>
+  </div>
+  <div class="result"><span class="result-num" id="gr-pct">–</span><span class="result-unit" id="gr-letter"></span>
+    <div class="result-formula" id="gr-note"></div></div>
+  <div class="chips"><span class="of" style="padding:0 6px">Standard scale:</span>
+    <span class="chip" style="pointer-events:none">A ≥ 90</span><span class="chip" style="pointer-events:none">B 80–89</span>
+    <span class="chip" style="pointer-events:none">C 70–79</span><span class="chip" style="pointer-events:none">D 60–69</span>
+    <span class="chip" style="pointer-events:none">F &lt; 60</span></div>
+  <div class="fields" style="margin-top:16px">
+    <div class="field"><label for="gr-cur">Current grade % <small>(before final)</small></label><input type="number" id="gr-cur" min="0" max="100" step="any" placeholder="82"></div>
+    <div class="field"><label for="gr-weight">Final worth % of grade</label><input type="number" id="gr-weight" min="0" max="100" step="any" placeholder="30"></div>
+    <div class="field"><label for="gr-target">Target grade letter</label>
+      <select id="gr-target"><option value="90">A (90%)</option><option value="80">B (80%)</option><option value="70">C (70%)</option><option value="60">D (60%)</option></select></div>
+  </div>
+  <div class="result"><span class="result-num" id="gr-need">–</span><span class="result-unit" id="gr-need-txt">needed on the final</span></div>
+</div>
+<script>(function(){
+var e=document.getElementById('gr-earned'),t=document.getElementById('gr-total');
+function letter(p){return p>=90?'A':p>=80?'B':p>=70?'C':p>=60?'D':'F';}
+function pctCol(p){return p>=90?'#16a34a':p>=80?'#0e7490':p>=70?'#d97706':p>=60?'#dc2626':'#b91c1c';}
+function run(){
+  var a=parseFloat(e.value),b=parseFloat(t.value);
+  if(!b||isNaN(a)||a<0){document.getElementById('gr-pct').textContent='–';document.getElementById('gr-letter').textContent='';document.getElementById('gr-note').textContent='';return;}
+  var p=a/b*100;
+  document.getElementById('gr-pct').textContent=(Math.round(p*10)/10)+'%';
+  var L=document.getElementById('gr-letter');L.textContent=letter(p);L.style.color=pctCol(p);
+  document.getElementById('gr-note').textContent=a+' ÷ '+b+' × 100 = '+(Math.round(p*100)/100)+'%';
+}
+e.addEventListener('input',run);t.addEventListener('input',run);run();
+var cur=document.getElementById('gr-cur'),wt=document.getElementById('gr-weight'),tg=document.getElementById('gr-target');
+function runTarget(){
+  var c=parseFloat(cur.value),w=parseFloat(wt.value),target=parseFloat(tg.value);
+  var box=document.getElementById('gr-need'),txt=document.getElementById('gr-need-txt');
+  if(!w||w<=0||w>100||isNaN(c)){box.textContent='–';txt.textContent='needed on the final';return;}
+  var need=(target-c*(1-w/100))/(w/100);
+  if(need<0){box.textContent='0%';txt.textContent='— target already secured 🎉';}
+  else if(need>100){box.textContent='>100%';txt.textContent='— mathematically out of reach';}
+  else{box.textContent=(Math.round(need*10)/10)+'%';txt.textContent='needed on the final';}
+}
+cur.addEventListener('input',runTarget);wt.addEventListener('input',runTarget);tg.addEventListener('change',runTarget);runTarget();
+})();</script>
+
+  <section class="seo-block"><h2>How to use</h2><ol class="howto"><li>Type the points you earned and the total points possible for the test or class.</li><li>Read your percentage and letter grade — the scale is shown below for reference.</li><li>For finals planning, enter your current grade and the final&#x27;s weight to see the score you need.</li></ol></section>
+  
+  
+  <section class="seo-block"><h2>Frequently asked questions</h2><details class="faq"><summary>What percentage is an A?</summary><p>On the standard US scale, an A is 90% or above, B is 80–89%, C is 70–79%, D is 60–69%, and F is below 60%. Some schools use plus/minus cutoffs (93% = A, 90% = A−); check your syllabus for the exact scheme.</p></details><details class="faq"><summary>How do I calculate my grade percentage?</summary><p>Divide points earned by points possible and multiply by 100. Scoring 85 out of 100 points is 85%; scoring 17 out of 20 is also 85% — the ratio is what matters, not the raw numbers.</p></details><details class="faq"><summary>What do I need on the final to pass?</summary><p>Use the target-grade box: enter your current average and the final&#x27;s share of the total grade, and it shows the exact final-exam percentage required. If the number is over 100%, the target is mathematically out of reach — talk to your teacher about extra credit.</p></details><details class="faq"><summary>Does it work for weighted grading categories?</summary><p>Yes for a single category: enter your average within that category and its weight in the target section. For multiple weighted categories, average each category first, then combine by weight before entering it.</p></details></section>
+  <section class="seo-block"><h2>Related tools</h2><div class="grid"><a class="card" href="https://seyrs1985.github.io/tooltide/percentage-calculator/"><span class="card-emoji">📊</span><span class="card-title">Percentage Calculator</span><span class="card-desc">Calculate X% of a number, what percent X is of Y, and percentage increase or decrease. Free instant percentage…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/days-between-dates/"><span class="card-emoji">📅</span><span class="card-title">Days Between Two Dates</span><span class="card-desc">Free calculator for the number of days between two dates. Shows weeks, weekdays (business days) and total hour…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/age-calculator/"><span class="card-emoji">🎂</span><span class="card-title">Age Calculator</span><span class="card-desc">Calculate your exact age in years, months and days from your date of birth. Also shows days lived and a countd…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/tip-calculator/"><span class="card-emoji">💵</span><span class="card-title">Tip Calculator &amp; Bill Splitter</span><span class="card-desc">Calculate the tip and split the bill between friends in seconds. Preset percentages, round-up options and per-…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/discount-calculator/"><span class="card-emoji">🏷️</span><span class="card-title">Percent Off Calculator</span><span class="card-desc">Work out the sale price after any discount, see exactly how much you save, and compare stacked discounts. Inst…</span></a><a class="card" href="https://seyrs1985.github.io/tooltide/reading-time-calculator/"><span class="card-emoji">📖</span><span class="card-title">Reading Time Calculator</span><span class="card-desc">Paste any text and see how long it takes to read or speak. Uses the standard 225 words-per-minute reading spee…</span></a></div></section>
+</article>
+</main><footer class="site-foot"><div class="wrap">
+  <nav><a href="https://seyrs1985.github.io/tooltide/about/">About</a><a href="https://seyrs1985.github.io/tooltide/privacy/">Privacy</a><a href="https://seyrs1985.github.io/tooltide/contact/">Contact</a><a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games">🎮 Games</a></nav>
+  
+  <p>© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+</div></footer></body></html>

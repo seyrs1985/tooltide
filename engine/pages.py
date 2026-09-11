@@ -207,6 +207,12 @@ def PAGES():
     ctd["args"]["rule"] = {"week": 2, "weekday": 1}  # 2nd Monday of October
     pages.append(ctd)
 
+    rd = _cd("remembrance-day", "Remembrance Day", 11, 11, "days until remembrance day",
+             "Remembrance Day — the 11th of November — honours the fallen of the World Wars: the two-minute silence at the 11th hour, poppies on lapels, and ceremonies at every war memorial in Britain and the Commonwealth.",
+             "The Poppy Appeal and school remembrance projects ramp up from October. The countdown always targets the upcoming 11th of November.",
+             "🌹")
+    pages.append(rd)
+
     af = _cd("april-fools-day", "April Fools' Day", 4, 1, "days until april fools day",
              "April Fools' Day — April 1st — is the worldwide day of practical jokes and hoaxes, from office pranks to brand marketing stunts. Media outlets and companies compete for the most believable fake product.",
              "Planning a prank that lands (and doesn't go too far)? The countdown below always targets the upcoming April 1st, rolling over automatically after the day is done.",
@@ -516,6 +522,12 @@ def PAGES():
     pages.append(_conv("yards-to-meters", "Yards to Meters", "yards", "meters", 0.9144, "length",
                        "Yards rule American football fields, golf courses and fabric counters; meters rule everything else. One yard is exactly 0.9144 meters — so a 100-yard football field is 91.44 meters of pure metric confusion.",
                        "Handy anchors: 1 yd = 0.91 m, 10 yd = 9.14 m, 100 yd = 91.44 m, 1 m = 1.09 yd (slightly more than a yard)."))
+    pages.append(_conv("pints-to-liters", "Pints to Liters", "pints (US)", "liters", 0.473176473, "volume",
+                       "The pint is the unit of pub culture — but it depends where you drink. A US pint is 473 ml; an imperial (UK) pint is a heftier 568 ml. This converter uses the US pint, the one on American labels and beer taps.",
+                       "Handy anchors: 1 US pint = 0.47 L, 2 pints = 0.95 L (a quart), 8 pints = 3.79 L (a gallon). UK drinkers: 1 imperial pint = 0.57 L."))
+    pages.append(_conv("inches-to-mm", "Inches to MM", "inches", "millimeters", 25.4, "length",
+                       "Precision work — drill bits, camera mounts, 3D printing, jewelry — lives in millimeters, while US tools and hardware still speak inches. One inch is officially exactly 25.4 millimeters, so this conversion is precise to any decimal place.",
+                       "Handy anchors: 1 in = 25.4 mm, 1/2 in = 12.7 mm, 1/4 in = 6.35 mm, 2 in = 50.8 mm. Woodworkers: 3/4 in stock = 19.05 mm."))
 
     # ---------- Text & generator family ----------
     pages.append({
@@ -725,6 +737,36 @@ def PAGES():
              "With the standard seven symbols and no overline notation, the largest is 3999 (MMMCMXCIX). Larger numbers historically used a bar over a symbol to multiply by 1,000 — the converter sticks to the standard 1–3999 range."),
             ("Are zero and negative numbers possible in Roman numerals?",
              "No. The Romans had no symbol for zero and no negative numbers, which is one reason the system was eventually replaced by Arabic numerals for mathematics."),
+        ],
+    })
+
+    pages.append({
+        "slug": "grade-calculator",
+        "title": "Grade Calculator — Test Score to Percentage & Letter Grade",
+        "h1": "Grade Calculator",
+        "desc": "Turn any test score into a percentage and letter grade instantly. Enter points earned and points possible — see the grade, plus what you'd need on the final.",
+        "category": "calculator",
+        "keyword": "grade calculator",
+        "tool": "grade",
+        "args": {},
+        "intro": [
+            "Enter the points you earned and the points possible, and get your percentage and letter grade instantly — A through F on the standard US scale. Built for the post-exam ritual of every student: 'what did 42 out of 50 actually get me?' (84% — a solid B).",
+            "It also answers the forward-looking question: what do you need on the final to hit your target grade? Enter what you have so far plus the final's weight, and the target box shows the exact score required — sometimes reassuring, sometimes a wake-up call.",
+        ],
+        "howto": [
+            "Type the points you earned and the total points possible for the test or class.",
+            "Read your percentage and letter grade — the scale is shown below for reference.",
+            "For finals planning, enter your current grade and the final's weight to see the score you need.",
+        ],
+        "faqs": [
+            ("What percentage is an A?",
+             "On the standard US scale, an A is 90% or above, B is 80–89%, C is 70–79%, D is 60–69%, and F is below 60%. Some schools use plus/minus cutoffs (93% = A, 90% = A−); check your syllabus for the exact scheme."),
+            ("How do I calculate my grade percentage?",
+             "Divide points earned by points possible and multiply by 100. Scoring 85 out of 100 points is 85%; scoring 17 out of 20 is also 85% — the ratio is what matters, not the raw numbers."),
+            ("What do I need on the final to pass?",
+             "Use the target-grade box: enter your current average and the final's share of the total grade, and it shows the exact final-exam percentage required. If the number is over 100%, the target is mathematically out of reach — talk to your teacher about extra credit."),
+            ("Does it work for weighted grading categories?",
+             "Yes for a single category: enter your average within that category and its weight in the target section. For multiple weighted categories, average each category first, then combine by weight before entering it."),
         ],
     })
 

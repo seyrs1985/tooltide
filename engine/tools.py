@@ -846,6 +846,55 @@ rom.addEventListener('input',function(){
 """
 
 
+# ---------------------------------------------------------------- grade calculator
+GRADE = """
+<div class="tool" id="tt-grade">
+  <div class="fields">
+    <div class="field"><label for="gr-earned">Points earned</label><input type="number" id="gr-earned" min="0" step="any" placeholder="42"></div>
+    <div class="field"><label for="gr-total">Points possible</label><input type="number" id="gr-total" min="0" step="any" placeholder="50"></div>
+  </div>
+  <div class="result"><span class="result-num" id="gr-pct">–</span><span class="result-unit" id="gr-letter"></span>
+    <div class="result-formula" id="gr-note"></div></div>
+  <div class="chips"><span class="of" style="padding:0 6px">Standard scale:</span>
+    <span class="chip" style="pointer-events:none">A ≥ 90</span><span class="chip" style="pointer-events:none">B 80–89</span>
+    <span class="chip" style="pointer-events:none">C 70–79</span><span class="chip" style="pointer-events:none">D 60–69</span>
+    <span class="chip" style="pointer-events:none">F &lt; 60</span></div>
+  <div class="fields" style="margin-top:16px">
+    <div class="field"><label for="gr-cur">Current grade % <small>(before final)</small></label><input type="number" id="gr-cur" min="0" max="100" step="any" placeholder="82"></div>
+    <div class="field"><label for="gr-weight">Final worth % of grade</label><input type="number" id="gr-weight" min="0" max="100" step="any" placeholder="30"></div>
+    <div class="field"><label for="gr-target">Target grade letter</label>
+      <select id="gr-target"><option value="90">A (90%)</option><option value="80">B (80%)</option><option value="70">C (70%)</option><option value="60">D (60%)</option></select></div>
+  </div>
+  <div class="result"><span class="result-num" id="gr-need">–</span><span class="result-unit" id="gr-need-txt">needed on the final</span></div>
+</div>
+<script>(function(){
+var e=document.getElementById('gr-earned'),t=document.getElementById('gr-total');
+function letter(p){return p>=90?'A':p>=80?'B':p>=70?'C':p>=60?'D':'F';}
+function pctCol(p){return p>=90?'#16a34a':p>=80?'#0e7490':p>=70?'#d97706':p>=60?'#dc2626':'#b91c1c';}
+function run(){
+  var a=parseFloat(e.value),b=parseFloat(t.value);
+  if(!b||isNaN(a)||a<0){document.getElementById('gr-pct').textContent='–';document.getElementById('gr-letter').textContent='';document.getElementById('gr-note').textContent='';return;}
+  var p=a/b*100;
+  document.getElementById('gr-pct').textContent=(Math.round(p*10)/10)+'%';
+  var L=document.getElementById('gr-letter');L.textContent=letter(p);L.style.color=pctCol(p);
+  document.getElementById('gr-note').textContent=a+' ÷ '+b+' × 100 = '+(Math.round(p*100)/100)+'%';
+}
+e.addEventListener('input',run);t.addEventListener('input',run);run();
+var cur=document.getElementById('gr-cur'),wt=document.getElementById('gr-weight'),tg=document.getElementById('gr-target');
+function runTarget(){
+  var c=parseFloat(cur.value),w=parseFloat(wt.value),target=parseFloat(tg.value);
+  var box=document.getElementById('gr-need'),txt=document.getElementById('gr-need-txt');
+  if(!w||w<=0||w>100||isNaN(c)){box.textContent='–';txt.textContent='needed on the final';return;}
+  var need=(target-c*(1-w/100))/(w/100);
+  if(need<0){box.textContent='0%';txt.textContent='— target already secured 🎉';}
+  else if(need>100){box.textContent='>100%';txt.textContent='— mathematically out of reach';}
+  else{box.textContent=(Math.round(need*10)/10)+'%';txt.textContent='needed on the final';}
+}
+cur.addEventListener('input',runTarget);wt.addEventListener('input',runTarget);tg.addEventListener('change',runTarget);runTarget();
+})();</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -864,6 +913,7 @@ TOOLS = {
     "wordspages": lambda args: WORDSPAGES,
     "randomnum": lambda args: RANDOMNUM,
     "roman": lambda args: ROMAN,
+    "grade": lambda args: GRADE,
 }
 
 
