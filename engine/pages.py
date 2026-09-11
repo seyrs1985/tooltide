@@ -2391,7 +2391,7 @@ def PAGES():
                        "Handy anchors: 1 yd = 36 in, 2 yd = 72 in (fabric length), 10 yd = 360 in, 100 yd = 3,600 in (a football field minus end zones)."))
     pages.append(_conv("grams-to-kilograms", "Grams to Kilograms", "grams", "kilograms", 1 / 1000, "weight",
                        "The metric system at its simplest: 1,000 grams make a kilogram, so divide by 1,000. Kitchen scales read grams, bathroom scales read kilograms - this converter keeps recipes, parcels and fitness tracking on the same page.",
-                       "Handy anchors: 500 g = 0.5 kg (a beer mats worth of steel? no - a bottle of water), 750 g = 0.75 kg (flour pack), 1,000 g = 1 kg, 2,500 g = 2.5 kg (a bag of rice)."))
+                       "Handy anchors: 500 g = 0.5 kg (a bottle of water), 750 g = 0.75 kg (a pack of flour), 1,000 g = 1 kg (a kilo of sugar), 2,500 g = 2.5 kg (a bag of rice)."))
 
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
