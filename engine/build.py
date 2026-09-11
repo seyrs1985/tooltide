@@ -112,6 +112,13 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
            esc('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">🌊</text></svg>'))
     css = "style.css" if root else "../style.css"
     og_abs = cfg["base_url"] + OG_IMAGE
+    hints = ""
+    if ga:
+        hints += ('<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>\n'
+                  '<link rel="dns-prefetch" href="https://www.googletagmanager.com">\n')
+    if ads:
+        hints += ('<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>\n'
+                  '<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">\n')
     og_img = f'<meta property="og:image" content="{esc(og_abs)}">\n' \
              f'<meta property="og:image:width" content="1200">\n' \
              f'<meta property="og:image:height" content="630">\n' \
@@ -137,7 +144,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False):
 <meta property="og:locale" content="en_US">
 {og_img}<meta name="theme-color" content="#0e7490">
 <link rel="icon" href="{fav}">
-{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
+{hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
 <link rel="stylesheet" href="{css}">
 {f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={esc(ads)}" crossorigin="anonymous"></script>' if ads else ''}
