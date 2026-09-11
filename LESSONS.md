@@ -13,3 +13,7 @@
    - 禁止生产纯模板换皮页（同渲染器+同结构仅换关键词不算差异化，除非内容深度明显超越竞品）。
    - 新工具有满足一条：解决 Reddit/Quora 上有人抱怨"找不到好XX工具"的问题 / 比现有头部工具快或简单 10 倍 / 填补站内品类空白且 GSC 显示有搜索量。
    - 扩页 Agent 每轮选题必须附带"为什么这个页面比竞品好"的一句话理由，写进 STATUS.md 日志。
+9. **长线留存红线（整洁是前提，每个新页面必须自带至少 2 项）**：
+   - 基线五选：A2HS 一次性提示（倒计时页把剩余天数烘进桌面图标=缩略文字）、document.title 实时状态、Web Share 分享（降级剪贴板）、localStorage 记忆复用（tt_ 前缀）、每日内容/自定义倒计时/.ics 日历导出。
+   - 留存 UI 文案走 i18n 10 语言（engine/_i18n_tables.json + engine/_gen_i18n.py 重建），i18n_audit.py 必须过；禁止硬编码英文。
+   - 留存组件禁止弹窗拦截/伤 LCP，每页新增内联 JS ≤2KB；站点级公共改动（manifest.shortcuts、A2HS 公共模块、SW 离线）最小侵入 build.py 并在 STATUS.md 声明【留存-站点级】，不破坏 GA4/GSC/adsense 注入。
