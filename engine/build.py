@@ -257,7 +257,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
 {touch}{pwa}<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
-<script src="{esc(cfg['base_url'])}i18n.js"></script>
+<script defer src="{esc(cfg['base_url'])}i18n.js"></script>
 {PREPAINT_THEME}
 <style>{inline_css()}</style>
 {f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={esc(ads)}" crossorigin="anonymous"></script>' if ads else ''}
@@ -738,7 +738,14 @@ document.addEventListener('keydown',function(e){{
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{{}}).tagName||'')){{e.preventDefault();inp.focus();}}
 }});
 var qs=new URLSearchParams(location.search).get('q');
-if(qs){{inp.value=qs;inp.dispatchEvent(new Event('input'));}}
+if(qs){{inp.value=qs;
+  // i18n.js is deferred now, so at parse time npT may not exist yet — the
+  // status line would bake English in before translations apply. Wait for
+  // DOMContentLoaded (deferred scripts have run by then); if i18n ever fails
+  // to load the event still fires and the English fallback applies.
+  var go=function(){{inp.dispatchEvent(new Event('input'));}};
+  if(typeof window!=='undefined'&&window.npT)go();else if(document.addEventListener)document.addEventListener('DOMContentLoaded',go);else go();
+}}
 }})();</script></body></html>"""
     return doc
 

@@ -98,6 +98,10 @@ try {
         inp.value = ''; out.innerHTML = ''; out.style.display = '';
         sb.location = { search };
         new vm.Script(searchScript, { filename: 'index.html#search' }).runInContext(sb);
+        // i18n.js is deferred, so the ?q= deep-link dispatch waits for
+        // DOMContentLoaded — fire it like the browser would after parsing.
+        const dcl = listeners['doc:DOMContentLoaded'];
+        if (dcl) { delete listeners['doc:DOMContentLoaded']; dcl(); }
       };
       assert(searchScript.includes('URLSearchParams(location.search)'),
         'homepage: search script reads ?q= param');
@@ -311,7 +315,7 @@ try {
   assert(/@media print\{\s*\.cat\{content-visibility:visible\}/.test(flatCss)
     && /@media print\{[\s\S]*html:not\(\[data-theme="light"\]\)\{\s*--bg:#fff/.test(css)
     && /@media print\{[\s\S]*\.hero h1\{background-image:none;-webkit-text-fill-color:currentColor/.test(flatCss)
-    && /\.site-head nav,\.head-search,\.theme-toggle,\.to-top,\.hero-chips,#tool-search,\.search-status,\.ad,\.four04-search,\.cat-more\{display:none!important\}/.test(flatCss),
+    && /\.site-head nav,\.head-search,\.theme-toggle,\.lang-select,\.to-top,\.hero-chips,#tool-search,\.search-status,\.ad,\.four04-search,\.cat-more\{display:none!important\}/.test(flatCss),
     'style.css: print forces light palette, plain headline, hides chrome');
 
   // stub-DOM behavior of CATS_JS
@@ -428,6 +432,56 @@ try {
       && mf.icons.every(i => fs.existsSync(path.join(root, path.basename(new URL(i.src).pathname)))),
       'manifest: >=2 icon entries whose files exist on disk');
   }
+
+  // i18n runtime — deferred load (no render-blocking script in <head>) and a
+  // native select switcher: the old JS div-dropdown was click-only (keyboard
+  // and screen-reader users could not change language) with light-only colors
+  // baked into inline styles.
+  assert(/<script defer src="[^"]*i18n\.js"><\/script>/.test(idx)
+    && /<script defer src="[^"]*i18n\.js"><\/script>/.test(tool)
+    && !/<script src="[^"]*i18n\.js">/.test(idx),
+    'head: i18n.js loads deferred on every page type (non render-blocking)');
+  const i18nJs = fs.readFileSync(path.join(root, 'i18n.js'), 'utf8');
+  assert(/createElement\("select"\)/.test(i18nJs) && /lang-select/.test(i18nJs)
+    && /addEventListener\("change"/.test(i18nJs) && !/lang-btn/.test(i18nJs),
+    'i18n.js: language switcher is a native select (keyboard accessible)');
+  assert(/\.lang-select\{[^}]*border:1px solid var\(--input-border\)/.test(css)
+    && /\.lang-select option\{[^}]*background:var\(--surface\)/.test(css)
+    && /\.lang-select\{height:44px\}/.test(css),
+    'style.css: language select themed by shared vars + 44px mobile touch height');
+  try {
+    let sel = null;
+    const htmlEl = { attrs: {}, lang: '', getAttribute: k => htmlEl.attrs[k] || null,
+      setAttribute: (k, v) => { htmlEl.attrs[k] = v; } };
+    const row = { appended: [], appendChild(c) { row.appended.push(c); } };
+    const mkEl = tag => ({ tag, children: [], handlers: {}, attrs: {},
+      setAttribute(k, v) { this.attrs[k] = v; }, getAttribute(k) { return this.attrs[k] || null; },
+      addEventListener(t, f) { this.handlers[t] = f; },
+      appendChild(c) { this.children.push(c); } });
+    const isb = {
+      document: {
+        documentElement: htmlEl, readyState: 'complete',
+        querySelector: s => (s === '.site-head .nav-row' ? row : null),
+        querySelectorAll: () => [],
+        addEventListener: () => {},
+        createElement: tag => { const el = mkEl(tag); if (tag === 'select') sel = el; return el; }
+      },
+      location: { search: '' },
+      navigator: { language: 'zh-CN' },
+      localStorage: { getItem: () => null, setItem() {} },
+      URLSearchParams, console, window: {}
+    };
+    vm.createContext(isb);
+    new vm.Script(i18nJs, { filename: 'i18n.js#stub' }).runInContext(isb);
+    assert(typeof isb.window.npT === 'function' && isb.window.npT('skip') === '跳到正文'
+      && isb.window.ttLang() === 'zh',
+      'i18n stub: zh auto-detection + dictionary lookup intact');
+    assert(sel && sel.id === 'lang-select' && sel.attrs['aria-label'] === 'Language'
+      && sel.children.length === 10 && sel.children[1].selected === true
+      && typeof sel.handlers.change === 'function' && row.appended.includes(sel),
+      'i18n stub: boot builds select#lang-select, 10 options, current lang preselected');
+    assert(htmlEl.lang === 'zh', 'i18n stub: html lang attribute synced');
+  } catch (e) { fail++; console.log('SITE FAIL i18n stub:', e.message); }
 } catch (e) { fail++; console.log('SITE FAIL round-assertions:', e.message); }
 
 console.log('files:', files.length, '| checks passed:', checked, '| failures:', fail);

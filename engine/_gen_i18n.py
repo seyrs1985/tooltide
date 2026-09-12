@@ -89,30 +89,21 @@ window.npApply=apply;
 function switcher(){
   var row=document.querySelector(".site-head .nav-row");
   if(!row)return;
-  var b=document.createElement("button");
-  b.id="lang-btn";b.textContent="🌐 "+lang.toUpperCase();
-  b.setAttribute("aria-label","Language");
-  b.style.cssText="background:transparent;border:1px solid rgba(148,163,184,.45);color:inherit;border-radius:8px;padding:4px 8px;font-size:.8rem;cursor:pointer;margin-left:6px";
-  var dd=document.createElement("div");
-  dd.style.cssText="position:absolute;right:0;top:110%;background:#fff;border:1px solid #cbd5e1;border-radius:10px;padding:6px;display:none;flex-direction:column;min-width:150px;z-index:60;box-shadow:0 8px 24px rgba(15,23,42,.18)";
-  if(document.documentElement.getAttribute("data-theme")==="dark"){
-    dd.style.background="#1e293b";dd.style.borderColor="#334155";
-  }
+  // A native select: keyboard/screen-reader operable for free, themed by the
+  // shared CSS variables (the old JS div-dropdown was click-only and had
+  // light-only colors baked into inline styles). On mobile it opens the OS
+  // picker, which beats a 150px custom menu.
+  var s=document.createElement("select");
+  s.id="lang-select";s.className="lang-select";
+  s.setAttribute("aria-label","Language");
   LANGS.forEach(function(l){
-    var o=document.createElement("div");
-    o.textContent=l.label;
-    o.style.cssText="padding:7px 12px;border-radius:6px;cursor:pointer;font-size:.9rem;white-space:nowrap"+(l.code===lang?";color:#0e7490;font-weight:600":"");
-    o.addEventListener("click",function(e){e.stopPropagation();window.ttSetLang(l.code);});
-    o.addEventListener("mouseenter",function(){o.style.background="#f1f5f9";});
-    o.addEventListener("mouseleave",function(){o.style.background="transparent";});
-    dd.appendChild(o);
+    var o=document.createElement("option");
+    o.value=l.code;o.textContent=l.label;
+    if(l.code===lang)o.selected=true;
+    s.appendChild(o);
   });
-  var wrap=document.createElement("div");
-  wrap.style.cssText="position:relative;display:inline-block";
-  wrap.appendChild(b);wrap.appendChild(dd);
-  b.addEventListener("click",function(e){e.stopPropagation();dd.style.display=dd.style.display==="flex"?"none":"flex";});
-  document.addEventListener("click",function(){dd.style.display="none";});
-  row.appendChild(wrap);
+  s.addEventListener("change",function(){window.ttSetLang(s.value);});
+  row.appendChild(s);
 }
 function boot(){
   apply();
