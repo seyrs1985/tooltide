@@ -97,7 +97,7 @@ html.js .theme-toggle{display:inline-flex}
 /* language switcher — a native select injected by i18n.js at boot (JS-only,
    like the theme toggle). Shared variables theme it for both color schemes,
    and the option list follows the active color-scheme automatically. */
-.lang-select{flex:0 0 auto;height:40px;padding:0 6px;border:1px solid var(--input-border);border-radius:10px;background:var(--surface);color:var(--text-2);font:inherit;font-size:.85rem;cursor:pointer}
+.lang-select{flex:0 0 auto;width:auto;height:40px;padding:0 6px;border:1px solid var(--input-border);border-radius:10px;background:var(--surface);color:var(--text-2);font:inherit;font-size:.85rem;cursor:pointer}
 .lang-select:hover{border-color:var(--brand)}
 .lang-select option{color:var(--text);background:var(--surface)}
 
