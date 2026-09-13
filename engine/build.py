@@ -854,6 +854,19 @@ inp.addEventListener('input',function(){{
 }});
 inp.addEventListener('keydown',function(e){{
   if(e.key==='Enter'){{var first=out.querySelector('a.card');if(first){{e.preventDefault();location.assign(first.href);}}}}
+  else if(e.key==='ArrowDown'){{var c=out.querySelectorAll('a.card');if(c.length){{e.preventDefault();c[0].focus();}}}}
+  else if(e.key==='Escape'&&this.value){{this.value='';this.dispatchEvent(new Event('input'));}}
+}});
+// results are re-rendered on every keystroke, so card keys delegate from the
+// container: ↓/↑ walk the cards, ↑ on the first card returns to the input,
+// Esc on a card goes back to the input without clearing the query
+out.addEventListener('keydown',function(e){{
+  var cards=out.querySelectorAll('a.card');if(!cards.length)return;
+  var i=-1;for(var j=0;j<cards.length;j++){{if(cards[j]===document.activeElement){{i=j;break;}}}}
+  if(e.key==='ArrowDown'&&i>-1&&i<cards.length-1){{e.preventDefault();cards[i+1].focus();}}
+  else if(e.key==='ArrowUp'&&i===0){{e.preventDefault();inp.focus();}}
+  else if(e.key==='ArrowUp'&&i>0){{e.preventDefault();cards[i-1].focus();}}
+  else if(e.key==='Escape'&&i>-1){{e.preventDefault();inp.focus();}}
 }});
 document.addEventListener('keydown',function(e){{
   if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{{}}).tagName||'')){{e.preventDefault();inp.focus();}}

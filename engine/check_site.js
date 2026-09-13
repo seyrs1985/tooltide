@@ -76,19 +76,26 @@ try {
     .map(m => m[1]).find(s => s.includes('var CARDS='));
   if (searchScript) {
     try {
-      const listeners = {};
+      const listeners = {}, outListeners = {};
+      let kbCards = [];
+      const mkCard = u => ({ href: u, focus() { doc.activeElement = this; } });
       const inp = { value: '', addEventListener: (t, f) => { listeners[t] = f; },
-        dispatchEvent: ev => { listeners[ev.type].call(inp, ev); } };
-      const out = { style: {}, innerHTML: '' };
+        dispatchEvent: ev => { listeners[ev.type].call(inp, ev); },
+        focus: () => { doc.activeElement = inp; } };
+      const out = { style: {}, innerHTML: '',
+        addEventListener: (t, f) => { outListeners[t] = f; },
+        querySelector: sel => (sel === 'a.card' ? kbCards[0] || null : null),
+        querySelectorAll: sel => (sel === 'a.card' ? kbCards : []) };
       const live = { textContent: '' };
+      const doc = {
+        getElementById: id => (id === 'tool-search' ? inp : id === 'search-results' ? out
+          : id === 'search-status' ? live : null),
+        querySelectorAll: () => [],
+        addEventListener: (t, f) => { listeners['doc:' + t] = f; },
+        activeElement: { tagName: '' }
+      };
       const sb = {
-        document: {
-          getElementById: id => (id === 'tool-search' ? inp : id === 'search-results' ? out
-            : id === 'search-status' ? live : null),
-          querySelectorAll: () => [],
-          addEventListener: (t, f) => { listeners['doc:' + t] = f; },
-          activeElement: { tagName: '' }
-        },
+        document: doc,
         location: { search: '' },
         URLSearchParams, Event: class { constructor(t) { this.type = t; } },
         console
@@ -118,6 +125,28 @@ try {
       assert(live.textContent === '', 'homepage: clearing the query clears the status line');
       run('?q=zzqqxx');
       assert(/No tools match/.test(out.innerHTML), 'homepage: ?q= empty state message');
+      // keyboard navigation over the results (roving focus over the cards):
+      // ArrowDown from the input enters the grid, ↓/↑ walk the cards, ↑ on the
+      // first card or Esc on a card returns to the input, Esc on the input
+      // clears the query through the same path as deleting the text
+      kbCards = [mkCard('u1'), mkCard('u2'), mkCard('u3')];
+      run('?q=f%20to%20c');
+      doc.activeElement = inp;
+      listeners.keydown.call(inp, { key: 'ArrowDown', preventDefault() {} });
+      assert(doc.activeElement === kbCards[0], 'search kb: ArrowDown moves focus from input to first result');
+      outListeners.keydown.call(out, { key: 'ArrowDown', preventDefault() {} });
+      assert(doc.activeElement === kbCards[1], 'search kb: ArrowDown walks to the next card');
+      outListeners.keydown.call(out, { key: 'ArrowUp', preventDefault() {} });
+      assert(doc.activeElement === kbCards[0], 'search kb: ArrowUp walks back to the previous card');
+      outListeners.keydown.call(out, { key: 'ArrowUp', preventDefault() {} });
+      assert(doc.activeElement === inp, 'search kb: ArrowUp on the first card returns to the input');
+      doc.activeElement = kbCards[2];
+      outListeners.keydown.call(out, { key: 'Escape', preventDefault() {} });
+      assert(doc.activeElement === inp && inp.value === 'f to c',
+        'search kb: Esc on a card returns to the input with the query kept');
+      listeners.keydown.call(inp, { key: 'Escape', preventDefault() {} });
+      assert(inp.value === '' && out.style.display === 'none' && live.textContent === '',
+        'search kb: Esc on the input clears the query and hides the results');
     } catch (e) { fail++; console.log('SITE FAIL search deep-link:', e.message); }
   } else { fail++; console.log('SITE FAIL homepage: search script not found'); }
 
@@ -347,6 +376,12 @@ try {
     'style.css: manual dark theme has flat tint pairs for all 5 categories');
   assert(CATS.every(k => new RegExp('html:not\\(\\[data-theme="light"\\]\\) \\.cat-' + k + '\\{--cat-tint:rgba\\(').test(flatCss)),
     'style.css: OS-dark fallback carries the 5 dark tint pairs too');
+  // Chrome paints autofilled inputs light-on-dark-hostile (white pill, dark
+  // text) — both dark triggers must recolor it, same flat pattern as the tints
+  assert(/html\[data-theme="dark"\] input:-webkit-autofill:focus\{-webkit-box-shadow:0 0 0 1000px var\(--surface-2\) inset;-webkit-text-fill-color:var\(--text\);caret-color:var\(--text\)\}/.test(flatCss),
+    'style.css: manual dark theme recolors Chrome autofill (inset surface + text fill)');
+  assert(/@media\(prefers-color-scheme:dark\)\{\s*html:not\(\[data-theme="light"\]\) input:-webkit-autofill,[^{]*\{-webkit-box-shadow:0 0 0 1000px var\(--surface-2\) inset;-webkit-text-fill-color:var\(--text\)/.test(flatCss),
+    'style.css: OS-dark path recolors Chrome autofill too');
   // touch devices have no hover: the card lift must sit behind (hover:hover)
   assert(/@media\(hover:hover\)\{\.card:hover\{transform:translateY\(-2px\)\}\}/.test(flatCss)
     && /\.card:hover\{border-color:var\(--accent-soft\);box-shadow:var\(--shadow-hover\)\}/.test(flatCss),

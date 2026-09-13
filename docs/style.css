@@ -168,6 +168,18 @@ article>.page-emoji{display:inline-flex;align-items:center;justify-content:cente
 input,select,textarea{font:inherit;color:inherit;padding:10px 12px;border:1px solid var(--input-border);border-radius:10px;background:var(--surface);width:100%}
 textarea{resize:vertical;line-height:1.6}
 input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);border-color:var(--brand)}
+/* Chrome paints autofilled fields with its own light box and dark text — a
+   glaring white pill on the dark themes. Both dark triggers (manual toggle
+   and OS preference) get the same flat override; border-color is left alone
+   so the :focus rule above still wins on it. */
+html[data-theme="dark"] input:-webkit-autofill,
+html[data-theme="dark"] input:-webkit-autofill:hover,
+html[data-theme="dark"] input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px var(--surface-2) inset;-webkit-text-fill-color:var(--text);caret-color:var(--text)}
+@media(prefers-color-scheme:dark){
+  html:not([data-theme="light"]) input:-webkit-autofill,
+  html:not([data-theme="light"]) input:-webkit-autofill:hover,
+  html:not([data-theme="light"]) input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px var(--surface-2) inset;-webkit-text-fill-color:var(--text);caret-color:var(--text)}
+}
 input[type=range]{padding:0;accent-color:var(--brand)}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0;align-items:center}
 .chip{padding:8px 14px;border-radius:999px;border:1px solid var(--input-border);background:var(--surface);cursor:pointer;font:inherit;font-size:.9rem;font-weight:500;color:var(--text-2)}
