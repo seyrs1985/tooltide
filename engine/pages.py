@@ -3633,6 +3633,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "pregnancy-due-date-calculator",
+        "title": "Pregnancy Due Date Calculator — EDD, Gestational Age & Trimester",
+        "h1": "Pregnancy Due Date Calculator",
+        "desc": "Estimate your due date from your last period, conception date or an ultrasound reading — plus gestational age today, days to go and trimester. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "pregnancy due date calculator",
+        "tool": "pregnancy",
+        "args": {},
+        "intro": [
+            "Due dates are arithmetic with a disclaimer: Naegele's rule adds 280 days to the first day of your last period, because the average pregnancy runs 40 weeks from that anchor. Enter an LMP date, a conception date (266 days), or an ultrasound reading with its gestational age and the calculator returns the estimated due date with its weekday, how far along you are today in weeks and days, the countdown, and which trimester you're in.",
+            "The date is remembered on this device, so each visit shows the current week without re-entering anything — the kind of page people genuinely come back to weekly. Two honest caveats travel with the answer: only about 5% of babies arrive on the due date itself (most come within two weeks of it), and first-trimester ultrasound dating beats LMP when cycles are irregular. This tool does the math your midwife will recognize; it doesn't replace them.",
+        ],
+        "howto": [
+            "Choose your method: last period, conception date, or ultrasound with gestational age.",
+            "Enter the reference date (plus weeks and days for ultrasound).",
+            "Read the due date, current gestational age, days remaining and trimester - it updates weekly on return visits.",
+        ],
+        "faqs": [
+            ("How is a due date calculated?",
+             "Naegele's rule: first day of the last menstrual period + 280 days, assuming a 28-day cycle with ovulation on day 14. From a known conception date it's 266 days; from a first-trimester ultrasound, the measured gestational age is subtracted from 280 to project the due date. All three methods are built in."),
+            ("How accurate is a due date?",
+             "As a deadline, not very — roughly 5% of babies arrive on it, though most deliver between 37 and 42 weeks. As the midpoint that anchors every appointment, test and milestone, it works well, which is why clinicians redated pregnancies from early ultrasound when the two disagree by more than a week."),
+            ("What gestational age am I today?",
+             "Weeks and days since the LMP date — 32w 3d means 32 weeks and 3 days of the 40-week term. The calculator computes this fresh on every visit against today's date, along with the trimester split at 13 and 27 completed weeks."),
+            ("Does an irregular cycle change the due date?",
+             "Yes — Naegele assumes ovulation on day 14, so long or irregular cycles push the real conception date later and the LMP-based estimate early. If you know ovulation or conception, use those methods here, or trust a dating ultrasound over the calendar."),
+        ],
+    })
+
+    pages.append({
+        "slug": "time-zone-converter",
+        "title": "Time Zone Converter — DST-Aware Meeting Times Across Cities",
+        "h1": "Time Zone Converter",
+        "desc": "Convert any date and time between 20+ world zones with daylight saving handled automatically - see the local time, hour difference and date shift. Free, no sign-up.",
+        "category": "converter",
+        "keyword": "time zone converter",
+        "tool": "tzconvert",
+        "args": {},
+        "intro": [
+            "Every international call scheduling failure is the same three traps: the raw hour difference, the date rolling over, and daylight saving moving one city but not the other. Enter a date and time in one zone and this converter answers all three for the zone on the other end — the local wall-clock time, the signed difference including half-hours, and whether the result lands next day or the day before.",
+            "The zone list covers the world's business hubs from New York to Auckland, and your device's own zone appears first so the common case is one dropdown. Conversions use your browser's built-in IANA timezone database, so DST transitions are computed exactly — a July date and a January date between London and New York genuinely differ by an hour, and the converter knows it. Your pairing is remembered for the next call.",
+        ],
+        "howto": [
+            "Pick the from-zone (your device zone is listed first) and enter a date and time.",
+            "Choose the to-zone - the local time, hour difference and date shift appear instantly.",
+            "Share the meeting time with one tap; the pairing is remembered on this device.",
+        ],
+        "faqs": [
+            ("How do I convert time between two zones?",
+             "Take the wall-clock time in the first zone, find its UTC instant, then re-express that instant in the second zone's rules. The calculator does this using the browser's IANA database - the same one servers use - rather than fixed offsets, so the answer is right on the exact date you enter."),
+            ("Why does the time difference between two cities change through the year?",
+             "Daylight saving: zones shift on different dates (US and Europe differ by weeks) and not all zones observe it at all. London-New York is 5 hours in January but 4 in midsummer for the gap weeks. DST is handled automatically here - enter the real meeting date and you get the real answer."),
+            ("What about half-hour and 45-minute offsets?",
+             "India sits at UTC+5:30, Nepal at +5:45, and parts of Australia at +9:30 - all in the list, and the difference line shows the minutes when they matter. This is a common failure of quick mental math that a converter never makes."),
+            ("Does this work offline?",
+             "Yes - everything runs locally in your browser using its built-in timezone data, with no network calls or accounts. Save it to your home screen and it keeps working on a plane, which is exactly when you need it."),
+        ],
+    })
+
+    pages.append({
+        "slug": "week-number-calculator",
+        "title": "Week Number Calculator — ISO Week, Quarter & Day of Year",
+        "h1": "Week Number Calculator",
+        "desc": "Find the ISO-8601 week number for any date - with Monday-Sunday boundaries, quarter and day of year, and the first-Thursday rule explained. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "week number calculator",
+        "tool": "weeknum",
+        "args": {},
+        "intro": [
+            "What week is it? The question sounds trivial until ISO-8601's answer bites: weeks run Monday to Sunday, and week 1 of a year is the one containing the first Thursday — so 1 January can belong to week 52 of the previous year, and some years legitimately have 53 weeks. Pick any date and this calculator returns the ISO week number, the exact Monday-Sunday span it covers, the quarter, and the day-of-year out of 365 or 366.",
+            "It defaults to today, which makes it a handy weekly reference: planners, sprint cadences, manufacturing date codes and European calendars all speak ISO weeks. The note explains the first-Thursday rule because that's the part that breaks expectations — a date and its week number can disagree about the year, and the calculator shows which ISO year each week actually belongs to. Your last date is remembered between visits.",
+        ],
+        "howto": [
+            "Enter any date - it starts on today's date for a quick answer.",
+            "Read the ISO week number, the Monday-Sunday span, quarter and day of year.",
+            "Share the week with one tap, or bookmark it - the date is remembered.",
+        ],
+        "faqs": [
+            ("What ISO week is it right now?",
+             "Open the page and it's calculated instantly from today's date - no input needed. The ISO-8601 system numbers weeks from the week containing the year's first Thursday, with weeks starting Monday, so the number matches what European calendars and most project tools show."),
+            ("Why can January 1st be in week 52 or 53?",
+             "Because week 1 needs the first Thursday. If New Year falls on a Friday, Saturday or Sunday, those days belong to the final week of the old year - and conversely a December 29-31 can already be week 1 of the next. The Monday-Sunday span shown for your date makes the boundary visible."),
+            ("When does a year have 53 weeks?",
+             "When it either starts on a Thursday or is a leap year starting on a Wednesday - 71 of every 400 years qualify, most recently spaced irregularly (2020 had 53 weeks; so will 2026). The day-of-year stat alongside helps you sanity-check where you stand."),
+            ("Is the ISO week the same everywhere?",
+             "No - the US convention often numbers weeks from January 1 regardless of weekdays, and Sunday-start calendars (Middle East, parts of North America) shift every boundary. This calculator follows ISO-8601, the standard used by Europe, most software and international business."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

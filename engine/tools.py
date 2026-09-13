@@ -4676,6 +4676,251 @@ document.getElementById('fr-share').addEventListener('click',function(){
 </script>
 """
 
+# Pregnancy due date: Naegele +280d from LMP, +266d from conception, or back from ultrasound GA.
+# Retention hooks: title result hook (gestational age), tt_preg memory, URL state (?m=&d=&w=&g=), Web Share.
+PREGNANCY = """<div class="tool" id="tt-pg">
+  <div class="fields">
+    <div class="field"><label for="pg-m">Method</label><select id="pg-m"><option value="lmp">Last period (LMP)</option><option value="con">Conception date</option><option value="us">Ultrasound (date + GA)</option></select></div>
+    <div class="field"><label for="pg-d">Reference date</label><input type="date" id="pg-d"></div>
+    <div class="field"><label for="pg-w">GA weeks (ultrasound only)</label><input type="number" id="pg-w" step="1" min="0" max="42" placeholder="8"></div>
+    <div class="field"><label for="pg-g">GA days</label><input type="number" id="pg-g" step="1" min="0" max="6" placeholder="3"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pg-out">–</span><span class="result-unit" id="pg-u">estimated due date</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pg-ga">–</b><span>gestational age now</span></div>
+    <div class="stat"><b id="pg-left">–</b><span>days to go</span></div>
+    <div class="stat"><b id="pg-tri">–</b><span>trimester</span></div>
+  </div>
+  <div class="tool-note" id="pg-note"></div>
+  <button type="button" class="tool-btn" id="pg-share">Share this due date</button>
+</div>
+<script>(function(){
+var M=document.getElementById('pg-m'),D=document.getElementById('pg-d'),W=document.getElementById('pg-w'),G=document.getElementById('pg-g');
+var OUT=document.getElementById('pg-out'),U=document.getElementById('pg-u');
+var MS=86400000;
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function fmt(t){
+  var d=new Date(t),mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var wd=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d.getUTCDay()];
+  return wd+', '+d.getUTCDate()+' '+mo[d.getUTCMonth()]+' '+d.getUTCFullYear();
+}
+function calc(){
+  var dv=D.value;
+  if(!dv){OUT.textContent='–';U.textContent='estimated due date';
+    document.getElementById('pg-ga').textContent='–';document.getElementById('pg-left').textContent='–';
+    document.getElementById('pg-tri').textContent='–';document.getElementById('pg-note').textContent='';
+    document.title='Pregnancy Due Date Calculator - ToolTide';return;}
+  var dt=new Date(dv+'T00:00:00Z').getTime();
+  if(isNaN(dt)){OUT.textContent='–';return;}
+  var edd;
+  if(M.value==='lmp'){edd=dt+280*MS;}
+  else if(M.value==='con'){edd=dt+266*MS;}
+  else{
+    var w=parseInt(W.value,10),g=parseInt(G.value,10);
+    if(isNaN(w)){OUT.textContent='–';U.textContent='enter GA weeks';return;}
+    if(isNaN(g))g=0;
+    edd=dt+(280-(w*7+g))*MS;
+  }
+  var now=new Date();var today=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate());
+  var carried=dt;
+  if(M.value==='us'){var w2=parseInt(W.value,10)||0,g2=parseInt(G.value,10)||0;carried=dt-(w2*7+g2)*MS;}
+  var days=Math.floor((today-carried)/MS),w3=Math.floor(days/7),d3=days%7;
+  OUT.textContent=fmt(edd);
+  U.textContent='estimated due date';
+  var left=Math.round((edd-today)/MS);
+  document.getElementById('pg-ga').textContent=w3+'w '+d3+'d';
+  document.getElementById('pg-left').textContent=left>=0?left+' days':'born!';
+  var pct=Math.max(0,Math.min(100,Math.round(days/280*100)));
+  document.getElementById('pg-tri').textContent=days<98?'1st':(days<196?'2nd':'3rd');
+  document.getElementById('pg-note').textContent=pct+'% of the way (day '+days+' of 280) - only 5% of babies arrive exactly on the due date, most land within two weeks of it.';
+  document.title=w3+'w'+d3+'d · due '+OUT.textContent.slice(0,-6)+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_preg',JSON.stringify({m:M.value,d:D.value,w:W.value,g:G.value}));}catch(e){}}
+[M,D,W,G].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+M.addEventListener('change',function(){W.disabled=M.value!=='us';G.disabled=M.value!=='us';calc();save();});
+W.disabled=true;G.disabled=true;
+var pre=false;
+[['m',M],['d',D],['w',W],['g',G]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_preg')||'null');if(mem){M.value=mem.m||'lmp';D.value=mem.d||'';W.value=mem.w||'';G.value=mem.g||'';}}catch(e){}}
+W.disabled=M.value!=='us';G.disabled=M.value!=='us';
+calc();
+document.getElementById('pg-share').addEventListener('click',function(){
+  var txt='Due date: '+OUT.textContent+' - '+document.getElementById('pg-ga').textContent+' along today. Estimate yours (no sign-up):';
+  var url=location.origin+location.pathname+'?m='+M.value+'&d='+encodeURIComponent(D.value||'')+'&w='+encodeURIComponent(W.value||'')+'&g='+encodeURIComponent(G.value||'');
+  if(navigator.share){navigator.share({title:'Due date',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this due date';},1500);}
+});
+})();
+</script>
+"""
+
+# Time zone converter via Intl (DST-aware, no library): wall-time guess + offset iteration.
+# Retention hooks: title result hook, tt_tz memory, URL state (?f=&t=&dt=), Web Share.
+TZCONVERT = """<div class="tool" id="tt-tz">
+  <div class="fields">
+    <div class="field"><label for="tz-f">From zone</label><select id="tz-f"></select></div>
+    <div class="field"><label for="tz-dt">Date &amp; time there</label><input type="datetime-local" id="tz-dt"></div>
+    <div class="field"><label for="tz-t">To zone</label><select id="tz-t"></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tz-out">–</span><span class="result-unit" id="tz-u">local time there</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tz-diff">–</b><span>time difference</span></div>
+    <div class="stat"><b id="tz-fd">–</b><span>date shift</span></div>
+    <div class="stat"><b id="tz-day">–</b><span>your device now</span></div>
+  </div>
+  <div class="tool-note" id="tz-note"></div>
+  <button type="button" class="tool-btn" id="tz-share">Share this meeting time</button>
+</div>
+<script>(function(){
+var F=document.getElementById('tz-f'),T=document.getElementById('tz-t'),DT=document.getElementById('tz-dt');
+var OUT=document.getElementById('tz-out'),U=document.getElementById('tz-u');
+var ZONES=[['New York','America/New_York'],['Los Angeles','America/Los_Angeles'],['Chicago','America/Chicago'],['Denver','America/Denver'],['Mexico City','America/Mexico_City'],['Sao Paulo','America/Sao_Paulo'],['London','Europe/London'],['Paris / Berlin / Madrid','Europe/Paris'],['Lagos','Africa/Lagos'],['Cairo','Africa/Cairo'],['Moscow','Europe/Moscow'],['Dubai','Asia/Dubai'],['Karachi','Asia/Karachi'],['Mumbai','Asia/Kolkata'],['Dhaka','Asia/Dhaka'],['Bangkok / Jakarta','Asia/Bangkok'],['Singapore / Hong Kong','Asia/Singapore'],['Tokyo','Asia/Tokyo'],['Seoul','Asia/Seoul'],['Sydney','Australia/Sydney'],['Auckland','Pacific/Auckland']];
+var myTZ='';
+try{myTZ=Intl.DateTimeFormat().resolvedOptions().timeZone||'';}catch(e){}
+if(!myTZ)myTZ='Europe/London';
+function fill(sel,def){
+  var html='';
+  if(myTZ){html+='<option value="'+myTZ+'"'+(def===myTZ?' selected':'')+'>My device ('+myTZ+')</option>';}
+  ZONES.forEach(function(z){html+='<option value="'+z[1]+'"'+(def===z[1]?' selected':'')+'>'+z[0]+'</option>';});
+  sel.innerHTML=html;
+}
+var defTo=ZONES.some(function(z){return z[1]===myTZ;})?'Europe/London':myTZ;
+fill(F,myTZ);fill(T,defTo);
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function partsIn(tz,t){
+  var dtf;
+  try{dtf=new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour12:false,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});}catch(e){return null;}
+  var p={};dtf.formatToParts(new Date(t)).forEach(function(x){p[x.type]=x.value;});
+  return {y:+p.year,mo:+p.month,d:+p.day,h:+p.hour%24,mi:+p.minute};
+}
+function wallToUTC(tz,y,mo,d,h,mi){
+  var wall=Date.UTC(y,mo-1,d,h,mi),guess=wall;
+  for(var i=0;i<2;i++){
+    var p=partsIn(tz,guess);
+    if(!p)return null;
+    var asUTC=Date.UTC(p.y,p.mo-1,p.d,p.h,p.mi);
+    guess+=wall-asUTC;
+  }
+  return guess;
+}
+function offsetH(tz,t){var p=partsIn(tz,t);if(!p)return 0;return (Date.UTC(p.y,p.mo-1,p.d,p.h,p.mi)-t)/3600000;}
+function calc(){
+  var v=DT.value;
+  if(!v){OUT.textContent='–';U.textContent='local time there';
+    document.getElementById('tz-diff').textContent='–';document.getElementById('tz-fd').textContent='–';
+    document.getElementById('tz-day').textContent='–';document.getElementById('tz-note').textContent='';
+    document.title='Time Zone Converter - ToolTide';return;}
+  var m=v.match(/^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);
+  if(!m){OUT.textContent='–';return;}
+  var utc=wallToUTC(F.value,+m[1],+m[2],+m[3],+m[4],+m[5]);
+  if(utc===null){OUT.textContent='–';return;}
+  var p=partsIn(T.value,utc);
+  var pf=partsIn(F.value,utc);
+  if(!p||!pf){OUT.textContent='–';return;}
+  var h12=((p.h+11)%12)+1,ap=p.h<12?'am':'pm';
+  var wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][(new Date(Date.UTC(p.y,p.mo-1,p.d))).getUTCDay()];
+  OUT.textContent=wd+' '+p.d+', '+String(p.y).slice(2)+' · '+h12+':'+String(p.mi).padStart(2,'0')+' '+ap;
+  U.textContent='in '+T.options[T.selectedIndex].text;
+  var df=offsetH(T.value,utc)-offsetH(F.value,utc);
+  var dh=Math.abs(df),sign=df>=0?'+':'−';
+  document.getElementById('tz-diff').textContent=sign+Math.floor(dh)+'h'+(Math.round(dh%1*60)?Math.round(dh%1*60)+'m':'');
+  document.getElementById('tz-fd').textContent=p.d!==pf.d?(df>=0?'next day':'prev day'):'same day';
+  var now=new Date(),np=partsIn(myTZ,now.getTime());
+  var nh=((np.h+11)%12)+1;
+  document.getElementById('tz-day').textContent=nh+':'+String(np.mi).padStart(2,'0')+' '+(np.h<12?'am':'pm');
+  document.getElementById('tz-note').textContent='DST handled automatically - zones shift with their own daylight rules, so the same meeting in July and January can differ by an hour.';
+  document.title=OUT.textContent+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_tz',JSON.stringify({f:F.value,t:T.value,dt:DT.value}));}catch(e){}}
+[F,T].forEach(function(el){el.addEventListener('change',function(){calc();save();});});
+DT.addEventListener('input',function(){calc();save();});
+function setSel(sel,val){for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===val){sel.selectedIndex=i;return true;}}return false;}
+var pre=false;
+var qf=qs('f'),qt=qs('t'),qd=qs('dt');
+if(qf!==null){if(setSel(F,qf))pre=true;}
+if(qt!==null){if(setSel(T,qt))pre=true;}
+if(qd!==null){DT.value=qd;pre=true;}
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_tz')||'null');if(mem&&mem.dt){DT.value=mem.dt;setSel(F,mem.f||myTZ);setSel(T,mem.t||defTo);}}catch(e){}}
+if(!DT.value){var n=new Date();DT.value=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')+'T'+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
+calc();
+document.getElementById('tz-share').addEventListener('click',function(){
+  var txt=F.options[F.selectedIndex].text+' '+DT.value.replace('T',' at ')+' = '+OUT.textContent+'. Line up yours (no sign-up):';
+  var url=location.origin+location.pathname+'?f='+encodeURIComponent(F.value)+'&t='+encodeURIComponent(T.value)+'&dt='+encodeURIComponent(DT.value);
+  if(navigator.share){navigator.share({title:'Meeting time',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this meeting time';},1500);}
+});
+})();
+</script>
+"""
+
+# ISO week number with week boundaries, quarter and day-of-year.
+# Retention hooks: title result hook, tt_week memory, URL state (?d=), Web Share.
+WEEKNUM = """<div class="tool" id="tt-wk">
+  <div class="fields">
+    <div class="field"><label for="wk-d">Any date in the week</label><input type="date" id="wk-d"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wk-out">–</span><span class="result-unit">ISO week</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wk-span">–</b><span>Mon – Sun of that week</span></div>
+    <div class="stat"><b id="wk-q">–</b><span>quarter</span></div>
+    <div class="stat"><b id="wk-doy">–</b><span>day of year</span></div>
+  </div>
+  <div class="tool-note" id="wk-note"></div>
+  <button type="button" class="tool-btn" id="wk-share">Share this week</button>
+</div>
+<script>(function(){
+var D=document.getElementById('wk-d');
+var OUT=document.getElementById('wk-out');
+var MS=86400000;
+var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function isoCal(t){
+  var d=new Date(t);d.setUTCHours(0,0,0,0);
+  d.setUTCDate(d.getUTCDate()+4-(d.getUTCDay()||7));
+  var yearStart=Date.UTC(d.getUTCFullYear(),0,1);
+  var week=Math.ceil(((d.getTime()-yearStart)/MS+1)/7);
+  return {week:week,isoYear:d.getUTCFullYear()};
+}
+function fmt(t){var d=new Date(t);return d.getUTCDate()+' '+MO[d.getUTCMonth()];}
+function calc(){
+  var v=D.value;
+  if(!v){OUT.textContent='–';
+    document.getElementById('wk-span').textContent='–';document.getElementById('wk-q').textContent='–';
+    document.getElementById('wk-doy').textContent='–';document.getElementById('wk-note').textContent='';
+    document.title='Week Number Calculator - ToolTide';return;}
+  var t=new Date(v+'T00:00:00Z').getTime();
+  if(isNaN(t)){OUT.textContent='–';return;}
+  var c=isoCal(t);
+  OUT.textContent='Week '+c.week;
+  var dow=(new Date(t)).getUTCDay()||7;
+  var mon=t-(dow-1)*MS,sun=t+(7-dow)*MS;
+  document.getElementById('wk-span').textContent=fmt(mon)+' – '+fmt(sun);
+  var mo=new Date(t).getUTCMonth();
+  document.getElementById('wk-q').textContent='Q'+(Math.floor(mo/3)+1);
+  var y=new Date(t).getUTCFullYear();
+  var leap=(y%4===0&&y%100!==0)||y%400===0;
+  var jan1=Date.UTC(y,0,1);
+  document.getElementById('wk-doy').textContent=(Math.floor((t-jan1)/MS)+1)+' / '+(leap?366:365);
+  document.getElementById('wk-note').textContent='ISO-8601 weeks run Monday to Sunday, and week 1 always holds the first Thursday - which is why early-January dates can still belong to week 52 or 53 of the year before.';
+  document.title='Week '+c.week+' ('+fmt(mon)+'-'+fmt(sun)+') - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_week',JSON.stringify({d:D.value}));}catch(e){}}
+D.addEventListener('input',function(){calc();save();});
+var pre=false;
+var q=qs('d');if(q!==null){D.value=q;pre=true;}
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_week')||'null');if(mem&&mem.d)D.value=mem.d;}catch(e){}}
+if(!D.value){var n=new Date();D.value=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');}
+calc();
+document.getElementById('wk-share').addEventListener('click',function(){
+  var txt=OUT.textContent+' of '+isoCal(new Date(D.value+'T00:00:00Z').getTime()).isoYear+' ('+document.getElementById('wk-span').textContent+'). Check any week (no sign-up):';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
+  if(navigator.share){navigator.share({title:'Week number',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this week';},1500);}
+});
+})();
+</script>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -4773,6 +5018,9 @@ TOOLS = {
     "loanpay": lambda args: LOANPAY,
     "vatcalc": lambda args: VATCALC,
     "fraction": lambda args: FRACTION,
+    "pregnancy": lambda args: PREGNANCY,
+    "tzconvert": lambda args: TZCONVERT,
+    "weeknum": lambda args: WEEKNUM,
 }
 
 
