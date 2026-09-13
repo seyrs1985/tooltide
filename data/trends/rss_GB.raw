@@ -6,38 +6,248 @@
 		<link>https://trends.google.com/trending/rss?geo=GB</link>
 		<atom:link href="https://trends.google.com/trending/rss?geo=GB" rel="self" type="application/rss+xml"/>
 		<item>
-			<title>ben shephard</title>
+			<title>man utd vs chelsea</title>
 			<ht:approx_traffic>200+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sun, 13 Sep 2026 02:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQXYe5Bg4xtekQotkemaanmEa2FCJmGtI5QJ7FvAEbkr7eT7BCh_LKv8TfLuzM</ht:picture>
-			<ht:picture_source>AOL.co.uk</ht:picture_source>
+			<pubDate>Sun, 13 Sep 2026 03:10:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRFv3zM-IMzdGqyOO92ltzPHcS5yuOfZcgp8Ex-mWdz3X-vYbSbl6THEsD7Dr0</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>Chris Kamara health now after diagnosis left him &apos;not the same person&apos;</ht:news_item_title>
+				<ht:news_item_title>Premier League - Arsenal 2-1 Chelsea: Wayne Rooney praises Martin Odegaard</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.aol.co.uk/articles/chris-kamara-health-now-diagnosis-073000000.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQXYe5Bg4xtekQotkemaanmEa2FCJmGtI5QJ7FvAEbkr7eT7BCh_LKv8TfLuzM</ht:news_item_picture>
+				<ht:news_item_url>https://www.bbc.co.uk/sport/football/videos/c8e34k1r3j9o</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRFv3zM-IMzdGqyOO92ltzPHcS5yuOfZcgp8Ex-mWdz3X-vYbSbl6THEsD7Dr0</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Every word: Arteta&apos;s post-Chelsea press conference</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.arsenal.com/news/every-word-artetas-post-chelsea-press-conference-apV972X6joGN</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT8Z65nZjxcMr2ggB7nAsk-XDqQOQZbNxy_Q8hxVWPtyQSH73sxyw9cd4pFzYU</ht:news_item_picture>
+				<ht:news_item_source>Arsenal.com</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Match report: Arsenal 2-1 Chelsea | News | Official Site</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.chelseafc.com/en/news/article/match-report-arsenal-2-1-chelsea-26-27</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRbAHSHbXGpmtSzCAoayBGdmWRr4walgv4Ys7BgwSSNPk1U6YdEBjhWeF4Yibc</ht:news_item_picture>
+				<ht:news_item_source>Chelsea Football Club</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>u.s. diplomat</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 03:10:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT07OcjbpT1Bq4UuWOKudJ3H5c84spy03rZBz9UryKReO9gaXP5MxCWhLbxadw</ht:picture>
+			<ht:picture_source>Sky News</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>US officials &apos;secretly flew diplomat out of UK&apos; after indecent image allegations</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://news.sky.com/story/us-officials-secretly-flew-diplomat-out-of-uk-after-indecent-image-allegations-13585239</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT07OcjbpT1Bq4UuWOKudJ3H5c84spy03rZBz9UryKReO9gaXP5MxCWhLbxadw</ht:news_item_picture>
+				<ht:news_item_source>Sky News</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>US smuggled ‘paedophile’ diplomat out of Britain</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.telegraph.co.uk/world-news/2026/09/13/us-smuggled-paedophile-diplomat-out-of-britain/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDvGQfUpiNfFbquS5iZCNno7SZPaNf0XyDQRKjv5EXVn03RkMi3MmaSyOWCJM</ht:news_item_picture>
+				<ht:news_item_source>The Telegraph</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>US secretly flew diplomat out of UK after indecent image allegations – reports</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.itv.com/news/2026-09-12/us-secretly-flew-diplomat-out-of-uk-after-indecent-image-allegations-reports</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRLiFyQ_zj42mp2OE7UtB1l7HLKQJP3QNmbt6Ecpv62hGBp8-i58ZIg8nM-FqM</ht:news_item_picture>
+				<ht:news_item_source>ITVX</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>sheffield united vs wolves</title>
+			<ht:approx_traffic>5000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 03:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR1DjQCVpnnIH4YoVyYB3hoIBgZNDnFMsITKKgxaQ4Ldbo7Ze06F2lMx2EgdZQ</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Championship: Sheffield Utd host Wolves</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.co.uk/sport/football/live/cme30j97y89jt</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR1DjQCVpnnIH4YoVyYB3hoIBgZNDnFMsITKKgxaQ4Ldbo7Ze06F2lMx2EgdZQ</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Live Blog | Sheff United vs Wolves | Men&apos;s First-Team | Latest News</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.wolves.co.uk/news/mens-first-team/20260913-live-blog-sheff-united-vs-wolves/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTELQN1jPOy5iZJOptOwPPlScxfRt5qNSY3RJENd5pGFpqs8kdp_avmbb3rEsQ</ht:news_item_picture>
+				<ht:news_item_source>Wolverhampton Wanderers FC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Sheffield United vs Wolves predictions: 14-1 Bet Builder tip, team news and odds</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.racingpost.com/sport/football-tips/efl/sheffield-united-vs-wolves-predictions-team-news-odds-betting-tips-bet-builder-a0jYc9s9xR9R/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR852F1FGpEfasCyyFArr8XbyFX0ejDjJBS4x3XVnFc73utfV_K4RopW4Aumcs</ht:news_item_picture>
+				<ht:news_item_source>Racing Post</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>morrisons christmas food range preview</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 03:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTmMHJDdEMuAz1GgRiZNS8WChnwq6YEnDsPkkV7bbvhPuNDJMu6zPRAGfxTIug</ht:picture>
+			<ht:picture_source>The Independent</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>I had a preview of supermarket Christmas food for 2026 – here’s what to expect so far</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.independent.co.uk/extras/indybest/christmasgifts/best-christmas-food-supermarket-food-b3048507.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTmMHJDdEMuAz1GgRiZNS8WChnwq6YEnDsPkkV7bbvhPuNDJMu6zPRAGfxTIug</ht:news_item_picture>
+				<ht:news_item_source>The Independent</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>I tried Morrisons&apos; Christmas range - there&apos;s 1 item everyone needs to try</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.aol.co.uk/articles/tried-morrisons-christmas-range-theres-011000000.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR095Hg9HgW0NpNgViRuTnJfoNYT_9qL36rwHcOXsffbAInR0yOCyATxI2aGSo</ht:news_item_picture>
 				<ht:news_item_source>AOL.co.uk</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Ben Shephard&apos;s mission to get pal Chris Kamara to the finish line at Great North Run</ht:news_item_title>
+				<ht:news_item_title>I had a preview of Morrisons&apos; Christmas food and a Triple Chocolate Snowman Dessert was the star of the show</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.mirror.co.uk/3am/celebrity-news/ben-shephard-kammy-great-north-37656173</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKswzhLYwoBWhu8Ck6Ua1rpYS9LvvpmfOL2F-reAZWagHrpzxYMG8pND-CVA8</ht:news_item_picture>
-				<ht:news_item_source>The Mirror</ht:news_item_source>
+				<ht:news_item_url>https://www.manchestereveningnews.co.uk/whats-on/food-drink-news/preview-morrisons-christmas-food-triple-34606323</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ6Mgjwac-5NlYB_CgQ5Qqk6qMIw9rltyI0692JwqHqCtC8jxBdUVQ0762tELY</ht:news_item_picture>
+				<ht:news_item_source>Manchester Evening News</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>tom hardy</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 02:50:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRAo0OkRvH-xPoThlXSPIzSlGSHbYYl4DPrAps38FdqssvNlf1ewVcAAFxttBg</ht:picture>
+			<ht:picture_source>Deadline</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Pierce Brosnan Says Tom Hardy ‘MobLand’ Feud Was “Storm In A Teacup”</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://deadline.com/2026/09/pierce-brosnan-tom-hardy-mobland-feud-storm-in-a-teacup-1237098657/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRAo0OkRvH-xPoThlXSPIzSlGSHbYYl4DPrAps38FdqssvNlf1ewVcAAFxttBg</ht:news_item_picture>
+				<ht:news_item_source>Deadline</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Chris Kamara health latest after diagnosis left him &apos;not the same person&apos; as he enters Great North Run</ht:news_item_title>
+				<ht:news_item_title>Tom Hardy Reunites With Helen Mirren at ‘Mobland’ Premiere as Guy Ritchie Says: ‘It’s Been Nothing Other Than a Pleasure to Work With These Monsters of Creativity’</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.mirror.co.uk/sport/football/news/chris-kamara-great-north-run-37646309</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS0BEsEO9dXQlbHWB_lpryL0Wxy2Lecf30bcxtNzCejhU0m8MzaJOo9gqsYZ0E</ht:news_item_picture>
-				<ht:news_item_source>The Mirror</ht:news_item_source>
+				<ht:news_item_url>https://variety.com/2026/tv/global/tom-hardy-helen-mirren-mobland-premiere-london-1236857695/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTDWDe7JnYOsssIkSp_7nf6YtESs3R-wgfAlOsmPKxFYR3SYqzEQ9iD0e7I9jY</ht:news_item_picture>
+				<ht:news_item_source>Variety</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Tom Hardy Reacts to Helen Mirren Defending Him Amid ‘MobLand’ Drama (Exclusive)</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://extratv.com/2026/09/11/tom-hardy-reacts-to-helen-mirren-defending-him-amid-mobland-drama-exclusive/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT6p85S9MKCRbgIEajNmEyfonnQehPp9-8qhiMK84Ffs7nPyN94NhOLMBBsp_c</ht:news_item_picture>
+				<ht:news_item_source>Extra</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>mimi rhodes</title>
+			<ht:approx_traffic>2000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 02:40:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSvjt2hAJa4pCEBDgzugvI6UylDHd19gGcSXYmM4sNEVRNhR9T3Y88qjlmsfu8</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Solheim Cup 2026 score, standings, results and tee times</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.com/sport/golf/articles/crer5qldyv9o</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSvjt2hAJa4pCEBDgzugvI6UylDHd19gGcSXYmM4sNEVRNhR9T3Y88qjlmsfu8</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Latest Solheim Cup scores, tee times and results (UK and Ireland times)</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.skysports.com/golf/news/12176/13583025/solheim-cup-2026-latest-scores-tee-times-pairings-schedule-leaderboard-as-europe-host-team-usa-at-bernardus-golf</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTPVroXRU04260Se2bfe24sGCgpc_lDWwIXYEtCuQxuUaeuA1MAQSXKlzaJgA8</ht:news_item_picture>
+				<ht:news_item_source>Sky Sports</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Solheim Cup 2026: Charley Hull &amp; Lottie Woad toil as Europe level with US heading into singles</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.com/sport/golf/articles/ckgvz6kdy4yo</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe500zu06P7IL119R2PAe9kZxdkRh43W1nUAy6FKMyetEmZRcPzKrplwHkvvA</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>scotland</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 02:40:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSDV7WdIOsqVSIpnx6tqEou9Mg00uMo5zuPR0cfS8MvgnGNs9LSTdFdghnmZOQ</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Scotland 26-64 Canada: Ruthless visitors outclass Scots in WXV opener</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.co.uk/sport/rugby-union/articles/c20lepd22edo</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSDV7WdIOsqVSIpnx6tqEou9Mg00uMo5zuPR0cfS8MvgnGNs9LSTdFdghnmZOQ</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Scotland Women team to take on Canada in Vodafone Scotland WXV Series opener confirmed</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://scottishrugby.org/news-and-features/scotland-women-team-to-take-on-canada-in-vodafone-scotland-wxv-series-opener-confirmed/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRh4ZLwdUa4mbKNOpaPYwPmHm84NkvrF2dU7AuL-PT_c03c7VDbRJJxZYZ_Y9o</ht:news_item_picture>
+				<ht:news_item_source>Scottish Rugby</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Top class Canucks put Scots to sword</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://sports.yahoo.com/articles/top-class-canucks-put-scots-015940306.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLOjDLKI7XcswVD4mYqS0LYtWrrRQR7WspKPpMNIQzW1aG_mDK_2AdQahU-oE</ht:news_item_picture>
+				<ht:news_item_source>Yahoo Sports</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>apple iphone 17 price cuts</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 02:40:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSLLyeBJ4XIIsT1P3bX6ECwnbmIAsDCE51grOxfDhOPSpRt2VqsnST1vYS3JQs</ht:picture>
+			<ht:picture_source>Reuters</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>India gets one of world&apos;s steepest iPhone price hikes</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.reuters.com/business/retail-consumer/india-gets-one-worlds-steepest-iphone-price-hikes-2026-09-10/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSLLyeBJ4XIIsT1P3bX6ECwnbmIAsDCE51grOxfDhOPSpRt2VqsnST1vYS3JQs</ht:news_item_picture>
+				<ht:news_item_source>Reuters</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Apple just raised prices on new and older iPhones. Here’s what they cost now.</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.washingtonpost.com/business/2026/09/09/apple-increased-prices-its-new-iphone-18-line-older-models/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTqhzEbUc1MDjy6FE_f5yPBMWIWJVytTOpovLj58d0WFVeDvKrsRKg3a-CsDuE</ht:news_item_picture>
+				<ht:news_item_source>The Washington Post</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>The cost of every new Apple product that debuted this week — and the price hikes since last launch</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://nypost.com/2026/09/11/tech/the-cost-of-every-new-apple-product-that-debuted-this-week/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4r0yEoOq-S20S9JzDnEPM_YzcUD4Sqqms9fXuDT4jdlqUXG-opI2Cycjey2s</ht:news_item_picture>
+				<ht:news_item_source>New York Post</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
 			<title>what time is f1 today</title>
-			<ht:approx_traffic>5000+</ht:approx_traffic>
+			<ht:approx_traffic>1000+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=GB</link>
 			<pubDate>Sun, 13 Sep 2026 02:30:00 -0700</pubDate>
@@ -66,243 +276,33 @@
 			</ht:news_item>
 		</item>
 		<item>
-			<title>brytyjczycy</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sun, 13 Sep 2026 02:20:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ70NHrJwfr6ebfjH6HXY_Dj3RL08roq40gTB6t5W15Ct2d-WaHa-YKeOWN6qs</ht:picture>
-			<ht:picture_source>Newsweek</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Brytyjczycy uwierzyli, że Polska to utopia. Szukają tu lepszego życia</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.newsweek.pl/polska/spoleczenstwo/zli-polacy-nagle-stali-sie-wzorem-zaskakujacy-zwrot-w-wielkiej-brytanii/82p0vlr</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ70NHrJwfr6ebfjH6HXY_Dj3RL08roq40gTB6t5W15Ct2d-WaHa-YKeOWN6qs</ht:news_item_picture>
-				<ht:news_item_source>Newsweek</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Więcej wiatraków, niższe rachunki. Brytyjczycy policzyli korzyści z energetyki wiatrowej</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.gramwzielone.pl/energia-wiatrowa/20376324/wiecej-wiatrakow-nizsze-rachunki-brytyjczycy-policzyli-korzysci-z-energetyki-wiatrowej</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQc2ILzzefs7GZkxXTKq9u--Wd5pxyXWtmvHpPkOLQR5emVTuCSO2LlR1lHICA</ht:news_item_picture>
-				<ht:news_item_source>Gramwzielone.pl</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Brytyjski biznes wezwał do zniesienia opłat z rachunków za energię elektryczną</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://ua.news/pl/energetika/biznes-velikoyi-britaniyi-zaklikav-skasuvati-zbori-u-rakhunkakh-za-elektroenergiiu</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTUJfsxQ-Q9lvUrhwnGYLvNiNAa52mAoVWVpWvu-mbNeohhP2v31iXw7xh7Quc</ht:news_item_picture>
-				<ht:news_item_source>UA.NEWS</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
 			<title>red arrows</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sun, 13 Sep 2026 02:20:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ7WYrg8rGhpYG1YXxMbkklQRm7XNAng-4fdoFfHMznMr4a-unxB9ZHUDXUEVk</ht:picture>
-			<ht:picture_source>The Northern Echo</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Great North Run 2026 - Exact timings for Red Arrows Tyne Bridge fly-over</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.thenorthernecho.co.uk/news/26541511.red-arrows-fly-great-north-run-sunday/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ7WYrg8rGhpYG1YXxMbkklQRm7XNAng-4fdoFfHMznMr4a-unxB9ZHUDXUEVk</ht:news_item_picture>
-				<ht:news_item_source>The Northern Echo</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Red Arrows’ Great North Run 2026 timings confirmed for flypast over Newcastle</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.chroniclelive.co.uk/whats-on/whats-on-news/red-arrows-great-north-run-34604288</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzqp3UPEVg-LMMQA_1omfbUjJc1lsvVXbEDys8pPWKmIFK-QbojCokApJnmXE</ht:news_item_picture>
-				<ht:news_item_source>Chronicle Live</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Red Arrows fly over Northumberland towns in Great North Run flypast</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.hexham-courant.co.uk/news/26543948.red-arrows-fly-northumberland-great-north-run-event/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhFP1NAgatuLwH66nrKi0RiTaV_b-zBj19pajaW4U1oEOxrqy5fWlv6LihZz0</ht:news_item_picture>
-				<ht:news_item_source>Hexham Courant</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>dan burn</title>
 			<ht:approx_traffic>500+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sun, 13 Sep 2026 02:10:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQFaldHWb02DX9-toGZtW-ROjBr_6X9GzKYkVXa6seAxsoP2qxyl5gycB6kOv4</ht:picture>
-			<ht:picture_source>Yahoo Sports</ht:picture_source>
+			<pubDate>Sun, 13 Sep 2026 02:20:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3gBpWw4M3_ECTbFUChx2n_jtVeJ7CbRYrZrxZa7hW9Lx6BIgJZEa_QvKyA0Y</ht:picture>
+			<ht:picture_source>https://www.essexcountynews.co.uk/</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>Dan Burn in line for new role after Newcastle contract decision</ht:news_item_title>
+				<ht:news_item_title>When and where you can see the Red Arrows soar over Essex this weekend</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://sports.yahoo.com/articles/dan-burn-line-role-newcastle-080000586.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQFaldHWb02DX9-toGZtW-ROjBr_6X9GzKYkVXa6seAxsoP2qxyl5gycB6kOv4</ht:news_item_picture>
-				<ht:news_item_source>Yahoo Sports</ht:news_item_source>
+				<ht:news_item_url>https://www.essexcountynews.co.uk/news/26543522.red-arrows-soar-essex-saturday-september-12/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3gBpWw4M3_ECTbFUChx2n_jtVeJ7CbRYrZrxZa7hW9Lx6BIgJZEa_QvKyA0Y</ht:news_item_picture>
+				<ht:news_item_source>https://www.essexcountynews.co.uk/</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Newcastle set condition for Dan Burn contract renewal</ht:news_item_title>
+				<ht:news_item_title>Iconic Red Arrows and Spitfires to fly over Cambridgeshire - exact times and more</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.ysscores.com/en/news/14044182/newcastle-set-condition-for-dan-burn-contract-renewal</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRSHhkGyXKWrq9X4fEvG_b_5TAR-P1fjf5BtqAQb4Z4g0d55X92n5MsT5D8IHA</ht:news_item_picture>
-				<ht:news_item_source>YSscores</ht:news_item_source>
+				<ht:news_item_url>https://www.cambridge-news.co.uk/whats-on/iconic-red-arrows-spitfires-fly-34595741</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQVqyudwqdSe3d1Mk7ejA6JNG0-ubqAbGyiOGcy7TC-As99dDnKzXVtFcvp5oo</ht:news_item_picture>
+				<ht:news_item_source>Cambridge News</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Newcastle United make decision on Dan Burn’s contract</ht:news_item_title>
+				<ht:news_item_title>Red Arrows to fly over Peterborough en-route to Duxford this weekend - exact route and timings</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://readnewcastle.com/2026/09/12/newcastle-united-make-decision-on-dan-burn-contract/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQxXQJGeId_32Xqldh0br4oZOXf1PYqCipk9qN71OqHgtSFJ6Wt7CqNW3_pDf0</ht:news_item_picture>
-				<ht:news_item_source>Read Newcastle</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>kevin keegan</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sun, 13 Sep 2026 02:10:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyU59bIezJG9OJjSH4KUa1QssJxpgelBBkMLNp3d2JYFloGsdXndK3A1d_NTc</ht:picture>
-			<ht:picture_source>Football Ground Guide</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Who are Newcastle United’s biggest rivals? The Magpies’ top five fiercest football rivalries</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://footballgroundguide.com/news/newcastle-united-biggest-rivals.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyU59bIezJG9OJjSH4KUa1QssJxpgelBBkMLNp3d2JYFloGsdXndK3A1d_NTc</ht:news_item_picture>
-				<ht:news_item_source>Football Ground Guide</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Watch: Great North Run</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.bbc.co.uk/sport/athletics/live/ck624g56p1j1t</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQZ4BXYGRoD0XGvJlqxt78l5IgL5pT1KW5bDo7MKWpPzt5Kdwclhf3qIXTWv5U</ht:news_item_picture>
-				<ht:news_item_source>BBC</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Road closures for the Great North Run</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://new.newcastle.gov.uk/news/2026/road-closures-great-north-run</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSteEqD6g9kZ3mwzvN_kJYiDyYrlhAEQz_9ScjFewBLc1JdMt3RGSubHC1-Uo0</ht:news_item_picture>
-				<ht:news_item_source>Newcastle City Council</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>charlie hull</title>
-			<ht:approx_traffic>100+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sun, 13 Sep 2026 02:10:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRVoB94MQcq_TNAemIBsy96-IO0Lq2COa96K7ndgiaP0tvYYSgTLkS32-dzaKg</ht:picture>
-			<ht:picture_source>LPGA</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>“Chill” Combo of Lauren Coughlin, Alison Lee Win Big in Foursomes on Solheim Cup Saturday</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.lpga.com/news/2026/chill-combo-of-lauren-coughlin-alison-lee-win-big-in-foursomes-on-solheim-cup-saturday</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRVoB94MQcq_TNAemIBsy96-IO0Lq2COa96K7ndgiaP0tvYYSgTLkS32-dzaKg</ht:news_item_picture>
-				<ht:news_item_source>LPGA</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Solheim Cup Day 2 foursomes: Hull/Woad vs. Al. Lee/Coughlin</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.golfchannel.com/watch/lpga/solheim-cup-day-2-foursomes-hull-woad-vs-al-lee-coughlin</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTv3eSI2FoAu8ovN1Kxq-nwfd0mS_XCjdsP4FEt2PlbW-pUvcC9Q2MikpWALjA</ht:news_item_picture>
-				<ht:news_item_source>Golf Channel</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Khang, Coughlin drop Saturday fourball match to Europeans, losing unbeaten streaks</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.nbcsports.com/golf/news/khang-coughlin-drop-saturday-fourball-match-to-europeans-losing-unbeaten-streaks</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQeH81iX7lo5DhoE1xd1QcOn9hSWI4Eevt6496k78794BxEvZbc0n2XPqfJnU</ht:news_item_picture>
-				<ht:news_item_source>NBC Sports</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>red arrows today</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sun, 13 Sep 2026 02:00:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ7WYrg8rGhpYG1YXxMbkklQRm7XNAng-4fdoFfHMznMr4a-unxB9ZHUDXUEVk</ht:picture>
-			<ht:picture_source>The Northern Echo</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Great North Run 2026 - Exact timings for Red Arrows Tyne Bridge fly-over</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.thenorthernecho.co.uk/news/26541511.red-arrows-fly-great-north-run-sunday/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ7WYrg8rGhpYG1YXxMbkklQRm7XNAng-4fdoFfHMznMr4a-unxB9ZHUDXUEVk</ht:news_item_picture>
-				<ht:news_item_source>The Northern Echo</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Red Arrows’ Great North Run 2026 timings confirmed for flypast over Newcastle</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.chroniclelive.co.uk/whats-on/whats-on-news/red-arrows-great-north-run-34604288</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzqp3UPEVg-LMMQA_1omfbUjJc1lsvVXbEDys8pPWKmIFK-QbojCokApJnmXE</ht:news_item_picture>
-				<ht:news_item_source>Chronicle Live</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Red Arrows fly over Northumberland towns in Great North Run flypast</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.hexham-courant.co.uk/news/26543948.red-arrows-fly-northumberland-great-north-run-event/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhFP1NAgatuLwH66nrKi0RiTaV_b-zBj19pajaW4U1oEOxrqy5fWlv6LihZz0</ht:news_item_picture>
-				<ht:news_item_source>Hexham Courant</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>gordon ramsay</title>
-			<ht:approx_traffic>100+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sun, 13 Sep 2026 02:00:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT0t7IaW3l-LYeIBWABKXTuE5ZbcMsx6BkJhl4JRYZR-TClBQSHghPTspgd6yg</ht:picture>
-			<ht:picture_source>Oxford Mail</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Gordon Ramsay put forward to host revival of legendary BBC TV show</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.oxfordmail.co.uk/news/26544076.gordon-ramsay-put-forward-host-revival-legendary-bbc-show/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT0t7IaW3l-LYeIBWABKXTuE5ZbcMsx6BkJhl4JRYZR-TClBQSHghPTspgd6yg</ht:news_item_picture>
-				<ht:news_item_source>Oxford Mail</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Here&apos;s Who Should Host The &apos;Top Gear&apos; Reboot</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.jalopnik.com/2251606/heres-who-should-host-top-gear-reboot-reader-answers/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyfRyjliyeUgkn03mvUFMc7st-uA-8sr6liwmNmoGbirmxrMZ0Jc8miYflGa4</ht:news_item_picture>
-				<ht:news_item_source>Jalopnik</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Top Gear set for major comeback with huge presenter teased</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.aol.co.uk/articles/top-gear-set-major-comeback-070700000.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScVhsfEMloqWSnH3NTz76_LTmJuCWigNGxhElYXHieqB4-hyHSDU2Ijb2UU4Y</ht:news_item_picture>
-				<ht:news_item_source>AOL.co.uk</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>ind vs afg</title>
-			<ht:approx_traffic>100+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sun, 13 Sep 2026 02:00:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS7-nyQ4WB1T30imUIMrdNAtuO_z8ko9icovoKDu4FHhyRp0FD0Pdvjx1pfylQ</ht:picture>
-			<ht:picture_source>Cricinfo</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>India face tough selection calls as Afghanistan play hosts in Delhi</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.cricinfo.com/series/afghanistan-in-india-2026-1549583/india-vs-afghanistan-1st-t20i-1549586/match-preview</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS7-nyQ4WB1T30imUIMrdNAtuO_z8ko9icovoKDu4FHhyRp0FD0Pdvjx1pfylQ</ht:news_item_picture>
-				<ht:news_item_source>Cricinfo</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Afghanistan vs India T20 2026: Know schedule, where to watch AFG vs IND live streaming and telecast</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.olympics.com/en/news/afghanistan-vs-india-t20-cricket-2026-schedule-watch-live-streaming-telecast</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcShApt_e4OPk3O_XPCivjs0IuuzcVAMrqrIfaKbHMA1TS0zBIklnWkoSzYxC1o</ht:news_item_picture>
-				<ht:news_item_source>Olympics</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>India v Afghanistan first T20 Tips: Two batters to follow on Delhi road</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://betting.betfair.com/cricket/india-cricket/india-v-afghanistan-first-t20-tips-two-batters-to-follow-on-delhi-road-110926-194.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTE5Ww9XDnMQehajkb5XrnF00-6kOv2Dvy_TsVJoQaV9NEuwZZC_-O0tfFOg7o</ht:news_item_picture>
-				<ht:news_item_source>Betfair</ht:news_item_source>
+				<ht:news_item_url>https://www.peterboroughtoday.co.uk/news/people/red-arrows-to-fly-over-peterborough-en-route-to-duxford-this-weekend-exact-route-and-timings-9011312</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_JzKLClLuKlMPOvbk4rpT3Soe8Q-wd3kMXrMVdt4vIRKpJ8PcWLglGoMEjFw</ht:news_item_picture>
+				<ht:news_item_source>Peterborough Telegraph</ht:news_item_source>
 			</ht:news_item>
 		</item>
 	</channel>

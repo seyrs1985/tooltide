@@ -3183,6 +3183,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "macro-calculator",
+        "title": "Macro Calculator — Protein, Carb & Fat Grams From Your Calories",
+        "h1": "Macro Calculator",
+        "desc": "Turn a daily calorie target into grams of protein, carbs and fat — with four goal presets and full custom control. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "macro calculator",
+        "tool": "macros",
+        "args": {},
+        "intro": [
+            "Calories decide weight change; macros decide where those calories take your body. This calculator converts any daily calorie target into grams of protein, carbohydrate and fat using the standard energy factors — 4 kcal per gram of protein or carbs, 9 per gram of fat — so a 2,400 kcal day at 30/40/30 becomes 180 g protein, 240 g carbs and 80 g fat you can actually put on a plate.",
+            "Four goal presets cover the common splits (balanced, high-protein, endurance, low-carb), and switching to Custom unlocks the three percentage fields directly — the note line warns when a split doesn't sum to 100. Feed it your maintenance number from the TDEE calculator and the pair gives you a complete, no-app subscription nutrition plan; both pages remember your numbers locally for daily rechecks.",
+        ],
+        "howto": [
+            "Enter your daily calorie target — or take it from the TDEE calculator's loss or gain line.",
+            "Pick a goal preset or choose Custom and set your own protein/carb/fat percentages.",
+            "Read the gram targets, then share them with one tap for the training group or coach.",
+        ],
+        "faqs": [
+            ("How do I calculate macros from calories?",
+             "Multiply calories by each macro's percentage share, then divide by its energy density: protein and carbs carry 4 kcal per gram, fat carries 9. At 2,400 kcal with a 30/40/30 split that is 2400×0.30÷4 = 180 g protein, 240 g carbs and 80 g fat — the calculator runs it live."),
+            ("What macro split is best for fat loss?",
+             "Protein matters most: 30-40% preserves muscle in a deficit. A 35/30/35 or 40/35/25 split suits most cuts, with carbs timed around training. Fat below about 20% tends to backfire on hormones and adherence — the presets all stay above that floor."),
+            ("How many grams of protein do I need per day?",
+             "Evidence for active people clusters around 1.6-2.2 g per kilogram of body weight. Rather than a flat rule, set protein to 30-40% of calories at a deficit and check the gram output against your weight — both numbers should roughly agree."),
+            ("Do the percentages need to add up to 100?",
+             "Yes for a mathematically exact plan — the note line flags any drift. The gram outputs are proportional regardless, so a 95% split simply under-allocates 5% of your calories; nudge one field until the note clears."),
+        ],
+    })
+
+    pages.append({
+        "slug": "electricity-cost-calculator",
+        "title": "Electricity Cost Calculator — What Any Appliance Costs to Run",
+        "h1": "Electricity Cost Calculator",
+        "desc": "Enter an appliance's watts, hours used per day and your rate per kWh — get the daily, monthly and yearly running cost instantly. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "electricity cost calculator",
+        "tool": "electricity",
+        "args": {},
+        "intro": [
+            "Every appliance has a wattage printed on its label or spec sheet, and your utility bill states a price per kWh — multiply through the hours and you know exactly what anything costs to run. A 1,500 W space heater for 3 hours a day at $0.17/kWh is about $23 a month; a gaming PC for 5 hours is similar. This calculator does that arithmetic for any device, any rate, any country's billing unit.",
+            "The yearly figure is where decisions live: that old second fridge, the dehumidifier in the basement, the always-on server — each line item is one entry away from a number you can act on. The note adds the standby-power reality check (1-2 W around the clock for anything left plugged in), and the share button sends the cost to whoever in the house needs convincing.",
+        ],
+        "howto": [
+            "Enter the device's wattage (check the label), hours per day, and your rate per kWh from the bill.",
+            "Read the monthly cost in the big result, with daily, yearly and kWh figures alongside.",
+            "Share or bookmark — inputs are remembered so you can price out the whole house one device at a time.",
+        ],
+        "faqs": [
+            ("How do I calculate the cost of running an appliance?",
+             "Watts × hours ÷ 1000 = kWh; kWh × your rate per kWh = cost. A 1500 W heater for 3 h/day at $0.17/kWh: 1.5 × 3 = 4.5 kWh/day → $0.77/day → about $23/month. The calculator shows each step of the math."),
+            ("How do I find my electricity rate?",
+             "It's on the utility bill, stated in ¢ or $ per kWh — often several line items (energy, delivery, taxes) that you can sum. European bills quote the same figure in €/kWh; enter it the same way after converting to your local currency."),
+            ("How much does it cost to leave something plugged in?",
+             "Standby draw is typically 1-2 W around the clock: roughly 9-17 kWh a year, or $1.50-$3 at typical rates — small per device, meaningful across a house full of chargers and set-top boxes. The calculator's yearly line makes each one concrete."),
+            ("Do space heaters really cost that much to run?",
+             "Yes — resistance heating is the most expensive comfort per kWh. A 1500 W heater at 3 h/day runs $20-25/month at US average rates, which is why the calculator's yearly figure surprises people. Compare against the yearly cost of insulation, a heat pump or simply closing doors."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

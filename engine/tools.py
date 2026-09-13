@@ -3072,6 +3072,123 @@ document.getElementById('si-share').addEventListener('click',function(){
 </script>
 """
 
+# Macro calculator: calories + split % -> grams of protein, carbs and fat.
+# Retention hooks: title result hook, tt_macros input memory, URL state (?cal=&p=&c=&f=), Web Share.
+MACROS = """<div class="tool" id="tt-mac">
+  <div class="fields">
+    <div class="field"><label for="mc-cal">Daily calories (kcal)</label><input type="number" id="mc-cal" step="any" min="0" placeholder="2400"></div>
+    <div class="field"><label for="mc-goal">Goal preset</label>
+      <select id="mc-goal">
+        <option value="30,40,30">Balanced — 30p/40c/30f</option>
+        <option value="40,35,25">High protein — 40p/35c/25f</option>
+        <option value="25,45,30">Endurance — 25p/45c/30f</option>
+        <option value="35,25,40">Low carb — 35p/25c/40f</option>
+        <option value="custom">Custom…</option>
+      </select></div>
+  </div>
+  <div class="fields">
+    <div class="field"><label for="mc-p">Protein %</label><input type="number" id="mc-p" step="1" min="0" max="100" placeholder="30"></div>
+    <div class="field"><label for="mc-c">Carbs %</label><input type="number" id="mc-c" step="1" min="0" max="100" placeholder="40"></div>
+    <div class="field"><label for="mc-f">Fat %</label><input type="number" id="mc-f" step="1" min="0" max="100" placeholder="30"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="mc-out">–</span><span class="result-unit">g protein / carbs / fat per day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="mc-pg">–</b><span>protein g</span></div>
+    <div class="stat"><b id="mc-cg">–</b><span>carbs g</span></div>
+    <div class="stat"><b id="mc-fg">–</b><span>fat g</span></div>
+  </div>
+  <div class="tool-note" id="mc-note"></div>
+  <button type="button" class="tool-btn" id="mc-share">Share my macros</button>
+</div>
+<script>(function(){
+var CAL=document.getElementById('mc-cal'),GOAL=document.getElementById('mc-goal'),P=document.getElementById('mc-p'),C=document.getElementById('mc-c'),F=document.getElementById('mc-f');
+var PGOAL=document.getElementById('mc-pg'),CGOAL=document.getElementById('mc-cg'),FGOAL=document.getElementById('mc-fg'),OUT=document.getElementById('mc-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var cal=parseFloat(CAL.value)||0;
+  if(!cal){OUT.textContent='–';PGOAL.textContent=CGOAL.textContent=FGOAL.textContent='–';document.getElementById('mc-note').textContent='';document.title='Macro Calculator - ToolTide';return;}
+  var pp=parseFloat(P.value)||0,cp=parseFloat(C.value)||0,fp=parseFloat(F.value)||0,sum=pp+cp+fp;
+  document.getElementById('mc-note').textContent=sum===100?'Splits to 100% - good.':'Splits total '+sum+'% (should be 100%) - grams shown are still proportional.';
+  var pg=cal*(pp/100)/4,cg=cal*(cp/100)/4,fg=cal*(fp/100)/9;
+  OUT.textContent=Math.round(pg)+' / '+Math.round(cg)+' / '+Math.round(fg);
+  PGOAL.textContent=Math.round(pg)+' g';CGOAL.textContent=Math.round(cg)+' g';FGOAL.textContent=Math.round(fg)+' g';
+  document.title=Math.round(pg)+'P/'+Math.round(cg)+'C/'+Math.round(fg)+'F - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_macros',JSON.stringify({c:CAL.value,g:GOAL.value,p:P.value,ca:C.value,f:F.value}));}catch(e){}}
+GOAL.addEventListener('change',function(){
+  if(GOAL.value!=='custom'){var v=GOAL.value.split(',');P.value=v[0];C.value=v[1];F.value=v[2];}
+  calc();save();
+});
+[CAL,P,C,F].forEach(function(el){el.addEventListener('input',function(){
+  var s=GOAL.value.split(',');if(P.value!==s[0]||C.value!==s[1]||F.value!==s[2])GOAL.value='custom';
+  calc();save();
+});});
+var pre=false;
+[['cal',CAL],['p',P],['c',C],['f',F]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(pre){GOAL.value='custom';}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_macros')||'null');if(mem){CAL.value=mem.c||'';GOAL.value=mem.g||'30,40,30';P.value=mem.p||'30';C.value=mem.ca||'40';F.value=mem.f||'30';}}catch(e){}}
+calc();
+document.getElementById('mc-share').addEventListener('click',function(){
+  var txt='My macros at '+(parseFloat(CAL.value)||0)+' kcal: '+OUT.textContent+' g (P/C/F). Plan yours (no sign-up):';
+  var url=location.origin+location.pathname+'?cal='+encodeURIComponent(CAL.value||'')+'&p='+encodeURIComponent(P.value||'')+'&c='+encodeURIComponent(C.value||'')+'&f='+encodeURIComponent(F.value||'');
+  if(navigator.share){navigator.share({title:'Macro targets',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my macros';},1500);}
+});
+})();
+</script>
+"""
+
+# Electricity cost: watts x hours x rate -> daily / monthly / yearly running cost.
+# Retention hooks: title result hook, tt_electricity input memory, URL state (?w=&h=&r=), Web Share.
+ELECTRIC = """<div class="tool" id="tt-el">
+  <div class="fields">
+    <div class="field"><label for="el-w">Power rating (watts)</label><input type="number" id="el-w" step="any" min="0" placeholder="1500"></div>
+    <div class="field"><label for="el-h">Hours used per day</label><input type="number" id="el-h" step="any" min="0" max="24" placeholder="3"></div>
+    <div class="field"><label for="el-r">Electricity rate ($/kWh)</label><input type="number" id="el-r" step="any" min="0" placeholder="0.17"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="el-out">–</span><span class="result-unit">per month</span></div>
+  <div class="stats">
+    <div class="stat"><b id="el-day">–</b><span>per day</span></div>
+    <div class="stat"><b id="el-year">–</b><span>per year</span></div>
+    <div class="stat"><b id="el-kwh">–</b><span>kWh per month</span></div>
+  </div>
+  <div class="tool-note" id="el-note"></div>
+  <button type="button" class="tool-btn" id="el-share">Share this cost</button>
+</div>
+<script>(function(){
+var W=document.getElementById('el-w'),H=document.getElementById('el-h'),R=document.getElementById('el-r');
+var OUT=document.getElementById('el-out');
+function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(W.value)||0,h=parseFloat(H.value)||0,r=parseFloat(R.value)||0;
+  if(!w||!h||!r){OUT.textContent='–';document.getElementById('el-day').textContent='–';
+    document.getElementById('el-year').textContent='–';document.getElementById('el-kwh').textContent='–';
+    document.getElementById('el-note').textContent='';document.title='Electricity Cost Calculator - ToolTide';return;}
+  var kwhDay=w*h/1000,day=kwhDay*r,mon=day*30.4,year=day*365;
+  OUT.textContent=money(mon);
+  document.getElementById('el-day').textContent=money(day);
+  document.getElementById('el-year').textContent=money(year);
+  document.getElementById('el-kwh').textContent=Math.round(kwhDay*30.4).toLocaleString('en-US');
+  document.getElementById('el-note').textContent='Math: '+w+' W × '+h+' h = '+(Math.round(kwhDay*100)/100)+' kWh/day, × your $'+r.toFixed(2)+'/kWh. Standby power typically adds 1-2 W around the clock - devices left plugged in cost a few dollars a year each.';
+  document.title=money(mon)+'/mo to run - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_electricity',JSON.stringify({w:W.value,h:H.value,r:R.value}));}catch(e){}}
+[W,H,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['w',W],['h',H],['r',R]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_electricity')||'null');if(mem){W.value=mem.w||'';H.value=mem.h||'';R.value=mem.r||'';}}catch(e){}}
+calc();
+document.getElementById('el-share').addEventListener('click',function(){
+  var txt='Running my '+W.value+' W device '+H.value+' h/day costs '+OUT.textContent+'/month ('+document.getElementById('el-year').textContent+'/year). Check yours (no sign-up):';
+  var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value||'')+'&h='+encodeURIComponent(H.value||'')+'&r='+encodeURIComponent(R.value||'');
+  if(navigator.share){navigator.share({title:'Electricity cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this cost';},1500);}
+});
+})();
+</script>
+"""
+
 # Wind chill (NOAA): how cold it feels on exposed skin, with frostbite time estimates.
 # Retention hooks: title result hook, tt_windchill input memory, URL state (?t=&v=&u=), Web Share.
 WINDCHILL = """<div class="tool" id="tt-wc">
@@ -3845,6 +3962,8 @@ TOOLS = {
     "bmi": lambda args: BMI,
     "windchill": lambda args: WINDCHILL,
     "pace": lambda args: PACE,
+    "macros": lambda args: MACROS,
+    "electricity": lambda args: ELECTRIC,
 }
 
 
