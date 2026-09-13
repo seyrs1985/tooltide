@@ -3072,6 +3072,122 @@ document.getElementById('si-share').addEventListener('click',function(){
 </script>
 """
 
+# Heat index (NOAA Rothfusz): "feels like" in shade with official risk bands.
+# Retention hooks: title result hook, tt_heatindex input memory, URL state (?t=&rh=&u=), Web Share.
+HEATINDEX = """<div class="tool" id="tt-hi">
+  <div class="fields">
+    <div class="field"><label for="hi-u">Units</label><select id="hi-u"><option value="f">°F</option><option value="c">°C</option></select></div>
+    <div class="field"><label for="hi-t">Air temperature</label><input type="number" id="hi-t" step="any" placeholder="95"></div>
+    <div class="field"><label for="hi-rh">Relative humidity %</label><input type="number" id="hi-rh" step="any" min="0" max="100" placeholder="60"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hi-out">–</span><span class="result-unit" id="hi-unit">feels like (in shade)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hi-band">–</b><span>risk band</span></div>
+    <div class="stat"><b id="hi-delta">–</b><span>added by humidity</span></div>
+  </div>
+  <div class="tool-note" id="hi-note"></div>
+  <button type="button" class="tool-btn" id="hi-share">Share the feels-like</button>
+</div>
+<script>(function(){
+var U=document.getElementById('hi-u'),T=document.getElementById('hi-t'),RH=document.getElementById('hi-rh');
+var OUT=document.getElementById('hi-out'),UNIT=document.getElementById('hi-unit');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function cf(f){return Math.round((f-32)*5/9*10)/10;}
+function calc(){
+  var tv=parseFloat(T.value),rh=parseFloat(RH.value)||0,f=U.value==='f';
+  if(isNaN(tv)){OUT.textContent='–';document.getElementById('hi-band').textContent='–';
+    document.getElementById('hi-delta').textContent='–';document.getElementById('hi-note').textContent='';
+    document.title='Heat Index Calculator - ToolTide';return;}
+  var tf=f?tv:tv*9/5+32;
+  if(tf<80){var d=0;OUT.textContent=(f?tv:tv)+'°'+U.value.toUpperCase();
+    UNIT.textContent='feels like (humidity effect negligible below 80°F)';document.getElementById('hi-band').textContent='—';
+    document.getElementById('hi-delta').textContent='+0°';document.getElementById('hi-note').textContent='The heat index is defined for 80°F (27°C) and above — below that, air temperature alone is the standard "feels like" figure.';return;}
+  var T2=tf*tf,R2=rh*rh,TR=tf*rh;
+  var hi=-42.379+2.04901523*tf+10.14333127*rh-0.22475541*TR-0.00683783*T2*rh-0.05481717*R2+0.00122874*T2*R2+0.00085282*tf*R2-0.00000199*T2*R2;
+  if(rh<13&&tf>=80&&tf<=112)hi-=((13-rh)/4)*Math.sqrt(Math.abs(17-Math.abs(tf-95))/17);
+  if(rh>85&&tf>=80&&tf<=87)hi+=((rh-85)/10)*((87-tf)/5);
+  var band='Caution (80-90°F): fatigue possible with prolonged exposure',cls='#f59e0b';
+  if(hi>=125){band='Extreme danger (125°F+): heat stroke imminent';cls='#dc2626';}
+  else if(hi>=103){band='Danger (103-124°F): heat cramps or heat stroke likely';cls='#dc2626';}
+  else if(hi>=90){band='Extreme caution (90-102°F): heat stroke possible';cls='#ea580c';}
+  OUT.textContent=(f?Math.round(hi*10)/10:cf(hi))+'°'+U.value.toUpperCase();
+  document.getElementById('hi-band').textContent=band;
+  document.getElementById('hi-delta').textContent='+'+(f?Math.round((hi-tf)*10)/10:cf(hi-tf))+'°';
+  document.getElementById('hi-note').textContent='NOAA Rothfusz regression in shade with light wind. Direct sun can add up to 15°F (8°C) - and the band guidance means hydration, shade and midday effort cuts.';
+  UNIT.textContent='feels like (in shade)';
+  document.title='Feels like '+(f?Math.round(hi):cf(hi))+'°'+U.value.toUpperCase()+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_heatindex',JSON.stringify({t:T.value,r:RH.value,u:U.value}));}catch(e){}}
+[U,T,RH].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+U.addEventListener('change',function(){calc();save();});
+var pre=false;
+[['t',T],['rh',RH],['u',U]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_heatindex')||'null');if(mem){T.value=mem.t||'';RH.value=mem.r||'';U.value=mem.u||'f';}}catch(e){}}
+calc();
+document.getElementById('hi-share').addEventListener('click',function(){
+  var txt='It is '+T.value+'°'+U.value.toUpperCase()+' at '+RH.value+'% humidity - feels like '+OUT.textContent+' ('+document.getElementById('hi-band').textContent.split(':')[0].toLowerCase()+'). Check yours (no sign-up):';
+  var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&rh='+encodeURIComponent(RH.value||'')+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Heat index',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
+});
+})();
+</script>
+"""
+
+# BMI: metric & imperial, WHO categories and the healthy weight window for your height.
+# Retention hooks: title result hook, tt_bmi input memory, URL state (?u=&h=&w=), Web Share.
+BMI = """<div class="tool" id="tt-bmi">
+  <div class="fields">
+    <div class="field"><label for="bmi-u">Units</label><select id="bmi-u"><option value="m">Metric (cm, kg)</option><option value="i">Imperial (in, lb)</option></select></div>
+    <div class="field"><label for="bmi-h">Height</label><input type="number" id="bmi-h" step="any" min="50" placeholder="175"></div>
+    <div class="field"><label for="bmi-w">Weight</label><input type="number" id="bmi-w" step="any" min="10" placeholder="70"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bmi-out">–</span><span class="result-unit" id="bmi-unit">BMI</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bmi-cat">–</b><span>WHO category</span></div>
+    <div class="stat"><b id="bmi-lo">–</b><span>healthy low</span></div>
+    <div class="stat"><b id="bmi-hi">–</b><span>healthy high</span></div>
+  </div>
+  <div class="tool-note">BMI = weight ÷ height². It is a population screening tool, not a diagnosis - muscle, age and frame all shift what a healthy number looks like for you individually.</div>
+  <button type="button" class="tool-btn" id="bmi-share">Share my BMI</button>
+</div>
+<script>(function(){
+var U=document.getElementById('bmi-u'),H=document.getElementById('bmi-h'),W=document.getElementById('bmi-w');
+var OUT=document.getElementById('bmi-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var h=parseFloat(H.value),w=parseFloat(W.value),imp=U.value==='i';
+  if(!h||!w){OUT.textContent='–';document.getElementById('bmi-cat').textContent='–';
+    document.getElementById('bmi-lo').textContent='–';document.getElementById('bmi-hi').textContent='–';
+    document.title='BMI Calculator - ToolTide';return;}
+  var bmi=imp?703*w/(h*h):w/((h/100)*(h/100)),u2=imp?'lb':'kg';
+  var cat='Obese (Class I) - BMI 30-34.9';
+  if(bmi<18.5)cat='Underweight - BMI below 18.5';
+  else if(bmi<25)cat='Healthy weight - BMI 18.5-24.9';
+  else if(bmi<30)cat='Overweight - BMI 25-29.9';
+  document.getElementById('bmi-cat').textContent=cat;
+  OUT.textContent=Math.round(bmi*10)/10;
+  document.getElementById('bmi-lo').textContent=Math.round(18.5*(imp?(h/39.37)*(h/39.37):(h/100)*(h/100)))+' '+u2;
+  document.getElementById('bmi-hi').textContent=Math.round(24.9*(imp?(h/39.37)*(h/39.37):(h/100)*(h/100)))+' '+u2;
+  document.title='BMI '+Math.round(bmi*10)/10+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_bmi',JSON.stringify({u:U.value,h:H.value,w:W.value}));}catch(e){}}
+[U,H,W].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+U.addEventListener('change',function(){H.placeholder=U.value==='i'?'69':'175';W.placeholder=U.value==='i'?'160':'70';calc();save();});
+var pre=false;
+[['u',U],['h',H],['w',W]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_bmi')||'null');if(mem){U.value=mem.u||'m';H.value=mem.h||'';W.value=mem.w||'';}}catch(e){}}
+calc();
+document.getElementById('bmi-share').addEventListener('click',function(){
+  var txt='My BMI: '+OUT.textContent+' ('+document.getElementById('bmi-cat').textContent.split(' - ')[0].toLowerCase()+'). Check yours (no sign-up):';
+  var url=location.origin+location.pathname+'?u='+U.value+'&h='+encodeURIComponent(H.value||'')+'&w='+encodeURIComponent(W.value||'');
+  if(navigator.share){navigator.share({title:'BMI result',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my BMI';},1500);}
+});
+})();
+</script>
+"""
+
 # TDEE calculator: Mifflin-St Jeor BMR x activity multiplier, with cut/bulk reference lines.
 # Retention hooks: title result hook, tt_tdee input memory, URL state (?s=&a=&h=&w=&act=), Web Share.
 TDEE = """<div class="tool" id="tt-tdee">
@@ -3598,6 +3714,8 @@ TOOLS = {
     "water": lambda args: WATER,
     "tdee": lambda args: TDEE,
     "tipsplit": lambda args: TIPSPLIT,
+    "heatindex": lambda args: HEATINDEX,
+    "bmi": lambda args: BMI,
 }
 
 

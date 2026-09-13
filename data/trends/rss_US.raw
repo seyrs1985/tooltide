@@ -6,6 +6,96 @@
 		<link>https://trends.google.com/trending/rss?geo=US</link>
 		<atom:link href="https://trends.google.com/trending/rss?geo=US" rel="self" type="application/rss+xml"/>
 		<item>
+			<title>latest news</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 13 Sep 2026 01:50:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEKZ6FZDpLi65StVGAzWRUltTpuiPsQru1vQNxfysJop-U7KVuAuljXWV-EiE</ht:picture>
+			<ht:picture_source>Fox News</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Man accused in brutal motel stabbing sought as person of interest in 4 deaths, child attack</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.foxnews.com/us/kaegan-solet-houma-louisiana-stabbing-person-of-interest</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEKZ6FZDpLi65StVGAzWRUltTpuiPsQru1vQNxfysJop-U7KVuAuljXWV-EiE</ht:news_item_picture>
+				<ht:news_item_source>Fox News</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>4 dead in Houma stabbings; person of interest named</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.fox8live.com/2026/09/13/4-dead-houma-stabbings-person-interest-named/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQNn4feseGyWF-mpARXd6Hjik94FJmQsMoW1xbp36JT0jh81PRSPnFxErmWnrM</ht:news_item_picture>
+				<ht:news_item_source>FOX 8 Live WVUE</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>At least 4 killed in Louisiana stabbing spree as police search for person of interest with violent past</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://nypost.com/2026/09/13/us-news/louisiana-stabbing-spree-leaves-4-dead-as-police-hunt-person-of-interest-kaegan-solet/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSNgbFFmX9Np8IW8Nb7sTxVE1StoL-jC3HkG-qtkoFlgZIJe-etKcuNFdvZwRQ</ht:news_item_picture>
+				<ht:news_item_source>New York Post</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>technology news</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 13 Sep 2026 01:50:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR9agIwoErCemK0Gh5zbuvC72w0l58ZBWD74fBL8sB3druOmU3WaG7_vGit_H4</ht:picture>
+			<ht:picture_source>CNBC</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>OpenAI rules out IPO this year as Altman, Musk &amp; Amodei warn AI is moving too fast</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.cnbc.com/2026/09/12/anthropics-amodei-proposes-plan-to-slow-the-pace-of-advancing-ai-capabilities.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR9agIwoErCemK0Gh5zbuvC72w0l58ZBWD74fBL8sB3druOmU3WaG7_vGit_H4</ht:news_item_picture>
+				<ht:news_item_source>CNBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Altman tells Fortune OpenAI will not go public in 2026</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://techxplore.com/news/2026-09-altman-fortune-openai.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcScKZywTja7qTepU1UDIEAHehv16nWnoCzO3nyy9sXHSts85hxBaC2LaRUIjz8</ht:news_item_picture>
+				<ht:news_item_source>Tech Xplore</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>OpenAI IPO will not happen in 2026 amid AI safety fears, Sam Altman says</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.theguardian.com/us-news/2026/sep/12/openai-delays-ipo-sam-altman-ai-safety-concerns</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQhig6ItH1eTePNTJjMGOFumI6ykddA-IhLMCEp60fan_I4biw-LLiF04zNfGA</ht:news_item_picture>
+				<ht:news_item_source>The Guardian</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>saints</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 13 Sep 2026 01:50:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSwtXCAlhrk9VBCxzzJ_pE8ImxBkVN8xdu9bshIVKh-qSDqSBldKefUNIPH-zI</ht:picture>
+			<ht:picture_source>The Detroit News</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Predictions: Lions vs. New Orleans Saints, season opener</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.detroitnews.com/story/sports/nfl/lions/2026/09/12/predictions-lions-vs-new-orleans-saints-season-opener/91651488007/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSwtXCAlhrk9VBCxzzJ_pE8ImxBkVN8xdu9bshIVKh-qSDqSBldKefUNIPH-zI</ht:news_item_picture>
+				<ht:news_item_source>The Detroit News</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>What TV channel is Lions vs Saints on today? Week 1 time, TV schedule</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.freep.com/story/sports/nfl/lions/2026/09/13/lions-game-today-tv-channel-live-stream/91730522007/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYPSDMcqtBhBKPziCaeWN5GZ8oBULg1EWXopIRPV5rohxy7oJf-hTZzK__Bnc</ht:news_item_picture>
+				<ht:news_item_source>Detroit Free Press</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Lions vs. Saints Prediction, Odds, Pick For NFL Week 1</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.foxsports.com/stories/nfl/lions-vs-saints-prediction-odds-pick-nfl-week-1</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS78Kzm6P31jhQiCsMwdB3sLgy7ZMeEgnSZuCM9oa3bdqtxWt4lPG3Wy2d1Rfc</ht:news_item_picture>
+				<ht:news_item_source>FOX Sports</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
 			<title>cycling</title>
 			<ht:approx_traffic>100+</ht:approx_traffic>
 			<description/>
@@ -191,111 +281,28 @@
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 22:10:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcuGaBGICnmHp6JM5sj5tnXNu0g9AWbCrGNiITLeXEejbyjsjoClh1t74ng5A</ht:picture>
-			<ht:picture_source>IMDb</ht:picture_source>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTQ8yHfj5WxhJ6-gnuE_8ok8ZNy3EH9_rCOXbFjO6S9_g11QO-MHHHtn6gX0hk</ht:picture>
+			<ht:picture_source>The New York Times</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>Tyler Perry’s ‘Beauty in Black’ Season 4 Gets Production &amp; Netflix Release Date Update</ht:news_item_title>
+				<ht:news_item_title>‘Why Did I Get Married Again?’ Review: An Italian Escape</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.imdb.com/news/ni66010560/?ref_=ttnw_art_perm</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcuGaBGICnmHp6JM5sj5tnXNu0g9AWbCrGNiITLeXEejbyjsjoClh1t74ng5A</ht:news_item_picture>
-				<ht:news_item_source>IMDb</ht:news_item_source>
+				<ht:news_item_url>https://www.nytimes.com/2026/09/10/movies/why-did-i-get-married-again-review.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTQ8yHfj5WxhJ6-gnuE_8ok8ZNy3EH9_rCOXbFjO6S9_g11QO-MHHHtn6gX0hk</ht:news_item_picture>
+				<ht:news_item_source>The New York Times</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Previously Canceled Tyler Perry TV Show Gets Netflix Season 4 Release Date Update</ht:news_item_title>
+				<ht:news_item_title>Why Did I Get Married Again? Cast: Meet the Wedding Guests in Attendance</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.yahoo.com/entertainment/tv/articles/previously-canceled-tyler-perry-tv-210723626.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRu-dcGcixSSi9Wzbn1HMrPw1tHE6QPP8uUVxEMPaz01KXZyQ1d5Kd2F45bWxM</ht:news_item_picture>
-				<ht:news_item_source>Yahoo</ht:news_item_source>
+				<ht:news_item_url>https://www.netflix.com/tudum/articles/why-did-i-get-married-again-cast-family-tree</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR40nlnQDsvZvw7i22qX2JinRNqnkBVWEeNucZd9yihPDfnZ3lNPoQ90mKhNXY</ht:news_item_picture>
+				<ht:news_item_source>Netflix</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Beauty in Black Season 4 Release Date, Cast and More</ht:news_item_title>
+				<ht:news_item_title>&apos;Why Did I Get Married Again?&apos; Review: Taraji P. Henson Joins the Gang</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.techloy.com/beauty-in-black-season-4-release-date-cast/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4rDDbIH1xIP3v9brXFOejcBKWjc7HC6zp76A5NShCuhgChKHeDTvTVudXLM4</ht:news_item_picture>
-				<ht:news_item_source>Techloy</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>miguel borja</title>
-			<ht:approx_traffic>500+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 22:00:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQpUgiNAuU-OIGC3QNRK6dU9eHm5owZuE96DfGbxwGKSBfo3XOcmAgZK3NYqK4</ht:picture>
-			<ht:picture_source>Soy Futbol</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Miguel Borja Turns Up the Heat for the Clásico Joven: &apos;Now I&apos;m Playing for the Biggest Club in Mexico!&apos;</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.soyfutbol.com/en/leagues/miguel-borja-turns-up-the-heat-for-the-clasico-joven-now-im-playing-for-the-biggest-club-in-mexico-20260912-0025.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQpUgiNAuU-OIGC3QNRK6dU9eHm5owZuE96DfGbxwGKSBfo3XOcmAgZK3NYqK4</ht:news_item_picture>
-				<ht:news_item_source>Soy Futbol</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Miguel Borja Fires Up the Clásico Joven with a Cheeky Jab at Cruz Azul</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.soyfutbol.com/en/news/miguel-borja-fires-up-the-clasico-joven-with-a-cheeky-jab-at-cruz-azul-20260912-0006.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRo3odPGclAklosCARsitiaOSrisocdckHqn6-4OnVwCVhqoeVaIUNaPOsq1as</ht:news_item_picture>
-				<ht:news_item_source>Soy Futbol</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>shipping</title>
-			<ht:approx_traffic>5000+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 21:40:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTesCFtJjemxifQZRourSd9Xwf01Yso8QXZS6HYLDymRR8RqVW1g-X39d0YzPk</ht:picture>
-			<ht:picture_source>Al Jazeera</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Iran war live: Saudi Arabia and Houthis trade strikes over Bab al-Mandeb</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.aljazeera.com/news/liveblog/2026/9/13/iran-war-live-saudi-arabia-and-houthis-trade-strikes-over-bab-al-mandeb</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTesCFtJjemxifQZRourSd9Xwf01Yso8QXZS6HYLDymRR8RqVW1g-X39d0YzPk</ht:news_item_picture>
-				<ht:news_item_source>Al Jazeera</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Trump Loses the Other Strait</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.theatlantic.com/international/2026/09/trump-iran-houthis-yemen/688592/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKMgZkuRtWFc7BDuMawW8MMaglqHh9CMagxstG2RLWySvTgj5sYUb0aX1ldEs</ht:news_item_picture>
-				<ht:news_item_source>The Atlantic</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Houthi advance in Yemen puts U.S. in a new bind</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.reuters.com/world/middle-east/houthi-advance-yemen-puts-us-new-bind-2026-09-12/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTf6vp05wxhFAauxOkLRb7IXU51JiBydZwbK5favU6-trXl0w3-UUxqFNJIcEA</ht:news_item_picture>
-				<ht:news_item_source>Reuters</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>wendy williams</title>
-			<ht:approx_traffic>1000+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 21:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm-WZmjrlWSpLSViof2KqyDDkZWj-ypODFN00TLnRmsZYI8-9tbbNxT9eojRk</ht:picture>
-			<ht:picture_source>Yahoo</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Wendy Williams&apos; Producer Says Daytime TV Lacks Her Unique Irreverence</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.yahoo.com/entertainment/tv/articles/wendy-williams-producer-says-daytime-201613949.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm-WZmjrlWSpLSViof2KqyDDkZWj-ypODFN00TLnRmsZYI8-9tbbNxT9eojRk</ht:news_item_picture>
-				<ht:news_item_source>Yahoo</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Former ‘The Wendy Williams Show’ Producer Defends Her Legacy in New Interview”</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.theroot.com/former-the-wendy-williams-show-producer-defends-her-leg-2000125462</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFP1wWx9Rm_73B4zb60Wlu9ZEYTzxpTJCDphn4_etY67v_LNF68zYhzNFk-PI</ht:news_item_picture>
-				<ht:news_item_source>The Root</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>‘Wendy Williams Show’ Producer Norman Baker Says He Refused To Participate In Documentaries About Wendy Williams: ‘I Don’t Wanna Be Involved In Trashing Her’</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://thejasminebrand.com/2026/09/07/wendy-williams-show-producer-norman-baker-says-he-refused-to-participate-in-documentaries-about-wendy-williams-i-dont-wanna-be-involved-in-trashing-her/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRO56WLYlIaBChlVz06kRE0b4Dgp0zLDT5BJF2fgvtvI5e0FRxdwkhcKjMEtsY</ht:news_item_picture>
-				<ht:news_item_source>theJasmineBRAND</ht:news_item_source>
+				<ht:news_item_url>https://variety.com/2026/film/reviews/why-did-i-get-married-again-review-taraji-p-henson-1236857141/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT9hvlyCVKK1NpbcUMGf1kIiVfGxwpCglhrDz-mxaVuiawiLjlyft1QxejZ9vM</ht:news_item_picture>
+				<ht:news_item_source>Variety</ht:news_item_source>
 			</ht:news_item>
 		</item>
 	</channel>

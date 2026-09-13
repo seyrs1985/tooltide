@@ -3063,6 +3063,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "heat-index-calculator",
+        "title": "Heat Index Calculator — What It Really Feels Like (NOAA Formula)",
+        "h1": "Heat Index Calculator",
+        "desc": "Enter temperature and humidity to get the heat index — what your body actually feels in the shade — with the official NOAA risk bands for caution, danger and heat stroke. Free, instant.",
+        "category": "calculator",
+        "keyword": "heat index calculator",
+        "tool": "heatindex",
+        "args": {},
+        "intro": [
+            "Humidity is why 95°F in Phoenix feels survivable and 95°F in Houston feels hostile: sweat evaporates slower in moist air, so your body's cooling system underperforms exactly when it matters. The heat index puts one number on that — and this calculator runs the full NOAA Rothfusz regression, the same formula the National Weather Service publishes, not the rough doubling shortcuts.",
+            "The risk band under the result translates the number into what to actually do: caution means hydrate and pace yourself, extreme caution means cut midday effort, danger and extreme danger mean heat illness becomes likely without intervention. The delta stat shows how many degrees humidity added — the number most people find genuinely surprising. Note the figure is for shade with light wind; full sun can push the effective temperature up another 15°F.",
+        ],
+        "howto": [
+            "Pick °F or °C, then enter the air temperature and relative humidity from any weather report.",
+            "Read the feels-like heat index in the big result, with the official NOAA risk band spelled out below it.",
+            "Check the delta to see what humidity added, and share the figure in one tap for the group chat.",
+        ],
+        "faqs": [
+            ("What is the heat index?",
+             "The temperature a body perceives when humidity is combined with air temperature, because reduced sweat evaporation impairs cooling. 95°F at 60% humidity computes to a heat index of about 114°F — the air is 95, but your cooling system is working as if it were 114."),
+            ("How is the heat index calculated?",
+             "This page uses the NOAA Rothfusz regression — a multi-term polynomial of temperature and relative humidity — plus the official corrections for very dry (RH<13%) and very humid (RH>85%) conditions. It applies only above 80°F (27°C); below that the air temperature itself is the standard feels-like figure."),
+            ("What heat index is dangerous?",
+             "NOAA bands: 80-90°F caution (fatigue with prolonged exposure), 90-102°F extreme caution (heat cramps and heat stroke possible), 103-124°F danger (likely without precautions), 125°F+ extreme danger (heat stroke imminent). The calculator prints your band with the result."),
+            ("Why does the heat index assume shade?",
+             "The NOAA formula models a shaded, lightly-winded person so forecasts are comparable across locations. Direct sun adds up to 15°F (8°C) to the effective load — treat the shaded figure as the floor, not the worst case, and plan outdoor effort accordingly."),
+        ],
+    })
+
+    pages.append({
+        "slug": "bmi-calculator",
+        "title": "BMI Calculator — Metric & Imperial With WHO Categories",
+        "h1": "BMI Calculator",
+        "desc": "Calculate your Body Mass Index in metric or imperial units — with the WHO category and the healthy weight range for your height. Free, private, no sign-up.",
+        "category": "calculator",
+        "keyword": "bmi calculator",
+        "tool": "bmi",
+        "args": {},
+        "intro": [
+            "BMI is one division — weight over height squared — and yet it is the first number most doctors, insurers and sports programs ask for. This calculator handles both metric and imperial input, prints your BMI with the official WHO category, and converts the healthy range (18.5-24.9) back into an actual weight window for your height, which is the part that turns a score into a target.",
+            "The honest framing matters: BMI is a population screening tool, not a body composition scan. Muscle-heavy athletes read overweight; older adults with low muscle read healthy. Use the number as a checkpoint — if it sits outside the range and you don't know why, that's the moment to look at waist measurement or body fat rather than panic. The page remembers your inputs on this device for quick rechecks.",
+        ],
+        "howto": [
+            "Choose metric (cm, kg) or imperial (in, lb) — the placeholders follow your choice.",
+            "Enter height and weight: BMI appears instantly with its WHO category and your healthy weight window.",
+            "Share the number in one tap, or bookmark the page — inputs are remembered for next visit.",
+        ],
+        "faqs": [
+            ("How is BMI calculated?",
+             "BMI = weight (kg) ÷ height (m)². In imperial units, BMI = 703 × pounds ÷ inches². A 175 cm, 70 kg person lands at 22.9 — mid-range healthy. The calculator applies the formula exactly and shows both the score and its category."),
+            ("What is a healthy BMI range?",
+             "The WHO defines 18.5-24.9 as healthy, below 18.5 underweight, 25-29.9 overweight and 30+ obese (classes I-III at 30/35/40). The healthy-weight stat converts that range into the actual weight window for your height — more actionable than the score alone."),
+            ("Is BMI accurate for athletes and older adults?",
+             "Not by itself. BMI cannot tell muscle from fat, so muscular athletes often score overweight despite low body fat, and adults losing muscle with age can score healthy while carrying risk. Treat BMI as the cheap first screen; waist circumference or a body-fat measurement refines it."),
+            ("Does BMI differ for men and women?",
+             "The formula and WHO cut-offs are identical for adult men and women — that is both its simplicity and its weakness. Body composition differs meaningfully by sex and age, which is why the healthy range here is the standard one and individual judgment (or a clinician) fills the gap."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

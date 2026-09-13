@@ -1,0 +1,89 @@
+{
+ "fetched": "2026-09-13T17:05:18",
+ "trends": {
+  "US": [
+   {
+    "title": "latest news",
+    "traffic": "500+"
+   },
+   {
+    "title": "technology news",
+    "traffic": "500+"
+   },
+   {
+    "title": "saints",
+    "traffic": "100+"
+   },
+   {
+    "title": "cycling",
+    "traffic": "100+"
+   },
+   {
+    "title": "steam frame",
+    "traffic": "200+"
+   },
+   {
+    "title": "aj hill",
+    "traffic": "200+"
+   },
+   {
+    "title": "jessica alba",
+    "traffic": "200+"
+   },
+   {
+    "title": "leslie jones",
+    "traffic": "500+"
+   },
+   {
+    "title": "óscar perea",
+    "traffic": "200+"
+   },
+   {
+    "title": "tyler perry",
+    "traffic": "1000+"
+   }
+  ],
+  "GB": [
+   {
+    "title": "tonda eckert",
+    "traffic": "100+"
+   },
+   {
+    "title": "f2",
+    "traffic": "1000+"
+   },
+   {
+    "title": "rspca",
+    "traffic": "100+"
+   },
+   {
+    "title": "ugo ugochukwu",
+    "traffic": "1000+"
+   },
+   {
+    "title": "tom aspinall",
+    "traffic": "200+"
+   },
+   {
+    "title": "miami international airport",
+    "traffic": "500+"
+   },
+   {
+    "title": "andoni iraola jeremy jacquet liverpool",
+    "traffic": "100+"
+   },
+   {
+    "title": "scottish welsh northern irish leaders meeting",
+    "traffic": "1000+"
+   },
+   {
+    "title": "death",
+    "traffic": "500+"
+   },
+   {
+    "title": "fox",
+    "traffic": "200+"
+   }
+  ]
+ }
+}
