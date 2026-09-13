@@ -3423,6 +3423,36 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "rent-affordability-calculator",
+        "title": "Rent Affordability Calculator — What Should You Pay for Rent?",
+        "h1": "Rent Affordability Calculator",
+        "desc": "Enter your income and monthly debts — get the maximum rent by the 30% rule, adjusted for a 36% debt-to-income ceiling, with what's left for everything else. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "rent affordability calculator",
+        "tool": "rent",
+        "args": {},
+        "intro": [
+            "The 30% rule — spend no more than 30% of gross income on housing — is the landlord's screen and the budget's oldest guardrail. This calculator applies it instantly, then adds the check that matters when you actually have debts: a 36% debt-to-income ceiling that lowers the honest ceiling by exactly what your car loan, student loan and cards already eat.",
+            "The \"left for everything else\" stat is the reality check most rent calculators skip: rent is the largest line, but groceries, transport and savings still have to fit underneath it. Three budget rules are on offer — 25% for aggressive saving, 30% classic, 35% for high-cost cities — and the page remembers your numbers so re-budgeting after a raise takes one field.",
+        ],
+        "howto": [
+            "Enter gross monthly income and any monthly debt payments — the rent ceiling appears instantly.",
+            "Pick the budget rule that fits your city and goals; the DTI line shows the lender's view.",
+            "Read what's left for the rest of life, then share the budget in one tap.",
+        ],
+        "faqs": [
+            ("How much rent can I afford on my salary?",
+             "The classic rule caps rent at 30% of gross monthly income — $4,800 income means a $1,440 ceiling. If you carry debts, lenders count them against a 36% DTI instead, and that line becomes the honest number. The calculator shows both and takes the lower one."),
+            ("Is the 30% rule still realistic?",
+             "In high-cost metros, 35-40% of gross is increasingly common — which is why the rule selector includes 35%. Treat it as a pressure gauge rather than law: above 30%, the \"left for everything else\" stat tells you exactly how thin the rest of the budget runs."),
+            ("Does the 30% rule use gross or net income?",
+             "Traditionally gross (before tax), which is also how landlords screen applicants. Budgeting on net pay feels stricter but survives contact with reality better — if your gross-based ceiling feels heavy, run the same rent against take-home and see what remains."),
+            ("What counts as monthly debt for the DTI check?",
+             "Minimum payments on loans, credit cards, car notes and child support — not utilities, subscriptions or the balance itself. Enter the payment amounts, not the balances, and the DTI ceiling adjusts accordingly."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

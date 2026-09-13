@@ -372,6 +372,10 @@
    [
     "cd.clear",
     "清除"
+   ],
+   [
+    "cd.ics",
+    "添加到日历"
    ]
   ],
   "es": [
@@ -746,6 +750,10 @@
    [
     "cd.clear",
     "Quitar"
+   ],
+   [
+    "cd.ics",
+    "Añadir al calendario"
    ]
   ],
   "pt": [
@@ -1120,6 +1128,10 @@
    [
     "cd.clear",
     "Limpar"
+   ],
+   [
+    "cd.ics",
+    "Adicionar ao calendário"
    ]
   ],
   "ru": [
@@ -1494,6 +1506,10 @@
    [
     "cd.clear",
     "Сбросить"
+   ],
+   [
+    "cd.ics",
+    "В календарь"
    ]
   ],
   "ja": [
@@ -1868,6 +1884,10 @@
    [
     "cd.clear",
     "クリア"
+   ],
+   [
+    "cd.ics",
+    "カレンダーに追加"
    ]
   ],
   "ko": [
@@ -2242,6 +2262,10 @@
    [
     "cd.clear",
     "지우기"
+   ],
+   [
+    "cd.ics",
+    "캘린더에 추가"
    ]
   ],
   "de": [
@@ -2616,6 +2640,10 @@
    [
     "cd.clear",
     "Löschen"
+   ],
+   [
+    "cd.ics",
+    "Zum Kalender hinzufügen"
    ]
   ],
   "fr": [
@@ -2990,6 +3018,10 @@
    [
     "cd.clear",
     "Effacer"
+   ],
+   [
+    "cd.ics",
+    "Ajouter au calendrier"
    ]
   ],
   "id": [
@@ -3364,6 +3396,10 @@
    [
     "cd.clear",
     "Hapus"
+   ],
+   [
+    "cd.ics",
+    "Tambahkan ke kalender"
    ]
   ]
  }

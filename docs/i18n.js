@@ -113,7 +113,8 @@ zh:{
  "a2hs.ios":"点分享,然后选添加到主屏幕",
  "cd.custom":"自定义日期",
  "cd.set":"设定",
- "cd.clear":"清除"
+ "cd.clear":"清除",
+ "cd.ics":"添加到日历"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -208,7 +209,8 @@ es:{
  "a2hs.ios":"Toca Compartir y luego Añadir a inicio",
  "cd.custom":"Fecha personalizada",
  "cd.set":"Fijar",
- "cd.clear":"Quitar"
+ "cd.clear":"Quitar",
+ "cd.ics":"Añadir al calendario"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -303,7 +305,8 @@ pt:{
  "a2hs.ios":"Toque em Compartilhar e depois Adicionar à tela",
  "cd.custom":"Data personalizada",
  "cd.set":"Definir",
- "cd.clear":"Limpar"
+ "cd.clear":"Limpar",
+ "cd.ics":"Adicionar ao calendário"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -398,7 +401,8 @@ ru:{
  "a2hs.ios":"Нажмите Поделиться, затем На экран Домой",
  "cd.custom":"Своя дата",
  "cd.set":"Установить",
- "cd.clear":"Сбросить"
+ "cd.clear":"Сбросить",
+ "cd.ics":"В календарь"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -493,7 +497,8 @@ ja:{
  "a2hs.ios":"共有をタップしてホーム画面に追加",
  "cd.custom":"カスタム日付",
  "cd.set":"設定",
- "cd.clear":"クリア"
+ "cd.clear":"クリア",
+ "cd.ics":"カレンダーに追加"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -588,7 +593,8 @@ ko:{
  "a2hs.ios":"공유를 누른 뒤 홈 화면에 추가",
  "cd.custom":"사용자 지정 날짜",
  "cd.set":"설정",
- "cd.clear":"지우기"
+ "cd.clear":"지우기",
+ "cd.ics":"캘린더에 추가"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -683,7 +689,8 @@ de:{
  "a2hs.ios":"Teilen tippen, dann Zum Home-Bildschirm",
  "cd.custom":"Eigenes Datum",
  "cd.set":"Setzen",
- "cd.clear":"Löschen"
+ "cd.clear":"Löschen",
+ "cd.ics":"Zum Kalender hinzufügen"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -778,7 +785,8 @@ fr:{
  "a2hs.ios":"Touchez Partager puis Ajouter à l'écran d'accueil",
  "cd.custom":"Date personnalisée",
  "cd.set":"Définir",
- "cd.clear":"Effacer"
+ "cd.clear":"Effacer",
+ "cd.ics":"Ajouter au calendrier"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -873,7 +881,8 @@ id:{
  "a2hs.ios":"Ketuk Bagikan lalu Tambahkan ke Layar Utama",
  "cd.custom":"Tanggal kustom",
  "cd.set":"Atur",
- "cd.clear":"Hapus"
+ "cd.clear":"Hapus",
+ "cd.ics":"Tambahkan ke kalender"
 }
 };
 function detect(){

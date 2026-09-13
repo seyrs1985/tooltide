@@ -73,6 +73,7 @@
     <input type="date" id="cd-date-in" style="padding:4px 8px;border-radius:8px;border:1px solid rgba(127,127,127,.4);background:transparent;color:inherit;font:inherit">
     <button type="button" class="tool-btn" id="cd-set" data-i18n="cd.set">Set</button>
     <button type="button" class="tool-btn" id="cd-clear" data-i18n="cd.clear" style="display:none">Clear</button>
+    <button type="button" class="tool-btn" id="cd-ics" data-i18n="cd.ics">Add to calendar</button>
   </div>
 </div>
 <script>(function(){
@@ -154,6 +155,28 @@ el('cd-set').addEventListener('click',applyCustom);
 DIN.addEventListener('change',applyCustom);
 el('cd-clear').addEventListener('click',function(){DIN.value='';applyCustom();});
 if(CUST){var p2=String(CUST.m+1),dd=String(CUST.d);DIN.value=CUST.y+'-'+(p2<10?'0':'')+p2+'-'+(dd<10?'0':'')+dd;el('cd-clear').style.display='inline-block';}
+el('cd-ics').addEventListener('click',function(){
+  var r=target(),d=r.cand,ev=CUST?'Custom date':A.event;
+  function ds(x){var mo=x.getMonth()+1,da=x.getDate();return ''+x.getFullYear()+(mo<10?'0':'')+mo+(da<10?'0':'')+da;}
+  var stamp=new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  var ics='BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ToolTide//EN
+BEGIN:VEVENT
+UID:tt-'+Date.now()+'@tooltide
+DTSTAMP:'+stamp+
+    '
+DTSTART;VALUE=DATE:'+ds(d)+'
+DTEND;VALUE=DATE:'+ds(new Date(d.getTime()+86400000))+
+    '
+SUMMARY:'+ev+'
+DESCRIPTION:Countdown via ToolTide
+END:VEVENT
+END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
+  a.download=ev.replace(/[^a-z0-9]+/gi,'-').toLowerCase().replace(/^-|-$/g,'')+'.ics';
+  document.body.appendChild(a);a.click();a.remove();
+});
 })();</script>
 
   <section class="seo-block"><h2 data-i18n="tool.howto">How to use</h2><ol class="howto"><li>Open this page any time — the countdown to Mother&#x27;s Day starts updating immediately.</li><li>Read the big number for whole days remaining, or watch the timer for days, hours, minutes and seconds.</li><li>Check the facts panel below the timer for the exact date, day of the week, and weeks remaining.</li></ol></section>
@@ -172,7 +195,7 @@ if(CUST){var p2=String(CUST.m+1),dd=String(CUST.d);DIN.value=CUST.y+'-'+(p2<10?'
       <a href="https://seyrs1985.github.io/tooltide/contact/" data-i18n="foot.contact">Contact</a>
       <a href="https://seyrs1985.github.io/neonplay/" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> <span data-i18n="foot.games">Games on NeonPlay</span></a></nav>
     </div>
-    <div class="foot-matrix"><nav class="foot-col" aria-label="Countdowns" data-i18n-aria="cat.countdown"><h3><a href="https://seyrs1985.github.io/tooltide/#countdown"><span aria-hidden="true">⏳</span> <span data-i18n="cat.countdown">Countdowns</span></a></h3><a href="https://seyrs1985.github.io/tooltide/days-until-christmas/">Christmas</a><a href="https://seyrs1985.github.io/tooltide/days-until-christmas-eve/">Christmas Eve</a><a href="https://seyrs1985.github.io/tooltide/days-until-autumn/">Autumn</a><a href="https://seyrs1985.github.io/tooltide/days-until-april/">April</a></nav><nav class="foot-col" aria-label="Calculators" data-i18n-aria="cat.calculator"><h3><a href="https://seyrs1985.github.io/tooltide/#calculator"><span aria-hidden="true">🧮</span> <span data-i18n="cat.calculator">Calculators</span></a></h3><a href="https://seyrs1985.github.io/tooltide/inch-fraction-calculator/">Inch Fraction Calculator</a><a href="https://seyrs1985.github.io/tooltide/hours-calculator/">Hours Calculator</a><a href="https://seyrs1985.github.io/tooltide/volume-of-cylinder/">Volume of a Cylinder Calculator</a><a href="https://seyrs1985.github.io/tooltide/tdee-calculator/">TDEE &amp; Calorie Calculator</a></nav><nav class="foot-col" aria-label="Converters" data-i18n-aria="cat.converter"><h3><a href="https://seyrs1985.github.io/tooltide/#converter"><span aria-hidden="true">🔄</span> <span data-i18n="cat.converter">Converters</span></a></h3><a href="https://seyrs1985.github.io/tooltide/cm-to-inches/">centimeters to inches</a><a href="https://seyrs1985.github.io/tooltide/tablespoons-to-teaspoons/">tablespoons to teaspoons</a><a href="https://seyrs1985.github.io/tooltide/seconds-converter/">Seconds</a><a href="https://seyrs1985.github.io/tooltide/quarts-to-pints/">quarts (US) to pints (US)</a></nav><nav class="foot-col" aria-label="Text Tools" data-i18n-aria="cat.text"><h3><a href="https://seyrs1985.github.io/tooltide/#text"><span aria-hidden="true">🔤</span> <span data-i18n="cat.text">Text Tools</span></a></h3><a href="https://seyrs1985.github.io/tooltide/strip-html/">Strip HTML Tags</a><a href="https://seyrs1985.github.io/tooltide/case-converter/">Case</a><a href="https://seyrs1985.github.io/tooltide/slug-generator/">URL Slug Generator</a><a href="https://seyrs1985.github.io/tooltide/word-frequency-counter/">Word Frequency Counter</a></nav><nav class="foot-col" aria-label="Generators" data-i18n-aria="cat.generator"><h3><a href="https://seyrs1985.github.io/tooltide/#generator"><span aria-hidden="true">🎲</span> <span data-i18n="cat.generator">Generators</span></a></h3><a href="https://seyrs1985.github.io/tooltide/random-name-generator/">Random Name Generator</a><a href="https://seyrs1985.github.io/tooltide/random-number-generator/">Random Number Generator</a><a href="https://seyrs1985.github.io/tooltide/dice-roller/">Dice Roller</a><a href="https://seyrs1985.github.io/tooltide/random-country-generator/">Random Country Generator</a></nav></div>
+    <div class="foot-matrix"><nav class="foot-col" aria-label="Countdowns" data-i18n-aria="cat.countdown"><h3><a href="https://seyrs1985.github.io/tooltide/#countdown"><span aria-hidden="true">⏳</span> <span data-i18n="cat.countdown">Countdowns</span></a></h3><a href="https://seyrs1985.github.io/tooltide/days-until-christmas/">Christmas</a><a href="https://seyrs1985.github.io/tooltide/days-until-christmas-eve/">Christmas Eve</a><a href="https://seyrs1985.github.io/tooltide/days-until-autumn/">Autumn</a><a href="https://seyrs1985.github.io/tooltide/days-until-april/">April</a></nav><nav class="foot-col" aria-label="Calculators" data-i18n-aria="cat.calculator"><h3><a href="https://seyrs1985.github.io/tooltide/#calculator"><span aria-hidden="true">🧮</span> <span data-i18n="cat.calculator">Calculators</span></a></h3><a href="https://seyrs1985.github.io/tooltide/inch-fraction-calculator/">Inch Fraction Calculator</a><a href="https://seyrs1985.github.io/tooltide/hours-calculator/">Hours Calculator</a><a href="https://seyrs1985.github.io/tooltide/business-days-calculator/">Business Days Calculator</a><a href="https://seyrs1985.github.io/tooltide/tip-split-calculator/">Tip Split Calculator</a></nav><nav class="foot-col" aria-label="Converters" data-i18n-aria="cat.converter"><h3><a href="https://seyrs1985.github.io/tooltide/#converter"><span aria-hidden="true">🔄</span> <span data-i18n="cat.converter">Converters</span></a></h3><a href="https://seyrs1985.github.io/tooltide/cm-to-inches/">centimeters to inches</a><a href="https://seyrs1985.github.io/tooltide/tablespoons-to-teaspoons/">tablespoons to teaspoons</a><a href="https://seyrs1985.github.io/tooltide/seconds-converter/">Seconds</a><a href="https://seyrs1985.github.io/tooltide/quarts-to-pints/">quarts (US) to pints (US)</a></nav><nav class="foot-col" aria-label="Text Tools" data-i18n-aria="cat.text"><h3><a href="https://seyrs1985.github.io/tooltide/#text"><span aria-hidden="true">🔤</span> <span data-i18n="cat.text">Text Tools</span></a></h3><a href="https://seyrs1985.github.io/tooltide/strip-html/">Strip HTML Tags</a><a href="https://seyrs1985.github.io/tooltide/case-converter/">Case</a><a href="https://seyrs1985.github.io/tooltide/slug-generator/">URL Slug Generator</a><a href="https://seyrs1985.github.io/tooltide/word-frequency-counter/">Word Frequency Counter</a></nav><nav class="foot-col" aria-label="Generators" data-i18n-aria="cat.generator"><h3><a href="https://seyrs1985.github.io/tooltide/#generator"><span aria-hidden="true">🎲</span> <span data-i18n="cat.generator">Generators</span></a></h3><a href="https://seyrs1985.github.io/tooltide/random-name-generator/">Random Name Generator</a><a href="https://seyrs1985.github.io/tooltide/random-number-generator/">Random Number Generator</a><a href="https://seyrs1985.github.io/tooltide/dice-roller/">Dice Roller</a><a href="https://seyrs1985.github.io/tooltide/random-country-generator/">Random Country Generator</a></nav></div>
     <div class="foot-legal">
       
       <p data-i18n="foot.legal">© 2026 ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>

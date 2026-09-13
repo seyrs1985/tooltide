@@ -31,6 +31,7 @@ COUNTDOWN = """
     <input type="date" id="cd-date-in" style="padding:4px 8px;border-radius:8px;border:1px solid rgba(127,127,127,.4);background:transparent;color:inherit;font:inherit">
     <button type="button" class="tool-btn" id="cd-set" data-i18n="cd.set">Set</button>
     <button type="button" class="tool-btn" id="cd-clear" data-i18n="cd.clear" style="display:none">Clear</button>
+    <button type="button" class="tool-btn" id="cd-ics" data-i18n="cd.ics">Add to calendar</button>
   </div>
 </div>
 <script>(function(){
@@ -112,6 +113,17 @@ el('cd-set').addEventListener('click',applyCustom);
 DIN.addEventListener('change',applyCustom);
 el('cd-clear').addEventListener('click',function(){DIN.value='';applyCustom();});
 if(CUST){var p2=String(CUST.m+1),dd=String(CUST.d);DIN.value=CUST.y+'-'+(p2<10?'0':'')+p2+'-'+(dd<10?'0':'')+dd;el('cd-clear').style.display='inline-block';}
+el('cd-ics').addEventListener('click',function(){
+  var r=target(),d=r.cand,ev=CUST?'Custom date':A.event;
+  function ds(x){var mo=x.getMonth()+1,da=x.getDate();return ''+x.getFullYear()+(mo<10?'0':'')+mo+(da<10?'0':'')+da;}
+  var stamp=new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  var ics='BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//ToolTide//EN\r\nBEGIN:VEVENT\r\nUID:tt-'+Date.now()+'@tooltide\r\nDTSTAMP:'+stamp+
+    '\r\nDTSTART;VALUE=DATE:'+ds(d)+'\r\nDTEND;VALUE=DATE:'+ds(new Date(d.getTime()+86400000))+
+    '\r\nSUMMARY:'+ev+'\r\nDESCRIPTION:Countdown via ToolTide\r\nEND:VEVENT\r\nEND:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
+  a.download=ev.replace(/[^a-z0-9]+/gi,'-').toLowerCase().replace(/^-|-$/g,'')+'.ics';
+  document.body.appendChild(a);a.click();a.remove();
+});
 })();</script>
 """
 
@@ -3213,6 +3225,63 @@ document.getElementById('ot-share').addEventListener('click',function(){
 </script>
 """
 
+# Rent affordability: gross income -> max rent by the 30% rule and a 36% DTI check.
+# Retention hooks: title result hook, tt_rent input memory, URL state (?inc=&debt=&r=), Web Share.
+RENT = """<div class="tool" id="tt-rent">
+  <div class="fields">
+    <div class="field"><label for="rt-inc">Gross monthly income ($)</label><input type="number" id="rt-inc" step="any" min="0" placeholder="4800"></div>
+    <div class="field"><label for="rt-debt">Monthly debt payments ($, optional)</label><input type="number" id="rt-debt" step="any" min="0" placeholder="350"></div>
+    <div class="field"><label for="rt-rule">Budget rule</label>
+      <select id="rt-rule"><option value="30">30% of income (classic)</option><option value="25">25% — aggressive saving</option><option value="35">35% — high-cost city</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rt-out">–</span><span class="result-unit">max monthly rent</span></div>
+  <div class="stats">
+    <div class="stat"><b id="rt-30">–</b><span>by the 30% rule</span></div>
+    <div class="stat"><b id="rt-dti">–</b><span>after debts (36% DTI)</span></div>
+    <div class="stat"><b id="rt-left">–</b><span>left for everything else</span></div>
+  </div>
+  <div class="tool-note" id="rt-note"></div>
+  <button type="button" class="tool-btn" id="rt-share">Share my budget</button>
+</div>
+<script>(function(){
+var I=document.getElementById('rt-inc'),D=document.getElementById('rt-debt'),RU=document.getElementById('rt-rule');
+var OUT=document.getElementById('rt-out');
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var inc=parseFloat(I.value)||0,debt=parseFloat(D.value)||0,rule=parseFloat(RU.value)||30;
+  if(!inc){OUT.textContent='–';document.getElementById('rt-30').textContent='–';
+    document.getElementById('rt-dti').textContent='–';document.getElementById('rt-left').textContent='–';
+    document.getElementById('rt-note').textContent='';document.title='Rent Affordability Calculator - ToolTide';return;}
+  var cap=inc*rule/100,dti=inc*0.36-debt,left=inc-cap-debt;
+  var best=Math.min(cap,dti>0?dti:0);
+  OUT.textContent=money(best);
+  document.getElementById('rt-30').textContent=money(cap);
+  document.getElementById('rt-dti').textContent=money(Math.max(0,dti));
+  document.getElementById('rt-left').textContent=money(Math.max(0,left));
+  document.getElementById('rt-note').textContent='Landlords typically want rent under 30% of gross income; lenders cap all debt (rent included) near 36%. '+
+    (debt>0?('Your '+money(debt)+' in monthly payments is why the DTI line is lower - it is the honest ceiling for this budget.'):'No debts entered - the DTI line matches a 36% total ceiling.')+
+    ' Remember utilities, deposits and commuter costs on top of the number.';
+  document.title=money(best)+'/mo rent budget - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_rent',JSON.stringify({i:I.value,d:D.value,r:RU.value}));}catch(e){}}
+[I,D,RU].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+RU.addEventListener('change',function(){calc();save();});
+var pre=false;
+[['inc',I],['debt',D],['r',RU]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_rent')||'null');if(mem){I.value=mem.i||'';D.value=mem.d||'';RU.value=mem.r||'30';}}catch(e){}}
+calc();
+document.getElementById('rt-share').addEventListener('click',function(){
+  var txt='My rent budget: '+OUT.textContent+'/month (30% rule'+(parseFloat(D.value)?' and 36% DTI adjusted':'')+
+    '). Find yours (no sign-up):';
+  var url=location.origin+location.pathname+'?inc='+encodeURIComponent(I.value||'')+'&debt='+encodeURIComponent(D.value||'')+'&r='+RU.value;
+  if(navigator.share){navigator.share({title:'Rent budget',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my budget';},1500);}
+});
+})();
+</script>
+"""
+
 # CGPA <-> percentage (Indian 10-point scale, CBSE 9.5 factor), bidirectional with a table.
 # Retention hooks: title result hook, tt_cgpa input memory, URL state (?v=&d=), Web Share.
 CGPA = """<div class="tool" id="tt-cg">
@@ -4328,6 +4397,7 @@ TOOLS = {
     "caffeine": lambda args: CAFFEINE,
     "gst": lambda args: GST,
     "overtime": lambda args: OVERTIME,
+    "rent": lambda args: RENT,
 }
 
 
