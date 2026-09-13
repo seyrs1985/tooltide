@@ -3483,6 +3483,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "commission-calculator",
+        "title": "Commission Calculator — Base + Rate × Revenue, With Quota Tracking",
+        "h1": "Commission Calculator",
+        "desc": "Enter base pay, commission rate and revenue — see the total paycheck, quota attainment and how much of your pay is commission. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "commission calculator",
+        "tool": "commission",
+        "args": {},
+        "intro": [
+            "Commission plans are quoted in percentages but lived in dollars: 8% of $45,000 on top of a $2,000 base is $5,600 — and whether that's a good month depends entirely on where the quota sits. Enter base, rate, revenue and an optional quota; the calculator returns the total, the commission share of pay, and your attainment percentage in one line.",
+            "The note line does the part sales reps actually need mid-month: how many dollars of revenue stand between you and quota, and what each additional 10% of revenue is worth at your current rate. Inputs are remembered on this device, so updating after every closed deal takes seconds — and the share button packages the math for the manager conversation.",
+        ],
+        "howto": [
+            "Enter your base pay per period, commission rate and revenue booked — the total updates live.",
+            "Add your quota to see attainment percentage and the dollar gap to 100%.",
+            "Share the paycheck math with one tap, or bookmark it — your plan numbers are remembered.",
+        ],
+        "faqs": [
+            ("How is commission calculated?",
+             "Commission = revenue × rate. A $45,000 month at 8% earns $3,600, which stacks on your base: $2,000 + $3,600 = $5,600 total. The calculator keeps base and commission separate so you always see which half is doing the work."),
+            ("How much of my pay should be commission?",
+             "Common splits run 50/50 to 60/40 (base/commission) in B2B sales and 30/70 or higher in transactional roles. The commission-share stat shows your actual mix — the number to compare against your plan's target and against what you can stomach in a slow month."),
+            ("What does quota attainment mean for pay?",
+             "Quota is the revenue floor your plan expects; attainment is revenue ÷ quota. Many plans add accelerators — a higher rate past 100% — so crossing the line can raise the rate on every additional dollar. The attainment stat keeps that checkpoint visible all month."),
+            ("Do commissions get taxed differently?",
+             "No — commission is ordinary supplemental wage income and is taxed as it's paid, often at flat withholding rates that trues up at filing. The calculator shows gross pay; your actual take-home depends on your withholding elections."),
+        ],
+    })
+
+    pages.append({
+        "slug": "air-fryer-converter",
+        "title": "Air Fryer Converter — Oven Recipe to Fryer Temp & Time",
+        "h1": "Air Fryer Converter",
+        "desc": "Turn any oven recipe into an air fryer setting: about 25°F (15°C) cooler and 20% faster, with a check-early warning and expert tips. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "air fryer conversion",
+        "tool": "airfryer",
+        "args": {},
+        "intro": [
+            "An air fryer is a compact convection oven, and the internet's recipes were mostly written for big conventional ones. The conversion rule of thumb is reliable: drop the temperature about 25°F (15°C), cut the cooking time to roughly 80%, and start checking early — the concentrated fan heat does its crisping fast in the final minutes.",
+            "Enter the recipe's oven temperature and time, and the converter returns the fryer setting plus the minutes you save. The built-in tips cover the three things that actually cause air-fryer failures: crowding the basket, skipping the halfway shake, and trusting the timer over your eyes for the last two minutes. It pairs with the oven temperature converter when the recipe itself is in a foreign unit.",
+        ],
+        "howto": [
+            "Choose °F or °C, then enter the recipe's oven temperature and cooking time.",
+            "Read the air fryer setting — lower temperature, ~80% of the time — and the minutes saved.",
+            "Share the setting with one tap, or bookmark it — last recipe's numbers are remembered.",
+        ],
+        "faqs": [
+            ("How do I convert oven recipes to an air fryer?",
+             "Reduce the temperature by about 25°F (15°C) and the time to roughly 80% of the original. A 400°F, 25-minute oven bake becomes about 375°F for 20 minutes in the fryer — the calculator applies both adjustments and rounds the time sensibly."),
+            ("Why does an air fryer cook faster?",
+             "It is a small chamber with a powerful fan: hot air reaches every surface constantly, so heat transfer is far more efficient than a big oven's static air. Same physics as convection mode — just concentrated into a basket-sized volume."),
+            ("Do I need to preheat my air fryer?",
+             "Usually only 2-3 minutes, if at all — the small chamber reaches temperature fast. For frozen foods and thin items start from cold and add a minute; for battered or delicate bakes, a short preheat keeps the first minute from being soggy."),
+            ("What foods don't convert well to the air fryer?",
+             "Wet batters (they drip before setting), leafy greens (they fly into the element), cheese-only dishes (they melt through the basket) and large roasts (the outside overcooks before the center is done). Everything breaded, frozen or vegetable-ish converts beautifully."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

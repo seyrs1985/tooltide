@@ -3509,6 +3509,115 @@ document.getElementById('ov-share').addEventListener('click',function(){
 </script>
 """
 
+# Commission pay: base + rate x revenue, with quota-attainment context.
+# Retention hooks: title result hook, tt_commission input memory, URL state (?b=&r=&rev=), Web Share.
+COMMISSION = """<div class="tool" id="tt-cm">
+  <div class="fields">
+    <div class="field"><label for="cm-b">Base pay per period ($)</label><input type="number" id="cm-b" step="any" min="0" placeholder="2000"></div>
+    <div class="field"><label for="cm-r">Commission rate %</label><input type="number" id="cm-r" step="any" min="0" max="100" placeholder="8"></div>
+    <div class="field"><label for="cm-v">Revenue this period ($)</label><input type="number" id="cm-v" step="any" min="0" placeholder="45000"></div>
+    <div class="field"><label for="cm-q">Quota ($, optional)</label><input type="number" id="cm-q" step="any" min="0" placeholder="40000"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cm-out">–</span><span class="result-unit">total pay this period</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cm-comm">–</b><span>commission earned</span></div>
+    <div class="stat"><b id="cm-att">–</b><span>quota attainment</span></div>
+    <div class="stat"><b id="cm-mix">–</b><span>commission share of pay</span></div>
+  </div>
+  <div class="tool-note" id="cm-note"></div>
+  <button type="button" class="tool-btn" id="cm-share">Share my paycheck math</button>
+</div>
+<script>(function(){
+var B=document.getElementById('cm-b'),R=document.getElementById('cm-r'),V=document.getElementById('cm-v'),Q=document.getElementById('cm-q');
+var OUT=document.getElementById('cm-out');
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var b=parseFloat(B.value)||0,r=(parseFloat(R.value)||0)/100,v=parseFloat(V.value)||0;
+  if(!b&&!v){OUT.textContent='–';document.getElementById('cm-comm').textContent='–';
+    document.getElementById('cm-att').textContent='–';document.getElementById('cm-mix').textContent='–';
+    document.getElementById('cm-note').textContent='';document.title='Commission Calculator - ToolTide';return;}
+  var comm=v*r,total=b+comm;
+  OUT.textContent=money(total);
+  document.getElementById('cm-comm').textContent=money(comm);
+  var q=parseFloat(Q.value);
+  document.getElementById('cm-att').textContent=(q>0)?Math.round(v/q*100)+'%':'—';
+  document.getElementById('cm-mix').textContent=total>0?Math.round(comm/total*100)+'%':'—';
+  var note='Base '+money(b)+' + '+Math.round(r*100)+'% of '+money(v)+' = '+money(total)+'.';
+  if(q>0){
+    if(v>=q){note+=' Quota cleared with '+money(v-q)+' to spare - accelerators past quota may lift the rate further.';}
+    else{note+=' '+money(q-v)+' short of quota - each extra 10% of revenue adds '+money(q*0.1*r)+' at this rate.';}
+  }
+  document.getElementById('cm-note').textContent=note;
+  document.title=money(total)+' paycheck - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_commission',JSON.stringify({b:B.value,r:R.value,v:V.value,q:Q.value}));}catch(e){}}
+[B,R,V,Q].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['b',B],['r',R],['rev',V],['q',Q]].forEach(function(a){var x=qs(a[0]);if(x!==null){a[1].value=x;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_commission')||'null');if(mem){B.value=mem.b||'';R.value=mem.r||'';V.value=mem.v||'';Q.value=mem.q||'';}}catch(e){}}
+calc();
+document.getElementById('cm-share').addEventListener('click',function(){
+  var txt='My period pay: '+OUT.textContent+' ('+money(parseFloat(B.value)||0)+' base + '+money(parseFloat(V.value)||0)*(parseFloat(R.value)||0)/100+' commission). Run your numbers (no sign-up):';
+  var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&r='+encodeURIComponent(R.value||'')+'&rev='+encodeURIComponent(V.value||'')+'&q='+encodeURIComponent(Q.value||'');
+  if(navigator.share){navigator.share({title:'Commission pay',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my paycheck math';},1500);}
+});
+})();
+</script>
+"""
+
+# Air fryer conversion: conventional oven recipe -> fryer temp & time with a reference table.
+# Retention hooks: title result hook, tt_airfryer input memory, URL state (?t=&m=&min=), Web Share.
+AIRFRYER = """<div class="tool" id="tt-af">
+  <div class="fields">
+    <div class="field"><label for="af-u">Recipe units</label><select id="af-u"><option value="f">°F + minutes</option><option value="c">°C + minutes</option></select></div>
+    <div class="field"><label for="af-t">Recipe oven temperature</label><input type="number" id="af-t" step="any" placeholder="400"></div>
+    <div class="field"><label for="af-min">Recipe time (minutes)</label><input type="number" id="af-min" step="1" min="1" max="600" placeholder="25"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="af-out">–</span><span class="result-unit" id="af-unit"></span></div>
+  <div class="stats">
+    <div class="stat"><b id="af-tset">–</b><span>fryer temperature</span></div>
+    <div class="stat"><b id="af-time">–</b><span>fryer time</span></div>
+    <div class="stat"><b id="af-save">–</b><span>time saved</span></div>
+  </div>
+  <div class="tool-note">Air fryers are small convection ovens: drop the temperature by about 25°F (15°C), cut the time to roughly 80%, and check food early - the fan crisps fast in the last minutes. Shake or flip halfway for even browning, and don't crowd the basket.</div>
+  <button type="button" class="tool-btn" id="af-share">Share the setting</button>
+</div>
+<script>(function(){
+var U=document.getElementById('af-u'),T=document.getElementById('af-t'),MI=document.getElementById('af-min');
+var OUT=document.getElementById('af-out'),UNIT=document.getElementById('af-unit');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var t=parseFloat(T.value),m=parseFloat(MI.value),f=U.value==='f';
+  if(isNaN(t)||!m||m<1){OUT.textContent='–';UNIT.textContent='';
+    document.getElementById('af-tset').textContent='–';document.getElementById('af-time').textContent='–';
+    document.getElementById('af-save').textContent='–';document.title='Air Fryer Converter - ToolTide';return;}
+  var ft=f?t-25:(t-15),fm=Math.max(1,Math.round(m*0.8));
+  OUT.textContent=Math.round(ft)+'°'+(f?'F':'C')+' · '+fm+' min';
+  UNIT.textContent='air fryer setting';
+  document.getElementById('af-tset').textContent=Math.round(ft)+'°'+(f?'F':'C');
+  document.getElementById('af-time').textContent=fm+' min';
+  document.getElementById('af-save').textContent=(m-fm)+' min';
+  document.title='Air fryer '+Math.round(ft)+'°'+(f?'F':'C')+' '+fm+' min - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_airfryer',JSON.stringify({u:U.value,t:T.value,m:MI.value}));}catch(e){}}
+[U,T,MI].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+U.addEventListener('change',function(){T.placeholder=U.value==='f'?'400':'200';calc();save();});
+var pre=false;
+[['t',T],['min',MI],['u',U]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_airfryer')||'null');if(mem){U.value=mem.u||'f';T.value=mem.t||'';MI.value=mem.m||'';}}catch(e){}}
+calc();
+document.getElementById('af-share').addEventListener('click',function(){
+  var txt='Air fryer version: '+OUT.textContent+' (recipe said '+T.value+'° for '+MI.value+' min). Convert yours (no sign-up):';
+  var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&min='+encodeURIComponent(MI.value||'')+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Air fryer setting',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the setting';},1500);}
+});
+})();
+</script>
+"""
+
 # Fuel cost for a trip: distance + efficiency + price -> gallons/liters and cost.
 # Retention hooks: title result hook, tt_fuelcost input memory, URL state (?d=&e=&p=&u=), Web Share.
 FUELCOST = """<div class="tool" id="tt-fc">
@@ -4468,6 +4577,8 @@ TOOLS = {
     "overtime": lambda args: OVERTIME,
     "rent": lambda args: RENT,
     "fuelcost": lambda args: FUELCOST,
+    "commission": lambda args: COMMISSION,
+    "airfryer": lambda args: AIRFRYER,
 }
 
 
