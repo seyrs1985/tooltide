@@ -159,20 +159,8 @@ el('cd-ics').addEventListener('click',function(){
   var r=target(),d=r.cand,ev=CUST?'Custom date':A.event;
   function ds(x){var mo=x.getMonth()+1,da=x.getDate();return ''+x.getFullYear()+(mo<10?'0':'')+mo+(da<10?'0':'')+da;}
   var stamp=new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
-  var ics='BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//ToolTide//EN
-BEGIN:VEVENT
-UID:tt-'+Date.now()+'@tooltide
-DTSTAMP:'+stamp+
-    '
-DTSTART;VALUE=DATE:'+ds(d)+'
-DTEND;VALUE=DATE:'+ds(new Date(d.getTime()+86400000))+
-    '
-SUMMARY:'+ev+'
-DESCRIPTION:Countdown via ToolTide
-END:VEVENT
-END:VCALENDAR';
+  var CRLF=String.fromCharCode(13,10);
+  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ToolTide//EN','BEGIN:VEVENT','UID:tt-'+Date.now()+'@tooltide','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+ds(d),'DTEND;VALUE=DATE:'+ds(new Date(d.getTime()+86400000)),'SUMMARY:'+ev,'DESCRIPTION:Countdown via ToolTide','END:VEVENT','END:VCALENDAR'].join(CRLF);
   var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
   a.download=ev.replace(/[^a-z0-9]+/gi,'-').toLowerCase().replace(/^-|-$/g,'')+'.ics';
   document.body.appendChild(a);a.click();a.remove();
