@@ -62,6 +62,9 @@ TOUCH_ICON = "apple-touch-icon.png"
 touch_icon_ready = False
 MANIFEST = "manifest.webmanifest"
 manifest_ready = False
+FAVICON = "favicon.ico"
+favicon_ready = False
+sw_ready = False
 
 # The stylesheet is inlined into every page's <head>: the site CSS is small
 # (~4 KB gzipped), so inlining costs less per page than the render-blocking
@@ -136,9 +139,9 @@ def ensure_og_image():
     print(f"  asset /{OG_IMAGE} (generated)")
 
 
-def _ocean_icon(size, out):
+def _ocean_art(size):
     """Square ocean gradient + three waves — shared art for the iOS touch
-    icon and the PWA manifest icons."""
+    icon, the PWA manifest icons and the favicon."""
     from PIL import Image, ImageDraw
     import math
     top, bot = (10, 58, 94), (14, 116, 144)  # same ocean ramp as the OG card
@@ -155,8 +158,11 @@ def _ocean_icon(size, out):
                                (int(size * .044), int(size * .84), 30)]:
         pts = [(x, base_y + amp * math.sin(x / (size / 6.9))) for x in range(0, size + 1, 4)]
         ov.line(pts, fill=(255, 255, 255, alpha), width=max(4, size // 30))
-    img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
-    img.save(out, "PNG", optimize=True)
+    return Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
+
+
+def _ocean_icon(size, out):
+    _ocean_art(size).save(out, "PNG", optimize=True)
 
 
 def ensure_touch_icon():
@@ -207,6 +213,92 @@ def ensure_manifest(cfg):
     print(f"  asset /{MANIFEST}")
 
 
+def ensure_favicon():
+    """docs/favicon.ico — a real file for the /favicon.ico request every browser
+    makes when no <link> matches (Safari ignores SVG/data-URI favicons; raw
+    file views, extensions and crawlers never see the link tags at all).
+    One 48px ocean tile packed as 16/32/48 so the tab icon stays crisp."""
+    global favicon_ready
+    out = os.path.join(SITE_DIR, FAVICON)
+    if os.path.exists(out):
+        favicon_ready = True
+        return
+    try:
+        _ocean_art(48).save(out, format="ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+    except ImportError:
+        return
+    favicon_ready = True
+    print(f"  asset /{FAVICON} (generated)")
+
+
+# Service worker: the PWA completion piece (manifest + icons already ship).
+# HTML navigations are network-first — pages stay fresh even while Pages' CDN
+# serves stale copies, and the last-seen page plus the precached homepage cover
+# offline visits. Immutable-ish assets (i18n.js, icons, manifest, opensearch)
+# use stale-while-revalidate: instant cache answer, refreshed in the background.
+# Third-party traffic (GA4/AdSense) and non-GET requests pass through untouched.
+SW_JS = """/* ToolTide service worker — offline fallback + fast repeat visits. */
+var BASE = "{base}";
+var CACHE = "tooltide-v1";
+var PRECACHE = [BASE, BASE + "i18n.js", BASE + "manifest.webmanifest",
+  BASE + "favicon.ico", BASE + "apple-touch-icon.png",
+  BASE + "icon-192.png", BASE + "icon-512.png", BASE + "opensearch.xml"];
+self.addEventListener("install", function (e) {
+  e.waitUntil(caches.open(CACHE).then(function (c) {
+    return c.addAll(PRECACHE);
+  }).then(function () { return self.skipWaiting(); }));
+});
+self.addEventListener("activate", function (e) {
+  e.waitUntil(caches.keys().then(function (keys) {
+    return Promise.all(keys.map(function (k) {
+      return k === CACHE ? null : caches.delete(k);
+    }));
+  }).then(function () { return self.clients.claim(); }));
+});
+self.addEventListener("fetch", function (e) {
+  var req = e.request;
+  if (req.method !== "GET") return;
+  var url = new URL(req.url);
+  if (url.origin !== location.origin || url.pathname.indexOf(BASE) !== 0) return;
+  if (req.headers.get("range")) return;
+  if (req.mode === "navigate") {
+    e.respondWith(fetch(req).then(function (res) {
+      if (res.ok) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (c) { c.put(url.pathname, copy); });
+      }
+      return res;
+    }).catch(function () {
+      return caches.match(url.pathname).then(function (hit) {
+        return hit || caches.match(BASE);
+      });
+    }));
+    return;
+  }
+  e.respondWith(caches.match(req).then(function (hit) {
+    var net = fetch(req).then(function (res) {
+      if (res.ok) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (c) { c.put(req, copy); });
+      }
+      return res;
+    }).catch(function () { return hit; });
+    return hit || net;
+  }));
+});
+"""
+
+
+def ensure_sw(cfg):
+    """docs/sw.js with the site path prefix baked in (scope covers every page)."""
+    global sw_ready
+    from urllib.parse import urlparse
+    base = urlparse(cfg["base_url"]).path or "/"
+    write("sw.js", SW_JS.replace("{base}", base))
+    sw_ready = True
+    print("  asset /sw.js")
+
+
 def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls=""):
     ga = (cfg.get("ga4_id") or "").strip()
     gsc = (cfg.get("gsc_verification") or "").strip()
@@ -215,6 +307,14 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
                     ensure_ascii=False, separators=(",", ":"))
     fav = ("data:image/svg+xml," +
            esc('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="0.9em" font-size="90">🌊</text></svg>'))
+    # .ico first (Safari/legacy pick it), SVG after (modern browsers prefer it)
+    fav_ico = (f'<link rel="icon" href="{esc(cfg["base_url"])}{FAVICON}" sizes="32x32">\n'
+               if favicon_ready else "")
+    # registered on window load so it never competes with first paint
+    sw_reg = (f'<script>if("serviceWorker" in navigator)addEventListener("load",'
+              f'function(){{navigator.serviceWorker.register("{esc(cfg["base_url"])}sw.js")'
+              f'.catch(function(){{}})}})</script>\n'
+              if sw_ready else "")
     touch = (f'<link rel="apple-touch-icon" href="{esc(cfg["base_url"])}{TOUCH_ICON}">\n'
              if touch_icon_ready else "")
     pwa = (f'<link rel="manifest" href="{esc(cfg["base_url"])}{MANIFEST}">\n'
@@ -253,12 +353,12 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
 {og_img}<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0e7490" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="{fav}">
+{fav_ico}<link rel="icon" href="{fav}">
 {touch}{pwa}<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
 <script defer src="{esc(cfg['base_url'])}i18n.js"></script>
-{PREPAINT_THEME}
+{sw_reg}{PREPAINT_THEME}
 <style>{inline_css()}</style>
 {f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={esc(ads)}" crossorigin="anonymous"></script>' if ads else ''}
 {f'<script async src="https://www.googletagmanager.com/gtag/js?id={esc(ga)}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag("js",new Date());gtag("config","{esc(ga)}");</script>' if ga else ''}
@@ -825,6 +925,8 @@ def main():
     ensure_og_image()
     ensure_touch_icon()
     ensure_manifest(cfg)
+    ensure_favicon()
+    ensure_sw(cfg)
     all_pages, cat_info = pages_mod.get_pages()
 
     # shared stylesheet

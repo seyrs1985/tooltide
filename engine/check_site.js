@@ -433,6 +433,36 @@ try {
       'manifest: >=2 icon entries whose files exist on disk');
   }
 
+  // service worker — the PWA completion piece (manifest + icons already ship):
+  // syntax-valid, prefix baked to the manifest scope, network-first pages with
+  // an offline fallback, pass-through for everything that must not be cached
+  const swSrc = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
+  try { new vm.Script(swSrc, { filename: 'sw.js' }); checked++; }
+  catch (e) { fail++; console.log('SITE FAIL sw.js: syntax —', e.message); }
+  const swBase = mf ? new URL(mf.start_url).pathname : '';
+  assert(!!swBase && swSrc.includes('var BASE = "' + swBase + '"'),
+    'sw.js: BASE prefix matches the manifest start_url path');
+  assert(swSrc.includes('i18n.js') && swSrc.includes('opensearch.xml'),
+    'sw.js: precaches the runtime assets');
+  assert(swSrc.includes('req.method !== "GET"') && swSrc.includes('url.origin !== location.origin'),
+    'sw.js: non-GET and cross-origin traffic passes through untouched');
+  assert(swSrc.includes('req.mode === "navigate"') && swSrc.includes('caches.match(BASE)'),
+    'sw.js: navigations network-first with a cached offline fallback');
+  assert(swSrc.includes('caches.delete') && swSrc.includes('clients.claim'),
+    'sw.js: old caches cleaned up on activate');
+  const regSrc = (tool.match(/serviceWorker\.register\("([^"]+)sw\.js"/) || [])[1];
+  assert(/<script>if\("serviceWorker" in navigator\)addEventListener\("load"/.test(idx)
+    && !!regSrc && regSrc === base + '/',
+    'head: SW registration (on window load) pinned to the site base on every page type');
+
+  // favicon: a real /favicon.ico for clients that never see <link> tags
+  // (Safari data-URI gaps, raw file views, extensions), SVG fallback retained
+  assert(fs.existsSync(path.join(root, 'favicon.ico'))
+    && idx.includes('<link rel="icon" href="' + base + '/favicon.ico" sizes="32x32">')
+    && tool.includes('<link rel="icon" href="' + base + '/favicon.ico" sizes="32x32">')
+    && idx.includes('data:image/svg+xml'),
+    'favicon: real .ico linked before the SVG data-URI on every page type');
+
   // i18n runtime — deferred load (no render-blocking script in <head>) and a
   // native select switcher: the old JS div-dropdown was click-only (keyboard
   // and screen-reader users could not change language) with light-only colors
