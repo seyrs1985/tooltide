@@ -7,8 +7,14 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."          # project root (ai-growth-engine)
 
-export http_proxy="${http_proxy:-http://127.0.0.1:7890}"
-export https_proxy="${https_proxy:-http://127.0.0.1:7890}"
+# Inherited proxy may point at an unreachable host (e.g. WSL NAT gateway 172.x),
+# so prefer the known-good local 7890 whenever it answers; else keep what we got.
+if curl -s -o /dev/null -m 4 -x http://127.0.0.1:7890 https://api.github.com/robots.txt; then
+  export http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890
+else
+  export http_proxy="${http_proxy:-http://127.0.0.1:7890}"
+  export https_proxy="${https_proxy:-http://127.0.0.1:7890}"
+fi
 
 # GitHub account to deploy under (login name, not display name).
 # Resolution: $GITHUB_OWNER env > tooltide.owner config > git user.name
