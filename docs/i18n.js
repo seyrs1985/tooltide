@@ -110,7 +110,10 @@ zh:{
  "e404.b":"。",
  "a2hs.tip":"把 ToolTide 添加到主屏幕",
  "a2hs.btn":"安装",
- "a2hs.ios":"点分享,然后选添加到主屏幕"
+ "a2hs.ios":"点分享,然后选添加到主屏幕",
+ "cd.custom":"自定义日期",
+ "cd.set":"设定",
+ "cd.clear":"清除"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -202,7 +205,10 @@ es:{
  "e404.b":".",
  "a2hs.tip":"Añade ToolTide a tu pantalla de inicio",
  "a2hs.btn":"Instalar",
- "a2hs.ios":"Toca Compartir y luego Añadir a inicio"
+ "a2hs.ios":"Toca Compartir y luego Añadir a inicio",
+ "cd.custom":"Fecha personalizada",
+ "cd.set":"Fijar",
+ "cd.clear":"Quitar"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -294,7 +300,10 @@ pt:{
  "e404.b":".",
  "a2hs.tip":"Adicione o ToolTide à tela inicial",
  "a2hs.btn":"Instalar",
- "a2hs.ios":"Toque em Compartilhar e depois Adicionar à tela"
+ "a2hs.ios":"Toque em Compartilhar e depois Adicionar à tela",
+ "cd.custom":"Data personalizada",
+ "cd.set":"Definir",
+ "cd.clear":"Limpar"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -386,7 +395,10 @@ ru:{
  "e404.b":".",
  "a2hs.tip":"Добавьте ToolTide на главный экран",
  "a2hs.btn":"Установить",
- "a2hs.ios":"Нажмите Поделиться, затем На экран Домой"
+ "a2hs.ios":"Нажмите Поделиться, затем На экран Домой",
+ "cd.custom":"Своя дата",
+ "cd.set":"Установить",
+ "cd.clear":"Сбросить"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -478,7 +490,10 @@ ja:{
  "e404.b":"。",
  "a2hs.tip":"ToolTideをホーム画面に追加",
  "a2hs.btn":"インストール",
- "a2hs.ios":"共有をタップしてホーム画面に追加"
+ "a2hs.ios":"共有をタップしてホーム画面に追加",
+ "cd.custom":"カスタム日付",
+ "cd.set":"設定",
+ "cd.clear":"クリア"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -570,7 +585,10 @@ ko:{
  "e404.b":".",
  "a2hs.tip":"ToolTide를 홈 화면에 추가",
  "a2hs.btn":"설치",
- "a2hs.ios":"공유를 누른 뒤 홈 화면에 추가"
+ "a2hs.ios":"공유를 누른 뒤 홈 화면에 추가",
+ "cd.custom":"사용자 지정 날짜",
+ "cd.set":"설정",
+ "cd.clear":"지우기"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -662,7 +680,10 @@ de:{
  "e404.b":".",
  "a2hs.tip":"ToolTide zum Startbildschirm hinzufügen",
  "a2hs.btn":"Installieren",
- "a2hs.ios":"Teilen tippen, dann Zum Home-Bildschirm"
+ "a2hs.ios":"Teilen tippen, dann Zum Home-Bildschirm",
+ "cd.custom":"Eigenes Datum",
+ "cd.set":"Setzen",
+ "cd.clear":"Löschen"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -754,7 +775,10 @@ fr:{
  "e404.b":".",
  "a2hs.tip":"Ajoutez ToolTide à votre écran d'accueil",
  "a2hs.btn":"Installer",
- "a2hs.ios":"Touchez Partager puis Ajouter à l'écran d'accueil"
+ "a2hs.ios":"Touchez Partager puis Ajouter à l'écran d'accueil",
+ "cd.custom":"Date personnalisée",
+ "cd.set":"Définir",
+ "cd.clear":"Effacer"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -846,7 +870,10 @@ id:{
  "e404.b":".",
  "a2hs.tip":"Tambahkan ToolTide ke layar utama",
  "a2hs.btn":"Instal",
- "a2hs.ios":"Ketuk Bagikan lalu Tambahkan ke Layar Utama"
+ "a2hs.ios":"Ketuk Bagikan lalu Tambahkan ke Layar Utama",
+ "cd.custom":"Tanggal kustom",
+ "cd.set":"Atur",
+ "cd.clear":"Hapus"
 }
 };
 function detect(){

@@ -26,10 +26,18 @@ COUNTDOWN = """
     <div class="stat"><b id="cd-date">–</b><span>the date</span></div>
     <div class="stat" id="cd-today-box" style="display:none"><b>🎉</b><span>It's today!</span></div>
   </div>
+  <div class="cd-custom" style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:.9rem">
+    <label for="cd-date-in" data-i18n="cd.custom">Custom date</label>
+    <input type="date" id="cd-date-in" style="padding:4px 8px;border-radius:8px;border:1px solid rgba(127,127,127,.4);background:transparent;color:inherit;font:inherit">
+    <button type="button" class="tool-btn" id="cd-set" data-i18n="cd.set">Set</button>
+    <button type="button" class="tool-btn" id="cd-clear" data-i18n="cd.clear" style="display:none">Clear</button>
+  </div>
 </div>
 <script>(function(){
 var A=__ARGS__;
 var m=A.month, d=A.day, rule=A.rule||null;
+var CUST=null;
+try{CUST=JSON.parse(localStorage.getItem('tt_customcd')||'null');}catch(e){}
 document.getElementById('cd-emoji').textContent=A.emoji||'📅';
 document.getElementById('cd-name').textContent=A.event;
 function daysInMonth(y,mo){return new Date(y,mo+1,0).getDate();}
@@ -60,6 +68,12 @@ function candidate(y){
 function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
 function target(){
   var now=new Date(),y=now.getFullYear();
+  if(CUST){
+    var cd=new Date(CUST.y,CUST.m,CUST.d,0,0,0),start=new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
+    if(cd>=start){var today=sameDay(cd,now);return {t:cd,today:today,cand:cd};}
+    try{localStorage.removeItem('tt_customcd');}catch(e){}
+    CUST=null;el('cd-clear').style.display='none';
+  }
   var t=candidate(y);
   if(t===null){t=candidate(y+1);}
   if(sameDay(t,now))return {t:new Date(t.getTime()+86400000),today:true,cand:t};
@@ -74,17 +88,30 @@ function tick(){
   var days=Math.floor(diff/86400000);
   var hours=Math.floor(diff/3600000)%24, mins=Math.floor(diff/60000)%60, secs=Math.floor(diff/1000)%60;
   var real=r.today?0:days;
+  var EV=A.event,daysLbl='days to go';
+  if(CUST){EV=r.cand.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' ★';daysLbl='days to your date';}
+  el('cd-name').textContent=EV;
   el('cd-days').textContent=real;
-  el('cd-days-label').textContent=r.today?("It's "+A.event+" today! 🎉"):('days to go');
+  el('cd-days-label').textContent=r.today?("It's "+EV+" today! 🎉"):daysLbl;
   el('cd-clock').textContent=pad(hours)+':'+pad(mins)+':'+pad(secs)+'  h:m:s remaining today';
   el('cd-clock').style.display=r.today?'none':'block';
   el('cd-weeks').textContent=(diff/604800000).toFixed(1);
   el('cd-hours').textContent=Math.floor(diff/3600000).toLocaleString('en-US');
   el('cd-date').textContent=r.cand.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
   el('cd-today-box').style.display=r.today?'block':'none';
-  document.title=(real>0?real+'d to '+A.event:A.event)+' - ToolTide';
+  document.title=(real>0?real+'d to '+EV:EV)+' - ToolTide';
 }
 tick();setInterval(tick,1000);
+var DIN=el('cd-date-in');
+function applyCustom(){
+  if(DIN.value){var p=DIN.value.split('-');CUST={y:+p[0],m:+p[1]-1,d:+p[2]};try{localStorage.setItem('tt_customcd',JSON.stringify(CUST));}catch(e){}}
+  else{CUST=null;try{localStorage.removeItem('tt_customcd');}catch(e){}}
+  el('cd-clear').style.display=CUST?'inline-block':'none';tick();
+}
+el('cd-set').addEventListener('click',applyCustom);
+DIN.addEventListener('change',applyCustom);
+el('cd-clear').addEventListener('click',function(){DIN.value='';applyCustom();});
+if(CUST){var p2=String(CUST.m+1),dd=String(CUST.d);DIN.value=CUST.y+'-'+(p2<10?'0':'')+p2+'-'+(dd<10?'0':'')+dd;el('cd-clear').style.display='inline-block';}
 })();</script>
 """
 
@@ -3131,6 +3158,61 @@ document.getElementById('gs-share').addEventListener('click',function(){
 </script>
 """
 
+# Overtime pay: weekly hours vs threshold x multiplier -> regular, OT and total pay.
+# Retention hooks: title result hook, tt_overtime input memory, URL state (?r=&h=&t=&m=), Web Share.
+OVERTIME = """<div class="tool" id="tt-ot">
+  <div class="fields">
+    <div class="field"><label for="ot-r">Hourly rate ($)</label><input type="number" id="ot-r" step="any" min="0" placeholder="25"></div>
+    <div class="field"><label for="ot-h">Hours this week</label><input type="number" id="ot-h" step="any" min="0" max="100" placeholder="47"></div>
+    <div class="field"><label for="ot-t">OT after (hours)</label><input type="number" id="ot-t" step="1" min="1" max="60" value="40"></div>
+    <div class="field"><label for="ot-m">OT multiplier</label><input type="number" id="ot-m" step="any" min="1" max="3" value="1.5"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ot-out">–</span><span class="result-unit">gross pay this week</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ot-reg">–</b><span>regular pay</span></div>
+    <div class="stat"><b id="ot-ot">–</b><span>overtime pay</span></div>
+    <div class="stat"><b id="ot-rate">–</b><span>OT hourly rate</span></div>
+  </div>
+  <div class="tool-note" id="ot-note"></div>
+  <button type="button" class="tool-btn" id="ot-share">Share my week</button>
+</div>
+<script>(function(){
+var R=document.getElementById('ot-r'),H=document.getElementById('ot-h'),T=document.getElementById('ot-t'),M=document.getElementById('ot-m');
+var OUT=document.getElementById('ot-out');
+function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var r=parseFloat(R.value)||0,h=parseFloat(H.value)||0,t=parseFloat(T.value)||40,m=parseFloat(M.value)||1.5;
+  if(!r||!h){OUT.textContent='–';document.getElementById('ot-reg').textContent='–';
+    document.getElementById('ot-ot').textContent='–';document.getElementById('ot-rate').textContent='–';
+    document.getElementById('ot-note').textContent='';document.title='Overtime Pay Calculator - ToolTide';return;}
+  var oth=Math.max(0,h-t),reg=Math.min(h,t)*r,ot=oth*r*m,total=reg+ot;
+  OUT.textContent=money(total);
+  document.getElementById('ot-reg').textContent=money(reg);
+  document.getElementById('ot-ot').textContent=money(ot)+(oth?' ('+oth+' h)':'');
+  document.getElementById('ot-rate').textContent=money(r*m);
+  document.getElementById('ot-note').textContent='US FLSA baseline: 1.5× past 40 hours in a workweek. '+
+    (oth?('This week includes '+oth+' OT hours - worth '+money(oth*r*(m-1))+' extra versus plain time.'):'No overtime hours this week - every hour is plain time.')+
+    ' Some states and contracts double time past 12-hour days; adjust the multiplier for those rules.';
+  document.title=money(total)+' this week - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_overtime',JSON.stringify({r:R.value,h:H.value,t:T.value,m:M.value}));}catch(e){}}
+[R,H,T,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['r',R],['h',H],['t',T],['m',M]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_overtime')||'null');if(mem){R.value=mem.r||'';H.value=mem.h||'';T.value=mem.t||'40';M.value=mem.m||'1.5';}}catch(e){}}
+calc();
+document.getElementById('ot-share').addEventListener('click',function(){
+  var txt='This week: '+H.value+' hours at '+money(parseFloat(R.value)||0)+'/hr = '+OUT.textContent+
+    ' gross'+((parseFloat(H.value)||0)>(parseFloat(T.value)||40)?' (with overtime)':'')+'. Check yours (no sign-up):';
+  var url=location.origin+location.pathname+'?r='+encodeURIComponent(R.value||'')+'&h='+encodeURIComponent(H.value||'')+'&t='+encodeURIComponent(T.value||'')+'&m='+encodeURIComponent(M.value||'');
+  if(navigator.share){navigator.share({title:'Overtime pay',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my week';},1500);}
+});
+})();
+</script>
+"""
+
 # CGPA <-> percentage (Indian 10-point scale, CBSE 9.5 factor), bidirectional with a table.
 # Retention hooks: title result hook, tt_cgpa input memory, URL state (?v=&d=), Web Share.
 CGPA = """<div class="tool" id="tt-cg">
@@ -4245,6 +4327,7 @@ TOOLS = {
     "cgpa": lambda args: CGPA,
     "caffeine": lambda args: CAFFEINE,
     "gst": lambda args: GST,
+    "overtime": lambda args: OVERTIME,
 }
 
 

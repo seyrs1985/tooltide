@@ -3393,6 +3393,36 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "overtime-pay-calculator",
+        "title": "Overtime Pay Calculator — Regular + OT Split for Your Week",
+        "h1": "Overtime Pay Calculator",
+        "desc": "Enter your hourly rate and weekly hours — see regular pay, overtime pay at 1.5× past 40, and the exact dollar value of every OT hour. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "overtime pay calculator",
+        "tool": "overtime",
+        "args": {},
+        "intro": [
+            "Overtime is where paychecks get quietly wrong: 47 hours at $25/hour is not $1,175 — the 7 extra hours earn time-and-a-half, bringing the week to $1,337.50. Enter your rate and hours and this calculator splits the week into regular and overtime pay using the FLSA baseline (1.5× past 40 in a workweek), with the threshold and multiplier adjustable for state daily-OT rules or contract double time.",
+            "The note line translates the math into negotiating terms: how many OT hours you worked, and the exact dollar premium they earned over plain time — the number that makes the case for (or against) that extra shift. Inputs are remembered on this device, so next week is a one-field update, and the share button packages the split for payroll questions.",
+        ],
+        "howto": [
+            "Enter your hourly rate and total hours for the week — regular and OT pay split instantly.",
+            "Adjust the OT threshold or multiplier if your state or contract uses different rules.",
+            "Share the weekly total with one tap, or bookmark it — your rates are remembered.",
+        ],
+        "faqs": [
+            ("How is overtime pay calculated?",
+             "Under the US FLSA: hours past 40 in a workweek earn at least 1.5× your regular rate. At $25/hour working 47 hours: 40 × $25 + 7 × $37.50 = $1,000 + $262.50 = $1,362.50 gross. The calculator shows the regular and OT halves separately."),
+            ("Is overtime always 1.5×?",
+             "Federal law sets 1.5× as the floor past 40 hours, but some states (California most notably) add daily overtime past 8 hours and double time past 12, and union contracts often negotiate richer terms. Set the threshold and multiplier fields to match whichever rule governs your week."),
+            ("Do bonuses count toward the overtime rate?",
+             "Non-discretionary bonuses must be folded into the regular rate before computing OT — which raises the 1.5× base. Purely discretionary gifts don't count. Payroll math gets subtle here; this calculator uses your actual hourly rate as the base."),
+            ("What if I'm salaried — do I get overtime?",
+             "Possibly: the FLSA exempts only salaried employees who also pass a duties test and a salary threshold (updated periodically). Non-exempt salaried staff earn OT like hourly workers. Enter your effective hourly rate (salary ÷ expected hours) to estimate what OT would be worth."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

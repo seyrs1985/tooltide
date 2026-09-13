@@ -68,10 +68,18 @@
     <div class="stat"><b id="cd-date">–</b><span>the date</span></div>
     <div class="stat" id="cd-today-box" style="display:none"><b>🎉</b><span>It's today!</span></div>
   </div>
+  <div class="cd-custom" style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:.9rem">
+    <label for="cd-date-in" data-i18n="cd.custom">Custom date</label>
+    <input type="date" id="cd-date-in" style="padding:4px 8px;border-radius:8px;border:1px solid rgba(127,127,127,.4);background:transparent;color:inherit;font:inherit">
+    <button type="button" class="tool-btn" id="cd-set" data-i18n="cd.set">Set</button>
+    <button type="button" class="tool-btn" id="cd-clear" data-i18n="cd.clear" style="display:none">Clear</button>
+  </div>
 </div>
 <script>(function(){
 var A={"event": "Winter", "month": 12, "day": 21, "emoji": "❄️"};
 var m=A.month, d=A.day, rule=A.rule||null;
+var CUST=null;
+try{CUST=JSON.parse(localStorage.getItem('tt_customcd')||'null');}catch(e){}
 document.getElementById('cd-emoji').textContent=A.emoji||'📅';
 document.getElementById('cd-name').textContent=A.event;
 function daysInMonth(y,mo){return new Date(y,mo+1,0).getDate();}
@@ -102,6 +110,12 @@ function candidate(y){
 function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
 function target(){
   var now=new Date(),y=now.getFullYear();
+  if(CUST){
+    var cd=new Date(CUST.y,CUST.m,CUST.d,0,0,0),start=new Date(now.getFullYear(),now.getMonth(),now.getDate(),0,0,0);
+    if(cd>=start){var today=sameDay(cd,now);return {t:cd,today:today,cand:cd};}
+    try{localStorage.removeItem('tt_customcd');}catch(e){}
+    CUST=null;el('cd-clear').style.display='none';
+  }
   var t=candidate(y);
   if(t===null){t=candidate(y+1);}
   if(sameDay(t,now))return {t:new Date(t.getTime()+86400000),today:true,cand:t};
@@ -116,17 +130,30 @@ function tick(){
   var days=Math.floor(diff/86400000);
   var hours=Math.floor(diff/3600000)%24, mins=Math.floor(diff/60000)%60, secs=Math.floor(diff/1000)%60;
   var real=r.today?0:days;
+  var EV=A.event,daysLbl='days to go';
+  if(CUST){EV=r.cand.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' ★';daysLbl='days to your date';}
+  el('cd-name').textContent=EV;
   el('cd-days').textContent=real;
-  el('cd-days-label').textContent=r.today?("It's "+A.event+" today! 🎉"):('days to go');
+  el('cd-days-label').textContent=r.today?("It's "+EV+" today! 🎉"):daysLbl;
   el('cd-clock').textContent=pad(hours)+':'+pad(mins)+':'+pad(secs)+'  h:m:s remaining today';
   el('cd-clock').style.display=r.today?'none':'block';
   el('cd-weeks').textContent=(diff/604800000).toFixed(1);
   el('cd-hours').textContent=Math.floor(diff/3600000).toLocaleString('en-US');
   el('cd-date').textContent=r.cand.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
   el('cd-today-box').style.display=r.today?'block':'none';
-  document.title=(real>0?real+'d to '+A.event:A.event)+' - ToolTide';
+  document.title=(real>0?real+'d to '+EV:EV)+' - ToolTide';
 }
 tick();setInterval(tick,1000);
+var DIN=el('cd-date-in');
+function applyCustom(){
+  if(DIN.value){var p=DIN.value.split('-');CUST={y:+p[0],m:+p[1]-1,d:+p[2]};try{localStorage.setItem('tt_customcd',JSON.stringify(CUST));}catch(e){}}
+  else{CUST=null;try{localStorage.removeItem('tt_customcd');}catch(e){}}
+  el('cd-clear').style.display=CUST?'inline-block':'none';tick();
+}
+el('cd-set').addEventListener('click',applyCustom);
+DIN.addEventListener('change',applyCustom);
+el('cd-clear').addEventListener('click',function(){DIN.value='';applyCustom();});
+if(CUST){var p2=String(CUST.m+1),dd=String(CUST.d);DIN.value=CUST.y+'-'+(p2<10?'0':'')+p2+'-'+(dd<10?'0':'')+dd;el('cd-clear').style.display='inline-block';}
 })();</script>
 
   <section class="seo-block"><h2 data-i18n="tool.howto">How to use</h2><ol class="howto"><li>Open this page any time — the countdown to Winter starts updating immediately.</li><li>Read the big number for whole days remaining, or watch the timer for days, hours, minutes and seconds.</li><li>Check the facts panel below the timer for the exact date, day of the week, and weeks remaining.</li></ol></section>
