@@ -4921,6 +4921,206 @@ document.getElementById('wk-share').addEventListener('click',function(){
 </script>
 """
 
+# Weekly time card: in/out per day, shared lunch deduction, overnight shifts, OT over 40h.
+# Retention hooks: title result hook, tt_timecard memory, packed URL state (?l=&s=), Web Share.
+TIMECARD = """<div class="tool" id="tt-tc">
+  <div class="fields" id="tc-rows">
+    <div class="field"><label for="tc-l">Unpaid lunch (min/day)</label><input type="number" id="tc-l" step="5" min="0" max="180" placeholder="30"></div>
+  </div>
+  <div id="tc-days"></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tc-out">–</span><span class="result-unit">total hours this week</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tc-dec">–</b><span>decimal hours</span></div>
+    <div class="stat"><b id="tc-ot">–</b><span>overtime over 40h</span></div>
+    <div class="stat"><b id="tc-days-w">–</b><span>days worked</span></div>
+  </div>
+  <div class="tool-note" id="tc-note"></div>
+  <button type="button" class="tool-btn" id="tc-share">Share this time card</button>
+</div>
+<script>(function(){
+var DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+var box=document.getElementById('tc-days');
+var html='';
+DAYS.forEach(function(d,i){
+  html+='<div class="fields"><div class="field"><label>In '+d+'</label><input type="time" id="tc-i'+i+'"></div><div class="field"><label>Out '+d+'</label><input type="time" id="tc-o'+i+'"></div></div>';
+});
+box.innerHTML=html;
+var L=document.getElementById('tc-l');
+var OUT=document.getElementById('tc-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function mins(v){if(!v)return null;var m=v.match(/^(\\d{1,2}):(\\d{2})$/);return m?(+m[1])*60+(+m[2]):null;}
+function fmtHM(min){var h=Math.floor(min/60),m=min%60;return h+'h'+(m?' '+m+'m':'');}
+function calc(){
+  var lunch=Math.max(0,parseInt(L.value,10)||0),total=0,dw=0,rows=[];
+  for(var i=0;i<7;i++){
+    var a=mins(document.getElementById('tc-i'+i).value),b=mins(document.getElementById('tc-o'+i).value);
+    if(a===null||b===null){rows.push(null);continue;}
+    if(b<=a)b+=1440;
+    var d=Math.max(0,b-a-lunch);
+    total+=d;dw++;rows.push(d);
+  }
+  if(!dw){OUT.textContent='–';
+    document.getElementById('tc-dec').textContent='–';document.getElementById('tc-ot').textContent='–';
+    document.getElementById('tc-days-w').textContent='–';document.getElementById('tc-note').textContent='';
+    document.title='Time Card Calculator - ToolTide';return;}
+  OUT.textContent=fmtHM(total);
+  document.getElementById('tc-dec').textContent=(Math.round(total/60*100)/100).toString();
+  var ot=Math.max(0,total-2400);
+  document.getElementById('tc-ot').textContent=ot>0?fmtHM(ot):'—';
+  document.getElementById('tc-days-w').textContent=dw;
+  var av=total/dw;
+  document.getElementById('tc-note').textContent='Average '+fmtHM(Math.round(av))+' per worked day, lunch of '+lunch+' min already deducted. Overnight shifts (out before in) roll to the next day automatically.';
+  document.title=fmtHM(total)+' this week - ToolTide';
+}
+function pack(){
+  var s=[];
+  for(var i=0;i<7;i++){s.push(document.getElementById('tc-i'+i).value+'-'+document.getElementById('tc-o'+i).value);}
+  return s.join(',');
+}
+function save(){try{localStorage.setItem('tt_timecard',JSON.stringify({l:L.value,s:pack()}));}catch(e){}}
+L.addEventListener('input',function(){calc();save();});
+for(var j=0;j<7;j++){
+  document.getElementById('tc-i'+j).addEventListener('input',function(){calc();save();});
+  document.getElementById('tc-o'+j).addEventListener('input',function(){calc();save();});
+}
+var pre=false;
+var ql=qs('l'),qsv=qs('s');
+if(ql!==null){L.value=ql;pre=true;}
+if(qsv!==null){
+  var parts=qsv.split(',');
+  if(parts.length===7){
+    pre=true;
+    for(var k=0;k<7;k++){var pr=parts[k].split('-');
+      if(pr.length===2){document.getElementById('tc-i'+k).value=pr[0];document.getElementById('tc-o'+k).value=pr[1];}}
+  }
+}
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_timecard')||'null');
+  if(mem){L.value=mem.l||'';
+    if(mem.s){var ps=mem.s.split(',');
+      for(var q=0;q<7&&q<ps.length;q++){var pr2=ps[q].split('-');
+        if(pr2.length===2){document.getElementById('tc-i'+q).value=pr2[0];document.getElementById('tc-o'+q).value=pr2[1];}}}}}catch(e){}}
+calc();
+document.getElementById('tc-share').addEventListener('click',function(){
+  var txt='Time card this week: '+OUT.textContent+' ('+document.getElementById('tc-dec').textContent+'h decimal, '+document.getElementById('tc-days-w').textContent+' days). Tally yours (no sign-up):';
+  var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&s='+encodeURIComponent(pack());
+  if(navigator.share){navigator.share({title:'Weekly hours',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this time card';},1500);}
+});
+})();
+</script>
+"""
+
+# One-rep max: Epley / Brzycki / Lander consensus + percentage working weights.
+# Retention hooks: title result hook, tt_orm memory, URL state (?w=&r=&u=), Web Share.
+ONEREPMAX = """<div class="tool" id="tt-orm">
+  <div class="fields">
+    <div class="field"><label for="orm-w">Weight lifted</label><input type="number" id="orm-w" step="any" min="0" placeholder="100"></div>
+    <div class="field"><label for="orm-r">Reps completed</label><input type="number" id="orm-r" step="1" min="1" max="12" placeholder="5"></div>
+    <div class="field"><label for="orm-u">Units</label><select id="orm-u"><option value="lb">lb</option><option value="kg">kg</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="orm-out">–</span><span class="result-unit" id="orm-u2">estimated 1RM</span></div>
+  <div class="stats">
+    <div class="stat"><b id="orm-e">–</b><span>Epley</span></div>
+    <div class="stat"><b id="orm-b">–</b><span>Brzycki</span></div>
+    <div class="stat"><b id="orm-w5">–</b><span>5x5 working weight</span></div>
+  </div>
+  <div class="tool-note" id="orm-note"></div>
+  <button type="button" class="tool-btn" id="orm-share">Share this max</button>
+</div>
+<script>(function(){
+var W=document.getElementById('orm-w'),R=document.getElementById('orm-r'),U=document.getElementById('orm-u');
+var OUT=document.getElementById('orm-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function rnd(n){return Math.round(n);}
+function calc(){
+  var w=parseFloat(W.value),r=parseInt(R.value,10),u=U.value;
+  if(!(w>0)||!(r>=1)){OUT.textContent='–';
+    document.getElementById('orm-e').textContent='–';document.getElementById('orm-b').textContent='–';
+    document.getElementById('orm-w5').textContent='–';document.getElementById('orm-note').textContent='';
+    document.title='One Rep Max Calculator - ToolTide';return;}
+  var ep=w*(1+r/30),br=r<37?w*36/(37-r):0,ld=w*100/(101.3-2.67123*r);
+  var avg=(ep+br+ld)/3;
+  OUT.textContent=rnd(avg)+' '+u;
+  document.getElementById('orm-u2').textContent='estimated 1RM';
+  document.getElementById('orm-e').textContent=rnd(ep)+' '+u;
+  document.getElementById('orm-b').textContent=rnd(br)+' '+u;
+  document.getElementById('orm-w5').textContent=rnd(avg*0.8)+' '+u;
+  document.getElementById('orm-note').textContent='Three formulas, one answer: '+rnd(avg)+' '+u+' average. Programs speak percentages of 1RM - 80% for 5x5 strength blocks, 70% for volume work, 90%+ only for singles. Estimates tighten under 10 reps; beyond that they drift.';
+  document.title=rnd(avg)+' '+u+' one rep max - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_orm',JSON.stringify({w:W.value,r:R.value,u:U.value}));}catch(e){}}
+[W,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+U.addEventListener('change',function(){calc();save();});
+var pre=false;
+[['w',W],['r',R],['u',U]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_orm')||'null');if(mem){W.value=mem.w||'';R.value=mem.r||'';U.value=mem.u||'lb';}}catch(e){}}
+calc();
+document.getElementById('orm-share').addEventListener('click',function(){
+  var txt='Estimated 1RM: '+OUT.textContent+' from '+W.value+U.value+' x '+R.value+' reps. Estimate yours (no sign-up):';
+  var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value||'')+'&r='+encodeURIComponent(R.value||'')+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'One rep max',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this max';},1500);}
+});
+})();
+</script>
+"""
+
+# Standard deviation: paste-in dataset -> n, mean, sample & population SD, variance, range.
+# Retention hooks: title result hook, tt_sd memory, URL state (?d=), Web Share.
+STDDEV = """<div class="tool" id="tt-sd">
+  <div class="fields">
+    <div class="field"><label for="sd-in">Data (separated by spaces, commas or new lines)</label><textarea id="sd-in" rows="4" placeholder="2 4 4 4 5 5 7 9"></textarea></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sd-out">–</span><span class="result-unit">sample standard deviation</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sd-pop">–</b><span>population SD</span></div>
+    <div class="stat"><b id="sd-mean">–</b><span>mean</span></div>
+    <div class="stat"><b id="sd-n">–</b><span>n · min-max</span></div>
+  </div>
+  <div class="tool-note" id="sd-note"></div>
+  <button type="button" class="tool-btn" id="sd-share">Share this summary</button>
+</div>
+<script>(function(){
+var IN=document.getElementById('sd-in');
+var OUT=document.getElementById('sd-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var raw=IN.value.split(/[\\s,;]+/).filter(function(x){return x.length>0;});
+  var nums=raw.map(parseFloat).filter(function(x){return isFinite(x);});
+  if(nums.length<2){OUT.textContent='–';
+    document.getElementById('sd-pop').textContent='–';document.getElementById('sd-mean').textContent='–';
+    document.getElementById('sd-n').textContent='–';document.getElementById('sd-note').textContent='Paste at least two numbers.';
+    document.title='Standard Deviation Calculator - ToolTide';return;}
+  var n=nums.length,sum=0,i;
+  for(i=0;i<n;i++)sum+=nums[i];
+  var mean=sum/n,ss=0;
+  for(i=0;i<n;i++)ss+=(nums[i]-mean)*(nums[i]-mean);
+  var sv=ss/(n-1),pv=ss/n,sd=Math.sqrt(sv),pd=Math.sqrt(pv);
+  var mn=Math.min.apply(null,nums),mx=Math.max.apply(null,nums);
+  var fx=function(x){return Math.round(x*1e6)/1e6;};
+  OUT.textContent=fx(sd);
+  document.getElementById('sd-pop').textContent=fx(pd);
+  document.getElementById('sd-mean').textContent=fx(mean);
+  document.getElementById('sd-n').textContent=n+' · '+fx(mn)+'-'+fx(mx);
+  document.getElementById('sd-note').textContent='Sample SD divides by n-1 ('+fx(sv)+' variance) and estimates from a sample; population SD divides by n ('+fx(pv)+' variance) when the data IS the whole population. When in doubt with a sample, report the n-1 number.';
+  document.title='SD '+fx(sd)+' (n='+n+') - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_sd',IN.value);}catch(e){}}
+IN.addEventListener('input',function(){calc();save();});
+var q=qs('d');
+if(q!==null){IN.value=q;}
+else{try{var mem=localStorage.getItem('tt_sd');if(mem)IN.value=mem;}catch(e){}}
+calc();
+document.getElementById('sd-share').addEventListener('click',function(){
+  var txt='Data summary: mean '+document.getElementById('sd-mean').textContent+', sample SD '+OUT.textContent+', population SD '+document.getElementById('sd-pop').textContent+' (n='+document.getElementById('sd-n').textContent+'). Summarize yours (no sign-up):';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(IN.value);
+  if(navigator.share){navigator.share({title:'Data summary',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this summary';},1500);}
+});
+})();
+</script>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -5021,6 +5221,9 @@ TOOLS = {
     "pregnancy": lambda args: PREGNANCY,
     "tzconvert": lambda args: TZCONVERT,
     "weeknum": lambda args: WEEKNUM,
+    "timecard": lambda args: TIMECARD,
+    "onerepmax": lambda args: ONEREPMAX,
+    "stddev": lambda args: STDDEV,
 }
 
 

@@ -3723,6 +3723,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "time-card-calculator",
+        "title": "Time Card Calculator — Weekly Hours, Lunch Deduction & Overtime",
+        "h1": "Time Card Calculator",
+        "desc": "Add up a full week of clock-ins and clock-outs - lunch deducted, overnight shifts handled, overtime over 40 hours flagged. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "time card calculator",
+        "tool": "timecard",
+        "args": {},
+        "intro": [
+            "Timesheet math has three traps that a calculator removes: subtracting lunch twice (or never), overnight shifts where the clock-out is a smaller number than the clock-in, and the hour-and-minute to decimal conversion payroll actually wants. Fill in the week's in/out pairs, set one unpaid-lunch figure, and this time card returns total hours in h m format, the decimal total for the payroll system, hours past the 40-hour overtime line, and the average day.",
+            "Empty days are simply skipped, so part-time weeks and mid-week starts work without zero-filling. Overnight shifts roll past midnight automatically, and the whole week is remembered on your device — next week you edit the days that changed instead of retyping the roster. It pairs with the hours calculator for single spans and the overtime pay calculator once the hours become money.",
+        ],
+        "howto": [
+            "Enter clock-in and clock-out for each day worked - leave days blank.",
+            "Set the unpaid lunch minutes deducted per day (0 if none).",
+            "Read the weekly total in hours-minutes and decimal, plus overtime over 40h.",
+        ],
+        "faqs": [
+            ("How do I calculate hours worked from clock times?",
+             "Convert both times to minutes since midnight and subtract: 09:00 is 540, 17:00 is 1020, and 1020 - 540 = 480 minutes = 8 hours. Overnight shifts add 24 hours to the out-time when it is smaller than the in-time; the calculator applies both rules and deducts lunch once per worked day."),
+            ("Why does payroll want decimal hours?",
+             "Payroll systems multiply wage by hours as a plain number, and 7h 30m breaks that arithmetic — it must become 7.5. The decimal total here is rounded to two places, which matches typical payroll exports; the h m display stays for humans."),
+            ("When does overtime start?",
+             "In the US, FLSA overtime runs past 40 hours in a workweek — daily overtime rules in states like California differ. The calculator flags everything past 40 weekly hours; multiply that figure by your 1.5x rate in the overtime pay calculator for the dollar amount."),
+            ("What about breaks - are they paid?",
+             "Short rest breaks (5-20 minutes) are paid working time under FLSA; bona fide meal periods (typically 30+ minutes) are unpaid only if you are fully relieved of duty. The lunch deduction here models the unpaid meal break; paid breaks need no deduction at all."),
+        ],
+    })
+
+    pages.append({
+        "slug": "one-rep-max-calculator",
+        "title": "One Rep Max Calculator — Epley, Brzycki & Lander 1RM",
+        "h1": "One Rep Max Calculator",
+        "desc": "Estimate your one rep max from any set - Epley, Brzycki and Lander formulas averaged, with percentage working weights for your program. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "one rep max calculator",
+        "tool": "onerepmax",
+        "args": {},
+        "intro": [
+            "Nobody should test a true 1RM every week - it beats up the joints and stalls the program - so lifters estimate it from heavy sets instead. Enter the weight and reps you actually moved, and this calculator runs the three standard formulas at once: Epley (the classic, generous at high reps), Brzycki (accurate under 10 reps), and Lander, then averages them into the working number your percentages come from.",
+            "Alongside the max you get the practical translation: the 80% weight for 5x5 strength blocks, and the note reminds you where the estimates live honestly - tight under 10 reps, drifting beyond. Your last lift is remembered on the device, so week-to-week progression means editing one number. It pairs with the macro calculator for the kitchen half of the training equation.",
+        ],
+        "howto": [
+            "Enter the weight you lifted and the reps you completed with good form.",
+            "Read your estimated 1RM - three formulas plus their average.",
+            "Use the percentage working weights (80% for 5x5) to set your program.",
+        ],
+        "faqs": [
+            ("What is a one rep max?",
+             "The heaviest weight you can lift for a single clean repetition. It anchors strength programming: a 5x5 squat block at 80% of 1RM, a peaking block walking 90-95%. Testing it directly is exhausting and risky, which is why formulas estimate it from sets of 1-10 reps."),
+            ("Which 1RM formula is most accurate?",
+             "For under 10 reps, Brzycki and Epley land within a couple of percent of each other; above that, Epley runs high because rep endurance inflates it. Averaging Epley, Brzycki and Lander - what this calculator does - hedges the extremes and matches how most programs publish their percentages."),
+            ("How do I use percentages of my 1RM?",
+             "Strength blocks cluster at 80-90% (reps drop to 3-5), hypertrophy at 65-80% (reps 6-12), and technique or deload work sits around 60%. The 80% figure shown is the classic 5x5 working weight - heavy enough to force adaptation, light enough to accumulate volume."),
+            ("Do these formulas work for women and for all lifts?",
+             "They were built mostly on male squat/bench/deadlift data and hold well there; for upper-body lifts and female lifters they tend to read slightly low at higher reps. Treat the output as a training anchor - a number to round your programming against - rather than a laboratory measurement."),
+        ],
+    })
+
+    pages.append({
+        "slug": "standard-deviation-calculator",
+        "title": "Standard Deviation Calculator — Sample & Population SD, Mean",
+        "h1": "Standard Deviation Calculator",
+        "desc": "Paste any dataset to get sample and population standard deviation, variance, mean, n and range - with the n-1 vs n rule explained. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "standard deviation calculator",
+        "tool": "stddev",
+        "args": {},
+        "intro": [
+            "Standard deviation answers the question averages hide: how spread out is the data? Two classes can both average 75 while one has everyone at 74-76 and the other ranges from 40 to 100 - the mean is identical, the standard deviations are worlds apart. Paste numbers separated by spaces, commas or new lines and this calculator returns the sample SD (the n-1 figure for data drawn from a bigger population), the population SD (when your data is everyone), the variance both ways, the mean, and the range.",
+            "The n-1 versus n choice is where most homework loses marks, so the note line states which divisor produced each number and when to use it: sample data reports n-1, a complete population reports n. Results are rounded to six decimals, datasets are remembered between visits, and it pairs with the average calculator for the rest of the summary statistics.",
+        ],
+        "howto": [
+            "Paste or type your numbers - any mix of spaces, commas and line breaks.",
+            "Read sample SD, population SD, mean, variance and range instantly.",
+            "Check the note for which divisor applies to your data before reporting.",
+        ],
+        "faqs": [
+            ("What is standard deviation?",
+             "The typical distance of data points from the mean. It is calculated as the square root of variance - the average of squared deviations - which restores the original units. Low SD means values cluster tight; high SD means they spread wide. For the dataset 2, 4, 4, 4, 5, 5, 7, 9 the sample SD is about 2.138."),
+            ("When do I use sample (n-1) versus population (n)?",
+             "Use n-1 when your numbers are a sample estimating a larger population - Bessel's correction compensates for the sample mean underestimating spread. Use n only when you truly have every member: all of a class, a complete production run. When unsure with sampled data, the n-1 sample SD is the defensible default."),
+            ("What is variance and how does it relate?",
+             "Variance is standard deviation squared - the same spread measured in squared units. The calculator shows both: variance feeds other statistics (tests, ANOVA), while SD is the one you quote because its units match the data - centimeters, dollars, points."),
+            ("Does this handle negative and decimal numbers?",
+             "Yes - any finite numbers parse, including negatives and decimals, in any order. Tokens that are not numbers are ignored rather than breaking the run, so a stray label in pasted spreadsheet data will not sabotage the calculation."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
