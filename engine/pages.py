@@ -3243,6 +3243,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "body-fat-calculator",
+        "title": "Body Fat Calculator — US Navy Method (Tape Measurements)",
+        "h1": "Body Fat Calculator",
+        "desc": "Estimate body fat percentage with the US Navy tape method — just height, neck and waist (plus hip for women), with fat mass, lean mass and fitness category. Free, private.",
+        "category": "calculator",
+        "keyword": "body fat calculator",
+        "tool": "bodyfat",
+        "args": {},
+        "intro": [
+            "The scale can't tell muscle from fat; a tape measure gets surprisingly close. The US Navy developed this circumference formula to field-assess recruits without lab equipment — neck and waist for men, plus hips for women — and validation studies put it within roughly ±3% of DEXA scans for most people. Enter four numbers and you get a body fat percentage, a fitness category, and the fat-versus-lean split of your current weight.",
+            "That lean-mass number is the one worth tracking: at a constant body weight, falling body fat means you are recomposing — gaining muscle while losing fat — something the scale alone would hide. Re-measure with the same tape at the same time of day, and the page remembers your measurements locally so the monthly comparison takes thirty seconds.",
+        ],
+        "howto": [
+            "Measure per the method: neck below the larynx, waist at the navel (men) or narrowest point (women), hips at the widest point for women.",
+            "Enter height, circumference measurements and your weight — the estimate, category and mass split appear instantly.",
+            "Share the estimate in one tap, or bookmark the page — measurements are remembered for your monthly recheck.",
+        ],
+        "faqs": [
+            ("How does the Navy body fat formula work?",
+             "It models the body as cylinders and logs: for men, 495 ÷ (1.0324 − 0.19077×log10(waist−neck) + 0.15456×log10(height)) − 450; women add hip circumference to the equation. The log terms capture how fat is distributed — exactly what a scale cannot see."),
+            ("What is a healthy body fat percentage?",
+             "For men, roughly 14-18% is athletic-fitness range and 18-25% average; for women, 21-25% athletic-fitness and 25-32% average — women carry essential fat the male formula never sees. Below the essential floor is a health risk, not an achievement."),
+            ("How accurate is the tape method?",
+             "Within about ±3% of DEXA for most body types when measured carefully, which is enough to track trends. Consistency beats precision: same tape tension, same time of day, same hydration state — the direction of change is the signal."),
+            ("Why track body fat instead of just weight?",
+             "Weight cannot distinguish recomposition from stagnation. Two people at 80 kg can hold 15% or 30% body fat with opposite health profiles — and during a training block, stable weight with falling body fat is the win the scale would misread as failure."),
+        ],
+    })
+
+    pages.append({
+        "slug": "oven-temperature-converter",
+        "title": "Oven Temperature Converter — °F, °C and Gas Marks With Reference Table",
+        "h1": "Oven Temperature Converter",
+        "desc": "Convert any oven setting between Fahrenheit, Celsius and UK gas marks — plus a full reference table from meringues to pizza. Never misread a recipe again. Free, instant.",
+        "category": "calculator",
+        "keyword": "oven temperature converter",
+        "tool": "oven",
+        "args": {},
+        "intro": [
+            "The internet's recipes travel, but ovens don't: American recipes speak Fahrenheit, European ones Celsius, and British vintage cookery writes gas marks. Enter any setting in one system and this converter gives the equivalent in both others — plus the full reference table from 275°F meringue-land to 500°F pizza-blast, so you can sanity-check any recipe at a glance.",
+            "The table's fourth column is the practical one: what each temperature is actually used for, from slow-roasting to fast browning. One warning is built into the page: fan (convection) ovens run about 20°C hotter than these conventional settings — subtract 20°C or one gas mark equivalent when the manual says fan-assisted.",
+        ],
+        "howto": [
+            "Pick the unit your recipe uses — °F, °C or gas mark — and type the temperature.",
+            "Read the equivalent in both other systems in the big result, with the nearest gas mark named.",
+            "Scan the reference table for the typical use at each setting, and share the conversion with one tap.",
+        ],
+        "faqs": [
+            ("What is 350°F in Celsius and gas mark?",
+             "350°F is 175°C — gas mark 4, the workhorse of baking (cookies, cakes, most roasting). It is the single most common oven setting in American recipes, which is why it anchors the middle of the reference table."),
+            ("How do gas marks convert to Celsius?",
+             "Gas mark 1 is about 140°C and each mark adds roughly 13-15°C (250°F + 25°F per mark in Fahrenheit). The converter rounds to the nearest mark because dials are that imprecise anyway — anything within a quarter-mark is the same oven reality."),
+            ("Do I need to adjust for a fan oven?",
+             "Yes — fan-assisted ovens circulate heat and effectively cook 20°C (25°F) hotter than conventional settings. Reduce the temperature by 20°C (or one gas mark equivalent) or shorten the time; when a recipe says 180°C conventional, run a fan oven at 160°C."),
+            ("Why do recipes disagree about temperatures?",
+             "Ovens lie: a dial reading 180°C can sit 15°C off true, and hot spots vary by rack. The converter gives you the correct target — after that, an oven thermometer is the cheapest baking upgrade there is, because you calibrate your oven against the number the recipe means."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

@@ -3072,6 +3072,118 @@ document.getElementById('si-share').addEventListener('click',function(){
 </script>
 """
 
+# Body fat percentage (US Navy circumference method), male and female formulas.
+# Retention hooks: title result hook, tt_bodyfat input memory, URL state (?s=&h=&n=&w=&hp=), Web Share.
+BODYFAT = """<div class="tool" id="tt-bf">
+  <div class="fields">
+    <div class="field"><label for="bf-s">Sex</label><select id="bf-s"><option value="m">Male</option><option value="f">Female</option></select></div>
+    <div class="field"><label for="bf-h">Height (cm)</label><input type="number" id="bf-h" step="any" min="100" max="230" placeholder="175"></div>
+    <div class="field"><label for="bf-n">Neck (cm)</label><input type="number" id="bf-n" step="any" min="20" max="60" placeholder="38"></div>
+    <div class="field"><label for="bf-w">Waist (cm)</label><input type="number" id="bf-w" step="any" min="40" max="200" placeholder="85"></div>
+    <div class="field" id="bf-hip-wrap" style="display:none"><label for="bf-hip">Hip (cm)</label><input type="number" id="bf-hip" step="any" min="50" max="200" placeholder="98"></div>
+    <div class="field"><label for="bf-kg">Weight (kg, for mass split)</label><input type="number" id="bf-kg" step="any" min="30" max="300" placeholder="75"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bf-out">–</span><span class="result-unit">estimated body fat</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bf-cat">–</b><span>category</span></div>
+    <div class="stat"><b id="bf-fatkg">–</b><span>fat mass</span></div>
+    <div class="stat"><b id="bf-leankg">–</b><span>lean mass</span></div>
+  </div>
+  <div class="tool-note" id="bf-note"></div>
+  <button type="button" class="tool-btn" id="bf-share">Share my estimate</button>
+</div>
+<script>(function(){
+var S=document.getElementById('bf-s'),H=document.getElementById('bf-h'),N=document.getElementById('bf-n'),W=document.getElementById('bf-w'),HP=document.getElementById('bf-hip'),HW=document.getElementById('bf-hip-wrap');
+var OUT=document.getElementById('bf-out');
+var CATS={m:[[6,'Essential fat'],[14,'Athletic'],[18,'Fitness'],[25,'Average'],[999,'Above average']],f:[[14,'Essential fat'],[21,'Athletic'],[25,'Fitness'],[32,'Average'],[999,'Above average']]};
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var sex=S.value,h=parseFloat(H.value)||0,n=parseFloat(N.value)||0,w=parseFloat(W.value)||0;
+  if(!h||!n||!w||(sex==='f'&&!parseFloat(HP.value))){OUT.textContent='–';document.getElementById('bf-cat').textContent='–';
+    document.getElementById('bf-fatkg').textContent='–';document.getElementById('bf-leankg').textContent='–';
+    document.getElementById('bf-note').textContent='';document.title='Body Fat Calculator - ToolTide';return;}
+  var bf;
+  if(sex==='m'){bf=495/(1.0324-0.19077*Math.log10(w-n)+0.15456*Math.log10(h))-450;}
+  else{bf=495/(1.29579-0.35004*Math.log10(w+parseFloat(HP.value)-n)+0.221*Math.log10(h))-450;}
+  OUT.textContent=Math.round(bf*10)/10+'%';
+  var cats=CATS[sex],cat=cats[cats.length-1][1];
+  for(var i=0;i<cats.length;i++){if(bf<cats[i][0]){cat=cats[i][1];break;}}
+  document.getElementById('bf-cat').textContent=cat;
+  var kg=parseFloat(document.getElementById('bf-kg').value)||0;
+  document.getElementById('bf-fatkg').textContent=kg?Math.round(kg*bf/100)+' kg':'–';
+  document.getElementById('bf-leankg').textContent=kg?Math.round(kg*(1-bf/100))+' kg':'–';
+  document.getElementById('bf-note').textContent='US Navy circumference method - accurate to roughly ±3% versus DEXA for most people. Track the trend on the same tape, same time of day, rather than treating one reading as truth.';
+  document.title=Math.round(bf*10)/10+'% body fat - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_bodyfat',JSON.stringify({s:S.value,h:H.value,n:N.value,w:W.value,hp:HP.value,k:document.getElementById('bf-kg').value}));}catch(e){}}
+S.addEventListener('change',function(){HW.style.display=S.value==='f'?'':'none';calc();save();});
+[H,N,W,HP,document.getElementById('bf-kg')].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['s',S],['h',H],['n',N],['w',W],['hp',HP]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+var kgv=qs('kg');if(kgv!==null){document.getElementById('bf-kg').value=kgv;pre=true;}
+if(pre){HW.style.display=S.value==='f'?'':'none';}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_bodyfat')||'null');if(mem){S.value=mem.s||'m';H.value=mem.h||'';N.value=mem.n||'';W.value=mem.w||'';HP.value=mem.hp||'';document.getElementById('bf-kg').value=mem.k||'';HW.style.display=S.value==='f'?'':'none';}}catch(e){}}
+calc();
+document.getElementById('bf-share').addEventListener('click',function(){
+  var txt='My estimated body fat: '+OUT.textContent+' (US Navy method). Estimate yours (no sign-up):';
+  var url=location.origin+location.pathname+'?s='+S.value+'&h='+encodeURIComponent(H.value||'')+'&n='+encodeURIComponent(N.value||'')+'&w='+encodeURIComponent(W.value||'')+(S.value==='f'?'&hp='+encodeURIComponent(HP.value||''):'')+'&kg='+encodeURIComponent(document.getElementById('bf-kg').value||'');
+  if(navigator.share){navigator.share({title:'Body fat estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my estimate';},1500);}
+});
+})();
+</script>
+"""
+
+# Oven temperature converter: F, C and UK gas mark, with a full reference table.
+# Retention hooks: title result hook, tt_oven input memory, URL state (?v=&u=), Web Share.
+OVEN = """<div class="tool" id="tt-oven">
+  <div class="fields">
+    <div class="field"><label for="ov-u">Input unit</label><select id="ov-u"><option value="f">°Fahrenheit</option><option value="c">°Celsius</option><option value="g">Gas mark</option></select></div>
+    <div class="field"><label for="ov-v">Oven temperature</label><input type="number" id="ov-v" step="any" placeholder="350"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ov-out">–</span><span class="result-unit" id="ov-unit"></span></div>
+  <div id="ov-table"></div>
+  <div class="tool-note">Recipes from the US use °F, Europe uses °C, and UK ovens use gas marks. Fan ovens run about 20°C hotter than the numbers here - subtract 20°C (or one gas mark equivalent) for fan-assisted settings.</div>
+  <button type="button" class="tool-btn" id="ov-share">Share the conversion</button>
+</div>
+<script>(function(){
+var U=document.getElementById('ov-u'),V=document.getElementById('ov-v');
+var OUT=document.getElementById('ov-out'),UNIT=document.getElementById('ov-unit'),TB=document.getElementById('ov-table');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function toGas(c){var marks=[[125,1],[140,2],[150,2],[160,3],[170,3],[180,4],[190,5],[200,6],[210,6],[220,7],[230,8],[240,9],[250,10]];
+  var best=marks[0][1],d=1e9;marks.forEach(function(m){var dd=Math.abs(m[0]-c);if(dd<d){d=dd;best=m[1];}});return best;}
+function calc(){
+  var v=parseFloat(V.value),u=U.value;
+  if(isNaN(v)){OUT.textContent='–';UNIT.textContent='';TB.innerHTML='';document.title='Oven Temperature Converter - ToolTide';return;}
+  var f=u==='f'?v:(u==='c'?v*9/5+32:0);
+  if(u==='g'){f=250+25*v;}
+  var c=(f-32)*5/9,g=Math.max(1,Math.min(10,toGas(c)));
+  OUT.textContent=Math.round(c)+'°C / '+Math.round(f)+'°F';
+  UNIT.textContent='gas mark '+g+' equivalent';
+  var rows=[[275,135,1],[300,150,2],[325,165,3],[350,175,4],[375,190,5],[400,200,6],[425,220,7],[450,230,8],[475,245,9],[500,260,10]];
+  var h='<table class="cp-t"><thead><tr><th>°F</th><th>°C</th><th>Gas</th><th>Typical use</th></tr></thead><tbody>';
+  var uses=['Very low - meringues','Low - slow roasting','Low - drying','Moderate - casseroles','Moderate - cakes & cookies','Moderate hot - roasting veg','Hot - bread & scones','Hot - roasting meat','Very hot - pizza & pastry','Very hot - fast browning'];
+  rows.forEach(function(r){h+='<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+uses[r[2]-1]+'</td></tr>';});
+  TB.innerHTML=h+'</tbody></table>';
+  document.title=Math.round(c)+'C oven - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_oven',JSON.stringify({u:U.value,v:V.value}));}catch(e){}}
+[U,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+U.addEventListener('change',function(){V.placeholder=U.value==='f'?'350':(U.value==='c'?'175':'4');calc();save();});
+var pre=false;
+[['v',V],['u',U]].forEach(function(a){var x=qs(a[0]);if(x!==null){a[1].value=x;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_oven')||'null');if(mem){U.value=mem.u||'f';V.value=mem.v||'';}}catch(e){}}
+calc();
+document.getElementById('ov-share').addEventListener('click',function(){
+  var txt='Oven setting: '+OUT.textContent+' ('+UNIT.textContent+'). Convert any recipe (no sign-up):';
+  var url=location.origin+location.pathname+'?u='+U.value+'&v='+encodeURIComponent(V.value||'');
+  if(navigator.share){navigator.share({title:'Oven temperature',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the conversion';},1500);}
+});
+})();
+</script>
+"""
+
 # Macro calculator: calories + split % -> grams of protein, carbs and fat.
 # Retention hooks: title result hook, tt_macros input memory, URL state (?cal=&p=&c=&f=), Web Share.
 MACROS = """<div class="tool" id="tt-mac">
@@ -3964,6 +4076,8 @@ TOOLS = {
     "pace": lambda args: PACE,
     "macros": lambda args: MACROS,
     "electricity": lambda args: ELECTRIC,
+    "bodyfat": lambda args: BODYFAT,
+    "oven": lambda args: OVEN,
 }
 
 
