@@ -1,0 +1,89 @@
+{
+ "fetched": "2026-09-13T16:25:37",
+ "trends": {
+  "US": [
+   {
+    "title": "cycling",
+    "traffic": "100+"
+   },
+   {
+    "title": "steam frame",
+    "traffic": "200+"
+   },
+   {
+    "title": "aj hill",
+    "traffic": "200+"
+   },
+   {
+    "title": "jessica alba",
+    "traffic": "200+"
+   },
+   {
+    "title": "leslie jones",
+    "traffic": "500+"
+   },
+   {
+    "title": "óscar perea",
+    "traffic": "200+"
+   },
+   {
+    "title": "tyler perry",
+    "traffic": "1000+"
+   },
+   {
+    "title": "miguel borja",
+    "traffic": "500+"
+   },
+   {
+    "title": "shipping",
+    "traffic": "5000+"
+   },
+   {
+    "title": "wendy williams",
+    "traffic": "1000+"
+   }
+  ],
+  "GB": [
+   {
+    "title": "miami international airport",
+    "traffic": "500+"
+   },
+   {
+    "title": "tom aspinall",
+    "traffic": "200+"
+   },
+   {
+    "title": "ugo ugochukwu",
+    "traffic": "100+"
+   },
+   {
+    "title": "andoni iraola jeremy jacquet liverpool",
+    "traffic": "1000+"
+   },
+   {
+    "title": "angela rayner",
+    "traffic": "500+"
+   },
+   {
+    "title": "death",
+    "traffic": "200+"
+   },
+   {
+    "title": "us presidents",
+    "traffic": "1000+"
+   },
+   {
+    "title": "fox",
+    "traffic": "200+"
+   },
+   {
+    "title": "man utd vs man city",
+    "traffic": "200+"
+   },
+   {
+    "title": "lisa hogan",
+    "traffic": "100+"
+   }
+  ]
+ }
+}

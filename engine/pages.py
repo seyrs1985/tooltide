@@ -3003,6 +3003,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "tdee-calculator",
+        "title": "TDEE Calculator — Daily Calorie Needs (BMR + Activity)",
+        "h1": "TDEE & Calorie Calculator",
+        "desc": "Find your total daily energy expenditure: BMR from the Mifflin-St Jeor equation times your real activity level — plus steady-loss and lean-gain reference lines. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "tdee calculator",
+        "tool": "tdee",
+        "args": {},
+        "intro": [
+            "TDEE — total daily energy expenditure — is the number of calories you burn in 24 hours including everything from digestion to workouts. It is the anchor every sensible plan hangs from: eat below it to lose weight, above it to gain. This calculator computes your BMR with the Mifflin-St Jeor equation (the formula most dietitians start from), then applies an honest activity multiplier you pick from five plain-language levels.",
+            "Two reference lines sit next to the maintenance number: a 500 kcal deficit for steady loss (about half a kilo a week) and a +300 kcal surplus for lean gain, because eating wildly past your TDEE mostly buys fat, not muscle. Your inputs are remembered on this device — recheck after your activity level changes and the whole picture updates in one tap.",
+        ],
+        "howto": [
+            "Enter sex, age, height and weight — your BMR appears immediately in the stats row.",
+            "Pick the activity level that matches your real week, not your aspirational one — the big number is your maintenance calories.",
+            "Use the −500 and +300 reference lines for loss or lean-gain plans, and share the estimate with one tap.",
+        ],
+        "faqs": [
+            ("How is TDEE calculated?",
+             "BMR × activity multiplier. BMR comes from the Mifflin-St Jeor equation (10 × weight kg + 6.25 × height cm − 5 × age + 5 for men, −161 for women); the multiplier runs from 1.2 for sedentary to 1.9 for athletes. The result is an estimate — treat it as a starting point and adjust against real weight trends."),
+            ("Should I eat below my TDEE to lose weight?",
+             "A deficit is what produces fat loss, and 500 kcal below maintenance is the standard steady pace (≈0.5 kg/week). Going far below BMR is where diets backfire — energy, training and adherence all crumble. The loss line shows the moderate starting point, not a hard limit."),
+            ("Why is my TDEE different from my friend's?",
+             "Body size, muscle mass, age and sex move BMR substantially — a heavier, younger, taller body burns more at rest. Two people with identical lifestyles can differ by 400+ kcal a day, which is exactly why shared diet numbers fail and personal calculators work."),
+            ("How accurate is the Mifflin-St Jeor equation?",
+             "It lands within about 10% of measured resting metabolism for most adults and outperforms older equations in validation studies. Use the estimate to set a starting intake, then trust the scale trend over two weeks — if weight isn't moving as predicted, adjust intake by 100-200 kcal."),
+        ],
+    })
+
+    pages.append({
+        "slug": "tip-split-calculator",
+        "title": "Tip Split Calculator — Per-Person Share With Round-Up Option",
+        "h1": "Tip Split Calculator",
+        "desc": "Split the dinner bill fairly: bill + tip ÷ people, each person's exact share, and a round-up option that fattens the tip instead of shortchanging the server. Free, instant.",
+        "category": "calculator",
+        "keyword": "tip split calculator",
+        "tool": "tipsplit",
+        "args": {},
+        "intro": [
+            "End-of-meal math is the worst kind: done on a phone, under peer pressure, twice. This calculator takes the bill, your tip percentage and the headcount, then shows each person's exact share, the grand total, and — the part everyone actually wants — a round-up figure where each person throws in to the next whole dollar and the surplus becomes a better tip rather than an argument.",
+            "It complements the plain tip calculator for the \"one check, many wallets\" situation: the note line spells out what the round-up collection totals and how much extra the server receives, so the table can decide between exact fairness and clean cash. Every input is remembered and the share button packages the split for the group chat before the dessert menus arrive.",
+        ],
+        "howto": [
+            "Enter the bill total, tip percentage and number of people — each person's share appears instantly.",
+            "Compare the round-up figure: everyone pays to the next whole dollar and the difference tops up the tip.",
+            "Tap Share to send the per-person amount to the group chat with the math attached.",
+        ],
+        "faqs": [
+            ("How do you split a bill with tip?",
+             "Add the tip to the bill first, then divide by people: (bill × (1 + tip%)) ÷ heads. For a $184.50 bill with an 18% tip across 4 people: grand total $217.71, so $54.43 each. The calculator shows both the exact figure and the round-up version."),
+            ("How much should I tip for dinner?",
+             "US table service convention is 18-20% for good service, 15% for adequate, 20%+ for exceptional; the tip applies to the pre-discount bill. The percentage field accepts any value so the table can decide collectively — the math stays honest either way."),
+            ("Is it fair to split the bill equally?",
+             "Equal splits are fair when orders are comparable; they quietly break when one person's steak funds another's side salad. This calculator gives the equal-split answer (what most tables do) with clean round-up cash — for order-by-order fairness, itemized apps are the alternative."),
+            ("What does the round-up option actually do?",
+             "Each person rounds their share up to the next whole dollar. The note line totals the collection and shows the surplus — for the example above, four people paying $55 collect $220 on a $217.71 bill, handing the server an effective 19.3% tip without anyone doing mental math at the table."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

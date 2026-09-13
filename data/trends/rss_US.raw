@@ -6,8 +6,38 @@
 		<link>https://trends.google.com/trending/rss?geo=US</link>
 		<atom:link href="https://trends.google.com/trending/rss?geo=US" rel="self" type="application/rss+xml"/>
 		<item>
-			<title>steam frame</title>
+			<title>cycling</title>
 			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sun, 13 Sep 2026 01:10:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbXo_lGbZa-jdSBkAqsUHRteEFLK2rj5lOuTcTAB8x1-tJFgBWMmu-xy02p0</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Vuelta a Espana 2026: Mikel Landa wins stage 20 as Enric Mas moves to brink of victory</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.com/sport/cycling/articles/c39m7rm00lko</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfbXo_lGbZa-jdSBkAqsUHRteEFLK2rj5lOuTcTAB8x1-tJFgBWMmu-xy02p0</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>No final twist after all for Primož Roglič as GC winner-elect Enric Mas and Movistar thrive among the chaos of an epic, breathless Vuelta a España queen stage – Analysis</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.cyclingnews.com/pro-cycling/teams-riders/no-final-twist-after-all-for-primoz-roglic-as-gc-winner-elect-enric-mas-and-movistar-thrive-among-the-chaos-of-an-epic-breathless-vuelta-a-espana-queen-stage-analysis/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSCe3wxrS4_5L4IbjpqF4wfUDpwEWGS0gnb6k3pdBoHPDVX7zd2INwfnH0OPmM</ht:news_item_picture>
+				<ht:news_item_source>Cyclingnews</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Vuelta: Landa climbs out of a deep trough to win stage 20</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://escapecollective.com/vuelta-landa-climbs-out-of-a-deep-trough-to-win-stage-20/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR6ujvD6kAduGh8U5LepEZvFMX-s9Xcy5MJ_1jnsg8cKyFT60b6R7X5zuBYmL8</ht:news_item_picture>
+				<ht:news_item_source>Escape Collective</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>steam frame</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sun, 13 Sep 2026 00:20:00 -0700</pubDate>
@@ -36,33 +66,33 @@
 			</ht:news_item>
 		</item>
 		<item>
-			<title>hawaii</title>
-			<ht:approx_traffic>500+</ht:approx_traffic>
+			<title>aj hill</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 23:00:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQHYBLQNEJrdu-LttIH2W9E4mUHrDhTBnJkRMw7OYtQAG3RbDle7wKl8vezzzE</ht:picture>
-			<ht:picture_source>Hawaii News Now</ht:picture_source>
+			<pubDate>Sat, 12 Sep 2026 23:10:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSryUMR5OUwz6wsCIt7OGh6S4XAjGzcJ9JH63pvSXtTGmcqVyLtJ283zT3H5eI</ht:picture>
+			<ht:picture_source>Whole Hog Sports</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>Cut off by Hurricane Lowell, Kauai man worries about water for 60 cattle</ht:news_item_title>
+				<ht:news_item_title>Arkansas football notebook: AJ Hill makes Razorback debut amid offensive struggles in loss to Utah</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.hawaiinewsnow.com/2026/09/13/cut-off-by-hurricane-lowell-kauai-man-worries-about-water-60-cattle/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQHYBLQNEJrdu-LttIH2W9E4mUHrDhTBnJkRMw7OYtQAG3RbDle7wKl8vezzzE</ht:news_item_picture>
-				<ht:news_item_source>Hawaii News Now</ht:news_item_source>
+				<ht:news_item_url>https://www.wholehogsports.com/news/2026/sep/13/arkansas-football-notebook-aj-hill-makes-arkansas-football-debut-amid-offensive-struggles-in-loss-to-utah/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSryUMR5OUwz6wsCIt7OGh6S4XAjGzcJ9JH63pvSXtTGmcqVyLtJ283zT3H5eI</ht:news_item_picture>
+				<ht:news_item_source>Whole Hog Sports</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Hawaii Governor Asks Trump for Help as State Copes With Hurricane’s Damage</ht:news_item_title>
+				<ht:news_item_title>Channel Finder: Utah</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.nytimes.com/2026/09/10/us/hurricane-lowell-hawaii-kauai-disaster.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcStpCn_PKIU18Zp2nrBGIhU1NZuQ020lBMDjXTItskym03kt3fsY_bn9FDj8d0</ht:news_item_picture>
-				<ht:news_item_source>The New York Times</ht:news_item_source>
+				<ht:news_item_url>https://arkansasrazorbacks.com/channel-finder-utah/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQxmZogAjSD9B4uQBKEnwyUBPLwzjfa-kAYUFX0DwzdTcmCyGQltfLbgkMvEi8</ht:news_item_picture>
+				<ht:news_item_source>Arkansas Razorbacks</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Weather tracker: Hurricane Lowell pounds Hawaii’s western islands</ht:news_item_title>
+				<ht:news_item_title>Devon Dampier leads No. 20 Utah in 43-10 blowout of Arkansas</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.theguardian.com/world/2026/sep/11/weather-tracker-hurricane-lowell-pounds-hawaii-western-islands</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRSnezMKPGMipbiWN9OLSpp0isc14PRXH8Ksr7JpA7XiBYApqPejPnV6Byu3Kk</ht:news_item_picture>
-				<ht:news_item_source>The Guardian</ht:news_item_source>
+				<ht:news_item_url>https://www.cbssports.com/college-football/news/devon-dampier-leads-no-20-utah-in-43-10-blowout-of-arkansas/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTFaL6Aic3vZffsYerBgWx-UT3aAPiASO4kdX-yWGnteVjCtzFT1nZFoFy78xA</ht:news_item_picture>
+				<ht:news_item_source>CBS Sports</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
@@ -71,8 +101,15 @@
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 23:00:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT1bvVuFrxqJbj1RIDip0UTXddIiRxAjS8ZMi4qNDlEppNofkKCTI4sd8xJiRk</ht:picture>
-			<ht:picture_source>People.com</ht:picture_source>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSRn3jJrWT2zfGZpk3vxHeG9II1vFlNmEDkBOS4yTH4kBvWmW2qnK0xVIXckag</ht:picture>
+			<ht:picture_source>The Times of India</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Jessica Alba&apos;s approach to teaching kids about money: The financial lesson every parent can start early</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://timesofindia.indiatimes.com/life-style/parenting/moments/jessica-albas-approach-to-teaching-kids-about-money-the-financial-lesson-every-parent-can-start-early/articleshow/134186005.cms</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSRn3jJrWT2zfGZpk3vxHeG9II1vFlNmEDkBOS4yTH4kBvWmW2qnK0xVIXckag</ht:news_item_picture>
+				<ht:news_item_source>The Times of India</ht:news_item_source>
+			</ht:news_item>
 			<ht:news_item>
 				<ht:news_item_title>Jessica Alba Just Wore Hollywood’s Go-To Lightweight Layer — Shop Her Exact Top and Similar Styles from $15</ht:news_item_title>
 				<ht:news_item_snippet/>
@@ -86,13 +123,6 @@
 				<ht:news_item_url>https://www.yahoo.com/entertainment/movies/articles/hayden-christensen-jessica-albas-forgotten-234700698.html</ht:news_item_url>
 				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwi1laRnfSsVjUsC5BTk6Hh1KmfJR0PUYtbY4v1jTemFC5T8gfaMGoejAfp9U</ht:news_item_picture>
 				<ht:news_item_source>Yahoo</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Hayden Christensen And Jessica Alba&apos;s Forgotten Medical Thriller Has A Truly Terrifying Concept</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.aol.com/articles/hayden-christensen-jessica-albas-forgotten-234700000.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQxCeTR-CyQGpgy34V_CoAi_N32bik5rlFZQJ9fRAWY24mUz8HE4-zFsNnatbI</ht:news_item_picture>
-				<ht:news_item_source>AOL.com</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
@@ -266,36 +296,6 @@
 				<ht:news_item_url>https://thejasminebrand.com/2026/09/07/wendy-williams-show-producer-norman-baker-says-he-refused-to-participate-in-documentaries-about-wendy-williams-i-dont-wanna-be-involved-in-trashing-her/</ht:news_item_url>
 				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRO56WLYlIaBChlVz06kRE0b4Dgp0zLDT5BJF2fgvtvI5e0FRxdwkhcKjMEtsY</ht:news_item_picture>
 				<ht:news_item_source>theJasmineBRAND</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>henry cavill</title>
-			<ht:approx_traffic>1000+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 21:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSZfKvhcOyZ6w52JED5fozzhmAGT5X7SqJxWw4Hmh36efwXc1IzMty1b55VobQ</ht:picture>
-			<ht:picture_source>Red Bank Green</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>RED BANK: BROADWALK LANDMARK BECOMES SET FOR KEVIN HART FLICK</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.redbankgreen.com/2026/09/red-bank-broad-street-landmark-becomes-set-for-kevin-hart-flick09112026/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSZfKvhcOyZ6w52JED5fozzhmAGT5X7SqJxWw4Hmh36efwXc1IzMty1b55VobQ</ht:news_item_picture>
-				<ht:news_item_source>Red Bank Green</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Kevin Hart, Henry Cavill Spy Movie Films in Glen Ridge</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://montclairlocal.news/2026/09/kevin-hart-henry-cavill-spy-movie-films-in-glen-ridge/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSGGKVVZYrsER1ybDux6cb95lA1VJ4TCi465OQrxKS6CxV-_wWRoHdSBIqAoE0</ht:news_item_picture>
-				<ht:news_item_source>Montclair Local News</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Kevin Hart, Henry Cavill reportedly seen filming in North Jersey</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.northjersey.com/story/entertainment/movies/2026/09/11/netflix-spy-comedy-movie-henry-cavill-kevin-hart-filming-nj/91707519007/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS77b9jLyO6HNuPvSKfHdVFAfYWwY3JJgw1B_cYpcifvWM3dEsnFtRd4ccdpxU</ht:news_item_picture>
-				<ht:news_item_source>Bergen Record</ht:news_item_source>
 			</ht:news_item>
 		</item>
 	</channel>

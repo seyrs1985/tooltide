@@ -3072,6 +3072,119 @@ document.getElementById('si-share').addEventListener('click',function(){
 </script>
 """
 
+# TDEE calculator: Mifflin-St Jeor BMR x activity multiplier, with cut/bulk reference lines.
+# Retention hooks: title result hook, tt_tdee input memory, URL state (?s=&a=&h=&w=&act=), Web Share.
+TDEE = """<div class="tool" id="tt-tdee">
+  <div class="fields">
+    <div class="field"><label for="td-sex">Sex</label><select id="td-sex"><option value="m">Male</option><option value="f">Female</option></select></div>
+    <div class="field"><label for="td-age">Age</label><input type="number" id="td-age" min="10" max="100" step="1" placeholder="30"></div>
+  </div>
+  <div class="fields">
+    <div class="field"><label for="td-h">Height (cm)</label><input type="number" id="td-h" min="100" max="230" step="any" placeholder="175"></div>
+    <div class="field"><label for="td-w">Weight (kg)</label><input type="number" id="td-w" min="30" max="300" step="any" placeholder="75"></div>
+  </div>
+  <div class="field"><label for="td-act">Activity level</label>
+    <select id="td-act">
+      <option value="1.2">Sedentary — desk job, little exercise</option>
+      <option value="1.375">Light — 1-3 workouts a week</option>
+      <option value="1.55" selected>Moderate — 3-5 workouts a week</option>
+      <option value="1.725">Very active — 6-7 workouts a week</option>
+      <option value="1.9">Athlete — twice-daily training or physical job</option>
+    </select></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="td-out">–</span><span class="result-unit">kcal / day to maintain weight (TDEE)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="td-bmr">–</b><span>BMR at rest</span></div>
+    <div class="stat"><b id="td-loss">–</b><span>steady loss (−500)</span></div>
+    <div class="stat"><b id="td-gain">–</b><span>lean gain (+300)</span></div>
+  </div>
+  <div class="tool-note">Mifflin-St Jeor equation × activity multiplier — the same method most dietitians start from. Treat every figure as a starting estimate: track real weight change for two weeks and adjust by 100-200 kcal rather than trusting any formula blindly.</div>
+  <button type="button" class="tool-btn" id="td-share">Share my TDEE</button>
+</div>
+<script>(function(){
+var S=document.getElementById('td-sex'),A=document.getElementById('td-age'),H=document.getElementById('td-h'),W=document.getElementById('td-w'),ACT=document.getElementById('td-act');
+var OUT=document.getElementById('td-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var a=parseFloat(A.value),h=parseFloat(H.value),w=parseFloat(W.value),m=parseFloat(ACT.value);
+  if(!a||!h||!w){OUT.textContent='–';document.getElementById('td-bmr').textContent='–';
+    document.getElementById('td-loss').textContent='–';document.getElementById('td-gain').textContent='–';
+    document.title='TDEE Calculator - ToolTide';return;}
+  var bmr=10*w+6.25*h-5*a+(S.value==='m'?5:-161),tdee=bmr*m;
+  OUT.textContent=Math.round(tdee).toLocaleString('en-US');
+  document.getElementById('td-bmr').textContent=Math.round(bmr).toLocaleString('en-US');
+  document.getElementById('td-loss').textContent=Math.round(tdee-500).toLocaleString('en-US');
+  document.getElementById('td-gain').textContent=Math.round(tdee+300).toLocaleString('en-US');
+  document.title=Math.round(tdee).toLocaleString('en-US')+' kcal TDEE - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_tdee',JSON.stringify({s:S.value,a:A.value,h:H.value,w:W.value,act:ACT.value}));}catch(e){}}
+[S,A,H,W,ACT].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['s',S],['a',A],['h',H],['w',W],['act',ACT]].forEach(function(p){var v=qs(p[0]);if(v!==null){p[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_tdee')||'null');if(mem){S.value=mem.s||'m';A.value=mem.a||'';H.value=mem.h||'';W.value=mem.w||'';ACT.value=mem.act||'1.55';}}catch(e){}}
+calc();
+document.getElementById('td-share').addEventListener('click',function(){
+  var txt='My maintenance calories (TDEE): '+OUT.textContent+' kcal/day. Estimate yours (no sign-up):';
+  var url=location.origin+location.pathname+'?s='+S.value+'&a='+encodeURIComponent(A.value||'')+'&h='+encodeURIComponent(H.value||'')+'&w='+encodeURIComponent(W.value||'')+'&act='+ACT.value;
+  if(navigator.share){navigator.share({title:'TDEE estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my TDEE';},1500);}
+});
+})();
+</script>
+"""
+
+# Tip split: bill + tip % + people -> fair per-person share with a round-up option.
+# Retention hooks: title result hook, tt_tipsplit input memory, URL state (?b=&p=&n=&r=), Web Share.
+TIPSPLIT = """<div class="tool" id="tt-ts">
+  <div class="fields">
+    <div class="field"><label for="ts-bill">Bill total ($)</label><input type="number" id="ts-bill" step="0.01" min="0" placeholder="184.50"></div>
+    <div class="field"><label for="ts-tip">Tip %</label><input type="number" id="ts-tip" step="any" min="0" max="100" placeholder="18"></div>
+    <div class="field"><label for="ts-people">People</label><input type="number" id="ts-people" step="1" min="1" placeholder="4"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ts-out">–</span><span class="result-unit">per person (with tip)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ts-tipamt">–</b><span>tip total</span></div>
+    <div class="stat"><b id="ts-grand">–</b><span>grand total</span></div>
+    <div class="stat"><b id="ts-round">–</b><span>if each rounds up</span></div>
+  </div>
+  <div class="tool-note" id="ts-note"></div>
+  <button type="button" class="tool-btn" id="ts-share">Share the split</button>
+</div>
+<script>(function(){
+var B=document.getElementById('ts-bill'),P=document.getElementById('ts-tip'),N=document.getElementById('ts-people');
+var OUT=document.getElementById('ts-out');
+function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var b=parseFloat(B.value)||0,p=parseFloat(P.value)||0,n=Math.max(1,Math.round(parseFloat(N.value)||1));
+  if(!b){OUT.textContent='–';document.getElementById('ts-tipamt').textContent='–';
+    document.getElementById('ts-grand').textContent='–';document.getElementById('ts-round').textContent='–';
+    document.getElementById('ts-note').textContent='';document.title='Tip Split Calculator - ToolTide';return;}
+  var tip=b*p/100,grand=b+tip,per=grand/n;
+  OUT.textContent=money(per);
+  document.getElementById('ts-tipamt').textContent=money(tip);
+  document.getElementById('ts-grand').textContent=money(grand);
+  var ru=Math.ceil(per);
+  document.getElementById('ts-round').textContent=money(ru);
+  document.getElementById('ts-note').textContent=n+' people × '+money(ru)+' = '+money(ru*n)+' collected - the extra '+(ru*n>=grand?money(ru*n-grand):'$0.00')+' becomes a fatter tip. One person paying? The grand total is '+money(grand)+'.';
+  document.title=money(per)+' each - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_tipsplit',JSON.stringify({b:B.value,p:P.value,n:N.value}));}catch(e){}}
+[B,P,N].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['b',B],['p',P],['n',N]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_tipsplit')||'null');if(mem){B.value=mem.b||'';P.value=mem.p||'';N.value=mem.n||'';}}catch(e){}}
+calc();
+document.getElementById('ts-share').addEventListener('click',function(){
+  var txt='Dinner split: '+money(parseFloat(B.value)||0)+' + '+(parseFloat(P.value)||0)+'% tip across '+(Math.round(parseFloat(N.value)||1))+
+    ' people = '+OUT.textContent+' each. Split yours (no sign-up):';
+  var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&p='+encodeURIComponent(P.value||'')+'&n='+encodeURIComponent(N.value||'');
+  if(navigator.share){navigator.share({title:'Tip split',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the split';},1500);}
+});
+})();
+</script>
+"""
+
 # Final grade calculator: what score the final requires, with 100/80/60 scenario previews.
 # Retention hooks: title result hook, tt_finalgrade input memory, URL state (?cur=&w=&tgt=), Web Share.
 FINALGRADE = """<div class="tool" id="tt-fg">
@@ -3483,6 +3596,8 @@ TOOLS = {
     "sleepcycle": lambda args: SLEEP,
     "finalgrade": lambda args: FINALGRADE,
     "water": lambda args: WATER,
+    "tdee": lambda args: TDEE,
+    "tipsplit": lambda args: TIPSPLIT,
 }
 
 
