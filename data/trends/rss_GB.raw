@@ -6,11 +6,11 @@
 		<link>https://trends.google.com/trending/rss?geo=GB</link>
 		<atom:link href="https://trends.google.com/trending/rss?geo=GB" rel="self" type="application/rss+xml"/>
 		<item>
-			<title>student loan</title>
+			<title>uk government student loan guidance</title>
 			<ht:approx_traffic>500+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:50:00 -0700</pubDate>
+			<pubDate>Sun, 13 Sep 2026 00:30:00 -0700</pubDate>
 			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTFLEMWnalb5nhOcgPLkXZTXDGFbHFXTVim3FbA1zNjIKtJGBuYLOvkjKZ7iJU</ht:picture>
 			<ht:picture_source>BBC</ht:picture_source>
 			<ht:news_item>
@@ -21,267 +21,288 @@
 				<ht:news_item_source>BBC</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
+				<ht:news_item_title>Students to be better warned about loan costs after £200bn ‘mis-selling’ scandal</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.telegraph.co.uk/money/consumer-affairs/students-to-be-better-warned-about-loan-costs-after-scandal/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoXuosWsxLdrZP7yjcxSqTfrmUCXMytbcjR_i_6iIxqtk2Ru3mRNsyrG1xOBU</ht:news_item_picture>
+				<ht:news_item_source>The Telegraph</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
 				<ht:news_item_title>UK government to offer clearer guidance on student loans after repayment row</ht:news_item_title>
 				<ht:news_item_snippet/>
 				<ht:news_item_url>https://www.theguardian.com/money/2026/sep/13/student-loans-repayments-university-students-guidance</ht:news_item_url>
 				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTOfFFev2l4shFG8uH2klxul03d8AymmkrBMQbhEjs8IK26OC4r_wvm1zgOSmk</ht:news_item_picture>
 				<ht:news_item_source>The Guardian</ht:news_item_source>
 			</ht:news_item>
+		</item>
+		<item>
+			<title>kuldeep stohr</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 00:30:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTmoODMIGFjnmTKqOXhV5T_QCTjbx20B5usO5xSJkIj9CE_FOV44LZX-N95sow</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>Burnham resists calls to reform student loans in Budget</ht:news_item_title>
+				<ht:news_item_title>Unanswered questions after hundreds of patients harmed</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.ft.com/content/8d8b5195-e16f-457e-ae77-f6e843934058?syn-25a6b1a6=1</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTShWeLfScuWiHed4Tjvsk0evq6Z1gPJ1GcOkOhfqws5ltlJcYO3GDT9jNviV4</ht:news_item_picture>
-				<ht:news_item_source>Financial Times</ht:news_item_source>
+				<ht:news_item_url>https://www.bbc.com/news/articles/c1dlq2eyr25o</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTmoODMIGFjnmTKqOXhV5T_QCTjbx20B5usO5xSJkIj9CE_FOV44LZX-N95sow</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Mum &apos;lost trust&apos; in surgeon review hospital</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.co.uk/news/articles/cy5zwqzyl3wo</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSEYeyScBDoll7XPov41TSl7ghkjBPxY-amNHXBb4Bsb3_22hwyt4gezERoX4c</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Hundreds of hospital patients harmed, accidentally published report reveals</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.the-independent.com/bulletin/news/kuldeep-stohr-surgeon-cambridge-university-hospitals-b3046551.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS2Chqu8uGXTZZWvjUH-Ajp-0tSwCe-O39O-6z-hn4D6XGeTWa_xRgiKT7ViT4</ht:news_item_picture>
+				<ht:news_item_source>The Independent</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
-			<title>charlie kirk</title>
+			<title>flanders darts trophy</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 00:30:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTrgCJ5TlGk4g8IPpqHYVjMeJMatrnlATR6as-0OpZtIFASEF3wGWQsxXrldNA</ht:picture>
+			<ht:picture_source>Sky Sports</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Flanders Darts Trophy: Michael van Gerwen knocked out by Damon Heta in Antwerp as Nathan Aspinall stars</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.skysports.com/darts/news/12288/13585186/flanders-darts-trophy-michael-van-gerwen-knocked-out-by-damon-heta-in-antwerp-as-nathan-aspinall-stars-on-saturday-night</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTrgCJ5TlGk4g8IPpqHYVjMeJMatrnlATR6as-0OpZtIFASEF3wGWQsxXrldNA</ht:news_item_picture>
+				<ht:news_item_source>Sky Sports</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Flanders Darts Trophy 2026 | Draw, Live Scores, Results &amp; Schedule</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.live-darts.com/pdc-darts-news/european-tour/flanders-trophy-schedule-2026/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0dS1FFfIQiEngzg1wmw7f_3gxcGAGL0ckkq6-lkTVZlXTM-Kt4UXjhznytFI</ht:news_item_picture>
+				<ht:news_item_source>Live Darts</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>PDC Darts | Darts Live Scores, Darts Results &amp; Darts Tickets</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.pdc.tv/news/2026/september/12/2026-blaklader-flanders-darts-trophy-day-two-latest/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSn8qN8Y5QjdTvNePShAxiTLbkdDdURUeJE2fq79J2xanFsqVvXyNbsYLGvMDY</ht:news_item_picture>
+				<ht:news_item_source>PDC TV</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>andrew mountbatten-windsor</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 00:30:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcReMv_MuHaIQN0C4gUjTLj0IfUTgggro5kNIr9dyJ6F7JJh6WR7_dkf9Nd3o4Y</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Ex-Prince Andrew&apos;s Freedom of London can be removed with new rule</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.co.uk/news/articles/c2e0jrj90pno</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcReMv_MuHaIQN0C4gUjTLj0IfUTgggro5kNIr9dyJ6F7JJh6WR7_dkf9Nd3o4Y</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Andrew Mountbatten-Windsor&apos;s latest blow as he&apos;s set to lose another honour</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.devonlive.com/news/uk-world-news/andrew-mountbatten-windsors-latest-blow-11153507</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjzpCJSG-hJ9qKMM62NsQUoGcsu4nZGHG4FbT2N2cpfIDDPWecYzSyVQBfpzQ</ht:news_item_picture>
+				<ht:news_item_source>Devon Live</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Andrew Mountbatten-Windsor Faces FINAL Honour Blow as City of London Moves to Strip Freedom</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://timesofindia.indiatimes.com/videos/entertainment/english/andrew-mountbatten-windsor-faces-final-honour-blow-as-city-of-london-moves-to-strip-freedom/videoshow/134022152.cms</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQgUdCiSxunzVpRqcB138Tzi9NnmRQyqyGcFa-R8o9WskvPrZ50f3DhtUrjhi4</ht:news_item_picture>
+				<ht:news_item_source>The Times of India</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>dakota johnson</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 00:30:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBm2BobSuMtLweXEGUs-jrwCTojoXYePjjzC2TVuck_luEarTQHQUcEFr9eDQ</ht:picture>
+			<ht:picture_source>DeuxMoi.world</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>DAKOTA JOHNSON AND MGK SPEND THE NIGHT TOGETHER AFTER PRIVATE MEETUP AT TAYLOR SWIFT’S NYC APARTMENT: Relationship status unknown</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.deuxmoi.world/latest/dakota-johnson-and-mgk-spend-the-night-together-after-private-meetup-at-taylor-swifts-nyc-apartment</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBm2BobSuMtLweXEGUs-jrwCTojoXYePjjzC2TVuck_luEarTQHQUcEFr9eDQ</ht:news_item_picture>
+				<ht:news_item_source>DeuxMoi.world</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Dakota Johnson &amp; Machine Gun Kelly Caught on Secret NYC Date After Actress’ Split</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.tmz.com/2026/09/12/dakota-johnson-and-machine-gun-kelly-on-date-in-new-york-city/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQvcmO4VaHLZsVK_mBrxo0b2tCjkhlVZklDaXaRPUopwytSLmfqKkEZ9o9DaIo</ht:news_item_picture>
+				<ht:news_item_source>TMZ</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Dakota Johnson Takes the Plunge Dress to New Places</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.vogue.com/article/dakota-johnson-takes-the-plunge-dress-to-new-places</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR8a-bwkl73tMWjHgIxZZ7lbDhsEsLrAVJTsO9sDcss5oweTQ9n-PnQJ7AVe2M</ht:news_item_picture>
+				<ht:news_item_source>Vogue</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>james martin saturday morning</title>
 			<ht:approx_traffic>1000+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:40:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS6Fi-GgQ-iDqmk96d1WpjSq3fP7j95iAT9hGgQ5OwkP_gVAeMs8JKVT7MUtG8</ht:picture>
-			<ht:picture_source>BBC</ht:picture_source>
+			<pubDate>Sun, 13 Sep 2026 00:30:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpdFsNgmthJODeXCz3cAiF5cffuh0lvehhIgyaVOZ6-GQCiN76JjnoFIMKf6M</ht:picture>
+			<ht:picture_source>Wales Online</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>They lost their jobs after posting about Charlie Kirk, but some have no regrets</ht:news_item_title>
+				<ht:news_item_title>James Martin&apos;s replacement responds to &apos;feud&apos; rumours with TV chef and fellow star</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.bbc.co.uk/news/articles/cj06jgl9qzlo</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS6Fi-GgQ-iDqmk96d1WpjSq3fP7j95iAT9hGgQ5OwkP_gVAeMs8JKVT7MUtG8</ht:news_item_picture>
-				<ht:news_item_source>BBC</ht:news_item_source>
+				<ht:news_item_url>https://www.walesonline.co.uk/lifestyle/showbiz/james-martins-replacement-responds-feud-34601935</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpdFsNgmthJODeXCz3cAiF5cffuh0lvehhIgyaVOZ6-GQCiN76JjnoFIMKf6M</ht:news_item_picture>
+				<ht:news_item_source>Wales Online</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Your post is protected, everything else isn’t</ht:news_item_title>
+				<ht:news_item_title>James Martin&apos;s replacement shut down &apos;feud&apos; claim before real reason for show exit exposed</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.alligator.org/article/2026/09/your-post-is-protected-everything-else-isn-t</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ_TyeujcMKIM99gMFH5WNOJIKNyJggC1z6Xohst9Qpi5dbUoGIsmiSDlW_ndg</ht:news_item_picture>
-				<ht:news_item_source>The Independent Florida Alligator</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Fired for Charlie Kirk posts, then paid: Wrongful termination, free speech, Fl tax dollars</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://foxchattanooga.com/news/nation-world/florida-charlie-kirk-social-media-posts-firings-free-speech-lawsuits-taxpayer-costs-fired-controversial-social-media-post-pay-day-waste-watch-i-team-florida-news</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQVmzMMT4F_fy4i-RISjckRNZiA5CDAAcSg7Ye-cjGnIUNDfzvy28CQKp9d4RA</ht:news_item_picture>
-				<ht:news_item_source>wtvcfox</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>what time does the great north run start</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:40:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQj9g5sM7cMuYhS6RGRVPsrFHDsNVpbK_46eIstUiFdpXMtChAH1x8auMoIXiE</ht:picture>
-			<ht:picture_source>BBC</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Weekend of Great North Run events begin on Tyneside</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.bbc.co.uk/news/articles/cew9n2j47ygo</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQj9g5sM7cMuYhS6RGRVPsrFHDsNVpbK_46eIstUiFdpXMtChAH1x8auMoIXiE</ht:news_item_picture>
-				<ht:news_item_source>BBC</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Road closures for the Great North Run</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://new.newcastle.gov.uk/news/2026/road-closures-great-north-run</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSteEqD6g9kZ3mwzvN_kJYiDyYrlhAEQz_9ScjFewBLc1JdMt3RGSubHC1-Uo0</ht:news_item_picture>
-				<ht:news_item_source>Newcastle City Council</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Dan Burn confirmed as starter for the 45th Great North Run | ITV News</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.itv.com/news/tyne-tees/2026-09-10/dan-burn-confirmed-as-starter-for-the-45th-great-north-run</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSxSlBWz7q1nX7zmQ1gOgnG0_vPdCHGqjfwRh_uMmkUyL5f9VZlmV21k7apZNo</ht:news_item_picture>
-				<ht:news_item_source>ITVX</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>ines de ramon</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:40:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR6Ncr8_0v-qMJVcohjqCo-1EOxLdwd-IW0_uzo95T_Hm48G0v5pdMZJ9fuo3M</ht:picture>
-			<ht:picture_source>US Open Tennis</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Amy Adams, Elizabeth Banks, Paris Hilton among celebs at the 2026 US Open women&apos;s final</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.usopen.org/en_US/news/articles/2026-09-12/amy_adams_elizabeth_banks_paris_hilton_among_celebs_at_the_2026_us_open_womens_final.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR6Ncr8_0v-qMJVcohjqCo-1EOxLdwd-IW0_uzo95T_Hm48G0v5pdMZJ9fuo3M</ht:news_item_picture>
-				<ht:news_item_source>US Open Tennis</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Brad Pitt &amp; Girlfriend Ines de Ramon Check Out Women’s Singles Finals at U.S. Open 2026</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.justjared.com/2026/09/12/brad-pitt-girlfriend-ines-de-ramon-check-out-womens-singles-finals-at-u-s-open-2026/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQPqWVPSbfZ-ANEssfV-Vu915WHCJ_JBcH3DExuL9m1ul__msXKLg6TVwdMufQ</ht:news_item_picture>
-				<ht:news_item_source>Just Jared</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Brad Pitt Cuddles Up to Girlfriend Ines de Ramon and Poses for Selfies With Fans at US Open</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.usmagazine.com/celebrity-news/news/brad-pitt-cuddles-up-to-girlfriend-ines-de-ramon-at-us-open/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQ7K-HWFuErifxOKWnLNV4_65QIXFzGOeIXiyELGcmf3f9IZ8LBBkwl640Flg</ht:news_item_picture>
-				<ht:news_item_source>Us Weekly</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>chris kamara</title>
-			<ht:approx_traffic>2000+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS0BEsEO9dXQlbHWB_lpryL0Wxy2Lecf30bcxtNzCejhU0m8MzaJOo9gqsYZ0E</ht:picture>
-			<ht:picture_source>The Mirror</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Chris Kamara health latest after diagnosis left him &apos;not the same person&apos; as he enters Great North Run</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.mirror.co.uk/sport/football/news/chris-kamara-great-north-run-37646309</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS0BEsEO9dXQlbHWB_lpryL0Wxy2Lecf30bcxtNzCejhU0m8MzaJOo9gqsYZ0E</ht:news_item_picture>
+				<ht:news_item_url>https://www.mirror.co.uk/tv/tv-news/james-martins-replacement-shut-down-37651104</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT8M2yDxYHWJSEvKQ4RvmXanqoid_JtQDBznDO2NgCOx6Z4mx5Ggfi1m__Rejs</ht:news_item_picture>
 				<ht:news_item_source>The Mirror</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Ben Shephard and Chris Kamara speak out ahead of their biggest challenge yet</ht:news_item_title>
+				<ht:news_item_title>Saturday Kitchen fans call for BBC show &apos;rebrand&apos; as they say same thing about guest</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.mirror.co.uk/3am/celebrity-news/ben-shephard-kammy-great-north-37656173</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfQh6rlfCwML-zveWW9X7rdk2654icHKfN3TkS-1HjrZxIrHMBYja2eQ0SPJA</ht:news_item_picture>
-				<ht:news_item_source>The Mirror</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>virgo transport 8 rescue operation</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRc-0cR3m9ivD8IsBswAgxjT5KTedsvTc_bjt9tdjCA1kgzxNINx9l5DR7UXHY</ht:picture>
-			<ht:picture_source>BBC</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>One dead, 102 rescued from Indonesian ferry that went missing in Java Sea</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.bbc.co.uk/news/articles/cvgykzgljlyo</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRc-0cR3m9ivD8IsBswAgxjT5KTedsvTc_bjt9tdjCA1kgzxNINx9l5DR7UXHY</ht:news_item_picture>
-				<ht:news_item_source>BBC</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Huge ship carrying 240 people vanishes in tourist hotspot as major search launched</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.express.co.uk/news/world/2248082/huge-ship-carrying-240-people</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTuxqTk0FTOK48oLbjFDuO9PMEORRVa1LJSkG-vE_5WvmlVhPqQ_tTue6TVIs0</ht:news_item_picture>
-				<ht:news_item_source>Daily Express</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Horror update as ferry carrying 240 people vanishes in tourist spot filled with Brits</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.aol.co.uk/articles/horror-ferry-carrying-240-people-060400000.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM_UnIzFMQIrXXXhTE_W99sqvfDZduHy7HOunKWpACuZPR4ragDyNQi9j4IGY</ht:news_item_picture>
+				<ht:news_item_url>https://www.aol.co.uk/articles/saturday-kitchen-fans-call-bbc-112900000.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVnII29GAiUbD10u9rBp6JUOqzqVuA6kViPHBkLWWwh0OjFrpt9yjQED9zf-E</ht:news_item_picture>
 				<ht:news_item_source>AOL.co.uk</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
-			<title>solheim cup singles</title>
-			<ht:approx_traffic>1000+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe500zu06P7IL119R2PAe9kZxdkRh43W1nUAy6FKMyetEmZRcPzKrplwHkvvA</ht:picture>
-			<ht:picture_source>BBC</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Solheim Cup 2026: Charley Hull &amp; Lottie Woad toil as Europe level with US heading into singles</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.bbc.co.uk/sport/golf/articles/ckgvz6kdy4yo</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe500zu06P7IL119R2PAe9kZxdkRh43W1nUAy6FKMyetEmZRcPzKrplwHkvvA</ht:news_item_picture>
-				<ht:news_item_source>BBC</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Solheim Cup: Hull and Woad flop for Europe as Kupcho pulls USA level</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.theguardian.com/sport/2026/sep/12/solheim-cup-usa-europe-day-two-level</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR3Casl4zNHy90L_rT79aTuh6gd5JlbimPVFY-v1FhY2INrOkVhoe71oh97yKU</ht:news_item_picture>
-				<ht:news_item_source>The Guardian</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>‘That’s just golf’: Europe’s top duo still winless at Solheim Cup</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://golf.com/news/europes-top-duo-still-winless-solheim-cup/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQix0Ocp_BCoGKONeZEh6QZEhJBRdq_JI89Lp6LVZnEvah_OCq8r6hXPAGXxz8</ht:news_item_picture>
-				<ht:news_item_source>GOLF.com</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>marvel&apos;s wolverine</title>
-			<ht:approx_traffic>500+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTRkP5kn2vayqaTZBNX3D79lpmjiDl_Kt0lpkwMDc-6GCw5uO2vlU3BHaMDGCQ</ht:picture>
-			<ht:picture_source>BBC</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>PlayStation gambles with 18-rated Wolverine game - will it pay off?</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.bbc.co.uk/news/articles/cy0zq2n9gggo</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTRkP5kn2vayqaTZBNX3D79lpmjiDl_Kt0lpkwMDc-6GCw5uO2vlU3BHaMDGCQ</ht:news_item_picture>
-				<ht:news_item_source>BBC</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Marvel’s Wolverine review – a gloriously conflicted lead is let down by crude, boring battling</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.theguardian.com/games/2026/sep/10/marvels-wolverine-review-a-gloriously-conflicted-lead-is-let-down-by-crude-boring-battling</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQtAdrzHyL0MooxhFlNrcXu7eydmL9ZOA9ey9l8BQKRuoBsB276HP-dMV9LA-c</ht:news_item_picture>
-				<ht:news_item_source>The Guardian</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Insomniac Explains Wolverine’s Already-Infamous ‘Fart Gas Trails’</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.forbes.com/sites/paultassi/2026/09/12/insomniac-explains-wolverines-already-infamous-fart-gas-trails/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTUKupoVh-gx445cKujUsoJ_MyWYQbP6jIkYmjiMct8EAdKBfl4zuGgsZI4ocY</ht:news_item_picture>
-				<ht:news_item_source>Forbes</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>connections today</title>
+			<title>meteor shower</title>
 			<ht:approx_traffic>100+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbWTFs9otYzqS9eHZbldTpbyCOcgKyIP3yZhB7Iqfex58sxKAVg4MeUQhBwOY</ht:picture>
-			<ht:picture_source>Mashable</ht:picture_source>
+			<pubDate>Sun, 13 Sep 2026 00:20:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTk9jsf_OgfRWCwy3JhwsjGKbNCyagQ4KILqso81SiU3Y6ZBwEIoorJPUiYHvU</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>NYT Connections hints today: Meanings for each word for Sept. 13, 2026</ht:news_item_title>
+				<ht:news_item_title>Five night sky events to look out for this autumn</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://mashable.com/entertainment/nyt-connections-hints-meanings-september-13-2026</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbWTFs9otYzqS9eHZbldTpbyCOcgKyIP3yZhB7Iqfex58sxKAVg4MeUQhBwOY</ht:news_item_picture>
-				<ht:news_item_source>Mashable</ht:news_item_source>
+				<ht:news_item_url>https://www.bbc.co.uk/news/articles/cvgy4w3mnpvo</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTk9jsf_OgfRWCwy3JhwsjGKbNCyagQ4KILqso81SiU3Y6ZBwEIoorJPUiYHvU</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>NYT Connections Hints And Answers: Saturday, September 12</ht:news_item_title>
+				<ht:news_item_title>Fall 2026: Meteor shower season is about to begin!</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.forbes.com/sites/paultassi/2026/09/11/nyt-connections-hints-and-answers-saturday-september-12/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWUnm9-ZRcaFc6yEVAwwAyKr53clSNC9XzF4003WtQOdR2EqlvZOJ6NxzOG60</ht:news_item_picture>
-				<ht:news_item_source>Forbes</ht:news_item_source>
+				<ht:news_item_url>https://www.theweathernetwork.com/en/news/weather/seasonal/autumn-the-season-of-meteor-showers-is-about-to-begin-for-2026</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcScqXirNZiJvYTYVlrHcyo8OGL53e3bCFYKepN2hx3WV3yh5gdMD77KecVbMiM</ht:news_item_picture>
+				<ht:news_item_source>The Weather Network</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>NYT ‘Connections’ Hints, Clues and Answers Today, Saturday, September 12, 2026</ht:news_item_title>
+				<ht:news_item_title>6 more meteor showers to light up the sky before 2027</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://parade.com/living/nyt-connections-hints-answers-today-september-12-2026</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTlq1lHvlc6Lmx5NlHm7WetsasQbFqj74_MX4cG4qVA87W8Yf7YcuMYAACgaZ0</ht:news_item_picture>
-				<ht:news_item_source>Parade Magazine</ht:news_item_source>
+				<ht:news_item_url>https://tech.yahoo.com/science/articles/6-more-meteor-showers-light-175617043.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT9sQ5QBuryQgb4P524oFYCQqlj6FADemHEqcFVD1k0_gvBuJYYpv-vVz_iMJc</ht:news_item_picture>
+				<ht:news_item_source>Yahoo Tech</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
-			<title>lauren cowell</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
+			<title>nam vs sa</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 23:20:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC6MhDalrYzYN8dKNyECPMEM8-B5G6NOBDVxGpFvGlPRIk_F3OyHvgD9w3Nbg</ht:picture>
-			<ht:picture_source>People.com</ht:picture_source>
+			<pubDate>Sun, 13 Sep 2026 00:10:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTONZH3VJphNcZaQE8Ts_Ryk-whEKpVHA-uP_wDMuigkc-41ZZkzFET1w0VZEM</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>Simon Cowell’s Fiancée Lauren Silverman Shares Family Photos with Him and Their Son</ht:news_item_title>
+				<ht:news_item_title>Jordan Hermann: South Africa opener scores 150 to equal the ODI debut score record in 99-run win</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://people.com/simon-cowell-fiancee-lauren-silverman-shares-sweet-family-photos-with-him-and-son-eric-12117941</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRC6MhDalrYzYN8dKNyECPMEM8-B5G6NOBDVxGpFvGlPRIk_F3OyHvgD9w3Nbg</ht:news_item_picture>
-				<ht:news_item_source>People.com</ht:news_item_source>
+				<ht:news_item_url>https://www.bbc.co.uk/sport/cricket/articles/c36lj20z7zno</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTONZH3VJphNcZaQE8Ts_Ryk-whEKpVHA-uP_wDMuigkc-41ZZkzFET1w0VZEM</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Esterhuizen maiden ODI ton, Duan Jansen four-for power South Africa to 2-0 lead</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.cricinfo.com/series/south-africa-in-namibia-2026-1549537/namibia-vs-south-africa-2nd-odi-1549532/match-report</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW4o7GToJvkkr80IwprM1HI7_ElR5O54JGkhBjGq0H0e1y-MR40v1oQQn0uIw</ht:news_item_picture>
+				<ht:news_item_source>Cricinfo</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Esterhuizen blasts maiden ton as Proteas thrash Namibia</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://novanews.co.za/esterhuizen-maiden-century-south-africa-namibia-odi/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTcS5X-0Nq2_GPe9fh6XutxPUBKCgijJDa_RR27uO4Tk2mO4IUfSnF5FpHJq2s</ht:news_item_picture>
+				<ht:news_item_source>https://novanews.co.za/</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>nrl</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 00:10:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSL4VLgqAhjTupGcA9oocvEIXMiMIC5jwt3zOAkSPMwGI6Q8hsLrpiy8CSUMYM</ht:picture>
+			<ht:picture_source>NRL.com</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Finals blockbuster: Panthers v Roosters</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.nrl.com/news/2026/09/13/finals-blockbuster-panthers-v-roosters/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSL4VLgqAhjTupGcA9oocvEIXMiMIC5jwt3zOAkSPMwGI6Q8hsLrpiy8CSUMYM</ht:news_item_picture>
+				<ht:news_item_source>NRL.com</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>NRL finals 2026 LIVE updates: Cleary sent to the bin as Penrith, Roosters all square in pulsating qualifying final</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.smh.com.au/sport/nrl/nrl-finals-2026-live-updates-panthers-and-roosters-go-head-to-head-20260913-p60ww7.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSDLEtQTu3U4FLwCiIhvtCxQB8zJ9uTdHlJUVeuhAAIk6gUjEzcYpx54dyBuWs</ht:news_item_picture>
+				<ht:news_item_source>SMH.com.au</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Live: Cleary sin-binned as tempers flare in breathless Panthers-Roosters semi</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.abc.net.au/news/2026-09-13/nrl-live-updates-final-panthers-roosters/107148336</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT-QCeXE1jSHC7azHA4myPkctMFlc83Mjh4opig_eXYPOwdkCDo05-ayT7Y_zk</ht:news_item_picture>
+				<ht:news_item_source>ABC News &amp; Headlines – Australian Broadcasting Corporation</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>maddison</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sun, 13 Sep 2026 00:10:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRhQEWTWFrtEN9efrGV_bDyn0XBluYh-0hdLeOhBIpafW54aNbc4WNPEIHolvw</ht:picture>
+			<ht:picture_source>Tottenham Hotspur</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Team news | Maddison available, Kudus edging closer to a start</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.tottenhamhotspur.com/news/1089551/team-news-maddison-available-kudus-edging-closer-to-a-start</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRhQEWTWFrtEN9efrGV_bDyn0XBluYh-0hdLeOhBIpafW54aNbc4WNPEIHolvw</ht:news_item_picture>
+				<ht:news_item_source>Tottenham Hotspur</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Roberto De Zerbi already floated a Mohammed Kudus gamble to wake up Tottenham</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.livescore.com/en/news/football/premier-league/roberto-de-zerbi-already-floated-a-mohammed-kudus-gamble-to-wake-up-tottenham-hotspur-hq/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQkuoQwTmfSLKESFfEuwaa29BtH-7GO7wx4Vu8R4nOBBK1CYhTB-yZpEEQBsEk</ht:news_item_picture>
+				<ht:news_item_source>LiveScore</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>De Zerbi reveals he pushed to sign Mohammed Kudus for Brighton</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://ghanasoccernet.com/de-zerbi-reveals-he-pushed-to-sign-mohammed-kudus-for-brighton</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSDGN6tXO_kVSoCe0DYd-J3X9C2EaKSDROMKVC87ZEDYl0rmjx-GPO-Zf-z0UE</ht:news_item_picture>
+				<ht:news_item_source>GhanaSoccernet</ht:news_item_source>
 			</ht:news_item>
 		</item>
 	</channel>

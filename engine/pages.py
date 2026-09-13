@@ -2943,6 +2943,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "final-grade-calculator",
+        "title": "Final Grade Calculator — What Do I Need on My Final?",
+        "h1": "Final Grade Calculator",
+        "desc": "Enter your current grade and the final's weight — see exactly what score you need for your target course grade, plus where 100%, 80% and 60% outcomes land. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "final grade calculator",
+        "tool": "finalgrade",
+        "args": {},
+        "intro": [
+            "\"What do I need on the final to get an 80?\" is the most searched question of exam season, and the answer is one weighted-average formula away: needed = (target − current × (1 − final weight)) ÷ final weight. Enter three numbers — current grade, the final's worth, your target — and the big result is the exact score to aim for.",
+            "The scenario row answers the better question: what actually happens. It shows the course grade you'd land with 100%, 80% or 60% on the final, so you can see whether your target is safe, stretchy or gone — and decide where the study hours go. If the needed score is above 100%, the result says so honestly and shows the ceiling instead; if it's below 0%, your target is already locked even with a zero. Pair it with the GPA calculator to see what the outcome does to your semester.",
+        ],
+        "howto": [
+            "Enter your current grade, the final exam's weight (from the syllabus), and the course grade you're aiming for.",
+            "Read the required final score in the big result — the formula line shows the exact calculation.",
+            "Check the scenario row for 100%/80%/60% outcomes to decide how much this final is really worth to your week.",
+        ],
+        "faqs": [
+            ("What do I need on the final to get an 80?",
+             "With a 78 average and a 30% final: (80 − 78 × 0.70) ÷ 0.30 = 84.7%, so an 85 rounds to safe. The formula shifts fast with the final's weight — a 40% final needs only 82, a 20% final needs 96 — which is why the weight field matters more than intuition suggests."),
+            ("How do I calculate my weighted final grade?",
+             "Course grade = current × (1 − final weight) + final score × final weight. The three scenario stats apply that formula at 100%, 80% and 60% so you can see the whole outcome range without retyping anything."),
+            ("What if the needed score is over 100%?",
+             "Then the target is mathematically out of reach with your current average — the calculator shows the maximum course grade instead (a perfect final score). Lower the target one letter grade and the required score usually drops into reach; the recalculation is instant."),
+            ("Does this work for points-based grading?",
+             "Yes — convert to percentages first: divide your earned points by possible points so far, and use the final's share of total points as its weight. After that the math is identical."),
+        ],
+    })
+
+    pages.append({
+        "slug": "water-intake-calculator",
+        "title": "Water Intake Calculator — Your Daily Hydration Target in Liters",
+        "h1": "Water Intake Calculator",
+        "desc": "How much water should you drink a day? Get a personalized daily target from your body weight, today's exercise and the heat — shown in liters, bottles and cups. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "water intake calculator",
+        "tool": "water",
+        "args": {},
+        "intro": [
+            "Generic \"8 glasses a day\" advice ignores the two things that change everything: body size and the day you're actually having. This calculator starts from ~33 ml per kilo of body weight, then adds roughly 400 ml per 30 minutes of exercise and half a liter for hot weather — the same adjustments sports-nutrition guidelines use, minus the guesswork.",
+            "The result lands in the units that matter at the fridge: liters, 500 ml bottles and 8 oz cups, so \"2.9 liters\" becomes \"6 bottles\" and an actual plan. The note line includes a realistic spread-it-through-the-day schedule, because hitting a target is about distribution, not chugging. Bookmark it — the page remembers your weight and adjusts in one tap when the workout or the heat changes tomorrow.",
+        ],
+        "howto": [
+            "Enter your weight and today's exercise minutes — the daily target updates instantly in liters.",
+            "Toggle hot weather if it's over 30°C / 86°F, then read the same target in bottles and cups.",
+            "Follow the distribution note across the day, and share the target with one tap on workout days.",
+        ],
+        "faqs": [
+            ("How much water should I drink a day?",
+             "A common baseline is 30-35 ml per kilogram of body weight — roughly 2.3 L for a 70 kg adult — before exercise and heat. This calculator uses 33 ml/kg as the baseline and then adds for today's activity and temperature, which is why the number changes day to day rather than staying fixed."),
+            ("Does coffee and food count toward water intake?",
+             "Yes. All beverages count (caffeinated drinks are mildly diuretic but still net-positive), and food — especially fruit, vegetables and soup — typically supplies 20% of daily fluid. Aim most of the remaining 80% at water rather than sugary drinks."),
+            ("Can I drink too much water?",
+             "Rarely, but it is real: drinking multiple liters per hour can dilute blood sodium (hyponatremia), seen mostly in endurance events. Spreading intake through the day as the schedule suggests keeps you far from that zone — thirst plus pale-yellow urine is a good practical compass."),
+            ("How much extra water should I drink when exercising?",
+             "Roughly 400 ml (13 oz) per half hour of activity, more in heat or for heavy sweating — the calculator adds this automatically from your exercise minutes. For sessions beyond 90 minutes, an electrolyte drink replaces the sodium that plain water alone doesn't."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

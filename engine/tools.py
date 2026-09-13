@@ -3072,6 +3072,111 @@ document.getElementById('si-share').addEventListener('click',function(){
 </script>
 """
 
+# Final grade calculator: what score the final requires, with 100/80/60 scenario previews.
+# Retention hooks: title result hook, tt_finalgrade input memory, URL state (?cur=&w=&tgt=), Web Share.
+FINALGRADE = """<div class="tool" id="tt-fg">
+  <div class="fields">
+    <div class="field"><label for="fg-cur">Current grade %</label><input type="number" id="fg-cur" step="any" min="0" max="100" placeholder="78"></div>
+    <div class="field"><label for="fg-w">Final exam worth %</label><input type="number" id="fg-w" step="any" min="0" max="100" placeholder="30"></div>
+    <div class="field"><label for="fg-tgt">Target course grade %</label><input type="number" id="fg-tgt" step="any" min="0" max="100" placeholder="80"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fg-out">–</span><span class="result-unit" id="fg-unit">needed on the final</span></div>
+  <div class="tool-note" id="fg-note"></div>
+  <div class="stats">
+    <div class="stat"><b id="fg-s100">–</b><span>if you score 100%</span></div>
+    <div class="stat"><b id="fg-s80">–</b><span>if you score 80%</span></div>
+    <div class="stat"><b id="fg-s60">–</b><span>if you score 60%</span></div>
+  </div>
+  <button type="button" class="tool-btn" id="fg-share">Share my plan</button>
+</div>
+<script>(function(){
+var C=document.getElementById('fg-cur'),W=document.getElementById('fg-w'),G=document.getElementById('fg-tgt');
+var OUT=document.getElementById('fg-out'),UNIT=document.getElementById('fg-unit'),NOTE=document.getElementById('fg-note');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var c=parseFloat(C.value),w=(parseFloat(W.value)||0)/100,t=parseFloat(G.value);
+  var s100=document.getElementById('fg-s100'),s80=document.getElementById('fg-s80'),s60=document.getElementById('fg-s60');
+  if(isNaN(c)||isNaN(t)||w<=0||w>1){OUT.textContent='–';UNIT.textContent='needed on the final';NOTE.textContent='';s100.textContent=s80.textContent=s60.textContent='–';document.title='Final Grade Calculator - ToolTide';return;}
+  var need=(t-c*(1-w))/w,fin=function(x){return (c*(1-w)+x*w).toFixed(1)+'%';};
+  OUT.textContent=Math.ceil(need*10)/10+'%';
+  NOTE.textContent='Formula: need = (target − current × (1 − '+Math.round(w*100)+'%)) ÷ '+Math.round(w*100)+'% = ( '+t+' − '+c+' × '+(1-w).toFixed(2)+' ) ÷ '+w.toFixed(2)+'.';
+  if(need>100){UNIT.textContent='not reachable - max course grade:';OUT.textContent=fin(100);}
+  else if(need<=0){UNIT.textContent='already secured even at 0% on the final:';OUT.textContent=fin(0);}
+  else{UNIT.textContent='needed on the final';}
+  s100.textContent=fin(100);s80.textContent=fin(80);s60.textContent=fin(60);
+  document.title='Need '+OUT.textContent+' on final - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_finalgrade',JSON.stringify({c:C.value,w:W.value,t:G.value}));}catch(e){}}
+[C,W,G].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['cur',C],['w',W],['tgt',G]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_finalgrade')||'null');if(mem){C.value=mem.c||'';W.value=mem.w||'';G.value=mem.t||'';}}catch(e){}}
+calc();
+document.getElementById('fg-share').addEventListener('click',function(){
+  var txt='To end '+document.getElementById('fg-tgt').value+'% in the course I need '+OUT.textContent+' on the final. Plan yours (no sign-up):';
+  var url=location.origin+location.pathname+'?cur='+encodeURIComponent(C.value||'')+'&w='+encodeURIComponent(W.value||'')+'&tgt='+encodeURIComponent(G.value||'');
+  if(navigator.share){navigator.share({title:'Final grade plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my plan';},1500);}
+});
+})();
+</script>
+"""
+
+# Daily water intake: weight-based baseline + exercise and heat adjustments, in bottles and cups.
+# Retention hooks: title result hook, tt_water input memory, URL state (?kg=&ex=&hot=), Web Share.
+WATER = """<div class="tool" id="tt-water">
+  <div class="fields">
+    <div class="field"><label for="wt-kg">Body weight (kg)</label><input type="number" id="wt-kg" step="any" min="20" max="300" placeholder="70"></div>
+    <div class="field"><label for="wt-ex">Exercise today (minutes)</label><input type="number" id="wt-ex" step="any" min="0" placeholder="45"></div>
+    <div class="field"><label for="wt-hot">Hot weather (over 30°C / 86°F)</label>
+      <select id="wt-hot"><option value="0">No</option><option value="1">Yes</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wt-out">–</span><span class="result-unit">liters per day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wt-base">–</b><span>baseline from weight</span></div>
+    <div class="stat"><b id="wt-exadd">–</b><span>exercise bonus</span></div>
+    <div class="stat"><b id="wt-bottles">–</b><span>500 ml bottles</span></div>
+    <div class="stat"><b id="wt-cups">–</b><span>8 oz cups</span></div>
+  </div>
+  <div class="tool-note" id="wt-note"></div>
+  <button type="button" class="tool-btn" id="wt-share">Share my target</button>
+</div>
+<script>(function(){
+var KG=document.getElementById('wt-kg'),EX=document.getElementById('wt-ex'),HOT=document.getElementById('wt-hot');
+var OUT=document.getElementById('wt-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var kg=parseFloat(KG.value)||0,ex=parseFloat(EX.value)||0,hot=HOT.value==='1';
+  if(kg<=0){OUT.textContent='–';document.getElementById('wt-base').textContent='–';
+    document.getElementById('wt-exadd').textContent='–';document.getElementById('wt-bottles').textContent='–';
+    document.getElementById('wt-cups').textContent='–';document.getElementById('wt-note').textContent='';
+    document.title='Water Intake Calculator - ToolTide';return;}
+  var base=kg*33/1000,exadd=Math.round(ex/30*400)/1000,hotadd=hot?0.5:0,total=base+exadd+hotadd;
+  OUT.textContent=(Math.round(total*10)/10).toFixed(1);
+  document.getElementById('wt-base').textContent=(Math.round(base*10)/10).toFixed(1)+' L';
+  document.getElementById('wt-exadd').textContent='+'+(Math.round((exadd+hotadd)*100)/100).toFixed(2)+' L';
+  document.getElementById('wt-bottles').textContent='~'+Math.ceil(total/0.5);
+  document.getElementById('wt-cups').textContent='~'+Math.ceil(total/0.237);
+  document.getElementById('wt-note').textContent='Baseline ≈ 33 ml per kg. Exercise adds ~400 ml per 30 minutes; heat adds 0.5 L. Spread it across the day - a glass when you wake, one with each meal, and sip around workouts beats drinking it all at once. All food and drink counts toward the total.';
+  document.title=(Math.round(total*10)/10).toFixed(1)+' L water a day - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_water',JSON.stringify({k:KG.value,e:EX.value,h:HOT.value}));}catch(e){}}
+[KG,EX,HOT].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+HOT.addEventListener('change',function(){calc();save();});
+var pre=false;
+[['kg',KG],['ex',EX],['hot',HOT]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_water')||'null');if(mem){KG.value=mem.k||'';EX.value=mem.e||'';HOT.value=mem.h||'0';}}catch(e){}}
+calc();
+document.getElementById('wt-share').addEventListener('click',function(){
+  var txt='My daily water target: '+OUT.textContent+' L ('+document.getElementById('wt-bottles').textContent+' bottles). Find yours (no sign-up):';
+  var url=location.origin+location.pathname+'?kg='+encodeURIComponent(KG.value||'')+'&ex='+encodeURIComponent(EX.value||'')+'&hot='+encodeURIComponent(HOT.value||'0');
+  if(navigator.share){navigator.share({title:'Daily water target',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my target';},1500);}
+});
+})();
+</script>
+"""
+
 # GPA calculator: credit-weighted 4.0 scale across 7 course rows plus prior cumulative.
 # Retention hooks: title result hook, tt_gpa input memory, URL state (?g=&c=&p=&pc=), Web Share.
 GPACALC = """<div class="tool" id="tt-gpa">
@@ -3376,6 +3481,8 @@ TOOLS = {
     "simpleint": lambda args: SIMPLEINT,
     "gpa": lambda args: GPACALC,
     "sleepcycle": lambda args: SLEEP,
+    "finalgrade": lambda args: FINALGRADE,
+    "water": lambda args: WATER,
 }
 
 
