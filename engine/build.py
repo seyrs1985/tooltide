@@ -522,8 +522,13 @@ function paint(t){
 }
 b.addEventListener('click',function(){
   var t=current()==='dark'?'light':'dark';
-  paint(t);syncMeta(t);
-  try{localStorage.setItem('tt-theme',t);}catch(e){}
+  var apply=function(){
+    paint(t);syncMeta(t);
+    try{localStorage.setItem('tt-theme',t);}catch(e){}
+  };
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(typeof document.startViewTransition==='function'&&!reduce){document.startViewTransition(apply);}
+  else{apply();}
 });
 var saved=null;
 try{saved=localStorage.getItem('tt-theme');}catch(e){}
@@ -693,7 +698,7 @@ if(standalone){return;}
 var bar=document.getElementById('a2hs-bar');
 var tip=document.getElementById('a2hs-tip');
 var deferred=null;
-function show(){bar.hidden=false;}
+function show(){bar.hidden=false;document.body.classList.add('a2hs-show');}
 if(iOS){
   tip.setAttribute('data-i18n','a2hs.ios');
   tip.textContent='Tap Share, then Add to Home Screen';
@@ -708,11 +713,11 @@ if(iOS){
 document.getElementById('a2hs-yes').addEventListener('click',function(){
   if(deferred){deferred.prompt();deferred=null;}
   try{localStorage.setItem(KEY,'1');}catch(e){}
-  bar.hidden=true;
+  bar.hidden=true;document.body.classList.remove('a2hs-show');
 });
 document.getElementById('a2hs-no').addEventListener('click',function(){
   try{localStorage.setItem(KEY,'1');}catch(e){}
-  bar.hidden=true;
+  bar.hidden=true;document.body.classList.remove('a2hs-show');
 });
 }catch(e){}
 })();</script>
@@ -924,6 +929,11 @@ def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None, bod
 
 
 def write(path, content):
+    # reference tables scroll inside their own box on narrow screens instead of
+    # stretching the page wide. Static copytable markup only — the JS-built
+    # cp-t tables (oven/compound) are covered by their container ids in CSS.
+    content = re.sub(r'(<table class="copytable"[^>]*>.*?</table>)',
+                     r'<div class="tw">\1</div>', content, flags=re.S)
     # a11y: every live result region announces updates to screen readers
     content = re.sub(r'<div class="result"([^>]*?)>',
                      lambda m: m.group(0) if "aria-live" in m.group(1)

@@ -210,6 +210,10 @@ input[type=range]{padding:0;accent-color:var(--brand)}
 .faq p{margin-top:9px;color:var(--text-2)}
 
 /* tables */
+/* narrow screens: wide reference tables scroll inside their own box instead
+   of stretching the whole page. Static copytable markup gets a .tw wrapper at
+   build time; the JS-built cp-t tables scroll via their container ids. */
+.tw,#cp-table,#ov-table{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .copytable{width:100%;border-collapse:collapse;margin-top:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .copytable th,.copytable td{padding:8px 12px;border-bottom:1px solid var(--border-faint);text-align:left;font-size:.95rem}
 .copytable th{background:var(--th-bg);color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
@@ -311,6 +315,8 @@ html.js .cat:not(.open) .card.extra{display:none}
   .cat{content-visibility:visible}
   .seo-block{content-visibility:visible}
   html.js .cat .card.extra{display:flex}
+  /* a scroll container would clip the table on paper — print it in full */
+  .tw,#cp-table,#ov-table{overflow:visible}
   /* Paper wants the light palette regardless of the OS/toggle dark choice
      (printing dark wastes ink), so every dark consumer var is restated here.
      The gradient headline must be un-clipped: print drops background images
@@ -333,9 +339,11 @@ html.js .cat:not(.open) .card.extra{display:none}
 }
 
 /* back-to-top floating button */
-.to-top{position:fixed;right:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:5px;padding:11px 15px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--brand);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:var(--shadow-hover);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,transform .2s,visibility 0s .2s}
-.to-top.show{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s,visibility 0s}
+.to-top{position:fixed;right:18px;bottom:18px;z-index:50;display:inline-flex;align-items:center;gap:5px;padding:11px 15px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--brand);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer;box-shadow:var(--shadow-hover);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,transform .2s,visibility 0s .2s,bottom .2s}
+.to-top.show{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s,visibility 0s,bottom .2s}
 .to-top:hover{border-color:var(--brand);background:var(--surface-2)}
+/* while the A2HS install bar is up it occupies the button's corner — lift */
+body.a2hs-show .to-top{bottom:76px}
 [tabindex="-1"]:focus{outline:none}
 
 @media(max-width:700px){

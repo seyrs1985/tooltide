@@ -143,7 +143,7 @@ try {
   const themeScript = [...idx.matchAll(/<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g)]
     .map(m => m[1]).find(s => s.includes("getElementById('theme-toggle')"));
   if (themeScript) {
-    const makeSandbox = (stored, osDark) => {
+    const makeSandbox = (stored, osDark, opts = {}) => {
       const saved = { v: stored || null };
       const htmlEl = { attrs: {}, getAttribute: k => htmlEl.attrs[k] || null, setAttribute: (k, v) => { htmlEl.attrs[k] = v; } };
       const icon = { textContent: '' };
@@ -153,18 +153,23 @@ try {
         addEventListener: (t, f) => { btn.handlers[t] = f; } };
       const metas = [{ media: 'x', content: '', removeAttribute() { this.media = null; }, setAttribute(k, v) { this[k] = v; } },
                      { media: 'y', content: '', removeAttribute() { this.media = null; }, setAttribute(k, v) { this[k] = v; } }];
+      const vtCalls = [];
+      const doc = {
+        documentElement: htmlEl,
+        getElementById: id => (id === 'theme-toggle' ? btn : null),
+        querySelectorAll: () => metas
+      };
+      // mirrors the View Transition path: the flip animates, but the callback
+      // still runs so the state change stays observable
+      if (opts.vt) doc.startViewTransition = fn => { vtCalls.push(1); if (typeof fn === 'function') fn(); };
       const sb = {
-        document: {
-          documentElement: htmlEl,
-          getElementById: id => (id === 'theme-toggle' ? btn : null),
-          querySelectorAll: () => metas
-        },
-        window: { matchMedia: q => ({ matches: osDark && /dark/.test(q) }) },
+        document: doc,
+        window: { matchMedia: q => ({ matches: (osDark && /dark/.test(q)) || (!!opts.reduce && /reduced-motion/.test(q)) }) },
         localStorage: { getItem: () => saved.v, setItem: (k, v) => { saved.v = v; } }
       };
       vm.createContext(sb);
       new vm.Script(themeScript, { filename: 'index.html#theme' }).runInContext(sb);
-      return { htmlEl, btn, metas, saved, click: () => btn.handlers.click() };
+      return { htmlEl, btn, metas, saved, vtCalls, click: () => btn.handlers.click() };
     };
     try {
       const s1 = makeSandbox(null, false);
@@ -181,8 +186,44 @@ try {
       const s3 = makeSandbox('light', true);
       assert(s3.htmlEl.attrs['data-theme'] === 'light',
         'theme: explicit light wins over OS dark');
+      const s4 = makeSandbox(null, false, { vt: true });
+      s4.click();
+      assert(s4.vtCalls.length === 1 && s4.htmlEl.attrs['data-theme'] === 'dark',
+        'theme: flip animates via startViewTransition when supported');
+      const s5 = makeSandbox(null, false, { vt: true, reduce: true });
+      s5.click();
+      assert(s5.vtCalls.length === 0 && s5.htmlEl.attrs['data-theme'] === 'dark',
+        'theme: reduced motion skips the transition (instant flip)');
     } catch (e) { fail++; console.log('SITE FAIL theme toggle stub:', e.message); }
   } else { fail++; console.log('SITE FAIL homepage: theme toggle script not found'); }
+
+  // reference tables: every static copytable sits in a .tw scroll box (build
+  // post-process), so wide tables scroll in place instead of stretching the
+  // page on phones; JS-built cp-t tables scroll via their container ids
+  const flatPrint = css.match(/@media print\{[\s\S]*$/)?.[0].replace(/\n/g, '') || '';
+  let twTables = 0, twWrapped = 0;
+  for (const f of files) {
+    const html = fs.readFileSync(f, 'utf8');
+    const opens = (html.match(/<table class="copytable"/g) || []).length;
+    const wrapped = (html.match(/<div class="tw"><table class="copytable"/g) || []).length;
+    const closes = (html.match(/<\/table><\/div>/g) || []).length;
+    twTables += opens; twWrapped += wrapped;
+    assert(wrapped === opens && closes === opens,
+      `table wrap: unwrapped copytable in ${path.relative(root, f)} (${wrapped}/${opens})`);
+  }
+  assert(twTables > 50, `table wrap: expected many wrapped tables site-wide, got ${twWrapped}/${twTables}`);
+  assert(/\.tw,#cp-table,#ov-table\{overflow-x:auto/.test(css.replace(/\n/g, '')),
+    'style.css: scroll container for .tw wrappers and JS table hosts');
+  assert(flatPrint.includes('.tw,#cp-table,#ov-table{overflow:visible}'),
+    'style.css: print releases the scroll container so tables print in full');
+  // the A2HS install bar and the floating to-top share the bottom-right
+  // corner — the bar must lift the button while visible and restore on close
+  const toolHtmlA2hs = fs.readFileSync(path.join(root, 'percentage-calculator', 'index.html'), 'utf8');
+  assert(/body\.a2hs-show \.to-top\{bottom:76px\}/.test(css.replace(/\n/g, '')),
+    'style.css: install bar lifts the to-top button out of its corner');
+  assert(toolHtmlA2hs.includes("classList.add('a2hs-show')")
+    && toolHtmlA2hs.includes("classList.remove('a2hs-show')"),
+    'a2hs bar: show adds body class, both dismiss handlers remove it');
 
   // 404 page: dedicated search form feeding the homepage ?q= contract
   const p404 = fs.readFileSync(path.join(root, '404.html'), 'utf8');
