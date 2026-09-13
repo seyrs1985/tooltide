@@ -5337,6 +5337,226 @@ document.getElementById('tg-share').addEventListener('click',function(){
 </script>
 """
 
+# Paint: room geometry minus doors/windows, coats multiplier, coverage-based gallons/liters.
+# Retention hooks: title result hook, tt_paint memory, URL state (?l=&w=&h=&d=&n=&c=&u=), Web Share.
+PAINTCALC = """<div class="tool" id="tt-pt">
+  <div class="fields">
+    <div class="field"><label for="pt-l">Room length</label><input type="number" id="pt-l" step="any" min="0" placeholder="12"></div>
+    <div class="field"><label for="pt-w">Room width</label><input type="number" id="pt-w" step="any" min="0" placeholder="10"></div>
+    <div class="field"><label for="pt-h">Wall height</label><input type="number" id="pt-h" step="any" min="0" placeholder="8"></div>
+    <div class="field"><label for="pt-d">Doors (21 sq each)</label><input type="number" id="pt-d" step="1" min="0" max="20" placeholder="2"></div>
+    <div class="field"><label for="pt-n">Windows (12 sq each)</label><input type="number" id="pt-n" step="1" min="0" max="20" placeholder="2"></div>
+    <div class="field"><label for="pt-c">Coats</label><select id="pt-c"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></div>
+    <div class="field"><label for="pt-u">Units</label><select id="pt-u"><option value="ft">feet / gallons</option><option value="m">meters / liters</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pt-out">–</span><span class="result-unit" id="pt-u2">to buy</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pt-area">–</b><span>paintable area</span></div>
+    <div class="stat"><b id="pt-cov">–</b><span>coverage used</span></div>
+    <div class="stat"><b id="pt-waste">–</b><span>with 10% rounding</span></div>
+  </div>
+  <div class="tool-note" id="pt-note"></div>
+  <button type="button" class="tool-btn" id="pt-share">Share this estimate</button>
+</div>
+<script>(function(){
+var L=document.getElementById('pt-l'),W=document.getElementById('pt-w'),H=document.getElementById('pt-h'),DD=document.getElementById('pt-d'),NN=document.getElementById('pt-n'),C=document.getElementById('pt-c'),U=document.getElementById('pt-u');
+var OUT=document.getElementById('pt-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var l=parseFloat(L.value),w=parseFloat(W.value),h=parseFloat(H.value);
+  var d=Math.max(0,parseInt(DD.value,10)||0),n=Math.max(0,parseInt(NN.value,10)||0),co=parseInt(C.value,10)||1;
+  var m=U.value==='m';
+  if(!(l>0)||!(w>0)||!(h>0)){OUT.textContent='–';
+    document.getElementById('pt-area').textContent='–';document.getElementById('pt-cov').textContent='–';
+    document.getElementById('pt-waste').textContent='–';document.getElementById('pt-note').textContent='';
+    document.title='Paint Calculator - ToolTide';return;}
+  var per,door,win,covTxt,area,paint,unit;
+  if(m){
+    per=2*(l+w);door=1.9;win=1.1;
+    area=Math.max(0,per*h-d*door-n*win)*co;
+    paint=area/10;
+    covTxt='10 m²/L';unit='L';
+    document.getElementById('pt-area').textContent=Math.round(area*100)/100+' m²';
+    OUT.textContent=Math.ceil(paint)+' L';
+  }else{
+    per=2*(l+w);door=21;win=12;
+    area=Math.max(0,per*h-d*door-n*win)*co;
+    paint=area/350;
+    covTxt='350 sq ft/gal';unit='gal';
+    document.getElementById('pt-area').textContent=Math.round(area)+' sq ft';
+    OUT.textContent=Math.ceil(paint)+' gal';
+  }
+  document.getElementById('pt-cov').textContent=covTxt;
+  var up=Math.ceil(paint*1.1);
+  document.getElementById('pt-waste').textContent=(m?up+' L':up+' gal');
+  document.getElementById('pt-u2').textContent='to buy ('+(m?'liters':'gallons')+')';
+  document.getElementById('pt-note').textContent='Wall area '+document.getElementById('pt-area').textContent+' after '+d+' door(s) and '+n+' window(s), '+co+' coat'+(co>1?'s':'')+' - about '+Math.round(paint*10)/10+' '+unit+' of paint. Buy the rounded-up figure (or +10%) for cut-ins and touch-ups: paint is batch-matched, so running out mid-wall is the expensive mistake.';
+  document.title=OUT.textContent+' paint needed - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_paint',JSON.stringify({l:L.value,w:W.value,h:H.value,d:DD.value,n:NN.value,c:C.value,u:U.value}));}catch(e){}}
+[L,W,H,DD,NN].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+[C,U].forEach(function(el){el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['l',L],['w',W],['h',H],['d',DD],['n',NN],['c',C],['u',U]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_paint')||'null');if(mem){L.value=mem.l||'';W.value=mem.w||'';H.value=mem.h||'';DD.value=mem.d||'';NN.value=mem.n||'';C.value=mem.c||'2';U.value=mem.u||'ft';}}catch(e){}}
+calc();
+document.getElementById('pt-share').addEventListener('click',function(){
+  var txt='Paint estimate for a '+L.value+'x'+W.value+' room: '+OUT.textContent+' ('+document.getElementById('pt-area').textContent+' paintable). Estimate yours (no sign-up):';
+  var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&h='+encodeURIComponent(H.value||'')+'&d='+encodeURIComponent(DD.value||'')+'&n='+encodeURIComponent(NN.value||'')+'&c='+C.value+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Paint estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
+# Tile: area + tile size + waste -> tile count, boxes and coverage check.
+# Retention hooks: title result hook, tt_tile memory, URL state (?l=&w=&tw=&th=&b=&u=), Web Share.
+TILECALC = """<div class="tool" id="tt-ti">
+  <div class="fields">
+    <div class="field"><label for="ti-l">Area length</label><input type="number" id="ti-l" step="any" min="0" placeholder="12"></div>
+    <div class="field"><label for="ti-w">Area width</label><input type="number" id="ti-w" step="any" min="0" placeholder="10"></div>
+    <div class="field"><label for="ti-tw">Tile length</label><input type="number" id="ti-tw" step="any" min="0" placeholder="12"></div>
+    <div class="field"><label for="ti-th">Tile width</label><input type="number" id="ti-th" step="any" min="0" placeholder="12"></div>
+    <div class="field"><label for="ti-b">Tiles per box</label><input type="number" id="ti-b" step="1" min="1" placeholder="12"></div>
+    <div class="field"><label for="ti-u">Units</label><select id="ti-u"><option value="in">inches / feet</option><option value="cm">cm / meters</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ti-out">–</span><span class="result-unit">tiles to buy</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ti-area">–</b><span>area to cover</span></div>
+    <div class="stat"><b id="ti-box">–</b><span>boxes</span></div>
+    <div class="stat"><b id="ti-wst">–</b><span>includes 10% waste</span></div>
+  </div>
+  <div class="tool-note" id="ti-note"></div>
+  <button type="button" class="tool-btn" id="ti-share">Share this estimate</button>
+</div>
+<script>(function(){
+var L=document.getElementById('ti-l'),W=document.getElementById('ti-w'),TW=document.getElementById('ti-tw'),TH=document.getElementById('ti-th'),B=document.getElementById('ti-b'),U=document.getElementById('ti-u');
+var OUT=document.getElementById('ti-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var l=parseFloat(L.value),w=parseFloat(W.value),tw=parseFloat(TW.value),th=parseFloat(TH.value),bx=Math.max(1,parseInt(B.value,10)||1);
+  var metric=U.value==='cm';
+  if(!(l>0)||!(w>0)||!(tw>0)||!(th>0)){OUT.textContent='–';
+    document.getElementById('ti-area').textContent='–';document.getElementById('ti-box').textContent='–';
+    document.getElementById('ti-wst').textContent='–';document.getElementById('ti-note').textContent='';
+    document.title='Tile Calculator - ToolTide';return;}
+  var area,perTile,areaTxt;
+  if(metric){
+    area=(l*w);
+    perTile=(tw*th)/10000;
+    areaTxt=Math.round(area*100)/100+' m²';
+  }else{
+    area=(l*w);
+    perTile=(tw*th)/144;
+    areaTxt=Math.round(area*100)/100+' sq ft';
+  }
+  var need=Math.ceil(area/perTile*1.1);
+  var boxes=Math.ceil(need/bx);
+  OUT.textContent=need.toString();
+  document.getElementById('ti-area').textContent=areaTxt;
+  document.getElementById('ti-box').textContent=boxes+' boxes';
+  document.getElementById('ti-wst').textContent='+'+(need-Math.ceil(area/perTile))+' spare';
+  document.getElementById('ti-note').textContent='A '+areaTxt+' floor at '+tw+'x'+th+' '+(metric?'cm':'in')+' tiles takes '+Math.ceil(area/perTile)+' tiles; with the standard 10% cutting and breakage allowance that is '+need+' - buy '+boxes+' box'+(boxes>1?'es':'')+' of '+bx+'. Keep spare boxes for future repairs: dye lots change.';
+  document.title=need+' tiles ('+boxes+' boxes) - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_tile',JSON.stringify({l:L.value,w:W.value,tw:TW.value,th:TH.value,b:B.value,u:U.value}));}catch(e){}}
+[L,W,TW,TH,B].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+U.addEventListener('change',function(){calc();save();});
+var pre=false;
+[['l',L],['w',W],['tw',TW],['th',TH],['b',B],['u',U]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_tile')||'null');if(mem){L.value=mem.l||'';W.value=mem.w||'';TW.value=mem.tw||'';TH.value=mem.th||'';B.value=mem.b||'12';U.value=mem.u||'in';}}catch(e){}}
+calc();
+document.getElementById('ti-share').addEventListener('click',function(){
+  var txt='Tile estimate: '+OUT.textContent+' tiles ('+document.getElementById('ti-box').textContent+') for a '+document.getElementById('ti-area').textContent+' area. Estimate yours (no sign-up):';
+  var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&tw='+encodeURIComponent(TW.value||'')+'&th='+encodeURIComponent(TH.value||'')+'&b='+encodeURIComponent(B.value||'')+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Tile estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
+# Half birthday: birthdate -> next half birthday, days until, exact current age.
+# Retention hooks: title result hook (days until), tt_half memory, URL state (?b=), Web Share.
+HALFBDAY = """<div class="tool" id="tt-hb">
+  <div class="fields">
+    <div class="field"><label for="hb-b">Your birthday</label><input type="date" id="hb-b"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hb-out">–</span><span class="result-unit">until your half birthday</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hb-date">–</b><span>half birthday</span></div>
+    <div class="stat"><b id="hb-age">–</b><span>your age now</span></div>
+    <div class="stat"><b id="hb-next">–</b><span>next birthday</span></div>
+  </div>
+  <div class="tool-note" id="hb-note"></div>
+  <button type="button" class="tool-btn" id="hb-share">Share this countdown</button>
+</div>
+<script>(function(){
+var B=document.getElementById('hb-b');
+var OUT=document.getElementById('hb-out');
+var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var WD=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var MS=86400000;
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function halfOf(y,mo,d){
+  var ny=mo>=6?y+1:y,nm=(mo+6)%12;
+  var dim=new Date(ny,nm+1,0).getDate();
+  var nd=Math.min(d,dim);
+  return new Date(ny,nm,nd);
+}
+function ageAt(bd,today){
+  var y=today.getFullYear()-bd.getFullYear();
+  var m=today.getMonth()-bd.getMonth();
+  var d=today.getDate()-bd.getDate();
+  if(d<0){m--;d+=new Date(today.getFullYear(),today.getMonth(),0).getDate();}
+  if(m<0){y--;m+=12;}
+  return {y:y,m:m,d:d};
+}
+function calc(){
+  var v=B.value;
+  if(!v){OUT.textContent='–';
+    document.getElementById('hb-date').textContent='–';document.getElementById('hb-age').textContent='–';
+    document.getElementById('hb-next').textContent='–';document.getElementById('hb-note').textContent='';
+    document.title='Half Birthday Calculator - ToolTide';return;}
+  var m2=v.match(/^(\\d{4})-(\\d{2})-(\\d{2})$/);
+  if(!m2){OUT.textContent='–';return;}
+  var by=+m2[1],bmo=+m2[2]-1,bd=+m2[3];
+  var bd=new Date(by,bmo,bd);
+  var today=new Date();today.setHours(0,0,0,0);
+  var hb=halfOf(today.getFullYear(),bd.getMonth(),bd.getDate());
+  if(hb<today){hb=halfOf(today.getFullYear()+1,bd.getMonth(),bd.getDate());}
+  var days=Math.round((hb-today)/MS);
+  var isToday=days===0;
+  var a=ageAt(bd,today);
+  var turning=a.y+0.5;
+  OUT.textContent=isToday?'Today!':days+' days';
+  document.getElementById('hb-date').textContent=WD[hb.getDay()]+', '+MO[hb.getMonth()]+' '+hb.getDate()+', '+hb.getFullYear();
+  document.getElementById('hb-age').textContent=a.y+'y '+a.m+'m '+a.d+'d';
+  var nb=new Date(today.getFullYear(),bd.getMonth(),bd.getDate());
+  if(nb<today){nb=new Date(today.getFullYear()+1,bd.getMonth(),bd.getDate());}
+  document.getElementById('hb-next').textContent=Math.round((nb-today)/MS)+' days';
+  document.getElementById('hb-note').textContent=isToday
+    ?('Happy half birthday! You are exactly '+a.y+' and a half years old today - the 6-month mirror of '+MO[bd.getMonth()]+' '+bd.getDate()+'.')
+    :('Six months after '+MO[bd.getMonth()]+' '+bd.getDate()+' is '+MO[hb.getMonth()]+' '+hb.getDate()+' - when you turn '+Math.floor(turning)+' and a half. End-of-month birthdays clamp to the last day of the shorter month.');
+  document.title=(isToday?'Half birthday today!':days+' days to half birthday')+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_half',B.value);}catch(e){}}
+B.addEventListener('input',function(){calc();save();});
+var q=qs('b');
+if(q!==null){B.value=q;}
+else{try{var mem=localStorage.getItem('tt_half');if(mem)B.value=mem;}catch(e){}}
+calc();
+document.getElementById('hb-share').addEventListener('click',function(){
+  var txt='My half birthday is '+document.getElementById('hb-date').textContent+' - '+OUT.textContent+'! Find yours (no sign-up):';
+  var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'');
+  if(navigator.share){navigator.share({title:'Half birthday',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this countdown';},1500);}
+});
+})();
+</script>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -5443,6 +5663,9 @@ TOOLS = {
     "concrete": lambda args: CONCRETE,
     "slopecalc": lambda args: SLOPECALC,
     "teamgen": lambda args: TEAMGEN,
+    "paintcalc": lambda args: PAINTCALC,
+    "tilecalc": lambda args: TILECALC,
+    "halfbday": lambda args: HALFBDAY,
 }
 
 

@@ -3903,6 +3903,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "paint-calculator",
+        "title": "Paint Calculator — How Much Paint per Room, Doors & Windows Off",
+        "h1": "Paint Calculator",
+        "desc": "Work out gallons or liters for any room - wall area minus doors and windows, coats included, with the buy-extra rule built in. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "paint calculator",
+        "tool": "paintcalc",
+        "args": {},
+        "intro": [
+            "The paint aisle mistake runs in one direction: buying one gallon for a job that needs two, because wall area hides inside room length and width. A 12 × 10 ft room with 8 ft ceilings carries 352 square feet of wall before openings - minus two doors and two windows, times two coats, that's roughly 1.6 gallons, which means buy two. This calculator walks the same steps: room dimensions in, doors and windows subtracted, coats multiplied, coverage divided, purchase rounded up.",
+            "Coverage runs 350-400 sq ft per gallon on primed, smooth walls - the calculator uses the conservative 350 so the estimate errs toward enough. The note carries the trade's batch-matching rule: paint is tinted per batch, so finishing a wall from a second, unmatched can is the visible mistake the rounding-up prevents. Metric mode computes liters at 10 m² per liter. Room numbers are remembered for the next room in the same house.",
+        ],
+        "howto": [
+            "Enter room length, width and wall height.",
+            "Set doors and windows - standard 21 and 12 sq ft openings subtract automatically.",
+            "Pick coats (2 is default) and read gallons or liters, rounded up for touch-ups.",
+        ],
+        "faqs": [
+            ("How much paint do I need per room?",
+             "Wall area = (length + width) × 2 × height, minus openings (21 sq ft per door, 12 per window), times coats, divided by 350 per gallon. A 12x10x8 room with two doors and two windows needs about 1.6 gallons for two coats - buy two, because partial gallons cannot be matched later."),
+            ("Does 2 coats double the paint?",
+             "Nearly - the second coat uses slightly less because the primed first coat seals the surface, but planning at double is the safe budget. Dark over light or light over dark colors may want three; the calculator's coats dropdown covers both."),
+            ("How do I account for doors and windows?",
+             "Subtract 21 sq ft per standard door and 12 per standard window from wall area before dividing by coverage - or enter exact counts and let the calculator do it. Painting the doors themselves? Add one door's worth back per door painted."),
+            ("What about primer and ceiling?",
+             "Primer covers more per gallon (roughly 400-500 sq ft) but budget it the same way per coat. Ceilings are their own area: length × width, same coverage math - and ceilings drink paint on textured finishes, so round up harder there."),
+        ],
+    })
+
+    pages.append({
+        "slug": "tile-calculator",
+        "title": "Tile Calculator — Tiles, Boxes & 10% Waste for Any Area",
+        "h1": "Tile Calculator",
+        "desc": "Enter area and tile size to get the tile count, boxes to buy and the 10% cutting waste already included. Works in inches/feet or cm/meters. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "tile calculator",
+        "tool": "tilecalc",
+        "args": {},
+        "intro": [
+            "Tile math looks like simple division and then bites at the edges: a 12 × 10 ft floor takes 120 one-foot tiles on paper, but real floors have cuts, breakages, and the half-tile that shatters on the nipper - the trade's answer is 10% overage, and the tile shop's unit is the box, not the tile. This calculator does the full chain: area and tile size in, exact tile count, the 10% waste margin applied, and boxes rounded up to whole cartons.",
+            "Both unit systems work - inches over feet, centimeters over meters - so imported tile specs and local room measurements coexist. The note keeps the spare-tile doctrine visible: dye lots change between production runs, so the leftovers from the 10% are your repair stock for the next decade. Dimensions are remembered on your device for comparing rooms and layouts.",
+        ],
+        "howto": [
+            "Enter the area's length and width, then the tile's length and width.",
+            "Set tiles per box as printed on the carton.",
+            "Read tiles to buy, boxes, and the spare count from the 10% waste.",
+        ],
+        "faqs": [
+            ("How many tiles do I need with waste?",
+             "Compute area ÷ tile size for the exact count, then multiply by 1.10 for cuts and breakage - a 120-tile floor buys 132. Diagonal layouts and large-format tiles want 15% instead; straight grid layouts can live with 10%. The calculator applies 10% automatically."),
+            ("How do I calculate tiles per box?",
+             "Cartons print their coverage or piece count - commonly 12 one-foot tiles per box, but it varies by manufacturer and tile size. Enter the printed number and the calculator converts your waste-included count into whole boxes, because nobody sells you 7 tiles."),
+            ("What about grout joints and pattern layouts?",
+             "Grout spacing (typically 1/8 to 3/16 in) slightly reduces effective tile coverage, which the 10% waste comfortably absorbs. Herringbone and other offset patterns increase cutting waste - move to 15% by adding a box rather than trusting a tighter margin."),
+            ("Should I keep leftover tiles?",
+             "Yes - dye lots change, and a future repair with a mismatched lot shows forever. Store spares flat in conditioned space; they are your cheapest insurance on the floor you just paid for."),
+        ],
+    })
+
+    pages.append({
+        "slug": "half-birthday-calculator",
+        "title": "Half Birthday Calculator — Date, Countdown & Exact Age",
+        "h1": "Half Birthday Calculator",
+        "desc": "Find your half birthday - the six-month mirror of your birth date - with the exact date, days until it, and your precise age today. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "half birthday calculator",
+        "tool": "halfbday",
+        "args": {},
+        "intro": [
+            "A half birthday is exactly what it sounds like: the calendar day six months after yours, when you turn X-and-a-half. Parents throw them for summer-born kids whose real birthdays collide with school holidays; leap-year and December 31 folks use them as the sane alternative; and everyone else enjoys a perfectly good excuse for cake in the off-season. Enter your birthday and this calculator names the exact date with its weekday, counts down the days to the next one, and states your precise age in years, months and days today.",
+            "The arithmetic has one trap worth doing properly: six months after August 31 lands on a date that doesn't exist in February, so the calculator clamps to the month's last day and says so in the note. Your birthday is remembered on the device, which quietly turns the page into a little countdown you can revisit - and the share button packages the date for whoever needs to start planning.",
+        ],
+        "howto": [
+            "Enter your date of birth.",
+            "Read your half birthday's exact date and weekday, with a live day countdown.",
+            "Share it, or bookmark - the countdown updates every visit.",
+        ],
+        "faqs": [
+            ("What is a half birthday?",
+             "The date exactly six months from your birth date - June 15's half birthday is December 15. It marks the X-and-a-half milestone between birthdays, celebrated mostly for kids with holiday-adjacent birthdays and by anyone who enjoys two cakes a year."),
+            ("How do you calculate a half birthday?",
+             "Add six months to the birth month and keep the day. When the day doesn't exist in the target month - August 31 to February - clamp to the last day of that month (February 28, or 29 in leap years). The calculator does both rules and explains which it applied."),
+            ("Why celebrate a half birthday instead?",
+             "Three common reasons: school-age kids born in summer never get the in-class party; December babies are drowned by the holidays; and leap-day birthdays (February 29) get a real calendar date every year instead of a borrowed one."),
+            ("Is a half birthday the same as a half-birthday cake day for babies?",
+             "Close - the six-month mark is also the traditional half-birthday photo shoot for babies, usually with a smash cake and a 6 sign. Same math, more frosting; this calculator gives parents the exact date and the countdown to book the photographer."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
