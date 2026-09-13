@@ -3813,6 +3813,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "concrete-calculator",
+        "title": "Concrete Calculator — Cubic Yards, Bags & Slab Estimates",
+        "h1": "Concrete Calculator",
+        "desc": "Enter slab length, width and thickness to get cubic yards for the ready-mix order plus 80 lb and 60 lb bag counts. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "concrete calculator",
+        "tool": "concrete",
+        "args": {},
+        "intro": [
+            "Concrete is ordered in cubic yards but planned in feet and inches, and the arithmetic between them is where budgets leak: a 10 × 10 ft patio at 4 inches deep is 33.3 cubic feet, which is 1.23 cubic yards — order one yard and you are short, order two and you paid for a third of a truck you didn't need. Enter the slab's length, width and thickness and this calculator converts straight to yards, with the 80 lb and 60 lb bag counts for the small-job alternative.",
+            "The note carries the two rules that separate a clean pour from a cold joint: add 5-10% for spillage and uneven subgrade, and cross the bags-versus-truck threshold honestly — below roughly a cubic yard, mixing bags makes sense; above it, ready-mix wins on both cost and consistency. Metric mode computes in cubic meters with the yard equivalent alongside. Your slab numbers stay on this device for the next stage of planning.",
+        ],
+        "howto": [
+            "Enter the slab length and width, then pick the thickness - 4 in for patios, 6 in for driveways.",
+            "Read cubic yards for the ready-mix order and bag counts for small jobs.",
+            "Add 5-10% waste per the note, then share or bookmark - dimensions are remembered.",
+        ],
+        "faqs": [
+            ("How many bags of concrete per cubic yard?",
+             "A cubic yard is 27 cubic feet, and an 80 lb bag yields about 0.60 cubic feet - so 45 bags per yard. Sixty-pound bags yield 0.45 cubic feet, needing 60 per yard. The calculator shows exact counts for your volume; just add the 10% waste margin before checkout."),
+            ("How much concrete for a 10x10 slab?",
+             "It depends entirely on thickness: 4 inches deep is 1.23 cubic yards, 6 inches is 1.85. This is why thickness is a dropdown rather than an afterthought - the difference between patio spec and driveway spec is half a truck."),
+            ("Should I order extra concrete?",
+             "Yes - 5-10% covers spillage, uneven subgrade, and the edge of the form that always seems deeper than measured. Coming up short mid-pour means a cold joint and a weakened slab, which costs far more than the extra quarter yard."),
+            ("Bags or ready-mix truck - which is cheaper?",
+             "Below about one cubic yard, bags win once you factor the short-load fees trucks charge for small pours. Above a yard, ready-mix wins decisively on labor and consistency - hand-mixing 45 bags is a full, miserable day, and the result is only as uniform as your mixing."),
+        ],
+    })
+
+    pages.append({
+        "slug": "slope-calculator",
+        "title": "Slope Calculator — Two Points to m, Fraction, Angle & Intercept",
+        "h1": "Slope Calculator",
+        "desc": "Find the slope between two points - decimal and exact fraction, inclination angle, y-intercept and the perpendicular slope, with steps shown. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "slope calculator",
+        "tool": "slopecalc",
+        "args": {},
+        "intro": [
+            "Slope is rise over run, and the fraction is where the understanding lives: from (2, 3) to (7, 8) the line rises 5 over a run of 5 - slope 1, a 45° line, clean and exact. Enter any two points and this calculator returns the slope as both decimal and reduced fraction, the inclination angle in degrees, the y-intercept, and the slope any perpendicular line would need - the four numbers algebra homework and roof-pitch questions actually ask for.",
+            "The worked note shows the rise-over-run division with your numbers substituted, so the answer demonstrates its own method. Vertical lines are handled as the special case they are - undefined slope, 90°, no intercept - rather than crashing into a division by zero. Points are remembered between visits for multi-part problems, and the page sits with the fraction and degrees-radians tools in the study corner.",
+        ],
+        "howto": [
+            "Enter the x and y of both points.",
+            "Read the slope as decimal and fraction, plus angle and y-intercept.",
+            "Use the perpendicular slope in the note for parallel/perpendicular questions.",
+        ],
+        "faqs": [
+            ("What is the slope formula?",
+             "m = (y₂ - y₁) / (x₂ - x₁) - the vertical change between the points divided by the horizontal change. From (2, 3) to (7, 8): (8-3)/(7-2) = 5/5 = 1. The note line reproduces exactly this substitution with your values."),
+            ("What does a negative slope mean?",
+             "The line falls as it moves left to right - downhill in standard reading order. Positive slopes rise, zero slopes run horizontally (both y values equal), and undefined slopes are vertical (both x values equal). The direction is named in the result note."),
+            ("How do I find the y-intercept from two points?",
+             "Solve y = mx + b with one of your points: b = y₁ - m·x₁. The calculator does this and hands you the full line equation, which is usually the second half of the same homework problem."),
+            ("How are slope and angle related?",
+             "The inclination angle is the arctangent of the slope: slope 1 is 45°, slope √3 ≈ 1.732 is 60°, and roofers flip the relationship - a 6:12 pitch means slope 0.5, about 26.57°. The angle stat connects the algebra view with the physical one."),
+        ],
+    })
+
+    pages.append({
+        "slug": "random-team-generator",
+        "title": "Random Team Generator — Shuffle Names into Fair Teams",
+        "h1": "Random Team Generator",
+        "desc": "Paste a list of names and split them into any number of fair, random teams with one click - crypto-grade shuffle, re-draw anytime. Free, no sign-up.",
+        "category": "generator",
+        "keyword": "random team generator",
+        "tool": "teamgen",
+        "args": {},
+        "intro": [
+            "Every teacher, coach and facilitator knows the ritual: 24 names, 4 teams, and the suspicion that the draw wasn't quite random. Paste the list - one name per line - choose how many teams, press Shuffle, and this generator deals everyone out using cryptographically secure randomness from your own device, with team sizes balanced to within one person and the roster preserved for the next session.",
+            "The balance line shows the exact distribution (2 teams of 7 and 2 of 5, for instance), and re-shuffling costs one click - no recutting strips of paper. The share button packages the full draw as text for the group chat, with a link that carries the name list so colleagues can re-run it on their side. It joins the coin flip, dice roller and random number tools for every decision that should not be yours to make.",
+        ],
+        "howto": [
+            "Paste or type the names, one per line.",
+            "Set the number of teams and press Shuffle.",
+            "Read the teams, re-shuffle if needed, or share the draw to the group chat.",
+        ],
+        "faqs": [
+            ("How does the team generator stay fair?",
+             "Two parts: the shuffle uses the browser's cryptographic random source - the same one that guards web security - so every arrangement is equally likely, and the dealing round-robins the shuffled names so team sizes differ by at most one. No weighting, no seeding, no favorites."),
+            ("Can I make uneven teams on purpose?",
+             "Not directly here - balance is the point. If you need a 5-and-2 split for a scrimmage, run two draws or move one name by hand after shuffling; the honest randomness has already done its job by that point."),
+            ("Are my names sent anywhere?",
+             "No - the list never leaves the browser. Names are stored only in your own device's local storage so the next session starts where this one ended, and clearing the browser clears them."),
+            ("Can it pick one winner instead of teams?",
+             "For single draws use the random name generator; for yes/no decisions the coin flip; for order-of-play questions shuffle here and read the first team as the order. Same cryptographic engine underneath all of them."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

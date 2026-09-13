@@ -5121,6 +5121,222 @@ document.getElementById('sd-share').addEventListener('click',function(){
 </script>
 """
 
+# Concrete: slab dimensions -> cubic yards + ready-mix + bag counts (80/60/40 lb yields).
+# Retention hooks: title result hook, tt_conc memory, URL state (?l=&w=&t=&u=), Web Share.
+CONCRETE = """<div class="tool" id="tt-cc">
+  <div class="fields">
+    <div class="field"><label for="cc-l">Length</label><input type="number" id="cc-l" step="any" min="0" placeholder="10"></div>
+    <div class="field"><label for="cc-w">Width</label><input type="number" id="cc-w" step="any" min="0" placeholder="10"></div>
+    <div class="field"><label for="cc-t">Thickness</label><select id="cc-t"><option value="4">4 in - patio/walkway</option><option value="5">5 in</option><option value="6">6 in - driveway</option><option value="8">8 in</option><option value="12">12 in (1 ft)</option></select></div>
+    <div class="field"><label for="cc-u">Units</label><select id="cc-u"><option value="ft">feet</option><option value="m">meters</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cc-out">–</span><span class="result-unit">cubic yards to order</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cc-ft3">–</b><span>cubic feet / m³</span></div>
+    <div class="stat"><b id="cc-b80">–</b><span>80 lb bags</span></div>
+    <div class="stat"><b id="cc-b60">–</b><span>60 lb bags</span></div>
+  </div>
+  <div class="tool-note" id="cc-note"></div>
+  <button type="button" class="tool-btn" id="cc-share">Share this estimate</button>
+</div>
+<script>(function(){
+var L=document.getElementById('cc-l'),W=document.getElementById('cc-w'),T=document.getElementById('cc-t'),U=document.getElementById('cc-u');
+var OUT=document.getElementById('cc-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var l=parseFloat(L.value),w=parseFloat(W.value),th=parseFloat(T.value)/12;
+  var metric=U.value==='m';
+  if(metric){th=parseFloat(T.value)*0.0254;}
+  if(!(l>0)||!(w>0)||!(th>0)){OUT.textContent='–';
+    document.getElementById('cc-ft3').textContent='–';document.getElementById('cc-b80').textContent='–';
+    document.getElementById('cc-b60').textContent='–';document.getElementById('cc-note').textContent='';
+    document.title='Concrete Calculator - ToolTide';return;}
+  var vol=metric?l*w*th:l*w*th;
+  var yd3,volLabel;
+  if(metric){yd3=vol*1.30795;volLabel=vol.toFixed(2)+' m³';}
+  else{yd3=vol/27;volLabel=Math.round(vol*100)/100+' ft³';}
+  var y=Math.ceil(yd3*10)/10;
+  OUT.textContent=y.toString();
+  document.getElementById('cc-ft3').textContent=volLabel;
+  document.getElementById('cc-b80').textContent=metric?'—':(Math.ceil(vol/0.60)).toString();
+  document.getElementById('cc-b60').textContent=metric?'—':(Math.ceil(vol/0.45)).toString();
+  document.getElementById('cc-note').textContent=metric
+    ?(vol.toFixed(2)+' m³ = '+y+' yd³ for the pour. Order 5-10% extra for spillage and uneven subgrade; ready-mix suppliers sell by the partial truck, bags only make sense below ~0.5 m³.')
+    :(Math.round(vol*100)/100+' ft³ = '+y+' yd³ ('+volLabel.split(' ')[0]+' / 27). Bag counts assume 0.60 ft³ yield per 80 lb and 0.45 ft³ per 60 lb bag, no waste - add 10% for real jobs. Below about 1 yd³, bags beat ready-mix; above it, order the truck.');
+  document.title=y+' yd³ concrete - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_conc',JSON.stringify({l:L.value,w:W.value,t:T.value,u:U.value}));}catch(e){}}
+[L,W].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+[T,U].forEach(function(el){el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['l',L],['w',W],['t',T],['u',U]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_conc')||'null');if(mem){L.value=mem.l||'';W.value=mem.w||'';T.value=mem.t||'4';U.value=mem.u||'ft';}}catch(e){}}
+calc();
+document.getElementById('cc-share').addEventListener('click',function(){
+  var txt='Concrete estimate: '+OUT.textContent+' yd³ ('+L.value+'x'+W.value+', '+T.value+' in thick). Estimate yours (no sign-up):';
+  var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&t='+T.value+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Concrete estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
+# Slope from two points: decimal + exact fraction, angle, intercept, perpendicular.
+# Retention hooks: title result hook, tt_slope memory, URL state (?x1=&y1=&x2=&y2=), Web Share.
+SLOPECALC = """<div class="tool" id="tt-sl">
+  <div class="fields">
+    <div class="field"><label for="sl-x1">x₁</label><input type="number" id="sl-x1" step="any" placeholder="2"></div>
+    <div class="field"><label for="sl-y1">y₁</label><input type="number" id="sl-y1" step="any" placeholder="3"></div>
+    <div class="field"><label for="sl-x2">x₂</label><input type="number" id="sl-x2" step="any" placeholder="7"></div>
+    <div class="field"><label for="sl-y2">y₂</label><input type="number" id="sl-y2" step="any" placeholder="8"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sl-out">–</span><span class="result-unit">slope m</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sl-frac">–</b><span>as a fraction</span></div>
+    <div class="stat"><b id="sl-ang">–</b><span>inclination angle</span></div>
+    <div class="stat"><b id="sl-b">–</b><span>y-intercept b</span></div>
+  </div>
+  <div class="tool-note" id="sl-note"></div>
+  <button type="button" class="tool-btn" id="sl-share">Share this line</button>
+</div>
+<script>(function(){
+var X1=document.getElementById('sl-x1'),Y1=document.getElementById('sl-y1'),X2=document.getElementById('sl-x2'),Y2=document.getElementById('sl-y2');
+var OUT=document.getElementById('sl-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function gcd(x,y){x=Math.abs(Math.round(x*1e6));y=Math.abs(Math.round(y*1e6));while(y){var t=x%y;x=y;y=t;}return x||1;}
+function calc(){
+  var x1=parseFloat(X1.value),y1=parseFloat(Y1.value),x2=parseFloat(X2.value),y2=parseFloat(Y2.value);
+  if([x1,y1,x2,y2].some(isNaN)){OUT.textContent='–';
+    document.getElementById('sl-frac').textContent='–';document.getElementById('sl-ang').textContent='–';
+    document.getElementById('sl-b').textContent='–';document.getElementById('sl-note').textContent='';
+    document.title='Slope Calculator - ToolTide';return;}
+  var dx=x2-x1,dy=y2-y1;
+  if(dx===0){OUT.textContent='undefined';
+    document.getElementById('sl-frac').textContent='vertical';
+    document.getElementById('sl-ang').textContent='90°';
+    document.getElementById('sl-b').textContent='x = '+x1;
+    document.getElementById('sl-note').textContent='Both points share x = '+x1+', so the line is vertical: slope is division by zero, the angle is 90°, and there is no y-intercept (unless the line IS the y-axis).';
+    document.title='Vertical line x='+x1+' - ToolTide';return;}
+  var m=dy/dx;
+  var g=gcd(dy,dx),fn=dy/g,fd=dx/g;
+  if(fd<0){fn=-fn;fd=-fd;}
+  var frac=(fd===1)?String(fn):(fn+'/'+fd);
+  var b=y1-m*x1;
+  var ang=Math.atan(m)*180/Math.PI;
+  var fx=function(x){return Math.round(x*1e4)/1e4;};
+  OUT.textContent=fx(m);
+  document.getElementById('sl-frac').textContent=frac;
+  document.getElementById('sl-ang').textContent=(Math.round(ang*100)/100)+'°';
+  document.getElementById('sl-b').textContent=fx(b);
+  var dir=dy===0?'horizontal':(m>0?'rising left to right':'falling left to right');
+  document.getElementById('sl-note').textContent='m = ('+fx(dy)+') / ('+fx(dx)+') = '+fx(m)+' ('+frac+'), a '+dir+' line at '+(Math.round(ang*100)/100)+'° from the horizontal. y = '+fx(m)+'x + '+fx(b)+' is the full equation; any perpendicular line has slope '+(m===0?'undefined':fx(-1/m))+'.';
+  document.title='Slope '+fx(m)+' ('+frac+') - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_slope',JSON.stringify({x1:X1.value,y1:Y1.value,x2:X2.value,y2:Y2.value}));}catch(e){}}
+[X1,Y1,X2,Y2].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['x1',X1],['y1',Y1],['x2',X2],['y2',Y2]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_slope')||'null');if(mem){X1.value=mem.x1||'';Y1.value=mem.y1||'';X2.value=mem.x2||'';Y2.value=mem.y2||'';}}catch(e){}}
+calc();
+document.getElementById('sl-share').addEventListener('click',function(){
+  var txt='Line through ('+X1.value+', '+Y1.value+') and ('+X2.value+', '+Y2.value+'): slope '+OUT.textContent+', y-intercept '+document.getElementById('sl-b').textContent+'. Find yours (no sign-up):';
+  var url=location.origin+location.pathname+'?x1='+encodeURIComponent(X1.value||'')+'&y1='+encodeURIComponent(Y1.value||'')+'&x2='+encodeURIComponent(X2.value||'')+'&y2='+encodeURIComponent(Y2.value||'');
+  if(navigator.share){navigator.share({title:'Slope result',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this line';},1500);}
+});
+})();
+</script>
+"""
+
+# Random team generator: paste names, split into N teams with crypto shuffle, re-shuffle button.
+# Retention hooks: title result hook, tt_team memory, URL state (?n=&s=), Web Share.
+TEAMGEN = """<div class="tool" id="tt-tg">
+  <div class="fields">
+    <div class="field"><label for="tg-in">Names (one per line)</label><textarea id="tg-in" rows="5" placeholder="Alice&#10;Bob&#10;Carol&#10;Dave&#10;Eve&#10;Frank"></textarea></div>
+    <div class="field"><label for="tg-n">Number of teams</label><input type="number" id="tg-n" step="1" min="2" max="20" placeholder="2"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tg-out">–</span><span class="result-unit" id="tg-u">people per team</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tg-p">–</b><span>people</span></div>
+    <div class="stat"><b id="tg-t">–</b><span>teams</span></div>
+    <div class="stat"><b id="tg-bal">–</b><span>balance</span></div>
+  </div>
+  <div class="tool-note" id="tg-note">Press Shuffle to draw teams.</div>
+  <div style="margin-top:10px"><button type="button" class="tool-btn" id="tg-run">Shuffle teams</button></div>
+  <div class="tool-note" id="tg-list" style="margin-top:10px"></div>
+  <button type="button" class="tool-btn" id="tg-share">Share this draw</button>
+</div>
+<script>(function(){
+var IN=document.getElementById('tg-in'),N=document.getElementById('tg-n');
+var OUT=document.getElementById('tg-out');
+var lastDraw=null;
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function names(){
+  return IN.value.split(/[\\n\\r]+/).map(function(x){return x.trim();}).filter(function(x){return x.length>0;});
+}
+function shuffle(a){
+  for(var i=a.length-1;i>0;i--){
+    var j;
+    if(window.crypto&&crypto.getRandomValues){var u=new Uint32Array(1);crypto.getRandomValues(u);j=u[0]%(i+1);}
+    else{j=Math.floor(Math.random()*(i+1));}
+    var t=a[i];a[i]=a[j];a[j]=t;
+  }
+  return a;
+}
+function calc(){
+  var ns=names(),n=parseInt(N.value,10);
+  var cnt=ns.length;
+  if(!cnt||!(n>=2)){OUT.textContent='–';document.getElementById('tg-u').textContent='people per team';
+    document.getElementById('tg-p').textContent='–';document.getElementById('tg-t').textContent='–';
+    document.getElementById('tg-bal').textContent='–';document.title='Random Team Generator - ToolTide';return;}
+  var base=Math.floor(cnt/n),rem=cnt%n;
+  document.getElementById('tg-p').textContent=cnt;
+  document.getElementById('tg-t').textContent=n;
+  document.getElementById('tg-bal').textContent=rem===0?base+' each':rem+' of '+(base+1)+' + '+(n-rem)+' of '+base;
+  OUT.textContent=base+(rem?'-'+(base+1):'');
+  document.getElementById('tg-u').textContent='people per team';
+  document.title=cnt+' people into '+n+' teams - ToolTide';
+}
+function run(){
+  var ns=names(),n=parseInt(N.value,10);
+  if(!ns.length||!(n>=2)||n>ns.length){document.getElementById('tg-list').textContent='Enter at least as many names as teams.';return;}
+  var pool=shuffle(ns.slice());
+  var teams=[],i;
+  for(i=0;i<n;i++)teams.push([]);
+  var k=0;
+  for(i=0;i<pool.length;i++){teams[k%n].push(pool[i]);k++;}
+  var html='';
+  for(i=0;i<n;i++){
+    html+='<div><b>Team '+(i+1)+' ('+teams[i].length+'):</b> '+teams[i].map(esc).join(', ')+'</div>';
+  }
+  document.getElementById('tg-list').innerHTML=html;
+  lastDraw=teams;
+  document.getElementById('tg-note').textContent='Drawn with cryptographically secure randomness - every arrangement equally likely, no seeding, no favorites.';
+}
+function save(){try{localStorage.setItem('tt_team',JSON.stringify({i:IN.value,n:N.value}));}catch(e){}}
+IN.addEventListener('input',function(){calc();save();});
+N.addEventListener('input',function(){calc();save();});
+document.getElementById('tg-run').addEventListener('click',function(){run();save();});
+var qn=qs('n'),qs2=qs('s');
+if(qn!==null){N.value=qn;}
+if(qs2!==null){IN.value=qs2.replace(/\\|/g,String.fromCharCode(10));}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_team')||'null');if(mem){IN.value=mem.i||'';N.value=mem.n||'2';}}catch(e){}}
+calc();
+if(names().length&&parseInt(N.value,10)>=2){run();}
+document.getElementById('tg-share').addEventListener('click',function(){
+  if(!lastDraw){this.textContent='Shuffle first';var b0=this;setTimeout(function(){b0.textContent='Share this draw';},1500);return;}
+  var txt=lastDraw.map(function(t,i){return 'Team '+(i+1)+': '+t.join(', ');}).join(' | ');
+  txt+='. Draw yours (no sign-up):';
+  var url=location.origin+location.pathname+'?n='+encodeURIComponent(N.value||'')+'&s='+encodeURIComponent(IN.value.split(/[\\n\\r]+/).filter(function(x){return x.trim();}).join('|'));
+  if(navigator.share){navigator.share({title:'Team draw',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this draw';},1500);}
+});
+})();
+</script>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -5224,6 +5440,9 @@ TOOLS = {
     "timecard": lambda args: TIMECARD,
     "onerepmax": lambda args: ONEREPMAX,
     "stddev": lambda args: STDDEV,
+    "concrete": lambda args: CONCRETE,
+    "slopecalc": lambda args: SLOPECALC,
+    "teamgen": lambda args: TEAMGEN,
 }
 
 
