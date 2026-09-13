@@ -2823,6 +2823,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "double-discount-calculator",
+        "title": "Double Discount Calculator — What 30% + 20% Off Is Really Worth",
+        "h1": "Double Discount Calculator",
+        "desc": "Two discounts in a row? Enter both and get the true combined percentage, the final price, and a verdict against the flat single-discount deal. Instant, free, no sign-up.",
+        "category": "calculator",
+        "keyword": "double discount calculator",
+        "tool": "doubledisc",
+        "args": {},
+        "intro": [
+            "\"30% off, then an extra 20% at checkout\" is not 50% off — it is 44%, because the second discount applies to the already-reduced price. Retailers know most shoppers add the numbers, which is exactly why stacked discounts look juicier than they are. This calculator applies the discounts in order, shows the true combined percentage, and prices the deal honestly.",
+            "The flat-alternative field answers the question deal hunters actually face: is \"30% + extra 20%\" better than the competitor's flat 45%? Enter both offers and the verdict line tells you which one wins and by how many dollars — the math most coupon threads argue about for pages, settled in one glance.",
+        ],
+        "howto": [
+            "Enter the original price and the two stacked discounts — the true combined percentage and final price appear instantly.",
+            "Type the flat single discount you're comparing against to get the verdict: stacked wins, flat wins, or identical.",
+            "Share the result with one tap — the link carries your numbers so the group chat sees the same math.",
+        ],
+        "faqs": [
+            ("What is 30% off then 20% off combined?",
+             "44% off, not 50%. The second discount multiplies what remains: 0.70 × 0.80 = 0.56, so you pay 56% of the original price. The calculator shows this multiplication chain step by step so the number is never a guess."),
+            ("Why isn't adding two discounts correct?",
+             "Because percentages apply to different bases. The 20% comes off the post-30% price, not the original — each extra discount is worth less than the last. A 30%+20% stack equals a flat 44%; the same stack advertised as \"50% off\" overstates it by 6 points."),
+            ("Is a stacked discount ever better than one big discount?",
+             "Yes — 30% + 20% (true 44%) beats a flat 40%. But 30% + 10% (true 37%) loses to a flat 40%. The comparison depends entirely on the numbers, which is why the verdict field exists: enter both offers and it names the winner in dollars."),
+            ("Does this work for three or more discounts?",
+             "Keep multiplying: each discount leaves (100% − discount) of the price, so chain them — 0.9 × 0.8 × 0.7 for a 10%+20%+30% stack (true 49.6%). For the common two-discount case this page does the whole chain, the comparison and the share link for you."),
+        ],
+    })
+
+    pages.append({
+        "slug": "simple-interest-calculator",
+        "title": "Simple Interest Calculator — SI = P×r×t With Compound Comparison",
+        "h1": "Simple Interest Calculator",
+        "desc": "Calculate simple interest instantly: interest earned, monthly interest, total at maturity — plus what the same money would earn compounded monthly. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "simple interest calculator",
+        "tool": "simpleint",
+        "args": {},
+        "intro": [
+            "Simple interest is the flat-rent version of money growth: interest = principal × rate × time, always computed on the original principal, never on accumulated interest. It is how most car loans, short-term notes and textbook problems work — and the formula fits on one line, which is exactly why it belongs in every financial toolkit.",
+            "The third stat answers the question every learner eventually asks: \"what would compounding have done instead?\" The calculator runs the same principal at the same rate compounded monthly and shows the difference in dollars. When the gap matters, head to the compound interest calculator; when you have a target date instead of a fixed term, the savings goal calculator works backwards from it.",
+        ],
+        "howto": [
+            "Enter the principal, annual rate and time in years (decimals fine for months, e.g. 0.5 for six months).",
+            "Read the interest earned, the per-month figure, and the total at maturity — all update live as you type.",
+            "Compare the compounded-monthly stat to see what the same principal earns under compound growth.",
+        ],
+        "faqs": [
+            ("What is the formula for simple interest?",
+             "SI = P × r × t: principal times annual rate times time in years. $5,000 at 6% for 3 years = 5,000 × 0.06 × 3 = $900 interest, $5,900 total at maturity. The calculator applies the formula exactly and shows the work."),
+            ("How is simple interest different from compound interest?",
+             "Simple interest always computes on the original principal, so growth is linear — the same dollars of interest every year. Compound interest computes on the running balance, so growth accelerates. The stat row shows both for your numbers so the difference is concrete, not theoretical."),
+            ("When is simple interest used in real life?",
+             "Auto loans and many personal loans amortize on simple interest, bonds pay fixed coupons on face value, and short-term notes between 30 days and 5 years often specify it. It is also the standard model in school math and finance exams."),
+            ("Does partial-year time work?",
+             "Yes — time is in years and accepts decimals: 0.5 for half a year, 1.75 for 21 months. Interest scales proportionally, and the per-month stat divides the total interest evenly across the term."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

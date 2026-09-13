@@ -6,38 +6,128 @@
 		<link>https://trends.google.com/trending/rss?geo=US</link>
 		<atom:link href="https://trends.google.com/trending/rss?geo=US" rel="self" type="application/rss+xml"/>
 		<item>
+			<title>hawaii</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 12 Sep 2026 23:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRWthDODpQOpOu0sTYMBDombtfkLZYXMos22WBICy3hw8XRtlR62Au5CVroI8U</ht:picture>
+			<ht:picture_source>Hawaii News Now</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Visitors asked to stay away from Kauai during Hurricane Lowell recovery</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.hawaiinewsnow.com/2026/09/10/visitors-asked-stay-away-kauai-during-hurricane-lowell-recovery/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRWthDODpQOpOu0sTYMBDombtfkLZYXMos22WBICy3hw8XRtlR62Au5CVroI8U</ht:news_item_picture>
+				<ht:news_item_source>Hawaii News Now</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Weather tracker: Hurricane Lowell pounds Hawaii’s western islands</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.theguardian.com/world/2026/sep/11/weather-tracker-hurricane-lowell-pounds-hawaii-western-islands</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRSnezMKPGMipbiWN9OLSpp0isc14PRXH8Ksr7JpA7XiBYApqPejPnV6Byu3Kk</ht:news_item_picture>
+				<ht:news_item_source>The Guardian</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Hawaii Governor Asks Trump for Help as State Copes With Hurricane’s Damage</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.nytimes.com/2026/09/10/us/hurricane-lowell-hawaii-kauai-disaster.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcStpCn_PKIU18Zp2nrBGIhU1NZuQ020lBMDjXTItskym03kt3fsY_bn9FDj8d0</ht:news_item_picture>
+				<ht:news_item_source>The New York Times</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>jessica alba</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 12 Sep 2026 23:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT1bvVuFrxqJbj1RIDip0UTXddIiRxAjS8ZMi4qNDlEppNofkKCTI4sd8xJiRk</ht:picture>
+			<ht:picture_source>People.com</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Jessica Alba Just Wore Hollywood’s Go-To Lightweight Layer — Shop Her Exact Top and Similar Styles from $15</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://people.com/jessica-alba-button-up-shirt-september-2026-12067012</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT1bvVuFrxqJbj1RIDip0UTXddIiRxAjS8ZMi4qNDlEppNofkKCTI4sd8xJiRk</ht:news_item_picture>
+				<ht:news_item_source>People.com</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Hayden Christensen And Jessica Alba&apos;s Forgotten Medical Thriller Has A Truly Terrifying Concept</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.yahoo.com/entertainment/movies/articles/hayden-christensen-jessica-albas-forgotten-234700698.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwi1laRnfSsVjUsC5BTk6Hh1KmfJR0PUYtbY4v1jTemFC5T8gfaMGoejAfp9U</ht:news_item_picture>
+				<ht:news_item_source>Yahoo</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Hayden Christensen And Jessica Alba&apos;s Forgotten Medical Thriller Has A Truly Terrifying Concept</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.aol.com/articles/hayden-christensen-jessica-albas-forgotten-234700000.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQxCeTR-CyQGpgy34V_CoAi_N32bik5rlFZQJ9fRAWY24mUz8HE4-zFsNnatbI</ht:news_item_picture>
+				<ht:news_item_source>AOL.com</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>leslie jones</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 12 Sep 2026 22:50:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRpK6Q1Lg1et7HYXjNFTX9Y6rchcsgPTa00uQ1zd23_AfFKx7vSWSymQuWlMt8</ht:picture>
+			<ht:picture_source>The Daily Beast</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>‘SNL’ Star Reveals Why She Can’t Stand Comedy Roasts</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.thedailybeast.com/obsessed/why-snl-star-leslie-jones-would-rather-roast-houses-than-people/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRpK6Q1Lg1et7HYXjNFTX9Y6rchcsgPTa00uQ1zd23_AfFKx7vSWSymQuWlMt8</ht:news_item_picture>
+				<ht:news_item_source>The Daily Beast</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>AmericanaThrowdown</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.nashvillescene.com/americanathrowdown/image_e760771a-e94d-4269-be48-82c0b20a4d90.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQLaHJk4JBN1lWEJxVIhjGyepDNUnh_WcdthvwjxmZSFca3VcBekKQGMZ-3JQE</ht:news_item_picture>
+				<ht:news_item_source>Nashville Scene</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Leslie Jones Is The HGTV Star You Didn&apos;t Know You Needed</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.essence.com/lifestyle/home/leslie-jones-hgtv/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTRtzW5Z0gZg1kksO18FOcZhuapIZ44BapCMnaYgZVaMuWKc-B_VJ4GGxYVODY</ht:news_item_picture>
+				<ht:news_item_source>Essence</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
 			<title>óscar perea</title>
 			<ht:approx_traffic>200+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 22:40:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoV-hRlbi7uDPh8ttyAr9W4-K4JyohRCmDiEf9Yg7gXayd7giMVgZZjMFKZoM</ht:picture>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSRV5eqYxV5hA0kE-Yd6BOH2uioJKZjjSfVNLFAVWrbgkPbRayoitNeEBwDiUI</ht:picture>
 			<ht:picture_source>Club América | Sitio Oficial</ht:picture_source>
 			<ht:news_item>
 				<ht:news_item_title>¡Oscar Perea puso el segundo a favor!</ht:news_item_title>
 				<ht:news_item_snippet/>
 				<ht:news_item_url>https://www.clubamerica.com.mx/videos/oscar-perea-puso-el-segundo-a-favor-gbsvteq9a70</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoV-hRlbi7uDPh8ttyAr9W4-K4JyohRCmDiEf9Yg7gXayd7giMVgZZjMFKZoM</ht:news_item_picture>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSRV5eqYxV5hA0kE-Yd6BOH2uioJKZjjSfVNLFAVWrbgkPbRayoitNeEBwDiUI</ht:news_item_picture>
 				<ht:news_item_source>Club América | Sitio Oficial</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>El golazo de Bryan Rodríguez en contra de Cruz Azul</ht:news_item_title>
+				<ht:news_item_title>¡TIRO ATAJADO! disparo por Brian Rodríguez.</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://mexico.as.com/futbol/futbol-mexicano/el-golazo-de-bryan-rodriguez-en-contra-de-cruz-azul-f202609-n/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTefu4Lgj04Q4r0fns5Ag3bILilVU7aG8R3NBcECUfBOhWwuw6BycES4FqzCxA</ht:news_item_picture>
-				<ht:news_item_source>AS México</ht:news_item_source>
+				<ht:news_item_url>https://www.tudn.com/futbol/liga-mx/tiro-atajado-disparo-por-brian-rodriguez-video-93</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5Qp28YBFVjQ21NWQhvnVJbKx2oTV3-qifkuOy6YfwOEHi3g-CktgMgoXeFJs</ht:news_item_picture>
+				<ht:news_item_source>TUDN</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>¡Óscar Perea aparece y firma el segundo gol del Club América vs Cruz Azul!</ht:news_item_title>
+				<ht:news_item_title>Golazo de Brian Rodríguez que prendió la esperanza de América en el Clásico Joven</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://americamonumental.bolavip.com/ligamx/oscar-perea-aparece-y-firma-el-segundo-gol-del-club-america-vs-cruz-azul</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpXqidxcj1r2G5EudPpxqVxoz6CHZRdBG_AtNrSTNJAjFlTXQW0hIXb-BQzTk</ht:news_item_picture>
-				<ht:news_item_source>Águilas Monumental</ht:news_item_source>
+				<ht:news_item_url>https://www.record.com.mx/historia/golazo-de-brian-rodriguez-que-prendio-la-esperanza-de-america-en-el-clasico-joven-2026091305443869605</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNEUC4_MH0FAaeNMkPf7VuEXR4kth_xbm4sApFh8l7it5h3zN5Hrt_pY8qK34</ht:news_item_picture>
+				<ht:news_item_source>Récord</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
 			<title>tyler perry</title>
-			<ht:approx_traffic>500+</ht:approx_traffic>
+			<ht:approx_traffic>1000+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 22:10:00 -0700</pubDate>
@@ -94,21 +184,21 @@
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 21:40:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSPaMuCvVh5PrOb6w2G8z_cWEDwSNSMgl3Nolm4vlW_p7xXvbSiWe9uM_oi8xI</ht:picture>
-			<ht:picture_source>MLB</ht:picture_source>
+			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT0ndb5XNQdGjTllIC10jT5rAmDf26-qPmRsvWfp3xr03SUABcPxSO2hwWlw1Y</ht:picture>
+			<ht:picture_source>The Seattle Times</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>Seattle Mariners at Athletics Preview - 09/12/2026</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.mlb.com/stories/game-preview/824955</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSPaMuCvVh5PrOb6w2G8z_cWEDwSNSMgl3Nolm4vlW_p7xXvbSiWe9uM_oi8xI</ht:news_item_picture>
-				<ht:news_item_source>MLB</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Michael Arroyo belts first homer, Mariners clobber Athletics 19-1</ht:news_item_title>
+				<ht:news_item_title>Michael Arroyo belts first homer in Mariners&apos; record rout of Athletics</ht:news_item_title>
 				<ht:news_item_snippet/>
 				<ht:news_item_url>https://www.seattletimes.com/sports/mariners/michael-arroyo-belts-first-homer-seattle-mariners-clobber-athletics/</ht:news_item_url>
 				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT0ndb5XNQdGjTllIC10jT5rAmDf26-qPmRsvWfp3xr03SUABcPxSO2hwWlw1Y</ht:news_item_picture>
 				<ht:news_item_source>The Seattle Times</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Mariners crush five home runs vs. Athletics</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.mlb.com/video/mariners-crush-five-home-runs-vs-athletics</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ38qMsH5ca3t5eqJlhtDAaro1RrI03MQwHQ7zPgraz1996b9tNwAqeUBXtbQE</ht:news_item_picture>
+				<ht:news_item_source>MLB.com</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
 				<ht:news_item_title>Mariners rookie Michael Arroyo blasts first career HR</ht:news_item_title>
@@ -116,36 +206,6 @@
 				<ht:news_item_url>https://sports.mynorthwest.com/mlb/seattle-mariners/seattle-mariners-rookie-michael-arroyo-blasts-first-career-hr</ht:news_item_url>
 				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT38v4RbRQPoeTRDG-ZPGDOlA3m8ql3gtEalHI3r0fyqtbTEPFkaD7N7GETfmc</ht:news_item_picture>
 				<ht:news_item_source>Seattle Sports</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>henry cavill</title>
-			<ht:approx_traffic>1000+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 21:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSZfKvhcOyZ6w52JED5fozzhmAGT5X7SqJxWw4Hmh36efwXc1IzMty1b55VobQ</ht:picture>
-			<ht:picture_source>Red Bank Green</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>RED BANK: BROADWALK LANDMARK BECOMES SET FOR KEVIN HART FLICK</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.redbankgreen.com/2026/09/red-bank-broad-street-landmark-becomes-set-for-kevin-hart-flick09112026/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSZfKvhcOyZ6w52JED5fozzhmAGT5X7SqJxWw4Hmh36efwXc1IzMty1b55VobQ</ht:news_item_picture>
-				<ht:news_item_source>Red Bank Green</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Kevin Hart, Henry Cavill Spy Movie Films in Glen Ridge</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://montclairlocal.news/2026/09/kevin-hart-henry-cavill-spy-movie-films-in-glen-ridge/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSGGKVVZYrsER1ybDux6cb95lA1VJ4TCi465OQrxKS6CxV-_wWRoHdSBIqAoE0</ht:news_item_picture>
-				<ht:news_item_source>Montclair Local News</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Kevin Hart, Henry Cavill reportedly seen filming in North Jersey</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.yahoo.com/entertainment/movies/articles/kevin-hart-henry-cavill-reportedly-190213287.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSyL--VVjIJy4kODOcF3sgc8-yhtrlslBvQrgbvtg0GG85diE-s31B4yNNxD8Q</ht:news_item_picture>
-				<ht:news_item_source>Yahoo</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
@@ -179,8 +239,38 @@
 			</ht:news_item>
 		</item>
 		<item>
-			<title>mariners - athletics</title>
+			<title>henry cavill</title>
 			<ht:approx_traffic>1000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 12 Sep 2026 21:30:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSZfKvhcOyZ6w52JED5fozzhmAGT5X7SqJxWw4Hmh36efwXc1IzMty1b55VobQ</ht:picture>
+			<ht:picture_source>Red Bank Green</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>RED BANK: BROADWALK LANDMARK BECOMES SET FOR KEVIN HART FLICK</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.redbankgreen.com/2026/09/red-bank-broad-street-landmark-becomes-set-for-kevin-hart-flick09112026/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSZfKvhcOyZ6w52JED5fozzhmAGT5X7SqJxWw4Hmh36efwXc1IzMty1b55VobQ</ht:news_item_picture>
+				<ht:news_item_source>Red Bank Green</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Kevin Hart, Henry Cavill reportedly seen filming in North Jersey</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.yahoo.com/entertainment/movies/articles/kevin-hart-henry-cavill-reportedly-190213287.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSyL--VVjIJy4kODOcF3sgc8-yhtrlslBvQrgbvtg0GG85diE-s31B4yNNxD8Q</ht:news_item_picture>
+				<ht:news_item_source>Yahoo</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Kevin Hart, Henry Cavill Spy Movie Films in Glen Ridge</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://montclairlocal.news/2026/09/kevin-hart-henry-cavill-spy-movie-films-in-glen-ridge/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSGGKVVZYrsER1ybDux6cb95lA1VJ4TCi465OQrxKS6CxV-_wWRoHdSBIqAoE0</ht:news_item_picture>
+				<ht:news_item_source>Montclair Local News</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>mariners - athletics</title>
+			<ht:approx_traffic>2000+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 21:30:00 -0700</pubDate>
@@ -206,96 +296,6 @@
 				<ht:news_item_url>https://www.mlb.com/gameday/nationals-vs-dodgers/2026/09/05/823904/final/video</ht:news_item_url>
 				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRTzkq6OZVhjg-FRHu-rZnU6upDRbA7DtJT9sWa2-Xg-ajj_uhu78IqG4Xf1r8</ht:news_item_picture>
 				<ht:news_item_source>MLB.com</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>kristi noem</title>
-			<ht:approx_traffic>500+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 21:20:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTqT_EsYGkRlZArAwEs6xu5uJ4z2zh-7_jkik1W3uqVOm3nlifZOmh8Zu7775I</ht:picture>
-			<ht:picture_source>WSJ</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Chasing Side Deals, Flexing Influence: Lewandowski’s Power Moves at DHS</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.wsj.com/politics/policy/corey-lewandowski-influence-dhs-43d3fe03</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTqT_EsYGkRlZArAwEs6xu5uJ4z2zh-7_jkik1W3uqVOm3nlifZOmh8Zu7775I</ht:news_item_picture>
-				<ht:news_item_source>WSJ</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Lewandowski Blasts ‘Fake Story’ Alleging He Sought Illegal Side Deals At DHS</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.forbes.com/sites/saradorn/2026/09/08/lewandowski-denies-seeking-side-deals-at-dhs-heres-what-hes-accused-of/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPd4jCu0mmz1SAYELn5Kfqt-UASww9xilbx1OWevGeiH4hyw1ositkz1PxIoA</ht:news_item_picture>
-				<ht:news_item_source>Forbes</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>WSJ: DHS IG investigating Corey Lewandowski of improperly awarding contracts, personal enrichment</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.ms.now/katy-tur/watch/wsj-dhs-ig-investigating-corey-lewandowski-for-improperly-awarding-contracts-personal-enrichment-2513459267844</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUYOIJ8k1tgfN7JV9EK0N6GAJ0KPneShNXRmRcIuDK9OWjRPJgUasx2b_xMAc</ht:news_item_picture>
-				<ht:news_item_source>MS NOW</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>cruz azul vs club américa standings</title>
-			<ht:approx_traffic>5000+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 21:10:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQJjVlrxf3uXQ0XGc8LfykhaL4S2b2MZ9fHkemWFSnM8zZwrEPPqw3yCX5SHkc</ht:picture>
-			<ht:picture_source>Yahoo Sports</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>🚨Confirmed XIs: Estadio Azteca rocks for the first Clásico Joven</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://sports.yahoo.com/articles/confirmed-xis-estadio-azteca-rocks-023100244.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQJjVlrxf3uXQ0XGc8LfykhaL4S2b2MZ9fHkemWFSnM8zZwrEPPqw3yCX5SHkc</ht:news_item_picture>
-				<ht:news_item_source>Yahoo Sports</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Cruz Azul vs. Club America prediction, odds, Liga MX picks [9/12/2026]</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.dimers.com/liga-mx/news/cruz-azul-vs-club-america-prediction-09-12-2026-ac</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIIRgiDBUYD2qUDZyHbkqxznRz1hvlz82StJ7UUUq2e1_5jU2tU8g1hSIb8Q</ht:news_item_picture>
-				<ht:news_item_source>Dimers</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Watch Cruz Azul vs CF America Liga MX soccer game LIVE: Online streams, TV channel, early teams news, start time</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.goal.com/en-us/news/watch-cruz-azul-v-cf-america-live-stream-online-tv-channel/blt79e224e08df3cd6a</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOMtNun1GL9XDor680gl5zIkHwjPJKhAvw2XnJPsiiG8_PGjuWfuBS3nuLP0M</ht:news_item_picture>
-				<ht:news_item_source>Goal.com</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>weston wilson</title>
-			<ht:approx_traffic>500+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 21:10:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQqfxuZ-XAaPk_YWe-tUTRtloYy2vecoRwBqLZtMbx9dqBZydchYTg1xMkii8c</ht:picture>
-			<ht:picture_source>Idaho Press</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Mariners Rays Baseball</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>http://www.idahopress.com/sports/national/mariners-rays-baseball/image_afeae9f0-8fd8-5555-b661-19ac4b6b2caf.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQqfxuZ-XAaPk_YWe-tUTRtloYy2vecoRwBqLZtMbx9dqBZydchYTg1xMkii8c</ht:news_item_picture>
-				<ht:news_item_source>Idaho Press</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Mariners Rays Baseball</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.bdtonline.com/sports/national_sports/mariners-rays-baseball/image_e86f9c4f-07a1-59cf-bc4c-13a7b4758f7e.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQSLvruFaYax3CFdEdkRg9l14CmGPu8Bx_U2Njqb4jwSYbmbHdaEXoCZeVt-RE</ht:news_item_picture>
-				<ht:news_item_source>Bluefield Daily Telegraph</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Mariners Rays Baseball</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.couriernews.com/sports/mariners-rays-baseball/image_03cfaf06-5302-51ca-ae8d-d116f94c540d.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS9Tw_WemTJ7d5fnTD2vkRRhdQZ6ioRG5rp_A4Bq-f4ILaSbs45k0CPC4SlDBo</ht:news_item_picture>
-				<ht:news_item_source>couriernews.com</ht:news_item_source>
 			</ht:news_item>
 		</item>
 	</channel>

@@ -6,50 +6,11 @@
 		<link>https://trends.google.com/trending/rss?geo=GB</link>
 		<atom:link href="https://trends.google.com/trending/rss?geo=GB" rel="self" type="application/rss+xml"/>
 		<item>
-			<title>tiempo</title>
-			<ht:approx_traffic>100+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 22:40:00 -0700</pubDate>
-			<ht:picture/>
-			<ht:picture_source/>
-		</item>
-		<item>
-			<title>savings</title>
+			<title>rangers vs celtic</title>
 			<ht:approx_traffic>500+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 22:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1lipxPQmq_K4n-b4WdV2c4UvH17PyZTzPJNdLEkNmCgdPnEYgAH5TkRPHfxk</ht:picture>
-			<ht:picture_source>The Times</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Rising oil prices drive UK borrowing costs to 19-year high</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.thetimes.com/business/economics/article/oil-prices-drive-uk-borrowing-costs-19-year-high-06clf6qlp</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1lipxPQmq_K4n-b4WdV2c4UvH17PyZTzPJNdLEkNmCgdPnEYgAH5TkRPHfxk</ht:news_item_picture>
-				<ht:news_item_source>The Times</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Can the UK escape the public debt trap?</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.chathamhouse.org/2026/09/can-uk-escape-public-debt-trap</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQKsZTOV-Hyz6k80I1dZ2HFgKeai726L4HP1iskkAB3opv6IbLvcgQYeDEQq2w</ht:news_item_picture>
-				<ht:news_item_source>Chatham House</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>UK bond yields soar to multi-decade highs on fresh Mideast conflict</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.reuters.com/world/uk/uk-10-year-gilt-yield-hits-new-19-year-high-2026-09-10/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcROXQT5Wg94ndQ0ojBNMahMrNB1ry-2tsaD8anne-9spdcbibZd8MLmfXCX0Hc</ht:news_item_picture>
-				<ht:news_item_source>Reuters</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>celtic vs rangers</title>
-			<ht:approx_traffic>500+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 22:30:00 -0700</pubDate>
+			<pubDate>Sat, 12 Sep 2026 23:10:00 -0700</pubDate>
 			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR9cIstywjq9B8fvLknxkjsKbt7KHIWm1ZF9YOLG7-wSVjlc32kAv8gnMSIrc</ht:picture>
 			<ht:picture_source>BBC</ht:picture_source>
 			<ht:news_item>
@@ -75,8 +36,176 @@
 			</ht:news_item>
 		</item>
 		<item>
-			<title>cnn</title>
+			<title>audrey werro vs keely hodgkinson</title>
+			<ht:approx_traffic>5000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sat, 12 Sep 2026 23:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQp55rKidLdRVsbxEN6kjSXMVDz8ORPNdFt-e78oX1UlRxQTwOSb0-nvCt4NdQ</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>World Athletics Ultimate Championship: Keely Hodgkinson second to Audrey Werro despite recent hamstring tear</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.co.uk/sport/athletics/articles/ckgwk3dz1z2o</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQp55rKidLdRVsbxEN6kjSXMVDz8ORPNdFt-e78oX1UlRxQTwOSb0-nvCt4NdQ</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Watch again | World Athletics Ultimate Championship, Budapest 26 - Day 2</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://worldathletics.org/videos/playlist/undefined/6aa127dfcf492d6b783599be</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRqAMvZdX2TqQvL9Wg7d-uXsMyxuIu8MPacMQg8IbVy25yfjTGSxhrIXXzHMWw</ht:news_item_picture>
+				<ht:news_item_source>worldathletics.org</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Keely Hodgkinson eases into blockbuster 800m final at Ultimate Championships</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.independent.co.uk/sport/general/athletics/keely-hodgkinson-werro-broeders-bol-ultimate-championships-b3048880.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSWIXYw3-_bp2Ct354n79DxLQ7KFExdTl3ff_BiwLPKmP8ce02eMGQI8iP_2vk</ht:news_item_picture>
+				<ht:news_item_source>The Independent</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>stephanie vaquer</title>
 			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sat, 12 Sep 2026 23:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTIQQnaCa42tLtYIrgI4VI0g8CJCT83c-HlWIu2AL8zl3MCExGq8mcoA27QXE8</ht:picture>
+			<ht:picture_source>ESPN Deportes</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>WWE: Stephanie Vaquer recupera título mundial femenino en Chile</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://espndeportes.espn.com/luchalibre/nota/_/id/17249369/wwe-stephanie-vaquer-campeona-mundial-femenina-chile</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTIQQnaCa42tLtYIrgI4VI0g8CJCT83c-HlWIu2AL8zl3MCExGq8mcoA27QXE8</ht:news_item_picture>
+				<ht:news_item_source>ESPN Deportes</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>WWE en Chile: horario apertura de puertas, elementos prohibidos y cómo ingresar al evento</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.adnradio.cl/2026/09/10/wwe-en-chile-horario-apertura-de-puertas-elementos-prohibidos-y-como-ingresar-al-evento/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbJiknJSFesbquR8jKAw-8cLMBNuIbJO0kpN9_Vk1uNTqdIwkCFBm1pc9fpmA</ht:news_item_picture>
+				<ht:news_item_source>ADN Radio</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Stephanie Vaquer le &quot;regaló&quot; un inolvidable momento a una fan en Ecuador</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.tvn.cl/deportes/mas-deportes/stephanie-vaquer-le-regalo-un-inolvidable-momento-a-una-fan-en-ecuador</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJKiL1hwDhQsrGq-GGg6gDs2NQ0lKklpETI_3Pc1Wd9F6SHr1zbbB_5-iYhwQ</ht:news_item_picture>
+				<ht:news_item_source>TVN</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>trump news</title>
+			<ht:approx_traffic>1000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sat, 12 Sep 2026 23:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTHrjkvlt1pcqv7ZeoonRaCb3C22kGGAo86KKHr7pMHnDip6WCM2UEUUrDtk7M</ht:picture>
+			<ht:picture_source>BBC</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Donald Trump continues two-day visit of Ireland</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.co.uk/news/articles/cx2z79n0eeno</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTHrjkvlt1pcqv7ZeoonRaCb3C22kGGAo86KKHr7pMHnDip6WCM2UEUUrDtk7M</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Donald Trump calls for the end of the UK</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://news.sky.com/video/did-donald-trump-just-call-for-the-end-of-the-uk-13585173</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTiOLnaPYoHBf0GGGB_7RjzD_KOBqn8HpfPQxf4EsvlRVCJZ1hloDq_cT-AUwA</ht:news_item_picture>
+				<ht:news_item_source>Sky News</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Donald Trump says he would ‘love’ to see united Ireland</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.theguardian.com/us-news/2026/sep/12/donald-trump-says-he-would-love-to-see-united-ireland</ht:news_item_url>
+				<ht:news_item_picture></ht:news_item_picture>
+				<ht:news_item_source>The Guardian</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>wetter</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sat, 12 Sep 2026 23:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRtTyR66doRan54hfrj_WfRu-qvVGyh7N2ONIM3sbgxlfVvTpEa1Xn2e-R__wE</ht:picture>
+			<ht:picture_source>Augsburger Allgemeine</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Feiertage in der Türkei: Welche Einschränkungen gibt es für Urlauber?</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.augsburger-allgemeine.de/reise/feiertage-in-der-tuerkei-welche-einschraenkungen-gibt-es-fuer-urlauber-24-114275385</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRtTyR66doRan54hfrj_WfRu-qvVGyh7N2ONIM3sbgxlfVvTpEa1Xn2e-R__wE</ht:news_item_picture>
+				<ht:news_item_source>Augsburger Allgemeine</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Türkei im September 2026: Wetter, Wassertemperatur, Unternehmungen – der Monats-Check für Urlauber</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.augsburger-allgemeine.de/reise/tuerkei-im-september-2026-wetter-wassertemperatur-unternehmungen-der-monats-check-fuer-urlauber-10-115030073</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT2R6hN0gBmMgcguaqKzWZ0qc5x_twV2P9rwyHQLtOyYUN-pGdC9whqntN1P7c</ht:news_item_picture>
+				<ht:news_item_source>Augsburger Allgemeine</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Türkei im Oktober 2026: Wetter, Temperatur, Feiertage – der Monats-Check für Urlauber</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.augsburger-allgemeine.de/reise/tuerkei-im-oktober-2026-wetter-temperatur-feiertage-der-monats-check-fuer-urlauber-8-115033429</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT92kanC0thBd4pkqZ8J4SJcMYN0fYItU1IajMZ_ngIZZuiIXXtIturvicjHu0</ht:news_item_picture>
+				<ht:news_item_source>Augsburger Allgemeine</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>времето</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sat, 12 Sep 2026 22:50:00 -0700</pubDate>
+			<ht:picture/>
+			<ht:picture_source/>
+		</item>
+		<item>
+			<title>tiempo</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sat, 12 Sep 2026 22:40:00 -0700</pubDate>
+			<ht:picture/>
+			<ht:picture_source/>
+		</item>
+		<item>
+			<title>savings</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=GB</link>
+			<pubDate>Sat, 12 Sep 2026 22:30:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSEvIL2LcV4RsmzPnMRaD3EHofvWQFgeSJIWBc5qi33u60Y9olN_KI5SEJEq8E</ht:picture>
+			<ht:picture_source>Wales Online</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>HMRC admits pensioners face &apos;legal letters&apos; over savings interest</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.walesonline.co.uk/news/cost-of-living/hmrc-admits-pensioners-face-legal-34603331</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSEvIL2LcV4RsmzPnMRaD3EHofvWQFgeSJIWBc5qi33u60Y9olN_KI5SEJEq8E</ht:news_item_picture>
+				<ht:news_item_source>Wales Online</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>DWP told to &apos;stop&apos; taxing people on state pension as petition launched</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://uk.news.yahoo.com/dwp-told-stop-taxing-people-093505855.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFSbpo3JLYz0iluekD0EoQZXECHZSWixEwu2fBgAjRK1JVuKs84iQa0XHYpdQ</ht:news_item_picture>
+				<ht:news_item_source>Yahoo News UK</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Pensioners face shock demands from HMRC as bank interest is checked</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.warringtonguardian.co.uk/news/national/uk-today/26541124.pensioners-face-shock-demands-hmrc-bank-interest-checks/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSgH1h1yn38bdjHroGIpYjeRB_qpi2HJTl5JYWbrGn1DahNOdysVOhcH4z75SY</ht:news_item_picture>
+				<ht:news_item_source>Warrington Guardian</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>cnn</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=GB</link>
 			<pubDate>Sat, 12 Sep 2026 22:30:00 -0700</pubDate>
@@ -132,156 +261,6 @@
 				<ht:news_item_url>https://www.independent.co.uk/news/uk/home-news/treasury-student-loan-threshold-b3049194.html</ht:news_item_url>
 				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS1vHOzb7S-FX31wB6CCP8Wg7QhZRTLWLgEOyUR_zvWuLwDg1ZEXO4T3jVYpiM</ht:news_item_picture>
 				<ht:news_item_source>The Independent</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>ees delays</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 22:00:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR54tcPRt8g_GRQs1G8T-TIPKjn8XL6rZ5z96xqPdd7Nc3UZ3cfGgspkOMNO3U</ht:picture>
-			<ht:picture_source>The Times</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>EU lets nine countries delay EES border checks even further</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.thetimes.com/world/europe/article/ees-eu-border-queues-bkxvcnwks</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR54tcPRt8g_GRQs1G8T-TIPKjn8XL6rZ5z96xqPdd7Nc3UZ3cfGgspkOMNO3U</ht:news_item_picture>
-				<ht:news_item_source>The Times</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>EU entry-exit system has been a ‘shambles’, Ryanair chief says</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.independent.co.uk/travel/news-and-advice/eu-entry-exit-system-ees-ryanair-b3046118.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRMMdO0QnMLMGCSvCZElcC7AHJkm7QQadsKxoSkvpD1P-tC8RDEE95qLhwtdHc</ht:news_item_picture>
-				<ht:news_item_source>The Independent</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>African travellers face stricter biometric checks at 29 European borders</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.africanews.com/2026/09/08/african-travellers-face-stricter-biometric-checks-at-29-european-borders/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTZ7t9vDBguawSyamF6wHZZ2t_iehQZu6HtXfLq3WJTAvWvyqi7CtSvJYycNws</ht:news_item_picture>
-				<ht:news_item_source>Africanews</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>wwe</title>
-			<ht:approx_traffic>500+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 21:10:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPBfgUU8V_Pen59-TABcGODw5Ym1Tfcszr5gn9sPHor5Fx3hfiPH2EoSGLPO8</ht:picture>
-			<ht:picture_source>Bleacher Report</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>WWE SmackDown Winners, Live Grades, Reaction and Highlights From Mexico City</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://bleacherreport.com/articles/25498384-wwe-smackdown-winners-live-grades-reaction-and-highlights-mexico-city</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPBfgUU8V_Pen59-TABcGODw5Ym1Tfcszr5gn9sPHor5Fx3hfiPH2EoSGLPO8</ht:news_item_picture>
-				<ht:news_item_source>Bleacher Report</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>CM Punk goes full John Cena after losing the WWE championship to Sami Zayn</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.cagesideseats.com/wwe/475355/cm-punk-goes-full-john-cena-after-losing-the-wwe-championship-to-sami-zayn</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRyEPtBrSRcnogWaDET_AXufcXR90j2O6Q9hSqHU1pHOUvBfILpMZr-sE2drpM</ht:news_item_picture>
-				<ht:news_item_source>Cageside Seats</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Sami Zayn captures Undisputed WWE Championship in chaotic &apos;Friday Night SmackDown&apos; finale vs CM Punk</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.foxnews.com/outkick-sports/sami-zayn-captures-undisputed-wwe-championship-chaotic-friday-night-smackdown-finale-vs-cm-punk</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCQw010f4-XurCk9onuouUzXhvjIJMdq57ai3W8h8iEFnhtbaRO_MycUsdmQA</ht:news_item_picture>
-				<ht:news_item_source>Fox News</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>gervonta davis</title>
-			<ht:approx_traffic>100+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 21:10:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRxLADun0LSG-BMg8jtUuA7FcDkIheRFLSGD3sw-2u2OIVLIIjFUktPGFiEPps</ht:picture>
-			<ht:picture_source>Yahoo Sports</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Ryan Garcia Questions Gervonta Davis’ Boxing Future With Blunt Mental Health Remark</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://sports.yahoo.com/articles/ryan-garcia-questions-gervonta-davis-190945708.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRxLADun0LSG-BMg8jtUuA7FcDkIheRFLSGD3sw-2u2OIVLIIjFUktPGFiEPps</ht:news_item_picture>
-				<ht:news_item_source>Yahoo Sports</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Garcia On Gervonta Davis&apos; Motivation</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://boxingnews.com/news/garcia-on-gervonta-davis-motivation</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS7fMmYrbsG05v-9MtYfpCcuGhP_ZVXxa8kI6LmX9EK_dNamIw6Dk2opwoJYsM</ht:news_item_picture>
-				<ht:news_item_source>boxingnews.com</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Ryan Garcia Questions Gervonta Davis’ Love For Boxing</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.boxingnews24.com/2026/09/ryan-garcia-questions-gervonta-davis-love-for-boxing/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuQ1ADn0hTp-jydWSnpH-QiulkvHT5YVNJjsW80eVzN0gKDa7c6FTzQrlWYgg</ht:news_item_picture>
-				<ht:news_item_source>Boxing News 24</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>shakur stevenson</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 20:50:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQAeInTsDn2vXDVglK5TwNlyp2ki9qjfugY3X4VFCLlr_pEcD490QQ5Vepp9jo</ht:picture>
-			<ht:picture_source>Boxing News Online</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>Shakur Stevenson has 60 days to face mandatory or risk losing his world title</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://boxingnewsonline.net/news/stevenson-has-60-days-to-defend-title/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQAeInTsDn2vXDVglK5TwNlyp2ki9qjfugY3X4VFCLlr_pEcD490QQ5Vepp9jo</ht:news_item_picture>
-				<ht:news_item_source>Boxing News Online</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Garcia vs Benn: Conor Benn crushed by Ryan Garcia in two rounds of world title mismatch</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.bbc.co.uk/sport/boxing/articles/cr7dm1vk7pgo</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSVMO91y2gAJT4LNQqDX-w3tdARXYjdeAsBIyh3NokE7tptDAYG2VDkInFnvz4</ht:news_item_picture>
-				<ht:news_item_source>BBC</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Conor Benn outgunned and outclassed by Ryan Garcia in Las Vegas</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.telegraph.co.uk/boxing/2026/09/13/conor-benn-ryan-garcia-las-vegas-fight-result/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQnk1H_65_o1xAyAfoYb2tpEdGYdfdrc7HcUdahs6gODSmWHQumUxFaLGW6Enk</ht:news_item_picture>
-				<ht:news_item_source>The Telegraph</ht:news_item_source>
-			</ht:news_item>
-		</item>
-		<item>
-			<title>x</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=GB</link>
-			<pubDate>Sat, 12 Sep 2026 20:40:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQC1tvmooEqfqV-EiRyKKpruh_iSnWw5PVgbdxo_ASd8qMqGjmxDUIe0FOmPnA</ht:picture>
-			<ht:picture_source>The i Paper</ht:picture_source>
-			<ht:news_item>
-				<ht:news_item_title>My Gen X friends are all divorcing their husbands because they refuse to grow up</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://inews.co.uk/inews-lifestyle/gen-x-friends-divorcing-husbands-because-refuse-grow-4759604</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQC1tvmooEqfqV-EiRyKKpruh_iSnWw5PVgbdxo_ASd8qMqGjmxDUIe0FOmPnA</ht:news_item_picture>
-				<ht:news_item_source>The i Paper</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Elon Musk Has Pledged to Rid His Platform, X, of Child Sexual Abuse, but It Persists</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.nytimes.com/2026/09/11/technology/x-grok-child-images.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTQOkumdCovoU_4K74YhxRY_cO3ZBozZuF_YpNvZZGDgbt3TeBVLyRCcL9S9K0</ht:news_item_picture>
-				<ht:news_item_source>The New York Times</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Child sexual abuse survivor alleges Elon Musk’s AI chatbot used photos of her to generate new illegal images</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.theguardian.com/technology/2026/sep/03/elon-musk-ai-grok-child-porn-lawsuit</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRU6p1UPi2x7oxc2sXNKexsc3UWnjCx9Phtwb1xM9o4mW4qlh6rXMeMyCQiOMY</ht:news_item_picture>
-				<ht:news_item_source>The Guardian</ht:news_item_source>
 			</ht:news_item>
 		</item>
 	</channel>

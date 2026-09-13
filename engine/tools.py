@@ -2955,7 +2955,122 @@ fromK(300);
 })();</script>
 """
 
-# Savings goal calculator: monthly-deposit plan -> the calendar date the goal is hit.
+# Double (stacked) discount deal judge: true combined rate vs a flat alternative discount.
+# Retention hooks: title result hook, tt_doubledisc input memory, URL state (?p=&d1=&d2=&flat=), Web Share.
+DOUBLEDISC = """<div class="tool" id="tt-ddisc">
+  <div class="fields">
+    <div class="field"><label for="dd-price">Original price ($)</label><input type="number" id="dd-price" step="0.01" min="0" placeholder="200"></div>
+    <div class="field"><label for="dd-d1">First discount %</label><input type="number" id="dd-d1" step="any" min="0" max="100" placeholder="30"></div>
+    <div class="field"><label for="dd-d2">Second discount %</label><input type="number" id="dd-d2" step="any" min="0" max="100" placeholder="20"></div>
+    <div class="field"><label for="dd-flat">Flat alternative % (optional)</label><input type="number" id="dd-flat" step="any" min="0" max="100" placeholder="45"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dd-out">–</span><span class="result-unit" id="dd-unit">stacked final price</span></div>
+  <div class="tool-note" id="dd-note"></div>
+  <div class="stats">
+    <div class="stat"><b id="dd-true">–</b><span>true combined %</span></div>
+    <div class="stat"><b id="dd-save">–</b><span>you save</span></div>
+    <div class="stat"><b id="dd-verdict">–</b><span>vs flat deal</span></div>
+  </div>
+  <button type="button" class="tool-btn" id="dd-share">Share this deal math</button>
+</div>
+<script>(function(){
+var E={};['dd-price','dd-d1','dd-d2','dd-flat'].forEach(function(id){E[id]=document.getElementById(id);});
+var OUT=document.getElementById('dd-out'),NOTE=document.getElementById('dd-note');
+function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function num(id){var v=E[id].value;return v===''?null:(parseFloat(v)||0);}
+function calc(){
+  var p=num('dd-price'),d1=num('dd-d1')||0,d2=num('dd-d2')||0,flat=num('dd-flat');
+  if(!p){OUT.textContent='–';NOTE.textContent='';document.getElementById('dd-true').textContent='–';
+    document.getElementById('dd-save').textContent='–';document.getElementById('dd-verdict').textContent='–';
+    document.title='Double Discount Calculator - ToolTide';return;}
+  var eff=(1-d1/100)*(1-d2/100),fin=p*eff,truePct=(1-eff)*100;
+  OUT.textContent=money(fin);
+  document.getElementById('dd-true').textContent=truePct.toFixed(2)+'%';
+  document.getElementById('dd-save').textContent=money(p-fin);
+  var note='Applied in order: '+money(p)+' → ×'+(1-d1/100).toFixed(4)+' → '+money(p*(1-d1/100))+' → ×'+(1-d2/100).toFixed(4)+' → '+money(fin)+
+    '. Not '+(d1+d2)+'% off — the second discount applies to the already-reduced price.';
+  var vd='—';
+  if(flat!==null){var ffin=p*(1-flat/100),diff=ffin-fin;
+    vd=diff>0.005?('stacked wins by '+money(diff)):diff<-0.005?('flat wins by '+money(-diff)):'identical';
+    note+=' Stacked final '+money(fin)+' vs flat '+flat+'% at '+money(ffin)+': '+vd+'.';
+  }
+  NOTE.textContent=note;
+  document.getElementById('dd-verdict').textContent=vd;
+  document.title=truePct.toFixed(0)+'% true discount - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_doubledisc',JSON.stringify({p:E['dd-price'].value,d1:E['dd-d1'].value,d2:E['dd-d2'].value,f:E['dd-flat'].value}));}catch(e){}}
+Object.keys(E).forEach(function(k){E[k].addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['p','dd-price'],['d1','dd-d1'],['d2','dd-d2'],['flat','dd-flat']].forEach(function(a){
+  var v=qs(a[0]);if(v!==null){E[a[1]].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_doubledisc')||'null');if(mem){E['dd-price'].value=mem.p||'';E['dd-d1'].value=mem.d1||'';E['dd-d2'].value=mem.d2||'';E['dd-flat'].value=mem.f||'';}}catch(e){}}
+calc();
+document.getElementById('dd-share').addEventListener('click',function(){
+  var txt=E['dd-d1'].value+'% + '+E['dd-d2'].value+'% off is really '+document.getElementById('dd-true').textContent+
+    ' off - final '+OUT.textContent+'. Check any deal (no sign-up):';
+  var url=location.origin+location.pathname+'?p='+encodeURIComponent(E['dd-price'].value||'')+'&d1='+encodeURIComponent(E['dd-d1'].value||'')+'&d2='+encodeURIComponent(E['dd-d2'].value||'')+'&flat='+encodeURIComponent(E['dd-flat'].value||'');
+  if(navigator.share){navigator.share({title:'Stacked discount math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this deal math';},1500);}
+});
+})();
+</script>
+"""
+
+# Simple interest: SI = P x r x t, with a live "what compound would give" comparison.
+# Retention hooks: title result hook, tt_simpleint input memory, URL state (?p=&r=&t=), Web Share.
+SIMPLEINT = """<div class="tool" id="tt-si">
+  <div class="fields">
+    <div class="field"><label for="si-p">Principal ($)</label><input type="number" id="si-p" step="any" min="0" placeholder="5000"></div>
+    <div class="field"><label for="si-r">Annual rate %</label><input type="number" id="si-r" step="any" min="0" placeholder="6"></div>
+    <div class="field"><label for="si-t">Time (years)</label><input type="number" id="si-t" step="any" min="0" placeholder="3"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="si-out">–</span><span class="result-unit" id="si-unit">total at maturity</span></div>
+  <div class="stats">
+    <div class="stat"><b id="si-int">–</b><span>interest earned</span></div>
+    <div class="stat"><b id="si-permo">–</b><span>per month</span></div>
+    <div class="stat"><b id="si-cmp">–</b><span>if compounded monthly</span></div>
+  </div>
+  <div class="tool-note" id="si-note"></div>
+  <button type="button" class="tool-btn" id="si-share">Share this result</button>
+</div>
+<script>(function(){
+var P=document.getElementById('si-p'),R=document.getElementById('si-r'),T=document.getElementById('si-t');
+var OUT=document.getElementById('si-out');
+function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var p=parseFloat(P.value)||0,r=(parseFloat(R.value)||0)/100,t=parseFloat(T.value)||0;
+  if(!p||!t){OUT.textContent='–';document.getElementById('si-int').textContent='–';
+    document.getElementById('si-permo').textContent='–';document.getElementById('si-cmp').textContent='–';
+    document.getElementById('si-note').textContent='';document.title='Simple Interest Calculator - ToolTide';return;}
+  var si=p*r*t,total=p+si,rm=r/12,n=Math.round(t*12);
+  var cmp=total;
+  if(rm>0&&n>0){var bal=p;for(var k=0;k<n;k++){bal=bal*(1+rm);}cmp=bal;}
+  OUT.textContent=money(total);
+  document.getElementById('si-int').textContent=money(si);
+  document.getElementById('si-permo').textContent=money(si/Math.max(t*12,1));
+  document.getElementById('si-cmp').textContent=money(cmp);
+  document.getElementById('si-note').textContent='SI = P × r × t = '+p.toLocaleString('en-US')+' × '+(r*100).toFixed(2).replace('.00','')+'% × '+t+' = '+money(si)+
+    '. Simple interest is flat on the original principal - compounding the same rate would add '+money(cmp-total)+' more over '+t+' years.';
+  document.title=money(si)+' interest - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_simpleint',JSON.stringify({p:P.value,r:R.value,t:T.value}));}catch(e){}}
+[P,R,T].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['p',P],['r',R],['t',T]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_simpleint')||'null');if(mem){P.value=mem.p||'';R.value=mem.r||'';T.value=mem.t||'';}}catch(e){}}
+calc();
+document.getElementById('si-share').addEventListener('click',function(){
+  var txt='Simple interest on '+money(parseFloat(P.value)||0)+' at '+(parseFloat(R.value)||0)+'% for '+(parseFloat(T.value)||0)+
+    ' years = '+OUT.textContent+'. Run your own (no sign-up):';
+  var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+encodeURIComponent(R.value||'')+'&t='+encodeURIComponent(T.value||'');
+  if(navigator.share){navigator.share({title:'Simple interest result',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this result';},1500);}
+});
+})();
+</script>
+"""
 # Retention hooks: title result hook, tt_savings input memory, URL state (?goal=&saved=&dep=&apy=), Web Share.
 SAVINGS = """<div class="tool" id="tt-savings">
   <div class="fields">
@@ -3136,6 +3251,8 @@ TOOLS = {
     "pxin": lambda args: PXIN,
     "striphtml": lambda args: STRIPHTML,
     "salestax": lambda args: SALESTAX,
+    "doubledisc": lambda args: DOUBLEDISC,
+    "simpleint": lambda args: SIMPLEINT,
 }
 
 
