@@ -2955,6 +2955,117 @@ fromK(300);
 })();</script>
 """
 
+# Savings goal calculator: monthly-deposit plan -> the calendar date the goal is hit.
+# Retention hooks: title result hook, tt_savings input memory, URL state (?goal=&saved=&dep=&apy=), Web Share.
+SAVINGS = """<div class="tool" id="tt-savings">
+  <div class="fields">
+    <div class="field"><label for="sav-goal">Savings goal ($)</label><input type="number" id="sav-goal" min="1" step="any" placeholder="10000"></div>
+    <div class="field"><label for="sav-saved">Already saved ($)</label><input type="number" id="sav-saved" min="0" step="any" placeholder="1200"></div>
+    <div class="field"><label for="sav-dep">Monthly deposit ($)</label><input type="number" id="sav-dep" min="0" step="any" placeholder="500"></div>
+    <div class="field"><label for="sav-apy">Interest rate APY % (optional)</label><input type="number" id="sav-apy" min="0" step="any" placeholder="4.0"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sav-out">-</span><span class="result-unit" id="sav-unit"></span></div>
+  <div class="sav-bar" aria-hidden="true"><div id="sav-fill"></div></div>
+  <div class="tool-note" id="sav-detail"></div>
+  <button type="button" class="tool-btn" id="sav-share">Share my plan</button>
+</div>
+<style>.sav-bar{height:10px;border-radius:5px;background:rgba(127,127,127,.18);overflow:hidden;margin:10px 0 4px}.sav-bar>div{height:100%;width:0;border-radius:5px;background:var(--ink,#0891b2);transition:width .3s}</style>
+<script>
+(function(){
+var G=document.getElementById('sav-goal'),S=document.getElementById('sav-saved'),D=document.getElementById('sav-dep'),R=document.getElementById('sav-apy');
+var OUT=document.getElementById('sav-out'),UNIT=document.getElementById('sav-unit'),DET=document.getElementById('sav-detail'),FILL=document.getElementById('sav-fill');
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function money(v){return '$'+Math.round(v).toLocaleString('en-US');}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var g=parseFloat(G.value),s=parseFloat(S.value)||0,d=parseFloat(D.value)||0,apy=parseFloat(R.value)||0;
+  if(isNaN(g)||g<=0){OUT.textContent='-';UNIT.textContent='';DET.textContent='';FILL.style.width='0';document.title='Savings Goal Calculator - ToolTide';return;}
+  FILL.style.width=Math.min(100,s/g*100)+'%';
+  if(s>=g){OUT.textContent='🎉';UNIT.textContent='goal reached';DET.textContent='You are at '+money(s)+' of '+money(g)+' - any deposit now is extra cushion.';document.title='Savings goal reached - ToolTide';return;}
+  var bal=s,rm=apy/100/12,m=0,dep=s;
+  while(bal<g&&m<1200){bal=bal*(1+rm)+d;dep+=d;m++;}
+  if(bal<g){OUT.textContent='100+';UNIT.textContent='years - increase deposit';DET.textContent='At this pace the goal is effectively out of reach. Even a small monthly deposit changes the date dramatically.';document.title='Savings goal - ToolTide';return;}
+  var now=new Date(),end=new Date(now.getFullYear(),now.getMonth()+m,now.getDate());
+  OUT.textContent=MON[end.getMonth()]+' '+end.getFullYear();UNIT.textContent='goal reached';
+  var interest=bal-dep;
+  DET.textContent=m+' months · '+money(dep-s)+' deposited'+(interest>=1?' · '+money(interest)+' interest earned':'');
+  document.title=m+' months to goal - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_savings',JSON.stringify({g:G.value,s:S.value,d:D.value,r:R.value}));}catch(e){}}
+[G,S,D,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['goal',G],['saved',S],['dep',D],['apy',R]].forEach(function(p){
+  var v=qs(p[0]);if(v!==null){p[1].value=v;pre=true;}
+});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_savings')||'null');if(mem){G.value=mem.g||'';S.value=mem.s||'';D.value=mem.d||'';R.value=mem.r||'';}}catch(e){}}
+calc();
+var SB=document.getElementById('sav-share');
+SB.addEventListener('click',function(){
+  var txt='I plan to hit my '+money(parseFloat(G.value)||0)+' savings goal by '+OUT.textContent+'. Plan yours (no sign-up):';
+  var url=location.origin+location.pathname+
+    '?goal='+encodeURIComponent(G.value||'')+'&saved='+encodeURIComponent(S.value||'')+'&dep='+encodeURIComponent(D.value||'')+'&apy='+encodeURIComponent(R.value||'');
+  if(navigator.share){navigator.share({title:'Savings goal plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent='Copied!';setTimeout(function(){SB.textContent='Share my plan';},1500);}
+});
+})();
+</script>
+"""
+
+# Compound interest: starting amount + optional monthly contributions -> future value with a yearly table.
+# Retention hooks: title result hook, tt_compound input memory, URL state (?p=&m=&r=&y=), Web Share.
+COMPOUND = """<div class="tool" id="tt-compound">
+  <div class="fields">
+    <div class="field"><label for="cp-p">Starting amount ($)</label><input type="number" id="cp-p" min="0" step="any" placeholder="5000"></div>
+    <div class="field"><label for="cp-m">Monthly contribution ($, optional)</label><input type="number" id="cp-m" min="0" step="any" placeholder="200"></div>
+    <div class="field"><label for="cp-r">Annual rate %</label><input type="number" id="cp-r" min="0" step="any" placeholder="7"></div>
+    <div class="field"><label for="cp-y">Years</label><input type="number" id="cp-y" min="1" max="50" step="1" placeholder="10"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cp-out">-</span><span class="result-unit" id="cp-unit"></span></div>
+  <div class="tool-note" id="cp-detail"></div>
+  <div id="cp-table"></div>
+  <button type="button" class="tool-btn" id="cp-share">Share this projection</button>
+</div>
+<script>
+(function(){
+var P=document.getElementById('cp-p'),M=document.getElementById('cp-m'),R=document.getElementById('cp-r'),Y=document.getElementById('cp-y');
+var OUT=document.getElementById('cp-out'),UNIT=document.getElementById('cp-unit'),DET=document.getElementById('cp-detail'),TB=document.getElementById('cp-table');
+function money(v){return '$'+Math.round(v).toLocaleString('en-US');}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var p=parseFloat(P.value)||0,m=parseFloat(M.value)||0,r=(parseFloat(R.value)||0)/100,y=parseFloat(Y.value);
+  if(!y||y<1||(p<=0&&m<=0)){OUT.textContent='-';UNIT.textContent='';DET.textContent='';TB.innerHTML='';document.title='Compound Interest Calculator - ToolTide';return;}
+  var bal=p,dep=p,rows=[];
+  for(var t=1;t<=Math.min(Math.round(y),50);t++){
+    for(var k=0;k<12;k++){bal=bal*(1+r/12)+m;dep+=m;}
+    rows.push([t,bal,bal-dep]);
+  }
+  var interest=bal-dep;
+  OUT.textContent=money(bal);UNIT.textContent='future value';
+  DET.textContent='after '+Math.round(y)+' years · '+money(dep)+' deposited · '+money(interest)+' interest earned · '+
+    'rule of 72: at '+(r*100).toFixed(1).replace('.0','')+'% money doubles in about '+Math.round(72/Math.max(r*100,0.1))+' years.';
+  var h='<table class="cp-t"><thead><tr><th>Year</th><th>Balance</th><th>Interest so far</th></tr></thead><tbody>';
+  rows.forEach(function(row){h+='<tr><td>'+row[0]+'</td><td>'+money(row[1])+'</td><td>'+money(row[2])+'</td></tr>';});
+  TB.innerHTML=h+'</tbody></table>';
+  document.title=money(bal)+' in '+Math.round(y)+' years - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_compound',JSON.stringify({p:P.value,m:M.value,r:R.value,y:Y.value}));}catch(e){}}
+[P,M,R,Y].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['p',P],['m',M],['r',R],['y',Y]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_compound')||'null');if(mem){P.value=mem.p||'';M.value=mem.m||'';R.value=mem.r||'';Y.value=mem.y||'';}}catch(e){}}
+calc();
+var SB=document.getElementById('cp-share');
+SB.addEventListener('click',function(){
+  var txt='Compound interest projection: '+OUT.textContent+' after '+Math.round(parseFloat(Y.value)||0)+' years. Run your own numbers (no sign-up):';
+  var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&m='+encodeURIComponent(M.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'');
+  if(navigator.share){navigator.share({title:'Compound interest projection',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent='Copied!';setTimeout(function(){SB.textContent='Share this projection';},1500);}
+});
+})();
+</script>
+<style>.cp-t{width:100%;border-collapse:collapse;margin-top:10px;font-size:.92em}.cp-t th,.cp-t td{padding:4px 8px;text-align:right;border-bottom:1px solid rgba(127,127,127,.25)}.cp-t th:first-child,.cp-t td:first-child{text-align:left}</style>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -3008,6 +3119,8 @@ TOOLS = {
     "cylinder": lambda args: CYLINDER,
     "planets": lambda args: PLANETS,
     "combiner": lambda args: COMBINER,
+    "savings": lambda args: SAVINGS,
+    "compound": lambda args: COMPOUND,
     "whitespace": lambda args: WHITESPACE,
     "binhex": lambda args: BINHEX,
     "prime": lambda args: PRIME,

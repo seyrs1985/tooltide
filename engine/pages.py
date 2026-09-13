@@ -2763,6 +2763,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "savings-goal-calculator",
+        "title": "Savings Goal Calculator — The Exact Date You'll Hit Your Target",
+        "h1": "Savings Goal Calculator",
+        "desc": "Enter a savings goal, what you have saved and your monthly deposit — get the exact month and year you'll reach it, with interest and a progress bar. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "savings goal calculator",
+        "tool": "savings",
+        "args": {},
+        "intro": [
+            "Most savings calculators show a chart and ask you to sign up for a bank account. This one answers the only question that actually motivates saving: \"when will I get there?\" Type your goal, what you already have, and your monthly deposit — the answer is a calendar date, not an abstraction.",
+            "Add an optional APY to see what interest contributes — for many goals the interest line is small at first and becomes the fast lane later, which is exactly the part cash savers underestimate. Your inputs are remembered on this device and the share button produces a link that reopens the plan with your numbers filled in, so you can text the plan to an accountability partner.",
+        ],
+        "howto": [
+            "Type your savings goal, what you already have, and your monthly deposit — the target month and year appear instantly.",
+            "Optionally add your account's APY to see the interest contribution; the progress bar shows how far you already are.",
+            "Tap Share to send the plan as a link — it reopens with your numbers pre-filled, ready for the group chat.",
+        ],
+        "faqs": [
+            ("How long will it take to save my goal?",
+             "The big result gives the exact month and year based on your monthly deposit and optional interest rate, computed month by month. Change any input and the date recalculates instantly — shaving the timeline by raising deposits is the fastest experiment you can run."),
+            ("Does the calculator include compound interest?",
+             "Yes — if you enter an APY, balances grow monthly at that rate, and the detail line splits your timeline into deposits versus interest earned. At 4% APY a $10,000 goal with $500 monthly deposits arrives about a month earlier than under the mattress."),
+            ("What monthly deposit do I need to save $10,000 in a year?",
+             "About $815 a month without interest, or roughly $800 with a 4% APY. Set the goal and adjust the deposit until the date matches your deadline — the recalculation is live."),
+            ("Are my numbers stored or uploaded?",
+             "No. Everything runs in your browser; the inputs are kept only in your own device's local storage so the page remembers them next visit, and nothing is ever sent to a server."),
+        ],
+    })
+
+    pages.append({
+        "slug": "compound-interest-calculator",
+        "title": "Compound Interest Calculator — Future Value With Yearly Breakdown",
+        "h1": "Compound Interest Calculator",
+        "desc": "See what your money grows to with monthly compounding — starting amount, optional monthly contributions, a yearly balance table and the rule-of-72 doubling time. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "compound interest calculator",
+        "tool": "compound",
+        "args": {},
+        "intro": [
+            "Compound interest is interest earning interest: every month your balance grows, and the growth itself starts growing. Enter a starting amount, an optional monthly contribution, a rate and a time horizon — you get the future value plus a year-by-year table that shows exactly when compounding starts doing the heavy lifting.",
+            "The detail line also applies the rule of 72 — the classic mental math that divides 72 by your rate to estimate the doubling time. At 7%, money doubles roughly every decade; the yearly table lets you watch that doubling happen. Pair this with the savings goal calculator when you have a target date instead of a horizon.",
+        ],
+        "howto": [
+            "Enter your starting amount, annual rate and time in years — the future value updates as you type.",
+            "Add an optional monthly contribution to model regular investing; the table breaks the growth down year by year.",
+            "Share the projection with one tap — the link carries your inputs so the recipient sees the same numbers.",
+        ],
+        "faqs": [
+            ("How is compound interest calculated monthly?",
+             "Each month the balance grows by rate/12, then contributions are added — the same order banks use. Over a year that lands within a fraction of a percent of the true annual-compounding figure, and it matches how savings accounts and index plans actually post interest."),
+            ("What is the rule of 72?",
+             "Divide 72 by your annual rate to estimate how many years it takes money to double: 72 / 7 ≈ 10 years at 7%, 72 / 4 = 18 years at 4%. The calculator applies it for you and the yearly table shows the real curve behind the shortcut."),
+            ("How much is $5,000 at 7% for 10 years?",
+             "About $10,040 left alone — the classic doubling. Add $200 monthly and the same decade grows to roughly $44,700, because contributions feed the compounding engine every month. Try it above and check the year-by-year table."),
+            ("Is this calculator free and private?",
+             "Completely free with no sign-up, and the math runs entirely in your browser. Inputs are remembered locally on your device only — nothing is transmitted or stored on a server."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
