@@ -3123,6 +3123,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "wind-chill-calculator",
+        "title": "Wind Chill Calculator — How Cold It Really Feels (NOAA Formula)",
+        "h1": "Wind Chill Calculator",
+        "desc": "Enter temperature and wind speed to get the wind chill — how cold exposed skin actually feels — plus official frostbite time estimates. Free, instant, °F/mph or °C/km/h.",
+        "category": "calculator",
+        "keyword": "wind chill calculator",
+        "tool": "windchill",
+        "args": {},
+        "intro": [
+            "Wind doesn't lower the air temperature — it strips away the thin layer of warm air your body heats around itself, so exposed skin loses heat faster and the cold bites deeper. Wind chill is the temperature calm air would have to be for that same rate of heat loss, and this calculator applies the official NOAA formula used in every winter weather bulletin.",
+            "The frostbite stat is the one worth knowing before a winter run or a scraped windshield: at a wind chill of −19°F exposed skin can freeze in 30 minutes, at −32°F in 10, and at −48°F in 5. The figure assumes night shade per NOAA — sunshine softens it a little, wet skin and clothing harden it a lot. It is the winter twin of the heat index: one formula, the whole story of what the weather will do to you.",
+        ],
+        "howto": [
+            "Pick your units (°F/mph or °C/km/h), then enter the air temperature and wind speed from any forecast.",
+            "Read the feels-like wind chill in the big result, with the frostbite time estimate beside it.",
+            "Share the figure in one tap — useful before commutes, dog walks and winter training sessions.",
+        ],
+        "faqs": [
+            ("How is wind chill calculated?",
+             "NOAA's formula: 35.74 + 0.6215T − 35.75V^0.16 + 0.4275T·V^0.16, with T in °F and V in mph — a model of heat loss from a bare face in shade at night. It is defined for 50°F (10°C) and below with wind above 3 mph; outside that range, air temperature is the standard figure."),
+            ("What wind chill causes frostbite?",
+             "Roughly −19°F wind chill freezes exposed skin in 30 minutes, −32°F in 10 minutes, and −48°F in 5. The calculator shows the estimate for your exact combination — cover extremities well before those thresholds, since fingers, toes and ears freeze first."),
+            ("Can wind chill be lower than the actual temperature?",
+             "It always is, by definition — wind chill represents an equivalent temperature for heat loss, not the air itself. At 20°F with a 20 mph wind the calculator gives about 4°F: the air stays 20°F, your skin loses heat as if it were 4°F."),
+            ("Why does calm air feel warmer than the wind chill number?",
+             "Below 3 mph the formula stops applying — your body's warm boundary layer stays mostly intact, and the air temperature is the honest figure. Indoors or behind a windbreak, dress for the thermometer; outside, dress for the wind chill."),
+        ],
+    })
+
+    pages.append({
+        "slug": "pace-calculator",
+        "title": "Running Pace Calculator — Pace per KM/Mile + Race Finish Times",
+        "h1": "Running Pace Calculator",
+        "desc": "Enter a distance and finish time to get your running pace per kilometer and per mile, your speed, and predicted 5K, 10K, half and marathon times at the same effort. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "running pace calculator",
+        "tool": "pace",
+        "args": {},
+        "intro": [
+            "Pace is the runner's shared language — \"5-minute Ks\" says more than any speed number. Enter any distance and finish time (h:mm:ss, the format GPS watches report) and this calculator returns pace per kilometer and per mile in that same clock format, plus your speed in km/h and mph for treadmill cross-checks.",
+            "The prediction row is the training payoff: it scales your current pace across the classic race distances — 5K, 10K, half and full marathon — so a single hard 10K instantly becomes a realistic marathon target conversation. It assumes the same pace holds (not a fatigue-adjusted projection, which elite tools model), making it most accurate from threshold work up to about the half marathon. Logs pair well with the sleep cycle calculator, because recovery is the other half of pace.",
+        ],
+        "howto": [
+            "Choose kilometers or miles, enter your distance and finish time — pace per km and per mile appear instantly.",
+            "Read the predicted finish times for 5K, 10K, half and marathon at that same pace.",
+            "Share the result with one tap — the link carries your run so training buddies see identical numbers.",
+        ],
+        "faqs": [
+            ("How do I calculate my running pace?",
+             "Divide your finish time by the distance: a 52:30 10K is 3150 seconds ÷ 10 km = 5:15 per kilometer (about 8:26 per mile). The calculator does the division in both units at once and works for any distance you enter, from a track mile to an ultramarathon."),
+            ("What is a good running pace?",
+             "Recreational 5K paces commonly fall between 5:00 and 7:30 per kilometer (8:00-12:00 per mile), while sub-20-minute 5K racing means holding 4:00/km or faster. \"Good\" is trajectory, not a table — compare against your own last month, and the prediction row shows what your current pace already buys at longer distances."),
+            ("How accurate are race predictions from pace?",
+             "Same-pace scaling is solid up to about the half marathon; beyond that, fatigue, fueling and heat push real times slower than linear math. Treat the marathon row as a fit-runner's floor, then adjust for course, weather and long-run experience."),
+            ("What pace should I train at?",
+             "Most weekly mileage should be conversational — typically 60-90 seconds per kilometer slower than your 5K race pace — with one or two quality sessions faster. Enter a recent race above, then run easy days about 1:30/km slower than the pace shown."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

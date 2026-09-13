@@ -3072,6 +3072,133 @@ document.getElementById('si-share').addEventListener('click',function(){
 </script>
 """
 
+# Wind chill (NOAA): how cold it feels on exposed skin, with frostbite time estimates.
+# Retention hooks: title result hook, tt_windchill input memory, URL state (?t=&v=&u=), Web Share.
+WINDCHILL = """<div class="tool" id="tt-wc">
+  <div class="fields">
+    <div class="field"><label for="wc-u">Units</label><select id="wc-u"><option value="f">°F, mph</option><option value="c">°C, km/h</option></select></div>
+    <div class="field"><label for="wc-t">Air temperature</label><input type="number" id="wc-t" step="any" placeholder="20"></div>
+    <div class="field"><label for="wc-v">Wind speed</label><input type="number" id="wc-v" step="any" min="0" placeholder="20"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wc-out">–</span><span class="result-unit" id="wc-unit">feels like on exposed skin</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wc-frost">–</b><span>frostbite time</span></div>
+    <div class="stat"><b id="wc-delta">–</b><span>added by wind</span></div>
+  </div>
+  <div class="tool-note" id="wc-note"></div>
+  <button type="button" class="tool-btn" id="wc-share">Share the feels-like</button>
+</div>
+<script>(function(){
+var U=document.getElementById('wc-u'),T=document.getElementById('wc-t'),V=document.getElementById('wc-v');
+var OUT=document.getElementById('wc-out'),UNIT=document.getElementById('wc-unit');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function fc(c){return Math.round(c*9/5+32);}
+function calc(){
+  var tv=parseFloat(T.value),v=parseFloat(V.value)||0,imp=U.value==='f';
+  if(isNaN(tv)){OUT.textContent='–';document.getElementById('wc-frost').textContent='–';
+    document.getElementById('wc-delta').textContent='–';document.getElementById('wc-note').textContent='';
+    document.title='Wind Chill Calculator - ToolTide';return;}
+  var tf=imp?tv:fc(tv),vmp=imp?v:v*0.621371;
+  var wc,note='';
+  if(tf>50||vmp<3){wc=tf;
+    note='The wind chill formula is defined for 50°F (10°C) and below with wind above 3 mph - outside that range, the air temperature itself is the standard figure.';
+    document.getElementById('wc-frost').textContent='—';
+    document.getElementById('wc-delta').textContent='—';
+  }else{
+    var vp=Math.pow(vmp,0.16);
+    wc=35.74+0.6215*tf-35.75*vp+0.4275*tf*vp;
+    var frost='—';
+    if(wc<=-19)frost='30 minutes';
+    if(wc<=-32)frost='10 minutes';
+    if(wc<=-48)frost='5 minutes';
+    document.getElementById('wc-frost').textContent=frost;
+    document.getElementById('wc-delta').textContent='-'+Math.round(Math.abs(wc-tf))+'°';
+    note='Exposed skin freezes faster as wind strips away the warm air layer: watch for numbness or white patches at this level. The figure assumes shade at night, per NOAA.';
+  }
+  var out=imp?Math.round(wc):Math.round((wc-32)*5/9*10)/10;
+  OUT.textContent=out+'°'+(imp?'F':'C');
+  document.getElementById('wc-note').textContent=note;
+  UNIT.textContent='feels like on exposed skin';
+  document.title='Feels like '+out+'°'+(imp?'F':'C')+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_windchill',JSON.stringify({t:T.value,v:V.value,u:U.value}));}catch(e){}}
+[U,T,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+U.addEventListener('change',function(){calc();save();});
+var pre=false;
+[['t',T],['v',V],['u',U]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_windchill')||'null');if(mem){T.value=mem.t||'';V.value=mem.v||'';U.value=mem.u||'f';}}catch(e){}}
+calc();
+document.getElementById('wc-share').addEventListener('click',function(){
+  var txt='It is '+T.value+'°'+(U.value==='f'?'F':'C')+' with '+V.value+' '+(U.value==='f'?'mph':'km/h')+' wind - feels like '+OUT.textContent+'. Check yours (no sign-up):';
+  var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&v='+encodeURIComponent(V.value||'')+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Wind chill',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
+});
+})();
+</script>
+"""
+
+# Running pace: distance + time -> pace per km and per mile, with same-pace race predictions.
+# Retention hooks: title result hook, tt_pace input memory, URL state (?d=&h=&m=&s=&u=), Web Share.
+PACE = """<div class="tool" id="tt-pace">
+  <div class="fields">
+    <div class="field"><label for="pa-u">Distance unit</label><select id="pa-u"><option value="km">Kilometers</option><option value="mi">Miles</option></select></div>
+    <div class="field"><label for="pa-d">Distance</label><input type="number" id="pa-d" step="any" min="0" placeholder="10"></div>
+  </div>
+  <div class="fields">
+    <div class="field"><label for="pa-h">Hours</label><input type="number" id="pa-h" step="1" min="0" max="30" placeholder="0"></div>
+    <div class="field"><label for="pa-m">Minutes</label><input type="number" id="pa-m" step="1" min="0" max="59" placeholder="52"></div>
+    <div class="field"><label for="pa-s">Seconds</label><input type="number" id="pa-s" step="1" min="0" max="59" placeholder="30"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pa-out">–</span><span class="result-unit" id="pa-unit">/km</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pa-mpm">–</b><span>per mile</span></div>
+    <div class="stat"><b id="pa-kmh">–</b><span>speed km/h</span></div>
+    <div class="stat"><b id="pa-mph">–</b><span>speed mph</span></div>
+  </div>
+  <div class="tool-note" id="pa-note"></div>
+  <button type="button" class="tool-btn" id="pa-share">Share my pace</button>
+</div>
+<script>(function(){
+var U=document.getElementById('pa-u'),D=document.getElementById('pa-d'),H=document.getElementById('pa-h'),M=document.getElementById('pa-m'),S=document.getElementById('pa-s');
+var OUT=document.getElementById('pa-out'),UNIT=document.getElementById('pa-unit');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function pfmt(secPerUnit){if(!isFinite(secPerUnit)||secPerUnit<=0)return '–';var m=Math.floor(secPerUnit/60),s=Math.round(secPerUnit%60);if(s===60){m++;s=0;}return m+':'+(s<10?'0':'')+s;}
+function calc(){
+  var d=parseFloat(D.value)||0,sec=(parseFloat(H.value)||0)*3600+(parseFloat(M.value)||0)*60+(parseFloat(S.value)||0);
+  if(!d||!sec){OUT.textContent='–';document.getElementById('pa-mpm').textContent='–';
+    document.getElementById('pa-kmh').textContent='–';document.getElementById('pa-mph').textContent='–';
+    document.getElementById('pa-note').textContent='';document.title='Running Pace Calculator - ToolTide';return;}
+  var dkm=U.value==='km'?d:d*1.609344;
+  var perKm=sec/dkm,perMi=perKm*1.609344;
+  OUT.textContent=pfmt(U.value==='km'?perKm:perMi);
+  UNIT.textContent=U.value==='km'?'/km':'/mile';
+  document.getElementById('pa-mpm').textContent=pfmt(perMi);
+  document.getElementById('pa-kmh').textContent=(3600/perKm).toFixed(2);
+  document.getElementById('pa-mph').textContent=(3600/perMi).toFixed(2);
+  var races=[['5K',5],['10K',10],['Half',21.0975],['Marathon',42.195]],h='<div class="stats">';
+  races.forEach(function(r){h+='<div class="stat"><b>'+pfmt(perKm*r[1])+'</b><span>'+r[0]+' at this pace</span></div>';});
+  document.getElementById('pa-note').innerHTML=h+'</div>';
+  document.title='Pace '+pfmt(U.value==='km'?perKm:perMi)+' '+UNIT.textContent+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_pace',JSON.stringify({u:U.value,d:D.value,h:H.value,m:M.value,s:S.value}));}catch(e){}}
+[U,D,H,M,S].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+U.addEventListener('change',function(){calc();save();});
+var pre=false;
+[['d',D],['h',H],['m',M],['s',S],['u',U]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_pace')||'null');if(mem){U.value=mem.u||'km';D.value=mem.d||'';H.value=mem.h||'';M.value=mem.m||'';S.value=mem.s||'';}}catch(e){}}
+calc();
+document.getElementById('pa-share').addEventListener('click',function(){
+  var txt='Ran '+D.value+' '+U.value+' in '+(parseFloat(H.value)||0)+'h '+(parseFloat(M.value)||0)+'m '+(parseFloat(S.value)||0)+
+    's - that is '+OUT.textContent+UNIT.textContent+'. Calculate your pace (no sign-up):';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value||'')+'&h='+encodeURIComponent(H.value||'')+'&m='+encodeURIComponent(M.value||'')+'&s='+encodeURIComponent(S.value||'')+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Running pace',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my pace';},1500);}
+});
+})();
+</script>
+"""
+
 # Heat index (NOAA Rothfusz): "feels like" in shade with official risk bands.
 # Retention hooks: title result hook, tt_heatindex input memory, URL state (?t=&rh=&u=), Web Share.
 HEATINDEX = """<div class="tool" id="tt-hi">
@@ -3716,6 +3843,8 @@ TOOLS = {
     "tipsplit": lambda args: TIPSPLIT,
     "heatindex": lambda args: HEATINDEX,
     "bmi": lambda args: BMI,
+    "windchill": lambda args: WINDCHILL,
+    "pace": lambda args: PACE,
 }
 
 
