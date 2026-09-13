@@ -39,6 +39,8 @@ var A=__ARGS__;
 var m=A.month, d=A.day, rule=A.rule||null;
 var CUST=null;
 try{CUST=JSON.parse(localStorage.getItem('tt_customcd')||'null');}catch(e){}
+var ICONLINK=null,ICV=null,ILAST=-2;
+try{ICONLINK=document.querySelector('link[rel="apple-touch-icon"]');ICV=document.createElement('canvas');ICV.width=180;ICV.height=180;}catch(e){}
 document.getElementById('cd-emoji').textContent=A.emoji||'📅';
 document.getElementById('cd-name').textContent=A.event;
 function daysInMonth(y,mo){return new Date(y,mo+1,0).getDate();}
@@ -92,6 +94,15 @@ function tick(){
   var EV=A.event,daysLbl='days to go';
   if(CUST){EV=r.cand.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' ★';daysLbl='days to your date';}
   el('cd-name').textContent=EV;
+  if(ICV&&ICONLINK&&real!==ILAST){ILAST=real;try{
+    var g=ICV.getContext('2d');
+    var grd=g.createLinearGradient(0,0,0,180);grd.addColorStop(0,'#0e7490');grd.addColorStop(1,'#155e75');
+    g.fillStyle=grd;g.fillRect(0,0,180,180);g.fillStyle='#fff';g.textAlign='center';
+    g.font='40px serif';g.fillText(A.emoji||'📅',90,48);
+    g.font='700 74px Arial,sans-serif';g.fillText(String(real),90,128);
+    g.font='700 15px Arial,sans-serif';g.fillText('DAYS TO GO',90,154);
+    ICONLINK.href=ICV.toDataURL('image/png');
+  }catch(e){ILAST=-2;}}
   el('cd-days').textContent=real;
   el('cd-days-label').textContent=r.today?("It's "+EV+" today! 🎉"):daysLbl;
   el('cd-clock').textContent=pad(hours)+':'+pad(mins)+':'+pad(secs)+'  h:m:s remaining today';
@@ -3498,6 +3509,65 @@ document.getElementById('ov-share').addEventListener('click',function(){
 </script>
 """
 
+# Fuel cost for a trip: distance + efficiency + price -> gallons/liters and cost.
+# Retention hooks: title result hook, tt_fuelcost input memory, URL state (?d=&e=&p=&u=), Web Share.
+FUELCOST = """<div class="tool" id="tt-fc">
+  <div class="fields">
+    <div class="field"><label for="fc-u">Units</label><select id="fc-u"><option value="us">Miles / MPG / $ per gallon</option><option value="eu">Kilometers / L per 100 km / $ per liter</option></select></div>
+    <div class="field"><label for="fc-d">Trip distance</label><input type="number" id="fc-d" step="any" min="0" placeholder="480"></div>
+    <div class="field"><label for="fc-e">Consumption</label><input type="number" id="fc-e" step="any" min="0" placeholder="30"></div>
+    <div class="field"><label for="fc-p">Fuel price</label><input type="number" id="fc-p" step="any" min="0" placeholder="3.45"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fc-out">–</span><span class="result-unit" id="fc-unit"></span></div>
+  <div class="stats">
+    <div class="stat"><b id="fc-fuel">–</b><span>fuel needed</span></div>
+    <div class="stat"><b id="fc-pp">–</b><span>per person, 4 riders</span></div>
+    <div class="stat"><b id="fc-rt">–</b><span>round trip</span></div>
+  </div>
+  <div class="tool-note" id="fc-note"></div>
+  <button type="button" class="tool-btn" id="fc-share">Share the trip cost</button>
+</div>
+<script>(function(){
+var U=document.getElementById('fc-u'),D=document.getElementById('fc-d'),E=document.getElementById('fc-e'),P=document.getElementById('fc-p');
+var OUT=document.getElementById('fc-out');
+function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=parseFloat(D.value)||0,e=parseFloat(E.value)||0,p=parseFloat(P.value)||0,us=U.value==='us';
+  if(!d||!e||!p){OUT.textContent='–';document.getElementById('fc-fuel').textContent='–';
+    document.getElementById('fc-pp').textContent='–';document.getElementById('fc-rt').textContent='–';
+    document.getElementById('fc-note').textContent='';document.title='Fuel Cost Calculator - ToolTide';return;}
+  var fuel,cost,unit;
+  if(us){fuel=d/e;unit='gallons';}else{fuel=d*e/100;unit='liters';}
+  cost=fuel*p;
+  OUT.textContent=money(cost);
+  document.getElementById('fc-unit').textContent='one-way fuel cost';
+  document.getElementById('fc-fuel').textContent=(Math.round(fuel*100)/100)+' '+unit;
+  document.getElementById('fc-pp').textContent=money(cost/4);
+  document.getElementById('fc-rt').textContent=money(cost*2);
+  document.getElementById('fc-note').textContent='Math: '+d+' '+(us?'miles ÷ ':'km ÷ ')+(us?e+' MPG':e+' L/100km')+' = '+
+    (Math.round(fuel*100)/100)+' '+unit+' × '+money(p)+' = '+money(cost).slice(1)+
+    '. Real-world driving (AC, hills, luggage) can add 10-15% - the round-trip line already doubles it for planning.';
+  document.title=money(cost)+' fuel - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_fuelcost',JSON.stringify({u:U.value,d:D.value,e:E.value,p:P.value}));}catch(e){}}
+[U,D,E,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+U.addEventListener('change',function(){E.placeholder=U.value==='us'?'30':'7.8';P.placeholder=U.value==='us'?'3.45':'1.65';calc();save();});
+var pre=false;
+[['d',D],['e',E],['p',P],['u',U]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_fuelcost')||'null');if(mem){U.value=mem.u||'us';D.value=mem.d||'';E.value=mem.e||'';P.value=mem.p||'';}}catch(e){}}
+calc();
+document.getElementById('fc-share').addEventListener('click',function(){
+  var txt='Trip fuel cost: '+D.value+' '+(U.value==='us'?'miles':'km')+' = '+OUT.textContent+
+    ' one-way ('+document.getElementById('fc-fuel').textContent+'). Split yours (no sign-up):';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value||'')+'&e='+encodeURIComponent(E.value||'')+'&p='+encodeURIComponent(P.value||'')+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Fuel cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the trip cost';},1500);}
+});
+})();
+</script>
+"""
+
 # Macro calculator: calories + split % -> grams of protein, carbs and fat.
 # Retention hooks: title result hook, tt_macros input memory, URL state (?cal=&p=&c=&f=), Web Share.
 MACROS = """<div class="tool" id="tt-mac">
@@ -4397,6 +4467,7 @@ TOOLS = {
     "gst": lambda args: GST,
     "overtime": lambda args: OVERTIME,
     "rent": lambda args: RENT,
+    "fuelcost": lambda args: FUELCOST,
 }
 
 

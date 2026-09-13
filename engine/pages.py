@@ -3453,6 +3453,36 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "fuel-cost-calculator",
+        "title": "Fuel Cost Calculator — Trip Cost From Distance, MPG & Gas Price",
+        "h1": "Fuel Cost Calculator",
+        "desc": "Enter trip distance, your car's consumption and local fuel price — get the one-way cost, round trip and per-person split. Works in MPG or L/100km. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "fuel cost calculator",
+        "tool": "fuelcost",
+        "args": {},
+        "intro": [
+            "Road-trip budgets live or die on the fuel line, and the mental math is always optimistic. This calculator takes distance, your car's real consumption and the pump price, and returns the one-way cost, the round trip, and the per-person split when four riders divide the tank — the three numbers every trip planning conversation actually needs.",
+            "Both unit worlds ship in one tool: miles/MPG/dollars-per-gallon for the US, kilometers/liters-per-100km for everyone else — switch and the placeholders follow. The note adds the 10-15% real-world buffer (AC, hills, luggage) that factory figures ignore, and pairs naturally with the speed-distance-time calculator for the arrival side of the plan. Inputs are remembered, and the share button sends the cost split to the group chat.",
+        ],
+        "howto": [
+            "Pick your unit system, then enter distance, consumption and fuel price — the cost updates live.",
+            "Read fuel needed, the four-rider split, and the round-trip figure for return planning.",
+            "Share the trip cost with one tap — the link carries all three inputs.",
+        ],
+        "faqs": [
+            ("How do I calculate the fuel cost of a trip?",
+             "Distance ÷ consumption = fuel needed, × price per unit = cost. A 480-mile trip at 30 MPG with $3.45 gas: 480 ÷ 30 = 16 gallons × $3.45 = $55.20 one-way. The calculator runs it in miles/MPG or km/L-per-100km and doubles it for round trips."),
+            ("How do I convert MPG to L/100km?",
+             "235.215 ÷ MPG = L/100km (and 235.215 ÷ (L/100km) = MPG). The unit switch converts your inputs' frame automatically — the underlying math adapts so the cost answer is identical either way."),
+            ("Should I use my car's rated MPG?",
+             "Use your real average from the trip computer if it shows one — rated figures assume gentle highway cruising, and city legs, AC and roof racks commonly push consumption 10-15% higher. The note builds that buffer into the planning advice."),
+            ("How do we split fuel cost fairly?",
+             "Divide the round-trip cost by occupants — the per-person stat does it for four riders on the one-way figure's basis, and the round-trip line doubles the total for the honest pool. Tolls and wear are separate lines; fuel is just the start of the split conversation."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
