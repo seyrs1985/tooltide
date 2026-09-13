@@ -3072,6 +3072,65 @@ document.getElementById('si-share').addEventListener('click',function(){
 </script>
 """
 
+# GST calculator: price with inclusive/exclusive toggle and India's standard slabs.
+# Retention hooks: title result hook, tt_gst input memory, URL state (?p=&r=&mode=), Web Share.
+GST = """<div class="tool" id="tt-gst">
+  <div class="fields">
+    <div class="field"><label for="gs-p">Price (₹)</label><input type="number" id="gs-p" step="any" min="0" placeholder="2499"></div>
+    <div class="field"><label for="gs-r">GST rate</label>
+      <select id="gs-r"><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select></div>
+    <div class="field"><label for="gs-m">Price includes GST?</label>
+      <select id="gs-m"><option value="ex">No — add GST</option><option value="in">Yes — extract GST</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gs-out">–</span><span class="result-unit" id="gs-unit"></span></div>
+  <div class="stats">
+    <div class="stat"><b id="gs-net">–</b><span>net (before GST)</span></div>
+    <div class="stat"><b id="gs-tax">–</b><span>GST amount</span></div>
+    <div class="stat"><b id="sg-cgst">–</b><span>CGST / SGST each</span></div>
+  </div>
+  <div class="tool-note" id="gs-note"></div>
+  <button type="button" class="tool-btn" id="gs-share">Share the split</button>
+</div>
+<script>(function(){
+var P=document.getElementById('gs-p'),R=document.getElementById('gs-r'),M=document.getElementById('gs-m');
+var OUT=document.getElementById('gs-out');
+function money(n){return '₹'+n.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var p=parseFloat(P.value),r=parseFloat(R.value)||0,incl=M.value==='in';
+  if(isNaN(p)||!p){OUT.textContent='–';document.getElementById('gs-net').textContent='–';
+    document.getElementById('gs-tax').textContent='–';document.getElementById('sg-cgst').textContent='–';
+    document.getElementById('gs-note').textContent='';document.title='GST Calculator - ToolTide';return;}
+  var net,tax;
+  if(incl){net=p/(1+r/100);tax=p-net;}else{net=p;tax=p*r/100;}
+  var gross=net+tax;
+  OUT.textContent=incl?money(net):money(gross);
+  document.getElementById('gs-unit').textContent=incl?'net price (GST extracted)':'gross price (with GST)';
+  document.getElementById('gs-net').textContent=money(net);
+  document.getElementById('gs-tax').textContent=money(tax);
+  document.getElementById('sg-cgst').textContent=money(tax/2);
+  document.getElementById('gs-note').textContent=(incl?'GST extracted from an inclusive price: ':'GST added on an exclusive price: ')+money(tax)+
+    ' at '+r+'%. Intra-state sales split it as CGST + SGST of '+money(tax/2)+' each; inter-state is IGST of '+money(tax)+'.';
+  document.title='GST '+money(tax)+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_gst',JSON.stringify({p:P.value,r:R.value,m:M.value}));}catch(e){}}
+[P,R,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+M.addEventListener('change',function(){calc();save();});
+var pre=false;
+[['p',P],['r',R],['mode',M]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_gst')||'null');if(mem){P.value=mem.p||'';R.value=mem.r||'18';M.value=mem.m||'ex';}}catch(e){}}
+calc();
+document.getElementById('gs-share').addEventListener('click',function(){
+  var txt='GST on '+money(parseFloat(P.value)||0)+' at '+R.value+'%: '+document.getElementById('gs-tax').textContent+
+    '. Split any invoice (no sign-up):';
+  var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+R.value+'&mode='+M.value;
+  if(navigator.share){navigator.share({title:'GST split',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the split';},1500);}
+});
+})();
+</script>
+"""
+
 # CGPA <-> percentage (Indian 10-point scale, CBSE 9.5 factor), bidirectional with a table.
 # Retention hooks: title result hook, tt_cgpa input memory, URL state (?v=&d=), Web Share.
 CGPA = """<div class="tool" id="tt-cg">
@@ -4185,6 +4244,7 @@ TOOLS = {
     "oven": lambda args: OVEN,
     "cgpa": lambda args: CGPA,
     "caffeine": lambda args: CAFFEINE,
+    "gst": lambda args: GST,
 }
 
 

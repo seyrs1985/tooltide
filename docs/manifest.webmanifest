@@ -20,5 +20,85 @@
       "type": "image/png",
       "purpose": "any"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Christmas countdown",
+      "short_name": "Christmas",
+      "url": "https://seyrs1985.github.io/tooltide/days-until-christmas/",
+      "icons": [
+        {
+          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    },
+    {
+      "name": "Percentage calculator",
+      "short_name": "Percent",
+      "url": "https://seyrs1985.github.io/tooltide/percentage-calculator/",
+      "icons": [
+        {
+          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    },
+    {
+      "name": "cm to inches",
+      "short_name": "cm\u2192in",
+      "url": "https://seyrs1985.github.io/tooltide/cm-to-inches/",
+      "icons": [
+        {
+          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    },
+    {
+      "name": "BMI calculator",
+      "short_name": "BMI",
+      "url": "https://seyrs1985.github.io/tooltide/bmi-calculator/",
+      "icons": [
+        {
+          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    },
+    {
+      "name": "Speed distance time",
+      "short_name": "SDT",
+      "url": "https://seyrs1985.github.io/tooltide/speed-distance-time/",
+      "icons": [
+        {
+          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    },
+    {
+      "name": "Sales tax calculator",
+      "short_name": "Sales tax",
+      "url": "https://seyrs1985.github.io/tooltide/sales-tax-calculator/",
+      "icons": [
+        {
+          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    }
   ]
 }

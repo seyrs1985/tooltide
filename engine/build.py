@@ -207,6 +207,22 @@ def ensure_manifest(cfg):
         "background_color": "#f8fafc",
         "theme_color": "#0e7490",
         "icons": icons,
+        # Long-press app-icon shortcuts (retention R1): the six highest-intent
+        # tools get one-tap deep links from the home-screen icon.
+        "shortcuts": [
+            {"name": "Christmas countdown", "short_name": "Christmas",
+             "url": cfg["base_url"] + "days-until-christmas/", "icons": [icons[0]]},
+            {"name": "Percentage calculator", "short_name": "Percent",
+             "url": cfg["base_url"] + "percentage-calculator/", "icons": [icons[0]]},
+            {"name": "cm to inches", "short_name": "cm→in",
+             "url": cfg["base_url"] + "cm-to-inches/", "icons": [icons[0]]},
+            {"name": "BMI calculator", "short_name": "BMI",
+             "url": cfg["base_url"] + "bmi-calculator/", "icons": [icons[0]]},
+            {"name": "Speed distance time", "short_name": "SDT",
+             "url": cfg["base_url"] + "speed-distance-time/", "icons": [icons[0]]},
+            {"name": "Sales tax calculator", "short_name": "Sales tax",
+             "url": cfg["base_url"] + "sales-tax-calculator/", "icons": [icons[0]]},
+        ],
     }
     write(MANIFEST, json.dumps(manifest, indent=2) + "\n")
     manifest_ready = True

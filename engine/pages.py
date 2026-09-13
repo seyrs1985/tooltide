@@ -3363,6 +3363,36 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "gst-calculator",
+        "title": "GST Calculator — Add or Extract GST at India's Standard Slabs",
+        "h1": "GST Calculator",
+        "desc": "Add 5/12/18/28% GST to a net price, or extract it from a GST-inclusive price — with CGST/SGST split for intra-state invoices. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "gst calculator",
+        "tool": "gst",
+        "args": {},
+        "intro": [
+            "Two GST questions cover almost every real situation: \"what will this cost with GST added?\" and \"how much of this GST-inclusive price was tax?\" This calculator handles both — add mode applies the slab to a net price, extract mode backs the tax out of a MRP-style inclusive price — using India's four standard slabs (5, 12, 18, 28%) with one tap each.",
+            "The CGST/SGST line is the invoice detail most calculators skip: intra-state sales split the tax equally between Central and State GST, while inter-state bills carry the full amount as IGST. Whether you are checking a restaurant bill, pricing a product or filing a reimbursement, the split is shown in rupees, and the share button packages the whole breakdown for the accounts chat.",
+        ],
+        "howto": [
+            "Enter the price and tap the slab — 5, 12, 18 or 28%.",
+            "Choose \"add GST\" for net prices or \"extract GST\" when the price already includes tax.",
+            "Read the GST amount, net/gross figures and the CGST/SGST split, then share the breakdown in one tap.",
+        ],
+        "faqs": [
+            ("How do I calculate GST on a price?",
+             "GST = net price × rate ÷ 100 — a ₹2,499 item at 18% carries ₹449.82 GST for a gross of ₹2,948.82. For GST-inclusive prices, reverse it: tax = price × rate ÷ (100 + rate), because the sticker price already contains the tax."),
+            ("How do I remove GST from a total price?",
+             "Divide by (1 + rate/100): a ₹1,180 bill at 18% inclusive has a net of 1,180 ÷ 1.18 = ₹1,000 and ₹180 GST. The extract mode applies exactly this, which is the calculation most people get wrong by simply subtracting 18% of the total."),
+            ("What is the difference between CGST, SGST and IGST?",
+             "Intra-state sales split the GST equally between Central and State GST (CGST + SGST); inter-state sales levy it once as IGST. The amounts are identical — only the split changes, and the calculator shows both views."),
+            ("Which GST slab applies to my item?",
+             "India's main slabs are 5% (essentials), 12% and 18% (most goods and services), and 28% (luxury and sin goods). The rate is set per HSN/SAC code rather than by product type alone — when in doubt, the invoice of a comparable product is the fastest reference."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
