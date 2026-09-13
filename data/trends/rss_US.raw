@@ -67,7 +67,7 @@
 		</item>
 		<item>
 			<title>leslie jones</title>
-			<ht:approx_traffic>200+</ht:approx_traffic>
+			<ht:approx_traffic>500+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 22:50:00 -0700</pubDate>
@@ -131,28 +131,28 @@
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 22:10:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcuGaBGICnmHp6JM5sj5tnXNu0g9AWbCrGNiITLeXEejbyjsjoClh1t74ng5A</ht:picture>
-			<ht:picture_source>IMDb</ht:picture_source>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTQ8yHfj5WxhJ6-gnuE_8ok8ZNy3EH9_rCOXbFjO6S9_g11QO-MHHHtn6gX0hk</ht:picture>
+			<ht:picture_source>The New York Times</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>Tyler Perry’s ‘Beauty in Black’ Season 4 Gets Production &amp; Netflix Release Date Update</ht:news_item_title>
+				<ht:news_item_title>‘Why Did I Get Married Again?’ Review: An Italian Escape</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.imdb.com/news/ni66010560/?ref_=ttnw_art_perm</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcuGaBGICnmHp6JM5sj5tnXNu0g9AWbCrGNiITLeXEejbyjsjoClh1t74ng5A</ht:news_item_picture>
-				<ht:news_item_source>IMDb</ht:news_item_source>
+				<ht:news_item_url>https://www.nytimes.com/2026/09/10/movies/why-did-i-get-married-again-review.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTQ8yHfj5WxhJ6-gnuE_8ok8ZNy3EH9_rCOXbFjO6S9_g11QO-MHHHtn6gX0hk</ht:news_item_picture>
+				<ht:news_item_source>The New York Times</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Previously Canceled Tyler Perry TV Show Gets Netflix Season 4 Release Date Update</ht:news_item_title>
+				<ht:news_item_title>Why Did I Get Married Again? Cast: Meet the Wedding Guests in Attendance</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.yahoo.com/entertainment/tv/articles/previously-canceled-tyler-perry-tv-210723626.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRu-dcGcixSSi9Wzbn1HMrPw1tHE6QPP8uUVxEMPaz01KXZyQ1d5Kd2F45bWxM</ht:news_item_picture>
-				<ht:news_item_source>Yahoo</ht:news_item_source>
+				<ht:news_item_url>https://www.netflix.com/tudum/articles/why-did-i-get-married-again-cast-family-tree</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR40nlnQDsvZvw7i22qX2JinRNqnkBVWEeNucZd9yihPDfnZ3lNPoQ90mKhNXY</ht:news_item_picture>
+				<ht:news_item_source>Netflix</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Beauty in Black Season 4 Release Date, Cast and More</ht:news_item_title>
+				<ht:news_item_title>&apos;Why Did I Get Married Again?&apos; Review: Taraji P. Henson Joins the Gang</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.techloy.com/beauty-in-black-season-4-release-date-cast/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4rDDbIH1xIP3v9brXFOejcBKWjc7HC6zp76A5NShCuhgChKHeDTvTVudXLM4</ht:news_item_picture>
-				<ht:news_item_source>Techloy</ht:news_item_source>
+				<ht:news_item_url>https://variety.com/2026/film/reviews/why-did-i-get-married-again-review-taraji-p-henson-1236857141/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT9hvlyCVKK1NpbcUMGf1kIiVfGxwpCglhrDz-mxaVuiawiLjlyft1QxejZ9vM</ht:news_item_picture>
+				<ht:news_item_source>Variety</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
@@ -179,38 +179,68 @@
 			</ht:news_item>
 		</item>
 		<item>
+			<title>shipping</title>
+			<ht:approx_traffic>5000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 12 Sep 2026 21:40:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRJ9-7mCD7dTyB6KwmNBYU--HrBBk0vZOYKqBnKu-5S3v7nJvRUJEHwZhl36Y</ht:picture>
+			<ht:picture_source>Inquirer.net</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Iran war: Saudi-Houthi escalation intensifies Yemen conflict</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://globalnation.inquirer.net/337904/iran-war-saudi-houthi-escalation-intensifies-yemen-conflict</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQRJ9-7mCD7dTyB6KwmNBYU--HrBBk0vZOYKqBnKu-5S3v7nJvRUJEHwZhl36Y</ht:news_item_picture>
+				<ht:news_item_source>Inquirer.net</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Trump Loses the Other Strait</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.theatlantic.com/international/2026/09/trump-iran-houthis-yemen/688592/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKMgZkuRtWFc7BDuMawW8MMaglqHh9CMagxstG2RLWySvTgj5sYUb0aX1ldEs</ht:news_item_picture>
+				<ht:news_item_source>The Atlantic</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Iran war live: Saudi Arabia and Houthis trade strikes over Bab al-Mandeb</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.aljazeera.com/news/liveblog/2026/9/13/iran-war-live-saudi-arabia-and-houthis-trade-strikes-over-bab-al-mandeb</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTesCFtJjemxifQZRourSd9Xwf01Yso8QXZS6HYLDymRR8RqVW1g-X39d0YzPk</ht:news_item_picture>
+				<ht:news_item_source>Al Jazeera</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
 			<title>cole young</title>
 			<ht:approx_traffic>200+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 21:40:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT0ndb5XNQdGjTllIC10jT5rAmDf26-qPmRsvWfp3xr03SUABcPxSO2hwWlw1Y</ht:picture>
-			<ht:picture_source>The Seattle Times</ht:picture_source>
+			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRAf5WNs8696zaLdBKRmpbNjxlpHQ33yMXHn4ePacNXqDBqH9u_YZeGt0tPb2Y</ht:picture>
+			<ht:picture_source>MLB.com</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>Michael Arroyo belts first homer in Mariners&apos; record rout of Athletics</ht:news_item_title>
+				<ht:news_item_title>Woo&apos;s gem, Arroyo&apos;s breakout spark Mariners to record-setting win</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.seattletimes.com/sports/mariners/michael-arroyo-belts-first-homer-seattle-mariners-clobber-athletics/</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT0ndb5XNQdGjTllIC10jT5rAmDf26-qPmRsvWfp3xr03SUABcPxSO2hwWlw1Y</ht:news_item_picture>
-				<ht:news_item_source>The Seattle Times</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>Mariners crush five home runs vs. Athletics</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.mlb.com/video/mariners-crush-five-home-runs-vs-athletics</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ38qMsH5ca3t5eqJlhtDAaro1RrI03MQwHQ7zPgraz1996b9tNwAqeUBXtbQE</ht:news_item_picture>
+				<ht:news_item_url>https://www.mlb.com/news/michael-arroyo-hits-1st-career-homer-mariners-win-by-record-margin</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRAf5WNs8696zaLdBKRmpbNjxlpHQ33yMXHn4ePacNXqDBqH9u_YZeGt0tPb2Y</ht:news_item_picture>
 				<ht:news_item_source>MLB.com</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Mariners rookie Michael Arroyo blasts first career HR</ht:news_item_title>
+				<ht:news_item_title>Mariners pound Athletics 19-1 with 5 home runs, 23 hits</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://sports.mynorthwest.com/mlb/seattle-mariners/seattle-mariners-rookie-michael-arroyo-blasts-first-career-hr</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT38v4RbRQPoeTRDG-ZPGDOlA3m8ql3gtEalHI3r0fyqtbTEPFkaD7N7GETfmc</ht:news_item_picture>
-				<ht:news_item_source>Seattle Sports</ht:news_item_source>
+				<ht:news_item_url>https://abc30.com/post/mariners-pound-athletics-19-1-5-home-runs-23-hits/19825507/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR7K2zoNpZXgDXmwG17GsFQBMMMqtZ6pQWVUPYGReGNt1Xo3uD-5tKhaWvEKYM</ht:news_item_picture>
+				<ht:news_item_source>ABC30 Fresno</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Arroyo, Wilson shine in 19-1 Mariners win</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://sports.yahoo.com/videos/arroyo-wilson-shine-19-1-051450678.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRvAb0gpM9gA2gHm8fK0_lq_BqPNGfNXk-02f_k532f3NX0w2WVcJdgsglO_jg</ht:news_item_picture>
+				<ht:news_item_source>Yahoo Sports</ht:news_item_source>
 			</ht:news_item>
 		</item>
 		<item>
 			<title>wendy williams</title>
-			<ht:approx_traffic>500+</ht:approx_traffic>
+			<ht:approx_traffic>1000+</ht:approx_traffic>
 			<description/>
 			<link>https://trends.google.com/trending/rss?geo=US</link>
 			<pubDate>Sat, 12 Sep 2026 21:30:00 -0700</pubDate>
@@ -254,48 +284,18 @@
 				<ht:news_item_source>Red Bank Green</ht:news_item_source>
 			</ht:news_item>
 			<ht:news_item>
-				<ht:news_item_title>Kevin Hart, Henry Cavill reportedly seen filming in North Jersey</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.yahoo.com/entertainment/movies/articles/kevin-hart-henry-cavill-reportedly-190213287.html</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSyL--VVjIJy4kODOcF3sgc8-yhtrlslBvQrgbvtg0GG85diE-s31B4yNNxD8Q</ht:news_item_picture>
-				<ht:news_item_source>Yahoo</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
 				<ht:news_item_title>Kevin Hart, Henry Cavill Spy Movie Films in Glen Ridge</ht:news_item_title>
 				<ht:news_item_snippet/>
 				<ht:news_item_url>https://montclairlocal.news/2026/09/kevin-hart-henry-cavill-spy-movie-films-in-glen-ridge/</ht:news_item_url>
 				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSGGKVVZYrsER1ybDux6cb95lA1VJ4TCi465OQrxKS6CxV-_wWRoHdSBIqAoE0</ht:news_item_picture>
 				<ht:news_item_source>Montclair Local News</ht:news_item_source>
 			</ht:news_item>
-		</item>
-		<item>
-			<title>mariners - athletics</title>
-			<ht:approx_traffic>2000+</ht:approx_traffic>
-			<description/>
-			<link>https://trends.google.com/trending/rss?geo=US</link>
-			<pubDate>Sat, 12 Sep 2026 21:30:00 -0700</pubDate>
-			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSqQl9DvGGctmcEDG01K8TPv0YNC8q2mI9Y3y2BmfU51Hx7yFN3bVxoIoalamQ</ht:picture>
-			<ht:picture_source>MLB.com</ht:picture_source>
 			<ht:news_item>
-				<ht:news_item_title>MLB Gameday: Mets 12, Yankees 2 Final Score (09/12/2026)</ht:news_item_title>
+				<ht:news_item_title>Kevin Hart, Henry Cavill reportedly seen filming in North Jersey</ht:news_item_title>
 				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.mlb.com/gameday/823496/final/summary/all</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSqQl9DvGGctmcEDG01K8TPv0YNC8q2mI9Y3y2BmfU51Hx7yFN3bVxoIoalamQ</ht:news_item_picture>
-				<ht:news_item_source>MLB.com</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>MLB Gameday: Rockies 1, Yankees 6 Final Score (09/09/2026)</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.mlb.com/gameday/rockies-vs-yankees/2026/09/09/823497/final</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXNBxOQ50JnFF3WDkzVIAtk62JZqKRTUpLz5ectluClpXBFB1goqLcT0GnXw</ht:news_item_picture>
-				<ht:news_item_source>MLB.com</ht:news_item_source>
-			</ht:news_item>
-			<ht:news_item>
-				<ht:news_item_title>MLB Gameday: Nationals 5, Dodgers 6 Final Score (09/05/2026)</ht:news_item_title>
-				<ht:news_item_snippet/>
-				<ht:news_item_url>https://www.mlb.com/gameday/nationals-vs-dodgers/2026/09/05/823904/final/video</ht:news_item_url>
-				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRTzkq6OZVhjg-FRHu-rZnU6upDRbA7DtJT9sWa2-Xg-ajj_uhu78IqG4Xf1r8</ht:news_item_picture>
-				<ht:news_item_source>MLB.com</ht:news_item_source>
+				<ht:news_item_url>https://www.northjersey.com/story/entertainment/movies/2026/09/11/netflix-spy-comedy-movie-henry-cavill-kevin-hart-filming-nj/91707519007/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS77b9jLyO6HNuPvSKfHdVFAfYWwY3JJgw1B_cYpcifvWM3dEsnFtRd4ccdpxU</ht:news_item_picture>
+				<ht:news_item_source>Bergen Record</ht:news_item_source>
 			</ht:news_item>
 		</item>
 	</channel>

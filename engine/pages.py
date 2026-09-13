@@ -2883,6 +2883,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "gpa-calculator",
+        "title": "GPA Calculator — Credit-Weighted 4.0 Scale, Semester or Cumulative",
+        "h1": "GPA Calculator",
+        "desc": "Enter courses, credits and letter grades — get your semester GPA on the 4.0 scale, or fold in prior credits for your cumulative GPA. Instant, private, no sign-up.",
+        "category": "calculator",
+        "keyword": "gpa calculator",
+        "tool": "gpa",
+        "args": {},
+        "intro": [
+            "GPA is a credit-weighted average, not a plain average of grades — a 4-credit A outweighs a 3-credit B+, and that weighting is where most hand calculations go wrong. Enter each course with its credit hours and letter grade; the calculator applies the standard 4.0 scale (A=4.0, A−=3.7, B+=3.3, and so on) and does the weighting for you.",
+            "Added your prior cumulative GPA and graded credits below? The headline result switches to your cumulative GPA — the number scholarships, internships and grad schools actually ask for. Everything runs in your browser: courses are remembered on this device between visits and never sent anywhere.",
+        ],
+        "howto": [
+            "Fill in credit hours and a letter grade for each course — course names are optional and blank rows are ignored.",
+            "Read the semester GPA in the big result; add prior GPA and prior credits to switch it to your cumulative GPA.",
+            "Share the result with one tap — a clean summary text, with no grades attached unless you add them yourself.",
+        ],
+        "faqs": [
+            ("How is GPA calculated on a 4.0 scale?",
+             "Multiply each course's grade points (A=4.0, A−=3.7, B+=3.3, B=3.0, B−=2.7, C+=2.3, C=2.0, C−=1.7, D+=1.3, D=1.0, F=0) by its credit hours, add them up, and divide by total credits. The calculator runs that weighting live as you type."),
+            ("How do I calculate my cumulative GPA?",
+             "Fold your history in: enter your prior cumulative GPA and the graded credits it covered in the two optional fields. The result becomes (this semester's points + prior points) ÷ (this semester's credits + prior credits) — the same formula registrar offices use."),
+            ("Do Pass/Fail or withdrawn courses count?",
+             "No — P/F, W and incomplete courses carry no grade points, so leave those rows blank and only count courses with a letter grade. The credit total shown reflects exactly what you include."),
+            ("Is a 3.5 GPA good?",
+             "On the 4.0 scale, 3.5 is an A− average — above the typical cum laude line (often 3.5-3.6) and competitive for most internships and graduate programs. Context matters: the cumulative fields let you track how this semester moves your overall number."),
+        ],
+    })
+
+    pages.append({
+        "slug": "sleep-cycle-calculator",
+        "title": "Sleep Cycle Calculator — Best Wake-Up Times & Bedtimes by 90-Min Cycles",
+        "h1": "Sleep Cycle Calculator",
+        "desc": "Waking mid-cycle is why mornings feel brutal. See the best wake-up times if you sleep now — or the bedtime that gets you up on time — in 90-minute sleep cycles. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "sleep cycle calculator",
+        "tool": "sleepcycle",
+        "args": {},
+        "intro": [
+            "Sleep moves in roughly 90-minute cycles, and the groggiest mornings come from an alarm landing mid-cycle rather than at its end. This planner works in both directions: sleep right now and it lists the four best wake-up windows over the next nine hours; entering a target wake-up time lists the four bedtimes that line up with a cycle boundary.",
+            "Fifteen minutes of fall-asleep time is built in, because \"in bed at 11:00\" and \"asleep at 11:15\" are different plans. Six cycles (about 9 hours) is the generous pick, five (7.5 hours) suits most adults, and three cycles (4.5 hours) is the short-night floor — the times update live, are remembered on this device, and the share button packages your plan for whoever needs to be up with you.",
+        ],
+        "howto": [
+            "Choose \"sleep now\" to see wake-up times from 6 down to 3 cycles, each with its hours of sleep.",
+            "Or switch to \"bedtime\" mode and enter the time you must wake up — the four cycle-aligned bedtimes appear instantly.",
+            "Share the plan with one tap; the link reopens the same mode and time on the other person's phone.",
+        ],
+        "faqs": [
+            ("What time should I wake up if I sleep now?",
+             "Take the current time, add about 15 minutes to fall asleep, then add 90-minute cycles: the planner shows wake-ups at roughly 9, 7.5, 6 and 4.5 hours out. Waking at any of those boundaries — especially 5-6 cycles — feels noticeably lighter than waking mid-cycle."),
+            ("How many sleep cycles do you need?",
+             "Most adults do best on 5-6 cycles (7.5-9 hours); 4 cycles (6 hours) works occasionally, and 3 cycles (4.5 hours) is the short-night minimum, not a routine. The planner lists all four so you can pick honestly for tonight."),
+            ("Why add 15 minutes to fall asleep?",
+             "Sleep latency — the average time it takes to drift off once lights are out. Bedtimes here are lights-out times, so the planner subtracts latency from your target wake-up to keep the cycle math honest. If you typically fall asleep faster or slower, mentally shift the results the same way."),
+            ("Does the 90-minute cycle rule actually work?",
+             "It is a useful average, not a biological law — individual cycles run 80-100 minutes and vary night to night. Used as a planning heuristic (which is all this calculator claims), aligning alarms with cycle boundaries reliably reduces grogginess from sleep inertia."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

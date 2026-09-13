@@ -3071,6 +3071,127 @@ document.getElementById('si-share').addEventListener('click',function(){
 })();
 </script>
 """
+
+# GPA calculator: credit-weighted 4.0 scale across 7 course rows plus prior cumulative.
+# Retention hooks: title result hook, tt_gpa input memory, URL state (?g=&c=&p=&pc=), Web Share.
+GPACALC = """<div class="tool" id="tt-gpa">
+  <div id="gpa-rows"></div>
+  <div class="fields">
+    <div class="field"><label for="gpa-pg">Prior cumulative GPA (optional)</label><input type="number" id="gpa-pg" step="any" min="0" max="4" placeholder="3.48"></div>
+    <div class="field"><label for="gpa-pc">Prior graded credits (optional)</label><input type="number" id="gpa-pc" step="any" min="0" placeholder="60"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gpa-out">–</span><span class="result-unit" id="gpa-unit">GPA (4.0 scale)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gpa-sem">–</b><span>this semester alone</span></div>
+    <div class="stat"><b id="gpa-cr">–</b><span>graded credits</span></div>
+  </div>
+  <div class="tool-note">Weighted by credit hours: A=4.0, A−=3.7, B+=3.3, B=3.0, B−=2.7, C+=2.3, C=2.0, C−=1.7, D+=1.3, D=1.0, F=0. Leave a row blank to exclude it.</div>
+  <button type="button" class="tool-btn" id="gpa-share">Share my GPA</button>
+</div>
+<script>(function(){
+var GR=[['A',4],['A-',3.7],['B+',3.3],['B',3],['B-',2.7],['C+',2.3],['C',2],['C-',1.7],['D+',1.3],['D',1],['F',0]];
+var ROWS=7,box=document.getElementById('gpa-rows');
+for(var i=0;i<ROWS;i++){
+  var d=document.createElement('div');d.className='fields';
+  d.innerHTML='<div class="field"><label>Course '+(i+1)+' (name optional)</label><input type="text" class="gpa-n" placeholder="Calculus II"></div>'+
+    '<div class="field"><label>Credits</label><input type="number" class="gpa-c" step="any" min="0" placeholder="4"></div>'+
+    '<div class="field"><label>Grade</label><select class="gpa-g"><option value=""></option>'+
+    GR.map(function(g){return '<option value="'+g[1]+'">'+g[0]+'</option>';}).join('')+'</select></div>';
+  box.appendChild(d);
+}
+function parts(){return [box.querySelectorAll('.gpa-n'),box.querySelectorAll('.gpa-c'),box.querySelectorAll('.gpa-g')];}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var p=parts(),pts=0,cr=0;
+  for(var i=0;i<ROWS;i++){
+    var c=parseFloat(p[1][i].value)||0,g=p[2][i].value===''?null:parseFloat(p[2][i].value);
+    if(c>0&&g!==null){pts+=c*g;cr+=c;}
+  }
+  var sem=cr>0?pts/cr:null,pg=parseFloat(document.getElementById('gpa-pg').value),pc=parseFloat(document.getElementById('gpa-pc').value);
+  var out=sem,tot=cr,unit='GPA (4.0 scale)';
+  if(sem!==null&&pc>0&&!isNaN(pg)){out=(pts+pg*pc)/(cr+pc);tot=cr+pc;unit='cumulative GPA';}
+  document.getElementById('gpa-out').textContent=out===null?'–':out.toFixed(2);
+  document.getElementById('gpa-unit').textContent=unit;
+  document.getElementById('gpa-sem').textContent=sem===null?'–':sem.toFixed(2);
+  document.getElementById('gpa-cr').textContent=tot;
+  document.title=(out===null?'GPA Calculator':(unit==='cumulative GPA'?'Cumulative GPA ':'GPA ')+out.toFixed(2))+' - ToolTide';
+}
+function save(){var p=parts(),o={n:[],c:[],g:[],pg:document.getElementById('gpa-pg').value,pc:document.getElementById('gpa-pc').value};
+  for(var i=0;i<ROWS;i++){o.n.push(p[0][i].value);o.c.push(p[1][i].value);o.g.push(p[2][i].value);}
+  try{localStorage.setItem('tt_gpa',JSON.stringify(o));}catch(e){}}
+function fill(o){var p=parts();
+  for(var i=0;i<ROWS;i++){p[0][i].value=(o.n&&o.n[i])||'';p[1][i].value=(o.c&&o.c[i])||'';p[2][i].value=(o.g&&o.g[i])||'';}
+  document.getElementById('gpa-pg').value=o.pg||'';document.getElementById('gpa-pc').value=o.pc||'';calc();}
+box.addEventListener('input',function(){calc();save();});
+box.addEventListener('change',function(){calc();save();});
+['gpa-pg','gpa-pc'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){calc();save();});});
+var pre=false,gv=qs('g'),cv=qs('c');
+if(gv&&cv){var o={g:gv.split(','),c:cv.split(','),pg:qs('p')||'',pc:qs('pc')||'',n:[]};fill(o);pre=true;}
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_gpa')||'null');if(mem){fill(mem);}}catch(e){}}
+calc();
+document.getElementById('gpa-share').addEventListener('click',function(){
+  var v=document.getElementById('gpa-out').textContent;
+  var txt='My '+(document.getElementById('gpa-unit').textContent==='cumulative GPA'?'cumulative ':'')+'GPA: '+v+' on the 4.0 scale. Calculate yours (no sign-up):';
+  var url=location.origin+location.pathname;
+  if(navigator.share){navigator.share({title:'GPA result',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my GPA';},1500);}
+});
+})();
+</script>
+"""
+
+# Sleep cycle planner: 90-minute cycles + 15-min fall-asleep latency, both directions.
+# Retention hooks: title result hook, tt_sleep input memory, URL state (?mode=&t=), Web Share.
+SLEEP = """<div class="tool" id="tt-sleep">
+  <div class="fields">
+    <div class="field"><label for="sl-mode">Plan</label>
+      <select id="sl-mode"><option value="wake">Wake-up times if I sleep now</option><option value="bed">Bedtime for a target wake-up</option></select></div>
+    <div class="field" id="sl-t-wrap" style="display:none"><label for="sl-t">I need to wake up at</label><input type="time" id="sl-t" value="07:00"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sl-out">–</span><span class="result-unit" id="sl-unit"></span></div>
+  <div id="sl-list"></div>
+  <div class="tool-note">Cycles average 90 minutes and most people take about 15 minutes to fall asleep. Waking between cycles feels far easier than mid-cycle — 5-6 cycles (7.5-9 h in bed) suits most adults, 3 cycles (4.5 h) is the short-night floor.</div>
+  <button type="button" class="tool-btn" id="sl-share">Share these times</button>
+</div>
+<script>(function(){
+var MODE=document.getElementById('sl-mode'),T=document.getElementById('sl-t'),TW=document.getElementById('sl-t-wrap');
+var OUT=document.getElementById('sl-out'),UNIT=document.getElementById('sl-unit'),LIST=document.getElementById('sl-list');
+function fmt(mins){mins=((mins%1440)+1440)%1440;var h=Math.floor(mins/60),m=mins%60,ap=h<12?'AM':'PM',h12=h%12;if(h12===0)h12=12;return h12+':'+(m<10?'0':'')+m+' '+ap;}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var mode=MODE.value,base,rows=[];
+  if(mode==='wake'){var n=new Date();base=n.getHours()*60+n.getMinutes()+15;
+    for(var k=6;k>=3;k--){rows.push([k,base+90*k]);}
+    OUT.textContent=fmt(rows[0][1]);UNIT.textContent='best wake-up (6 cycles ≈ 9 h in bed)';
+  }else{
+    var v=T.value;if(!v){OUT.textContent='–';UNIT.textContent='';LIST.innerHTML='';document.title='Sleep Cycle Calculator - ToolTide';return;}
+    var p=v.split(':');base=parseInt(p[0],10)*60+parseInt(p[1],10)-15;
+    for(var j=6;j>=3;j--){rows.push([j,base-90*j]);}
+    OUT.textContent=fmt(rows[0][1]);UNIT.textContent='bedtime for a '+v+' wake-up (6 cycles)';
+  }
+  var h='<div class="stats">';
+  rows.forEach(function(r){h+='<div class="stat"><b>'+fmt(r[1])+'</b><span>'+r[0]+' cycles · '+(r[0]*1.5).toFixed(1).replace('.0','')+' h sleep</span></div>';});
+  LIST.innerHTML=h+'</div>';
+  document.title=(mode==='wake'?'Sleep now, wake ':'Bedtime ')+(mode==='wake'?fmt(rows[0][1]):T.value)+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_sleep',JSON.stringify({m:MODE.value,t:T.value}));}catch(e){}}
+MODE.addEventListener('change',function(){TW.style.display=MODE.value==='bed'?'':'none';calc();save();});
+T.addEventListener('input',function(){calc();save();});
+var mt=qs('mode'),tv=qs('t');
+if(mt){MODE.value=(mt==='bed')?'bed':'wake';TW.style.display=MODE.value==='bed'?'':'none';}
+if(tv){T.value=tv;}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_sleep')||'null');if(mem){MODE.value=mem.m||'wake';TW.style.display=MODE.value==='bed'?'':'none';if(mem.t)T.value=mem.t;}}catch(e){}}
+calc();
+document.getElementById('sl-share').addEventListener('click',function(){
+  var txt=MODE.value==='wake'?('Sleeping now? Best wake-up: '+OUT.textContent+' — plan your night (no sign-up):')
+    :('Set bedtime '+OUT.textContent+' to wake at '+T.value+' between cycles. Plan sleep (no sign-up):');
+  var url=location.origin+location.pathname+'?mode='+MODE.value+(MODE.value==='bed'?'&t='+encodeURIComponent(T.value):'');
+  if(navigator.share){navigator.share({title:'Sleep cycle plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share these times';},1500);}
+});
+})();
+</script>
+"""
 # Retention hooks: title result hook, tt_savings input memory, URL state (?goal=&saved=&dep=&apy=), Web Share.
 SAVINGS = """<div class="tool" id="tt-savings">
   <div class="fields">
@@ -3253,6 +3374,8 @@ TOOLS = {
     "salestax": lambda args: SALESTAX,
     "doubledisc": lambda args: DOUBLEDISC,
     "simpleint": lambda args: SIMPLEINT,
+    "gpa": lambda args: GPACALC,
+    "sleepcycle": lambda args: SLEEP,
 }
 
 
