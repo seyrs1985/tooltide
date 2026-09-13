@@ -3543,6 +3543,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "loan-payment-calculator",
+        "title": "Loan Payment Calculator — Monthly Payment, Total Interest & Cost",
+        "h1": "Loan Payment Calculator",
+        "desc": "Enter amount, rate and term to see the amortized monthly payment, total interest and what share of every payment is interest. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "loan payment calculator",
+        "tool": "loanpay",
+        "args": {},
+        "intro": [
+            "Every loan quote hides the same three numbers inside one monthly figure: a $25,000 car loan at 7.5% for five years is about $501 a month — which quietly becomes $30,056 of payments and roughly $5,000 of pure interest over the term. Enter amount, annual rate and term; the calculator returns the payment, the total interest, and the share of every payment that never touches your balance.",
+            "That interest share is the number to shop with: a shorter term or a single-point rate cut moves it more than most people expect. The note line keeps the payoff logic visible — extra principal each month skips every future month's interest on that money — and your numbers stay on this device, so comparing dealer quotes takes seconds. It pairs with the compound interest calculator for the other side of the ledger: what that same money earns when you invest it instead.",
+        ],
+        "howto": [
+            "Enter the loan amount, annual interest rate and term in years.",
+            "Read the monthly payment, total interest and interest share of all payments.",
+            "Share the payment with one tap, or bookmark it — your quote numbers are remembered.",
+        ],
+        "faqs": [
+            ("What is the loan payment formula?",
+             "For an amortized loan with monthly compounding: payment = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is the principal, r the monthly rate (annual ÷ 12) and n the number of payments. At 0% interest it collapses to the simple split: principal ÷ months."),
+            ("How much does a shorter term save?",
+             "A lot, because interest has fewer months to accumulate. The same $25,000 at 7.5% costs about $5,056 over 60 months but roughly $3,268 over 48 — the payment rises about $100 while the interest drops nearly a fifth. The calculator makes that trade explicit in the interest-share stat."),
+            ("Does paying extra principal change the payment?",
+             "No — extra principal shortens the term instead. Your required monthly payment stays fixed; each extra dollar reduces the balance, so subsequent months accrue less interest and the loan ends sooner. Lenders apply extra to principal only if you say so; otherwise some treat it as an early next payment."),
+            ("What's missing from this calculator?",
+             "Fees, taxes, insurance and balloon structures. APR wraps some fees into the rate, so comparing APRs — not headline rates — is the honest basis. For a lease or balloon note the amortization differs; treat this tool as the standard fixed-payment case."),
+        ],
+    })
+
+    pages.append({
+        "slug": "vat-calculator",
+        "title": "VAT Calculator — Add or Remove VAT (UK 20% & EU Rates)",
+        "h1": "VAT Calculator",
+        "desc": "Add VAT to a net price or strip it from a gross price — UK 20%, Germany 19%, Ireland 23% and more, with the divide-don't-subtract method shown. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "vat calculator",
+        "tool": "vatcalc",
+        "args": {},
+        "intro": [
+            "Two VAT jobs account for almost every search: a business prices up — £100 net becomes £120 gross at the UK's 20% standard rate — and an accountant digs the tax back out of a receipt, where the right move is dividing by 1.2, never subtracting 20% (that gives £96, not the true £100 net). This calculator does both directions from one amount box, with quick-pick rates for the UK, Germany, the Netherlands, Spain, Italy and Ireland.",
+            "The net / VAT / gross trio updates live so the breakdown is always in view, and the note line shows the exact arithmetic — the multiplier or divisor used — so the method transfers to your own spreadsheet. Fractions of a penny are kept to two decimals the way invoices round, and your last rate stays on this device for the next receipt. It sits alongside the sales tax calculator for US prices and the GST calculator for Indian ones.",
+        ],
+        "howto": [
+            "Pick Add VAT (net to gross) or Remove VAT (gross to net), then enter the amount.",
+            "Type a rate or quick-pick one — UK 20% is the default placeholder.",
+            "Read net, VAT and gross at once; share or bookmark it — the rate is remembered.",
+        ],
+        "faqs": [
+            ("How do I remove 20% VAT from a price?",
+             "Divide the gross by 1.2. A £120 receipt holds £100 of net and £20 of VAT; subtracting 20% instead gives £96 and understates the net by £4. General rule: net = gross ÷ (1 + rate), which the calculator applies and shows in the note line."),
+            ("How do I add VAT to a net price?",
+             "Multiply net by (1 + rate): £100 × 1.2 = £120 gross, of which £20 is VAT payable to HMRC after your input credit. The calculator's add mode does exactly this and keeps all three figures visible at once."),
+            ("What are the standard VAT rates in Europe?",
+             "UK 20%, Germany 19%, Netherlands and Spain 21%, Italy 22%, Ireland 23%, France 20%. Most countries also run reduced rates (UK 5% for energy, 0% for food and children's clothes) — the quick-rate list carries the common ones and the rate box accepts any number a special case needs."),
+            ("Is VAT the same as sales tax?",
+             "Mechanically similar — a percentage on consumption — but VAT is charged at each stage of production with credits for tax already paid, while US sales tax is collected once at the final sale. For arithmetic on a price they behave the same, which is why the sales tax, VAT and GST calculators here share one shape."),
+        ],
+    })
+
+    pages.append({
+        "slug": "fraction-calculator",
+        "title": "Fraction Calculator — Add, Subtract, Multiply & Divide, Simplified",
+        "h1": "Fraction Calculator",
+        "desc": "Add, subtract, multiply or divide two fractions — exact simplified answer with mixed number, decimal and the common-denominator steps shown. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "fraction calculator",
+        "tool": "fraction",
+        "args": {},
+        "intro": [
+            "Fraction homework fails on the same step every time: 3/4 + 5/6 needs a common denominator before anything else can happen. This calculator works with whole-number numerators and denominators in both fractions, then returns the exact simplified answer — 19/12 — alongside the mixed number (1 7/12), the decimal, and the worked line that shows the common denominator it used, so the answer teaches the method instead of replacing it.",
+            "Division gets the same treatment with its own trick — flip and multiply — and every result is reduced by the greatest common divisor, with the divisor named in the note. Negative numerators work for subtracting-below-zero cases. Inputs are remembered on this device, which makes checking a whole worksheet's worth of problems a matter of editing two numbers between questions. It pairs with the roman numeral and prime factorization tools in the study corner of the site.",
+        ],
+        "howto": [
+            "Enter the numerator and denominator of each fraction as whole numbers.",
+            "Choose add, subtract, multiply or divide — the answer updates live.",
+            "Read the simplified fraction, mixed number and decimal; the note shows the steps.",
+        ],
+        "faqs": [
+            ("How do you add fractions with different denominators?",
+             "Rewrite both over the least common denominator, then add the numerators: 3/4 + 5/6 becomes 9/12 + 10/12 = 19/12. The calculator shows exactly this line, including the common denominator it chose, then simplifies the result by the GCD."),
+            ("How do you divide fractions?",
+             "Multiply by the reciprocal: 3/4 ÷ 5/6 = 3/4 × 6/5 = 18/20 = 9/10. No common denominator needed — flip the second fraction and multiply. The note line writes out the flip so the habit sticks."),
+            ("How do I simplify a fraction?",
+             "Divide numerator and denominator by their greatest common divisor. 18/20 share a GCD of 2, giving 9/10; the note names the divisor it used so you can check the work by hand. A fraction is fully simplified when nothing above 1 divides both parts."),
+            ("Can this handle mixed numbers like 1 3/4?",
+             "Enter them as improper fractions — 1 3/4 is 7/4 — and the calculator returns the answer both ways: simplified improper and mixed. To convert by hand, multiply the whole by the denominator and add the numerator (1×4+3=7) over the original denominator."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

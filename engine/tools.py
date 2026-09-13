@@ -4486,6 +4486,197 @@ SB.addEventListener('click',function(){
 """
 
 
+# Loan payment: amortized monthly payment + total interest + interest share of total.
+# Retention hooks: title result hook, tt_loan input memory, URL state (?p=&r=&y=), Web Share.
+LOANPAY = """<div class="tool" id="tt-ln">
+  <div class="fields">
+    <div class="field"><label for="ln-p">Loan amount ($)</label><input type="number" id="ln-p" step="any" min="0" placeholder="25000"></div>
+    <div class="field"><label for="ln-r">Annual interest rate %</label><input type="number" id="ln-r" step="any" min="0" max="40" placeholder="7.5"></div>
+    <div class="field"><label for="ln-y">Term (years)</label><input type="number" id="ln-y" step="any" min="0.5" max="40" placeholder="5"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ln-out">–</span><span class="result-unit">per month</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ln-int">–</b><span>total interest</span></div>
+    <div class="stat"><b id="ln-tot">–</b><span>total paid</span></div>
+    <div class="stat"><b id="ln-share">–</b><span>interest share of payments</span></div>
+  </div>
+  <div class="tool-note" id="ln-note"></div>
+  <button type="button" class="tool-btn" id="ln-share">Share this payment</button>
+</div>
+<script>(function(){
+var P=document.getElementById('ln-p'),R=document.getElementById('ln-r'),Y=document.getElementById('ln-y');
+var OUT=document.getElementById('ln-out');
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var p=parseFloat(P.value),ar=parseFloat(R.value),y=parseFloat(Y.value);
+  if(!(p>0)||!(y>0)||isNaN(ar)||ar<0){OUT.textContent='–';
+    document.getElementById('ln-int').textContent='–';document.getElementById('ln-tot').textContent='–';
+    document.getElementById('ln-share').textContent='–';document.getElementById('ln-note').textContent='';
+    document.title='Loan Payment Calculator - ToolTide';return;}
+  var r=ar/100/12,n=Math.round(y*12),m;
+  if(r===0){m=p/n;}
+  else{var f=Math.pow(1+r,n);m=p*r*f/(f-1);}
+  var tot=m*n,int=tot-p;
+  OUT.textContent=money(m);
+  document.getElementById('ln-int').textContent=money(int);
+  document.getElementById('ln-tot').textContent=money(tot);
+  document.getElementById('ln-share').textContent=Math.round(int/tot*100)+'%';
+  document.getElementById('ln-note').textContent=money(p)+' at '+ar+'% for '+y+' years costs '+money(int)+' in interest - '+Math.round(int/tot*100)+' cents of every payment. Extra principal each month shortens the term and skips the interest those months would have carried.';
+  document.title=money(m)+'/mo loan payment - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_loan',JSON.stringify({p:P.value,r:R.value,y:Y.value}));}catch(e){}}
+[P,R,Y].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['p',P],['r',R],['y',Y]].forEach(function(a){var x=qs(a[0]);if(x!==null){a[1].value=x;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_loan')||'null');if(mem){P.value=mem.p||'';R.value=mem.r||'';Y.value=mem.y||'';}}catch(e){}}
+calc();
+document.getElementById('ln-share').addEventListener('click',function(){
+  var txt='Loan payment: '+OUT.textContent+'/mo ('+document.getElementById('ln-int').textContent+' total interest). Run your numbers (no sign-up):';
+  var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'');
+  if(navigator.share){navigator.share({title:'Loan payment',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this payment';},1500);}
+});
+})();
+</script>
+"""
+
+# VAT add/remove with quick country rates. The "divide, not subtract" teaching note is the differentiator.
+# Retention hooks: title result hook, tt_vat input memory, URL state (?m=&a=&r=), Web Share.
+VATCALC = """<div class="tool" id="tt-vat">
+  <div class="fields">
+    <div class="field"><label for="vat-m">Mode</label><select id="vat-m"><option value="add">Add VAT (net to gross)</option><option value="rem">Remove VAT (gross to net)</option></select></div>
+    <div class="field"><label for="vat-a">Amount</label><input type="number" id="vat-a" step="any" min="0" placeholder="100"></div>
+    <div class="field"><label for="vat-r">VAT rate %</label><input type="number" id="vat-r" step="any" min="0" max="40" placeholder="20"></div>
+    <div class="field"><label for="vat-p">Quick rates</label><select id="vat-p"><option value="">Choose a rate…</option><option value="20">UK standard 20%</option><option value="5">UK reduced 5%</option><option value="19">Germany 19%</option><option value="21">Netherlands / Spain 21%</option><option value="22">Italy 22%</option><option value="23">Ireland 23%</option><option value="10">Common reduced 10%</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="vat-out">–</span><span class="result-unit" id="vat-u">incl. VAT</span></div>
+  <div class="stats">
+    <div class="stat"><b id="vat-net">–</b><span>net (ex VAT)</span></div>
+    <div class="stat"><b id="vat-amt">–</b><span>VAT amount</span></div>
+    <div class="stat"><b id="vat-gr">–</b><span>gross (incl VAT)</span></div>
+  </div>
+  <div class="tool-note" id="vat-note"></div>
+  <button type="button" class="tool-btn" id="vat-share">Share this breakdown</button>
+</div>
+<script>(function(){
+var M=document.getElementById('vat-m'),A=document.getElementById('vat-a'),R=document.getElementById('vat-r'),PR=document.getElementById('vat-p');
+var OUT=document.getElementById('vat-out'),U=document.getElementById('vat-u');
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var a=parseFloat(A.value),r=(parseFloat(R.value)||0)/100;
+  if(!(a>0)||r<0){OUT.textContent='–';U.textContent='';
+    document.getElementById('vat-net').textContent='–';document.getElementById('vat-amt').textContent='–';
+    document.getElementById('vat-gr').textContent='–';document.getElementById('vat-note').textContent='';
+    document.title='VAT Calculator - ToolTide';return;}
+  var net,gross;
+  if(M.value==='add'){net=a;gross=a*(1+r);}else{gross=a;net=a/(1+r);}
+  var amt=gross-net;
+  OUT.textContent=money(M.value==='add'?gross:net);
+  U.textContent=M.value==='add'?'incl. VAT':'net of VAT';
+  document.getElementById('vat-net').textContent=money(net);
+  document.getElementById('vat-amt').textContent=money(amt);
+  document.getElementById('vat-gr').textContent=money(gross);
+  var rt=Math.round(r*100);
+  document.getElementById('vat-note').textContent=M.value==='add'
+    ?'Adding '+rt+'% VAT: '+money(net)+' x '+(1+r).toFixed(r>0?4:0)+' = '+money(gross)+'.'
+    :'Removing '+rt+'% VAT: '+money(gross)+' / '+(1+r).toFixed(r>0?4:0)+' = '+money(net)+'. Divide - never subtract '+rt+'%, because the gross already carries the tax.';
+  document.title=money(M.value==='add'?gross:net)+(M.value==='add'?' incl. VAT':' ex VAT')+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_vat',JSON.stringify({m:M.value,a:A.value,r:R.value}));}catch(e){}}
+[M,A,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+PR.addEventListener('change',function(){if(PR.value!==''){R.value=PR.value;calc();save();}});
+var pre=false;
+[['m',M],['a',A],['r',R]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_vat')||'null');if(mem){M.value=mem.m||'add';A.value=mem.a||'';R.value=mem.r||'';}}catch(e){}}
+calc();
+document.getElementById('vat-share').addEventListener('click',function(){
+  var txt='VAT breakdown: net '+document.getElementById('vat-net').textContent+' + VAT '+document.getElementById('vat-amt').textContent+' = gross '+document.getElementById('vat-gr').textContent+'. Run yours (no sign-up):';
+  var url=location.origin+location.pathname+'?m='+M.value+'&a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'');
+  if(navigator.share){navigator.share({title:'VAT breakdown',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this breakdown';},1500);}
+});
+})();
+</script>
+"""
+
+# Fraction arithmetic with exact simplified, mixed and decimal outputs plus a worked LCD line.
+# Retention hooks: title result hook, tt_frac input memory, URL state (?a=&b=&c=&d=&op=), Web Share.
+FRACTION = """<div class="tool" id="tt-fr">
+  <div class="fields">
+    <div class="field"><label for="fr-a">Numerator 1</label><input type="number" id="fr-a" step="1" placeholder="3"></div>
+    <div class="field"><label for="fr-b">Denominator 1</label><input type="number" id="fr-b" step="1" placeholder="4"></div>
+    <div class="field"><label for="fr-op">Operation</label><select id="fr-op"><option value="+">+ add</option><option value="-">− subtract</option><option value="*">× multiply</option><option value="/">÷ divide</option></select></div>
+    <div class="field"><label for="fr-c">Numerator 2</label><input type="number" id="fr-c" step="1" placeholder="5"></div>
+    <div class="field"><label for="fr-d">Denominator 2</label><input type="number" id="fr-d" step="1" placeholder="6"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fr-out">–</span><span class="result-unit">exact answer</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fr-mix">–</b><span>as a mixed number</span></div>
+    <div class="stat"><b id="fr-dec">–</b><span>as a decimal</span></div>
+    <div class="stat"><b id="fr-lcd">–</b><span>common denominator used</span></div>
+  </div>
+  <div class="tool-note" id="fr-note"></div>
+  <button type="button" class="tool-btn" id="fr-share">Share this result</button>
+</div>
+<script>(function(){
+var A=document.getElementById('fr-a'),B=document.getElementById('fr-b'),C=document.getElementById('fr-c'),D=document.getElementById('fr-d'),OP=document.getElementById('fr-op');
+var OUT=document.getElementById('fr-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function gcd(x,y){x=Math.abs(x);y=Math.abs(y);while(y){var t=x%y;x=y;y=t;}return x||1;}
+function mixed(n,d){
+  var s=n<0?'−':'',an=Math.abs(n),w=Math.floor(an/d),r2=an%d;
+  if(r2===0)return s+w;
+  if(w===0)return s+r2+'/'+d;
+  return s+w+' '+r2+'/'+d;
+}
+function calc(){
+  var a=parseInt(A.value,10),b=parseInt(B.value,10),c=parseInt(C.value,10),d=parseInt(D.value,10),op=OP.value;
+  if([a,b,c,d].some(isNaN)||!b||!d||(op==='/'&&!c)){OUT.textContent='–';
+    document.getElementById('fr-mix').textContent='–';document.getElementById('fr-dec').textContent='–';
+    document.getElementById('fr-lcd').textContent='–';document.getElementById('fr-note').textContent='Enter whole numbers - a denominator (or the fraction you divide by) cannot be zero.';
+    document.title='Fraction Calculator - ToolTide';return;}
+  var n,dd,lcdUsed=null;
+  if(op==='+'||op==='-'){
+    var l=b*d/gcd(b,d);
+    var x=a*(l/b),y=c*(l/d);
+    n=op==='+'?x+y:x-y;dd=l;
+    lcdUsed=l;
+  }else if(op==='*'){n=a*c;dd=b*d;}
+  else{n=a*d;dd=b*c;}
+  var g=gcd(n,dd);n/=g;dd/=g;
+  if(dd<0){n=-n;dd=-dd;}
+  OUT.textContent=n+'/'+dd;
+  document.getElementById('fr-mix').textContent=mixed(n,dd);
+  document.getElementById('fr-dec').textContent=(Math.round(n/dd*1e6)/1e6).toString();
+  document.getElementById('fr-lcd').textContent=lcdUsed===null?'—':lcdUsed;
+  var sym=op==='+'?'+':(op==='-'?'−':(op==='*'?'×':'÷'));
+  var note=a+'/'+b+' '+sym+' '+c+'/'+d+' = ';
+  if(lcdUsed){note+=a*(lcdUsed/b)+'/'+lcdUsed+' '+sym+' '+c*(lcdUsed/d)+'/'+lcdUsed+' = ';}
+  if(op==='/'){note+='flip and multiply: '+a+'/'+b+' × '+d+'/'+c+' = ';}
+  note+=OUT.textContent+(g>1?' (divided by '+g+')':'');
+  document.getElementById('fr-note').textContent=note;
+  document.title=OUT.textContent+' = '+document.getElementById('fr-dec').textContent+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_frac',JSON.stringify({a:A.value,b:B.value,c:C.value,d:D.value,op:OP.value}));}catch(e){}}
+[A,B,C,D].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+OP.addEventListener('change',function(){calc();save();});
+var pre=false;
+[['a',A],['b',B],['c',C],['d',D],['op',OP]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_frac')||'null');if(mem){A.value=mem.a||'';B.value=mem.b||'';C.value=mem.c||'';D.value=mem.d||'';OP.value=mem.op||'+';}}catch(e){}}
+calc();
+document.getElementById('fr-share').addEventListener('click',function(){
+  var txt=document.getElementById('fr-note').textContent+'. Solve yours step by step (no sign-up):';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&b='+encodeURIComponent(B.value||'')+'&c='+encodeURIComponent(C.value||'')+'&d='+encodeURIComponent(D.value||'')+'&op='+encodeURIComponent(OP.value);
+  if(navigator.share){navigator.share({title:'Fraction result',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this result';},1500);}
+});
+})();
+</script>
+"""
+
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -4579,6 +4770,9 @@ TOOLS = {
     "fuelcost": lambda args: FUELCOST,
     "commission": lambda args: COMMISSION,
     "airfryer": lambda args: AIRFRYER,
+    "loanpay": lambda args: LOANPAY,
+    "vatcalc": lambda args: VATCALC,
+    "fraction": lambda args: FRACTION,
 }
 
 
