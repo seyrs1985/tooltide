@@ -3303,6 +3303,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "cgpa-to-percentage",
+        "title": "CGPA to Percentage Calculator — 10-Point Scale, Both Directions",
+        "h1": "CGPA to Percentage Calculator",
+        "desc": "Convert CGPA to percentage (×9.5, the CBSE formula) or percentage back to CGPA — with typical class bands and a certificate caveat. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "cgpa to percentage",
+        "tool": "cgpa",
+        "args": {},
+        "intro": [
+            "Indian application forms ask for percentages; transcripts report CGPA out of 10. The standard bridge is the CBSE formula — percentage = CGPA × 9.5 — and this converter runs it in both directions: enter your CGPA for the percentage, or your percentage for the CGPA equivalent, with the typical class band (first class, distinction territory) shown alongside so you know how the number reads.",
+            "The caveat matters enough to print on the tool itself: some universities use factors from 9.0 to 10.0, and a few issue their own conversion certificates. Treat the ×9.5 result as the widely-accepted default, check your institution's rule before writing it on a form, and use the share button to send the exact conversion to whoever asked for it.",
+        ],
+        "howto": [
+            "Pick the direction — CGPA → percentage, or percentage → CGPA.",
+            "Enter your value: 8.6 CGPA becomes 81.7%, and 82% becomes 8.63 CGPA.",
+            "Check the class band, then share the result with one tap for application forms.",
+        ],
+        "faqs": [
+            ("How do you convert CGPA to percentage?",
+             "Multiply by 9.5 — the official CBSE conversion, so an 8.6 CGPA is 81.7%. The formula exists because CBSE computed the average ratio between marks and CGPA across its datasets and published the factor; most Indian universities accept it as the default bridge."),
+            ("How do I convert percentage to CGPA?",
+             "Divide by 9.5: 82% ÷ 9.5 ≈ 8.63 CGPA. The second mode of this calculator does the reverse conversion, useful when a form asks for CGPA on a 10-point scale but your marksheet only shows percentages."),
+            ("Do all universities use the 9.5 factor?",
+             "No — factors range from 9.0 to 10.0 and some institutions publish their own equivalence certificates. The 9.5 multiplier is the safe default for applications that don't specify; when a university states its own formula, theirs wins."),
+            ("Is 8.0 CGPA a good score?",
+             "8.0 CGPA converts to 76% — comfortably first-class and above the common 75% distinction line at many institutions. For competitive programs the cut-offs run higher, which is why the class band next to the result is worth a glance before you quote the number."),
+        ],
+    })
+
+    pages.append({
+        "slug": "caffeine-calculator",
+        "title": "Caffeine Calculator — Daily Total vs the 400 mg Guideline",
+        "h1": "Caffeine Calculator",
+        "desc": "Count your day's caffeine from coffee, tea, cola and energy drinks — see the total against the 400 mg adult guideline and the last safe cup time before bed. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "caffeine calculator",
+        "tool": "caffeine",
+        "args": {},
+        "intro": [
+            "Caffeine sneaks up in sums: two filter coffees, an afternoon cola and a pre-workout energy drink land you at 284 mg before anything with a shot count. This calculator lists the nine most common sources with their typical milligrams — pick how many of each you've had and the total appears against the 400 mg daily guideline for healthy adults.",
+            "The second stat answers the sleep question: caffeine's half-life is roughly 5-6 hours, so the tool prints a last-safe-cup time for an 11 PM bedtime. The countdown logic pairs naturally with the sleep cycle calculator — and because the page remembers your usual picks, tomorrow's tally is two taps instead of a memory test.",
+        ],
+        "howto": [
+            "Select how many of each drink you've had today — the total updates against the 400 mg guideline.",
+            "Check the cutoff stat for the last cup that won't fight your 11 PM bedtime.",
+            "Share the tally with one tap, or bookmark it — the page remembers your picks.",
+        ],
+        "faqs": [
+            ("How much caffeine is safe per day?",
+             "Up to 400 mg daily is the guideline for healthy adults — about four filter coffees — and single doses stay under 200 mg. Pregnancy, some medications and heart conditions lower the ceiling substantially; the calculator's remaining-total stat assumes the standard 400 mg."),
+            ("How long does caffeine stay in your system?",
+             "Half-life averages 5-6 hours: 100 mg at 4 PM leaves about 50 mg at 10 PM and 25 mg at 4 AM. That residual is enough to lighten sleep even when you fall asleep normally, which is why the cutoff stat works backwards from bedtime."),
+            ("How much caffeine is in a cup of coffee?",
+             "A filter or drip cup runs ~95 mg, an espresso shot ~63 mg, instant ~66 mg, black tea ~47 mg, green tea ~28 mg, cola ~34 mg per 330 ml, and a 250 ml energy drink ~80 mg. Actual figures vary by bean, brew and brand — the calculator uses these widely-cited averages."),
+            ("Does decaf or matcha count?",
+             "Decaf is not zero — about 7 mg per cup, worth counting if you drink several. Matcha and green tea carry meaningful caffeine with a slower ramp from L-theanine; the calculator includes both so tea drinkers get an honest total too."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

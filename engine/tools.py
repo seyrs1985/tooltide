@@ -3072,6 +3072,111 @@ document.getElementById('si-share').addEventListener('click',function(){
 </script>
 """
 
+# CGPA <-> percentage (Indian 10-point scale, CBSE 9.5 factor), bidirectional with a table.
+# Retention hooks: title result hook, tt_cgpa input memory, URL state (?v=&d=), Web Share.
+CGPA = """<div class="tool" id="tt-cg">
+  <div class="fields">
+    <div class="field"><label for="cg-d">Direction</label><select id="cg-d"><option value="c2p">CGPA → Percentage</option><option value="p2c">Percentage → CGPA</option></select></div>
+    <div class="field"><label for="cg-v">Value (CGPA out of 10, or %)</label><input type="number" id="cg-v" step="any" min="0" max="100" placeholder="8.6"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cg-out">–</span><span class="result-unit" id="cg-unit">percentage</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cg-class">–</b><span>typical class</span></div>
+    <div class="stat"><b id="cg-other">–</b><span>other direction</span></div>
+  </div>
+  <div class="tool-note" id="cg-note"></div>
+  <button type="button" class="tool-btn" id="cg-share">Share the result</button>
+</div>
+<script>(function(){
+var D=document.getElementById('cg-d'),V=document.getElementById('cg-v');
+var OUT=document.getElementById('cg-out'),UNIT=document.getElementById('cg-unit');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var v=parseFloat(V.value),d=D.value;
+  if(isNaN(v)){OUT.textContent='–';UNIT.textContent=d==='c2p'?'percentage':'CGPA (10-point)';document.getElementById('cg-class').textContent='–';document.getElementById('cg-other').textContent='–';document.getElementById('cg-note').textContent='';document.title='CGPA to Percentage - ToolTide';return;}
+  var pct,cg;
+  if(d==='c2p'){cg=v;pct=v*9.5;}else{pct=v;cg=v/9.5;}
+  OUT.textContent=d==='c2p'?Math.round(pct*100)/100+'%':Math.round(cg*100)/100;
+  UNIT.textContent=d==='c2p'?'percentage':'CGPA (10-point)';
+  var cls='—';
+  if(pct>=75)cls='Distinction territory';
+  else if(pct>=60)cls='First class';
+  else if(pct>=50)cls='Second class';
+  document.getElementById('cg-class').textContent=cls;
+  document.getElementById('cg-other').textContent=d==='c2p'?Math.round(v/9.5*100)/100:Math.round(v*9.5*100)/100+'%';
+  document.getElementById('cg-note').textContent='CBSE formula: percentage = CGPA × 9.5. Some universities use different factors (9.0-10.0) or letter tables - always check your institution\\'s certificate before quoting a converted number on a form.';
+  document.title=d==='c2p'?Math.round(pct*100)/100+'% from CGPA - ToolTide':'CGPA '+Math.round(cg*100)/100+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_cgpa',JSON.stringify({d:D.value,v:V.value}));}catch(e){}}
+[D,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+D.addEventListener('change',function(){V.placeholder=D.value==='c2p'?'8.6':'82';calc();save();});
+var pre=false;
+[['v',V],['d',D]].forEach(function(a){var x=qs(a[0]);if(x!==null){a[1].value=x;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_cgpa')||'null');if(mem){D.value=mem.d||'c2p';V.value=mem.v||'';}}catch(e){}}
+calc();
+document.getElementById('cg-share').addEventListener('click',function(){
+  var txt='CGPA '+V.value+' converts to '+OUT.textContent+' ('+UNIT.textContent+'). Convert yours (no sign-up):';
+  var url=location.origin+location.pathname+'?d='+D.value+'&v='+encodeURIComponent(V.value||'');
+  if(navigator.share){navigator.share({title:'CGPA conversion',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the result';},1500);}
+});
+})();
+</script>
+"""
+
+# Caffeine tracker: common drinks -> daily total vs the 400 mg adult guideline and a cutoff time.
+# Retention hooks: title result hook, tt_caffeine input memory, URL state (?drinks=), Web Share.
+CAFFEINE = """<div class="tool" id="tt-caf">
+  <div id="caf-rows"></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="caf-out">–</span><span class="result-unit">mg caffeine today</span></div>
+  <div class="stats">
+    <div class="stat"><b id="caf-left">–</b><span>of 400 mg guideline</span></div>
+    <div class="stat"><b id="caf-cutoff">–</b><span>last safe cup by</span></div>
+  </div>
+  <div class="tool-note">Half-life is about 5-6 hours: a 4 PM double shot still holds ~100 mg at 10 PM. Sensitive people, pregnancy and some medications lower the safe ceiling - treat 400 mg as the healthy-adult maximum, not a target.</div>
+  <button type="button" class="tool-btn" id="caf-share">Share my total</button>
+</div>
+<script>(function(){
+var DR=[['Filter coffee',95],['Espresso',63],['Instant coffee',66],['Black tea',47],['Green tea',28],['Cola (330 ml)',34],['Energy drink (250 ml)',80],['Matcha latte',70],['Decaf coffee',7]];
+var box=document.getElementById('caf-rows');
+DR.forEach(function(d,i){
+  var f=document.createElement('div');f.className='fields';
+  f.innerHTML='<div class="field"><label>'+d[0]+' ('+d[1]+' mg each)</label><select class="caf-n" data-mg="'+d[1]+'">'+
+    [0,1,2,3,4,5].map(function(n){return '<option value="'+n+'"'+(n===0?' selected':'')+'>'+n+'</option>';}).join('')+'</select></div>';
+  box.appendChild(f);
+});
+function sel(){return box.querySelectorAll('.caf-n');}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var s=sel(),mg=0;
+  for(var i=0;i<s.length;i++){mg+=(parseInt(s[i].value,10)||0)*parseInt(s[i].getAttribute('data-mg'),10);}
+  OUT.textContent=mg;
+  document.getElementById('caf-left').textContent=Math.max(0,400-mg)+' mg';
+  var now=new Date(),cutoff=new Date(now.getTime()+(0));
+  var bed=new Date(now.getFullYear(),now.getMonth(),now.getDate(),23,0,0);
+  var last=new Date(bed.getTime()-6*3600*1000);
+  var hh=last.getHours(),mm=last.getMinutes(),ap=hh<12?'AM':'PM',h12=hh%12;if(h12===0)h12=12;
+  document.getElementById('caf-cutoff').textContent=h12+':'+(mm<10?'0':'')+mm+' '+ap+' (for an 11 PM bedtime)';
+  document.title=mg+' mg caffeine - ToolTide';
+}
+function save(){var s=sel(),a=[];for(var i=0;i<s.length;i++)a.push(s[i].value);
+  try{localStorage.setItem('tt_caffeine',JSON.stringify(a));}catch(e){}}
+function fill(a){var s=sel();for(var i=0;i<s.length;i++)s[i].value=(a&&a[i])||'0';calc();}
+box.addEventListener('change',function(){calc();save();});
+try{var mem=JSON.parse(localStorage.getItem('tt_caffeine')||'null');if(mem)fill(mem);}catch(e){}
+var qsV=qs('drinks');if(qsV)fill(qsV.split(','));
+calc();
+document.getElementById('caf-share').addEventListener('click',function(){
+  var txt='My caffeine today: '+OUT.textContent+' mg. Track yours (no sign-up):';
+  var s=sel(),a=[];for(var i=0;i<s.length;i++)a.push(s[i].value);
+  var url=location.origin+location.pathname+'?drinks='+a.join(',');
+  if(navigator.share){navigator.share({title:'Caffeine total',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my total';},1500);}
+});
+})();
+</script>
+"""
+
 # Body fat percentage (US Navy circumference method), male and female formulas.
 # Retention hooks: title result hook, tt_bodyfat input memory, URL state (?s=&h=&n=&w=&hp=), Web Share.
 BODYFAT = """<div class="tool" id="tt-bf">
@@ -4078,6 +4183,8 @@ TOOLS = {
     "electricity": lambda args: ELECTRIC,
     "bodyfat": lambda args: BODYFAT,
     "oven": lambda args: OVEN,
+    "cgpa": lambda args: CGPA,
+    "caffeine": lambda args: CAFFEINE,
 }
 
 
