@@ -8547,6 +8547,155 @@ document.getElementById('du-share').addEventListener('click',function(){
 </script>
 """
 
+FLIGHTDELAY = """<div class="tool" id="tt-fd">
+  <div class="fields">
+    <div class="field"><label for="fd-k">Flight distance (km)</label><input type="number" id="fd-k" min="0" max="20000" step="50" placeholder="1800"></div>
+    <div class="field"><label for="fd-h">Arrival delay (hours)</label><input type="number" id="fd-h" min="0" max="72" step="0.5" placeholder="5"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fd-out">–</span><span class="result-unit">fixed compensation</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fd-s1">–</b><span>distance band</span></div>
+    <div class="stat"><b id="fd-s2">–</b><span>threshold</span></div>
+    <div class="stat"><b id="fd-s3">–</b><span>also claimable</span></div>
+  </div>
+  <div class="tool-note" id="fd-note"></div>
+  <button type="button" class="tool-btn" id="fd-share">Share this result</button>
+</div>
+<script>(function(){
+var K=document.getElementById('fd-k'),H=document.getElementById('fd-h');
+var OUT=document.getElementById('fd-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var k=parseFloat(K.value),h=parseFloat(H.value);
+  if(!(k>=0&&k<=20000&&h>=0&&h<=72)){OUT.textContent='–';['fd-s1','fd-s2','fd-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('fd-note').textContent='';document.title='Flight Delay Compensation Calculator - ToolTide';return;}
+  var band=k<=1500?'short':(k<=3500?'medium':'long');
+  var amt=0,why='';
+  if(h<3){amt=0;why='Under 3 hours of arrival delay there is no fixed compensation - but the airline still owes care: meals, and a hotel if the delay runs overnight.';}
+  else if(band==='short'){amt=250;why='Flights up to 1,500 km pay a flat 250 for a 3-hour-plus arrival delay.';}
+  else if(band==='medium'){amt=400;why='EU-internal flights over 1,500 km and other 1,500-3,500 km flights pay 400.';}
+  else {amt=(h<4)?300:600;why='Long-haul over 3,500 km pays 600 - halved to 300 when the arrival delay stays under 4 hours.';}
+  OUT.textContent=amt>0?amt:0;
+  document.getElementById('fd-s1').textContent=band==='short'?'up to 1,500 km':(band==='medium'?'1,500-3,500 km':'over 3,500 km');
+  document.getElementById('fd-s2').textContent=h<3?'no fixed claim':(h<4?'3-4 h band':'4 h+ band');
+  document.getElementById('fd-s3').textContent='receipts + reroute';
+  document.getElementById('fd-note').textContent=why+' Two fine points: the clock is arrival delay at the final destination, not departure - a 2-hour late takeoff that lands 3:15 late still qualifies. And extraordinary circumstances (severe weather, air-traffic control strikes) can excuse the airline from the fixed sum, but never from the duty of care. Keep boarding passes and receipts: meals, hotels, taxis and rebooking costs are claimable on top regardless. Claims stay open for years - six in England and Wales - and no-woo legal firms typically take a cut you can keep by claiming direct with the airline first.';
+  document.title=(amt>0?amt+' fixed compensation':'No fixed claim')+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_flightdelay',JSON.stringify({k:K.value,h:H.value}));}catch(e){}}
+[K,H].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['k',K],['h',H]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_flightdelay')||'null');if(mem){K.value=mem.k||'';H.value=mem.h||'';}}catch(e){}}
+calc();
+document.getElementById('fd-share').addEventListener('click',function(){
+  var txt='Delay of '+H.value+' h on a '+K.value+' km flight = fixed compensation '+OUT.textContent+'. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?k='+K.value+'&h='+H.value;
+  if(navigator.share){navigator.share({title:'Flight delay compensation',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this result';},1500);}
+});
+})();
+</script>
+"""
+
+SUBS = """<div class="tool" id="tt-sub">
+  <div class="fields">
+    <div class="field"><label for="su-p1">Subscription 1: price</label><input type="number" id="su-p1" min="0" step="0.01" placeholder="12.99"></div>
+    <div class="field"><label for="su-f1">billed</label><select id="su-f1"><option value="m" selected>monthly</option><option value="q">quarterly</option><option value="y">yearly</option></select></div>
+    <div class="field"><label for="su-p2">Subscription 2: price</label><input type="number" id="su-p2" min="0" step="0.01" placeholder="8.99"></div>
+    <div class="field"><label for="su-f2">billed</label><select id="su-f2"><option value="m" selected>monthly</option><option value="q">quarterly</option><option value="y">yearly</option></select></div>
+    <div class="field"><label for="su-p3">Subscription 3: price</label><input type="number" id="su-p3" min="0" step="0.01" placeholder="5.99"></div>
+    <div class="field"><label for="su-f3">billed</label><select id="su-f3"><option value="m" selected>monthly</option><option value="q">quarterly</option><option value="y">yearly</option></select></div>
+    <div class="field"><label for="su-p4">Subscription 4: price</label><input type="number" id="su-p4" min="0" step="0.01" placeholder="59.99"></div>
+    <div class="field"><label for="su-f4">billed</label><select id="su-f4"><option value="m">monthly</option><option value="q">quarterly</option><option value="y" selected>yearly</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="su-out">–</span><span class="result-unit">per year, all subscriptions</span></div>
+  <div class="stats">
+    <div class="stat"><b id="su-s1">–</b><span>per month</span></div>
+    <div class="stat"><b id="su-s2">–</b><span>biggest cost</span></div>
+    <div class="stat"><b id="su-s3">–</b><span>cut biggest, save</span></div>
+  </div>
+  <div class="tool-note" id="su-note"></div>
+  <button type="button" class="tool-btn" id="su-share">Share this audit</button>
+</div>
+<script>(function(){
+var F=['su-p1','su-f1','su-p2','su-f2','su-p3','su-f3','su-p4','su-f4'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('su-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function mon(p,f){return f==='m'?p:(f==='q'?p/3:p/12);}
+function calc(){
+  var t=0,big=0,bigIdx=-1;
+  for(var i=0;i<4;i++){var p=parseFloat(F[i*2].value)||0;var m=mon(p,F[i*2+1].value);t+=m;if(m>big){big=m;bigIdx=i;}}
+  OUT.textContent=(t*12).toFixed(0);
+  document.getElementById('su-s1').textContent=t.toFixed(2);
+  document.getElementById('su-s2').textContent=big>0?big.toFixed(2)+'/mo':(bigIdx+1);
+  document.getElementById('su-s3').textContent=(big*12).toFixed(0)+'/yr';
+  document.getElementById('su-note').textContent='The yearly figure is the honest one: monthly pricing hides that 12.99 a month is 155.88 a year. Annual billing on anything you kept all last year typically cuts 15-20%, and pausing beats cancelling for seasonal services - many streaming plans now hold your list for 1-3 months. The audit rule: if you cannot remember opening it last month, that line is the cut.';
+  document.title=(t*12).toFixed(0)+' a year on subscriptions - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_subs',JSON.stringify({p1:F[0].value,f1:F[1].value,p2:F[2].value,f2:F[3].value,p3:F[4].value,f3:F[5].value,p4:F[6].value,f4:F[7].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['p1','f1','p2','f2','p3','f3','p4','f4'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_subs')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('su-share').addEventListener('click',function(){
+  var txt=OUT.textContent+' a year on subscriptions. Audit yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Subscription audit',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this audit';},1500);}
+});
+})();
+</script>
+"""
+
+SILVERVAL = """<div class="tool" id="tt-sv">
+  <div class="fields">
+    <div class="field"><label for="sv-w">Silver weight (g)</label><input type="number" id="sv-w" min="0.1" step="0.1" placeholder="100"></div>
+    <div class="field"><label for="sv-p">Purity</label><select id="sv-p"><option value="0.999" selected>Fine silver 999</option><option value="0.925">Sterling 925</option><option value="0.800">Continental 800</option></select></div>
+    <div class="field"><label for="sv-s">Spot price ($ per troy oz)</label><input type="number" id="sv-s" min="1" step="0.01" placeholder="30"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sv-out">–</span><span class="result-unit">melt value</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sv-s1">–</b><span>fine silver content</span></div>
+    <div class="stat"><b id="sv-s2">–</b><span>per gram</span></div>
+    <div class="stat"><b id="sv-s3">–</b><span>typical dealer offer</span></div>
+  </div>
+  <div class="tool-note" id="sv-note"></div>
+  <button type="button" class="tool-btn" id="sv-share">Share this value</button>
+</div>
+<script>(function(){
+var F=['sv-w','sv-p','sv-s'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('sv-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(F[0].value),p=parseFloat(F[1].value),s=parseFloat(F[2].value);
+  var ok=w>0&&p>0&&s>0;
+  if(!ok){OUT.textContent='–';['sv-s1','sv-s2','sv-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sv-note').textContent='';document.title='Silver Value Calculator - ToolTide';return;}
+  var fine=w*p;
+  var val=fine*s/31.1035;
+  OUT.textContent=val.toFixed(2);
+  document.getElementById('sv-s1').textContent=fine.toFixed(1)+' g';
+  document.getElementById('sv-s2').textContent=(p*s/31.1035).toFixed(2);
+  document.getElementById('sv-s3').textContent=(val*0.88).toFixed(2);
+  document.getElementById('sv-note').textContent='Melt value is the floor, not the quote: dealers pay 85-95% of spot for scrap, so weigh offers against the 88% mid-figure shown. hallmarks first - 925 stamped sterling and 999 bullion price cleanly, while unmarked plate and silver-plated ware are worth roughly nothing by weight. A troy ounce is 31.1035 g, the unit every spot price quotes. Coins and antique pieces can carry collector value above melt: check sold listings on two marketplaces before melting anything with a date, portrait or maker mark.';
+  document.title=val.toFixed(0)+' silver melt value - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_silver',JSON.stringify({w:F[0].value,p:F[1].value,s:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['w',F[0]],['p',F[1]],['s',F[2]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_silver')||'null');if(mem){F[0].value=mem.w||'';F[1].value=mem.p||'0.999';F[2].value=mem.s||'';}}catch(e){}}
+calc();
+document.getElementById('sv-share').addEventListener('click',function(){
+  var txt=F[0].value+' g of silver = '+OUT.textContent+' melt value. Value yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?w='+F[0].value+'&p='+F[1].value+'&s='+F[2].value;
+  if(navigator.share){navigator.share({title:'Silver value',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this value';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -8706,6 +8855,9 @@ TOOLS = {
     "protein": lambda args: PROTEIN,
     "creatine": lambda args: CREATINE,
     "datausage": lambda args: DATAUSAGE,
+    "flightdelay": lambda args: FLIGHTDELAY,
+    "subs": lambda args: SUBS,
+    "silverval": lambda args: SILVERVAL,
 }
 
 
