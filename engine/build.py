@@ -45,6 +45,7 @@ TOOL_EMOJI = {
  "rent": "🏘️", "savings": "🐷", "simpleint": "💹", "sleepcycle": "😴",
  "slopecalc": "⛰️", "stddev": "🔔", "stopwatch": "🕰️", "striphtml": "🧼", "tdee": "🍽️",
  "teamgen": "👥", "tilecalc": "🔲", "timecard": "🕘", "tipsplit": "💸",
+ "stockavg": "📉", "possize": "🛡️", "lotto": "🎰",
  "tzconvert": "🌐", "upside": "🙃", "urlcod": "🔣", "vatcalc": "🇪🇺",
  "water": "💧", "weeknum": "🗓️", "windchill": "🥶",
 }

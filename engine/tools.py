@@ -6366,6 +6366,188 @@ document.getElementById('sw-share').addEventListener('click',function(){
 </script>
 """
 
+# Stock average down: blended cost basis after adding shares at a new price.
+# Retention hooks: title result hook, tt_stockavg input memory, URL state (?e=&ep=&n=&np=), Web Share.
+STOCKAVG = """<div class="tool" id="tt-sa">
+  <div class="fields">
+    <div class="field"><label for="sa-e">Shares you already own</label><input type="number" id="sa-e" step="any" min="0" placeholder="100"></div>
+    <div class="field"><label for="sa-ep">Your average buy price ($)</label><input type="number" id="sa-ep" step="any" min="0" placeholder="50"></div>
+    <div class="field"><label for="sa-n">New shares to buy</label><input type="number" id="sa-n" step="any" min="0" placeholder="100"></div>
+    <div class="field"><label for="sa-np">New buy price ($)</label><input type="number" id="sa-np" step="any" min="0" placeholder="35"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sa-out">–</span><span class="result-unit">new average cost</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sa-sh">–</b><span>total shares</span></div>
+    <div class="stat"><b id="sa-inv">–</b><span>total invested</span></div>
+    <div class="stat"><b id="sa-dr">–</b><span>average lowered by</span></div>
+  </div>
+  <div class="tool-note" id="sa-note"></div>
+  <button type="button" class="tool-btn" id="sa-share">Share this cost basis</button>
+</div>
+<script>(function(){
+var E=document.getElementById('sa-e'),EP=document.getElementById('sa-ep'),N=document.getElementById('sa-n'),NP=document.getElementById('sa-np');
+var OUT=document.getElementById('sa-out');
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var e=parseFloat(E.value),ep=parseFloat(EP.value),n=parseFloat(N.value),np=parseFloat(NP.value);
+  if(!(e>0)||!(ep>0)||!(n>0)||!(np>0)){OUT.textContent='–';
+    ['sa-sh','sa-inv','sa-dr'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('sa-note').textContent='';document.title='Stock Average Calculator - ToolTide';return;}
+  var tc=e+n,inv=e*ep+n*np,avg=inv/tc;
+  OUT.textContent=money(avg);
+  document.getElementById('sa-sh').textContent=tc.toLocaleString('en-US');
+  document.getElementById('sa-inv').textContent=money(inv);
+  document.getElementById('sa-dr').textContent=ep>avg?((ep-avg)/ep*100).toFixed(1)+'%':'0%';
+  var br=ep>avg?'Break-even is now '+money(avg)+' - the stock no longer has to recover to '+money(ep)+' for you to be whole.':
+    'The new buy is above your existing average, so the blend moved up to '+money(avg)+'.';
+  document.getElementById('sa-note').textContent=tc.toLocaleString('en-US')+' shares at '+money(avg)+' average = '+money(inv)+' invested. '+br+' Averaging down only pays if the thesis holds - it lowers the bar, it does not remove it.';
+  document.title=money(avg)+' avg cost - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_stockavg',JSON.stringify({e:E.value,ep:EP.value,n:N.value,np:NP.value}));}catch(e){}}
+[E,EP,N,NP].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['e',E],['ep',EP],['n',N],['np',NP]].forEach(function(a){var x=qs(a[0]);if(x!==null){a[1].value=x;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_stockavg')||'null');if(mem){E.value=mem.e||'';EP.value=mem.ep||'';N.value=mem.n||'';NP.value=mem.np||'';}}catch(e){}}
+calc();
+document.getElementById('sa-share').addEventListener('click',function(){
+  var txt='Averaging '+E.value+'@'+money(parseFloat(EP.value))+' with '+N.value+'@'+money(parseFloat(NP.value))+' gives '+OUT.textContent+' average. Run your numbers (no sign-up):';
+  var url=location.origin+location.pathname+'?e='+encodeURIComponent(E.value||'')+'&ep='+encodeURIComponent(EP.value||'')+'&n='+encodeURIComponent(N.value||'')+'&np='+encodeURIComponent(NP.value||'');
+  if(navigator.share){navigator.share({title:'Stock average',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this cost basis';},1500);}
+});
+})();
+</script>
+"""
+
+# Position size: % risk per trade -> shares/units, with stop distance and optional R:R.
+# Retention hooks: title result hook, tt_possize input memory, URL state (?a=&r=&en=&sl=&tg=), Web Share.
+POSSIZE = """<div class="tool" id="tt-ps">
+  <div class="fields">
+    <div class="field"><label for="ps-a">Account size ($)</label><input type="number" id="ps-a" step="any" min="0" placeholder="10000"></div>
+    <div class="field"><label for="ps-r">Risk per trade (%)</label><input type="number" id="ps-r" step="any" min="0" max="100" placeholder="1"></div>
+    <div class="field"><label for="ps-en">Entry price ($)</label><input type="number" id="ps-en" step="any" min="0" placeholder="50"></div>
+    <div class="field"><label for="ps-sl">Stop loss ($)</label><input type="number" id="ps-sl" step="any" min="0" placeholder="47.5"></div>
+    <div class="field"><label for="ps-tg">Target price ($) - optional</label><input type="number" id="ps-tg" step="any" min="0" placeholder="57.5"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ps-out">–</span><span class="result-unit">shares / units</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ps-risk">–</b><span>risk amount</span></div>
+    <div class="stat"><b id="ps-dist">–</b><span>stop distance</span></div>
+    <div class="stat"><b id="ps-val">–</b><span>position value</span></div>
+    <div class="stat"><b id="ps-rr">–</b><span>reward:risk</span></div>
+  </div>
+  <div class="tool-note" id="ps-note"></div>
+  <button type="button" class="tool-btn" id="ps-share">Share this position size</button>
+</div>
+<script>(function(){
+var A=document.getElementById('ps-a'),R=document.getElementById('ps-r'),EN=document.getElementById('ps-en'),SL=document.getElementById('ps-sl'),TG=document.getElementById('ps-tg');
+var OUT=document.getElementById('ps-out');
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var a=parseFloat(A.value),r=parseFloat(R.value),en=parseFloat(EN.value),sl=parseFloat(SL.value),tg=parseFloat(TG.value);
+  if(!(a>0)||!(r>0)||!(en>0)||!(sl>0)||sl===en){OUT.textContent='–';
+    ['ps-risk','ps-dist','ps-val','ps-rr'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('ps-note').textContent='';document.title='Position Size Calculator - ToolTide';return;}
+  var risk=a*r/100,d=Math.abs(en-sl),units=Math.floor(risk/d),val=units*en;
+  OUT.textContent=units.toLocaleString('en-US');
+  document.getElementById('ps-risk').textContent=money(risk);
+  document.getElementById('ps-dist').textContent=(d/en*100).toFixed(2)+'%';
+  document.getElementById('ps-val').textContent=money(val);
+  var rr='–';
+  if(tg>0){var rw=Math.abs(tg-en);rr=(rw/d).toFixed(2)+':1';}
+  document.getElementById('ps-rr').textContent=rr;
+  document.getElementById('ps-note').textContent='Risking '+money(risk)+' ('+r+'% of '+money(a)+') with a '+(d/en*100).toFixed(2)+'% stop allows '+units.toLocaleString('en-US')+' shares ('+money(val)+'). Shares are rounded down so real risk stays at or under '+r+'%. '+(tg>0?'At target '+money(tg)+' that is '+rr+' reward vs risk.':'Add a target price to see reward:risk.');
+  document.title=units.toLocaleString('en-US')+' shares - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_possize',JSON.stringify({a:A.value,r:R.value,en:EN.value,sl:SL.value,tg:TG.value}));}catch(e){}}
+[A,R,EN,SL,TG].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['a',A],['r',R],['en',EN],['sl',SL],['tg',TG]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_possize')||'null');if(mem){A.value=mem.a||'';R.value=mem.r||'';EN.value=mem.en||'';SL.value=mem.sl||'';TG.value=mem.tg||'';}}catch(e){}}
+calc();
+document.getElementById('ps-share').addEventListener('click',function(){
+  var txt='Position size: '+OUT.textContent+' shares for '+document.getElementById('ps-risk').textContent+' risk. Plan your trades (no sign-up):';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'')+'&en='+encodeURIComponent(EN.value||'')+'&sl='+encodeURIComponent(SL.value||'')+'&tg='+encodeURIComponent(TG.value||'');
+  if(navigator.share){navigator.share({title:'Position size',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this position size';},1500);}
+});
+})();
+</script>
+"""
+
+# Lottery odds: exact jackpot combinatorics, per-ticket EV and the break-even jackpot.
+# Retention hooks: title result hook, tt_lotto input memory, URL state (?g=&j=), Web Share.
+LOTTO = """<div class="tool" id="tt-lo">
+  <div class="fields">
+    <div class="field"><label for="lo-g">Game</label><select id="lo-g">
+      <option value="pb">Powerball (5/69 + 1/26)</option>
+      <option value="mm">Mega Millions (5/70 + 1/24)</option>
+      <option value="em">EuroMillions (5/50 + 2/12)</option>
+      <option value="cu">Custom pick numbers</option>
+    </select></div>
+    <div class="field cu-hide"><label for="lo-p">Ticket price ($)</label><input type="number" id="lo-p" step="any" min="0" placeholder="2"></div>
+    <div class="field cu-hide"><label for="lo-j">Jackpot ($)</label><input type="number" id="lo-j" step="any" min="0" placeholder="100000000"></div>
+    <div class="field cu-hide" id="lo-c1"><label for="lo-a">Main numbers picked from</label><input type="number" id="lo-a" step="1" min="5" placeholder="49"></div>
+    <div class="field cu-hide" id="lo-c2"><label for="lo-b">Bonus balls drawn from (2 = xCHOOSE2)</label><input type="number" id="lo-b" step="1" min="1" placeholder="1"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="lo-out">–</span><span class="result-unit">jackpot odds (1 in …)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="lo-ev">–</b><span>jackpot EV per ticket</span></div>
+    <div class="stat"><b id="lo-be">–</b><span>break-even jackpot</span></div>
+    <div class="stat"><b id="lo-any">–</b><span>odds of any prize</span></div>
+  </div>
+  <div class="tool-note" id="lo-note"></div>
+  <button type="button" class="tool-btn" id="lo-share">Share these odds</button>
+</div>
+<script>(function(){
+var G=document.getElementById('lo-g'),P=document.getElementById('lo-p'),J=document.getElementById('lo-j'),A=document.getElementById('lo-a'),B=document.getElementById('lo-b');
+var OUT=document.getElementById('lo-out');
+function C(n,k){var r=1;for(var i=1;i<=k;i++){r=r*(n-k+i)/i;}return r;}
+function money(n){if(n>=1e9)return '$'+(n/1e9).toFixed(2)+'B';if(n>=1e6)return '$'+(n/1e6).toFixed(1)+'M';return '$'+Math.round(n).toLocaleString('en-US');}
+function cfg(){var g=G.value;
+  if(g==='pb')return{a:69,b:26,bd:1,any:'1 in 24.9'};
+  if(g==='mm')return{a:70,b:24,bd:1,any:'1 in 24'};
+  if(g==='em')return{a:50,b:12,bd:2,any:'1 in 13'};
+  return{a:parseFloat(A.value),b:parseFloat(B.value),bd:parseFloat(B.value)>2?2:1,any:'–'};}
+function price(){return G.value==='cu'?parseFloat(P.value):(G.value==='em'?2.5:2);}
+function calc(){
+  var c=cfg(),pr=price(),j=parseFloat(J.value);
+  if(!(c.a>=5)||!(c.b>=1)||!(pr>0)){OUT.textContent='–';
+    ['lo-ev','lo-be','lo-any'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('lo-note').textContent='';document.title='Lottery Odds Calculator - ToolTide';return;}
+  var bonus=c.bd===2?C(c.b,2):c.b;
+  var odds=C(c.a,5)*bonus;
+  OUT.textContent=Math.round(odds).toLocaleString('en-US');
+  var ev=j>0?j/odds:0;
+  document.getElementById('lo-ev').textContent=j>0?money(ev):'–';
+  document.getElementById('lo-be').textContent=money(pr*odds);
+  document.getElementById('lo-any').textContent=c.any;
+  document.getElementById('lo-note').textContent='Jackpot-only expected value is '+money(ev)+' on a '+money(pr)+' ticket - the jackpot would need to hit '+money(pr*odds)+' just to break even on that line. Lower prize tiers add roughly $0.20-0.35 of EV, but taxes (lump sum is about half the headline) and split jackpots cut the rest. Every combination is equally likely - the machine has no memory of your lucky numbers.';
+  document.title='1 in '+Math.round(odds).toLocaleString('en-US')+' - ToolTide';
+}
+function cuMode(){var cu=G.value==='cu';
+  document.querySelectorAll('.cu-hide').forEach(function(el){el.style.display=cu?'':'none';});}
+function save(){try{localStorage.setItem('tt_lotto',JSON.stringify({g:G.value,p:P.value,j:J.value,a:A.value,b:B.value}));}catch(e){}}
+[G,P,J,A,B].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+G.addEventListener('change',function(){cuMode();calc();save();});
+cuMode();
+var pre=false;
+[['g',G],['p',P],['j',J],['a',A],['b',B]].forEach(function(x){var v=new URLSearchParams(location.search).get(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(pre){cuMode();}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_lotto')||'null');if(mem){G.value=mem.g||'pb';P.value=mem.p||'';J.value=mem.j||'';A.value=mem.a||'';B.value=mem.b||'';cuMode();}}catch(e){}}
+calc();
+document.getElementById('lo-share').addEventListener('click',function(){
+  var txt='Jackpot odds: 1 in '+OUT.textContent+'. Check what a jackpot is really worth (no sign-up):';
+  var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value)+'&j='+encodeURIComponent(J.value||'');
+  if(navigator.share){navigator.share({title:'Lottery odds',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share these odds';},1500);}
+});
+})();
+</script>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -6486,6 +6668,9 @@ TOOLS = {
     "csv2json": lambda args: CSV2JSON,
     "onlinetimer": lambda args: ONLINETIMER,
     "stopwatch": lambda args: STOPWATCH,
+    "stockavg": lambda args: STOCKAVG,
+    "possize": lambda args: POSSIZE,
+    "lotto": lambda args: LOTTO,
 }
 
 

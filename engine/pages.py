@@ -4323,6 +4323,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "stock-average-calculator",
+        "title": "Stock Average Calculator — Average Down Cost Basis Instantly",
+        "h1": "Stock Average Down Calculator",
+        "desc": "Add shares at a new price and see your blended average cost, total invested and how far the break-even bar moved. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "stock average calculator",
+        "tool": "stockavg",
+        "args": {},
+        "intro": [
+            "Averaging down is the most common trade in investing and the least often computed: you own 100 shares at $50, the stock drops to $35, and buying another 100 lands your break-even at $42.50 - not $35, and not the midpoint either. This calculator does that blend instantly, plus the totals that decide whether the add is wise: combined shares, combined capital in the position, and how much the average actually moved.",
+            "The honest number here is break-even. Averaging down does not un-buy your expensive shares - it re-weights them - so the note under the result states the new bar plainly and what it does and does not fix. Your inputs are remembered for scenario testing, results land in the tab title, and one tap shares the full position via a link that carries the numbers.",
+        ],
+        "howto": [
+            "Enter the shares you own and the average price you paid.",
+            "Enter the size and price of the new buy.",
+            "Read the blended average, total invested and the new break-even - tweak numbers to compare scenarios.",
+        ],
+        "faqs": [
+            ("How is the new average cost calculated?",
+             "Total dollars invested divided by total shares owned: (old shares × old price + new shares × new price) ÷ total shares. On 100 @ $50 plus 100 @ $35 that is $8,500 ÷ 200 = $42.50. The weighted blend is always between the two prices, closer to whichever buy was bigger."),
+            ("Does averaging down lower my break-even?",
+             "It lowers it toward the new price, never to it. Each add pulls the average closer to that add's price in proportion to its size - which is why the calculator shows 'average lowered by' as a percentage: the move from $50 to $42.50 is real relief, but the shares bought at $50 are still underwater until the stock passes $42.50."),
+            ("Is averaging down a good idea?",
+             "It is a bet that the thesis is intact and the drop is noise - the math is neutral, the judgment is yours. What the numbers do show is position sizing: the second buy raises your capital at risk to $8,500 in the example. Decide the total you are willing to own before the first buy, not after the drop."),
+            ("Does it work for averaging up or crypto/forex?",
+             "Yes - the formula only cares about shares and prices, so averaging up into strength works identically, and units of any asset (coins, lots, ETFs) calculate the same. Fees are not modeled; add them mentally to the new buy's price if they are material."),
+        ],
+    })
+
+    pages.append({
+        "slug": "position-size-calculator",
+        "title": "Position Size Calculator — Risk %, Stop Loss & R:R for Any Trade",
+        "h1": "Position Size Calculator",
+        "desc": "Enter account size, risk %, entry and stop to get your exact position size, stop distance, position value and reward:risk. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "position size calculator",
+        "tool": "possize",
+        "args": {},
+        "intro": [
+            "The first question of every trade is not what to buy but how much: a $10,000 account risking 1% on a stock at $50 with a stop at $47.50 can buy 40 shares - not 41, because 41 would risk $1,025 and break the rule. This calculator runs that arithmetic live: risk dollars from your percentage, stop distance from entry to stop, shares rounded down so reality stays inside the plan.",
+            "Add an optional target and it completes the trade plan with reward:risk - the one number that tells you whether the setup is worth taking at all. Inputs are remembered between visits, results show in the tab title while you work, and the share link carries every field so a trading buddy can check your sizing.",
+        ],
+        "howto": [
+            "Enter your account size and the percent you are willing to lose on the trade.",
+            "Enter entry price and stop loss - the position size appears immediately.",
+            "Optionally add a target price to see the reward:risk before you commit.",
+        ],
+        "faqs": [
+            ("How is position size calculated?",
+             "Risk dollars ÷ per-share risk: ($10,000 × 1%) ÷ ($50 − $47.50) = $100 ÷ $2.50 = 40 shares. Position value is those shares × entry ($2,000 here) - notice it can dwarf your risk: you control $2,000 to risk $100, which is exactly why the stop must exist before the size is computed."),
+            ("Why are shares rounded down?",
+             "Fractional risk compounds: 41 shares at a $2.50 stop risks $102.50, breaking a 1% rule on a $10,000 account. Rounding down keeps actual risk at or under your chosen percentage - the note states the rounding explicitly rather than hiding it in a decimal."),
+            ("What risk percentage should I use?",
+             "Most systematic traders use 0.5-2% per trade: at 1%, ten straight losses cost about 9.6% of the account and survivable; at 10%, the same streak is a 65% drawdown. The percentage is a business decision, not a math constant - the calculator just enforces whatever you pick."),
+            ("Does it work for forex, futures or crypto?",
+             "Yes - 'shares' means units of whatever you trade: crypto coins work directly per-unit; for forex lots or futures contracts, compute per-unit risk from your tick value first, or divide the position value by your broker's contract size. The risk-first order of operations is identical in every market."),
+        ],
+    })
+
+    pages.append({
+        "slug": "lottery-odds-calculator",
+        "title": "Lottery Odds Calculator — Jackpot Odds, EV & Break-even Jackpot",
+        "h1": "Lottery Odds Calculator",
+        "desc": "Exact jackpot odds for Powerball, Mega Millions and EuroMillions, plus expected value per ticket and the jackpot that would break even. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "lottery odds calculator",
+        "tool": "lotto",
+        "args": {},
+        "intro": [
+            "Every lottery advertisement quotes the jackpot; none quotes what the ticket is mathematically worth. This calculator does: pick a game and a jackpot, and it computes the exact jackpot odds from the combinatorics (Powerball's 1 in 292,201,338 is not a marketing number - it is 69-choose-5 times 26), the expected value per $2 ticket, and the jackpot at which the ticket would stop being a guaranteed loss.",
+            "That break-even number is the punchline: with only jackpot dollars counted, Powerball's ticket price is not covered until the jackpot reaches roughly $584 million - and taxes, the lump-sum discount and shared jackpots push the true bar far higher. The note under the result keeps score honestly, which is exactly what makes this a better answer than a bare odds table.",
+        ],
+        "howto": [
+            "Pick a game - or choose Custom and enter your local lottery's number format.",
+            "Enter the current jackpot; odds and per-ticket EV update instantly.",
+            "Read the break-even jackpot - the headline number your ticket is actually competing against.",
+        ],
+        "faqs": [
+            ("How are the jackpot odds computed?",
+             "Combinatorics, live: the chance of matching 5 main numbers from 69 is 69-choose-5 = 11,238,513, multiplied by 26 bonus balls = 292,201,338. Mega Millions and EuroMillions use their own pools, and EuroMillions draws two lucky stars, so its bonus term is 12-choose-2 = 66. Custom mode runs the same formula on your numbers."),
+            ("What is expected value per ticket?",
+             "Jackpot ÷ odds - the average the jackpot line alone pays per ticket. A $500M Powerball jackpot pays about $1.71 per $2 ticket from the top prize; smaller tiers add roughly $0.20-0.35 more. Until the jackpot crosses the break-even, every ticket is mathematically underwater before a ball is drawn."),
+            ("Why is the real break-even even higher?",
+             "Three haircuts: federal (and state) taxes take roughly half, the advertised jackpot is an annuity whose lump-sum option is about 60% of the headline, and jackpots that big are commonly split. The calculator shows the no-haircut bar because it is the honest floor - reality is meaningfully worse."),
+            ("Doesn't buying more tickets improve my odds?",
+             "Linearly and uselessly: 2 tickets halve the odds to 1 in 146 million - a rounding error on a number that size. The only strategy the math rewards is picking unpopular numbers to avoid splitting a won jackpot, and even that cannot push expected value positive at normal jackpots."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
