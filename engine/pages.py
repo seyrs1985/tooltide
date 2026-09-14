@@ -4863,6 +4863,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "inflation-calculator",
+        "title": "Inflation Calculator — What $100 From Any Year Is Worth Today",
+        "h1": "Inflation Calculator",
+        "desc": "Convert money across any years 1913-2025 with BLS CPI-U data: today's buying power, cumulative inflation and average yearly rate. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "inflation calculator",
+        "tool": "inflation",
+        "args": {},
+        "intro": [
+            "A dollar is not a unit of measurement - it is a share of a shifting basket. $100 in 1990 has the buying power of roughly $240 today; $100 in 1920 had the power of about $1,600. This calculator runs those conversions on the Bureau of Labor Statistics' CPI-U annual averages, from 1913 to the present, and shows not just the headline number but the machinery behind it: cumulative inflation and the compound average rate per year.",
+            "That yearly rate is the number worth internalizing: even the 'quiet' 2-3% years halve a dollar's value in 25-35 years, which is why a savings account under inflation is a slow leak with good manners. The note under the result keeps the map honest - CPI tracks an average basket, and your personal basket (housing, health, tuition) has its own weather.",
+        ],
+        "howto": [
+            "Enter an amount and the year it came from.",
+            "Enter the year to convert to - today's money is the usual target.",
+            "Read the converted value, cumulative inflation and average annual rate.",
+        ],
+        "faqs": [
+            ("How is inflation calculated between two years?",
+             "By the Consumer Price Index: value × (CPI of the later year ÷ CPI of the earlier year). The CPI-U series used here is the BLS's standard index (1982-84 = 100), published as annual averages from 1913 onward - the same data behind every 'in today's money' headline you've ever read."),
+            ("Why does my number differ slightly from other calculators?",
+             "Three honest reasons: some sites use monthly rather than annual CPI (a December-vs-January difference), some use the CPI-Retroactive series the BLS rescaled in 1978, and the current year is always an estimate until the BLS finalizes it. Differences of a percent or two are normal and not a sign anyone is wrong."),
+            ("What was the worst inflation in US history?",
+             "The 1970s: prices nearly doubled across the decade (about 7-8% a year compounded), and single years hit 13%+ in 1979-1980. The fastest single-year spike in the modern series was 2022's post-pandemic surge; the deflation years of the 1930s cut prices but brought the Depression - falling prices are not a bargain."),
+            ("Does this work for salaries and investments?",
+             "For comparing purchasing power across time, yes - a $30,000 salary in 2000 equals about $55,000 today, and that's the honest way to judge a raise across years. For investments, subtract inflation from the nominal return to get the real return: 5% gains in a 3% year is only 2% of actual buying power."),
+        ],
+    })
+
+    pages.append({
+        "slug": "sleep-debt-calculator",
+        "title": "Sleep Debt Calculator — How Far Behind Your Target You Really Are",
+        "h1": "Sleep Debt Calculator",
+        "desc": "Add up the hours you owe your body: average sleep vs your target, debt level, and how many nights of catch-up it takes. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "sleep debt calculator",
+        "tool": "sleepdebt",
+        "args": {},
+        "intro": [
+            "Sleep debt is the gap between what your body asked for and what it got, compounded nightly: sleep 6.5 against an 8-hour target and by Sunday you owe 10.5 hours - which explains why the alarm on Monday morning feels like a court summons. This calculator makes the ledger visible: your average hours, your personal target, and the running balance across however many nights you've been living like this.",
+            "The note under the number keeps the science honest, because the popular advice is half-wrong: weekend catch-up restores how awake you feel but not the metabolic and memory costs of the shortfall, and a single 14-hour recovery sleep is not a repayment plan. What works is boringly effective - a 15-minutes-earlier bedtime each week and an extra hour a night until the balance clears.",
+        ],
+        "howto": [
+            "Enter your average hours slept and your personal target (8 is standard, 7 is the floor for most adults).",
+            "Enter how many nights you've been running at that pace.",
+            "Read your debt total, its level, and the realistic catch-up timeline.",
+        ],
+        "faqs": [
+            ("What is sleep debt?",
+             "The cumulative difference between the sleep your body needs and the sleep it received: an hour short per night for a week is a 7-hour debt. The body keeps rough books on this - it's why five bad nights in a row feel dramatically worse than one, even though total hours lost seem manageable."),
+            ("Can you pay back sleep debt on the weekend?",
+             "Partially. Recovery sleep restores vigilance and reaction time surprisingly well, but studies on metabolic effects (insulin sensitivity, appetite hormones) suggest the costs of short sleep are not fully refunded by binge sleeping - and weekend 12-hour sleeps shift your circadian rhythm later, making Monday harder. Steady extra hours beat heroic ones."),
+            ("How much sleep do I actually need?",
+             "Most adults need 7-9 hours; your number is the amount where you wake without an alarm feeling functional and don't crash mid-afternoon. If you need an alarm, caffeine before noon, and willpower to stay awake in meetings, the honest entry for 'target' is higher than the one you've been negotiating with."),
+            ("Is chronic sleep debt serious or just tiredness?",
+             "Serious: chronic 6-hour nights degrade attention comparably to alcohol at the legal limit, and long-term associations include higher risks of hypertension, weight gain, and mood disorders - while feeling 'used to it' is an illusion the impairments don't share. The debt number isn't guilt; it's a maintenance budget like any other."),
+        ],
+    })
+
+    pages.append({
+        "slug": "coffee-ratio-calculator",
+        "title": "Coffee Ratio Calculator — Grams of Coffee to Water, Both Ways",
+        "h1": "Coffee Ratio Calculator",
+        "desc": "Stop guessing your brew: convert water to coffee grams (or back) at any ratio, with strength guidance for pour-over, French press and more. Free.",
+        "category": "calculator",
+        "keyword": "coffee ratio calculator",
+        "tool": "coffee",
+        "args": {},
+        "intro": [
+            "The difference between good coffee and disappointing coffee is usually not the beans, the grind, or the water - it's 3 grams. Brewing is a ratio game: grams of coffee times your ratio equals grams of water, and the whole specialty world lives between 1:15 (bold) and 1:18 (light). This calculator runs the math both directions - 'I have 500ml of water, how many beans?' and 'I weighed out 30g, how much water?' - so the scale becomes the best upgrade your kitchen ever took.",
+            "The verdict line reads your ratio back in plain language - strong, balanced, or tea-like - and the note carries the two adjustments that actually fix a cup: grind coarser for bitter, finer for sour. Your recipe is remembered for tomorrow morning, the result rides in the tab title while you pour, and the share link sends the exact recipe to whoever keeps asking why your coffee tastes better.",
+        ],
+        "howto": [
+            "Pick a direction: know your water (most brewing) or know your coffee (pre-weighed).",
+            "Enter the amount and a ratio - 1:16 is the universal starting point.",
+            "Brew, taste, then move the ratio one notch: 1:15 for more punch, 1:17 for lighter.",
+        ],
+        "faqs": [
+            ("What is the golden ratio for coffee?",
+             "The specialty-coffee standard sits at 1:16 to 1:18 coffee to water by weight - about 30-31g of coffee per 500ml. 1:15 and below reads strong and heavy (good for French press with milk), 1:17 is where most pour-over dialed-in cups live, and past 1:19 extraction struggles to keep up with the dilution and the cup turns thin and papery."),
+            ("Why weigh coffee instead of using scoops?",
+             "A 'tablespoon' of coffee can weigh 4g or 7g depending on grind, roast and how heaped it is - a spread wide enough to change the cup noticeably. Ten dollars of scale removes the biggest variable in brewing, which is why every serious recipe you've ever seen is written in grams: weight is the only honest unit."),
+            ("Does the ratio change for espresso or cold brew?",
+             "Yes - they're different games: espresso runs near 1:2 in 25-30 seconds (a 18g dose to a 36g shot), and cold brew is a concentrate near 1:8 that gets diluted before serving. This calculator covers the immersion and pour-over family where 1:14-1:18 rules; for espresso, dose and yield are the two numbers to fix first."),
+            ("My coffee tastes sour/bitter - is it the ratio?",
+             "Probably the grind, and the ratio can compensate: sour-and-thin means under-extraction, so grind finer or use more coffee (lower ratio); bitter-and-dry means over-extraction, so grind coarser or use less (higher ratio). Change one variable at a time by a small step - the calculator keeps the math honest while your palate finds the sweet spot."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

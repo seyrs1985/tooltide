@@ -7398,6 +7398,169 @@ document.getElementById('pz-share').addEventListener('click',function(){
 </script>
 """
 
+# Inflation: US CPI-U annual averages -> purchasing power of a dollar across years.
+# Retention hooks: title result hook, tt_inflation memory, URL state (?a=&f=&t=), Web Share.
+INFLATION = """<div class="tool" id="tt-inf">
+  <div class="fields">
+    <div class="field"><label for="inf-a">Amount ($)</label><input type="number" id="inf-a" step="any" min="0" placeholder="100"></div>
+    <div class="field"><label for="inf-f">From year</label><input type="number" id="inf-f" min="1913" max="2025" step="1" placeholder="1990"></div>
+    <div class="field"><label for="inf-t">To year</label><input type="number" id="inf-t" min="1913" max="2025" step="1" placeholder="2025"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="inf-out">–</span><span class="result-unit">today's buying power</span></div>
+  <div class="stats">
+    <div class="stat"><b id="inf-cum">–</b><span>cumulative inflation</span></div>
+    <div class="stat"><b id="inf-avg">–</b><span>avg per year</span></div>
+    <div class="stat"><b id="inf-half">–</b><span>years to halve value</span></div>
+  </div>
+  <div class="tool-note" id="inf-note"></div>
+  <button type="button" class="tool-btn" id="inf-share">Share this math</button>
+</div>
+<script>(function(){
+var A=document.getElementById('inf-a'),F=document.getElementById('inf-f'),T=document.getElementById('inf-t');
+var OUT=document.getElementById('inf-out');
+var CPI=[9.9,10,10.1,10.9,12.8,15.1,17.3,20,17.9,16.8,17.1,17.1,17.5,17.7,17.4,17.1,17.1,16.7,15.2,13.7,13,13.4,13.7,13.9,14.4,14.1,13.9,14,14.7,16.3,17.3,17.6,18,19.5,22.3,24.1,23.8,24.1,26,26.5,26.7,26.9,26.8,27.2,28.1,28.9,29.1,29.6,29.9,30.2,30.6,31,31.5,32.4,33.4,34.8,36.7,38.8,40.5,41.8,44.4,49.3,53.8,56.9,60.6,65.2,72.6,82.4,90.9,96.5,99.6,103.9,107.6,109.6,113.6,118.3,124,130.7,136.2,140.3,144.5,148.2,152.4,156.9,160.5,163,166.6,172.2,177.1,179.9,184,188.9,195.3,201.6,207.3,215.3,214.5,218.1,224.9,229.6,233,236.7,237,240,245.1,251.1,255.7,258.8,271,292.7,304.7,313.7,322];
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var a=parseFloat(A.value),f=parseInt(F.value),t=parseInt(T.value);
+  if(!(a>0)||!(f>=1913&&f<=2025)||!(t>=1913&&t<=2025)){OUT.textContent='–';
+    ['inf-cum','inf-avg','inf-half'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('inf-note').textContent='';document.title='Inflation Calculator - ToolTide';return;}
+  var ci=CPI[f-1913],ct=CPI[t-1913];
+  var adj=a*ct/ci;
+  OUT.textContent='$'+(Math.round(adj*100)/100).toLocaleString('en-US');
+  var cum=(ct/ci-1)*100, yrs=t-f;
+  document.getElementById('inf-cum').textContent=(cum>=0?'+':'')+cum.toFixed(1)+'%';
+  var avgPct=yrs>0?((Math.pow(ct/ci,1/yrs)-1)*100):null;
+  document.getElementById('inf-avg').textContent=avgPct!==null?avgPct.toFixed(2)+'%/yr':'–';
+  var halve=yrs>0&&ct>ci?Math.log(.5)/Math.log(ci/ct):0;
+  document.getElementById('inf-half').textContent=halve>0?Math.round(halve)+' yrs':'–';
+  document.getElementById('inf-note').textContent=a.toLocaleString('en-US')+' dollars from '+f+' bought what $'+(Math.round(adj*100)/100).toLocaleString('en-US')+' buys in '+t+' - prices '+(cum>=0?'rose ':'fell ')+Math.abs(cum).toFixed(1)+'% over '+yrs+' years. Based on BLS CPI-U annual averages (1982-84=100; latest year approximate). CPI measures an average basket, not your basket: housing, health and education have outrun it while electronics defied it - treat the number as the honest map of the dollar, not of your receipt.';
+  document.title='$'+(Math.round(adj*100)/100)+' in '+t+' money - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_inflation',JSON.stringify({a:A.value,f:F.value,t:T.value}));}catch(e){}}
+[A,F,T].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['a',A],['f',F],['t',T]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_inflation')||'null');if(mem){A.value=mem.a||'';F.value=mem.f||'';T.value=mem.t||'';}}catch(e){}}
+calc();
+document.getElementById('inf-share').addEventListener('click',function(){
+  var txt=A.value+' dollars in '+F.value+' = '+OUT.textContent+' in '+T.value+' money. Check any year (free, no sign-up):';
+  var url=location.origin+location.pathname+'?a='+A.value+'&f='+F.value+'&t='+T.value;
+  if(navigator.share){navigator.share({title:'Inflation calculator',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+});
+})();
+</script>
+"""
+
+# Sleep debt: weekly shortfall vs personal target, with honest recovery notes.
+# Retention hooks: title result hook, tt_sleepdebt memory, URL state (?a=&t=&n=), Web Share.
+SLEEPDEBT = """<div class="tool" id="tt-sd">
+  <div class="fields">
+    <div class="field"><label for="sd-a">Avg hours slept / night</label><input type="number" id="sd-a" step="any" min="0" max="14" placeholder="6.5"></div>
+    <div class="field"><label for="sd-t">Your target hours</label><input type="number" id="sd-t" step="any" min="5" max="12" placeholder="8"></div>
+    <div class="field"><label for="sd-n">Nights at this pace</label><input type="number" id="sd-n" min="1" max="365" placeholder="7"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sd-out">–</span><span class="result-unit">hours of sleep debt</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sd-wk">–</b><span>shortfall per week</span></div>
+    <div class="stat"><b id="sd-cat">–</b><span>debt level</span></div>
+    <div class="stat"><b id="sd-pay">–</b><span>nights to clear (at target+1h)</span></div>
+  </div>
+  <div class="tool-note" id="sd-note"></div>
+  <button type="button" class="tool-btn" id="sd-share">Share my sleep math</button>
+</div>
+<script>(function(){
+var A=document.getElementById('sd-a'),T=document.getElementById('sd-t'),N=document.getElementById('sd-n');
+var OUT=document.getElementById('sd-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var a=parseFloat(A.value),t=parseFloat(T.value),n=parseInt(N.value);
+  if(!(a>=0)||!(t>0)||!(n>0)){OUT.textContent='–';
+    ['sd-wk','sd-cat','sd-pay'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('sd-note').textContent='';document.title='Sleep Debt Calculator - ToolTide';return;}
+  var debt=Math.max(0,(t-a)*n);
+  OUT.textContent=Math.round(debt*10)/10;
+  document.getElementById('sd-wk').textContent=Math.max(0,Math.round((t-a)*7*10)/10)+' h';
+  var lvl=debt<=0?'none':debt<7?'mild':debt<21?'moderate':'chronic';
+  document.getElementById('sd-cat').textContent=lvl;
+  var surplus=1;
+  document.getElementById('sd-pay').textContent=debt>0?Math.ceil(debt/surplus):'0';
+  document.getElementById('sd-note').textContent='Sleeping '+(t-a>=0?(t-a):0)+' hours short of your target each night adds up to '+OUT.textContent+' hours of debt - at the '+lvl+' level. The honest science: weekend catch-up restores alertness but not the metabolic and memory costs, and \u201crepayment\u201d works best as extra hours nightly plus an early night or two, not one 14-hour coma. If debt is chronic, the fix is the target itself: shift bedtime 15 minutes earlier each week rather than trying to win it back on Sunday.';
+  document.title=Math.round(debt*10)/10+' h sleep debt - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_sleepdebt',JSON.stringify({a:A.value,t:T.value,n:N.value}));}catch(e){}}
+[A,T,N].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['a',A],['t',T],['n',N]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_sleepdebt')||'null');if(mem){A.value=mem.a||'';T.value=mem.t||'';N.value=mem.n||'';}}catch(e){}}
+calc();
+document.getElementById('sd-share').addEventListener('click',function(){
+  var txt='My sleep math: '+A.value+'h vs a '+T.value+'h target = '+OUT.textContent+' hours of debt. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?a='+A.value+'&t='+T.value+'&n='+N.value;
+  if(navigator.share){navigator.share({title:'Sleep debt',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my sleep math';},1500);}
+});
+})();
+</script>
+"""
+
+# Coffee ratio: two-way beans <-> water at your chosen brew strength.
+# Retention hooks: title result hook, tt_coffee memory, URL state (?w=&r=&d=), Web Share.
+COFFEE = """<div class="tool" id="tt-cf">
+  <div class="fields">
+    <div class="field"><label for="cf-d">Direction</label><select id="cf-d"><option value="w2b">I know my water → beans</option><option value="b2w">I have beans → water</option></select></div>
+    <div class="field"><label for="cf-w">Water (ml)</label><input type="number" id="cf-w" step="any" min="0" placeholder="500"></div>
+    <div class="field" id="cf-bw"><label for="cf-b">Coffee (g)</label><input type="number" id="cf-b" step="any" min="0" placeholder="30"></div>
+    <div class="field"><label for="cf-r">Ratio (1 : X)</label><input type="number" id="cf-r" step="any" min="10" max="25" placeholder="16"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cf-out">–</span><span class="result-unit" id="cf-unit">g coffee</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cf-strength">–</b><span>strength verdict</span></div>
+    <div class="stat"><b id="cf-cups">–</b><span>approx cups (250ml)</span></div>
+    <div class="stat"><b id="cf-scoop">–</b><span>tablespoons (whole beans)</span></div>
+  </div>
+  <div class="tool-note" id="cf-note"></div>
+  <button type="button" class="tool-btn" id="cf-share">Share this brew</button>
+</div>
+<script>(function(){
+var D=document.getElementById('cf-d'),W=document.getElementById('cf-w'),B=document.getElementById('cf-b'),R=document.getElementById('cf-r');
+var OUT=document.getElementById('cf-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=D.value,r=parseFloat(R.value),w=parseFloat(W.value),b=parseFloat(B.value);
+  document.getElementById('cf-w').parentElement.style.display=d==='w2b'?'':'none';
+  document.getElementById('cf-bw').style.display=d==='b2w'?'':'none';
+  document.getElementById('cf-unit').textContent=d==='w2b'?'g coffee':'ml water';
+  var x=d==='w2b'?w:b;
+  if(!(r>0)||!(x>0)){OUT.textContent='–';
+    ['cf-strength','cf-cups','cf-scoop'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('cf-note').textContent='';document.title='Coffee Ratio Calculator - ToolTide';return;}
+  var grams=d==='w2b'?x/r:x*r;
+  OUT.textContent=Math.round(grams*10)/10;
+  var water=d==='w2b'?x:grams;
+  document.getElementById('cf-strength').textContent=r<=15?'strong & bold':r<=17?'balanced (specialty sweet spot)':'light & tea-like';
+  document.getElementById('cf-cups').textContent=Math.round(water/250*10)/10;
+  document.getElementById('cf-scoop').textContent=Math.round((d==='w2b'?grams:x)/5*10)/10+' tbsp';
+  document.getElementById('cf-note').textContent='The golden ratio: grams of coffee × '+r+' = grams (≈ml) of water - weigh both once and your coffee stops being a lottery. Grind matters as much as ratio: too bitter, grind coarser or use less coffee; too sour and weak, grind finer or use more. Start at 1:16 for pour-over, 1:15 for French press, and adjust by taste one notch at a time - a 5% change is noticeable, a 20% change is a different cup.';
+  document.title=Math.round(grams*10)/10+'g coffee - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_coffee',JSON.stringify({d:D.value,w:W.value,b:B.value,r:R.value}));}catch(e){}}
+[D,W,B,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['d',D],['w',W],['b',B],['r',R]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_coffee')||'null');if(mem){D.value=mem.d||'w2b';W.value=mem.w||'';B.value=mem.b||'';R.value=mem.r||'';}}catch(e){}}
+calc();
+document.getElementById('cf-share').addEventListener('click',function(){
+  var txt='My brew: '+OUT.textContent+'g coffee at 1:'+R.value+' ('+document.getElementById('cf-strength').textContent+'). Dial in yours (free):';
+  var url=location.origin+location.pathname+'?d='+D.value+'&w='+W.value+'&r='+R.value;
+  if(navigator.share){navigator.share({title:'Coffee ratio',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this brew';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -7535,6 +7698,9 @@ TOOLS = {
     "evcharge": lambda args: EVCHARGE,
     "goldenhour": lambda args: GOLDEN,
     "pizza": lambda args: PIZZA,
+    "inflation": lambda args: INFLATION,
+    "sleepdebt": lambda args: SLEEPDEBT,
+    "coffee": lambda args: COFFEE,
 }
 
 
