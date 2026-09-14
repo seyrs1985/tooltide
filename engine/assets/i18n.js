@@ -205,7 +205,9 @@ zh:{
  "cd.ev.spring":"春天",
  "cd.ev.summer":"夏天",
  "cd.ev.autumn":"秋天",
- "cd.ev.winter":"冬天"
+ "cd.ev.winter":"冬天",
+ "uc.swap":"⇄ 交换方向",
+ "uc.formula":"公式："
 },
 es:{
  "skip":"Saltar al contenido",
@@ -391,7 +393,9 @@ es:{
  "cd.ev.spring":"primavera",
  "cd.ev.summer":"verano",
  "cd.ev.autumn":"otoño",
- "cd.ev.winter":"invierno"
+ "cd.ev.winter":"invierno",
+ "uc.swap":"⇄ Cambiar sentido",
+ "uc.formula":"Fórmula: "
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -577,7 +581,9 @@ pt:{
  "cd.ev.spring":"primavera",
  "cd.ev.summer":"verão",
  "cd.ev.autumn":"outono",
- "cd.ev.winter":"inverno"
+ "cd.ev.winter":"inverno",
+ "uc.swap":"⇄ Inverter direção",
+ "uc.formula":"Fórmula: "
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -763,7 +769,9 @@ ru:{
  "cd.ev.spring":"весна",
  "cd.ev.summer":"лето",
  "cd.ev.autumn":"осень",
- "cd.ev.winter":"зима"
+ "cd.ev.winter":"зима",
+ "uc.swap":"⇄ Поменять направление",
+ "uc.formula":"Формула: "
 },
 ja:{
  "skip":"本文へスキップ",
@@ -949,7 +957,9 @@ ja:{
  "cd.ev.spring":"春",
  "cd.ev.summer":"夏",
  "cd.ev.autumn":"秋",
- "cd.ev.winter":"冬"
+ "cd.ev.winter":"冬",
+ "uc.swap":"⇄ 入れ替え",
+ "uc.formula":"計算式："
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -1135,7 +1145,9 @@ ko:{
  "cd.ev.spring":"봄",
  "cd.ev.summer":"여름",
  "cd.ev.autumn":"가을",
- "cd.ev.winter":"겨울"
+ "cd.ev.winter":"겨울",
+ "uc.swap":"⇄ 방향 바꾸기",
+ "uc.formula":"공식: "
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -1321,7 +1333,9 @@ de:{
  "cd.ev.spring":"Frühling",
  "cd.ev.summer":"Sommer",
  "cd.ev.autumn":"Herbst",
- "cd.ev.winter":"Winter"
+ "cd.ev.winter":"Winter",
+ "uc.swap":"⇄ Richtung wechseln",
+ "uc.formula":"Formel: "
 },
 fr:{
  "skip":"Aller au contenu",
@@ -1507,7 +1521,9 @@ fr:{
  "cd.ev.spring":"printemps",
  "cd.ev.summer":"été",
  "cd.ev.autumn":"automne",
- "cd.ev.winter":"hiver"
+ "cd.ev.winter":"hiver",
+ "uc.swap":"⇄ Inverser le sens",
+ "uc.formula":"Formule : "
 },
 id:{
  "skip":"Lewati ke konten",
@@ -1693,7 +1709,9 @@ id:{
  "cd.ev.spring":"musim semi",
  "cd.ev.summer":"musim panas",
  "cd.ev.autumn":"musim gugur",
- "cd.ev.winter":"musim dingin"
+ "cd.ev.winter":"musim dingin",
+ "uc.swap":"⇄ Balik arah",
+ "uc.formula":"Rumus: "
 }
 };
 function detect(){

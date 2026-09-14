@@ -64,18 +64,20 @@
     <div class="field"><label for="uc-a" id="uc-la">Value</label><input type="number" id="uc-a" step="any" placeholder="1"></div>
     <div class="field"><label for="uc-b" id="uc-lb">Result</label><input type="number" id="uc-b" step="any" placeholder="" readonly></div>
   </div>
-  <div class="chips" id="uc-swap-row"><button class="chip" id="uc-swap">⇄ Swap direction</button></div>
+  <div class="chips" id="uc-swap-row"><button class="chip" id="uc-swap" data-i18n="uc.swap">⇄ Swap direction</button></div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="uc-r">–</span>
     <div class="result-formula" id="uc-f"></div></div>
   <div class="tw"><table class="copytable" id="uc-table"><thead><tr><th id="uc-th1"></th><th id="uc-th2"></th></tr></thead><tbody></tbody></table></div>
 </div>
 <script>(function(){
 var A={"a": "kilometers", "b": "feet", "factor": 3280.839895, "dec": 2, "label": "distance"};
+function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
+var LC=(window.ttLang&&window.ttLang())||'en-US';
 var la=document.getElementById('uc-la'),lb=document.getElementById('uc-lb');
 var a=document.getElementById('uc-a'),b=document.getElementById('uc-b');
 var r=document.getElementById('uc-r'),f=document.getElementById('uc-f');
 var swapped=false;
-function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:A.dec===undefined?4:A.dec});}
+function fmt(n){return n.toLocaleString(LC,{maximumFractionDigits:A.dec===undefined?4:A.dec});}
 function labels(){la.textContent=swapped?A.b:A.a;lb.textContent=swapped?A.a:A.b;}
 function conv(v){
   if(isNaN(v))return null;
@@ -92,8 +94,8 @@ function run(){
   b.value=out===null?'':out;
   r.textContent=out===null?'–':fmt(out)+' '+(swapped?A.a:A.b);
   f.textContent=isNaN(v)?'':(swapped
-    ?(A.factor===null||A.factor===undefined?('Formula: ('+v+' °F − 32) × 5/9 = '+fmt(out)+' °C'):('Formula: '+v+' ÷ '+A.factor+' = '+fmt(out)))
-    :(A.factor===null||A.factor===undefined?('Formula: '+v+' × 9/5 + 32 = '+fmt(out)):('Formula: '+v+' × '+A.factor+' = '+fmt(out))));
+    ?(A.factor===null||A.factor===undefined?(T('uc.formula','Formula: ')+'('+v+' °F − 32) × 5/9 = '+fmt(out)+' °C'):(T('uc.formula','Formula: ')+v+' ÷ '+A.factor+' = '+fmt(out)))
+    :(A.factor===null||A.factor===undefined?(T('uc.formula','Formula: ')+v+' × 9/5 + 32 = '+fmt(out)):(T('uc.formula','Formula: ')+v+' × '+A.factor+' = '+fmt(out))));
 }
 document.getElementById('uc-swap').addEventListener('click',function(){
   swapped=!swapped;
@@ -111,7 +113,7 @@ base.forEach(function(v){
   var o;
   if(A.factor===null||A.factor===undefined){o=A.a==='Celsius'?v*9/5+32:(v-32)*5/9;}
   else{o=v*A.factor;}
-  tr.innerHTML='<td>'+v.toLocaleString('en-US')+'</td><td>'+fmt(o)+'</td>';
+  tr.innerHTML='<td>'+v.toLocaleString(LC)+'</td><td>'+fmt(o)+'</td>';
   tb.appendChild(tr);
 });
 labels();a.value='1';run();
