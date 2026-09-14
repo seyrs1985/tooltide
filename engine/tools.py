@@ -8260,6 +8260,146 @@ document.getElementById('wp-share').addEventListener('click',function(){
 </script>
 """
 
+DIAPERS = """<div class="tool" id="tt-dp">
+  <div class="fields">
+    <div class="field"><label for="dp-n">Diapers per day</label><input type="number" id="dp-n" min="1" max="20" step="1" placeholder="8"></div>
+    <div class="field"><label for="dp-p">Price per diaper</label><input type="number" id="dp-p" min="0.01" step="0.01" placeholder="0.25"></div>
+    <div class="field"><label for="dp-m">Months of diapering</label><input type="number" id="dp-m" min="1" max="48" step="1" placeholder="24"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dp-out">–</span><span class="result-unit">total diaper cost</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dp-s1">–</b><span>per day</span></div>
+    <div class="stat"><b id="dp-s2">–</b><span>per month</span></div>
+    <div class="stat"><b id="dp-s3">–</b><span>per year</span></div>
+  </div>
+  <div class="tool-note" id="dp-note"></div>
+  <button type="button" class="tool-btn" id="dp-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['dp-n','dp-p','dp-m'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('dp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function fmt(v){return v.toFixed(2);}
+function calc(){
+  var n=parseInt(F[0].value),p=parseFloat(F[1].value),m=parseInt(F[2].value);
+  var ok=n>=1&&p>0&&m>=1;
+  if(!ok){OUT.textContent='–';['dp-s1','dp-s2','dp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('dp-note').textContent='';document.title='Diaper Cost Calculator - ToolTide';return;}
+  var day=n*p,mon=day*30.44,tot=mon*m;
+  OUT.textContent=fmt(tot);
+  document.getElementById('dp-s1').textContent=fmt(day);
+  document.getElementById('dp-s2').textContent=fmt(mon);
+  document.getElementById('dp-s3').textContent=fmt(mon*12);
+  document.getElementById('dp-note').textContent='Count drift is the line nobody prices in: newborns burn 10-12 a day, toddlers are down to 4-6, so a flat per-day figure overstates the later months. Wipes, cream and bags typically add 15-20% on top. Cloth crossover: a full cloth stash costs roughly one to three months of disposables, so past month two or three it is paid off - if you actually run the washes at 60°C.';
+  document.title=fmt(tot)+' total diaper cost - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_diaper',JSON.stringify({n:F[0].value,p:F[1].value,m:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['n',F[0]],['p',F[1]],['m',F[2]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_diaper')||'null');if(mem){F[0].value=mem.n||'';F[1].value=mem.p||'';F[2].value=mem.m||'';}}catch(e){}}
+calc();
+document.getElementById('dp-share').addEventListener('click',function(){
+  var txt=OUT.textContent+' of diapers over '+F[2].value+' months (about '+document.getElementById('dp-s2').textContent+'/month). Price yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?n='+F[0].value+'&p='+F[1].value+'&m='+F[2].value;
+  if(navigator.share){navigator.share({title:'Diaper cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
+WAKE = """<div class="tool" id="tt-ww">
+  <div class="fields">
+    <div class="field"><label for="ww-a">Baby age (months)</label><input type="number" id="ww-a" min="0" max="24" step="1" placeholder="6"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ww-out">–</span><span class="result-unit">min wake window</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ww-s1">–</b><span>wake window range</span></div>
+    <div class="stat"><b id="ww-s2">–</b><span>naps per day</span></div>
+    <div class="stat"><b id="ww-s3">–</b><span>total sleep / day</span></div>
+  </div>
+  <div class="tool-note" id="ww-note"></div>
+  <button type="button" class="tool-btn" id="ww-share">Share this guide</button>
+</div>
+<script>(function(){
+var A=document.getElementById('ww-a');
+var OUT=document.getElementById('ww-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+var RANGES=[[0,45,60,'4-5','15-17 h'],[1,60,90,'4-5','14-16 h'],[3,75,105,'3-4','14-16 h'],[4,90,120,'3-4','12-15 h'],[5,120,150,'2-3','12-15 h'],[6,150,180,'2-3','12-14 h'],[9,150,210,'2','12-14 h'],[12,180,240,'1-2','11-14 h'],[18,240,360,'1','11-12 h']];
+function calc(){
+  var a=parseInt(A.value);
+  if(!(a>=0&&a<=24)){OUT.textContent='–';['ww-s1','ww-s2','ww-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ww-note').textContent='';document.title='Wake Window Calculator - ToolTide';return;}
+  var r=RANGES[0];
+  for(var i=0;i<RANGES.length;i++){if(a>=RANGES[i][0]){r=RANGES[i];}}
+  OUT.textContent=r[1]+'-'+r[2];
+  document.getElementById('ww-s1').textContent=(r[1]/60).toFixed(1)+'-'+(r[2]/60).toFixed(1)+' h';
+  document.getElementById('ww-s2').textContent=r[3];
+  document.getElementById('ww-s3').textContent=r[4];
+  document.getElementById('ww-note').textContent='A wake window is how long a baby can comfortably stay up before sleep pressure wins - stretch it and you get cortisol instead of a longer nap, which is why overtired babies fight sleep hardest. Read the ranges as centre of gravity, not law: eye-rubbing, staring and fussing outrank the clock. The classic rhythm around 4-6 months is wake-feed-play, down at the first yawn, and the 2-3-4 pattern (2 h before nap one, 3 before nap two, 4 before bed) once naps consolidate to two.';
+  document.title='Wake window '+r[1]+'-'+r[2]+' min at '+a+' months - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_wake',JSON.stringify({a:A.value}));}catch(e){}}
+A.addEventListener('input',function(){calc();save();});
+var v=qs('a');
+if(v!==null){A.value=v;}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_wake')||'null');if(mem){A.value=mem.a||'';}}catch(e){}}
+calc();
+document.getElementById('ww-share').addEventListener('click',function(){
+  var txt='At '+A.value+' months, typical wake windows are '+OUT.textContent+' min. Check your baby (free, no sign-up):';
+  var url=location.origin+location.pathname+'?a='+A.value;
+  if(navigator.share){navigator.share({title:'Wake windows',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this guide';},1500);}
+});
+})();
+</script>
+"""
+
+FORMULA = """<div class="tool" id="tt-ff">
+  <div class="fields">
+    <div class="field"><label for="ff-w">Baby weight (kg)</label><input type="number" id="ff-w" min="2" max="15" step="0.1" placeholder="5"></div>
+    <div class="field"><label for="ff-f">Feeds per day</label><input type="number" id="ff-f" min="4" max="12" step="1" placeholder="7"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ff-out">–</span><span class="result-unit">ml per feed (typical)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ff-s1">–</b><span>range per feed</span></div>
+    <div class="stat"><b id="ff-s2">–</b><span>total per day</span></div>
+    <div class="stat"><b id="ff-s3">–</b><span>fl oz per feed</span></div>
+  </div>
+  <div class="tool-note" id="ff-note"></div>
+  <button type="button" class="tool-btn" id="ff-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['ff-w','ff-f'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('ff-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(F[0].value),f=parseInt(F[1].value);
+  var ok=w>=2&&w<=15&&f>=4&&f<=12;
+  if(!ok){OUT.textContent='–';['ff-s1','ff-s2','ff-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ff-note').textContent='';document.title='Formula Feeding Calculator - ToolTide';return;}
+  var per=w*150/f;
+  OUT.textContent=Math.round(per);
+  document.getElementById('ff-s1').textContent=Math.round(w*120/f)+'-'+Math.round(w*200/f)+' ml';
+  document.getElementById('ff-s2').textContent=Math.round(w*150)+' ml';
+  document.getElementById('ff-s3').textContent=(per/29.574).toFixed(1)+' oz';
+  document.getElementById('ff-note').textContent='The 150 ml per kg per day rule is the standard mid-point; normal runs 120-200 ml/kg/day depending on age, growth spurts and prematurity. Feed the baby, not the spreadsheet: finishing the bottle is not a goal, and hungry cues before the next feed matter more than the arithmetic. Never dilute or concentrate formula to stretch it, and check any feeding concern with your pediatrician first.';
+  document.title=Math.round(per)+' ml per formula feed - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_formula',JSON.stringify({w:F[0].value,f:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['w',F[0]],['f',F[1]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_formula')||'null');if(mem){F[0].value=mem.w||'';F[1].value=mem.f||'';}}catch(e){}}
+calc();
+document.getElementById('ff-share').addEventListener('click',function(){
+  var txt='At '+F[0].value+' kg and '+F[1].value+' feeds/day: about '+OUT.textContent+' ml per feed. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?w='+F[0].value+'&f='+F[1].value;
+  if(navigator.share){navigator.share({title:'Formula feeding',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -8413,6 +8553,9 @@ TOOLS = {
     "mulch": lambda args: MULCH,
     "laminate": lambda args: LAMINATE,
     "wallp": lambda args: WALLP,
+    "diapers": lambda args: DIAPERS,
+    "wake": lambda args: WAKE,
+    "formula": lambda args: FORMULA,
 }
 
 
