@@ -60,6 +60,7 @@ window.ttLang=function(){return lang;};
 window.ttSetLang=function(code){
   try{localStorage.setItem("tt_lang",code);}catch(e){}
   location.reload();
+  setTimeout(function(){try{location.reload();}catch(e){}},1500);
 };
 window.npT=function(key){
   var d=T[lang]||{};
@@ -115,6 +116,15 @@ function boot(){
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);
 else boot();
+/* bfcache/session-restore hands back the OLD DOM without re-running boot —
+   re-apply the active language and resync the switcher display in place. */
+if(typeof window.addEventListener==="function")window.addEventListener("pageshow",function(e){
+  if(!e.persisted)return;
+  apply();
+  document.documentElement.lang=lang;
+  var s=document.getElementById("lang-select");
+  if(s&&s.value!==lang)s.value=lang;
+});
 })();'''
 
 
