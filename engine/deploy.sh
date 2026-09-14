@@ -36,6 +36,7 @@ cat > .gitignore <<'EOF'
 __pycache__/
 *.pyc
 _tt_shots/
+data/i18n_shots/
 EOF
 git add -A
 git -c core.hooksPath=/dev/null commit -q -m "deploy: $(date -u '+%Y-%m-%d %H:%M UTC')" --allow-empty || true
