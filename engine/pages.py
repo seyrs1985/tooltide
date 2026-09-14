@@ -4953,6 +4953,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "break-even-calculator",
+        "title": "Break-Even Calculator — Units to Cover Costs, Margin Shown",
+        "h1": "Break-Even Calculator",
+        "desc": "Find the exact number of sales that covers your monthly costs: fixed costs, price and unit cost in, break-even units, revenue and margin out. Free.",
+        "category": "calculator",
+        "keyword": "break even calculator",
+        "tool": "breakeven",
+        "args": {},
+        "intro": [
+            "Every business has a magic unit number: the sale where the rent stops being your money and becomes profit's. Break-even is fixed costs ÷ (price − variable cost) - the whole discipline of a business plan compressed into one line, and the first number any investor, lender or spouse asks for. This calculator runs it live, plus the two numbers that make it mean something: revenue required at break-even and the contribution margin each sale carries.",
+            "The note under the result is where strategy lives: because everything past break-even falls to profit at nearly 100% margin, small levers matter enormously - and a price increase almost always beats a volume chase. Your assumptions are remembered between visits, the result rides in the tab title, and the share link carries the scenario for partners to poke at.",
+        ],
+        "howto": [
+            "Enter monthly fixed costs - rent, salaries, subscriptions, everything that doesn't care about volume.",
+            "Enter price per unit and the variable cost of delivering one unit.",
+            "Read break-even units, then test: what happens to it if price rises $5?",
+        ],
+        "faqs": [
+            ("How is the break-even point calculated?",
+             "Break-even units = fixed costs ÷ (price per unit − variable cost per unit). The denominator is the contribution margin: what each sale adds toward fixed costs after its own direct costs. $3,000 fixed, $49 price, $17 cost gives $32 margin and 94 units a month - unit #94 clears the slate; #95 is profit."),
+            ("What counts as a fixed vs variable cost?",
+             "Fixed costs stay flat as volume changes: rent, salaries, software, insurance. Variable costs ride with each unit: materials, packaging, payment processing, shipping. The gray zone - your salary as founder, hourly labor - goes where it behaves more like the label says; be consistent rather than perfect."),
+            ("Is a lower break-even point always better?",
+             "Lower is safer - fewer sales to survive a slow month - but the cheapest ways down (low price, minimal fixed spend) often cap the upside. The interesting move is usually the opposite direction: raising price raises margin, which cuts break-even while raising the ceiling. Run both scenarios above and compare."),
+            ("Does break-even work for services or SaaS?",
+             "Yes, with honest inputs: a freelancer's variable cost per project might be just software fees and subcontractors; a SaaS has server cost per user and churn eating the 'units'. The formula is identical - what changes is how honestly you split fixed from variable, which this calculator makes you decide out loud."),
+        ],
+    })
+
+    pages.append({
+        "slug": "ideal-weight-calculator",
+        "title": "Ideal Weight Calculator — Devine Formula & Healthy BMI Range",
+        "h1": "Ideal Weight Calculator",
+        "desc": "Get two honest answers for your height: the classic Devine formula and the wider healthy-BMI weight band, in kg or lb. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "ideal weight calculator",
+        "tool": "idealweight",
+        "args": {},
+        "intro": [
+            "'Ideal weight' sounds like one number, but the two formulas behind the phrase disagree on purpose. The Devine formula - 50 kg for a man plus 2.3 kg per inch over five feet - was built in 1974 to dose medications, and became the classic single answer. The healthy-BMI band (18.5-24.9) is wider because bodies are. This calculator shows both, side by side, in kg or lb, so you can see the range instead of worshipping a point.",
+            "The note under the result is the differentiator: no formula knows your frame, muscle mass or history, and an athletic body at the top of the BMI band can be healthier than a sedentary one at the bottom. Treat the band as a range, the trend as the signal, and your doctor as the tiebreaker - that is the honest version of this tool, and it's remembered here for your next check-in.",
+        ],
+        "howto": [
+            "Choose units (cm/kg or ft-in/lb), sex and enter your height.",
+            "See the Devine ideal weight and the healthy-BMI range together.",
+            "Use the band, not the point - and compare against where you were last month.",
+        ],
+        "faqs": [
+            ("What is the Devine ideal weight formula?",
+             "Men: 50 kg + 2.3 kg per inch over 5 feet. Women: 45.5 kg + the same inch allowance. It was published in 1974 to convert height into a medication dose, inherited from insurance tables, and became the 'ideal body weight' in medical texts - useful as a rough midpoint, never as a verdict on a body."),
+            ("What is a healthy weight range for my height?",
+             "The BMI band 18.5-24.9 applied to your height: for 175 cm that's roughly 57-76 kg (126-168 lb). It's wide because it needs to be - bone structure, muscle and fat distribution vary enormously within one height. The calculator shows both the band and the Devine point so you can see the difference between a range and a myth."),
+            ("Why does the calculator show a range instead of one number?",
+             "Because single-number ideals do real harm: they ignore frame size, muscle (which is denser than fat) and age. Research consistently finds the lowest mortality in the upper part of the 'normal' BMI band and slightly above it in older adults - the truth is a plateau, not a peak, and pretending otherwise just fuels yo-yo dieting."),
+            ("Is BMI itself reliable?",
+             "As a population screen, yes; as an individual verdict, it's blunt - muscular people read as overweight, and 'normal BMI' can hide high body fat. Better signals: waist-to-height ratio (under about 0.5), how your clothes fit over months, and bloodwork. This tool starts the conversation; your clinician finishes it."),
+        ],
+    })
+
+    pages.append({
+        "slug": "lorem-ipsum-generator",
+        "title": "Lorem Ipsum Generator — Count-Exact Placeholder Text, Instant Copy",
+        "h1": "Lorem Ipsum Generator",
+        "desc": "Generate placeholder text with exact paragraph and word counts, optional classic start, one-tap copy. Free, instant, nothing tracked.",
+        "category": "generator",
+        "keyword": "lorem ipsum generator",
+        "tool": "lorem",
+        "args": {},
+        "intro": [
+            "Placeholder text is a utility, and utilities should be exact: this generator produces as many paragraphs as you ask, each word-count-true, starting with the canonical 'Lorem ipsum dolor sit amet' when you want the classic look or with fresh random Latin when you don't. One tap copies it to your clipboard - no signup walls, no ads between you and the paste, no nonsense.",
+            "Under the hood it draws from the full classical passage plus Cicero's De Finibus roots (the text has been filler since the 1500s, when a printer scrambled it to show a typeface), reshuffling sentence-length fragments every regenerate. Your last settings are remembered for the next mockup, and the word count rides in the tab title so you can size a layout without counting.",
+        ],
+        "howto": [
+            "Set paragraph count and words per paragraph.",
+            "Toggle the classic 'Lorem ipsum…' opening on or off.",
+            "Copy to clipboard and paste into your design, CMS or CSS demo.",
+        ],
+        "faqs": [
+            ("What is Lorem ipsum, actually?",
+             "Scrambled fragments of Cicero's 'De finibus bonorum et malorum' (45 BC), mangled by a 16th-century printer to demonstrate a typeface and adopted by typesetters ever since. It's deliberately readable-as-Latin-but-meaningless: enough like real language to show layout texture, empty enough that nobody proofreads the placeholder."),
+            ("Why does word count matter for placeholder text?",
+             "Because layouts are weight-sensitive: a 60-word paragraph wraps differently than a 40-word one, and testing with sloppy lengths hides overflow and raggedness that ship with real copy. Exact counts let you stress the worst case - that's the whole point of the tool."),
+            ("Can I use it in a real project or publication?",
+             "For mockups, wireframes, CMS tests and CSS demos: absolutely, that's its job. For published content: replace it - shipping Lorem ipsum to production is the classic 'nobody checked' tell. The Latin itself is ancient public domain; Cicero won't sue."),
+            ("Does it make the same text every time?",
+             "No - each regenerate draws fresh random sentences from the word pool, so repeated blocks look natural across a long page. The optional classic opening fixes just the first five words ('Lorem ipsum dolor sit amet') for those traditional-print vibes, then randomizes the rest."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

@@ -7561,6 +7561,169 @@ document.getElementById('cf-share').addEventListener('click',function(){
 </script>
 """
 
+# Break-even: fixed costs, price, variable cost -> units & revenue to break even.
+# Retention hooks: title result hook, tt_breakeven memory, URL state (?f=&p=&v=), Web Share.
+BREAKEVEN = """<div class="tool" id="tt-be">
+  <div class="fields">
+    <div class="field"><label for="be-f">Fixed costs (per month, $)</label><input type="number" id="be-f" step="any" min="0" placeholder="3000"></div>
+    <div class="field"><label for="be-p">Price per unit ($)</label><input type="number" id="be-p" step="any" min="0" placeholder="49"></div>
+    <div class="field"><label for="be-v">Variable cost per unit ($)</label><input type="number" id="be-v" step="any" min="0" placeholder="17"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="be-out">–</span><span class="result-unit">units / month to break even</span></div>
+  <div class="stats">
+    <div class="stat"><b id="be-rev">–</b><span>revenue at break-even</span></div>
+    <div class="stat"><b id="be-margin">–</b><span>margin per unit</span></div>
+    <div class="stat"><b id="be-cm">–</b><span>contribution margin</span></div>
+  </div>
+  <div class="tool-note" id="be-note"></div>
+  <button type="button" class="tool-btn" id="be-share">Share this break-even</button>
+</div>
+<script>(function(){
+var F=document.getElementById('be-f'),P=document.getElementById('be-p'),V=document.getElementById('be-v');
+var OUT=document.getElementById('be-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var f=parseFloat(F.value),p=parseFloat(P.value),v=parseFloat(V.value);
+  if(!(f>=0)||!(p>0)||!(v>=0)){OUT.textContent='–';
+    ['be-rev','be-margin','be-cm'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('be-note').textContent='';document.title='Break-Even Calculator - ToolTide';return;}
+  if(p<=v){OUT.textContent='–';
+    document.getElementById('be-note').textContent='Price is at or below variable cost - every sale loses money, so no volume can break even. Fix the price, the cost, or the business.';
+    ['be-rev','be-margin','be-cm'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.title='Break-Even Calculator - ToolTide';return;}
+  var units=Math.ceil(f/(p-v));
+  OUT.textContent=units.toLocaleString('en-US');
+  document.getElementById('be-rev').textContent='$'+Math.round(units*p).toLocaleString('en-US');
+  document.getElementById('be-margin').textContent='$'+(Math.round((p-v)*100)/100);
+  document.getElementById('be-cm').textContent=Math.round((p-v)/p*100)+'%';
+  document.getElementById('be-note').textContent='Each sale contributes '+(Math.round((p-v)*100)/100)+' ('+Math.round((p-v)/p*100)+'% of price) toward the $'+f.toLocaleString('en-US')+' of monthly fixed costs - unit #'+units.toLocaleString('en-US')+' is the one that clears the rent. Two levers move this number faster than hustle: a +$5 price usually beats a +5% volume push, and trimming variable cost compounds across every future unit. Anything above break-even drops to profit at nearly 100% margin - that is why startups celebrate it.';
+  document.title=units.toLocaleString('en-US')+' units to break even - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_breakeven',JSON.stringify({f:F.value,p:P.value,v:V.value}));}catch(e){}}
+[F,P,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['f',F],['p',P],['v',V]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_breakeven')||'null');if(mem){F.value=mem.f||'';P.value=mem.p||'';V.value=mem.v||'';}}catch(e){}}
+calc();
+document.getElementById('be-share').addEventListener('click',function(){
+  var txt='Break-even: '+OUT.textContent+' units/month ($'+P.value+' price, $'+V.value+' cost). Run your numbers (free, no sign-up):';
+  var url=location.origin+location.pathname+'?f='+F.value+'&p='+P.value+'&v='+V.value;
+  if(navigator.share){navigator.share({title:'Break-even',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this break-even';},1500);}
+});
+})();
+</script>
+"""
+
+# Ideal weight: Devine formula + healthy BMI band, sex-aware, honest framing.
+# Retention hooks: title result hook, tt_idealweight memory, URL state (?h=&u=&s=), Web Share.
+IDEALW = """<div class="tool" id="tt-iw">
+  <div class="fields">
+    <div class="field"><label for="iw-u">Units</label><select id="iw-u"><option value="m">cm / kg</option><option value="i">ft-in / lb</option></select></div>
+    <div class="field"><label for="iw-s">Sex</label><select id="iw-s"><option value="m">Male</option><option value="f">Female</option></select></div>
+    <div class="field"><label for="iw-h" id="iw-hl">Height (cm)</label><input type="number" id="iw-h" step="any" min="120" max="230" placeholder="175"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="iw-out">–</span><span class="result-unit" id="iw-un">kg</span></div>
+  <div class="stats">
+    <div class="stat"><b id="iw-bmi">–</b><span>healthy BMI range</span></div>
+    <div class="stat"><b id="iw-dev">–</b><span>Devine formula</span></div>
+    <div class="stat"><b id="iw-lo">–</b><span>lower / upper of band</span></div>
+  </div>
+  <div class="tool-note" id="iw-note"></div>
+  <button type="button" class="tool-btn" id="iw-share">Share this range</button>
+</div>
+<script>(function(){
+var U=document.getElementById('iw-u'),S=document.getElementById('iw-s'),H=document.getElementById('iw-h');
+var OUT=document.getElementById('iw-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var u=U.value,s=S.value,h=parseFloat(H.value);
+  document.getElementById('iw-hl').textContent=u==='m'?'Height (cm)':'Height (inches, total)';
+  document.getElementById('iw-un').textContent=u==='m'?'kg':'lb';
+  if(!(h>0)){OUT.textContent='–';
+    ['iw-bmi','iw-dev','iw-lo'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('iw-note').textContent='';document.title='Ideal Weight Calculator - ToolTide';return;}
+  var cm=u==='m'?h:h*2.54,m=cm/100,kgPerIn=u==='m'?null:2.54;
+  var inches=u==='m'?cm/2.54:h;
+  var dev=(s==='m'?50:45.5)+2.3*Math.max(0,inches-60);
+  if(u==='i')dev=dev/2.54*1;
+  var loB=18.5*m*m,hiB=24.9*m*m;
+  var fmt=function(kg){return u==='m'?Math.round(kg):Math.round(kg*2.20462);};
+  OUT.textContent=fmt(dev)+' '+document.getElementById('iw-un').textContent;
+  document.getElementById('iw-bmi').textContent=fmt(loB)+'–'+fmt(hiB)+' '+document.getElementById('iw-un').textContent;
+  document.getElementById('iw-dev').textContent=fmt(dev)+' '+document.getElementById('iw-un').textContent;
+  document.getElementById('iw-lo').textContent=fmt(loB)+' / '+fmt(hiB);
+  document.getElementById('iw-note').textContent='Two honest answers: the Devine formula ('+fmt(dev)+' - a 1974 drug-dosing rule, still the classic \u201cideal weight\u201d) and the healthy-BMI band ('+fmt(loB)+'-'+fmt(hiB)+'), which is wider because bodies are. Neither knows your frame, muscle or history - an athletic '+fmt(hiB+5)+' can be healthier than a sedentary '+fmt(loB)+'. Use the band as a range, judge by trend and how you move, and let a clinician argue with the scale.';
+  document.title=fmt(dev)+' '+document.getElementById('iw-un').textContent+' ideal - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_idealweight',JSON.stringify({u:U.value,s:S.value,h:H.value}));}catch(e){}}
+[U,S,H].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['u',U],['s',S],['h',H]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_idealweight')||'null');if(mem){U.value=mem.u||'m';S.value=mem.s||'m';H.value=mem.h||'';}}catch(e){}}
+calc();
+document.getElementById('iw-share').addEventListener('click',function(){
+  var txt='Healthy weight band at my height: '+document.getElementById('iw-bmi').textContent+'. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?h='+H.value+'&u='+U.value+'&s='+S.value;
+  if(navigator.share){navigator.share({title:'Ideal weight',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this range';},1500);}
+});
+})();
+</script>
+"""
+
+# Lorem ipsum: count-exact paragraph generator with copy.
+# Retention hooks: tt_lorem settings memory, copy button, live word count.
+LOREM = """<div class="tool" id="tt-lr">
+  <div class="fields">
+    <div class="field"><label for="lr-p">Paragraphs</label><input type="number" id="lr-p" min="1" max="20" value="3"></div>
+    <div class="field"><label for="lr-w">Words per paragraph</label><input type="number" id="lr-w" min="20" max="200" value="60"></div>
+    <div class="field"><label for="lr-s">Start with \u201cLorem ipsum\u2026\u201d</label><input type="checkbox" id="lr-s" checked></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="lr-out">–</span><span class="result-unit">words generated</span></div>
+  <textarea id="lr-tx" rows="9" style="width:100%;box-sizing:border-box;margin-top:10px;font-size:.95em" readonly></textarea>
+  <div class="tool-note" id="lr-note"></div>
+  <button type="button" class="tool-btn" id="lr-copy">Copy to clipboard</button>
+  <button type="button" class="tool-btn" id="lr-new">Regenerate</button>
+</div>
+<script>(function(){
+var P=document.getElementById('lr-p'),W=document.getElementById('lr-w'),S=document.getElementById('lr-s');
+var TX=document.getElementById('lr-tx'),OUT=document.getElementById('lr-out');
+var POOL='lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo consequat duis aute irure in reprehenderit voluptate velit esse cillum eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt culpa qui officia deserunt mollit anim id est laborum perspiciatis unde omnis iste natus error voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis quasi architecto beatae vitae dicta explicabo nemo ipsam quia voluptas aspernatur aut odit fugit consequuntur magni dolores eos ratione sequi nesciunt neque porro quisquam dolorem adipisci numquam eius modi tempora incidunt magnam quaerat etiam'.split(' ');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function gen(){
+  var p=Math.max(1,Math.min(20,parseInt(P.value)||3)),w=Math.max(20,Math.min(200,parseInt(W.value)||60));
+  var out=[],total=0;
+  for(var i=0;i<p;i++){
+    var words=[];
+    for(var j=0;j<w;j++){words.push(POOL[Math.floor(Math.random()*POOL.length)]);}
+    if(i===0&&S.checked){words[0]='lorem';words[1]='ipsum';words[2]='dolor';words[3]='sit';words[4]='amet';}
+    words[0]=words[0].charAt(0).toUpperCase()+words[0].slice(1);
+    var para=words.join(' ');
+    total+=w;
+    out.push(para+'.');}
+  TX.value=out.join('\n\n');
+  OUT.textContent=total;
+  document.getElementById('lr-note').textContent='Count-exact: '+p+' paragraphs × '+w+' words. Every regenerate draws fresh random sentences - paste straight into your mockup, CSS or CMS.';
+  document.title=total+' placeholder words - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_lorem',JSON.stringify({p:P.value,w:W.value,s:S.checked}));}catch(e){}}
+[P,W].forEach(function(el){el.addEventListener('input',function(){gen();save();});});
+S.addEventListener('change',function(){gen();save();});
+document.getElementById('lr-new').addEventListener('click',function(){gen();});
+var pre=qs('p');
+if(pre){P.value=pre;gen();}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_lorem')||'null');if(mem){P.value=mem.p||3;W.value=mem.w||60;S.checked=mem.s!==false;}}catch(e){}}
+gen();
+document.getElementById('lr-copy').addEventListener('click',function(){
+  TX.select();
+  if(navigator.clipboard){navigator.clipboard.writeText(TX.value);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Copy to clipboard';},1500);}
+  else{document.execCommand('copy');this.textContent='Copied!';var c=this;setTimeout(function(){c.textContent='Copy to clipboard';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -7701,6 +7864,9 @@ TOOLS = {
     "inflation": lambda args: INFLATION,
     "sleepdebt": lambda args: SLEEPDEBT,
     "coffee": lambda args: COFFEE,
+    "breakeven": lambda args: BREAKEVEN,
+    "idealweight": lambda args: IDEALW,
+    "lorem": lambda args: LOREM,
 }
 
 
