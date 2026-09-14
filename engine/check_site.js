@@ -24,6 +24,22 @@ for (const f of files) {
     catch (e) { fail++; console.log('LD FAIL', f, e.message); }
   }
   if (!/canonical/.test(html)) { fail++; console.log('NO CANONICAL', f); }
+  // full-head pages must ask for large image previews in search listings
+  // (games/ redirect stubs ship their own minimal head, so they're exempt)
+  if (html.includes('og:title')) {
+    checked++;
+    if (!html.includes('max-image-preview:large')) { fail++; console.log('META FAIL', f, 'robots max-image-preview:large missing'); }
+  }
+  // the generic 🔧 fallback means a TOOL_EMOJI entry is missing — a homepage
+  // card (server-rendered span) or the tool page chip (div) would show it
+  if (html.includes('card-emoji" aria-hidden="true">🔧') || />🔧<\/div>/.test(html)) {
+    fail++; console.log('EMOJI FAIL', f, 'generic wrench fallback leaked — add a TOOL_EMOJI entry');
+  } else checked++;
+  // the terminal breadcrumb announces the current page to screen readers
+  if (html.includes('class="crumbs')) {
+    checked++;
+    if (!html.includes('aria-current="page"')) { fail++; console.log('A11Y FAIL', f, 'breadcrumb last crumb missing aria-current="page"'); }
+  }
   // screen readers must hear calculator results: every .result container announces
   const rTags = html.match(/<div class="result"[^>]*>/g) || [];
   if (rTags.length) {
@@ -57,6 +73,10 @@ try {
   const css = fs.readFileSync(path.join(root, 'style.css'), 'utf8');
   assert(/\.to-top\b/.test(css) && /\.cat-count\b/.test(css) && /\.chip-n\b/.test(css),
     'style.css: to-top/cat-count/chip-n rules');
+  // cross-document view transitions + their reduced-motion kill-switch
+  assert(css.includes('@view-transition{navigation:auto}'), 'style.css: cross-document view-transition rule');
+  assert(/prefers-reduced-motion:reduce\)\{[^@]*::view-transition-group\(\*\)/.test(css),
+    'style.css: view-transition reduced-motion kill-switch');
   assert(/\.faq summary::after/.test(css) && /\.faq\[open\] summary::after/.test(css),
     'style.css: faq disclosure marker');
   assert(/scroll-margin-top/.test(css), 'style.css: anchor scroll-margin');

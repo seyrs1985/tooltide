@@ -81,6 +81,11 @@ p{text-wrap:pretty}
 ::selection{background:var(--accent-soft);color:var(--text)}
 section[id],main[id]{scroll-margin-top:16px}
 
+/* cross-document view transitions: a quiet cross-fade when moving between
+   pages (Chromium 126+; every other browser ignores the rule). Users with
+   reduced motion keep the instant swap via the kill-switch at the bottom. */
+@view-transition{navigation:auto}
+
 /* skip link + keyboard focus */
 .skip{position:absolute;left:-9999px;top:0;z-index:60;background:var(--brand-fill);color:#fff;padding:10px 18px;border-radius:0 0 10px 0;font-weight:600;text-decoration:none}
 .skip:focus{left:0}
@@ -378,7 +383,7 @@ body.a2hs-show .to-top{bottom:76px}
   .head-search input,.head-search button{height:44px}
   .lang-select{height:44px}
 }
-@media(prefers-reduced-motion:reduce){.card,.pw-bar,.hero-chips a,.to-top,.faq summary::after,.theme-toggle,.head-search button,.cat-more,.cat-more::after{transition:none}.card:hover,.to-top,.btn:active,.cat-more[aria-expanded="true"]::after{transform:none}html{scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){.card,.pw-bar,.hero-chips a,.to-top,.faq summary::after,.theme-toggle,.head-search button,.cat-more,.cat-more::after{transition:none}.card:hover,.to-top,.btn:active,.cat-more[aria-expanded="true"]::after{transform:none}html{scroll-behavior:auto}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
 
 /* Windows High Contrast / forced colors: backgrounds are stripped, so the
    borderless primary button loses its affordance, and the gradient headline

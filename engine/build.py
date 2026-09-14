@@ -31,6 +31,22 @@ TOOL_EMOJI = {
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
  "randomnum": "🎲", "roman": "🏛️", "wordspages": "📄", "grade": "🎓", "dedupe": "🧹", "slug": "🔗", "salestax": "🧾", "average": "🧮", "binary": "💾", "morse": "📡", "kelvin": "🌡️", "bindec": "0️⃣1️⃣", "feetyd": "🦶", "epoch": "⏱️","gramscups": "🥤", "fuel": "⛽", "salary": "💼", "sqft": "📐", "pxin": "🖨️", "unitconv": "🔄", "secondsconv": "⏱️", "coinflip": "🪙", "dice": "🎲", "half": "➗", "cubicft": "📦", "unitprice": "🏷️", "degrad": "📐", "romantable": "📜", "hexrgb": "🎨", "numwords": "🔠", "wordstonum": "🔁", "sdt": "🧭", "reverser": "🔄", "moonweight": "🌕", "planets": "🪐", "binhex": "🔮", "combiner": "💞", "whitespace": "🧽", "yesno": "🍀", "prime": "🔢", "country": "🌍", "stlb": "⚖️", "ftincm": "📏", "emoji": "🎲", "factorial": "❗", "wordfreq": "📈", "sorter": "🔤", "letter": "🔤", "dayofweek": "📆", "percent": "📊",
+ # per-renderer icons for every custom tool — without one the card/chip
+ # falls back to the generic 🔧 and the grid reads as a wall of wrenches
+ "airfryer": "🍟", "amortize": "🏦", "base64": "🧬", "bmi": "🧍",
+ "bodyfat": "💪", "caffeine": "☕", "calburn": "🔥", "cgpa": "📑",
+ "commission": "💰", "compound": "🌱", "concrete": "🧱", "csv2json": "🗂️",
+ "cylinder": "🛢️", "debtpayoff": "🎯", "doubledisc": "🛒", "electricity": "⚡",
+ "finalgrade": "🏁", "fraction": "🍰", "fuelcost": "🚗", "gpa": "🧑‍🎓",
+ "gst": "🇮🇳", "halfbday": "🎈", "heatindex": "🥵", "hoursdiff": "🕐",
+ "inchfrac": "🪚", "jsontool": "📋", "jwtdecode": "🔑", "loanpay": "🏠",
+ "macros": "🥑", "onerepmax": "🏋️", "oven": "🥧", "overtime": "⏰",
+ "pace": "👟", "paintcalc": "🖌️", "pregnancy": "🤰", "ratiocalc": "⚖️",
+ "rent": "🏘️", "savings": "🐷", "simpleint": "💹", "sleepcycle": "😴",
+ "slopecalc": "⛰️", "stddev": "🔔", "striphtml": "🧼", "tdee": "🍽️",
+ "teamgen": "👥", "tilecalc": "🔲", "timecard": "🕘", "tipsplit": "💸",
+ "tzconvert": "🌐", "upside": "🙃", "urlcod": "🔣", "vatcalc": "🇪🇺",
+ "water": "💧", "weeknum": "🗓️", "windchill": "🥶",
 }
 
 
@@ -360,6 +376,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{esc(canonical)}">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="website">
@@ -477,7 +494,7 @@ def crumb(base, items):
         t, u = item[0], item[1]
         k = item[2] if len(item) > 2 else None
         label = f'<span data-i18n="{esc(k)}">{esc(t)}</span>' if k else esc(t)
-        parts.append(f'<a href="{esc(u)}">{label}</a>' if u else f"<span>{esc(t)}</span>")
+        parts.append(f'<a href="{esc(u)}">{label}</a>' if u else f'<span aria-current="page">{esc(t)}</span>')
     inner = "  ›  ".join(parts)
     return f'<nav class="crumbs wrap" aria-label="Breadcrumb">{inner}</nav>'
 
