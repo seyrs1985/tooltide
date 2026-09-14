@@ -5975,6 +5975,258 @@ document.getElementById('ue-copy').addEventListener('click',function(){
 </script>
 """
 
+# JWT decoder: base64url-decode header+payload, humanize exp/iat/nbf timing.
+# Retention hooks: title result hook, tt_jwt memory (device-local only; no URL
+# param by design - tokens must not travel in links), Web Share of tool link.
+JWTDECODE = """<div class="tool" id="tt-jw">
+  <div class="fields">
+    <div class="field"><label for="jw-in">JWT token (paste the whole thing)</label><textarea id="jw-in" rows="4" placeholder="eyJhbGciOi..."></textarea></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="jw-out">–</span><span class="result-unit" id="jw-u">status</span></div>
+  <div class="stats">
+    <div class="stat"><b id="jw-alg">–</b><span>algorithm</span></div>
+    <div class="stat"><b id="jw-exp">–</b><span>expiry</span></div>
+    <div class="stat"><b id="jw-claims">–</b><span>claims</span></div>
+  </div>
+  <h3 style="margin:12px 0 4px">Header</h3>
+  <pre id="jw-h" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:180px;overflow:auto"></pre>
+  <h3 style="margin:12px 0 4px">Payload</h3>
+  <pre id="jw-p" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:280px;overflow:auto"></pre>
+  <div class="tool-note" id="jw-note">Decode only - signatures are never verified here. Tokens stay in your browser: no URL state by design, so a token cannot leak into a shared link.</div>
+  <button type="button" class="tool-btn" id="jw-share">Share this tool</button>
+</div>
+<script>(function(){
+var IN=document.getElementById('jw-in');
+var OUT=document.getElementById('jw-out');
+function b64u(s){
+  var t=s.replace(/-/g,'+').replace(/_/g,'/');
+  while(t.length%4)t+='=';
+  return decodeURIComponent(escape(atob(t)));
+}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function when(ts){
+  var d=new Date(ts*1000);
+  var diff=(Date.now()-ts*1000)/1000;
+  var abs=Math.abs(diff),f;
+  if(abs<60)f=Math.round(abs)+'s';
+  else if(abs<3600)f=Math.round(abs/60)+'min';
+  else if(abs<86400)f=Math.round(abs/3600)+'h';
+  else f=Math.round(abs/86400)+'d';
+  return (diff>=0?f+' ago':'in '+f)+' ('+d.toISOString().slice(0,16).replace('T',' ')+')';
+}
+function calc(){
+  var v=IN.value.trim();
+  if(!v){OUT.textContent='–';document.getElementById('jw-u').textContent='status';
+    document.getElementById('jw-alg').textContent='–';document.getElementById('jw-exp').textContent='–';
+    document.getElementById('jw-claims').textContent='–';
+    document.getElementById('jw-h').textContent='';document.getElementById('jw-p').textContent='';
+    document.title='JWT Decoder - ToolTide';return;}
+  var parts=v.split('.');
+  if(parts.length<2||!parts[0]||!parts[1]){OUT.textContent='Invalid';document.getElementById('jw-u').textContent='needs 2+ dot-separated parts';
+    document.getElementById('jw-note').textContent='A JWT looks like header.payload.signature - three base64url parts separated by dots. Check you pasted the whole token.';
+    document.title='JWT Decoder - ToolTide';return;}
+  try{
+    var h=JSON.parse(b64u(parts[0])),p=JSON.parse(b64u(parts[1]));
+    document.getElementById('jw-h').textContent=JSON.stringify(h,null,2);
+    document.getElementById('jw-p').textContent=JSON.stringify(p,null,2);
+    var alg=h.alg||'?';
+    document.getElementById('jw-alg').textContent=alg;
+    var keys=Object.keys(p).length;
+    document.getElementById('jw-claims').textContent=keys;
+    var status;
+    if(p.exp){
+      var expTxt=when(p.exp);
+      document.getElementById('jw-exp').textContent=expTxt;
+      var expired=p.exp*1000<Date.now();
+      status=expired?'Expired':'Active';
+      if(p.nbf&&p.nbf*1000>Date.now())status='Not yet valid';
+      document.getElementById('jw-note').textContent='exp '+expTxt+(expired?' - this token no longer authenticates; refresh to get a new one.':' - inside its validity window.')+(p.iat?' Issued '+when(p.iat)+'.':'')+' Signature is NOT checked - decoding proves readability, not authenticity.';
+    }else{
+      document.getElementById('jw-exp').textContent='none set';
+      status='No expiry';
+      document.getElementById('jw-note').textContent='No exp claim - some tokens never expire by design (refresh tokens often rotate instead). Signature is NOT checked.';
+    }
+    OUT.textContent=status;
+    document.getElementById('jw-u').textContent=alg+' · '+keys+' claims';
+    document.title='JWT '+alg+' · '+status+' - ToolTide';
+  }catch(e){
+    OUT.textContent='Invalid';document.getElementById('jw-u').textContent='decode failed';
+    document.getElementById('jw-note').textContent='The parts are not valid base64url JSON - check for truncated paste or surrounding quotes.';
+    document.title='JWT Decoder - ToolTide';
+  }
+}
+function save(){try{localStorage.setItem('tt_jwt',IN.value.slice(0,20000));}catch(e){}}
+IN.addEventListener('input',function(){calc();save();});
+try{var mem=localStorage.getItem('tt_jwt');if(mem)IN.value=mem;}catch(e){}
+calc();
+document.getElementById('jw-share').addEventListener('click',function(){
+  var txt='Decode JWTs locally - header, payload and expiry timing, nothing uploaded: ';
+  var url=location.origin+location.pathname;
+  if(navigator.share){navigator.share({title:'JWT decoder',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this tool';},1500);}
+});
+})();
+</script>
+"""
+
+# Amortization schedule: payment table with interest/principal split and balance.
+# Retention hooks: title result hook, tt_amort memory, URL state (?p=&r=&y=&x=), Web Share.
+AMORTIZE = """<div class="tool" id="tt-am">
+  <div class="fields">
+    <div class="field"><label for="am-p">Loan amount ($)</label><input type="number" id="am-p" step="any" min="0" placeholder="25000"></div>
+    <div class="field"><label for="am-r">Annual rate %</label><input type="number" id="am-r" step="any" min="0" max="40" placeholder="7.5"></div>
+    <div class="field"><label for="am-y">Term (years)</label><input type="number" id="am-y" step="any" min="0.5" max="40" placeholder="5"></div>
+    <div class="field"><label for="am-x">Extra monthly ($)</label><input type="number" id="am-x" step="any" min="0" placeholder="0"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="am-out">–</span><span class="result-unit">monthly payment</span></div>
+  <div class="stats">
+    <div class="stat"><b id="am-int">–</b><span>total interest</span></div>
+    <div class="stat"><b id="am-mo">–</b><span>months to payoff</span></div>
+    <div class="stat"><b id="am-sv">–</b><span>saved by extra</span></div>
+  </div>
+  <div class="tool-note" id="am-note"></div>
+  <table id="am-t" style="width:100%;border-collapse:collapse;margin-top:10px;font-size:.88em"></table>
+  <button type="button" class="tool-btn" id="am-share">Share this schedule</button>
+</div>
+<script>(function(){
+var P=document.getElementById('am-p'),R=document.getElementById('am-r'),Y=document.getElementById('am-y'),X=document.getElementById('am-x');
+var OUT=document.getElementById('am-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});}
+function calc(){
+  var p=parseFloat(P.value),ar=parseFloat(R.value),y=parseFloat(Y.value),x=Math.max(0,parseFloat(X.value)||0);
+  if(!(p>0)||!(y>0)||isNaN(ar)||ar<0){OUT.textContent='–';
+    document.getElementById('am-int').textContent='–';document.getElementById('am-mo').textContent='–';
+    document.getElementById('am-sv').textContent='–';document.getElementById('am-t').innerHTML='';
+    document.getElementById('am-note').textContent='';document.title='Amortization Schedule - ToolTide';return;}
+  var r=ar/100/12,n0=Math.round(y*12),f=Math.pow(1+r,n0);
+  var m=r===0?p/n0:p*r*f/(f-1);
+  function run(extra){
+    var b=p,int=0,rows=[],mo=0;
+    while(b>0&&mo<600){
+      var add=b*r,pr=m+extra-add;
+      if(pr<=0)return null;
+      if(pr>b)pr=b;
+      mo++;int+=add;b-=pr;
+      if(mo<=12||mo%12===0||b===0)rows.push([mo,m+extra,add,pr,b]);
+    }
+    return {rows:rows,int:int,mo:mo};
+  }
+  var base=run(0),alt=run(x);
+  OUT.textContent=money(m);
+  document.getElementById('am-int').textContent=money(base.int);
+  document.getElementById('am-mo').textContent=base.mo;
+  if(alt&&x>0){
+    document.getElementById('am-sv').textContent=money(base.int-alt.int)+' + '+(base.mo-alt.mo)+'mo';
+  }else{document.getElementById('am-sv').textContent='—';}
+  document.getElementById('am-note').textContent='First year shown month by month, then each anniversary. Extra principal goes straight to balance - '+(alt&&x>0?(base.mo-alt.mo)+' months and '+money(base.int-alt.int)+' interest shaved.':'enter an extra amount to see the savings.');
+  var html='<tr style="text-align:left;border-bottom:2px solid rgba(14,116,144,.4)"><th>#</th><th>Payment</th><th>Interest</th><th>Principal</th><th>Balance</th></tr>';
+  base.rows.forEach(function(rw){
+    html+='<tr style="border-bottom:1px solid rgba(127,127,127,.2)"><td>'+rw[0]+'</td><td>'+money(rw[1])+'</td><td>'+money(rw[2])+'</td><td>'+money(rw[3])+'</td><td>'+money(rw[4])+'</td></tr>';
+  });
+  document.getElementById('am-t').innerHTML=html;
+  document.title=money(m)+'/mo · '+base.mo+' months - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_amort',JSON.stringify({p:P.value,r:R.value,y:Y.value,x:X.value}));}catch(e){}}
+[P,R,Y,X].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['p',P],['r',R],['y',Y],['x',X]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_amort')||'null');if(mem){P.value=mem.p||'';R.value=mem.r||'';Y.value=mem.y||'';X.value=mem.x||'';}}catch(e){}}
+calc();
+document.getElementById('am-share').addEventListener('click',function(){
+  var txt='Loan schedule: '+OUT.textContent+'/mo, '+document.getElementById('am-mo').textContent+' months, '+document.getElementById('am-int').textContent+' interest. Build yours (no sign-up):';
+  var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'')+'&x='+encodeURIComponent(X.value||'');
+  if(navigator.share){navigator.share({title:'Amortization schedule',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this schedule';},1500);}
+});
+})();
+</script>
+"""
+
+# CSV to JSON: header row -> object keys, quoted-value aware, delimiter sniffing.
+# Retention hooks: title result hook, tt_csv memory (short payloads via ?d=), Web Share.
+CSV2JSON = """<div class="tool" id="tt-cj">
+  <div class="fields">
+    <div class="field"><label for="cj-in">CSV (first row = headers)</label><textarea id="cj-in" rows="7" placeholder="name,role&#10;Ada,engineer&#10;Grace,admiral"></textarea></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cj-out">–</span><span class="result-unit" id="cj-u">records</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cj-cols">–</b><span>columns</span></div>
+    <div class="stat"><b id="cj-delim">–</b><span>delimiter</span></div>
+    <div class="stat"><b id="cj-num">–</b><span>numeric cells</span></div>
+  </div>
+  <pre id="cj-pre" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:340px;overflow:auto;margin:10px 0"></pre>
+  <div class="tool-note" id="cj-note">Quotes handled: commas inside quoted cells stay put. Numeric cells become JSON numbers. Runs locally.</div>
+  <button type="button" class="tool-btn" id="cj-share">Share this converter</button>
+</div>
+<script>(function(){
+var IN=document.getElementById('cj-in');
+var OUT=document.getElementById('cj-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sniff(line){
+  var c=(line.match(/,/g)||[]).length,s=(line.match(/;/g)||[]).length,t=(line.match(/\\t/g)||[]).length;
+  return t>c&&t>s?'\\t':(s>c?';':',');
+}
+function splitLine(line,d){
+  var out=[],cur='',q=false;
+  for(var i=0;i<line.length;i++){
+    var ch=line[i];
+    if(ch==='\"'){
+      if(q&&line[i+1]==='\"'){cur+='\"';i++;}
+      else{q=!q;}
+    }else if(ch===d&&!q){out.push(cur);cur='';}
+    else{cur+=ch;}
+  }
+  out.push(cur);
+  return out.map(function(x){return x.trim();});
+}
+function calc(){
+  var v=IN.value;
+  if(!v.trim()){OUT.textContent='–';document.getElementById('cj-u').textContent='records';
+    document.getElementById('cj-cols').textContent='–';document.getElementById('cj-delim').textContent='–';
+    document.getElementById('cj-num').textContent='–';document.getElementById('cj-pre').textContent='';
+    document.title='CSV to JSON - ToolTide';return;}
+  var lines=v.split(/[\\r\\n]+/).filter(function(x){return x.trim().length;});
+  if(lines.length<2){OUT.textContent='–';document.getElementById('cj-u').textContent='need a header row plus data';
+    document.getElementById('cj-pre').textContent='';document.title='CSV to JSON - ToolTide';return;}
+  var d=sniff(lines[0]);
+  var head=splitLine(lines[0],d);
+  var recs=[],nums=0;
+  for(var i=1;i<lines.length;i++){
+    var cells=splitLine(lines[i],d),o={};
+    for(var j=0;j<head.length;j++){
+      var c=cells[j]!==undefined?cells[j]:'';
+      var num=c!==''&&isFinite(c)&&/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$/i.test(c);
+      if(num){o[head[j]]=parseFloat(c);nums++;}else{o[head[j]]=c;}
+    }
+    recs.push(o);
+  }
+  OUT.textContent=recs.length;
+  document.getElementById('cj-u').textContent='records';
+  document.getElementById('cj-cols').textContent=head.length;
+  document.getElementById('cj-delim').textContent=d==='\\t'?'tab':d;
+  document.getElementById('cj-num').textContent=nums;
+  document.getElementById('cj-pre').innerHTML=esc(JSON.stringify(recs,null,2));
+  document.getElementById('cj-note').textContent=head.length+' columns × '+recs.length+' rows converted'+(d!==','?' (delimiter '+d+' auto-detected)':'')+'. Header row became object keys; '+nums+' numeric cells were typed as JSON numbers - quote them in the CSV to force strings.';
+  document.title=recs.length+' records → JSON - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_csv',IN.value.slice(0,20000));}catch(e){}}
+IN.addEventListener('input',function(){calc();save();});
+var q=qs('d');
+if(q!==null&&q.length<4000){IN.value=q;}
+else{try{var mem=localStorage.getItem('tt_csv');if(mem)IN.value=mem;}catch(e){}}
+calc();
+document.getElementById('cj-share').addEventListener('click',function(){
+  var txt='Convert CSV to JSON locally in the browser: ';
+  var url=location.origin+location.pathname+(IN.value.length<800?'?d='+encodeURIComponent(IN.value):'');
+  if(navigator.share){navigator.share({title:'CSV to JSON',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this converter';},1500);}
+});
+})();
+</script>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -6090,6 +6342,9 @@ TOOLS = {
     "jsontool": lambda args: JSONTOOL,
     "base64": lambda args: BASE64,
     "urlcod": lambda args: URLCOD,
+    "jwtdecode": lambda args: JWTDECODE,
+    "amortize": lambda args: AMORTIZE,
+    "csv2json": lambda args: CSV2JSON,
 }
 
 

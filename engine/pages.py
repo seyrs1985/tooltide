@@ -4173,6 +4173,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "jwt-decoder",
+        "title": "JWT Decoder — Read Header, Payload & Expiry Locally",
+        "h1": "JWT Decoder",
+        "desc": "Paste a JWT to read its header and payload as JSON, with alg, claim count and expiry timing - exp, iat and nbf in plain language. Local only, no sign-up.",
+        "category": "text",
+        "keyword": "jwt decoder",
+        "tool": "jwtdecode",
+        "args": {},
+        "intro": [
+            "A JWT is three base64url parts separated by dots - header, payload, signature - and almost every debugging session starts with 'what's actually in this token?'. Paste it here and the decoder unpacks the first two parts into clean JSON, names the algorithm, counts the claims, and translates the unix timestamps into plain language: expired 3 hours ago, issued in 2 days, not yet valid for 40 minutes.",
+            "Two boundaries are stated up front: signatures are never verified (decoding proves readability, not authenticity), and the token never leaves the browser - by design there is no URL state, so a pasted token can't leak into a shared link. This makes it safe for the tokens you actually debug: session JWTs, OIDC id_tokens, service-account tokens from cloud consoles.",
+        ],
+        "howto": [
+            "Paste the full token - all three dot-separated parts.",
+            "Read the header and payload as JSON, with alg and claim count.",
+            "Check the expiry line - exp, iat and nbf in relative and absolute terms.",
+        ],
+        "faqs": [
+            ("What are the three parts of a JWT?",
+             "Header (algorithm and type), payload (the claims - subject, expiry, roles, whatever the issuer put in), and signature (the cryptographic proof over the first two). The first two are base64url-encoded JSON and readable by anyone; this decoder unpacks exactly those."),
+            ("Can a JWT be read without the secret?",
+             "Yes - the header and payload are encoded, not encrypted. Anyone holding the token can read every claim; the secret only matters for changing them, which the signature prevents. Treat JWTs like postcards, not sealed letters."),
+            ("How do I know if a JWT is expired?",
+             "The exp claim is a unix timestamp; expired means exp is in the past. This decoder states it in both relative (3h ago) and absolute (2026-09-13 21:00) terms, and also honors nbf (not-before) for tokens that activate later."),
+            ("Is my token safe pasted here?",
+             "Everything runs in your browser with zero network calls, and unlike other tools on this site, this one deliberately has no share-with-data URL state - a token must never travel inside a link. That said, pasted tokens are still tokens: revoke anything sensitive you wouldn't paste into your own terminal."),
+        ],
+    })
+
+    pages.append({
+        "slug": "amortization-schedule",
+        "title": "Amortization Schedule Calculator — Payment Split Month by Month",
+        "h1": "Amortization Schedule",
+        "desc": "See every payment's interest/principal split and running balance - first year in full, anniversaries after, with extra-payment savings. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "amortization schedule",
+        "tool": "amortize",
+        "args": {},
+        "intro": [
+            "Early loan payments are mostly interest wearing a payment's clothing: on a $25,000, 7.5%, 5-year loan, payment one sends $156 to interest and $345 to principal - only in month 153 would a 30-year mortgage's split cross to majority principal. This schedule shows the whole march: each payment, its interest and principal pieces, and the running balance, with the first twelve months itemized and every anniversary after.",
+            "The extra-payment field is where the table becomes a decision tool: add $100 a month and the schedule recomputes the payoff - months saved, interest saved, and the crossover month where your dollars start beating the bank's. The numbers are remembered for scenario comparing, and it pairs with the loan payment and debt payoff calculators on either side of the borrowing journey.",
+        ],
+        "howto": [
+            "Enter loan amount, annual rate and term - the payment appears first.",
+            "Read the schedule: month-by-month for year one, anniversaries after.",
+            "Add an extra monthly amount to see months and interest saved instantly.",
+        ],
+        "faqs": [
+            ("What is an amortization schedule?",
+             "The table splitting every scheduled payment into interest (rate on the remaining balance) and principal (the rest), with the running balance until zero. Because interest rides the balance, early payments are interest-heavy and the principal share grows every month - the table makes that visible row by row."),
+            ("Why do early payments barely reduce the balance?",
+             "Interest is charged on the full remaining balance - at the start that's the whole loan. On a 30-year mortgage, payment one can be two-thirds interest; the principal snowball only dominates in the final years. The schedule shows exactly when your payment's split crosses over."),
+            ("How do extra payments change the schedule?",
+             "Extra dollars skip ahead: they apply entirely to principal, which shrinks every future month's interest charge. $100 extra on the sample loan saves around 10 months and hundreds in interest - the calculator computes it live rather than estimating."),
+            ("Does this schedule match my bank's exactly?",
+             "To the formula, yes - same standard amortization math. Bank statements can differ by pennies from rounding conventions, payment-date interest, or fees; treat this as the clean model of your loan, and the bank's as the noisy reality of it."),
+        ],
+    })
+
+    pages.append({
+        "slug": "csv-to-json",
+        "title": "CSV to JSON Converter — Header Row to Keys, Quoted Cells Safe",
+        "h1": "CSV to JSON",
+        "desc": "Convert CSV to a JSON array instantly - headers become keys, quoted commas survive, numbers auto-typed, delimiter sniffed. Local, free, no sign-up.",
+        "category": "text",
+        "keyword": "csv to json",
+        "tool": "csv2json",
+        "args": {},
+        "intro": [
+            "CSV is what spreadsheets export and JSON is what APIs and code want, and the conversion breaks on the same details every time: commas hiding inside quoted cells, semicolon delimiters from European exports, and numbers that arrive as strings. This converter handles all three - quoted values are parsed properly, the delimiter is sniffed from the header row, numeric cells are typed as JSON numbers - and shows the result as clean, copyable JSON.",
+            "The first row becomes object keys, so 'name,role' headers yield {\"name\":..., \"role\":...} records. Everything runs locally in your browser: customer exports and spreadsheet data never leave the page. Your last CSV is remembered for iteration, and the tool sits between the JSON formatter and Base64 decoder in the data-tools corner of the site.",
+        ],
+        "howto": [
+            "Paste CSV with headers in the first row - commas, semicolons or tabs.",
+            "Read the JSON array - records, columns, delimiter and numeric-cell count update live.",
+            "Copy the output, or tweak the CSV and watch it reconvert.",
+        ],
+        "faqs": [
+            ("How are commas inside values handled?",
+             "Properly - cells wrapped in double quotes keep their commas, and doubled quotes inside quoted cells become literal quotes (the CSV escaping rule). Only unquoted commas split cells, which is exactly how standards-compliant CSV parsers behave."),
+            ("How do numbers become JSON numbers?",
+             "Cells matching a numeric pattern (optional sign, digits, decimal, scientific notation) are emitted unquoted and become real JSON numbers; everything else stays a string. Need '123' as a string? Quote it in the CSV or fix it after - the note line counts what was typed."),
+            ("Does it detect semicolon or tab delimiters?",
+             "Yes - the header row is scanned for commas, semicolons and tabs, and the most frequent wins. European Excel exports (semicolon CSVs) and TSVs paste straight in; the delimiter stat shows what was detected."),
+            ("Is my data uploaded anywhere?",
+             "No - parsing happens in your browser with zero network calls, the same guarantee as every text tool here. For customer lists and financial exports, local-only is not a feature, it is the requirement."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
