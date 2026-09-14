@@ -21,10 +21,10 @@ COUNTDOWN = """
   <div class="cd-big-label" id="cd-days-label" data-i18n="cd.days">days to go</div>
   <div class="cd-clock" id="cd-clock">–</div>
   <div class="stats">
-    <div class="stat"><b id="cd-weeks">–</b><span>weeks</span></div>
-    <div class="stat"><b id="cd-hours">–</b><span>total hours</span></div>
-    <div class="stat"><b id="cd-date">–</b><span>the date</span></div>
-    <div class="stat" id="cd-today-box" style="display:none"><b>🎉</b><span>It's today!</span></div>
+    <div class="stat"><b id="cd-weeks">–</b><span data-i18n="cd.weeks">weeks</span></div>
+    <div class="stat"><b id="cd-hours">–</b><span data-i18n="cd.hours">total hours</span></div>
+    <div class="stat"><b id="cd-date">–</b><span data-i18n="cd.thedate">the date</span></div>
+    <div class="stat" id="cd-today-box" style="display:none"><b>🎉</b><span data-i18n="cd.istoday">It's today!</span></div>
   </div>
   <div class="cd-custom" style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:.9rem">
     <label for="cd-date-in" data-i18n="cd.custom">Custom date</label>
@@ -93,7 +93,7 @@ function tick(){
   var real=r.today?0:days;
   var LC=(window.ttLang&&window.ttLang())||'en-US';
   function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
-  var EV=A.event,daysLbl=T('cd.days','days to go');
+  var EV=T('cd.ev.'+A.slug,A.event),daysLbl=T('cd.days','days to go');
   if(CUST){EV=r.cand.toLocaleDateString(LC,{month:'short',day:'numeric',year:'numeric'})+' ★';daysLbl=T('cd.daysyours','days to your date');}
   el('cd-name').textContent=EV;
   if(ICV&&ICONLINK&&real!==ILAST){ILAST=real;try{
@@ -144,19 +144,20 @@ el('cd-ics').addEventListener('click',function(){
 DATEDIFF = """
 <div class="tool" id="tt-dd">
   <div class="fields">
-    <div class="field"><label for="dd-a">Start date</label><input type="date" id="dd-a"></div>
-    <div class="field"><label for="dd-b">End date</label><input type="date" id="dd-b"></div>
+    <div class="field"><label for="dd-a" data-i18n="dd.start">Start date</label><input type="date" id="dd-a"></div>
+    <div class="field"><label for="dd-b" data-i18n="dd.end">End date</label><input type="date" id="dd-b"></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dd-days">–</span><span class="result-unit">days</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dd-days">–</span><span class="result-unit" data-i18n="dd.days">days</span>
     <div class="result-formula" id="dd-note"></div></div>
   <div class="stats">
-    <div class="stat"><b id="dd-weeks">–</b><span>weeks &amp; days</span></div>
-    <div class="stat"><b id="dd-wd">–</b><span>weekdays (Mon–Fri)</span></div>
-    <div class="stat"><b id="dd-hours">–</b><span>total hours</span></div>
+    <div class="stat"><b id="dd-weeks">–</b><span data-i18n="dd.wkslbl">weeks &amp; days</span></div>
+    <div class="stat"><b id="dd-wd">–</b><span data-i18n="dd.wdays">weekdays (Mon–Fri)</span></div>
+    <div class="stat"><b id="dd-hours">–</b><span data-i18n="dd.hours">total hours</span></div>
   </div>
 </div>
 <script>(function(){
 var a=document.getElementById('dd-a'),b=document.getElementById('dd-b');
+function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
 function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 var t=new Date();a.value=iso(t);b.value=iso(new Date(t.getTime()+12096e5));
 function run(){
@@ -166,7 +167,7 @@ function run(){
   var days=Math.round((hi-lo)/864e5);
   document.getElementById('dd-days').textContent=sign*days;
   var w=Math.floor(days/7),rd=days%7;
-  document.getElementById('dd-weeks').textContent=w+(rd===1?' week + 1 day':' weeks + '+rd+' days');
+  document.getElementById('dd-weeks').textContent=T('dd.wksfmt','{w} weeks + {d} days').replace('{w}',w).replace('{d}',rd);
   var wd=0,cur=new Date(lo);
   if(days<=500000){for(var i=0;i<days;i++){cur.setDate(cur.getDate()+1);var g=cur.getDay();if(g!==0&&g!==6)wd++;}}
   document.getElementById('dd-wd').textContent=days>500000?'—':wd;

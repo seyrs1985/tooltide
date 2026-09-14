@@ -65,10 +65,10 @@
   <div class="cd-big-label" id="cd-days-label" data-i18n="cd.days">days to go</div>
   <div class="cd-clock" id="cd-clock">–</div>
   <div class="stats">
-    <div class="stat"><b id="cd-weeks">–</b><span>weeks</span></div>
-    <div class="stat"><b id="cd-hours">–</b><span>total hours</span></div>
-    <div class="stat"><b id="cd-date">–</b><span>the date</span></div>
-    <div class="stat" id="cd-today-box" style="display:none"><b>🎉</b><span>It's today!</span></div>
+    <div class="stat"><b id="cd-weeks">–</b><span data-i18n="cd.weeks">weeks</span></div>
+    <div class="stat"><b id="cd-hours">–</b><span data-i18n="cd.hours">total hours</span></div>
+    <div class="stat"><b id="cd-date">–</b><span data-i18n="cd.thedate">the date</span></div>
+    <div class="stat" id="cd-today-box" style="display:none"><b>🎉</b><span data-i18n="cd.istoday">It's today!</span></div>
   </div>
   <div class="cd-custom" style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:.9rem">
     <label for="cd-date-in" data-i18n="cd.custom">Custom date</label>
@@ -137,7 +137,7 @@ function tick(){
   var real=r.today?0:days;
   var LC=(window.ttLang&&window.ttLang())||'en-US';
   function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
-  var EV=A.event,daysLbl=T('cd.days','days to go');
+  var EV=T('cd.ev.'+A.slug,A.event),daysLbl=T('cd.days','days to go');
   if(CUST){EV=r.cand.toLocaleDateString(LC,{month:'short',day:'numeric',year:'numeric'})+' ★';daysLbl=T('cd.daysyours','days to your date');}
   el('cd-name').textContent=EV;
   if(ICV&&ICONLINK&&real!==ILAST){ILAST=real;try{

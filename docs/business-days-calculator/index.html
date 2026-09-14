@@ -61,19 +61,20 @@
   
 <div class="tool" id="tt-dd">
   <div class="fields">
-    <div class="field"><label for="dd-a">Start date</label><input type="date" id="dd-a"></div>
-    <div class="field"><label for="dd-b">End date</label><input type="date" id="dd-b"></div>
+    <div class="field"><label for="dd-a" data-i18n="dd.start">Start date</label><input type="date" id="dd-a"></div>
+    <div class="field"><label for="dd-b" data-i18n="dd.end">End date</label><input type="date" id="dd-b"></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dd-days">–</span><span class="result-unit">days</span>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dd-days">–</span><span class="result-unit" data-i18n="dd.days">days</span>
     <div class="result-formula" id="dd-note"></div></div>
   <div class="stats">
-    <div class="stat"><b id="dd-weeks">–</b><span>weeks &amp; days</span></div>
-    <div class="stat"><b id="dd-wd">–</b><span>weekdays (Mon–Fri)</span></div>
-    <div class="stat"><b id="dd-hours">–</b><span>total hours</span></div>
+    <div class="stat"><b id="dd-weeks">–</b><span data-i18n="dd.wkslbl">weeks &amp; days</span></div>
+    <div class="stat"><b id="dd-wd">–</b><span data-i18n="dd.wdays">weekdays (Mon–Fri)</span></div>
+    <div class="stat"><b id="dd-hours">–</b><span data-i18n="dd.hours">total hours</span></div>
   </div>
 </div>
 <script>(function(){
 var a=document.getElementById('dd-a'),b=document.getElementById('dd-b');
+function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
 function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 var t=new Date();a.value=iso(t);b.value=iso(new Date(t.getTime()+12096e5));
 function run(){
@@ -83,7 +84,7 @@ function run(){
   var days=Math.round((hi-lo)/864e5);
   document.getElementById('dd-days').textContent=sign*days;
   var w=Math.floor(days/7),rd=days%7;
-  document.getElementById('dd-weeks').textContent=w+(rd===1?' week + 1 day':' weeks + '+rd+' days');
+  document.getElementById('dd-weeks').textContent=T('dd.wksfmt','{w} weeks + {d} days').replace('{w}',w).replace('{d}',rd);
   var wd=0,cur=new Date(lo);
   if(days<=500000){for(var i=0;i<days;i++){cur.setDate(cur.getDate()+1);var g=cur.getDay();if(g!==0&&g!==6)wd++;}}
   document.getElementById('dd-wd').textContent=days>500000?'—':wd;
