@@ -4773,6 +4773,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "ev-charging-cost-calculator",
+        "title": "EV Charging Cost Calculator — Per Mile & vs Gas, Charging-Loss Aware",
+        "h1": "EV Charging Cost Calculator",
+        "desc": "Work out what your EV really costs per mile or km: battery, efficiency and your electricity rate - with an honest gas-car comparison. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "ev charging cost calculator",
+        "tool": "evcharge",
+        "args": {},
+        "intro": [
+            "The promise of cheap electric driving hides in three numbers: your battery's usable kWh, your real-world efficiency, and what your utility actually charges per kWh - and the difference between a 0.10 off-peak rate and a 0.40 public rapid is the difference between driving for pennies and paying more than a diesel. This calculator runs the honest per-mile figure from your own numbers, plus the full-charge cost that decides whether topping up at home beats the pump.",
+            "The comparison column is where it gets satisfying: add a gas price and consumption and the note converts the per-unit saving into a yearly number at 12,000 units - the figure that actually wins arguments. The note also keeps one awkward truth visible: wall-to-battery charging losses run about 10% on Level 2 and worse on rapids, so the meter number and the battery number are not the same.",
+        ],
+        "howto": [
+            "Enter your battery's usable kWh and efficiency (mi/kWh or kWh/100km).",
+            "Enter your electricity rate - check your off-peak tariff, it changes everything.",
+            "Optionally add gas price and consumption for the per-mile showdown.",
+        ],
+        "faqs": [
+            ("How do I calculate EV cost per mile?",
+             "Electricity rate ÷ efficiency: at $0.15/kWh and 4 mi/kWh, that is 3.75 cents per mile - about $450 a year at 12,000 miles. The same formula works in metric (rate × kWh/100km gives cost per km), and the calculator switches units cleanly so you can compare with what your gas car burns."),
+            ("Why is my real charging bill higher than this?",
+             "Charging losses: roughly 10% of the energy you pay for never reaches the battery on Level 2 (conversion heat, battery management), and DC fast charging wastes even more on top of costing 2-3× per kWh. The calculator shows the battery-math price; mentally add a tenth for home charging, more for rapids."),
+            ("What efficiency number should I use?",
+             "The EPA or WLTP figure is a lab best case; most drivers see 10-20% less in mixed driving, less again in winter when cold batteries and cabin heating bite. Check your car's trip computer lifetime average - that honest number beats any spec sheet for cost math."),
+            ("Is public rapid charging still cheaper than gas?",
+             "Often, barely - and sometimes not. At $0.40/kWh and 4 mi/kWh you pay 10 cents a mile; a 30 mpg car at $3.50 gas pays 11.7. Home charging at $0.15 halves that. The calculator makes the trade visible: the EV's economics depend less on the car than on where and when you charge."),
+        ],
+    })
+
+    pages.append({
+        "slug": "golden-hour-calculator",
+        "title": "Golden Hour Calculator — Sunrise, Sunset & Best Photo Light Today",
+        "h1": "Golden Hour Calculator",
+        "desc": "Find today's golden hour windows from any location: sunrise, morning light, evening light and sunset - computed with real solar math. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "golden hour calculator",
+        "tool": "goldenhour",
+        "args": {},
+        "intro": [
+            "Golden hour is the hour-ish window when the sun sits within about 6° of the horizon and light turns warm, directional and forgiving - portraits glow, cities turn amber, and every photographer's feed gets better. It is not a fixed time: it shifts with latitude and season, from a reliable hour at mid-latitudes to most of the nightless summer day up north. This calculator computes it from solar position, not from a lookup table.",
+            "Enter a date and coordinates and it gives the full light plan: sunrise, when the morning window closes, when the evening window opens, and sunset - all in your device's timezone, with the window length stated so you know whether you're working with 70 minutes or 25. Location and date are remembered for the next scout, and the share link hands the whole schedule to your shooting partner.",
+        ],
+        "howto": [
+            "Pick the date and enter your latitude and longitude.",
+            "Read the morning and evening golden windows plus sunrise and sunset.",
+            "Arrive 20 minutes early - the first half of the window is the best light.",
+        ],
+        "faqs": [
+            ("What exactly is golden hour?",
+             "The period when the sun is low - roughly within 6° of the horizon. Sunlight then travels through much more atmosphere, which scatters away blue light and leaves warm, soft, directional illumination with long shadows. It occurs twice daily, and its length varies hugely with latitude and season - this calculator derives it from solar geometry rather than guessing '60 minutes'."),
+            ("How accurate are the times?",
+             "The math is the standard NOAA-style solar position model (declination, equation of time, horizon at -0.833° for sunrise/sunset and +6° for the golden edge), typically accurate to a couple of minutes. Local terrain matters more than formula error: mountains and tall buildings end the window early, so treat the times as your plan, not a guarantee."),
+            ("What's the difference between golden hour and blue hour?",
+             "Golden hour is before sunset (sun 6° above horizon to setting); blue hour is just after, when the sun is below the horizon and remaining light is deep blue - the cityscape and twilight-buildings window. The note under tonight's plan reminds you blue hour follows immediately if you're shooting skylines."),
+            ("Why does golden hour last longer in summer or up north?",
+             "The sun's path meets the horizon at a shallower angle when the days are long, so it crawls through the 6° band instead of diving through it. At mid-latitudes the evening window runs 30-60 minutes; near the Arctic in midsummer the sun can graze the horizon all night. The window-length stat shows your number for the date."),
+        ],
+    })
+
+    pages.append({
+        "slug": "pizza-dough-calculator",
+        "title": "Pizza Dough Calculator — Flour, Water, Salt & Yeast in Grams",
+        "h1": "Pizza Dough Calculator",
+        "desc": "Scale pizza dough precisely: choose ball count, weight and hydration, get flour, water, salt and yeast in grams - with cold-ferment guidance. Free.",
+        "category": "calculator",
+        "keyword": "pizza dough calculator",
+        "tool": "pizza",
+        "args": {},
+        "intro": [
+            "Every good pizza dough is the same four numbers in different clothes: flour, water at 60-70% of flour weight, salt near 3%, and just enough yeast for the time you're giving the dough. Recipes written in cups betray you at every scale - this calculator works in baker's percentages, so '4 balls at 250g and 65% hydration' comes back as exact grams of everything, whether you're making two pizzas or twenty.",
+            "The yeast field is the piece most calculators skip: yeast quantity depends on fermentation time and temperature, so the selector separates a room-temp day from a 24-hour cold ferment and adjusts the dose accordingly - because the single biggest upgrade in home pizza is not a 450°C oven, it's tomorrow's dough tonight. Your usual recipe is remembered, results show in the tab title, and the share link carries the full spec.",
+        ],
+        "howto": [
+            "Enter how many pizzas and how heavy each ball should be (250g is typical for a 12-inch).",
+            "Set hydration: 60% for beginner-friendly NY style, 65-70% for Neapolitan.",
+            "Get your grams - then try the 24-hour cold ferment option this weekend.",
+        ],
+        "faqs": [
+            ("What does hydration percentage mean?",
+             "Water weight as a percentage of flour weight - 65% hydration means 650g water per kilo of flour. Higher hydration means wetter dough, more open airy crumb and harder handling; lower means easier shaping and denser chew. Start at 60-63% for your first bakes; go up only as your confidence with sticky dough does."),
+            ("How much yeast should pizza dough have?",
+             "Less than you think when time is on your side: a same-day dough wants around 0.4% instant yeast (1% fresh), while a 24-hour cold ferment needs only a quarter of that - the dough rises slowly in the fridge while flavor compounds build. Doubling yeast does not double rise speed linearly; giving the dough more time does."),
+            ("How heavy should a pizza dough ball be?",
+             "About 250g for a 12-inch (30cm) pizza, scaling roughly with the square of the size: 180-200g for a 10-inch, 300-330g for a 14-inch pan. Neapolitan rules pin it at 180-280g by law of tradition - the calculator just does the arithmetic for whatever you decide."),
+            ("Can I scale this recipe for a stand mixer or by hand?",
+             "The grams scale to any batch size, which is the point of baker's percentages - an eight-pizza party batch is as exact as a two-pizza Tuesday. Mix, rest 20 minutes (autolyse), add nothing, knead briefly, then ball and ferment; the numbers stay the same no matter which muscles do the work."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

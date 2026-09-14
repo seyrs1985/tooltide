@@ -7200,6 +7200,204 @@ document.getElementById('bp-share').addEventListener('click',function(){
 </script>
 """
 
+# EV charging cost: per-mile vs gas comparison, charging-loss aware.
+# Retention hooks: title result hook, tt_evcharge memory, URL state (?k=&e=&u=&r=&g=&m=), Web Share.
+EVCHARGE = """<div class="tool" id="tt-ev">
+  <div class="fields">
+    <div class="field"><label for="ev-u">Units</label><select id="ev-u"><option value="mi">miles / mpg</option><option value="km">km / L100</option></select></div>
+    <div class="field"><label for="ev-k">Usable battery (kWh)</label><input type="number" id="ev-k" step="any" min="1" placeholder="60"></div>
+    <div class="field"><label for="ev-e">Efficiency (mi/kWh)</label><input type="number" id="ev-e" step="any" min="1" max="10" placeholder="4"></div>
+    <div class="field"><label for="ev-r">Electricity rate ($/kWh)</label><input type="number" id="ev-r" step="any" min="0" placeholder="0.15"></div>
+    <div class="field"><label for="ev-g">Gas price ($/unit, opt.)</label><input type="number" id="ev-g" step="any" min="0" placeholder="3.50"></div>
+    <div class="field"><label for="ev-m">Gas car (mpg or L/100km)</label><input type="number" id="ev-m" step="any" min="1" placeholder="30"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ev-out">–</span><span class="result-unit" id="ev-unit2">per mile</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ev-full">–</b><span>full charge cost</span></div>
+    <div class="stat"><b id="ev-100">–</b><span>cost per 100 (mi/km)</span></div>
+    <div class="stat"><b id="ev-gasc">–</b><span>gas car same distance</span></div>
+    <div class="stat"><b id="ev-save">–</b><span>saved vs gas</span></div>
+  </div>
+  <div class="tool-note" id="ev-note"></div>
+  <button type="button" class="tool-btn" id="ev-share">Share this cost math</button>
+</div>
+<script>(function(){
+var U=document.getElementById('ev-u'),K=document.getElementById('ev-k'),E=document.getElementById('ev-e'),R=document.getElementById('ev-r'),G=document.getElementById('ev-g'),M=document.getElementById('ev-m');
+var OUT=document.getElementById('ev-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function money(n){return '$'+(Math.abs(n)>=1?n.toFixed(2):(n.toFixed(3)));}
+function calc(){
+  var u=U.value,k=parseFloat(K.value),e=parseFloat(E.value),r=parseFloat(R.value),g=parseFloat(G.value),m=parseFloat(M.value);
+  document.getElementById('ev-unit2').textContent=u==='mi'?'per mile':'per km';
+  document.getElementById('ev-e').previousElementSibling.textContent=u==='mi'?'Efficiency (mi/kWh)':'Efficiency (kWh/100km)';
+  if(!(k>0)||!(e>0)||!(r>0)){OUT.textContent='–';
+    ['ev-full','ev-100','ev-gasc','ev-save'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('ev-note').textContent='';document.title='EV Charging Cost Calculator - ToolTide';return;}
+  var cpm=u==='mi'?r/e:r*e/100;
+  OUT.textContent=money(cpm);
+  document.getElementById('ev-full').textContent=money(k*r);
+  document.getElementById('ev-100').textContent=money(cpm*100);
+  var gc=null;
+  if(g>0&&m>0){gc=u==='mi'?g/m:g*m/100;}
+  document.getElementById('ev-gasc').textContent=gc!==null?money(gc):'–';
+  document.getElementById('ev-save').textContent=gc!==null?money(gc-cpm)+' ('+Math.max(0,Math.round((1-cpm/gc)*100))+'%)':'–';
+  document.getElementById('ev-note').textContent='Full charge = battery × your rate, but real wall-to-battery losses add ~10% on Level 2 (more on fast chargers) - mentally add a tenth. Off-peak tariffs often cut the rate by half, which is the difference between charging for pocket change and a utility bill surprise. '+(gc!==null?'At these prices the EV runs for '+money(cpm)+' where the gas car burns '+money(gc)+' - over 12,000 '+(u==='mi'?'miles':'km')+' that is '+money(Math.abs(gc-cpm)*12000)+' a year.':'Add a gas price and consumption to see the comparison.');
+  document.title=money(cpm)+' '+(u==='mi'?'per mile':'per km')+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_evcharge',JSON.stringify({u:U.value,k:K.value,e:E.value,r:R.value,g:G.value,m:M.value}));}catch(e){}}
+[U,K,E,R,G,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['u',U],['k',K],['e',E],['r',R],['g',G],['m',M]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_evcharge')||'null');if(mem){U.value=mem.u||'mi';K.value=mem.k||'';E.value=mem.e||'';R.value=mem.r||'';G.value=mem.g||'';M.value=mem.m||'';}}catch(e){}}
+calc();
+document.getElementById('ev-share').addEventListener('click',function(){
+  var txt='My EV costs '+OUT.textContent+' '+(U.value==='mi'?'per mile':'per km')+' to charge'+(parseFloat(G.value)>0?' vs '+document.getElementById('ev-gasc').textContent+' for gas':'')+'. Run your numbers (free):';
+  var url=location.origin+location.pathname+'?k='+K.value+'&e='+E.value+'&r='+R.value+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'EV charging cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this cost math';},1500);}
+});
+})();
+</script>
+"""
+
+# Golden hour: NOAA solar position -> sunrise/sunset + morning/evening golden windows.
+# Retention hooks: title result hook, tt_golden memory, URL state (?d=&la=&lo=), Web Share.
+GOLDEN = """<div class="tool" id="tt-gh">
+  <div class="fields">
+    <div class="field"><label for="gh-d">Date</label><input type="date" id="gh-d"></div>
+    <div class="field"><label for="gh-la">Latitude (+N)</label><input type="number" id="gh-la" step="any" min="-66" max="66" placeholder="40.7"></div>
+    <div class="field"><label for="gh-lo">Longitude (−W)</label><input type="number" id="gh-lo" step="any" min="-180" max="180" placeholder="-74.0"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gh-out">–</span><span class="result-unit">evening golden hour</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gh-sr">–</b><span>sunrise</span></div>
+    <div class="stat"><b id="gh-am">–</b><span>morning golden hour</span></div>
+    <div class="stat"><b id="gh-ss">–</b><span>sunset</span></div>
+    <div class="stat"><b id="gh-len">–</b><span>window length</span></div>
+  </div>
+  <div class="tool-note" id="gh-note"></div>
+  <button type="button" class="tool-btn" id="gh-share">Share tonight's light</button>
+</div>
+<script>(function(){
+var D=document.getElementById('gh-d'),LA=document.getElementById('gh-la'),LO=document.getElementById('gh-lo');
+var OUT=document.getElementById('gh-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function rad(x){return x*Math.PI/180;}
+function hrsToStr(h){
+  if(isNaN(h))return '–';
+  var off=-new Date().getTimezoneOffset()/60;
+  var t=h+off,total=Math.round(t*60)+1440*7;
+  var hh=Math.floor(total/60)%24,mm=total%60;
+  return (hh<10?'0':'')+hh+':'+(mm<10?'0':'')+mm;}
+function solar(date,lat,lon,h0){
+  var start=Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())/86400000+2440587.5;
+  var n=start-2451545.0+0.0008;
+  var Jstar=n-lon/360;
+  var M=(357.5291+0.98560028*Jstar)%360;
+  var C=1.9148*Math.sin(rad(M))+0.02*Math.sin(rad(2*M))+0.0003*Math.sin(rad(3*M));
+  var lam=(M+C+282.6341+360)%360;
+  var Jt=Jstar+0.0053*Math.sin(rad(M))-0.0069*Math.sin(rad(2*lam));
+  var d=rad(Math.asin(Math.sin(rad(lam))*Math.sin(rad(23.4397))));
+  var cosH=(Math.sin(rad(h0))-Math.sin(rad(lat))*Math.sin(d))/(Math.cos(rad(lat))*Math.cos(d));
+  if(cosH>1)return{polar:'night'};
+  if(cosH<-1)return{polar:'day'};
+  var H=rad(Math.acos(cosH))*180/Math.PI;
+  var solarNoon=Jt+H/360,solarMid=Jt-H/360;
+  return{rise:solarMid%1,noon:(solarNoon)%1,set:solarNoon%1};
+}
+function calc(){
+  var dv=D.value?new Date(D.value+'T12:00:00'):null,la=parseFloat(LA.value),lo=parseFloat(LO.value);
+  if(!dv||isNaN(la)||isNaN(lo)){OUT.textContent='–';
+    ['gh-sr','gh-am','gh-ss','gh-len'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('gh-note').textContent='';document.title='Golden Hour Calculator - ToolTide';return;}
+  var sr=solar(dv,la,lo,-0.833),am6=solar(dv,la,lo,6),pm4=solar(dv,la,lo,-4);
+  if(sr.polar||am6.polar){OUT.textContent=am6.polar==='day'?'all day':'–';
+    document.getElementById('gh-note').textContent=am6.polar==='day'?'Sun never sets here on this date - golden light lasts for hours near the horizon at high latitudes in summer.':'Sun never rises here on this date.';
+    ['gh-sr','gh-am','gh-ss','gh-len'].forEach(function(id){document.getElementById(id).textContent='–';});
+    return;}
+  var srT=hrsToStr(sr.rise),ssT=hrsToStr(sr.set),amEnd=hrsToStr(am6.rise),pmStart=hrsToStr(pm4.set);
+  var ghpmMins=Math.max(10,Math.round((sr.set-pm4.set)*60));
+  OUT.textContent=pmStart+' – '+ssT;
+  document.getElementById('gh-sr').textContent=srT;
+  document.getElementById('gh-am').textContent=srT+' – '+amEnd;
+  document.getElementById('gh-ss').textContent=ssT;
+  document.getElementById('gh-len').textContent=ghpmMins+' min';
+  document.getElementById('gh-note').textContent='Golden hour = sun within roughly 6° above the horizon; here that is about '+ghpmMins+' minutes. The light is warm and directional because the sun\\'s path through the atmosphere is long - UV is filtered out, shadows stretch, and contrast drops. Arrive 20 minutes early: the best light is often the first half. Times are in your device\\'s timezone; blue hour follows right after sunset for cityscapes.';
+  document.title='Golden hour '+pmStart+'–'+ssT+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_golden',JSON.stringify({d:D.value,la:LA.value,lo:LO.value}));}catch(e){}}
+[D,LA,LO].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['d',D],['la',LA],['lo',LO]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_golden')||'null');if(mem){D.value=mem.d||'';LA.value=mem.la||'';LO.value=mem.lo||'';}}catch(e){}}
+if(!D.value)D.value=new Date().toISOString().slice(0,10);
+calc();
+document.getElementById('gh-share').addEventListener('click',function(){
+  var txt='Golden hour on '+D.value+' at '+LA.value+','+LO.value+': '+OUT.textContent+'. Plan your shoot (free, no sign-up):';
+  var url=location.origin+location.pathname+'?d='+D.value+'&la='+LA.value+'&lo='+LO.value;
+  if(navigator.share){navigator.share({title:'Golden hour',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent="Share tonight's light";},1500);}
+});
+})();
+</script>
+"""
+
+# Pizza dough: baker's percentages -> exact grams for N balls.
+# Retention hooks: title result hook, tt_pizza memory, URL state (?n=&w=&h=&s=), Web Share.
+PIZZA = """<div class="tool" id="tt-pz">
+  <div class="fields">
+    <div class="field"><label for="pz-n">How many pizzas</label><input type="number" id="pz-n" min="1" max="40" placeholder="4"></div>
+    <div class="field"><label for="pz-w">Ball weight (g)</label><input type="number" id="pz-w" min="80" max="500" placeholder="250"></div>
+    <div class="field"><label for="pz-h">Hydration %</label><input type="number" id="pz-h" min="50" max="90" placeholder="65"></div>
+    <div class="field"><label for="pz-y">Yeast type</label><select id="pz-y"><option value="i">Instant (room-temp day)</option><option value="f">Fresh (room-temp day)</option><option value="c">Instant (24h cold ferment)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pz-out">–</span><span class="result-unit">g flour</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pz-wat">–</b><span>g water</span></div>
+    <div class="stat"><b id="pz-salt">–</b><span>g salt</span></div>
+    <div class="stat"><b id="pz-yeast">–</b><span>g yeast</span></div>
+    <div class="stat"><b id="pz-tot">–</b><span>g total dough</span></div>
+  </div>
+  <div class="tool-note" id="pz-note"></div>
+  <button type="button" class="tool-btn" id="pz-share">Share this recipe</button>
+</div>
+<script>(function(){
+var N=document.getElementById('pz-n'),W=document.getElementById('pz-w'),H=document.getElementById('pz-h'),Y=document.getElementById('pz-y');
+var OUT=document.getElementById('pz-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var n=parseFloat(N.value),w=parseFloat(W.value),h=parseFloat(H.value);
+  var y=Y.value==='f'?1.0:Y.value==='c'?0.25:0.4, s=2.8;
+  if(!(n>0)||!(w>0)||!(h>0)){OUT.textContent='–';
+    ['pz-wat','pz-salt','pz-yeast','pz-tot'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('pz-note').textContent='';document.title='Pizza Dough Calculator - ToolTide';return;}
+  var factor=1+h/100+s/100+y/100;
+  var flour=n*w/factor;
+  function g(x){return Math.round(x);}
+  OUT.textContent=g(flour);
+  document.getElementById('pz-wat').textContent=g(flour*h/100);
+  document.getElementById('pz-salt').textContent=g(flour*s/100);
+  document.getElementById('pz-yeast').textContent=g(flour*y/100*10)/10;
+  document.getElementById('pz-tot').textContent=g(n*w);
+  document.getElementById('pz-note').textContent='Baker\\'s percentages keep the recipe scale-proof: water at '+h+'% of flour weight ('+(h<60?'a stiff, NY-style dough - easier for beginners':h<70?'the Neapolitan sweet spot':'a wet, airy dough - needs well-floured hands')+'), salt ~3% for flavor without slowing yeast, and just enough yeast for the time you give it. Cold fermentation (24-48h in the fridge) trades a pinch of yeast for noticeably better flavor and easier stretching - the single biggest upgrade in home pizza.';
+  document.title=g(flour)+'g flour - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_pizza',JSON.stringify({n:N.value,w:W.value,h:H.value,y:Y.value}));}catch(e){}}
+[N,W,H,Y].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['n',N],['w',W],['h',H],['y',Y]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_pizza')||'null');if(mem){N.value=mem.n||'';W.value=mem.w||'';H.value=mem.h||'';Y.value=mem.y||'i';}}catch(e){}}
+calc();
+document.getElementById('pz-share').addEventListener('click',function(){
+  var txt=N.value+' pizzas: '+OUT.textContent+'g flour, '+document.getElementById('pz-wat').textContent+'g water, '+document.getElementById('pz-salt').textContent+'g salt. Scale your dough (free):';
+  var url=location.origin+location.pathname+'?n='+N.value+'&w='+W.value+'&h='+H.value+'&y='+Y.value;
+  if(navigator.share){navigator.share({title:'Pizza dough',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this recipe';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -7334,6 +7532,9 @@ TOOLS = {
     "hrzone": lambda args: HRZONE,
     "golf": lambda args: GOLF,
     "bpmdelay": lambda args: BPMDelay,
+    "evcharge": lambda args: EVCHARGE,
+    "goldenhour": lambda args: GOLDEN,
+    "pizza": lambda args: PIZZA,
 }
 
 
