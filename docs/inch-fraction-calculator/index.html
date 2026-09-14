@@ -220,4 +220,35 @@ document.getElementById('a2hs-no').addEventListener('click',function(){
 });
 }catch(e){}
 })();</script>
+<script>(function(){
+try{
+var K='tt_recent',MAX=6;
+var list=JSON.parse(localStorage.getItem(K)||'[]');
+if(!Array.isArray(list))list=[];
+var here=location.pathname;
+var h1=document.querySelector('article h1,main h1');
+var t=(h1?h1.textContent:document.title).replace(/\s+/g,' ').replace(' - ToolTide','').trim();
+if(t){list=list.filter(function(x){return x.u!==here;});list.unshift({u:here,t:t.slice(0,42)});list=list.slice(0,MAX);}
+try{localStorage.setItem(K,JSON.stringify(list));}catch(e){}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function render(){
+  var show=list.filter(function(x){return x.u!==here&&x.t;});
+  if(show.length<2)return;
+  var foot=document.querySelector('.site-foot');
+  if(!foot)return;
+  var label='Recently used';
+  try{if(window.npT){var tr=window.npT('recent.title');if(tr&&tr!=='recent.title')label=tr;}}catch(e2){}
+  var s=document.createElement('section');
+  s.setAttribute('aria-label',label);
+  s.style.cssText='max-width:920px;margin:0 auto 18px;padding:0 16px;font-size:.85rem;line-height:2.2';
+  var html='<b style="opacity:.7">'+esc(label)+':</b> ';
+  show.slice(0,5).forEach(function(x){
+    html+='<a href="'+x.u+'" style="display:inline-block;margin:2px 8px 2px 0;padding:2px 12px;border:1px solid rgba(14,116,144,.35);border-radius:99px;text-decoration:none">'+esc(x.t)+'</a>';
+  });
+  s.innerHTML=html;
+  foot.parentNode.insertBefore(s,foot);
+}
+if(window.npT)render();else if(document.addEventListener)document.addEventListener('DOMContentLoaded',render);else render();
+}catch(e){}
+})();</script>
 </body></html>

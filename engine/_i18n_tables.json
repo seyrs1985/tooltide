@@ -376,6 +376,10 @@
    [
     "cd.ics",
     "添加到日历"
+   ],
+   [
+    "recent.title",
+    "最近使用"
    ]
   ],
   "es": [
@@ -754,6 +758,10 @@
    [
     "cd.ics",
     "Añadir al calendario"
+   ],
+   [
+    "recent.title",
+    "Usados recientemente"
    ]
   ],
   "pt": [
@@ -1132,6 +1140,10 @@
    [
     "cd.ics",
     "Adicionar ao calendário"
+   ],
+   [
+    "recent.title",
+    "Usados recentemente"
    ]
   ],
   "ru": [
@@ -1510,6 +1522,10 @@
    [
     "cd.ics",
     "В календарь"
+   ],
+   [
+    "recent.title",
+    "Недавно использованные"
    ]
   ],
   "ja": [
@@ -1888,6 +1904,10 @@
    [
     "cd.ics",
     "カレンダーに追加"
+   ],
+   [
+    "recent.title",
+    "最近使ったツール"
    ]
   ],
   "ko": [
@@ -2266,6 +2286,10 @@
    [
     "cd.ics",
     "캘린더에 추가"
+   ],
+   [
+    "recent.title",
+    "최근 사용"
    ]
   ],
   "de": [
@@ -2644,6 +2668,10 @@
    [
     "cd.ics",
     "Zum Kalender hinzufügen"
+   ],
+   [
+    "recent.title",
+    "Zuletzt genutzt"
    ]
   ],
   "fr": [
@@ -3022,6 +3050,10 @@
    [
     "cd.ics",
     "Ajouter au calendrier"
+   ],
+   [
+    "recent.title",
+    "Récemment utilisés"
    ]
   ],
   "id": [
@@ -3400,6 +3432,10 @@
    [
     "cd.ics",
     "Tambahkan ke kalender"
+   ],
+   [
+    "recent.title",
+    "Baru digunakan"
    ]
   ]
  }

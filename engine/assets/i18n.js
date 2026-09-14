@@ -114,7 +114,8 @@ zh:{
  "cd.custom":"自定义日期",
  "cd.set":"设定",
  "cd.clear":"清除",
- "cd.ics":"添加到日历"
+ "cd.ics":"添加到日历",
+ "recent.title":"最近使用"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -210,7 +211,8 @@ es:{
  "cd.custom":"Fecha personalizada",
  "cd.set":"Fijar",
  "cd.clear":"Quitar",
- "cd.ics":"Añadir al calendario"
+ "cd.ics":"Añadir al calendario",
+ "recent.title":"Usados recientemente"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -306,7 +308,8 @@ pt:{
  "cd.custom":"Data personalizada",
  "cd.set":"Definir",
  "cd.clear":"Limpar",
- "cd.ics":"Adicionar ao calendário"
+ "cd.ics":"Adicionar ao calendário",
+ "recent.title":"Usados recentemente"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -402,7 +405,8 @@ ru:{
  "cd.custom":"Своя дата",
  "cd.set":"Установить",
  "cd.clear":"Сбросить",
- "cd.ics":"В календарь"
+ "cd.ics":"В календарь",
+ "recent.title":"Недавно использованные"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -498,7 +502,8 @@ ja:{
  "cd.custom":"カスタム日付",
  "cd.set":"設定",
  "cd.clear":"クリア",
- "cd.ics":"カレンダーに追加"
+ "cd.ics":"カレンダーに追加",
+ "recent.title":"最近使ったツール"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -594,7 +599,8 @@ ko:{
  "cd.custom":"사용자 지정 날짜",
  "cd.set":"설정",
  "cd.clear":"지우기",
- "cd.ics":"캘린더에 추가"
+ "cd.ics":"캘린더에 추가",
+ "recent.title":"최근 사용"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -690,7 +696,8 @@ de:{
  "cd.custom":"Eigenes Datum",
  "cd.set":"Setzen",
  "cd.clear":"Löschen",
- "cd.ics":"Zum Kalender hinzufügen"
+ "cd.ics":"Zum Kalender hinzufügen",
+ "recent.title":"Zuletzt genutzt"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -786,7 +793,8 @@ fr:{
  "cd.custom":"Date personnalisée",
  "cd.set":"Définir",
  "cd.clear":"Effacer",
- "cd.ics":"Ajouter au calendrier"
+ "cd.ics":"Ajouter au calendrier",
+ "recent.title":"Récemment utilisés"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -882,7 +890,8 @@ id:{
  "cd.custom":"Tanggal kustom",
  "cd.set":"Atur",
  "cd.clear":"Hapus",
- "cd.ics":"Tambahkan ke kalender"
+ "cd.ics":"Tambahkan ke kalender",
+ "recent.title":"Baru digunakan"
 }
 };
 function detect(){
