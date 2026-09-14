@@ -4083,6 +4083,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "json-formatter",
+        "title": "JSON Formatter & Validator — Pretty Print, Minify, Locally",
+        "h1": "JSON Formatter",
+        "desc": "Format, validate and minify JSON in your browser - pretty print with 2-space or tab indent, exact parse-error position, nothing uploaded. Free, no sign-up.",
+        "category": "text",
+        "keyword": "json formatter",
+        "tool": "jsontool",
+        "args": {},
+        "intro": [
+            "Half of all JSON errors are the same three culprits: a trailing comma after the last item, single quotes standing in for double, and an unquoted key. Paste any JSON here and the formatter validates it with the browser's native parser, pretty-prints it at your chosen indent, and when something is wrong it names the character position and the likely offender instead of just saying 'unexpected token'.",
+            "The stats line sizes the payload (bytes, keys plus values, nesting depth) - handy for spotting the 200 KB config that grew quietly. Minify collapses it back for transport. Everything runs locally in your browser: API responses with tokens, customer data, draft payloads - none of it leaves the page, which is exactly why a local formatter beats a random web one.",
+        ],
+        "howto": [
+            "Paste your JSON - validation and pretty print happen instantly.",
+            "Pick 2-space, 4-space or tab indent; Minify collapses for transport.",
+            "Fix errors by their reported position, then copy or re-check.",
+        ],
+        "faqs": [
+            ("Is my JSON uploaded anywhere?",
+             "No - parsing and formatting use the browser's own JSON engine on this page, with zero network calls. That matters for API responses and config files containing tokens; a local formatter is the one that cannot leak them."),
+            ("Why is my JSON invalid with a trailing comma?",
+             "Strict JSON forbids a comma after the final element - {\"a\":1,} fails. The error usually points just past the real spot. JavaScript objects allow it, which is why code pasted into a JSON context breaks; remove the last comma and it parses."),
+            ("What's the difference between JSON and a JavaScript object?",
+             "JSON is a text format: keys must be double-quoted, no comments, no single quotes, no undefined, and numbers have rules. A JS object literal is looser on all of those. Formatting here validates against strict JSON, so it catches the looseness a browser would silently accept in code."),
+            ("Does it handle large files?",
+             "Comfortably into the megabytes on a normal machine - the limit is your browser's textarea, not a server. For very large payloads the stats line (bytes, node count, depth) gives you the shape before you expand it."),
+        ],
+    })
+
+    pages.append({
+        "slug": "base64-encode-decode",
+        "title": "Base64 Encode & Decode — UTF-8 Safe, Runs in Your Browser",
+        "h1": "Base64 Encode & Decode",
+        "desc": "Convert text to Base64 and back with full UTF-8 support - emoji and non-Latin scripts round-trip perfectly, invalid input flagged clearly. Free, no sign-up.",
+        "category": "text",
+        "keyword": "base64 encode",
+        "tool": "base64",
+        "args": {},
+        "intro": [
+            "Base64 turns arbitrary bytes into a safe alphabet of 64 characters - the encoding behind data URLs, Basic auth headers, JWT payloads and email attachments. The classic tool trap is UTF-8: naive encoders mangle emoji and non-Latin text. This one round-trips every character correctly in both directions, shows input and output lengths with the 3-bytes-to-4-chars math, and flags genuinely invalid Base64 instead of silently producing garbage.",
+            "Decode mode is also a reader: JWT middle sections, data-URI payloads and mystery strings from logs become readable text in one paste. Everything runs locally - credentials in Basic auth strings or tokens inside JWTs never leave the page. Your last input is remembered for iterative work, and the copy button puts the result straight on the clipboard.",
+        ],
+        "howto": [
+            "Choose encode or decode, then paste your input.",
+            "Read the result - lengths, byte counts and the padding math update live.",
+            "Copy the output with one tap; errors explain what made the input invalid.",
+        ],
+        "faqs": [
+            ("What is Base64 used for?",
+             "Moving binary-safe data through text-only channels: embedding images as data URLs, HTTP Basic authentication headers, the parts of a JWT, and email's MIME attachments. It is not encryption - it is a reversible encoding anyone can read, so never treat Base64 as hiding anything."),
+            ("Why does Base64 make data bigger?",
+             "Every 3 bytes (24 bits) become 4 Base64 characters - a fixed 33% overhead, plus = padding to a multiple of 4. A 300-byte input encodes to 400 characters exactly; the stats here show the arithmetic on your own input."),
+            ("Why do emoji break some Base64 tools?",
+             "The naive btoa() works on 16-bit characters, but emoji and many scripts need proper UTF-8 byte conversion first. This tool encodes text → UTF-8 bytes → Base64 and reverses exactly that path, so every character round-trips."),
+            ("Is my input sent to a server?",
+             "No. Encoding and decoding run entirely in your browser - which is the right property for a tool you might paste auth headers into. Local-only by design, like every text tool on this site."),
+        ],
+    })
+
+    pages.append({
+        "slug": "url-encoder-decoder",
+        "title": "URL Encoder & Decoder — Component vs Full URL, Explained",
+        "h1": "URL Encoder & Decoder",
+        "desc": "Encode and decode URLs and query values correctly - component mode for ?q= parameters, full-URL mode that keeps structure characters. Free, local, no sign-up.",
+        "category": "text",
+        "keyword": "url encoder",
+        "tool": "urlcod",
+        "args": {},
+        "intro": [
+            "URL encoding is why 'café & croissants' survives a query string: spaces become %20, the ampersand becomes %26 so it can't be misread as a separator, é becomes %C3%A9. This tool does both directions with the distinction most tools skip - component mode (for values inside ?a=1&b=2, escaping & = ? /) versus full-URL mode (keeping the :// and separators that make a URL work), with the difference explained in the note as you type.",
+            "Decode mode is the reader for mystery links: paste a tracking URL or an encoded API parameter and see the human version instantly, with malformed sequences (% not followed by two hex digits) flagged precisely rather than decoding to garbage. The stats count the % sequences for you, and everything runs locally - your URLs, with their tokens and tracking parameters, stay on your device.",
+        ],
+        "howto": [
+            "Pick encode or decode, then component or full-URL scope.",
+            "Paste your text or URL - the result updates live with a length diff.",
+            "Copy the output; malformed decodes explain exactly what broke.",
+        ],
+        "faqs": [
+            ("When should I use %20 versus + for spaces?",
+             "%20 is the encoding of a space in URLs and query strings (encodeURIComponent style, what this tool produces); + is the legacy application/x-www-form-urlencoded style from HTML form posts. Both decode to a space in practice, but %20 is the modern, always-safe choice - and what well-behaved APIs expect."),
+            ("What is the difference between component and full-URL encoding?",
+             "Component encoding escapes structure characters (& = ? /) so a value cannot be mistaken for URL syntax - right for ?q=... values. Full-URL encoding (encodeURI) keeps :// ? & intact because they ARE the syntax - right when encoding a complete URL to embed as a parameter."),
+            ("Why did my decode fail with a lone % sign?",
+             "Every % must be followed by exactly two hexadecimal digits. A bare percent - '50% off' pasted raw - is malformed; encode it first (%25) or remove it. The error note here pinpoints the rule rather than guessing."),
+            ("Is URL encoding a form of encryption?",
+             "Not at all - it is reversible transport encoding, readable by anyone. It makes text safe to carry in a URL; it hides nothing. For secrecy you need TLS (automatic on https) and proper encryption, not percent-encoding."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

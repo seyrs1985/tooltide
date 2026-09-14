@@ -5761,6 +5761,220 @@ document.getElementById('dp-share').addEventListener('click',function(){
 </script>
 """
 
+# JSON formatter + validator: pretty print, minify, byte size, node count, error position.
+# Retention hooks: title result hook, tt_json memory, URL state for short payloads (?d=), Web Share.
+JSONTOOL = """<div class="tool" id="tt-js">
+  <div class="fields">
+    <div class="field"><label for="js-in">JSON input</label><textarea id="js-in" rows="7" placeholder='{"name":"ToolTide","tools":237,"free":true}'></textarea></div>
+    <div class="field"><label for="js-ind">Indent</label><select id="js-ind"><option value="2" selected>2 spaces</option><option value="4">4 spaces</option><option value="tab">Tabs</option></select></div>
+  </div>
+  <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="js-fmt">Format</button><button type="button" class="tool-btn" id="js-min">Minify</button></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="js-out">–</span><span class="result-unit" id="js-u">status</span></div>
+  <div class="stats">
+    <div class="stat"><b id="js-size">–</b><span>size</span></div>
+    <div class="stat"><b id="js-nodes">–</b><span>keys + values</span></div>
+    <div class="stat"><b id="js-depth">–</b><span>max depth</span></div>
+  </div>
+  <pre id="js-pre" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:340px;overflow:auto;margin:10px 0"></pre>
+  <div class="tool-note" id="js-note">Everything runs locally in your browser - API keys and payloads never leave this page.</div>
+  <button type="button" class="tool-btn" id="js-share">Share this tool</button>
+</div>
+<script>(function(){
+var IN=document.getElementById('js-in'),IND=document.getElementById('js-ind'),PRE=document.getElementById('js-pre');
+var OUT=document.getElementById('js-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function count(x,d){
+  var n=0,md=d;
+  if(x&&typeof x==='object'){
+    for(var k in x){n++;var r=count(x[k],d+1);n+=r.n;if(r.d>md)md=r.d;}
+  }else{n=1;}
+  return {n:n,d:md};
+}
+function fmt(bytes){return bytes<1024?bytes+' B':(bytes<1048576?(Math.round(bytes/102.4)/10)+' KB':(Math.round(bytes/104857.6)/10)+' MB');}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function render(minify){
+  var v=IN.value;
+  if(!v.trim()){OUT.textContent='–';document.getElementById('js-u').textContent='status';
+    document.getElementById('js-size').textContent='–';document.getElementById('js-nodes').textContent='–';
+    document.getElementById('js-depth').textContent='–';PRE.textContent='';
+    document.title='JSON Formatter - ToolTide';return;}
+  try{
+    var o=JSON.parse(v);
+    var ind=IND.value==='tab'?'\\t':parseInt(IND.value,10);
+    var out=minify?JSON.stringify(o):JSON.stringify(o,null,ind);
+    OUT.textContent='Valid JSON';
+    document.getElementById('js-u').textContent=minify?'minified':'pretty-printed';
+    var bytes=new Blob([v]).size;
+    document.getElementById('js-size').textContent=fmt(bytes);
+    var c=count(o,0);
+    document.getElementById('js-nodes').textContent=c.n;
+    document.getElementById('js-depth').textContent=c.d;
+    PRE.innerHTML=esc(out);
+    document.title='Valid JSON · '+fmt(bytes)+' - ToolTide';
+  }catch(e){
+    OUT.textContent='Invalid';
+    document.getElementById('js-u').textContent='parse error';
+    var msg=String(e.message||e);
+    var pm=msg.match(/position (\\d+)/);
+    var line='';
+    if(pm){
+      var pos=+pm[1],upto=v.slice(0,pos),ln=upto.split(String.fromCharCode(10)).length;
+      line=' near line '+ln+' (char '+pos+')';
+    }
+    document.getElementById('js-note').textContent='Parse error'+line+': '+msg+' - check trailing commas, single quotes and unquoted keys, the three most common offenders.';
+    OUT.textContent='Invalid JSON';
+  }
+}
+function save(){try{localStorage.setItem('tt_json',IN.value.slice(0,20000));}catch(e){}}
+IN.addEventListener('input',function(){render(false);save();});
+IND.addEventListener('change',function(){render(false);save();});
+document.getElementById('js-fmt').addEventListener('click',function(){render(false);save();});
+document.getElementById('js-min').addEventListener('click',function(){render(true);save();});
+var q=qs('d');
+if(q!==null&&q.length<4000){IN.value=q;}
+else{try{var mem=localStorage.getItem('tt_json');if(mem)IN.value=mem;}catch(e){}}
+render(false);
+document.getElementById('js-share').addEventListener('click',function(){
+  var txt='Format and validate JSON locally in the browser - nothing uploaded: ';
+  var url=location.origin+location.pathname+(IN.value.length<800?'?d='+encodeURIComponent(IN.value):'');
+  if(navigator.share){navigator.share({title:'JSON formatter',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this tool';},1500);}
+});
+})();
+</script>
+"""
+
+# Base64 encode/decode, UTF-8 safe both directions.
+# Retention hooks: title result hook, tt_b64 memory, URL state for short payloads (?d=&m=), Web Share.
+BASE64 = """<div class="tool" id="tt-b6">
+  <div class="fields">
+    <div class="field"><label for="b6-m">Mode</label><select id="b6-m"><option value="enc">Encode text → Base64</option><option value="dec">Decode Base64 → text</option></select></div>
+    <div class="field"><label for="b6-in">Input</label><textarea id="b6-in" rows="5" placeholder="Hello, ToolTide!"></textarea></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="b6-out" style="font-size:.95rem;word-break:break-all">–</span><span class="result-unit" id="b6-u">output</span></div>
+  <div class="stats">
+    <div class="stat"><b id="b6-in-len">–</b><span>input chars</span></div>
+    <div class="stat"><b id="b6-out-len">–</b><span>output chars</span></div>
+    <div class="stat"><b id="b6-bytes">–</b><span>UTF-8 bytes in</span></div>
+  </div>
+  <div class="tool-note" id="b6-note">UTF-8 safe: emoji and non-Latin text round-trip correctly in both directions. All local, nothing uploaded.</div>
+  <button type="button" class="tool-btn" id="b6-copy">Copy output</button>
+</div>
+<script>(function(){
+var M=document.getElementById('b6-m'),IN=document.getElementById('b6-in');
+var OUT=document.getElementById('b6-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function utf8ToB64(s){return btoa(unescape(encodeURIComponent(s)));}
+function b64ToUtf8(s){return decodeURIComponent(escape(atob(s)));}
+function calc(){
+  var v=IN.value;
+  if(!v){OUT.textContent='–';document.getElementById('b6-u').textContent='output';
+    document.getElementById('b6-in-len').textContent='–';document.getElementById('b6-out-len').textContent='–';
+    document.getElementById('b6-bytes').textContent='–';
+    document.title='Base64 Encode & Decode - ToolTide';return;}
+  var enc=M.value==='enc';
+  try{
+    var out=enc?utf8ToB64(v):b64ToUtf8(v);
+    OUT.textContent=out;
+    document.getElementById('b6-u').textContent=enc?'Base64 output':'decoded text';
+    document.getElementById('b6-in-len').textContent=v.length;
+    document.getElementById('b6-out-len').textContent=out.length;
+    var bytes=new Blob([v]).size;
+    document.getElementById('b6-bytes').textContent=bytes;
+    document.getElementById('b6-note').textContent=enc
+      ?(v.length+' chars = '+bytes+' UTF-8 bytes → '+out.length+' Base64 chars (every 3 bytes become 4). Padding = signs make the length a multiple of 4.')
+      :('Decoded '+v.length+' Base64 chars back to '+out.length+' chars ('+bytes+'→'+new Blob([out]).size+' bytes). Invalid characters or wrong length would have thrown here.');
+    document.title=(enc?'Encoded ':'Decoded ')+out.length+' chars - ToolTide';
+  }catch(e){
+    OUT.textContent='Invalid Base64';
+    document.getElementById('b6-u').textContent='cannot decode';
+    document.getElementById('b6-note').textContent='Not valid Base64: the alphabet is A-Z a-z 0-9 + / with = padding, and length must be a multiple of 4. Whitespace is usually the culprit - paste the bare string.';
+    document.title='Invalid Base64 - ToolTide';
+  }
+}
+function save(){try{localStorage.setItem('tt_b64',JSON.stringify({m:M.value,i:IN.value.slice(0,10000)}));}catch(e){}}
+[M].forEach(function(el){el.addEventListener('change',function(){calc();save();});});
+IN.addEventListener('input',function(){calc();save();});
+var qm=qs('m'),qd=qs('d');
+if(qm!==null){M.value=qm==='dec'?'dec':'enc';}
+if(qd!==null&&qd.length<4000){IN.value=qd;}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_b64')||'null');if(mem){M.value=mem.m||'enc';IN.value=mem.i||'';}}catch(e){}}
+calc();
+document.getElementById('b6-copy').addEventListener('click',function(){
+  var t=OUT.textContent;
+  if(t==='–'||t==='Invalid Base64'){this.textContent='Nothing to copy';var b0=this;setTimeout(function(){b0.textContent='Copy output';},1500);return;}
+  var b=this;
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
+});
+})();
+</script>
+"""
+
+# URL encode/decode with the component-vs-full-URI distinction.
+# Retention hooks: title result hook, tt_url memory, URL state for short payloads (?d=&m=), Web Share.
+URLCOD = """<div class="tool" id="tt-ue">
+  <div class="fields">
+    <div class="field"><label for="ue-m">Mode</label><select id="ue-m"><option value="enc">Encode</option><option value="dec">Decode</option></select></div>
+    <div class="field"><label for="ue-k">Scope</label><select id="ue-k"><option value="component">Component (?q= value style)</option><option value="full">Full URL (keep ://?&)</option></select></div>
+    <div class="field"><label for="ue-in">Input</label><textarea id="ue-in" rows="4" placeholder="café & croissants / menu"></textarea></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ue-out" style="font-size:.95rem;word-break:break-all">–</span><span class="result-unit" id="ue-u">output</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ue-in-len">–</b><span>input chars</span></div>
+    <div class="stat"><b id="ue-out-len">–</b><span>output chars</span></div>
+    <div class="stat"><b id="ue-pct">–</b><span>% sequences</span></div>
+  </div>
+  <div class="tool-note" id="ue-note">Component mode encodes everything a query-string value must have encoded (& = ? / and spaces as %20); full-URL mode keeps the structure characters a URL needs. Runs locally.</div>
+  <button type="button" class="tool-btn" id="ue-copy">Copy output</button>
+</div>
+<script>(function(){
+var M=document.getElementById('ue-m'),K=document.getElementById('ue-k'),IN=document.getElementById('ue-in');
+var OUT=document.getElementById('ue-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var v=IN.value;
+  if(!v){OUT.textContent='–';document.getElementById('ue-u').textContent='output';
+    document.getElementById('ue-in-len').textContent='–';document.getElementById('ue-out-len').textContent='–';
+    document.getElementById('ue-pct').textContent='–';
+    document.title='URL Encoder & Decoder - ToolTide';return;}
+  var enc=M.value==='enc',comp=K.value==='component';
+  try{
+    var out=enc?(comp?encodeURIComponent(v):encodeURI(v)):(comp?decodeURIComponent(v):decodeURI(v));
+    OUT.textContent=out;
+    document.getElementById('ue-u').textContent=enc?'encoded':'decoded';
+    document.getElementById('ue-in-len').textContent=v.length;
+    document.getElementById('ue-out-len').textContent=out.length;
+    document.getElementById('ue-pct').textContent=(out.match(/%[0-9A-Fa-f]{2}/g)||[]).length;
+    document.getElementById('ue-note').textContent=enc
+      ?('Encoded '+v.length+' → '+out.length+' chars. Component mode is the right choice for query values (spaces become %20, & and = get escaped so they cannot be read as separators); spaces never become + here - that is the legacy form-encoding style.')
+      :('Decoded '+v.length+' → '+out.length+' chars. Malformed sequences like a lone % or a truncated %E2 would throw - the error note explains when that happens.');
+    document.title=(enc?'Encoded ':'Decoded ')+out.length+' chars - ToolTide';
+  }catch(e){
+    OUT.textContent='Malformed input';
+    document.getElementById('ue-u').textContent='cannot decode';
+    document.getElementById('ue-note').textContent='A % sequence is incomplete or not followed by two hex digits - every % must introduce exactly two hex characters (like %20). Fix or remove the stray percent sign and decode again.';
+    document.title='URL Decoder error - ToolTide';
+  }
+}
+function save(){try{localStorage.setItem('tt_url',JSON.stringify({m:M.value,k:K.value,i:IN.value.slice(0,10000)}));}catch(e){}}
+[M,K].forEach(function(el){el.addEventListener('change',function(){calc();save();});});
+IN.addEventListener('input',function(){calc();save();});
+var qm=qs('m'),qk=qs('k'),qd=qs('d');
+if(qm!==null){M.value=qm==='dec'?'dec':'enc';}
+if(qk!==null){K.value=qk==='full'?'full':'component';}
+if(qd!==null&&qd.length<4000){IN.value=qd;}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_url')||'null');if(mem){M.value=mem.m||'enc';K.value=mem.k||'component';IN.value=mem.i||'';}}catch(e){}}
+calc();
+document.getElementById('ue-copy').addEventListener('click',function(){
+  var t=OUT.textContent;
+  if(t==='–'||t==='Malformed input'){this.textContent='Nothing to copy';var b0=this;setTimeout(function(){b0.textContent='Copy output';},1500);return;}
+  var b=this;
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
+});
+})();
+</script>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -5873,6 +6087,9 @@ TOOLS = {
     "ratiocalc": lambda args: RATIOCALC,
     "calburn": lambda args: CALBURN,
     "debtpayoff": lambda args: DEBTPAYOFF,
+    "jsontool": lambda args: JSONTOOL,
+    "base64": lambda args: BASE64,
+    "urlcod": lambda args: URLCOD,
 }
 
 
