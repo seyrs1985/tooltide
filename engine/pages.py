@@ -5133,6 +5133,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "meat-cooking-time-calculator",
+        "title": "Meat Cooking Time Calculator — Roast Times per Kg with Rest & Core Temps",
+        "h1": "Meat Cooking Time Calculator",
+        "desc": "Roast times for chicken, turkey, pork, beef and lamb by weight - with safe core temperatures and resting time built in. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "meat cooking time calculator",
+        "tool": "meattime",
+        "args": {},
+        "intro": [
+            "Every roast dinner panic is the same arithmetic: how long does THIS weight need, and when do I actually put it in the oven. This calculator answers per cut - whole chicken, turkey, pork loin, beef ribs, lamb leg - scaling the classic per-kilogram times to your exact weight, then adding the two things time-only charts forget: the resting period that finishes the carryover cooking, and the target core temperature that decides juicy versus sawdust.",
+            "The honest rule the note keeps repeating: minutes are the plan, the probe is the boss. Ovens run hot or cold by 15 degrees, meat shapes fool charts, and only the internal temperature is both safe and delicious - which is why the result pairs every time range with its core target and the reminder to pull the meat a few degrees early and let rest do the rest.",
+        ],
+        "howto": [
+            "Pick the cut and enter the weight (kg or lb).",
+            "Read the oven-time range, safe core temperature and resting time.",
+            "Pull the meat a few degrees early, rest it, carve - juices stay in the meat, not the board.",
+        ],
+        "faqs": [
+            ("How long do I cook a whole chicken per kg?",
+             "About 42-48 minutes per kg at 180°C (350°F), so a 1.5 kg bird runs 60-70 minutes - plus a 15-minute rest. The only verdict that matters is core temperature: 74°C (165°F) in the thickest part of the thigh, with clear juices. A slightly early pull and a proper rest keeps breast meat from turning to chalk."),
+            ("Why does meat need to rest after roasting?",
+             "Heat drives juices toward the center; resting lets them redistribute so the meat reabsorbs them instead of donating them to the carving board. Five minutes for a loin, 15-30 for a turkey - and carryover heat keeps cooking the core 3-5°C during the rest, which is exactly why you pull the roast early."),
+            ("What temperature is pork done at now?",
+             "The old 'well-done or else' rule is retired: 63°C (145°F) core with a short rest is the modern standard for pork loin - blush pink is safe and vastly juicier. Ground pork and organ meats remain the exception (72°C+). Poultry stays at 74°C with no exceptions; the pink-versus-safe line differs by animal."),
+            ("Do cooking times change with fan (convection) ovens?",
+             "Slightly - fan ovens cook roughly 10-20% faster and more evenly, so start checking toward the early end of the range or drop the temperature 15-20°C. But the same principle covers every oven quirk: the recipe time is a schedule for the probe, not a verdict - trust the core temperature over the clock."),
+        ],
+    })
+
+    pages.append({
+        "slug": "car-depreciation-calculator",
+        "title": "Car Depreciation Calculator — What Your Car Is Worth After N Years",
+        "h1": "Car Depreciation Calculator",
+        "desc": "See a car's real cost curve: value after N years at your depreciation rate, total loss, and the per-year cost fuel calculators forget. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "car depreciation calculator",
+        "tool": "cardep",
+        "args": {},
+        "intro": [
+            "Fuel gets the headlines but depreciation eats the budget: for most owners, the value a car silently loses each year is the single biggest cost of driving - often larger than fuel and insurance combined. This calculator runs the compounding curve from purchase price, years owned and an annual rate, and reports the three numbers that matter: current value, total value lost, and the honest cost per year of ownership.",
+            "The default 15% annual rate encodes the industry's uncomfortable shape: cars lose 40-50% of their value in the first three years, then the curve flattens dramatically - which is why the 3-year-old used car is the classic rational purchase (someone else paid the steep part), and why a two-year lease on a new luxury badge is the most expensive way to own anything with wheels.",
+        ],
+        "howto": [
+            "Enter the purchase price and years owned.",
+            "Set the annual depreciation rate (15-18% is typical; luxury cars run higher).",
+            "Read current value, total loss and per-year cost - then try 3 years versus 8.",
+        ],
+        "faqs": [
+            ("How fast do cars lose value?",
+             "New cars typically drop 15-20% the moment they're driven off the forecourt and reach 40-50% cumulative loss by year three, after which depreciation settles to single digits a year. Compounding the classic 15% rate matches real market data for average sedans; luxury marques and heavy EVs have run steeper, while models with cult demand run flatter."),
+            ("Why is depreciation the biggest cost of owning a car?",
+             "Because it's invisible: fuel, insurance and maintenance announce themselves in bills, while depreciation happens silently in the resale price. A $30,000 car that's worth $18,000 after three years cost you $4,000 a year - likely more than the fuel to drive it. Any honest car budget starts with this line, not the pump."),
+            ("What's the cheapest age to buy a used car?",
+             "Around 3 years old: the steepest depreciation is done, the car is modern enough for safety tech and reliability, and the remaining curve is gentle. By year 8-10 maintenance costs start climbing to meet the flattened depreciation, which is the other edge of the curve - the sweet spot is between them."),
+            ("Do electric cars depreciate differently?",
+             "Recently, faster - rapid battery-tech improvements and aggressive new-price cuts on EVs dragged 3-year residuals below comparable petrol cars in many markets, though the gap is narrowing as batteries prove durable. If you're shopping EVs, run this calculator with a steeper early rate (20-25%) and let the used market's shape inform the risk."),
+        ],
+    })
+
+    pages.append({
+        "slug": "jet-lag-calculator",
+        "title": "Jet Lag Calculator — Recovery Days & Light Strategy by Time Zones",
+        "h1": "Jet Lag Calculator",
+        "desc": "Estimate how many days jet lag will last for your flight: zones crossed, east or west, plus the pre-shift and light-exposure plan that shortens it. Free.",
+        "category": "calculator",
+        "keyword": "jet lag calculator",
+        "tool": "jetlag",
+        "args": {},
+        "intro": [
+            "Jet lag is your circadian clock stranded in the wrong time zone - and the recovery bill depends on which way you flew. Eastward (losing hours) costs roughly a day of adjustment per zone crossed; westward (gaining hours) runs about half that, because staying up late fights your biology less than falling asleep early does. This calculator turns your itinerary into a recovery estimate plus the strategy that actually shortens it.",
+            "The strategy has two halves the note makes concrete: pre-shifting your sleep and meal times an hour per day toward destination time before departure (the pro move that does most of the work on the ground), and using light as the drug after arrival - morning light to advance eastward, evening light to delay westward - with caffeine before local noon and zero airplane alcohol, which costs more sleep than it buys.",
+        ],
+        "howto": [
+            "Enter how many time zones you're crossing and which direction.",
+            "Read the realistic recovery days and the pre-departure shift schedule.",
+            "Follow the light rule on arrival - it's the strongest lever you have.",
+        ],
+        "faqs": [
+            ("How long does jet lag last?",
+             "The working rule: about one day per time zone crossed flying east, half a day per zone westward - so 7 zones east can genuinely take a week to fully clear, while 7 west feels human in 3-4. Individual recovery varies with age and chronotype, but the direction asymmetry is consistent across studies."),
+            ("Why is flying east worse than west?",
+             "Eastbound shortens your day, forcing sleep earlier than your body wants - and the human circadian system resists advancing more than delaying. Westbound lengthens the day, and staying up later is something most brains manage happily. Same distance, different bill - the calculator prices it honestly."),
+            ("Does light exposure really fix jet lag?",
+             "It's the strongest lever that exists - timed bright light is how the circadian clock actually resets. The rule: flying east, seek bright morning light locally and block evening light (sunglasses after dusk) to pull the clock forward; flying west, flood your evening with light and avoid dawn. Get the direction wrong and you can shift the wrong way, doubling the lag."),
+            ("Should I pre-shift my sleep before a long flight?",
+             "Yes - it's what frequent flyers and sports teams do: move bedtime, wake time and meals one hour per day toward destination time for as many days as you can before departure. Three days of pre-shift before an eastbound flight quietly absorbs half the jet lag before the plane leaves the gate. Combine with morning caffeine and no naps past 20 minutes on arrival day."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

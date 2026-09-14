@@ -7889,6 +7889,167 @@ document.getElementById('ts2-share').addEventListener('click',function(){
 </script>
 """
 
+# Meat cooking time: per-kg table by cut at 180C/350F, rest time and core temp.
+# Retention hooks: title result hook, tt_meat memory, URL state (?m=&w=&u=), Web Share.
+MEATTIME = """<div class="tool" id="tt-mt">
+  <div class="fields">
+    <div class="field"><label for="mt-m">Cut</label><select id="mt-m">
+      <option value="cw">Whole chicken</option>
+      <option value="cb">Chicken breast</option>
+      <option value="tw">Whole turkey</option>
+      <option value="pl">Pork loin</option>
+      <option value="br">Beef ribs / pot roast</option>
+      <option value="ll">Lamb leg</option>
+    </select></div>
+    <div class="field"><label for="mt-w">Weight</label><input type="number" id="mt-w" step="any" min="0.1" placeholder="1.5"></div>
+    <div class="field"><label for="mt-u">Units</label><select id="mt-u"><option value="k">kg</option><option value="p">lb</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="mt-out">–</span><span class="result-unit">in the oven (180°C / 350°F)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="mt-core">–</b><span>safe / target core temp</span></div>
+    <div class="stat"><b id="mt-rest">–</b><span>rest before carving</span></div>
+    <div class="stat"><b id="mt-total">–</b><span>total including rest</span></div>
+  </div>
+  <div class="tool-note" id="mt-note"></div>
+  <button type="button" class="tool-btn" id="mt-share">Share this roast plan</button>
+</div>
+<script>(function(){
+var M=document.getElementById('mt-m'),W=document.getElementById('mt-w'),U=document.getElementById('mt-u');
+var OUT=document.getElementById('mt-out');
+var T={cw:[42,48,15,74],cb:[25,30,5,74],tw:[35,40,30,74],pl:[40,45,10,63],br:[35,45,15,95],ll:[40,50,15,63]};
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var t=T[M.value],w=parseFloat(W.value),u=U.value;
+  if(!(w>0)){OUT.textContent='–';
+    ['mt-core','mt-rest','mt-total'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('mt-note').textContent='';document.title='Meat Cooking Time Calculator - ToolTide';return;}
+  var kg=u==='k'?w:w*0.4536;
+  var lo=Math.round(kg*t[0]/5)*5,hi=Math.round(kg*t[1]/5)*5;
+  OUT.textContent=lo+'–'+hi+' min';
+  var core=u==='k'?t[3]+'°C':Math.round(t[3]*9/5+32)+'°F';
+  document.getElementById('mt-core').textContent=core;
+  document.getElementById('mt-rest').textContent=t[2]+' min';
+  document.getElementById('mt-total').textContent=lo+t[2]+'–'+(hi+t[2])+' min';
+  document.getElementById('mt-note').textContent='Times are for '+(kg.toFixed(1))+' kg at 180°C (350°F) conventional - remove the meat when a probe reads a few degrees BELOW the target core and let the resting finish the job (carryover heat adds 3-5°C while juices redistribute; carving early floods the board). The thermometer is the boss and the minutes are just the plan: ovens lie by ±15°C, and core temperature is the only thing that is both safe and juicy. Chicken and turkey: no pink, 74°C core, always. Pork loin is done at 63°C + rest - dry gray pork is a choice, not a rule.';
+  document.title=lo+'–'+hi+' min roast - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_meat',JSON.stringify({m:M.value,w:W.value,u:U.value}));}catch(e){}}
+[M,W,U].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['m',M],['w',W],['u',U]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_meat')||'null');if(mem){M.value=mem.m||'cw';W.value=mem.w||'';U.value=mem.u||'k';}}catch(e){}}
+calc();
+document.getElementById('mt-share').addEventListener('click',function(){
+  var t=T[M.value];
+  var txt=M.options[M.selectedIndex].text+' ('+W.value+(U.value==='k'?'kg':'lb')+'): '+OUT.textContent+' at 180°C, rest '+t[2]+' min. Plan your roast (free):';
+  var url=location.origin+location.pathname+'?m='+M.value+'&w='+W.value+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Roast timing',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this roast plan';},1500);}
+});
+})();
+</script>
+"""
+
+# Car depreciation: value after N years at an annual rate, with the 3-year truth.
+# Retention hooks: title result hook, tt_cardep memory, URL state (?p=&y=&r=), Web Share.
+CARDEP = """<div class="tool" id="tt-cd">
+  <div class="fields">
+    <div class="field"><label for="cd-p">Purchase price ($)</label><input type="number" id="cd-p" step="any" min="0" placeholder="30000"></div>
+    <div class="field"><label for="cd-y">Years owned</label><input type="number" id="cd-y" step="1" min="0" max="30" placeholder="3"></div>
+    <div class="field"><label for="cd-r">Annual depreciation %</label><input type="number" id="cd-r" step="any" min="1" max="40" placeholder="15"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cd-out">–</span><span class="result-unit">current value</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cd-lost">–</b><span>value lost</span></div>
+    <div class="stat"><b id="cd-pct">–</b><span>% of purchase price gone</span></div>
+    <div class="stat"><b id="cd-yr">–</b><span>avg cost per year owned</span></div>
+  </div>
+  <div class="tool-note" id="cd-note"></div>
+  <button type="button" class="tool-btn" id="cd-share">Share this math</button>
+</div>
+<script>(function(){
+var P=document.getElementById('cd-p'),Y=document.getElementById('cd-y'),R=document.getElementById('cd-r');
+var OUT=document.getElementById('cd-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var p=parseFloat(P.value),y=parseInt(Y.value),r=parseFloat(R.value);
+  if(!(p>0)||y===undefined||isNaN(y)||!(r>0)){OUT.textContent='–';
+    ['cd-lost','cd-pct','cd-yr'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('cd-note').textContent='';document.title='Car Depreciation Calculator - ToolTide';return;}
+  var v=p*Math.pow(1-r/100,y);
+  OUT.textContent='$'+Math.round(v).toLocaleString('en-US');
+  document.getElementById('cd-lost').textContent='$'+Math.round(p-v).toLocaleString('en-US');
+  document.getElementById('cd-pct').textContent=Math.round((1-v/p)*100)+'%';
+  document.getElementById('cd-yr').textContent='$'+Math.round((p-v)/Math.max(1,y)).toLocaleString('en-US');
+  document.getElementById('cd-note').textContent='Depreciation is front-loaded: a typical car sheds 40-50% of its value in the first three years, then the curve flattens - which is why a 3-year-old car is the classic value pick: the steepest part of the curve is someone else\u2019s receipt. Run the rate at 15-18% for average sedans, more for luxury marques, less for rare hold-the-value models. The per-year figure is the honest cost of ownership that fuel calculators forget - often bigger than the fuel bill itself.';
+  document.title='$'+Math.round(v).toLocaleString('en-US')+' car value - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_cardep',JSON.stringify({p:P.value,y:Y.value,r:R.value}));}catch(e){}}
+[P,Y,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['p',P],['y',Y],['r',R]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_cardep')||'null');if(mem){P.value=mem.p||'';Y.value=mem.y||'';R.value=mem.r||'';}}catch(e){}}
+calc();
+document.getElementById('cd-share').addEventListener('click',function(){
+  var txt='A $'+P.value+' car after '+Y.value+' years at '+R.value+'%/yr: '+OUT.textContent+'. Depreciation is the real cost - check yours (free):';
+  var url=location.origin+location.pathname+'?p='+P.value+'&y='+Y.value+'&r='+R.value;
+  if(navigator.share){navigator.share({title:'Car depreciation',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+});
+})();
+</script>
+"""
+
+# Jet lag: adaptation days by zones crossed and direction, with light strategy.
+# Retention hooks: title result hook, tt_jetlag memory, URL state (?z=&d=), Web Share.
+JETLAG = """<div class="tool" id="tt-jl">
+  <div class="fields">
+    <div class="field"><label for="jl-z">Time zones crossed</label><input type="number" id="jl-z" min="1" max="12" placeholder="7"></div>
+    <div class="field"><label for="jl-d">Direction</label><select id="jl-d"><option value="e">Eastward (losing hours)</option><option value="w">Westward (gaining hours)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="jl-out">–</span><span class="result-unit">days to feel normal</span></div>
+  <div class="stats">
+    <div class="stat"><b id="jl-shift">–</b><span>pre-shift before flying</span></div>
+    <div class="stat"><b id="jl-light">–</b><span>light strategy</span></div>
+    <div class="stat"><b id="jl-back">–</b><span>days to readjust home</span></div>
+  </div>
+  <div class="tool-note" id="jl-note"></div>
+  <button type="button" class="tool-btn" id="jl-share">Share this plan</button>
+</div>
+<script>(function(){
+var Z=document.getElementById('jl-z'),D=document.getElementById('jl-d');
+var OUT=document.getElementById('jl-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var z=parseInt(Z.value),d=D.value;
+  if(!(z>=1&&z<=12)){OUT.textContent='–';
+    ['jl-shift','jl-light','jl-back'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('jl-note').textContent='';document.title='Jet Lag Calculator - ToolTide';return;}
+  var days=d==='e'?z*1.0:z*0.6;
+  days=Math.max(1,Math.round(days));
+  OUT.textContent=days;
+  document.getElementById('jl-shift').textContent=Math.min(z,days)+' days (1h/day)';
+  document.getElementById('jl-light').textContent=d==='e'?'morning light, avoid evening':'evening light, avoid dawn';
+  document.getElementById('jl-back').textContent=d==='e'?Math.max(1,Math.round(z*0.6)):Math.max(1,z);
+  document.getElementById('jl-note').textContent='Eastward is harder: your clock must advance, and the body resists sleeping early more than staying up late - hence roughly a day per zone east versus about half a day per zone west. The pre-shift is the pro move: move bedtime and meals 1 hour per day toward destination time before you fly, and most of the work is done on the ground. On arrival, light is the drug - '+ (d==='e'?'get bright morning light locally and wear sunglasses in the evening to hold the advance.':'seek evening light and stay up to local evening, letting dawn come late.')+' Caffeine before local noon; no alcohol on the plane - it costs more sleep than it buys.';
+  document.title=days+' days to adapt - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_jetlag',JSON.stringify({z:Z.value,d:D.value}));}catch(e){}}
+[Z,D].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['z',Z],['d',D]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_jetlag')||'null');if(mem){Z.value=mem.z||'';D.value=mem.d||'e';}}catch(e){}}
+calc();
+document.getElementById('jl-share').addEventListener('click',function(){
+  var txt=Z.value+' time zones '+(D.value==='e'?'east':'west')+'ward = about '+OUT.textContent+' days of jet lag. Plan yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?z='+Z.value+'&d='+D.value;
+  if(navigator.share){navigator.share({title:'Jet lag plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this plan';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -8035,6 +8196,9 @@ TOOLS = {
     "cagr": lambda args: CAGR,
     "pool": lambda args: POOL,
     "timespent": lambda args: TIMESPENT,
+    "meattime": lambda args: MEATTIME,
+    "cardep": lambda args: CARDEP,
+    "jetlag": lambda args: JETLAG,
 }
 
 
