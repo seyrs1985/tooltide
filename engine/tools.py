@@ -600,6 +600,7 @@ base.forEach(function(v){
   tb.appendChild(tr);
 });
 labels();a.value='1';run();
+window.addEventListener('load',run);
 })();</script>
 """
 
