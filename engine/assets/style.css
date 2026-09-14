@@ -233,6 +233,14 @@ input[type=checkbox],input[type=radio],progress,meter{accent-color:var(--brand)}
 .faq[open] summary::after{transform:rotate(45deg)}
 .faq summary:hover{color:var(--brand)}
 .faq p{margin-top:9px;color:var(--text-2)}
+/* smooth accordions where the browser can animate to height:auto
+   (Chromium 131+ via interpolate-size; every other browser keeps the instant
+   toggle, and reduced-motion visitors get it too via the media gate) */
+@media(prefers-reduced-motion:no-preference){
+  :root{interpolate-size:allow-keywords}
+  .faq::details-content{block-size:0;overflow:clip;transition:block-size .2s ease,content-visibility .2s allow-discrete}
+  .faq[open]::details-content{block-size:auto}
+}
 
 /* tables */
 /* narrow screens: wide reference tables scroll inside their own box instead

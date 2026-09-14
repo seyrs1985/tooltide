@@ -369,6 +369,15 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
              f'<meta name="twitter:description" content="{esc(desc)}">\n' \
              f'<meta name="twitter:image" content="{esc(og_abs)}">\n' \
         if og_image_ready else ""
+    # Speculation Rules: prefetch same-site pages on hover/pointer-down
+    # (Chromium 121+, every other browser ignores the tag). HTTP-only by
+    # design — no prerender, so page JS and analytics never run for a page
+    # the visitor didn't actually open.
+    from urllib.parse import urlparse
+    bpath = urlparse(cfg["base_url"]).path or "/"
+    spec = ('<script type="speculationrules">{"prefetch":[{"source":"document",'
+            f'"where":{{"href_matches":"{esc(bpath)}*"}},"eagerness":"moderate"}}]}}'
+            '</script>\n')
     h = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -392,7 +401,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
 <script defer src="{esc(cfg['base_url'])}i18n.js"></script>
-{sw_reg}{PREPAINT_THEME}
+{sw_reg}{PREPAINT_THEME}{spec}
 <style>{inline_css()}</style>
 {f'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={esc(ads)}" crossorigin="anonymous"></script>' if ads else ''}
 {f'<script async src="https://www.googletagmanager.com/gtag/js?id={esc(ga)}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag("js",new Date());gtag("config","{esc(ga)}");</script>' if ga else ''}
@@ -697,7 +706,9 @@ def build_page(cfg, p, all_pages, cat_info):
         crumb_items.append((cat_label, base + "#" + p["category"], "cat." + p["category"]))
     crumb_items.append((p["h1"], None))
     crumb_ld = {"@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": i + 1, "name": item[0],
+        {"@type": "ListItem", "position": i + 1,
+         # the 🌊 is decorative chrome for humans; structured data wants the name
+         "name": ("ToolTide" if i == 0 else item[0]),
          "item": (item[1] or canonical)}
         for i, item in enumerate(crumb_items)]}
 
@@ -1035,6 +1046,13 @@ def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None, bod
     return doc
 
 
+# Paths whose freshly built output is byte-identical to the previous build.
+# The sitemap keeps the previous <lastmod> for these: re-stamping every URL on
+# each deploy teaches search engines to ignore the dates, while truthful
+# per-page dates let crawlers schedule by actual change.
+_unchanged = set()
+
+
 def write(path, content):
     # reference tables scroll inside their own box on narrow screens instead of
     # stretching the page wide. Static copytable markup only — the JS-built
@@ -1047,6 +1065,12 @@ def write(path, content):
                      else '<div class="result"' + m.group(1) + ' aria-live="polite" aria-atomic="true">',
                      content)
     full = os.path.join(SITE_DIR, path)
+    try:
+        with open(full, encoding="utf-8", newline="") as f:
+            if f.read() == content:
+                _unchanged.add(path.replace(os.sep, "/"))
+    except OSError:
+        pass
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w", encoding="utf-8", newline="\n") as f:
         f.write(content)
@@ -1116,13 +1140,23 @@ def main():
         write("ads.txt", f"google.com, {pub}, DIRECT, f08c47fec0942fa0\n")
         print("  asset /ads.txt")
 
-    # sitemap
+    # sitemap — truthful lastmod: pages whose output is byte-identical to the
+    # previous build (tracked by write()) keep their previous date, so the
+    # sitemap signals real changes instead of re-stamping everything.
+    old_lastmod = {}
+    sm_path = os.path.join(SITE_DIR, "sitemap.xml")
+    if os.path.exists(sm_path):
+        with open(sm_path, encoding="utf-8") as f:
+            old_lastmod = dict(re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", f.read()))
     urls = [cfg["base_url"]] + [cfg["base_url"] + p["slug"] + "/" for p in all_pages] + \
            [cfg["base_url"] + s for s in ("about/", "privacy/", "contact/")]
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for u in urls:
-        sm.append(f"  <url><loc>{esc(u)}</loc><lastmod>{TODAY.isoformat()}</lastmod>"
+        rel = u[len(cfg["base_url"]):]
+        rel_file = (rel + "index.html") if (not rel or rel.endswith("/")) else rel
+        lm = old_lastmod.get(u, "") if rel_file in _unchanged else ""
+        sm.append(f"  <url><loc>{esc(u)}</loc><lastmod>{lm or TODAY.isoformat()}</lastmod>"
                   f"<changefreq>weekly</changefreq><priority>{'1.0' if u == cfg['base_url'] else '0.8'}</priority></url>")
     sm.append("</urlset>")
     write("sitemap.xml", "\n".join(sm) + "\n")

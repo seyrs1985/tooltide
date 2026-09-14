@@ -12,7 +12,7 @@ let files = [];
 let fail = 0, checked = 0;
 for (const f of files) {
   const html = fs.readFileSync(f, 'utf8');
-  const scripts = [...html.matchAll(/<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g)];
+  const scripts = [...html.matchAll(/<script(?![^>]*ld\+json)(?![^>]*speculationrules)[^>]*>([\s\S]*?)<\/script>/g)];
   for (const [i, s] of scripts.entries()) {
     if (!s[1].trim()) continue;
     try { new vm.Script(s[1], { filename: f + '#' + i }); checked++; }
@@ -22,6 +22,17 @@ for (const f of files) {
   for (const l of lds) {
     try { JSON.parse(l[1]); checked++; }
     catch (e) { fail++; console.log('LD FAIL', f, e.message); }
+  }
+  // speculation rules must be valid JSON with a same-origin document prefetch
+  const spec = [...html.matchAll(/<script[^>]*speculationrules[^>]*>([\s\S]*?)<\/script>/g)];
+  if (spec.length) {
+    try {
+      const pf = (JSON.parse(spec[0][1]).prefetch || [])[0] || {};
+      if (pf.source !== 'document' || !(pf.where && typeof pf.where.href_matches === 'string')
+        || !pf.eagerness)
+        throw new Error('needs document-source prefetch with href_matches + eagerness');
+      checked++;
+    } catch (e) { fail++; console.log('SPEC FAIL', f, e.message); }
   }
   if (!/canonical/.test(html)) { fail++; console.log('NO CANONICAL', f); }
   // full-head pages must ask for large image previews in search listings
@@ -79,6 +90,14 @@ try {
     'style.css: view-transition reduced-motion kill-switch');
   assert(/\.faq summary::after/.test(css) && /\.faq\[open\] summary::after/.test(css),
     'style.css: faq disclosure marker');
+  // smooth faq accordion — height:auto animation behind interpolate-size,
+  // whole block gated on prefers-reduced-motion:no-preference
+  const flatCss0 = css.replace(/\n/g, '');
+  assert(/interpolate-size:allow-keywords/.test(css)
+    && /\.faq::details-content\{block-size:0/.test(flatCss0)
+    && /\.faq\[open\]::details-content\{block-size:auto\}/.test(flatCss0)
+    && /prefers-reduced-motion:no-preference\)\{\s*:root\{interpolate-size/.test(flatCss0),
+    'style.css: smooth faq accordion gated on no-preference motion');
   assert(/scroll-margin-top/.test(css), 'style.css: anchor scroll-margin');
   assert(/::selection/.test(css), 'style.css: selection tint');
   assert(/noscript-note/.test(css), 'style.css: noscript notice style');
@@ -346,6 +365,14 @@ try {
     assert(locs.length === built.length && new Set(locs).size === locs.length,
       `sitemap: count/dedupe mismatch (sitemap ${locs.length} vs built ${built.length})`);
   }
+  // truthful lastmod: every URL carries exactly one ISO date, none in the future
+  const lmPairs = [...sm.matchAll(/<loc>([^<]+)<\/loc><lastmod>([^<]+)<\/lastmod>/g)];
+  assert(lmPairs.length === ([...sm.matchAll(/<loc>/g)].length),
+    'sitemap: every URL carries exactly one lastmod');
+  const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  const badLm = lmPairs.filter(m => !/^\d{4}-\d{2}-\d{2}$/.test(m[2]) || m[2] > today);
+  assert(badLm.length === 0, 'sitemap: lastmod values are ISO dates, none in the future: '
+    + badLm.slice(0, 3).map(m => m[1] + '=' + m[2]).join(' '));
 
   // full stylesheet inlined in <head> — no render-blocking CSS request left,
   // identical minified CSS on every page type, canonical copy still served
@@ -550,6 +577,12 @@ try {
   assert(/rel="manifest"[^>]*manifest\.webmanifest/.test(idx)
     && /rel="manifest"/.test(tool),
     'head: manifest link injected on homepage + tool pages');
+  // speculation rules hover-prefetch on every full page head (per-page JSON
+  // validity + shape checked in the file loop above)
+  assert(/<script type="speculationrules">/.test(idx)
+    && /<script type="speculationrules">/.test(tool)
+    && /"href_matches":"[^"]+\*"/.test(idx),
+    'head: speculationrules same-origin prefetch on homepage + tool page');
   let mf = null;
   try {
     mf = JSON.parse(fs.readFileSync(path.join(root, 'manifest.webmanifest'), 'utf8'));
