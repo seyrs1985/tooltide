@@ -4593,6 +4593,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "dew-point-calculator",
+        "title": "Dew Point Calculator — Real Mugginess from Temperature & Humidity",
+        "h1": "Dew Point Calculator",
+        "desc": "Turn temperature and relative humidity into dew point with a comfort verdict - the honest 'it's not the heat' number. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "dew point calculator",
+        "tool": "dewpoint",
+        "args": {},
+        "intro": [
+            "Relative humidity is the most misleading number in the weather app: 70% humidity at 15°C is a crisp autumn day, while 70% at 30°C is a swamp - the same percentage, completely different air. The dew point cuts through it by stating the actual water vapor content: the temperature at which that air would saturate. Meteorologists read comfort straight off it, and this calculator runs the Magnus formula the moment you type.",
+            "The comfort bands under the result are the ones forecasters actually use - below 10°C dry, 10-16 comfortable, 16-21 noticeable, 21-24 muggy, and past 24 oppressive - plus a stat most tools skip: the temp-dew-point spread, which tells you how close fog or overnight dew is. Your last inputs are remembered, the result lands in the tab title, and the share link carries the whole reading.",
+        ],
+        "howto": [
+            "Pick °C or °F, then enter air temperature and relative humidity.",
+            "Read the dew point and its comfort verdict instantly.",
+            "Watch the temp-dew-point spread - when it nears zero, fog and dew are close.",
+        ],
+        "faqs": [
+            ("Why is dew point better than relative humidity?",
+             "Relative humidity is water vapor relative to what the air could hold at its current temperature - so it changes with temperature even when the moisture doesn't. Dew point measures the moisture itself: a 20°C dew point means the same sticky air in Dallas or Delhi. That's why pilots and meteorologists track dew point, not RH."),
+            ("What dew point feels muggy?",
+             "Most people: below 10°C dry, 10-16 comfortable, 16-21 noticeable, 21-24 muggy, 24+ oppressive. Past about 26-28°C even resting in shade is miserable, because sweat stops evaporating efficiently once the dew point nears skin temperature - evaporation is the only cooling your body has."),
+            ("How is dew point calculated?",
+             "The Magnus approximation, the same one in most weather station firmware: dew point = 243.12·γ ÷ (17.62 − γ), where γ = ln(RH/100) + 17.62·T ÷ (243.12 + T). Accurate to a fraction of a degree across normal weather; the calculator also converts the result to absolute humidity in g/m³."),
+            ("What does it mean when dew point equals air temperature?",
+             "The air is saturated - 100% relative humidity - and any further cooling forces water out: dew on grass, fog in the air, clouds in the sky. The 'spread' stat shows how close you are; pilots use the same spread to predict morning fog at their destination."),
+        ],
+    })
+
+    pages.append({
+        "slug": "btu-calculator",
+        "title": "BTU Calculator — AC Size by Room, Insulation, Sun & Occupancy",
+        "h1": "BTU Calculator",
+        "desc": "Size your air conditioner properly: room area, ceiling, insulation, sun, people and kitchen adjustments give BTU, kW and tons of cooling. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "btu calculator",
+        "tool": "btucalc",
+        "args": {},
+        "intro": [
+            "Air conditioner sizing is the classic 'bigger must be better' trap - and it's wrong in both directions. An undersized unit runs flat-out on hot afternoons and never pulls humidity down; an oversized one cools the air in five minutes, shuts off before it dehumidified anything, and leaves the room cold-but-clammy while short-cycling the compressor to death. The right number comes from area, ceiling height, insulation, sun, people and what appliances share the room.",
+            "This calculator starts from the 20 BTU per square foot rule of thumb, scales it for ceiling volume, then applies honest adjustments - poor insulation +15%, heavy sun +10%, +600 BTU per person past the second, +4,000 for kitchens - and reports the result three ways: BTU, kW and tons, so it matches whatever label your local seller uses. Inputs are remembered for the next room in the house.",
+        ],
+        "howto": [
+            "Enter room area and ceiling height.",
+            "Set insulation, sun exposure, usual occupancy and whether it's a kitchen.",
+            "Match the BTU (or kW / tons) figure to the unit's cooling rating, not its size.",
+        ],
+        "faqs": [
+            ("How many BTU do I need per square meter?",
+             "About 215 BTU per m² (20 per sq ft) with a standard 2.7 m ceiling as the starting point - then adjust up for sun, poor insulation, many occupants or kitchen heat, and down for shade and tight modern construction. A 20 m² bedroom lands near 5,000-6,000 BTU; a sunny 40 m² living room near 12,000-14,000."),
+            ("What happens if the AC is too big?",
+             "It short-cycles: the compressor satisfies the thermostat before it has run long enough to dehumidify, leaving a cold, clammy room and doubling on/off wear. Humidity removal - half of comfort - happens in the long, steady runs that oversized units never get. Oversizing wastes money twice: at purchase and in lifetime."),
+            ("Are kW and tons different from BTU?",
+             "Same quantity, different labels: 12,000 BTU/h = 1 ton = about 3.5 kW of cooling. Regions differ in habit - the US sells by BTU, much of Asia by 'HP' or kW, HVAC pros by tons - which is why the calculator shows all three for the same sized unit."),
+            ("Does this work for heating with a heat pump?",
+             "The room-loss logic transfers, but heating loads are usually quoted separately and depend more on climate and insulation than cooling does. Size for whichever season dominates your bill, and remember heat pump ratings list cooling and heating capacities separately - match the right column."),
+        ],
+    })
+
+    pages.append({
+        "slug": "tire-size-comparison",
+        "title": "Tire Size Comparison — Speedometer Error, Diameter & Fit Check",
+        "h1": "Tire Size Comparison",
+        "desc": "Compare two tire sizes before you buy: diameter change, speedometer error at 100 km/h, revs per mile and a ±3% fitment verdict. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "tire size comparison calculator",
+        "tool": "tire",
+        "args": {},
+        "intro": [
+            "A tire size like 225/45-17 is a formula, not a name: 225 mm of width, a sidewall that is 45% of that width, on a 17-inch rim. Put those three numbers in the diameter equation and you can predict everything that matters before the tires are mounted - how much taller the new setup sits, what your speedometer will read when you're actually doing 100, and whether the odometer just started lying to you.",
+            "This calculator runs the comparison live and adds the verdict that tire shops argue about: the ±3% rule. Stay inside it and gearing, ABS, ESP and rub clearances stay within what your car was engineered for; drift outside and the note explains exactly which problems you've signed up for. It's the math behind why plus-sizing pairs a bigger rim with a smaller aspect ratio - and why some swaps simply don't work.",
+        ],
+        "howto": [
+            "Enter your current size from the sidewall (e.g. 225/45-17) as the baseline.",
+            "Enter the size you're considering.",
+            "Check the diameter change, speedometer reading and the ±3% fitment verdict.",
+        ],
+        "faqs": [
+            ("How do I calculate tire diameter from the size?",
+             "Diameter in mm = rim inches × 25.4 + 2 × (width × aspect ÷ 100). For 225/45-17: sidewall is 225 × 0.45 = 101 mm, so diameter = 431.8 + 202.5 ≈ 634 mm. Compare diameters between sizes and everything else - speedo error, clearance, revs per mile - follows from that single ratio."),
+            ("Will bigger tires mess up my speedometer?",
+             "Yes, proportionally: speedo reads a percentage based on rolling diameter, so a +3% taller tire makes it read 97 when you're doing 100. The calculator shows the exact reading at 100 km/h for your swap. Odometer drifts the same way - enough to matter for leases and fuel logs."),
+            ("What is the ±3% rule?",
+             "A practical industry guideline: keep total diameter within about ±3% of the factory size so gearing, braking, ABS/ESP calibration, and body or fender clearance stay within design tolerances. Beyond that you're into rub-on-full-lock territory, speedometer correction, or insurance questions - sometimes all three."),
+            ("Why do people put bigger rims with thinner tires?",
+             "To keep the total diameter constant while filling the arch with more wheel: a plus-one or plus-two swap increases rim inches but steps the aspect ratio down so the sidewall shrinks by the same amount. The math only works if the sum holds steady - which is exactly what this comparison checks before you spend money."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

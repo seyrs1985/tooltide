@@ -6872,6 +6872,182 @@ document.getElementById('fl-share').addEventListener('click',function(){
 </script>
 """
 
+# Dew point: Magnus formula, comfort bands. Neighbors: heatindex, windchill.
+# Retention hooks: title result hook, tt_dewpoint memory, URL state (?t=&h=&u=), Web Share.
+DEWPOINT = """<div class="tool" id="tt-dp">
+  <div class="fields">
+    <div class="field"><label for="dp-u">Units</label><select id="dp-u"><option value="c">°C</option><option value="f">°F</option></select></div>
+    <div class="field"><label for="dp-t">Air temperature</label><input type="number" id="dp-t" step="any" placeholder="30"></div>
+    <div class="field"><label for="dp-h">Relative humidity %</label><input type="number" id="dp-h" step="any" min="1" max="100" placeholder="70"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dp-out">–</span><span class="result-unit" id="dp-u2">°C dew point</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dp-band">–</b><span>comfort verdict</span></div>
+    <div class="stat"><b id="dp-ah">–</b><span>water vapor in air</span></div>
+    <div class="stat"><b id="dp-gap">–</b><span>temp − dew point</span></div>
+  </div>
+  <div class="tool-note" id="dp-note"></div>
+  <button type="button" class="tool-btn" id="dp-share">Share this dew point</button>
+</div>
+<script>(function(){
+var U=document.getElementById('dp-u'),T=document.getElementById('dp-t'),H=document.getElementById('dp-h');
+var OUT=document.getElementById('dp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function cv(v,u){return u==='f'?(v-32)*5/9:v;}
+function back(v,u){return u==='f'?v*9/5+32:v;}
+function calc(){
+  var u=U.value,t=parseFloat(T.value),h=parseFloat(H.value);
+  document.getElementById('dp-u2').textContent='°'+u+' dew point';
+  if(isNaN(t)||!(h>0)){OUT.textContent='–';
+    ['dp-band','dp-ah','dp-gap'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('dp-note').textContent='';document.title='Dew Point Calculator - ToolTide';return;}
+  var tc=cv(t,u);
+  var g=Math.log(h/100)+17.62*tc/(243.12+tc);
+  var td=243.12*g/(17.62-g),tv=back(td,u);
+  OUT.textContent=Math.round(tv*10)/10;
+  var c=td;
+  var band=c<10?'dry':c<16?'comfortable':c<21?'noticeable humidity':c<24?'muggy':'oppressive';
+  document.getElementById('dp-band').textContent=band;
+  document.getElementById('dp-ah').textContent=(2.1674*Math.pow(6.112,1)*Math.exp(17.62*td/(243.12+td))*100/(273.15+td)).toFixed(1)+' g/m³';
+  document.getElementById('dp-gap').textContent=Math.round((t-tv)*10)/10+'°';
+  document.getElementById('dp-note').textContent='Dew point '+Math.round(tv*10)/10+'°'+u+' = '+band+'. The dew point - not relative humidity - is the honest mugginess meter: 70% RH at 15°C feels fine, 70% RH at 30°C is a swamp, because dew point states the actual water in the air. Sweat stops evaporating once dew point nears skin temperature (about 33°C), which is why the mid-20s feels like a wall. Fog or dew forms overnight once air cools to this number.';
+  document.title=Math.round(tv*10)/10+'°'+u+' dew point - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_dewpoint',JSON.stringify({u:U.value,t:T.value,h:H.value}));}catch(e){}}
+[U,T,H].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['u',U],['t',T],['h',H]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_dewpoint')||'null');if(mem){U.value=mem.u||'c';T.value=mem.t||'';H.value=mem.h||'';}}catch(e){}}
+calc();
+document.getElementById('dp-share').addEventListener('click',function(){
+  var txt='Dew point '+OUT.textContent+'°'+U.value+' ('+document.getElementById('dp-band').textContent+'). Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?u='+encodeURIComponent(U.value)+'&t='+encodeURIComponent(T.value||'')+'&h='+encodeURIComponent(H.value||'');
+  if(navigator.share){navigator.share({title:'Dew point',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this dew point';},1500);}
+});
+})();
+</script>
+"""
+
+# AC sizing: area x height -> base BTU, with insulation/sun/occupancy/kitchen adjustments.
+# Retention hooks: title result hook, tt_btu memory, URL state (?a=&h=&i=&s=&p=&k=), Web Share.
+BTUCALC = """<div class="tool" id="tt-bt">
+  <div class="fields">
+    <div class="field"><label for="bt-a">Room area (m²)</label><input type="number" id="bt-a" step="any" min="1" placeholder="20"></div>
+    <div class="field"><label for="bt-h">Ceiling height (m)</label><input type="number" id="bt-h" step="any" min="2" placeholder="2.7"></div>
+    <div class="field"><label for="bt-i">Insulation</label><select id="bt-i"><option value="g">Good (modern)</option><option value="m" selected>Average</option><option value="p">Poor (old windows)</option></select></div>
+    <div class="field"><label for="bt-s">Sun exposure</label><select id="bt-s"><option value="sh">Shaded</option><option value="av" selected>Average</option><option value="su">Very sunny</option></select></div>
+    <div class="field"><label for="bt-p">People usually inside</label><input type="number" id="bt-p" step="1" min="1" max="12" placeholder="2"></div>
+    <div class="field"><label for="bt-k">Kitchen? </label><select id="bt-k"><option value="n">No</option><option value="y">Yes (appliances add heat)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bt-out">–</span><span class="result-unit">BTU needed</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bt-kw">–</b><span>kW cooling</span></div>
+    <div class="stat"><b id="bt-ton">–</b><span>tons of cooling</span></div>
+    <div class="stat"><b id="bt-base">–</b><span>base before adjustments</span></div>
+  </div>
+  <div class="tool-note" id="bt-note"></div>
+  <button type="button" class="tool-btn" id="bt-share">Share this AC size</button>
+</div>
+<script>(function(){
+var A=document.getElementById('bt-a'),H=document.getElementById('bt-h'),I=document.getElementById('bt-i'),S=document.getElementById('bt-s'),P=document.getElementById('bt-p'),K=document.getElementById('bt-k');
+var OUT=document.getElementById('bt-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var a=parseFloat(A.value),h=parseFloat(H.value)||2.7,p=parseInt(P.value)||2;
+  if(!(a>0)){OUT.textContent='–';
+    ['bt-kw','bt-ton','bt-base'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('bt-note').textContent='';document.title='BTU Calculator - ToolTide';return;}
+  var sqft=a*10.7639,base=sqft*20*(h/2.7);
+  var f=1;
+  if(I.value==='g')f-=0.05;if(I.value==='p')f+=0.15;
+  if(S.value==='su')f+=0.10;if(S.value==='sh')f-=0.10;
+  var btu=base*f;if(p>2)btu+=600*(p-2);if(K.value==='y')btu+=4000;
+  btu=Math.round(btu/500)*500;
+  OUT.textContent=btu.toLocaleString('en-US');
+  document.getElementById('bt-kw').textContent=(btu*0.000293).toFixed(1)+' kW';
+  document.getElementById('bt-ton').textContent=(btu/12000).toFixed(1);
+  document.getElementById('bt-base').textContent=Math.round(base/500)*500>=1000?((Math.round(base/500)*500).toLocaleString('en-US')):Math.round(base);
+  document.getElementById('bt-note').textContent='Roughly a '+(Math.round(btu/9000*10)/10)+' kW split unit. Undersized units run forever and never dehumidify; oversized ones short-cycle - cold but clammy, and they wear out faster. The 20 BTU/sqft rule of thumb is temperate-climate: in Phoenix or Dubai add 10-20%, and ducted losses can eat another 10%. Heat pumps list cooling and heating BTU separately - size for the dominant season.';
+  document.title=btu.toLocaleString('en-US')+' BTU - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_btu',JSON.stringify({a:A.value,h:H.value,i:I.value,s:S.value,p:P.value,k:K.value}));}catch(e){}}
+[A,H,I,S,P,K].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['a',A],['h',H],['i',I],['s',S],['p',P],['k',K]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_btu')||'null');if(mem){A.value=mem.a||'';H.value=mem.h||'';I.value=mem.i||'m';S.value=mem.s||'av';P.value=mem.p||'';K.value=mem.k||'n';}}catch(e){}}
+calc();
+document.getElementById('bt-share').addEventListener('click',function(){
+  var txt='My '+A.value+' m² room needs about '+OUT.textContent+' BTU of cooling. Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&h='+encodeURIComponent(H.value||'')+'&i='+I.value+'&s='+S.value;
+  if(navigator.share){navigator.share({title:'BTU sizing',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this AC size';},1500);}
+});
+})();
+</script>
+"""
+
+# Tire size comparison: diameter math -> speedometer error, clearance, revs per mile.
+# Retention hooks: title result hook, tt_tire memory, URL state (?w=&a=&r=&w2=&a2=&r2=), Web Share.
+TIRE = """<div class="tool" id="tt-ts">
+  <div class="fields">
+    <div class="field"><label for="ts-w">Current width (mm)</label><input type="number" id="ts-w" step="1" placeholder="225"></div>
+    <div class="field"><label for="ts-a">Current aspect (%)</label><input type="number" id="ts-a" step="1" placeholder="45"></div>
+    <div class="field"><label for="ts-r">Current rim (in)</label><input type="number" id="ts-r" step="any" min="10" placeholder="17"></div>
+    <div class="field"><label for="ts-w2">New width (mm)</label><input type="number" id="ts-w2" step="1" placeholder="245"></div>
+    <div class="field"><label for="ts-a2">New aspect (%)</label><input type="number" id="ts-a2" step="1" placeholder="40"></div>
+    <div class="field"><label for="ts-r2">New rim (in)</label><input type="number" id="ts-r2" step="any" min="10" placeholder="18"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ts-out">–</span><span class="result-unit">% diameter change</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ts-dia">–</b><span>new vs old diameter</span></div>
+    <div class="stat"><b id="ts-speed">–</b><span>speedo at 100 km/h</span></div>
+    <div class="stat"><b id="ts-rev">–</b><span>revs / mile change</span></div>
+    <div class="stat"><b id="ts-fit">–</b><span>fitment verdict</span></div>
+  </div>
+  <div class="tool-note" id="ts-note"></div>
+  <button type="button" class="tool-btn" id="ts-share">Share this comparison</button>
+</div>
+<script>(function(){
+var W=document.getElementById('ts-w'),A=document.getElementById('ts-a'),R=document.getElementById('ts-r'),
+    W2=document.getElementById('ts-w2'),A2=document.getElementById('ts-a2'),R2=document.getElementById('ts-r2');
+var OUT=document.getElementById('ts-out');
+function dia(w,a,r){return r*25.4+2*w*a/100;}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(W.value),a=parseFloat(A.value),r=parseFloat(R.value),
+      w2=parseFloat(W2.value),a2=parseFloat(A2.value),r2=parseFloat(R2.value);
+  if(!(w>0)||!(a>0)||!(r>0)||!(w2>0)||!(a2>0)||!(r2>0)){OUT.textContent='–';
+    ['ts-dia','ts-speed','ts-rev','ts-fit'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('ts-note').textContent='';document.title='Tire Size Comparison - ToolTide';return;}
+  var d1=dia(w,a,r),d2=dia(w2,a2,r2),pct=(d2/d1-1)*100;
+  OUT.textContent=(pct>=0?'+':'')+pct.toFixed(1);
+  document.getElementById('ts-dia').textContent=Math.round(d1)+' → '+Math.round(d2)+' mm';
+  var sp=100/d2*d1;
+  document.getElementById('ts-speed').textContent='reads '+Math.round(sp)+' km/h';
+  var rev1=1609344/d1,rev2=1609344/d2;
+  document.getElementById('ts-rev').textContent=((rev2/rev1-1)*100).toFixed(1)+'%';
+  var ok=Math.abs(pct)<=3;
+  document.getElementById('ts-fit').textContent=ok?'within ±3% - generally safe':'outside ±3% - rub risk';
+  document.getElementById('ts-note').textContent='Diameter = rim + 2 × sidewall (width × aspect). Your speedometer and odometer are calibrated to the original rolling diameter, so '+pct.toFixed(1)+'% means the speedo reads '+Math.round(sp)+' when the truth is 100 - and the odometer drifts the same way. Stay within ±3% to avoid rubbing, gearing and ABS/ESP complaints. The sidewall math is exactly why plus-sizing goes: bigger rim, smaller aspect, similar total height.';
+  document.title=(pct>=0?'+':'')+pct.toFixed(1)+'% tire size - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_tire',JSON.stringify({w:W.value,a:A.value,r:R.value,w2:W2.value,a2:A2.value,r2:R2.value}));}catch(e){}}
+[W,A,R,W2,A2,R2].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['w',W],['a',A],['r',R],['w2',W2],['a2',A2],['r2',R2]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_tire')||'null');if(mem){W.value=mem.w||'';A.value=mem.a||'';R.value=mem.r||'';W2.value=mem.w2||'';A2.value=mem.a2||'';R2.value=mem.r2||'';}}catch(e){}}
+calc();
+document.getElementById('ts-share').addEventListener('click',function(){
+  var txt='Tire swap 225/45-17 → '+W2.value+'/'+A2.value+'-'+R2.value+' = '+OUT.textContent+'% diameter (speedo at '+document.getElementById('ts-speed').textContent+'). Compare yours (free):';
+  var url=location.origin+location.pathname+'?w='+W.value+'&a='+A.value+'&r='+R.value+'&w2='+W2.value+'&a2='+A2.value+'&r2='+R2.value;
+  if(navigator.share){navigator.share({title:'Tire size comparison',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this comparison';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -7000,6 +7176,9 @@ TOOLS = {
     "petagedog": lambda args: PETAGE.replace("__SPECIES__", "dog"),
     "petagecat": lambda args: PETAGE.replace("__SPECIES__", "cat"),
     "flesch": lambda args: FLESCH,
+    "dewpoint": lambda args: DEWPOINT,
+    "btucalc": lambda args: BTUCALC,
+    "tire": lambda args: TIRE,
 }
 
 
