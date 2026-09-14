@@ -7048,6 +7048,158 @@ document.getElementById('ts-share').addEventListener('click',function(){
 </script>
 """
 
+# Heart rate zones: Karvonen (%HRR) vs %MHR, five training bands.
+# Retention hooks: title result hook, tt_hrzone memory, URL state (?a=&r=&m=), Web Share.
+HRZONE = """<div class="tool" id="tt-hz">
+  <div class="fields">
+    <div class="field"><label for="hz-a">Age</label><input type="number" id="hz-a" min="10" max="100" placeholder="35"></div>
+    <div class="field"><label for="hz-r">Resting heart rate</label><input type="number" id="hz-r" min="30" max="120" placeholder="60"></div>
+    <div class="field"><label for="hz-m">Method</label><select id="hz-m"><option value="k">Karvonen (% of reserve)</option><option value="m">% of max HR</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hz-out">–</span><span class="result-unit">max heart rate</span></div>
+  <div class="stats" id="hz-rows"></div>
+  <div class="tool-note" id="hz-note"></div>
+  <button type="button" class="tool-btn" id="hz-share">Share my zones</button>
+</div>
+<script>(function(){
+var A=document.getElementById('hz-a'),R=document.getElementById('hz-r'),M=document.getElementById('hz-m');
+var OUT=document.getElementById('hz-out'),ROWS=document.getElementById('hz-rows');
+var Z=[['Z1 recovery',.5,.6],['Z2 aerobic base',.6,.7],['Z3 tempo',.7,.8],['Z4 threshold',.8,.9],['Z5 VO2max',.9,1]];
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var a=parseFloat(A.value),r=parseFloat(R.value)||60,m=M.value;
+  if(!(a>=10&&a<=100)){OUT.textContent='–';ROWS.innerHTML='';document.getElementById('hz-note').textContent='';
+    document.title='Heart Rate Zones Calculator - ToolTide';return;}
+  var max=220-a;
+  OUT.textContent=max;
+  var html='';
+  Z.forEach(function(z){
+    var lo,hi;
+    if(m==='k'){if(!(r>=30&&r<=120)){lo=hi=null;}else{lo=Math.round(r+z[1]*(max-r));hi=Math.round(r+z[2]*(max-r));}}
+    else{lo=Math.round(max*z[1]);hi=Math.round(max*z[2]);}
+    html+='<div class="stat"><b>'+(lo?lo+'–'+hi:'set resting HR')+'</b><span>'+z[0]+' ('+Math.round(z[1]*100)+'-'+Math.round(z[2]*100)+'%)</span></div>';});
+  ROWS.innerHTML=html;
+  document.getElementById('hz-note').textContent=(m==='k'?'Karvonen scales intensity by your heart rate reserve (max − resting), so zones shift up for trained hearts with low resting rates - it is the fairer map if you know your resting HR. ':'The % of max method is the classic wall-chart formula - simpler, but it ignores fitness: a rested athlete and a beginner get identical zones. Switch to Karvonen for reserve-based bands. ')+'220 − age is a population average with ±10+ bpm of scatter; if you have a measured lactate-threshold or lab number, trust it over any formula.';
+  document.title=max+' bpm max - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_hrzone',JSON.stringify({a:A.value,r:R.value,m:M.value}));}catch(e){}}
+[A,R,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['a',A],['r',R],['m',M]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_hrzone')||'null');if(mem){A.value=mem.a||'';R.value=mem.r||'';M.value=mem.m||'k';}}catch(e){}}
+calc();
+document.getElementById('hz-share').addEventListener('click',function(){
+  var txt='My max HR is '+OUT.textContent+' bpm - Z2 aerobic base runs '+(ROWS.textContent.split('Z2')[0]||'').trim()+' . Find your training zones (free):';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'')+'&m='+M.value;
+  if(navigator.share){navigator.share({title:'HR zones',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my zones';},1500);}
+});
+})();
+</script>
+"""
+
+# Golf handicap: WHS differential from a round, course handicap for the next tee.
+# Retention hooks: title result hook, tt_golf memory, URL state (?s=&c=&sl=&h=), Web Share.
+GOLF = """<div class="tool" id="tt-gf">
+  <div class="fields">
+    <div class="field"><label for="gf-s">Adjusted gross score</label><input type="number" id="gf-s" min="18" max="200" placeholder="95"></div>
+    <div class="field"><label for="gf-c">Course rating</label><input type="number" id="gf-c" step="any" min="55" max="85" placeholder="72.4"></div>
+    <div class="field"><label for="gf-sl">Slope</label><input type="number" id="gf-sl" min="55" max="155" placeholder="128"></div>
+    <div class="field"><label for="gf-h">Your handicap index (opt.)</label><input type="number" id="gf-h" step="any" min="-10" max="54" placeholder="15.2"></div>
+    <div class="field"><label for="gf-p">Par of that course</label><input type="number" id="gf-p" min="54" max="80" placeholder="72"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gf-out">–</span><span class="result-unit">round differential</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gf-ch">–</b><span>course handicap here</span></div>
+    <div class="stat"><b id="gf-target">–</b><span>\"net even\" target score</span></div>
+    <div class="stat"><b id="gf-vs">–</b><span>vs your index</span></div>
+  </div>
+  <div class="tool-note" id="gf-note"></div>
+  <button type="button" class="tool-btn" id="gf-share">Share this round math</button>
+</div>
+<script>(function(){
+var S=document.getElementById('gf-s'),C=document.getElementById('gf-c'),SL=document.getElementById('gf-sl'),HI=document.getElementById('gf-h'),P=document.getElementById('gf-p');
+var OUT=document.getElementById('gf-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var s=parseFloat(S.value),c=parseFloat(C.value),sl=parseFloat(SL.value),hi=parseFloat(HI.value),par=parseFloat(P.value);
+  if(!(s>0)||!(c>0)||!(sl>0)){OUT.textContent='–';
+    ['gf-ch','gf-target','gf-vs'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('gf-note').textContent='';document.title='Golf Handicap Calculator - ToolTide';return;}
+  var d=(113/sl)*(s-c);
+  OUT.textContent=Math.round(d*10)/10;
+  var ch=(hi>0||hi===0)?Math.round(hi*(sl/113)+(c-(par||72))):-1;
+  document.getElementById('gf-ch').textContent=ch>=0?ch:'–';
+  document.getElementById('gf-target').textContent=(ch>=0&&par)?(s-ch<par?par:par+ch):'–';
+  document.getElementById('gf-vs').textContent=(ch>=0)?((d<hi?'✓ better than':'worse than')+' your '+hi+' index'):'–';
+  document.getElementById('gf-note').textContent='Differential = (113 ÷ slope) × (score − course rating) = '+OUT.textContent+' - the one number the World Handicap System compares across courses. Your index is the average of your best 8 differentials from the last 20 rounds, so one blow-up hole (capped by net double bogey) cannot wreck it. Course handicap '+ (ch>=0?'means you get '+ch+' strokes here - play to par + '+ch+' for a \"handicap round\".':'needs your index above.') ;
+  document.title='Differential '+OUT.textContent+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_golf',JSON.stringify({s:S.value,c:C.value,sl:SL.value,h:HI.value,p:P.value}));}catch(e){}}
+[S,C,SL,HI,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['s',S],['c',C],['sl',SL],['h',HI],['p',P]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_golf')||'null');if(mem){S.value=mem.s||'';C.value=mem.c||'';SL.value=mem.sl||'';HI.value=mem.h||'';P.value=mem.p||'';}}catch(e){}}
+calc();
+document.getElementById('gf-share').addEventListener('click',function(){
+  var txt='Shot '+S.value+' on a '+C.value+'/'+SL.value+' course = '+OUT.textContent+' differential. Do your round math (free, no sign-up):';
+  var url=location.origin+location.pathname+'?s='+S.value+'&c='+C.value+'&sl='+SL.value;
+  if(navigator.share){navigator.share({title:'Golf differential',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this round math';},1500);}
+});
+})();
+</script>
+"""
+
+# BPM tools: delay times per note division + LFO/Hz sync for producers.
+# Retention hooks: title result hook, tt_bpm memory, URL state (?b=), Web Share.
+BPMDelay = """<div class="tool" id="tt-bpm">
+  <div class="fields">
+    <div class="field"><label for="bp-b">Track BPM</label><input type="number" id="bp-b" min="20" max="400" placeholder="120"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bp-out">–</span><span class="result-unit">ms 1/4 note delay</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bp-d8">–</b><span>1/8 dotted (ping-pong classic)</span></div>
+    <div class="stat"><b id="bp-8t">–</b><span>1/8 triplet</span></div>
+    <div class="stat"><b id="bp-hz">–</b><span>LFO 1 cycle / bar</span></div>
+    <div class="stat"><b id="bp-bar">–</b><span>one 4/4 bar</span></div>
+  </div>
+  <div class="tool-note" id="bp-note"></div>
+  <button type="button" class="tool-btn" id="bp-share">Share these delay times</button>
+</div>
+<script>(function(){
+var B=document.getElementById('bp-b');
+var OUT=document.getElementById('bp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var b=parseFloat(B.value);
+  if(!(b>=20&&b<=400)){OUT.textContent='–';
+    ['bp-d8','bp-8t','bp-hz','bp-bar'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('bp-note').textContent='';document.title='BPM Delay Calculator - ToolTide';return;}
+  var q=60000/b;
+  OUT.textContent=Math.round(q);
+  document.getElementById('bp-d8').textContent=Math.round(q*1.5)+' ms';
+  document.getElementById('bp-8t').textContent=Math.round(q*2/3)+' ms';
+  document.getElementById('bp-hz').textContent=(b/60/4).toFixed(3)+' Hz';
+  document.getElementById('bp-bar').textContent=Math.round(q*4).toLocaleString('en-US')+' ms';
+  document.getElementById('bp-note').textContent='Set a delay\\'s time in ms (not tap-tempo) to these values and echoes land exactly between the notes: dotted 1/8 is the classic ambient/edge-of-chaos choice, 1/4 keeps echoes on the beat, triplets swing. For reverb predelay, 10-30 ms keeps vocals in front of the wash. Many plugins accept Hz for modulation instead - one LFO cycle per bar is '+ (b/60/4).toFixed(3)+' Hz here.';
+  document.title=Math.round(q)+' ms 1/4 delay - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_bpm',B.value);}catch(e){}}
+B.addEventListener('input',function(){calc();save();});
+var v=qs('b');if(v!==null)B.value=v;
+else{try{var mem=localStorage.getItem('tt_bpm');if(mem)B.value=mem;}catch(e){}}
+calc();
+document.getElementById('bp-share').addEventListener('click',function(){
+  var txt='At '+B.value+' BPM: 1/4 delay = '+OUT.textContent+' ms, dotted 1/8 = '+document.getElementById('bp-d8').textContent+'. Sync your delays (free):';
+  var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'');
+  if(navigator.share){navigator.share({title:'BPM delay times',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share these delay times';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -7179,6 +7331,9 @@ TOOLS = {
     "dewpoint": lambda args: DEWPOINT,
     "btucalc": lambda args: BTUCALC,
     "tire": lambda args: TIRE,
+    "hrzone": lambda args: HRZONE,
+    "golf": lambda args: GOLF,
+    "bpmdelay": lambda args: BPMDelay,
 }
 
 

@@ -4683,6 +4683,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "heart-rate-zones-calculator",
+        "title": "Heart Rate Zones Calculator — Karvonen & %Max Training Bands",
+        "h1": "Heart Rate Zones Calculator",
+        "desc": "Get your five training heart rate zones from age and resting HR - Karvonen reserve method or classic % of max, with honest formula caveats. Free.",
+        "category": "calculator",
+        "keyword": "heart rate zones calculator",
+        "tool": "hrzone",
+        "args": {},
+        "intro": [
+            "Training zones turn 'go for a run' into a dosage: Z1 recovery, Z2 aerobic base, Z3 tempo, Z4 threshold, Z5 VO2max - five bands with five different jobs. The catch is that every watch and wall chart computes them differently, and the two mainstream formulas disagree: % of max gives everyone the same bands, while the Karvonen method scales by heart rate reserve (max − resting) and hands trained hearts genuinely higher working zones for the same effort.",
+            "This calculator runs both, side by side with your resting heart rate factored in where it belongs, and keeps the honesty column open: 220 − age is a population average with over ±10 bpm of scatter on any individual. Your zones are remembered, shown in the tab title mid-workout, and shareable as a link that carries your settings.",
+        ],
+        "howto": [
+            "Enter your age and, if you know it, your resting heart rate.",
+            "Pick Karvonen (reserve-based) or classic % of max.",
+            "Train to the bands: most of your week belongs in Z2, and that's the one people skip.",
+        ],
+        "faqs": [
+            ("What are the 5 heart rate zones?",
+             "Z1 recovery (50-60%): warm-ups and flush-outs. Z2 aerobic base (60-70%): the conversational mileage that builds mitochondria - most of a training week lives here. Z3 tempo (70-80%): comfortably hard. Z4 threshold (80-90%): the effort you could hold for about an hour. Z5 VO2max (90-100%): intervals, minutes at a time."),
+            ("Which formula is better, Karvonen or % of max?",
+             "Karvonen is physiologically fairer: it measures intensity relative to your usable range (reserve) rather than to a fixed max, so a fit athlete with a 45 bpm resting rate gets zones that reflect their engine. % of max wins only on convenience - no resting HR needed. Both inherit the 220 − age error."),
+            ("How accurate is 220 minus age?",
+             "It is a 1971 population regression with no error bars on the wall chart: individual max HR at a given age scatters by more than ±10 bpm, and the formula drifts for older athletes. Tanaka's 208 − 0.7 × age fits modern data better. A field-tested max (hard finish to a race) beats any formula - use the formula until you have one."),
+            ("Should I train by heart rate or pace?",
+             "Heart rate on hills, heat and tired days; pace on the flat and the track. HR drifts upward during long sessions (cardiac drift) and lags effort on intervals - so use zones to gate easy days and cap steady work, and use feel or pace for the sharp end. The best plan uses both loosely, not either rigidly."),
+        ],
+    })
+
+    pages.append({
+        "slug": "golf-handicap-calculator",
+        "title": "Golf Handicap Calculator — WHS Differential & Course Handicap",
+        "h1": "Golf Handicap Calculator",
+        "desc": "Turn a scorecard into a World Handicap System differential, then into a course handicap for the next tee. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "golf handicap calculator",
+        "tool": "golf",
+        "args": {},
+        "intro": [
+            "The World Handicap System made one number the currency of amateur golf: the differential, (113 ÷ slope) × (adjusted gross score − course rating). It is the only fair way to compare a 95 at a brute 74.8/140 course with a 95 at a friendly 69.9/113 one - and it is the raw material your index is made of, being the average of your best 8 differentials from the last 20 rounds.",
+            "This calculator runs the differential from any scorecard in one line, then answers the question you actually have on the first tee: with your index entered, it gives the course handicap for today's rating and slope, the target score that counts as a 'handicap round', and whether today beat your index. Inputs are remembered for league night, and the share link carries your round.",
+        ],
+        "howto": [
+            "Enter your adjusted gross score plus the course's rating and slope from the card.",
+            "Add your handicap index and par to get today's course handicap.",
+            "Play to par + course handicap - that's a net-even round on any course on earth.",
+        ],
+        "faqs": [
+            ("How is a handicap differential calculated?",
+             "Differential = (113 ÷ slope rating) × (adjusted gross score − course rating). The 113 is the baseline slope: shoot 95 from a 72.4 rating on a 128-slope course and your differential is (113/128) × 22.6 ≈ 19.9. Harder courses shrink the number, which is exactly the point."),
+            ("How does my handicap index come from differentials?",
+             "Your index is the average of your lowest 8 differentials from the most recent 20 acceptable rounds (fewer rounds use a scaled table), multiplied by 0.96 - a small nod toward your potential rather than your average. It updates as new scores post, which is why a great day shows up in your index within days."),
+            ("What is a course handicap and why does it differ from my index?",
+             "Course handicap = index × (slope ÷ 113) + (course rating − par). It converts your portable index into strokes for one specific set of tees on one specific course - more strokes on a harder-than-average layout, fewer on an easy one. It's the number you play with, not the number on your profile."),
+            ("Does a disaster hole ruin the round's differential?",
+             "No - the system caps every hole at net double bogey for handicap purposes ('adjusted gross score'), which is why the input says adjusted: pick up, take the cap, and one triple-quadruple costs you almost nothing in differential terms. The best-8-of-20 averaging handles the rest."),
+        ],
+    })
+
+    pages.append({
+        "slug": "bpm-delay-calculator",
+        "title": "BPM Delay & Reverb Time Calculator — Synced Note Values in ms",
+        "h1": "BPM Delay Calculator",
+        "desc": "Convert any tempo into delay and reverb times: 1/4 note, dotted 1/8, triplets, bar length and LFO Hz - the producer's tempo-sync cheat sheet. Free.",
+        "category": "calculator",
+        "keyword": "bpm delay calculator",
+        "tool": "bpmdelay",
+        "args": {},
+        "intro": [
+            "Tempo-synced delay is one note of arithmetic: a quarter-note delay lasts 60,000 ÷ BPM milliseconds, and every other subdivision is a multiple of it. Set a plugin's time manually to those milliseconds and echoes land exactly between the notes - the dotted eighth that defines U2-style edge-of-chaos ambience, the triplet that swings, the one-bar wash that turns a vocal into a stadium. This calculator shows the whole family at once, live, from one field.",
+            "It also answers the questions the delay table doesn't: how long a bar lasts (for reverb tails and loop lengths), and the modulation rate in Hz producers need when a plugin's LFO syncs by frequency instead of tempo - one LFO cycle per bar at your tempo, to three decimals. Your last tempo is remembered for the session, and the share link carries the BPM.",
+        ],
+        "howto": [
+            "Enter your track's BPM.",
+            "Read the delay time you need - quarter for on-beat echoes, dotted 1/8 for the classic push.",
+            "Use the bar length for reverb tail decisions and the Hz value for LFO sync.",
+        ],
+        "faqs": [
+            ("How do I calculate delay time from BPM?",
+             "Quarter note in ms = 60,000 ÷ BPM. At 120 BPM that's 500 ms; a dotted eighth is 1.5× = 750 ms; an eighth triplet is ⅔ = 333 ms. Every subdivision is just a fraction or multiple of the quarter - the calculator lays them out so you can dial a number in instead of trusting tap tempo."),
+            ("Why do producers love dotted eighth delays?",
+             "Because echoes fall between the subdivisions, creating a rhythm that's locked to the track but sounds like it's floating - the Edge's guitar sound and half of ambient techno are dotted-eighth ping-pong delays. It reads as complexity while being mathematically perfectly in time."),
+            ("What about reverb times - how long should a tail be?",
+             "A workable rule: tail roughly equal to one bar (or one phrase) so washes resolve on the downbeat; for vocals, keep predelay at 10-30 ms so the dry signal stays in front, and use the bar-length stat to decide whether the tail fits the groove or blurs it. Ballads tolerate longer; anything uptight and fast wants shorter."),
+            ("My plugin syncs by Hz, not tempo - what value do I use?",
+             "Hz = BPM ÷ 60 ÷ (beats per cycle). One LFO cycle per bar of 4/4 is BPM ÷ 240 - at 120 BPM, 0.5 Hz. The calculator shows that figure to three decimals, which matters because tremolo and auto-pan drift becomes audible when the cycle slips even a few hundredths against the grid."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
