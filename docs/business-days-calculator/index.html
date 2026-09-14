@@ -76,6 +76,7 @@
 var a=document.getElementById('dd-a'),b=document.getElementById('dd-b');
 function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
 function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+var LC=(window.ttLang&&window.ttLang())||'en-US';
 var t=new Date();a.value=iso(t);b.value=iso(new Date(t.getTime()+12096e5));
 function run(){
   if(!a.value||!b.value)return;
@@ -88,11 +89,12 @@ function run(){
   var wd=0,cur=new Date(lo);
   if(days<=500000){for(var i=0;i<days;i++){cur.setDate(cur.getDate()+1);var g=cur.getDay();if(g!==0&&g!==6)wd++;}}
   document.getElementById('dd-wd').textContent=days>500000?'—':wd;
-  document.getElementById('dd-hours').textContent=(days*24).toLocaleString('en-US');
+  document.getElementById('dd-hours').textContent=(days*24).toLocaleString(LC);
   var opts={weekday:'long',year:'numeric',month:'long',day:'numeric'};
-  document.getElementById('dd-note').textContent=lo.toLocaleDateString('en-US',opts)+'  →  '+hi.toLocaleDateString('en-US',opts);
+  document.getElementById('dd-note').textContent=lo.toLocaleDateString(LC,opts)+'  →  '+hi.toLocaleDateString(LC,opts);
 }
 a.addEventListener('input',run);b.addEventListener('input',run);run();
+window.addEventListener('load',run);
 try{
   var mem=JSON.parse(localStorage.getItem('tt_datediff')||'null');
   if(mem&&mem.a&&mem.b){a.value=mem.a;b.value=mem.b;run();}

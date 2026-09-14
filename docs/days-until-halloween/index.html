@@ -137,7 +137,7 @@ function tick(){
   var real=r.today?0:days;
   var LC=(window.ttLang&&window.ttLang())||'en-US';
   function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
-  var EV=T('cd.ev.'+A.slug,A.event),daysLbl=T('cd.days','days to go');
+  var EV=T('cd.ev.'+A.event.toLowerCase().replace(/[^a-z]+/g,'-').replace(/^-+|-+$/g,''),A.event),daysLbl=T('cd.days','days to go');
   if(CUST){EV=r.cand.toLocaleDateString(LC,{month:'short',day:'numeric',year:'numeric'})+' ★';daysLbl=T('cd.daysyours','days to your date');}
   el('cd-name').textContent=EV;
   if(ICV&&ICONLINK&&real!==ILAST){ILAST=real;try{
