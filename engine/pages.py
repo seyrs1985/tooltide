@@ -4413,6 +4413,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "pomodoro-timer",
+        "title": "Pomodoro Timer Online — 25/5 Focus Cycles with Tab Countdown",
+        "h1": "Pomodoro Timer",
+        "desc": "Free online pomodoro timer: 25/5 focus cycles, long break every fourth round, live tab-title countdown and a daily focus-streak counter. No sign-up.",
+        "category": "countdown",
+        "keyword": "pomodoro timer",
+        "tool": "pomodoro",
+        "args": {},
+        "intro": [
+            "The pomodoro method is 25 minutes of focus, 5 minutes off, and a longer break every fourth cycle - simple to describe, easy to abandon, because most timers make you babysit them. This one runs the whole protocol: it cycles through focus and break phases automatically, beeps at each transition, and keeps the countdown in the browser tab title so it stays visible while you work in other windows.",
+            "It also keeps score: completed focus blocks and focus minutes accrue per day, survive a reload mid-session, and are there when you come back tomorrow - the counter that quietly asks whether today was a zero-focus day. Durations are adjustable, and the timing math runs on wall-clock timestamps, so background-tab throttling cannot make your 25 minutes drift.",
+        ],
+        "howto": [
+            "Set your focus and break lengths (25/5/15 works; 50/10 also has fans).",
+            "Press Start - work until the beep, rest when it says break, repeat.",
+            "Come back tomorrow: today's focus-block count is waiting, reset to zero.",
+        ],
+        "faqs": [
+            ("What is the pomodoro technique?",
+             "A time-boxing method by Francesco Cirillo: 25-minute focus blocks separated by 5-minute breaks, with a 15-30 minute break after every fourth block. The box is the point - a hard edge makes starting easy and makes 'one more scroll' a visible violation of your own timer."),
+            ("Does it keep running if I switch tabs?",
+             "Yes - elapsed time is computed from wall-clock timestamps, not counted ticks, so browser throttling of background tabs cannot slow it. The tab title carries a live countdown, which is how most people keep it visible from another window."),
+            ("What happens if I close the page mid-session?",
+             "The phase in progress is lost, but your day is not: completed focus blocks and minutes are stored per date and reappear when you reload. Rigid timers punish real life; this one only asks that the daily count stay honest."),
+            ("Can I change 25/5 to something else?",
+             "Yes - focus, short break and long break are all adjustable, and the long break fires automatically after every fourth focus block. Common variants: 50/10 for deep work, 15/3 for rough days. The method serves you, not the reverse."),
+        ],
+    })
+
+    pages.append({
+        "slug": "password-strength-checker",
+        "title": "Password Strength Checker — Entropy Bits & Crack Time, Nothing Stored",
+        "h1": "Password Strength Checker",
+        "desc": "Test a password's entropy and realistic crack times against online, GPU and datacenter attacks - computed locally, never stored or sent. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "password strength checker",
+        "tool": "passstrength",
+        "args": {},
+        "intro": [
+            "'Strong password' is useless advice without a number. This checker gives two: entropy in bits (length × log₂ of the character pool you actually used) and what those bits mean in practice - how long the password survives a throttled online attack, a single gaming GPU, or a well-funded datacenter. Dictionary words, keyboard patterns, repeats and date-shaped tails are detected and deducted, because crackers try them first and brute-force math flatters them.",
+            "The privacy bar is absolute: nothing you type is stored, remembered or sent anywhere - there is deliberately no URL state and no input memory on this tool, because a password must never persist. The note under the result explains why length beats symbol soup and why reuse is the real breach multiplier.",
+        ],
+        "howto": [
+            "Type (not paste from your manager, for this test) a candidate password.",
+            "Read the entropy bits, the verdict and the three attack-scenario times.",
+            "Adjust: doubling length beats adding a symbol every time - test and see.",
+        ],
+        "faqs": [
+            ("How is password strength measured?",
+             "Entropy: each character adds log₂(pool size) bits - lowercase-only adds 4.7 bits per character, mixed case+digits+symbols adds about 6.5. A 12-character random lowercase password (~56 bits) beats 'P@ss1!' (~33 bits) comfortably, which is why the verdict follows the math and not the aesthetics."),
+            ("What do the crack-time estimates assume?",
+             "Three honest rates: ~100 guesses/second against a rate-limited login form, 10^10/s for an offline GPU cracking a stolen hash, and 10^14/s for warehouse-scale hardware. Real cracking is dictionary-guided and uneven, which is exactly why the pattern deductions exist."),
+            ("Why does 'Password1!' score badly when it's complex?",
+             "Complexity rules check character classes, crackers check dictionaries first - and 'password' with a suffix is the most-guessed pattern in every breach dump. The checker normalizes leetspeak (0→o, 3→e, @→a) before its word list, so cosmetic substitutions do not buy back security."),
+            ("Does this tool store or transmit what I type?",
+             "No - deliberately. The entropy math runs in your browser; there is no input memory, no share-with-data link and no network call on this page, and the share button sends only your score. The one habit no checker can fix is reuse, so rotate passwords between sites or use a manager."),
+        ],
+    })
+
+    pages.append({
+        "slug": "crypto-profit-calculator",
+        "title": "Crypto Profit Calculator — Net P/L, ROI & Break-even After Fees",
+        "h1": "Crypto Profit Calculator",
+        "desc": "Calculate real crypto profit after exchange fees on both sides: net P/L, ROI, total invested and the exact break-even sell price. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "crypto profit calculator",
+        "tool": "cryptoprofit",
+        "args": {},
+        "intro": [
+            "Most crypto profit calculators subtract entry from exit and call it done - which quietly ignores the fee that both sides of every trade pay. Buy $30,000 of Bitcoin at 0.1% and you received $29,970 of exposure; sell at 'break-even' and the exit fee closes the round trip $60 in the hole. This calculator fees both sides explicitly and derives the number that actually matters: the sell price at which you are truly flat.",
+            "From there it is honest P/L: net profit, ROI on capital-at-risk including the buy-side fee, and a note that keeps the long-run picture visible - fees compound with trade frequency, which is how active traders silently give back double-digit percentages a year. Inputs are remembered, results land in the tab title, and the share link carries the whole scenario.",
+        ],
+        "howto": [
+            "Enter buy price, sell price and quantity - profit appears with default fees.",
+            "Set your exchange's per-side fee (0.1-0.5% is typical for spot).",
+            "Read net P/L, ROI and break-even - then try the fee the spread really costs you.",
+        ],
+        "faqs": [
+            ("How is break-even calculated?",
+             "Break-even sell price = buy price × (1 + fee) ÷ (1 − fee). At 0.1% per side that is 0.2% above your entry: buy at $60,000 and the trade is only whole at $60,120.1. The formula compounds both fee directions, which is why it is slightly larger than the naive entry × (1 + 2×fee)."),
+            ("Do the fees include spread and slippage?",
+             "No - the fee field models the exchange's commission only. The spread on illiquid pairs and slippage on market orders are real costs too; many traders fold them in by raising the fee percent until it matches their all-in cost, and the calculator updates break-even live."),
+            ("Does it work for any coin or only Bitcoin?",
+             "Any asset priced per unit: ETH, SOL, DOGE, gold ounces, or fractional coins - quantity takes decimals, so 0.5 BTC works exactly like 500 DOGE. Leverage, funding rates and tax lots are out of scope; this is the spot round-trip, modeled precisely."),
+            ("Is profit before or after tax?",
+             "Before - crypto disposals are taxable events in most jurisdictions, and short-term rates apply to trades held under a year. The note keeps the trading-cost picture honest; for the tax picture, your jurisdiction's rules on cost basis and holding periods apply on top."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

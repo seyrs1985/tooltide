@@ -6549,6 +6549,202 @@ document.getElementById('lo-share').addEventListener('click',function(){
 """
 
 
+# Pomodoro timer: wall-clock phase cycling, daily session count, tab-title countdown.
+# Retention hooks: title countdown, tt_pomodoro daily counter + settings memory, WebAudio beep, Web Share.
+POMODORO = """<div class="tool" id="tt-po">
+  <div class="fields">
+    <div class="field"><label for="po-w">Focus minutes</label><input type="number" id="po-w" min="1" max="120" value="25"></div>
+    <div class="field"><label for="po-b">Short break</label><input type="number" id="po-b" min="1" max="60" value="5"></div>
+    <div class="field"><label for="po-l">Long break (every 4)</label><input type="number" id="po-l" min="1" max="90" value="15"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="po-out">25:00</span><span class="result-unit" id="po-phase">focus - ready</span></div>
+  <div class="stats">
+    <div class="stat"><b id="po-today">0</b><span>focus blocks today</span></div>
+    <div class="stat"><b id="po-cycle">1/4</b><span>cycle position</span></div>
+    <div class="stat"><b id="po-total">0</b><span>focus minutes today</span></div>
+  </div>
+  <div class="tool-note" id="po-note">Auto-runs focus → break cycles. The tab title counts down, so the timer survives tab-switching; progress is saved per day and comes back after a reload.</div>
+  <button type="button" class="tool-btn" id="po-go">Start</button>
+  <button type="button" class="tool-btn" id="po-reset">Reset</button>
+  <button type="button" class="tool-btn" id="po-share">Share today's count</button>
+</div>
+<script>(function(){
+var W=document.getElementById('po-w'),B=document.getElementById('po-b'),L=document.getElementById('po-l');
+var OUT=document.getElementById('po-out'),PH=document.getElementById('po-phase'),GO=document.getElementById('po-go');
+var st={run:false,mode:'work',end:0,left:0,cyc:0};var iv=null;
+function today(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function load(){try{var m=JSON.parse(localStorage.getItem('tt_pomodoro')||'null');
+  if(m){if(m.d===today()){st.done=m.n||0;st.mins=m.tm||0;}else{st.done=0;st.mins=0;}
+    if(m.w)W.value=m.w;if(m.b)B.value=m.b;if(m.l)L.value=m.l;}}catch(e){}st.done=st.done||0;st.mins=st.mins||0;}
+function save(){try{localStorage.setItem('tt_pomodoro',JSON.stringify({d:today(),n:st.done,tm:st.mins,w:W.value,b:B.value,l:L.value}));}catch(e){}}
+function mm(n){return Math.max(0,Math.round(n));}
+function fmt(s){var m=Math.floor(s/60),x=Math.floor(s%60);return m+':'+(x<10?'0':'')+x;}
+function beep(){try{var c=new (window.AudioContext||window.webkitAudioContext)();
+  [0,350,700].forEach(function(t){var o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);
+  o.frequency.value=880;o.type='sine';g.gain.value=.12;o.start(c.currentTime+t/1000);o.stop(c.currentTime+t/1000+.22);});}catch(e){}}
+function render(){var s=st.run?(st.end-Date.now())/1000:st.left;
+  OUT.textContent=fmt(s);
+  var label=(st.mode==='work'?'focus':'break')+(st.run?'':' - paused');
+  PH.textContent=label;
+  document.title=(st.run?'🍅 ':'⏸ ')+fmt(s)+' '+(st.mode==='work'?'Focus':'Break')+' - ToolTide';
+  document.getElementById('po-today').textContent=st.done;
+  document.getElementById('po-cycle').textContent=(st.cyc%4+1)+'/4';
+  document.getElementById('po-total').textContent=st.mins;}
+function next(){if(st.mode==='work'){st.done++;st.mins+=parseInt(W.value)||25;}
+  st.cyc=st.mode==='work'?st.cyc+1:st.cyc;
+  var wasWork=st.mode==='work';
+  st.mode=wasWork?(st.cyc%4===0?'long':'break'):'work';
+  var mins=st.mode==='work'?parseInt(W.value):(st.mode==='long'?parseInt(L.value):parseInt(B.value));
+  st.left=(mins||25)*60;st.end=Date.now()+st.left*1000;
+  beep();save();render();arm();}
+function arm(){if(iv)clearInterval(iv);iv=null;
+  if(!st.run)return;iv=setInterval(function(){
+    var s=(st.end-Date.now())/1000;
+    if(s<=0){next();}else{OUT.textContent=fmt(s);
+      document.title='🍅 '+fmt(s)+' '+(st.mode==='work'?'Focus':'Break')+' - ToolTide';}},250);}
+GO.addEventListener('click',function(){
+  if(st.run){st.run=false;st.left=(st.end-Date.now())/1000;GO.textContent='Start';}
+  else{if(!st.left||st.left<=0){var mins=(st.mode==='work'?parseInt(W.value):parseInt(B.value))||25;st.left=mins*60;}
+    st.end=Date.now()+st.left*1000;st.run=true;GO.textContent='Pause';arm();}
+  render();});
+document.getElementById('po-reset').addEventListener('click',function(){
+  if(iv)clearInterval(iv);iv=null;st.run=false;st.mode='work';st.cyc=0;
+  st.left=(parseInt(W.value)||25)*60;GO.textContent='Start';save();render();});
+document.getElementById('po-share').addEventListener('click',function(){
+  var txt=st.done+' pomodoros ('+st.mins+' focus minutes) today. Start your own timer (no sign-up):';
+  var url=location.origin+location.pathname;
+  if(navigator.share){navigator.share({title:'Pomodoro',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent="Share today's count";},1500);}});
+[W,B,L].forEach(function(el){el.addEventListener('input',function(){if(!st.run){st.mode='work';st.left=(parseInt(W.value)||25)*60;render();}save();});});
+load();st.left=(parseInt(W.value)||25)*60;render();
+})();
+</script>
+"""
+
+# Password strength: entropy math + pattern penalties + honest crack-time table.
+# Deliberately no password memory/URL state (a password must never persist or travel).
+# Retention hooks: title score hook, Web Share (score only, never the password).
+PASSSTRENGTH = """<div class="tool" id="tt-pw">
+  <div class="fields">
+    <div class="field"><label for="pw-in">Type a password to test</label><input type="password" id="pw-in" autocomplete="off" spellcheck="false" placeholder="try something…"></div>
+    <div class="field"><label for="pw-show">Show it</label><input type="checkbox" id="pw-show"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pw-out">–</span><span class="result-unit">bits of entropy</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pw-verdict">–</b><span>verdict</span></div>
+    <div class="stat"><b id="pw-on">–</b><span>vs online attack (100/s)</span></div>
+    <div class="stat"><b id="pw-gpu">–</b><span>vs offline GPU (10^10/s)</span></div>
+  </div>
+  <div class="tool-note" id="pw-note"></div>
+  <button type="button" class="tool-btn" id="pw-share">Share the score (not the password)</button>
+</div>
+<script>(function(){
+var IN=document.getElementById('pw-in'),OUT=document.getElementById('pw-out');
+var COMMON=['password','passw0rd','qwerty','letmein','welcome','admin','login','dragon','monkey','iloveyou','football','baseball','abc123','123456','12345678','1234567890','sunshine','princess','master','shadow','superman','trustno1','starwars','whatever','password1','azerty','zxcvbn','asdfgh','qazwsx','michael','jennifer','jordan','harley','ranger','hunter','summer','ashley'];
+function bits2(b){if(b<=0)return 'instantly';
+  var units=[[1,'second'],[60,'minute'],[3600,'hour'],[86400,'day'],[2592000,'month'],[31536000,'year']];
+  if(b<20)return 'seconds';
+  var secs=Math.pow(2,b-1);
+  if(secs/31536000>1e9)return 'billions of years';
+  if(secs/31536000>1000)return 'thousands of years';
+  for(var i=units.length-1;i>=0;i--){if(secs>=units[i][0]){var v=secs/units[i][0];
+    return (v>=10?Math.round(v):v.toFixed(1))+' '+units[i][1]+(v>=2?'s':'');}}
+  return 'instantly';}
+function calc(){
+  var pw=IN.value||'';
+  if(!pw){OUT.textContent='–';document.getElementById('pw-verdict').textContent='–';
+    document.getElementById('pw-on').textContent='–';document.getElementById('pw-gpu').textContent='–';
+    document.getElementById('pw-note').textContent='';document.title='Password Strength Checker - ToolTide';return;}
+  var cs=0;if(/[a-z]/.test(pw))cs+=26;if(/[A-Z]/.test(pw))cs+=26;if(/[0-9]/.test(pw))cs+=10;
+  if(/[^a-zA-Z0-9 ]/.test(pw))cs+=33;if(/ /.test(pw))cs+=1;
+  var bits=pw.length*(cs>1?Math.log2(cs):0);
+  var notes=[],norm=pw.toLowerCase().replace(/[@4]/g,'a').replace(/0/g,'o').replace(/1/g,'l').replace(/3/g,'e').replace(/5/g,'s');
+  var hits=COMMON.filter(function(w){return norm.indexOf(w)>=0;});
+  if(hits.length){bits=Math.min(bits,14);notes.push('contains the dictionary word "'+hits[0]+'" - crackers try these first');}
+  if(/(.)\\1{2,}/.test(pw)){bits-=8;notes.push('repeated characters add almost nothing');}
+  if(/(0123|1234|2345|3456|4567|5678|6789|abcd|bcde|cdef|qwer|asdf|zxcv)/i.test(pw)){bits-=8;notes.push('keyboard or number sequences are guessed early');}
+  if(/^\\d{4,8}$/.test(pw)&&/^(19|20)\\d\\d/.test(pw)){bits-=8;notes.push('looks like a year/date - dates are brute-forced first');}
+  bits=Math.max(4,bits);
+  OUT.textContent=Math.round(bits);
+  var verdict=bits<28?'Very weak':bits<36?'Weak':bits<60?'Fair':bits<80?'Strong':'Excellent';
+  document.getElementById('pw-verdict').textContent=verdict;
+  document.getElementById('pw-on').textContent=bits2(bits/2);
+  document.getElementById('pw-gpu').textContent=bits2(bits-33.2>0?bits-33.2:1);
+  document.getElementById('pw-note').textContent=(notes.length?'Deductions: '+notes.join('; ')+'. ':'')+
+    'Entropy is length × log2(character pool) - length beats complexity: "correct-horse-battery" style passphrases outrun symbol soup. The real killer is reuse: one breached site hands attackers every account that shares the password. Nothing you type here is stored, sent or remembered - check and close.';
+  document.title=Math.round(bits)+' bits - '+verdict+' - ToolTide';
+}
+IN.addEventListener('input',calc);
+document.getElementById('pw-show').addEventListener('change',function(){IN.type=this.checked?'text':'password';});
+document.getElementById('pw-show').addEventListener('change',calc);
+calc();
+document.getElementById('pw-share').addEventListener('click',function(){
+  if(!IN.value)return;
+  var txt='My test password scores '+OUT.textContent+' bits ('+document.getElementById('pw-verdict').textContent+') - it would survive an offline GPU attack for '+document.getElementById('pw-gpu')+'. Check yours (nothing is stored):';
+  var url=location.origin+location.pathname;
+  if(navigator.share){navigator.share({title:'Password strength',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the score (not the password)';},1500);}
+});
+})();
+</script>
+"""
+
+# Crypto profit: fee-aware P/L, ROI and the exact break-even sell price.
+# Retention hooks: title result hook, tt_cryptoprofit input memory, URL state (?b=&s=&q=&f=), Web Share.
+CRYPTOPROFIT = """<div class="tool" id="tt-cp">
+  <div class="fields">
+    <div class="field"><label for="cp-b">Buy price ($ per coin)</label><input type="number" id="cp-b" step="any" min="0" placeholder="60000"></div>
+    <div class="field"><label for="cp-s">Sell price ($ per coin)</label><input type="number" id="cp-s" step="any" min="0" placeholder="65000"></div>
+    <div class="field"><label for="cp-q">Quantity (coins)</label><input type="number" id="cp-q" step="any" min="0" placeholder="0.5"></div>
+    <div class="field"><label for="cp-f">Fee per side (%)</label><input type="number" id="cp-f" step="any" min="0" max="10" placeholder="0.1"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cp-out">–</span><span class="result-unit">net profit / loss</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cp-inv">–</b><span>invested (incl. buy fee)</span></div>
+    <div class="stat"><b id="cp-ret">–</b><span>returned (after sell fee)</span></div>
+    <div class="stat"><b id="cp-roi">–</b><span>ROI</span></div>
+    <div class="stat"><b id="cp-be">–</b><span>break-even sell price</span></div>
+  </div>
+  <div class="tool-note" id="cp-note"></div>
+  <button type="button" class="tool-btn" id="cp-share">Share this trade math</button>
+</div>
+<script>(function(){
+var B=document.getElementById('cp-b'),S=document.getElementById('cp-s'),Q=document.getElementById('cp-q'),F=document.getElementById('cp-f');
+var OUT=document.getElementById('cp-out');
+function money(n){return '$'+(Math.abs(n)>=100?Math.round(n).toLocaleString('en-US'):(Math.round(n*100)/100).toString());}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var b=parseFloat(B.value),s=parseFloat(S.value),q=parseFloat(Q.value),f=parseFloat(F.value);
+  if(isNaN(f)||f<0)f=0;
+  if(!(b>0)||!(q>0)){OUT.textContent='–';
+    ['cp-inv','cp-ret','cp-roi','cp-be'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('cp-note').textContent='';document.title='Crypto Profit Calculator - ToolTide';return;}
+  var inv=b*q*(1+f/100),ret=(s>0?s*q*(1-f/100):0),pl=ret-inv;
+  var roi=pl/inv*100,be=b*(1+f/100)/(1-f/100);
+  OUT.textContent=(pl>=0?'+':'−')+money(Math.abs(pl)).replace('$','$');
+  document.getElementById('cp-inv').textContent=money(inv);
+  document.getElementById('cp-ret').textContent=s>0?money(ret):'–';
+  document.getElementById('cp-roi').textContent=(pl>=0?'+':'')+roi.toFixed(2)+'%';
+  document.getElementById('cp-be').textContent='$'+(Math.round(be*100)/100);
+  document.getElementById('cp-note').textContent='Fees hit both sides: '+money(b*q)+' in at '+f+'% costs '+money(inv)+' all-in, so break-even is not your buy price - it is $'+(Math.round(be*100)/100)+', '+(f>0?((be/b-1)*100).toFixed(2)+'% above it. ':'')+ 'Round-trip fees on frequent trades are the silent position-sizer: 0.1% twice on 50 trades a year is ~10% gone.';
+  document.title=(pl>=0?'+':'')+roi.toFixed(1)+'% ROI - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_cryptoprofit',JSON.stringify({b:B.value,s:S.value,q:Q.value,f:F.value}));}catch(e){}}
+[B,S,Q,F].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['b',B],['s',S],['q',Q],['f',F]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_cryptoprofit')||'null');if(mem){B.value=mem.b||'';S.value=mem.s||'';Q.value=mem.q||'';F.value=mem.f||'';}}catch(e){}}
+calc();
+document.getElementById('cp-share').addEventListener('click',function(){
+  var txt='Trade math: '+OUT.textContent+' ('+document.getElementById('cp-roi').textContent+' ROI) after fees, break-even at '+document.getElementById('cp-be').textContent+'. Run yours (no sign-up):';
+  var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&s='+encodeURIComponent(S.value||'')+'&q='+encodeURIComponent(Q.value||'')+'&f='+encodeURIComponent(F.value||'');
+  if(navigator.share){navigator.share({title:'Crypto profit',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this trade math';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -6671,6 +6867,9 @@ TOOLS = {
     "stockavg": lambda args: STOCKAVG,
     "possize": lambda args: POSSIZE,
     "lotto": lambda args: LOTTO,
+    "pomodoro": lambda args: POMODORO,
+    "passstrength": lambda args: PASSSTRENGTH,
+    "cryptoprofit": lambda args: CRYPTOPROFIT,
 }
 
 
