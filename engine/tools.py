@@ -7702,7 +7702,7 @@ function gen(){
     var para=words.join(' ');
     total+=w;
     out.push(para+'.');}
-  TX.value=out.join('\n\n');
+  TX.value=out.join('\\n\\n');
   OUT.textContent=total;
   document.getElementById('lr-note').textContent='Count-exact: '+p+' paragraphs × '+w+' words. Every regenerate draws fresh random sentences - paste straight into your mockup, CSS or CMS.';
   document.title=total+' placeholder words - ToolTide';
