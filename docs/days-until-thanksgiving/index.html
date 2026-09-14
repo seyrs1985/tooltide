@@ -62,7 +62,7 @@
 <div class="tool" id="tt-cd">
   <div class="cd-event"><span id="cd-emoji"></span><span id="cd-name"></span></div>
   <div class="cd-big" id="cd-days">–</div>
-  <div class="cd-big-label" id="cd-days-label">days to go</div>
+  <div class="cd-big-label" id="cd-days-label" data-i18n="cd.days">days to go</div>
   <div class="cd-clock" id="cd-clock">–</div>
   <div class="stats">
     <div class="stat"><b id="cd-weeks">–</b><span>weeks</span></div>
@@ -135,8 +135,10 @@ function tick(){
   var days=Math.floor(diff/86400000);
   var hours=Math.floor(diff/3600000)%24, mins=Math.floor(diff/60000)%60, secs=Math.floor(diff/1000)%60;
   var real=r.today?0:days;
-  var EV=A.event,daysLbl='days to go';
-  if(CUST){EV=r.cand.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' ★';daysLbl='days to your date';}
+  var LC=(window.ttLang&&window.ttLang())||'en-US';
+  function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
+  var EV=A.event,daysLbl=T('cd.days','days to go');
+  if(CUST){EV=r.cand.toLocaleDateString(LC,{month:'short',day:'numeric',year:'numeric'})+' ★';daysLbl=T('cd.daysyours','days to your date');}
   el('cd-name').textContent=EV;
   if(ICV&&ICONLINK&&real!==ILAST){ILAST=real;try{
     var g=ICV.getContext('2d');
@@ -148,14 +150,14 @@ function tick(){
     ICONLINK.href=ICV.toDataURL('image/png');
   }catch(e){ILAST=-2;}}
   el('cd-days').textContent=real;
-  el('cd-days-label').textContent=r.today?("It's "+EV+" today! 🎉"):daysLbl;
-  el('cd-clock').textContent=pad(hours)+':'+pad(mins)+':'+pad(secs)+'  h:m:s remaining today';
+  el('cd-days-label').textContent=r.today?T('cd.today',"It's {ev} today! 🎉").replace('{ev}',EV):daysLbl;
+  el('cd-clock').textContent=pad(hours)+':'+pad(mins)+':'+pad(secs)+'  '+T('cd.clock','h:m:s remaining today');
   el('cd-clock').style.display=r.today?'none':'block';
   el('cd-weeks').textContent=(diff/604800000).toFixed(1);
-  el('cd-hours').textContent=Math.floor(diff/3600000).toLocaleString('en-US');
-  el('cd-date').textContent=r.cand.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  el('cd-hours').textContent=Math.floor(diff/3600000).toLocaleString(LC);
+  el('cd-date').textContent=r.cand.toLocaleDateString(LC,{weekday:'short',month:'short',day:'numeric',year:'numeric'});
   el('cd-today-box').style.display=r.today?'block':'none';
-  document.title=(real>0?real+'d to '+EV:EV)+' - ToolTide';
+  document.title=(real>0?T('cd.title','{d}d to {ev}').replace('{d}',real).replace('{ev}',EV):EV)+' - ToolTide';
 }
 tick();setInterval(tick,1000);
 var DIN=el('cd-date-in');

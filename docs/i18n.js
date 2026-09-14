@@ -119,7 +119,12 @@ zh:{
  "recent.title":"最近使用",
  "home.new.h2":"最新上架",
  "home.new.blurb":"刚加入工具箱的新工具，第一时间在这里上架。",
- "meta.title":"ToolTide — 免费在线工具:计算器、单位换算与倒计时"
+ "meta.title":"ToolTide — 免费在线工具:计算器、单位换算与倒计时",
+ "cd.days":"剩余天数",
+ "cd.daysyours":"距所选日期的天数",
+ "cd.today":"今天是{ev}！🎉",
+ "cd.clock":"今天剩余 时:分:秒",
+ "cd.title":"距{ev}还有{d}天"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -219,7 +224,12 @@ es:{
  "recent.title":"Usados recientemente",
  "home.new.h2":"Novedades en ToolTide",
  "home.new.blurb":"Las últimas incorporaciones a la caja de herramientas, recién llegadas.",
- "meta.title":"ToolTide — Herramientas online gratis: calculadoras, conversores y cuentas atrás"
+ "meta.title":"ToolTide — Herramientas online gratis: calculadoras, conversores y cuentas atrás",
+ "cd.days":"días restantes",
+ "cd.daysyours":"días hasta tu fecha",
+ "cd.today":"¡Hoy es {ev}! 🎉",
+ "cd.clock":"h:m:s que quedan hoy",
+ "cd.title":"{d}d para {ev}"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -319,7 +329,12 @@ pt:{
  "recent.title":"Usados recentemente",
  "home.new.h2":"Novidades no ToolTide",
  "home.new.blurb":"As adições mais recentes à caixa de ferramentas, recém-chegadas.",
- "meta.title":"ToolTide — Ferramentas online grátis: calculadoras, conversores e contagens regressivas"
+ "meta.title":"ToolTide — Ferramentas online grátis: calculadoras, conversores e contagens regressivas",
+ "cd.days":"dias restantes",
+ "cd.daysyours":"dias até a sua data",
+ "cd.today":"Hoje é {ev}! 🎉",
+ "cd.clock":"h:m:s restantes hoje",
+ "cd.title":"{d}d até {ev}"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -419,7 +434,12 @@ ru:{
  "recent.title":"Недавно использованные",
  "home.new.h2":"Новое на ToolTide",
  "home.new.blurb":"Свежие пополнения набора инструментов — только что добавленные.",
- "meta.title":"ToolTide — Бесплатные онлайн-инструменты: калькуляторы, конвертеры и обратный отсчёт"
+ "meta.title":"ToolTide — Бесплатные онлайн-инструменты: калькуляторы, конвертеры и обратный отсчёт",
+ "cd.days":"дней осталось",
+ "cd.daysyours":"дней до вашей даты",
+ "cd.today":"Сегодня {ev}! 🎉",
+ "cd.clock":"ч:м:с осталось сегодня",
+ "cd.title":"{d} дн. до {ev}"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -519,7 +539,12 @@ ja:{
  "recent.title":"最近使ったツール",
  "home.new.h2":"ToolTideの新着ツール",
  "home.new.blurb":"ツールボックスに新しく仲間入りしたツール。",
- "meta.title":"ToolTide — 無料オンラインツール:電卓・単位変換・カウントダウン"
+ "meta.title":"ToolTide — 無料オンラインツール:電卓・単位変換・カウントダウン",
+ "cd.days":"残り日数",
+ "cd.daysyours":"指定日までの日数",
+ "cd.today":"今日は{ev}です！🎉",
+ "cd.clock":"今日の残り 時:分:秒",
+ "cd.title":"{ev}まであと{d}日"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -619,7 +644,12 @@ ko:{
  "recent.title":"최근 사용",
  "home.new.h2":"ToolTide의 새 도구",
  "home.new.blurb":"도구 상자에 방금 추가된 가장 새로운 도구들.",
- "meta.title":"ToolTide — 무료 온라인 도구: 계산기, 단위 변환, 카운트다운"
+ "meta.title":"ToolTide — 무료 온라인 도구: 계산기, 단위 변환, 카운트다운",
+ "cd.days":"남은 일수",
+ "cd.daysyours":"선택한 날짜까지 남은 일수",
+ "cd.today":"오늘은 {ev}입니다! 🎉",
+ "cd.clock":"오늘 남은 시:분:초",
+ "cd.title":"{ev}까지 {d}일"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -719,7 +749,12 @@ de:{
  "recent.title":"Zuletzt genutzt",
  "home.new.h2":"Neu auf ToolTide",
  "home.new.blurb":"Frisch hinzugekommen: die neuesten Werkzeuge der Sammlung.",
- "meta.title":"ToolTide — Kostenlose Online-Tools: Rechner, Umrechner & Countdowns"
+ "meta.title":"ToolTide — Kostenlose Online-Tools: Rechner, Umrechner & Countdowns",
+ "cd.days":"Tage verbleibend",
+ "cd.daysyours":"Tage bis zu deinem Datum",
+ "cd.today":"Heute ist {ev}! 🎉",
+ "cd.clock":"h:m:s heute verbleibend",
+ "cd.title":"Noch {d} Tage bis {ev}"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -819,7 +854,12 @@ fr:{
  "recent.title":"Récemment utilisés",
  "home.new.h2":"Nouveautés sur ToolTide",
  "home.new.blurb":"Les derniers outils ajoutés à la boîte à outils, tout frais sortis.",
- "meta.title":"ToolTide — Outils en ligne gratuits : calculateurs, convertisseurs et comptes à rebours"
+ "meta.title":"ToolTide — Outils en ligne gratuits : calculateurs, convertisseurs et comptes à rebours",
+ "cd.days":"jours restants",
+ "cd.daysyours":"jours jusqu à votre date",
+ "cd.today":"Aujourd hui, c est {ev} ! 🎉",
+ "cd.clock":"h:m:s restantes aujourd hui",
+ "cd.title":"{d} j avant {ev}"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -919,7 +959,12 @@ id:{
  "recent.title":"Baru digunakan",
  "home.new.h2":"Baru di ToolTide",
  "home.new.blurb":"Penambahan terbaru ke kotak perkakas — baru saja dirilis.",
- "meta.title":"ToolTide — Alat online gratis: kalkulator, konverter, dan hitung mundur"
+ "meta.title":"ToolTide — Alat online gratis: kalkulator, konverter, dan hitung mundur",
+ "cd.days":"hari lagi",
+ "cd.daysyours":"hari hingga tanggal kamu",
+ "cd.today":"Hari ini adalah {ev}! 🎉",
+ "cd.clock":"j:m:d tersisa hari ini",
+ "cd.title":"{d} hari lagi menuju {ev}"
 }
 };
 function detect(){
