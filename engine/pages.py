@@ -4503,6 +4503,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "dog-age-calculator",
+        "title": "Dog Age Calculator — Real Human Years by Breed Size, Not ×7",
+        "h1": "Dog Age Calculator",
+        "desc": "Convert your dog's age to human years with the size-aware veterinary table - and see why the ×7 rule fails. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "dog age calculator",
+        "tool": "petagedog",
+        "args": {},
+        "intro": [
+            "The 'one dog year equals seven human years' line falls apart the moment you look at a one-year-old lab: no seven-year-old child has finished growing, run a full heat cycle, or trained up to off-leash reliability. Veterinary growth tables tell the real story - dogs burn through roughly 15 human years in their first year, hit their mid-twenties by two, then add about four to five human years per calendar year, with large breeds aging measurably faster than small ones.",
+            "This calculator applies those tables with the size correction your dog needs, then adds the two numbers that make it useful: a life-stage label and an estimate of how much of a typical lifespan your dog has lived - the number that quietly decides when senior screening bloodwork should start. Save your dog's age once and the next check is a two-tap affair.",
+        ],
+        "howto": [
+            "Enter your dog's age in years and months.",
+            "Pick the size bucket - small, medium or large - since big dogs age faster.",
+            "Read the human-equivalent age, life stage and lifespan estimate.",
+        ],
+        "faqs": [
+            ("Why isn't multiplying by 7 accurate?",
+             "Because dogs don't age linearly. Year one delivers about 15 human years of development (a 1-year-old dog can reproduce and is skeletally mature), year two adds ~9 more, and each later year is worth roughly 4-5 human years - more for large breeds. The ×7 rule averages that curve into a straight line and misses both ends."),
+            ("Why does breed size change the answer?",
+             "Large dogs age faster and die younger - a Great Dane is a senior at 6 while a Chihuahua is middle-aged at 10, roughly inverted from the usual body-size rule in mammals. The calculator's three size buckets adjust both the yearly aging rate and the lifespan estimate accordingly."),
+            ("Is the '16 × ln(age) + 31' formula better?",
+             "It comes from a 2020 epigenetic study of Labradors' DNA methylation, and it's a lovely single-line approximation for adult dogs - but it knows nothing of breed size and gets the first year wrong. The veterinary growth tables used here stay close to it for adults while handling puppies and size classes honestly."),
+            ("When should my dog be considered a senior?",
+             "Small dogs around 10-11, medium around 8-9, large around 6-7 calendar years - which is why the human-equivalent number matters more than the calendar one: screenings (bloodwork, joint checks) should start when your dog is roughly human mid-40s to 50s, not when an arbitrary label flips."),
+        ],
+    })
+
+    pages.append({
+        "slug": "cat-age-calculator",
+        "title": "Cat Age Calculator — Calendar Age to Human Years, Life Stage",
+        "h1": "Cat Age Calculator",
+        "desc": "Convert your cat's age to human years with the veterinary table, plus life stage and lifespan context. Free, instant, no sign-up.",
+        "category": "calculator",
+        "keyword": "cat age calculator",
+        "tool": "petagecat",
+        "args": {},
+        "intro": [
+            "Cats compress a whole childhood into their first year: a 1-year-old cat is roughly a 15-year-old human - sexually mature, fully mobile and confident about it. Year two brings them to their mid-twenties, and from there the pace settles to about four human years per calendar year, slower than dogs and far slower than the mythic ×7.",
+            "This calculator runs the veterinary association table for any age down to the month, labels the life stage, and estimates the share of a typical 15-year lifespan your cat has lived - useful mostly as a nudge about the other end of the curve: from about age 10, twice-yearly vet visits are the single highest-yield habit an indoor cat's human can keep.",
+        ],
+        "howto": [
+            "Enter your cat's age in years and months (kittens included).",
+            "Read the human-equivalent age and life stage instantly.",
+            "Check the lifespan bar - then ask your vet when senior screening should start.",
+        ],
+        "faqs": [
+            ("How old is 1 year in cat years?",
+             "About 15 human years: by their first birthday, cats are the equivalent of a developed teenager - grown, fertile and coordinated. Two calendar years reach roughly 24 human years, and every year after adds about 4. There is no good origin for the ×7 myth; it fails for cats exactly as it does for dogs."),
+            ("Do indoor cats really live longer?",
+             "Meaningfully - indoor cats commonly reach 12-18, and quite a few pass 20, while outdoor cats average far lower due to traffic, fights and disease. The calculator uses 15 as the reference lifespan; a protected indoor lifestyle plus weight control is the two biggest levers an owner holds."),
+            ("When is a cat a senior?",
+             "Around 10-11 calendar years, which lands near a human's late 50s. Cats are champions at hiding illness - weight loss, thirst changes and litter-habit shifts are the tells - so from age 10 the standard advice shifts to twice-yearly checkups with bloodwork."),
+            ("Does the same chart work for kittens and big cats?",
+             "The table covers kittens from birth (months included) through geriatric housecats; big cats - lions, tigers - mature on different curves and don't belong on a housecat chart. For the first six months the calculator falls back to a simple growth approximation, since even vet tables are coarse there."),
+        ],
+    })
+
+    pages.append({
+        "slug": "flesch-reading-ease-calculator",
+        "title": "Flesch Reading Ease Calculator — Score Text, Grade Level, Live",
+        "h1": "Flesch Reading Ease Calculator",
+        "desc": "Paste text and get its Flesch Reading Ease score, grade level, sentence stats and what they mean - computed locally as you type. Free, no sign-up.",
+        "category": "text",
+        "keyword": "flesch reading ease calculator",
+        "tool": "flesch",
+        "args": {},
+        "intro": [
+            "The Flesch Reading Ease score is the number behind 'write for an 8th-grade reading level': 206.835 minus 1.015 times average sentence length minus 84.6 times average syllables per word. It powers readability checks in Word, in SEO tools and in government plain-language laws - and this calculator computes it live as you type, with the grade level beside it, so you can watch a rewrite push the number up in real time.",
+            "The stat that moves the score most surprises people: words per sentence is weighted 1.015 while syllables per word gets 84.6 ÷ (words × words) - practically, cutting a sentence in half moves the needle more than swapping every long word. Your text stays in the browser (nothing is uploaded), is remembered between visits up to a cap, and the share button sends the score, not the essay.",
+        ],
+        "howto": [
+            "Paste a paragraph, email, essay or article intro into the box.",
+            "Read the score, grade level and words-per-sentence as you type.",
+            "Rewrite a sentence shorter and watch the score move - then aim for 60-70.",
+        ],
+        "faqs": [
+            ("What is a good Flesch Reading Ease score?",
+             "60-70 is the standard target - 'plain English', roughly 8th-9th grade - and most mass-audience publications sit between 50 and 70. Reader's Digest famously runs in the 60s-80s, academic and legal writing falls below 30, and that's appropriate there: the score measures effort to read, not quality of thought."),
+            ("How is the score calculated?",
+             "Flesch Reading Ease = 206.835 − 1.015 × (words ÷ sentences) − 84.6 × (syllables ÷ words). This tool counts sentences by terminal punctuation and syllables with a standard vowel-group heuristic (silent 'e' dropped, 'y' as a vowel), the same approach classroom calculators use; scores can differ by a point or two from Word's tokenizer."),
+            ("How do I raise my score?",
+             "Cut sentences first - splitting a 40-word sentence into two 20-word sentences is worth about 10 points, more than de-syllabifying the same text. Then prefer the short word where it exists naturally. What not to do: pad sentences with 'and' to lower average length; the grade-level check will catch the fraud."),
+            ("Is my text uploaded or stored anywhere?",
+             "No network calls happen - scoring runs entirely in your browser. Your text is kept in this browser's local storage (capped at 20,000 characters) so a revision session survives a reload; clear the box and it's gone, and the share button transmits only the score."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

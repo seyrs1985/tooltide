@@ -6745,6 +6745,133 @@ document.getElementById('cp-share').addEventListener('click',function(){
 </script>
 """
 
+# Pet age: dog/cat calendar age -> human-equivalent years (vet growth tables, size-aware for dogs).
+# Retention hooks: title result hook, tt_petage memory, URL state (?y=&m=&z=), Web Share.
+PETAGE = """<div class="tool" id="tt-pa">
+  <div class="fields">
+    <div class="field"><label for="pa-y">Age - years</label><input type="number" id="pa-y" step="1" min="0" max="35" placeholder="4"></div>
+    <div class="field"><label for="pa-m">+ months</label><input type="number" id="pa-m" step="1" min="0" max="11" placeholder="6"></div>
+    <div class="field" id="pa-zw"><label for="pa-z">Size (dogs only)</label><select id="pa-z"><option value="s">Small (under 9 kg / 20 lb)</option><option value="m" selected>Medium (9-22 kg / 20-50 lb)</option><option value="l">Large (over 22 kg / 50 lb)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pa-out">–</span><span class="result-unit">in human years</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pa-stage">–</b><span>life stage</span></div>
+    <div class="stat"><b id="pa-lifes">–</b><span>typical lifespan</span></div>
+    <div class="stat"><b id="pa-pct">–</b><span>of life lived (est.)</span></div>
+  </div>
+  <div class="tool-note" id="pa-note"></div>
+  <button type="button" class="tool-btn" id="pa-share">Share this pet's age</button>
+</div>
+<script>(function(){
+var Y=document.getElementById('pa-y'),M=document.getElementById('pa-m'),Z=document.getElementById('pa-z');
+var OUT=document.getElementById('pa-out');
+var SP='__SPECIES__';
+var TABLE_DOG={s:[[1,15],[2,24],[3,28],[4,32],[5,36],[6,40],[7,44],[8,48],[9,52],[10,56],[11,60],[12,64],[13,68],[14,72],[15,76],[16,80]],
+  m:[[1,15],[2,24],[3,28],[4,32],[5,36],[6,42],[7,47],[8,51],[9,56],[10,60],[11,65],[12,69],[13,74],[14,78],[15,83],[16,87]],
+  l:[[1,15],[2,24],[3,29],[4,34],[5,39],[6,45],[7,50],[8,55],[9,61],[10,66],[11,72],[12,77],[13,82],[14,88],[15,93],[16,99]]};
+var TABLE_CAT=[[1,15],[2,24],[3,28],[4,32],[5,36],[6,40],[7,44],[8,48],[9,52],[10,56],[11,60],[12,64],[13,68],[14,72],[15,76],[16,80],[18,88],[20,96]];
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function stage(h){return h<13?'baby/child':h<20?'teen':h<35?'young adult':h<56?'adult':h<75?'senior':'geriatric';}
+function calc(){
+  var y=parseFloat(Y.value),m=parseFloat(M.value)||0;
+  if(SP==='cat'){document.getElementById('pa-zw').style.display='none';}
+  if(isNaN(y)||y<0||y>35){OUT.textContent='–';
+    ['pa-stage','pa-lifes','pa-pct'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('pa-note').textContent='';document.title=(SP==='dog'?'Dog':'Cat')+' Age Calculator - ToolTide';return;}
+  var a=y+m/12,h=0;
+  if(SP==='dog'){var t=TABLE_DOG[Z.value]||TABLE_DOG.m;
+    if(a<=0.5)h=Math.max(1,Math.round(a*30));
+    else if(a<1)h=15;
+    else if(a>=16)h=t[15][1]+Math.round((a-16)*(Z.value==='l'?7:5));
+    else{for(var i=0;i<t.length-1;i++){if(a>=t[i][0]&&a<t[i+1][0]){h=Math.round(t[i][1]+(t[i+1][1]-t[i][1])*(a-t[i][0]));break;}}}
+    var lifes=Z.value==='s'?14:Z.value==='m'?13:11;
+    document.getElementById('pa-lifes').textContent=lifes+' yrs';
+    document.getElementById('pa-pct').textContent=Math.min(100,Math.round(a/lifes*100))+'%';
+    var seven=Math.round(a*7);
+    document.getElementById('pa-note').textContent='Human-equivalent age: '+h+' years (veterinary growth table, size-adjusted). The old "multiply by 7" rule would say '+seven+' - it fails because '+ (SP==='dog'?'dogs mature ~15 human years in year one, then slow down, and large breeds age faster than small ones.':'pets mature ~15 human years in year one, then slow down.')+' Senior screening checkups are recommended from about age 7 (human mid-40s).';}
+  else{if(a<=0.5)h=Math.max(1,Math.round(a*30));
+    else if(a<1)h=15;
+    else if(a>=20)h=96+Math.round((a-20)*4);
+    else{for(var j=0;j<TABLE_CAT.length-1;j++){if(a>=TABLE_CAT[j][0]&&a<TABLE_CAT[j+1][0]){h=Math.round(TABLE_CAT[j][1]+(TABLE_CAT[j+1][1]-TABLE_CAT[j][1])*(a-TABLE_CAT[j][0]));break;}}}
+    document.getElementById('pa-lifes').textContent='12-18 yrs';
+    document.getElementById('pa-pct').textContent=Math.min(100,Math.round(a/15*100))+'%';
+    document.getElementById('pa-note').textContent='Human-equivalent age: '+h+' years (veterinary association table). Cats race through year one (~15 human years), hit their mid-twenties by age two, then age ~4 human years per calendar year. Indoor cats typically outlive outdoor cats by years - and from about age 10 (human late-50s), twice-yearly vet visits pay for themselves.';}
+  OUT.textContent=h;
+  document.getElementById('pa-stage').textContent=stage(h);
+  document.title=OUT.textContent+' human yrs - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_petage',JSON.stringify({sp:SP,y:Y.value,m:M.value,z:Z.value}));}catch(e){}}
+[Y,M,Z].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['y',Y],['m',M],['z',Z]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_petage')||'null');if(mem&&mem.sp===SP){Y.value=mem.y||'';M.value=mem.m||'';if(mem.z)Z.value=mem.z;}}catch(e){}}
+calc();
+document.getElementById('pa-share').addEventListener('click',function(){
+  var txt='A '+Y.value+'-year-old '+(SP==='dog'?'dog':'cat')+' is about '+OUT.textContent+' in human years. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?y='+encodeURIComponent(Y.value||'')+'&m='+encodeURIComponent(M.value||'');
+  if(navigator.share){navigator.share({title:'Pet age',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent="Share this pet's age";},1500);}
+});
+})();
+</script>
+"""
+
+# Flesch reading ease + grade level: syllable-aware scoring for writers and students.
+# Retention hooks: title score hook, tt_flesch text memory (capped), Web Share.
+FLESCH = """<div class="tool" id="tt-fl">
+  <div class="fields">
+    <div class="field" style="flex:1 1 100%"><label for="fl-in">Paste text to score</label><textarea id="fl-in" rows="7" style="width:100%;box-sizing:border-box" placeholder="Paste a paragraph, an article intro or your essay here…"></textarea></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fl-out">–</span><span class="result-unit">reading ease</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fl-grade">–</b><span>grade level</span></div>
+    <div class="stat"><b id="fl-words">–</b><span>words</span></div>
+    <div class="stat"><b id="fl-sents">–</b><span>sentences</span></div>
+    <div class="stat"><b id="fl-wps">–</b><span>words / sentence</span></div>
+  </div>
+  <div class="tool-note" id="fl-note"></div>
+  <button type="button" class="tool-btn" id="fl-share">Share this readability score</button>
+</div>
+<script>(function(){
+var IN=document.getElementById('fl-in'),OUT=document.getElementById('fl-out');
+function syl(w){w=w.toLowerCase().replace(/[^a-z]/g,'');if(!w)return 0;
+  if(w.length<=3)return 1;
+  w=w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,'').replace(/^y/,'');
+  var m=w.match(/[aeiouy]{1,2}/g);return m?m.length:1;}
+function calc(){
+  var t=IN.value||'';
+  if(!t.trim()){OUT.textContent='–';
+    ['fl-grade','fl-words','fl-sents','fl-wps'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('fl-note').textContent='';document.title='Flesch Reading Ease Calculator - ToolTide';return;}
+  var words=t.trim().split(/\\s+/).filter(function(w){return /[a-z0-9]/i.test(w);});
+  var sents=t.split(/[.!?]+(?:\\s|$)/).filter(function(s){return s.trim().length>0;});
+  var W=words.length,S=Math.max(1,sents.length),SY=0;
+  words.forEach(function(w){SY+=syl(w);});
+  var re=206.835-1.015*(W/S)-84.6*(SY/W);
+  var gl=0.39*(W/S)+11.8*(SY/W)-15.59;
+  OUT.textContent=Math.max(0,Math.round(re));
+  document.getElementById('fl-grade').textContent=Math.max(1,Math.round(gl*10)/10);
+  document.getElementById('fl-words').textContent=W.toLocaleString('en-US');
+  document.getElementById('fl-sents').textContent=S;
+  document.getElementById('fl-wps').textContent=Math.round(W/S*10)/10;
+  var band=re>=90?'very easy (5th grade)':re>=80?'easy (6th grade)':re>=70?'fairly easy (7th grade)':re>=60?'plain English (8-9th grade)':re>=50?'fairly difficult (10-12th)':re>=30?'difficult (college)':'very difficult (graduate)';
+  document.getElementById('fl-note').textContent='Reading ease '+Math.round(re)+'/100 = '+band+'. Most web content aims for 60-70: shorter sentences move the score more than shorter words, because 1.015×(words per sentence) outweighs the syllable term. The score is a compass, not a rule - legal text and children\\'s books rightly live at opposite ends.';
+  document.title='Reading ease '+Math.round(re)+'/100 - ToolTide';
+  try{if(t.length<20000)localStorage.setItem('tt_flesch',t);}catch(e){}
+}
+IN.addEventListener('input',calc);
+try{var mem=localStorage.getItem('tt_flesch');if(mem)IN.value=mem;}catch(e){}
+calc();
+document.getElementById('fl-share').addEventListener('click',function(){
+  var txt='My text scores '+OUT.textContent+'/100 reading ease ('+document.getElementById('fl-grade').textContent+'th grade level). Score yours (free, local):';
+  var url=location.origin+location.pathname;
+  if(navigator.share){navigator.share({title:'Flesch reading ease',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this readability score';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -6870,6 +6997,9 @@ TOOLS = {
     "pomodoro": lambda args: POMODORO,
     "passstrength": lambda args: PASSSTRENGTH,
     "cryptoprofit": lambda args: CRYPTOPROFIT,
+    "petagedog": lambda args: PETAGE.replace("__SPECIES__", "dog"),
+    "petagecat": lambda args: PETAGE.replace("__SPECIES__", "cat"),
+    "flesch": lambda args: FLESCH,
 }
 
 

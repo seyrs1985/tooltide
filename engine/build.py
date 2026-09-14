@@ -45,7 +45,7 @@ TOOL_EMOJI = {
  "rent": "🏘️", "savings": "🐷", "simpleint": "💹", "sleepcycle": "😴",
  "slopecalc": "⛰️", "stddev": "🔔", "stopwatch": "🕰️", "striphtml": "🧼", "tdee": "🍽️",
  "teamgen": "👥", "tilecalc": "🔲", "timecard": "🕘", "tipsplit": "💸",
- "stockavg": "📉", "possize": "🛡️", "lotto": "🎰", "pomodoro": "🍅", "passstrength": "🕵️", "cryptoprofit": "🚀",
+ "stockavg": "📉", "possize": "🛡️", "lotto": "🎰", "pomodoro": "🍅", "passstrength": "🕵️", "cryptoprofit": "🚀", "petagedog": "🐶", "petagecat": "🐱", "flesch": "📚",
  "tzconvert": "🌐", "upside": "🙃", "urlcod": "🔣", "vatcalc": "🇪🇺",
  "water": "💧", "weeknum": "🗓️", "windchill": "🥶",
 }
