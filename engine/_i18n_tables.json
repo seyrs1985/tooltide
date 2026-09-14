@@ -736,6 +736,14 @@
    [
     "cd.ev.winter",
     "冬天"
+   ],
+   [
+    "uc.swap",
+    "⇄ 交换方向"
+   ],
+   [
+    "uc.formula",
+    "公式："
    ]
   ],
   "es": [
@@ -1474,6 +1482,14 @@
    [
     "cd.ev.winter",
     "invierno"
+   ],
+   [
+    "uc.swap",
+    "⇄ Cambiar sentido"
+   ],
+   [
+    "uc.formula",
+    "Fórmula: "
    ]
   ],
   "pt": [
@@ -2212,6 +2228,14 @@
    [
     "cd.ev.winter",
     "inverno"
+   ],
+   [
+    "uc.swap",
+    "⇄ Inverter direção"
+   ],
+   [
+    "uc.formula",
+    "Fórmula: "
    ]
   ],
   "ru": [
@@ -2950,6 +2974,14 @@
    [
     "cd.ev.winter",
     "зима"
+   ],
+   [
+    "uc.swap",
+    "⇄ Поменять направление"
+   ],
+   [
+    "uc.formula",
+    "Формула: "
    ]
   ],
   "ja": [
@@ -3688,6 +3720,14 @@
    [
     "cd.ev.winter",
     "冬"
+   ],
+   [
+    "uc.swap",
+    "⇄ 入れ替え"
+   ],
+   [
+    "uc.formula",
+    "計算式："
    ]
   ],
   "ko": [
@@ -4426,6 +4466,14 @@
    [
     "cd.ev.winter",
     "겨울"
+   ],
+   [
+    "uc.swap",
+    "⇄ 방향 바꾸기"
+   ],
+   [
+    "uc.formula",
+    "공식: "
    ]
   ],
   "de": [
@@ -5164,6 +5212,14 @@
    [
     "cd.ev.winter",
     "Winter"
+   ],
+   [
+    "uc.swap",
+    "⇄ Richtung wechseln"
+   ],
+   [
+    "uc.formula",
+    "Formel: "
    ]
   ],
   "fr": [
@@ -5902,6 +5958,14 @@
    [
     "cd.ev.winter",
     "hiver"
+   ],
+   [
+    "uc.swap",
+    "⇄ Inverser le sens"
+   ],
+   [
+    "uc.formula",
+    "Formule : "
    ]
   ],
   "id": [
@@ -6640,6 +6704,14 @@
    [
     "cd.ev.winter",
     "musim dingin"
+   ],
+   [
+    "uc.swap",
+    "⇄ Balik arah"
+   ],
+   [
+    "uc.formula",
+    "Rumus: "
    ]
   ]
  }
