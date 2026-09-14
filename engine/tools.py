@@ -8699,6 +8699,157 @@ document.getElementById('sv-share').addEventListener('click',function(){
 </script>
 """
 
+YARN = """<div class="tool" id="tt-yn">
+  <div class="fields">
+    <div class="field"><label for="yn-sw">Swatch width (cm)</label><input type="number" id="yn-sw" min="1" step="0.5" placeholder="10"></div>
+    <div class="field"><label for="yn-sh">Swatch height (cm)</label><input type="number" id="yn-sh" min="1" step="0.5" placeholder="10"></div>
+    <div class="field"><label for="yn-sy">Yarn used in swatch (m)</label><input type="number" id="yn-sy" min="0.1" step="0.1" placeholder="25"></div>
+    <div class="field"><label for="yn-pw">Project width (cm)</label><input type="number" id="yn-pw" min="1" step="1" placeholder="100"></div>
+    <div class="field"><label for="yn-ph">Project height (cm)</label><input type="number" id="yn-ph" min="1" step="1" placeholder="100"></div>
+    <div class="field"><label for="yn-sk">Skein size (m)</label><input type="number" id="yn-sk" min="1" step="1" placeholder="200"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="yn-out">–</span><span class="result-unit">metres of yarn needed</span></div>
+  <div class="stats">
+    <div class="stat"><b id="yn-s1">–</b><span>with 15% buffer</span></div>
+    <div class="stat"><b id="yn-s2">–</b><span>skeins to buy</span></div>
+    <div class="stat"><b id="yn-s3">–</b><span>project ÷ swatch area</span></div>
+  </div>
+  <div class="tool-note" id="yn-note"></div>
+  <button type="button" class="tool-btn" id="yn-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['yn-sw','yn-sh','yn-sy','yn-pw','yn-ph','yn-sk'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('yn-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var sw=parseFloat(F[0].value),sh=parseFloat(F[1].value),sy=parseFloat(F[2].value),pw=parseFloat(F[3].value),ph=parseFloat(F[4].value),sk=parseFloat(F[5].value);
+  var ok=sw>0&&sh>0&&sy>0&&pw>0&&ph>0&&sk>0;
+  if(!ok){OUT.textContent='–';['yn-s1','yn-s2','yn-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('yn-note').textContent='';document.title='Yarn Yardage Calculator - ToolTide';return;}
+  var ratio=(pw*ph)/(sw*sh);
+  var need=sy*ratio;
+  OUT.textContent=Math.round(need);
+  document.getElementById('yn-s1').textContent=Math.round(need*1.15)+' m';
+  document.getElementById('yn-s2').textContent=Math.ceil(need*1.15/sk);
+  document.getElementById('yn-s3').textContent=ratio.toFixed(1)+'×';
+  document.getElementById('yn-note').textContent='The swatch is the only honest yardstick: knit it in the project stitch, measure it relaxed after blocking, and weigh or measure the yarn it ate (a kitchen scale and grams-per-metre from the ball band works if unravelling is not). The 15% buffer covers tension drift, sampling and the sleeves you reknit. Dye lots are the trap the maths cannot fix: however many skeins you buy, buy them from one lot number, because replacement skeins a month later rarely match. Leftover yarn is not waste - it is the repair stash for the decade after.';
+  document.title=Math.round(need)+' m of yarn needed - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_yarn',JSON.stringify({sw:F[0].value,sh:F[1].value,sy:F[2].value,pw:F[3].value,ph:F[4].value,sk:F[5].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['sw','sh','sy','pw','ph','sk'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_yarn')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('yn-share').addEventListener('click',function(){
+  var txt='That project needs about '+OUT.textContent+' m of yarn ('+document.getElementById('yn-s2').textContent+' skeins). Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Yarn yardage',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
+CASTON = """<div class="tool" id="tt-co">
+  <div class="fields">
+    <div class="field"><label for="co-h">Head circumference (cm)</label><input type="number" id="co-h" min="30" max="70" step="0.5" placeholder="56"></div>
+    <div class="field"><label for="co-g">Gauge (stitches per 10 cm)</label><input type="number" id="co-g" min="8" max="40" step="0.5" placeholder="20"></div>
+    <div class="field"><label for="co-n">Negative ease (cm)</label><input type="number" id="co-n" min="0" max="6" step="0.5" placeholder="2.5"></div>
+    <div class="field"><label for="co-m">Pattern multiple</label><select id="co-m"><option value="1" selected>Any (stockinette)</option><option value="2">×2 (2×2 rib needs 4)</option><option value="4">×4 (2×2 rib)</option><option value="6">×6 (cable panels)</option><option value="8">×8 (lace repeats)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="co-out">–</span><span class="result-unit">stitches to cast on</span></div>
+  <div class="stats">
+    <div class="stat"><b id="co-s1">–</b><span>raw stitches</span></div>
+    <div class="stat"><b id="co-s2">–</b><span>adjusted to multiple</span></div>
+    <div class="stat"><b id="co-s3">–</b><span>finished stretch</span></div>
+  </div>
+  <div class="tool-note" id="co-note"></div>
+  <button type="button" class="tool-btn" id="co-share">Share this number</button>
+</div>
+<script>(function(){
+var F=['co-h','co-g','co-n','co-m'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('co-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var h=parseFloat(F[0].value),g=parseFloat(F[1].value),n=parseFloat(F[2].value),m=parseInt(F[3].value);
+  var ok=h>=30&&h<=70&&g>=8&&g<=40&&n>=0&&n<=6&&m>=1;
+  if(!ok){OUT.textContent='–';['co-s1','co-s2','co-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('co-note').textContent='';document.title='Knitting Cast-On Calculator - ToolTide';return;}
+  var raw=(h-n)*g/10;
+  var adj=m>1?Math.round(raw/m)*m:Math.round(raw);
+  OUT.textContent=adj;
+  document.getElementById('co-s1').textContent=Math.round(raw);
+  document.getElementById('co-s2').textContent=m>1?('nearest multiple of '+m):'no multiple needed';
+  document.getElementById('co-s3').textContent=(adj/(g/10)).toFixed(1)+' cm';
+  document.getElementById('co-note').textContent='Negative ease is the reason knitted hats stay on: 2-3 cm smaller than the head, because ribbing and stockinette stretch to fit and relax back. The gauge must come from your own blocked swatch in the project stitch - not the ball band, which quotes a generic figure. If the pattern multiple knocks you more than 2-3 stitches off raw, go one needle size up or down rather than stretching the multiple, or the brim puckers or bags. Cast on, knit the brim, try it on: the number is a starting point, the head is the boss.';
+  document.title='Cast on '+adj+' stitches - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_caston',JSON.stringify({h:F[0].value,g:F[1].value,n:F[2].value,m:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['h','g','n','m'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_caston')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('co-share').addEventListener('click',function(){
+  var txt='Cast on '+OUT.textContent+' stitches for a '+F[0].value+' cm head. Get yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Cast-on count',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this number';},1500);}
+});
+})();
+</script>
+"""
+
+CURTAIN = """<div class="tool" id="tt-cu">
+  <div class="fields">
+    <div class="field"><label for="cu-w">Track or pole width (cm)</label><input type="number" id="cu-w" min="40" max="600" step="1" placeholder="150"></div>
+    <div class="field"><label for="cu-d">Finished drop (cm)</label><input type="number" id="cu-d" min="30" max="350" step="1" placeholder="137"></div>
+    <div class="field"><label for="cu-f">Fullness</label><select id="cu-f"><option value="1.5">1.5× (flat/eyelet)</option><option value="2" selected>2× (pencil pleat)</option><option value="2.5">2.5× (pinch pleat)</option></select></div>
+    <div class="field"><label for="cu-r">Fabric roll width (cm)</label><input type="number" id="cu-r" min="90" max="300" step="1" placeholder="137"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cu-out">–</span><span class="result-unit">metres of fabric</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cu-s1">–</b><span>panels / widths</span></div>
+    <div class="stat"><b id="cu-s2">–</b><span>cut length each</span></div>
+    <div class="stat"><b id="cu-s3">–</b><span>gathering width</span></div>
+  </div>
+  <div class="tool-note" id="cu-note"></div>
+  <button type="button" class="tool-btn" id="cu-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['cu-w','cu-d','cu-f','cu-r'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('cu-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(F[0].value),d=parseFloat(F[1].value),f=parseFloat(F[2].value),r=parseFloat(F[3].value);
+  var ok=w>=40&&w<=600&&d>=30&&d<=350&&r>=90&&r<=300;
+  if(!ok){OUT.textContent='–';['cu-s1','cu-s2','cu-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cu-note').textContent='';document.title='Curtain Fabric Calculator - ToolTide';return;}
+  var gather=w*f;
+  var panels=Math.ceil(gather/r);
+  var cut=d+30;
+  var meters=panels*cut/100;
+  OUT.textContent=meters.toFixed(1);
+  document.getElementById('cu-s1').textContent=panels;
+  document.getElementById('cu-s2').textContent=cut.toFixed(0)+' cm';
+  document.getElementById('cu-s3').textContent=gather.toFixed(0)+' cm';
+  document.getElementById('cu-note').textContent='The 30 cm added per panel covers a double-turned 15 cm hem plus heading allowance - the difference between curtains that hang and curtains that flap. Fullness is the look: pencil pleat wants double the track width, pinch pleat two and a half, eyelet rings manage with less. Fabric with a visible pattern repeat needs extra per drop so the design matches across panels - add one repeat per panel beyond the first, and buy it all from one dye lot. Always buy a spare 10% over the figure: curtain fabric goes out of print faster than any yarn.';
+  document.title=meters.toFixed(1)+' m of curtain fabric - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_curtain',JSON.stringify({w:F[0].value,d:F[1].value,f:F[2].value,r:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['w','d','f','r'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_curtain')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('cu-share').addEventListener('click',function(){
+  var txt='Those curtains need about '+OUT.textContent+' m of fabric ('+document.getElementById('cu-s1').textContent+' panels). Measure yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Curtain fabric',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -8861,6 +9012,9 @@ TOOLS = {
     "flightdelay": lambda args: FLIGHTDELAY,
     "subs": lambda args: SUBS,
     "silverval": lambda args: SILVERVAL,
+    "yarn": lambda args: YARN,
+    "caston": lambda args: CASTON,
+    "curtain": lambda args: CURTAIN,
 }
 
 

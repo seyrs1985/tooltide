@@ -3,7 +3,8 @@
 格式:`编号|页面|语言|现象|截图|状态`。状态=待修/已修/范围外。每轮先视觉验证、记录,再修复,部署后线上复验回写。
 
 ## 待修
-(无)
+- BUG-012|全站渲染器(tools.py约100处)|所有译文语言|数字格式系统性硬编码 toLocaleString('en-US')(约100处:age/wordcounter/avg/tdeb/财经money()等),千分位与区域习惯未随界面语言|data/i18n_scan(rg清单)|待修(分家族逐轮接入 LC=ttLang() 模式,参照R5-R6的UNITCONV/DD/CD做法;范围外备注:单位名(A.a/A.b)与正文SEO英文按设计不翻)
+- 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修
 - BUG-005|全站chrome(用户报告)|英文态|截图=切English后仍见中文(头部搜索占位符/面包屑计算器);线上HTML验证干净英文,IAB复现zh→en切换正常→定性=用户端reload未完成或bfcache恢复旧zh DOM|用户截图|已修R3(i18n.js pageshow persisted时原地重apply+选择器同步;ttSetLang加reload兜底重试)
