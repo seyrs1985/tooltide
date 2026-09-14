@@ -8050,6 +8050,216 @@ document.getElementById('jl-share').addEventListener('click',function(){
 </script>
 """
 
+PAINT = """<div class="tool" id="tt-pa">
+  <div class="fields">
+    <div class="field"><label for="pa-w">Wall width (m)</label><input type="number" id="pa-w" min="0.1" step="0.1" placeholder="4"></div>
+    <div class="field"><label for="pa-h">Wall height (m)</label><input type="number" id="pa-h" min="0.1" step="0.1" placeholder="2.5"></div>
+    <div class="field"><label for="pa-n">Walls</label><input type="number" id="pa-n" min="1" step="1" placeholder="4"></div>
+    <div class="field"><label for="pa-c">Coats</label><input type="number" id="pa-c" min="1" max="4" step="1" placeholder="2"></div>
+    <div class="field"><label for="pa-x">Doors + windows (m²)</label><input type="number" id="pa-x" min="0" step="0.1" placeholder="3"></div>
+    <div class="field"><label for="pa-cv">Coverage (m² per litre, per coat)</label><input type="number" id="pa-cv" min="1" step="0.5" placeholder="10"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pa-out">–</span><span class="result-unit">litres of paint</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pa-s1">–</b><span>paintable area</span></div>
+    <div class="stat"><b id="pa-s2">–</b><span>litres per coat</span></div>
+    <div class="stat"><b id="pa-s3">–</b><span>buy (10% spare)</span></div>
+  </div>
+  <div class="tool-note" id="pa-note"></div>
+  <button type="button" class="tool-btn" id="pa-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['pa-w','pa-h','pa-n','pa-c','pa-x','pa-cv'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('pa-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(F[0].value),h=parseFloat(F[1].value),n=parseInt(F[2].value),c=parseInt(F[3].value),x=parseFloat(F[4].value),cv=parseFloat(F[5].value);
+  var ok=w>0&&h>0&&n>=1&&c>=1&&cv>0;
+  if(!ok){OUT.textContent='–';['pa-s1','pa-s2','pa-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('pa-note').textContent='';document.title='Paint Calculator - ToolTide';return;}
+  var area=Math.max(w*h*n-(isNaN(x)?0:x),0);
+  var litres=area*c/cv;
+  var buy=litres*1.1;
+  OUT.textContent=litres.toFixed(2);
+  document.getElementById('pa-s1').textContent=area.toFixed(1)+' m²';
+  document.getElementById('pa-s2').textContent=(area/cv).toFixed(2)+' L';
+  document.getElementById('pa-s3').textContent=buy.toFixed(2)+' L';
+  document.getElementById('pa-note').textContent='The tin wins over any calculator: check its stated coverage, because matte and deep-base paints spread differently. Two coats is the honest default - one-coat claims usually assume a flat colour over a primed surface. Painting dark over light (or the reverse)? Budget for a primer coat or a third coat, because pigment hiding is the real constraint, not wall area. The 10% spare absorbs roller waste, edges, and the patch-up you will want in six months.';
+  document.title=litres.toFixed(1)+' L of paint needed - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_paint',JSON.stringify({w:F[0].value,h:F[1].value,n:F[2].value,c:F[3].value,x:F[4].value,cv:F[5].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['w',F[0]],['h',F[1]],['n',F[2]],['c',F[3]],['x',F[4]],['cv',F[5]]].forEach(function(p){var v=qs(p[0]);if(v!==null){p[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_paint')||'null');if(mem){F[0].value=mem.w||'';F[1].value=mem.h||'';F[2].value=mem.n||'';F[3].value=mem.c||'';F[4].value=mem.x||'';F[5].value=mem.cv||'';}}catch(e){}}
+calc();
+document.getElementById('pa-share').addEventListener('click',function(){
+  var txt='Painting '+document.getElementById('pa-s1').textContent+' needs about '+OUT.textContent+' L ('+document.getElementById('pa-s3').textContent+' with spare). Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?w='+F[0].value+'&h='+F[1].value+'&n='+F[2].value+'&c='+F[3].value+'&x='+F[4].value+'&cv='+F[5].value;
+  if(navigator.share){navigator.share({title:'Paint estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
+MULCH = """<div class="tool" id="tt-mu">
+  <div class="fields">
+    <div class="field"><label for="mu-l">Bed length (m)</label><input type="number" id="mu-l" min="0.1" step="0.1" placeholder="6"></div>
+    <div class="field"><label for="mu-w">Bed width (m)</label><input type="number" id="mu-w" min="0.1" step="0.1" placeholder="2"></div>
+    <div class="field"><label for="mu-d">Depth (cm)</label><input type="number" id="mu-d" min="1" max="30" step="0.5" placeholder="5"></div>
+    <div class="field"><label for="mu-b">Bag size (litres)</label><input type="number" id="mu-b" min="1" step="1" placeholder="50"></div>
+    <div class="field"><label for="mu-p">Price per bag (optional)</label><input type="number" id="mu-p" min="0" step="0.1" placeholder="0"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="mu-out">–</span><span class="result-unit">bags of mulch</span></div>
+  <div class="stats">
+    <div class="stat"><b id="mu-s1">–</b><span>bed area</span></div>
+    <div class="stat"><b id="mu-s2">–</b><span>volume</span></div>
+    <div class="stat"><b id="mu-s3">–</b><span>total cost</span></div>
+  </div>
+  <div class="tool-note" id="mu-note"></div>
+  <button type="button" class="tool-btn" id="mu-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['mu-l','mu-w','mu-d','mu-b','mu-p'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('mu-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var l=parseFloat(F[0].value),w=parseFloat(F[1].value),d=parseFloat(F[2].value),b=parseInt(F[3].value),p=parseFloat(F[4].value);
+  var ok=l>0&&w>0&&d>0&&b>0;
+  if(!ok){OUT.textContent='–';['mu-s1','mu-s2','mu-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mu-note').textContent='';document.title='Mulch Calculator - ToolTide';return;}
+  var area=l*w;
+  var vol=area*d/100;
+  var bags=Math.ceil(vol*1000/b);
+  OUT.textContent=bags;
+  document.getElementById('mu-s1').textContent=area.toFixed(1)+' m²';
+  document.getElementById('mu-s2').textContent=vol.toFixed(2)+' m³';
+  document.getElementById('mu-s3').textContent=(p>0&&!isNaN(p))?(bags*p).toFixed(2):'set price';
+  document.getElementById('mu-note').textContent='5 cm is the weed-suppressing sweet spot; 7-8 cm for bare soil or a refresh on old mulch. Past 10 cm you start starving tree and shrub roots of air, and mulch volcanoes piled against trunks invite rot - keep a hand-width clear. Bulk tip: 1 m³ of bulk mulch replaces about '+Math.ceil(1000/b)+' bags, so past a few cubic metres the delivered skip is usually cheaper and lighter on plastic.';
+  document.title=bags+' bags of mulch - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_mulch',JSON.stringify({l:F[0].value,w:F[1].value,d:F[2].value,b:F[3].value,p:F[4].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['l',F[0]],['w',F[1]],['d',F[2]],['b',F[3]],['p',F[4]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_mulch')||'null');if(mem){F[0].value=mem.l||'';F[1].value=mem.w||'';F[2].value=mem.d||'';F[3].value=mem.b||'';F[4].value=mem.p||'';}}catch(e){}}
+calc();
+document.getElementById('mu-share').addEventListener('click',function(){
+  var txt=document.getElementById('mu-s1').textContent+' of beds at '+F[2].value+' cm deep = '+OUT.textContent+' bags of mulch. Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?l='+F[0].value+'&w='+F[1].value+'&d='+F[2].value+'&b='+F[3].value+'&p='+F[4].value;
+  if(navigator.share){navigator.share({title:'Mulch estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
+LAMINATE = """<div class="tool" id="tt-lm">
+  <div class="fields">
+    <div class="field"><label for="lm-l">Room length (m)</label><input type="number" id="lm-l" min="0.1" step="0.1" placeholder="4"></div>
+    <div class="field"><label for="lm-w">Room width (m)</label><input type="number" id="lm-w" min="0.1" step="0.1" placeholder="3.5"></div>
+    <div class="field"><label for="lm-p">Pack coverage (m²)</label><input type="number" id="lm-p" min="0.1" step="0.01" placeholder="2.1"></div>
+    <div class="field"><label for="lm-s">Waste allowance (%)</label><input type="number" id="lm-s" min="0" max="25" step="1" placeholder="8"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="lm-out">–</span><span class="result-unit">packs of laminate</span></div>
+  <div class="stats">
+    <div class="stat"><b id="lm-s1">–</b><span>room area</span></div>
+    <div class="stat"><b id="lm-s2">–</b><span>area with waste</span></div>
+    <div class="stat"><b id="lm-s3">–</b><span>extra you buy</span></div>
+  </div>
+  <div class="tool-note" id="lm-note"></div>
+  <button type="button" class="tool-btn" id="lm-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['lm-l','lm-w','lm-p','lm-s'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('lm-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var l=parseFloat(F[0].value),w=parseFloat(F[1].value),p=parseFloat(F[2].value),s=parseFloat(F[3].value);
+  var ok=l>0&&w>0&&p>0&&!isNaN(s)&&s>=0;
+  if(!ok){OUT.textContent='–';['lm-s1','lm-s2','lm-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('lm-note').textContent='';document.title='Laminate Flooring Calculator - ToolTide';return;}
+  var area=l*w;
+  var need=area*(1+s/100);
+  var packs=Math.ceil(need/p);
+  OUT.textContent=packs;
+  document.getElementById('lm-s1').textContent=area.toFixed(2)+' m²';
+  document.getElementById('lm-s2').textContent=need.toFixed(2)+' m²';
+  document.getElementById('lm-s3').textContent=(packs*p-area).toFixed(2)+' m²';
+  document.getElementById('lm-note').textContent='8% waste covers a straight-lay rectangular room; use 10-12% for L-shaped rooms, lots of doorways, or herringbone, and 15%+ for a 45° diagonal lay. The real pro habit: buy the full packs now and keep receipts - unopened packs usually go back, but a half-pack shortfall mid-job means hunting a matching batch number, because shade lots differ between production runs. Let the boxes sit in the room 48h before fitting so the boards acclimatise.';
+  document.title=packs+' packs of laminate - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_laminate',JSON.stringify({l:F[0].value,w:F[1].value,p:F[2].value,s:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['l',F[0]],['w',F[1]],['p',F[2]],['s',F[3]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_laminate')||'null');if(mem){F[0].value=mem.l||'';F[1].value=mem.w||'';F[2].value=mem.p||'';F[3].value=mem.s||'';}}catch(e){}}
+calc();
+document.getElementById('lm-share').addEventListener('click',function(){
+  var txt=document.getElementById('lm-s1').textContent+' room = '+OUT.textContent+' packs of laminate (with '+F[3].value+'% waste). Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?l='+F[0].value+'&w='+F[1].value+'&p='+F[2].value+'&s='+F[3].value;
+  if(navigator.share){navigator.share({title:'Laminate estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
+WALLP = """<div class="tool" id="tt-wp">
+  <div class="fields">
+    <div class="field"><label for="wp-p">Perimeter of walls (m)</label><input type="number" id="wp-p" min="0.1" step="0.1" placeholder="14"></div>
+    <div class="field"><label for="wp-h">Wall height (m)</label><input type="number" id="wp-h" min="0.5" step="0.05" placeholder="2.5"></div>
+    <div class="field"><label for="wp-rw">Roll width (m)</label><input type="number" id="wp-rw" min="0.1" step="0.01" placeholder="0.53"></div>
+    <div class="field"><label for="wp-rl">Roll length (m)</label><input type="number" id="wp-rl" min="0.5" step="0.05" placeholder="10.05"></div>
+    <div class="field"><label for="wp-r">Pattern repeat (cm, 0 if plain)</label><input type="number" id="wp-r" min="0" max="200" step="0.5" placeholder="0"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wp-out">–</span><span class="result-unit">rolls of wallpaper</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wp-s1">–</b><span>strips needed</span></div>
+    <div class="stat"><b id="wp-s2">–</b><span>strips per roll</span></div>
+    <div class="stat"><b id="wp-s3">–</b><span>cut length</span></div>
+  </div>
+  <div class="tool-note" id="wp-note"></div>
+  <button type="button" class="tool-btn" id="wp-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['wp-p','wp-h','wp-rw','wp-rl','wp-r'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('wp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var p=parseFloat(F[0].value),h=parseFloat(F[1].value),rw=parseFloat(F[2].value),rl=parseFloat(F[3].value),r=parseFloat(F[4].value);
+  var ok=p>0&&h>0&&rw>0&&rl>0&&!isNaN(r)&&r>=0;
+  if(!ok){OUT.textContent='–';['wp-s1','wp-s2','wp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('wp-note').textContent='';document.title='Wallpaper Calculator - ToolTide';return;}
+  var cut=h+0.1;
+  if(r>0){var rm=r/100;cut=Math.ceil((h+0.1)/rm)*rm;}
+  var spr=Math.floor(rl/cut);
+  if(spr<1){OUT.textContent='0';
+    ['wp-s1','wp-s2','wp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('wp-note').textContent='This roll is shorter than one cut length - check the roll dimensions, because no strip can be cut from it.';
+    document.title='Roll too short - ToolTide';return;}
+  var sn=Math.ceil(p/rw);
+  var rolls=Math.ceil(sn/spr);
+  OUT.textContent=rolls;
+  document.getElementById('wp-s1').textContent=sn;
+  document.getElementById('wp-s2').textContent=spr;
+  document.getElementById('wp-s3').textContent=cut.toFixed(2)+' m';
+  document.getElementById('wp-note').textContent=(r>0?'A '+r+' cm pattern repeat is the silent budget killer: every strip must start on the same point of the pattern, so the cut length rounds up to the next multiple of the repeat and the offcuts are not reusable. ':'Plain paper uses nearly the whole roll, which is why offcuts still cover above doors and windows. ')+'The 10 cm trim allowance per strip absorbs ceiling and skirting unevenness - walls are rarely square. Buy every roll from the same batch number (shade lots differ), and order one spare roll beyond this figure if the pattern is bold: future repairs need the same dye lot, and discontinued lines never come back.';
+  document.title=rolls+' rolls of wallpaper - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_wallpaper',JSON.stringify({p:F[0].value,h:F[1].value,rw:F[2].value,rl:F[3].value,r:F[4].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['p',F[0]],['h',F[1]],['rw',F[2]],['rl',F[3]],['r',F[4]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_wallpaper')||'null');if(mem){F[0].value=mem.p||'';F[1].value=mem.h||'';F[2].value=mem.rw||'';F[3].value=mem.rl||'';F[4].value=mem.r||'';}}catch(e){}}
+calc();
+document.getElementById('wp-share').addEventListener('click',function(){
+  var txt=OUT.textContent+' rolls of wallpaper for '+F[0].value+' m of walls'+(parseFloat(F[4].value)>0?' with a '+F[4].value+' cm pattern repeat':'')+'. Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?p='+F[0].value+'&h='+F[1].value+'&rw='+F[2].value+'&rl='+F[3].value+'&r='+F[4].value;
+  if(navigator.share){navigator.share({title:'Wallpaper estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -8199,6 +8409,10 @@ TOOLS = {
     "meattime": lambda args: MEATTIME,
     "cardep": lambda args: CARDEP,
     "jetlag": lambda args: JETLAG,
+    "paint": lambda args: PAINT,
+    "mulch": lambda args: MULCH,
+    "laminate": lambda args: LAMINATE,
+    "wallp": lambda args: WALLP,
 }
 
 

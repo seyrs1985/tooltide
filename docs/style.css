@@ -105,9 +105,10 @@ section[id],main[id]{scroll-margin-top:16px}
 .site-head .wrap{max-width:1200px}
 @media(min-width:701px){
 .nav-row{flex-wrap:nowrap}
-.site-head nav{flex:0 1 auto;min-width:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.logo{white-space:nowrap}
+.site-head nav{flex:0 1 auto;min-width:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:12px}
 .site-head nav::-webkit-scrollbar{display:none}
-.site-head nav a{white-space:nowrap}
+.site-head nav a{white-space:nowrap;font-size:.9rem}
 }
 
 /* manual theme toggle — markup always present, revealed only when JS runs */
