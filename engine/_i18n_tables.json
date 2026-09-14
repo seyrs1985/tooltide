@@ -388,6 +388,10 @@
    [
     "home.new.blurb",
     "刚加入工具箱的新工具，第一时间在这里上架。"
+   ],
+   [
+    "meta.title",
+    "ToolTide — 免费在线工具:计算器、单位换算与倒计时"
    ]
   ],
   "es": [
@@ -778,6 +782,10 @@
    [
     "home.new.blurb",
     "Las últimas incorporaciones a la caja de herramientas, recién llegadas."
+   ],
+   [
+    "meta.title",
+    "ToolTide — Herramientas online gratis: calculadoras, conversores y cuentas atrás"
    ]
   ],
   "pt": [
@@ -1168,6 +1176,10 @@
    [
     "home.new.blurb",
     "As adições mais recentes à caixa de ferramentas, recém-chegadas."
+   ],
+   [
+    "meta.title",
+    "ToolTide — Ferramentas online grátis: calculadoras, conversores e contagens regressivas"
    ]
   ],
   "ru": [
@@ -1558,6 +1570,10 @@
    [
     "home.new.blurb",
     "Свежие пополнения набора инструментов — только что добавленные."
+   ],
+   [
+    "meta.title",
+    "ToolTide — Бесплатные онлайн-инструменты: калькуляторы, конвертеры и обратный отсчёт"
    ]
   ],
   "ja": [
@@ -1948,6 +1964,10 @@
    [
     "home.new.blurb",
     "ツールボックスに新しく仲間入りしたツール。"
+   ],
+   [
+    "meta.title",
+    "ToolTide — 無料オンラインツール:電卓・単位変換・カウントダウン"
    ]
   ],
   "ko": [
@@ -2338,6 +2358,10 @@
    [
     "home.new.blurb",
     "도구 상자에 방금 추가된 가장 새로운 도구들."
+   ],
+   [
+    "meta.title",
+    "ToolTide — 무료 온라인 도구: 계산기, 단위 변환, 카운트다운"
    ]
   ],
   "de": [
@@ -2728,6 +2752,10 @@
    [
     "home.new.blurb",
     "Frisch hinzugekommen: die neuesten Werkzeuge der Sammlung."
+   ],
+   [
+    "meta.title",
+    "ToolTide — Kostenlose Online-Tools: Rechner, Umrechner & Countdowns"
    ]
   ],
   "fr": [
@@ -3118,6 +3146,10 @@
    [
     "home.new.blurb",
     "Les derniers outils ajoutés à la boîte à outils, tout frais sortis."
+   ],
+   [
+    "meta.title",
+    "ToolTide — Outils en ligne gratuits : calculateurs, convertisseurs et comptes à rebours"
    ]
   ],
   "id": [
@@ -3508,6 +3540,10 @@
    [
     "home.new.blurb",
     "Penambahan terbaru ke kotak perkakas — baru saja dirilis."
+   ],
+   [
+    "meta.title",
+    "ToolTide — Alat online gratis: kalkulator, konverter, dan hitung mundur"
    ]
   ]
  }

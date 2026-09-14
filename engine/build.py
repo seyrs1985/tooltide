@@ -30,7 +30,7 @@ TOOL_EMOJI = {
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
- "randomnum": "🎲", "roman": "🏛️", "wordspages": "📄", "grade": "🎓", "dedupe": "🧹", "slug": "🔗", "salestax": "🧾", "average": "🧮", "binary": "💾", "morse": "📡", "kelvin": "🌡️", "bindec": "0️⃣1️⃣", "feetyd": "🦶", "epoch": "⏱️","gramscups": "🥤", "fuel": "⛽", "salary": "💼", "sqft": "📐", "pxin": "🖨️", "unitconv": "🔄", "secondsconv": "⏱️", "coinflip": "🪙", "dice": "🎲", "half": "➗", "cubicft": "📦", "unitprice": "🏷️", "degrad": "📐", "romantable": "📜", "hexrgb": "🎨", "numwords": "🔠", "wordstonum": "🔁", "sdt": "🧭", "reverser": "🔄", "moonweight": "🌕", "planets": "🪐", "binhex": "🔮", "combiner": "💞", "whitespace": "🧽", "yesno": "🍀", "prime": "🔢", "country": "🌍", "stlb": "⚖️", "ftincm": "📏", "emoji": "🎲", "factorial": "❗", "wordfreq": "📈", "sorter": "🔤", "letter": "🔤", "dayofweek": "📆", "percent": "📊",
+ "randomnum": "🎲", "roman": "🏛️", "wordspages": "📄", "grade": "🎓", "dedupe": "🧹", "slug": "🔗", "salestax": "🧾", "average": "🧮", "binary": "💾", "morse": "📡", "kelvin": "🌡️", "bindec": "0️⃣1️⃣", "feetyd": "🦶", "epoch": "⏱️","gramscups": "🥤", "fuel": "⛽", "salary": "💼", "sqft": "📐", "pxin": "🖨️", "unitconv": "🔄", "secondsconv": "⏱️", "coinflip": "💰", "dice": "🎲", "half": "➗", "cubicft": "📦", "unitprice": "🏷️", "degrad": "📐", "romantable": "📜", "hexrgb": "🎨", "numwords": "🔠", "wordstonum": "🔁", "sdt": "🧭", "reverser": "🔄", "moonweight": "🌕", "planets": "🪐", "binhex": "🔮", "combiner": "💞", "whitespace": "🧽", "yesno": "🍀", "prime": "🔢", "country": "🌍", "stlb": "⚖️", "ftincm": "📏", "emoji": "🎲", "factorial": "❗", "wordfreq": "📈", "sorter": "🔤", "letter": "🔤", "dayofweek": "📆", "percent": "📊",
  # per-renderer icons for every custom tool — without one the card/chip
  # falls back to the generic 🔧 and the grid reads as a wall of wrenches
  "airfryer": "🍟", "amortize": "🏦", "base64": "🧬", "bmi": "🧍",
@@ -39,13 +39,13 @@ TOOL_EMOJI = {
  "cylinder": "🛢️", "debtpayoff": "🎯", "doubledisc": "🛒", "electricity": "⚡",
  "finalgrade": "🏁", "fraction": "🍰", "fuelcost": "🚗", "gpa": "🧑‍🎓",
  "gst": "🇮🇳", "halfbday": "🎈", "heatindex": "🥵", "hoursdiff": "🕐",
- "inchfrac": "🪚", "jsontool": "📋", "jwtdecode": "🔑", "loanpay": "🏠",
+ "inchfrac": "📏", "jsontool": "📋", "jwtdecode": "🔑", "loanpay": "🏠",
  "macros": "🥑", "onerepmax": "🏋️", "onlinetimer": "⏲️", "oven": "🥧", "overtime": "⏰",
  "pace": "👟", "paintcalc": "🖌️", "pregnancy": "🤰", "ratiocalc": "⚖️",
  "rent": "🏘️", "savings": "🐷", "simpleint": "💹", "sleepcycle": "😴",
  "slopecalc": "⛰️", "stddev": "🔔", "stopwatch": "🕰️", "striphtml": "🧼", "tdee": "🍽️",
  "teamgen": "👥", "tilecalc": "🔲", "timecard": "🕘", "tipsplit": "💸",
- "stockavg": "📉", "possize": "🛡️", "lotto": "🎰", "pomodoro": "🍅", "passstrength": "🕵️", "cryptoprofit": "🚀", "petagedog": "🐶", "petagecat": "🐱", "flesch": "📚", "dewpoint": "🌫️", "btucalc": "❄️", "tire": "🛞", "hrzone": "❤️", "golf": "⛳", "bpmdelay": "🎧", "evcharge": "🔌", "goldenhour": "🌅", "pizza": "🍕", "inflation": "💸", "sleepdebt": "😴", "coffee": "☕️", "breakeven": "🚦", "idealweight": "🪞", "lorem": "📝", "cagr": "📶", "pool": "🏊", "timespent": "⌛", "meattime": "🍖", "cardep": "🚙", "jetlag": "🌏",
+ "stockavg": "📉", "possize": "🛡️", "lotto": "🎰", "pomodoro": "🍅", "passstrength": "🕵️", "cryptoprofit": "🚀", "petagedog": "🐶", "petagecat": "🐱", "flesch": "📚", "dewpoint": "🌫️", "btucalc": "❄️", "tire": "🚗", "hrzone": "❤️", "golf": "⛳", "bpmdelay": "🎧", "evcharge": "🔌", "goldenhour": "🌅", "pizza": "🍕", "inflation": "💸", "sleepdebt": "😴", "coffee": "☕️", "breakeven": "🚦", "idealweight": "⚖️", "lorem": "📝", "cagr": "📶", "pool": "🏊", "timespent": "⌛", "meattime": "🍖", "cardep": "🚙", "jetlag": "🌏",
  "tzconvert": "🌐", "upside": "🙃", "urlcod": "🔣", "vatcalc": "🇪🇺",
  "water": "💧", "weeknum": "🗓️", "windchill": "🥶",
 }
@@ -332,7 +332,7 @@ def ensure_sw(cfg):
     print("  asset /sw.js")
 
 
-def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls=""):
+def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="", title_key=None):
     ga = (cfg.get("ga4_id") or "").strip()
     gsc = (cfg.get("gsc_verification") or "").strip()
     ads = (cfg.get("adsense_client") or "").strip()
@@ -378,12 +378,13 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="")
     spec = ('<script type="speculationrules">{"prefetch":[{"source":"document",'
             f'"where":{{"href_matches":"{esc(bpath)}*"}},"eagerness":"moderate"}}]}}'
             '</script>\n')
+    tattr = f' data-i18n-title="{title_key}"' if title_key else ''
     h = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(title)}</title>
+<title{tattr}>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{esc(canonical)}">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -888,7 +889,7 @@ def build_index(cfg, all_pages, cat_info):
                       "query-input": "required name=search_term_string"}}
 
     doc = head_tags(cfg, "ToolTide — Free Online Tools: Calculators, Converters & Countdowns",
-                    desc, canonical, [website_ld], root=True, body_cls="home")
+                    desc, canonical, [website_ld], root=True, body_cls="home", title_key="meta.title")
     doc += header_nav(cfg, base)
     doc += f"""<main class="wrap" id="main">
 <section class="hero">

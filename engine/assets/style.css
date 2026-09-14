@@ -99,6 +99,16 @@ section[id],main[id]{scroll-margin-top:16px}
 .site-head nav a{color:var(--text-3);text-decoration:none;font-size:.95rem;font-weight:500}
 .site-head nav a:hover{color:var(--brand)}
 .nav-all{font-weight:700}
+/* desktop keeps the header to one line — de/ja nav labels are wide enough to
+   push the language select to a second row, so above 700px the nav scrolls
+   instead of wrapping and the header gets a wider container */
+.site-head .wrap{max-width:1200px}
+@media(min-width:701px){
+.nav-row{flex-wrap:nowrap}
+.site-head nav{flex:0 1 auto;min-width:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.site-head nav::-webkit-scrollbar{display:none}
+.site-head nav a{white-space:nowrap}
+}
 
 /* manual theme toggle — markup always present, revealed only when JS runs */
 .theme-toggle{display:none;flex:0 0 auto;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:1px solid var(--input-border);border-radius:10px;background:var(--surface);color:var(--text-2);font-size:1.05rem;line-height:1;cursor:pointer;transition:border-color .15s,color .15s}
