@@ -71,6 +71,43 @@ try {
   assert(tool.includes('<noscript') && tool.includes('noscript-note'),
     'tool page: noscript JS-required notice');
 
+  // "New on ToolTide": newest pages surfaced in their own row above the
+  // categories (the per-category collapse otherwise buries them behind
+  // "Show all"), and every card must resolve to a built page.
+  const newSec = idx.match(/<section class="cat" id="new">[\s\S]*?<\/section>/);
+  assert(!!newSec && (newSec[0].match(/class="card cat-/g) || []).length === 8,
+    'homepage: #new section shows 8 newest tool cards');
+  assert(!!newSec && newSec[0].includes('home.new.h2'), 'homepage: #new i18n header');
+  const newLinks = newSec ? [...newSec[0].matchAll(/href="[^"]*\/([^\/"]+)\/"/g)].map(m => m[1]) : [];
+  const newDead = newLinks.filter(s => !fs.existsSync(path.join(root, s, 'index.html')));
+  assert(newLinks.length === 8 && newDead.length === 0,
+    'homepage: #new links all resolve inside docs/ (no dead links)');
+  assert(idx.indexOf('id="new"') > -1 && idx.indexOf('id="new"') < idx.indexOf('id="countdown"'),
+    'homepage: #new sits above the category sections');
+
+  // search inputs: mobile keyboards show a Search key, no autocorrect haze
+  assert((idx.match(/enterkeyhint="search"/g) || []).length === 2,
+    'homepage: hero + header search inputs enterkeyhint=search');
+  assert((tool.match(/enterkeyhint="search"/g) || []).length === 1,
+    'tool page: header search input enterkeyhint=search');
+  const p404html = fs.readFileSync(path.join(root, '404.html'), 'utf8');
+  // header search markup is present on every page (CSS hides it where a
+  // hero/404 search box already shows), so both inputs carry the attribute
+  assert((p404html.match(/enterkeyhint="search"/g) || []).length === 2,
+    '404: search input enterkeyhint=search');
+  assert(/type="search"[^>]*autocomplete="off"[^>]*spellcheck="false"/.test(p404html),
+    '404: search input opts out of autocorrect');
+
+  // form/typography polish rules exist and keep working
+  assert(css.includes('scrollbar-gutter:stable'), 'style.css: scrollbar-gutter stable');
+  assert(css.includes('text-wrap:balance') && css.includes('text-wrap:pretty'),
+    'style.css: heading/paragraph text-wrap');
+  assert(css.includes('input[type=checkbox],input[type=radio],progress,meter{accent-color:var(--brand)}'),
+    'style.css: native control accent-color');
+  assert(css.includes('-webkit-tap-highlight-color:transparent'), 'style.css: tap highlight off');
+  assert(/@media\(forced-colors:active\)\{[\s\S]*\.hero h1\{background-image:none/.test(css),
+    'style.css: forced-colors gradient headline fallback');
+
   // homepage ?q= deep-link search must actually run (SearchAction contract)
   const searchScript = [...idx.matchAll(/<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g)]
     .map(m => m[1]).find(s => s.includes('var CARDS='));

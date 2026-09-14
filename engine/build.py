@@ -396,7 +396,7 @@ def header_nav(cfg, base):
   <div class="wrap nav-row">
     <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolTide</a>
     <form class="head-search" role="search" action="{base}" method="get">
-      <input type="search" name="q" placeholder="Search tools…" aria-label="Search tools" data-i18n-placeholder="search.ph" data-i18n-aria="search.aria">
+      <input type="search" name="q" placeholder="Search tools…" aria-label="Search tools" autocomplete="off" spellcheck="false" autocapitalize="off" enterkeyhint="search" data-i18n-placeholder="search.ph" data-i18n-aria="search.aria">
       <button type="submit" aria-label="Search" data-i18n-aria="search.btn"><span aria-hidden="true">🔍</span></button>
     </form>
     <nav aria-label="Primary"><a href="{esc(games_url)}" title="Our sister site: free online games"><span aria-hidden="true">🎮</span> <span data-i18n="nav.games">Games</span></a>{links}<a href="{base}#all" class="nav-all" data-i18n="nav.all">All tools</a></nav>
@@ -538,6 +538,11 @@ else{paint(current());}
 
 # Cards shown per homepage section before the "Show all" toggle takes over.
 SECTION_TOP = 12
+# pages.py appends new pages, so the tail of the list is what the daily
+# pipeline added most recently — surfacing it here gives fresh pages a
+# homepage link that the per-category collapse (SECTION_TOP=12) otherwise
+# buries behind a "Show all" click.
+NEW_COUNT = 8
 
 # Homepage section collapse: big categories hide cards beyond SECTION_TOP
 # behind a "Show all" button. The hiding CSS is gated on html.js (set
@@ -815,6 +820,17 @@ def build_index(cfg, all_pages, cat_info):
     chips = "".join(
         f'<a href="#{cat}">{cat_emoji_html(cat)}<span data-i18n="cat.{cat}">{esc(label)}</span> <span class="chip-n">{counts[cat]}</span></a>'
         for cat, (label, _blurb) in cat_info.items())
+    # "New on ToolTide" — the most recently added pages, one row above the
+    # categories. Carries .cat so the live search hides/restores it with the
+    # rest, and so content-visibility/print rules apply unchanged.
+    new_section = ""
+    if len(all_pages) > NEW_COUNT:
+        new_cards = "".join(tool_card(x, base, cat_label=cat_info[x["category"]][0])
+                            for x in all_pages[-NEW_COUNT:])
+        new_section = (f'<section class="cat" id="new">'
+                       f'<h2 data-i18n="home.new.h2">New on ToolTide</h2>'
+                       f'<p class="cat-blurb" data-i18n="home.new.blurb">The latest additions to the toolbox.</p>'
+                       f'<div class="grid">{new_cards}</div></section>')
     website_ld = {"@type": "WebSite", "name": "ToolTide", "url": base,
                   "description": desc, "potentialAction": {
                       "@type": "SearchAction",
@@ -828,12 +844,13 @@ def build_index(cfg, all_pages, cat_info):
 <section class="hero">
   <h1 data-i18n="home.hero.h1">Free online tools that just work</h1>
   <p data-i18n="home.hero.sub">Countdowns, calculators, converters and generators — fast, private, and free. Everything runs in your browser; nothing you type ever leaves your device.</p>
-  <input type="search" id="tool-search" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools" data-i18n-placeholder="home.search.ph" data-i18n-aria="search.aria">
+      <input type="search" id="tool-search" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools" autocomplete="off" spellcheck="false" autocapitalize="off" enterkeyhint="search" data-i18n-placeholder="home.search.ph" data-i18n-aria="search.aria">
   <p class="search-status" id="search-status" role="status"></p>
   <nav class="hero-chips" aria-label="Browse tools by category">{chips}</nav>
 </section>
 <div id="search-results" class="grid" style="display:none"></div>
 {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
+{new_section}
 {chr(10).join(sections)}
 <section class="cat" id="all"><h2 data-i18n="home.about.h2">About ToolTide</h2>
 <p class="cat-blurb" data-i18n="home.about.blurb">ToolTide is a collection of small, fast, honest web tools. No accounts, no paywalls, no selling your data — each tool does one job and gets out of your way. Bookmark us and the tide of small annoyances goes out.</p>
@@ -955,7 +972,7 @@ CONTACT = """<h1 data-i18n="ct.h1">Contact</h1>
 ERROR404 = """<h1 data-i18n="e404.h1">404 — page drifted out with the tide</h1>
 <p data-i18n="e404.p">The page you're looking for doesn't exist (or moved). Search our tools:</p>
 <form class="four04-search" action="{base}" method="get">
-  <input type="search" name="q" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools" data-i18n-placeholder="home.search.ph" data-i18n-aria="search.aria">
+  <input type="search" name="q" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools" autocomplete="off" spellcheck="false" autocapitalize="off" enterkeyhint="search" data-i18n-placeholder="home.search.ph" data-i18n-aria="search.aria">
   <button class="btn" type="submit" data-i18n="e404.search">Search</button>
 </form>
 <p><span data-i18n="e404.a">Or</span> <a href="{base}#all"><span data-i18n="e404.link">browse all tools</span></a><span data-i18n="e404.b"> instead.</span></p>"""

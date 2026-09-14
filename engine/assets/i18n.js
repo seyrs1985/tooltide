@@ -115,7 +115,9 @@ zh:{
  "cd.set":"设定",
  "cd.clear":"清除",
  "cd.ics":"添加到日历",
- "recent.title":"最近使用"
+ "recent.title":"最近使用",
+ "home.new.h2":"最新上架",
+ "home.new.blurb":"刚加入工具箱的新工具，第一时间在这里上架。"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -212,7 +214,9 @@ es:{
  "cd.set":"Fijar",
  "cd.clear":"Quitar",
  "cd.ics":"Añadir al calendario",
- "recent.title":"Usados recientemente"
+ "recent.title":"Usados recientemente",
+ "home.new.h2":"Novedades en ToolTide",
+ "home.new.blurb":"Las últimas incorporaciones a la caja de herramientas, recién llegadas."
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -309,7 +313,9 @@ pt:{
  "cd.set":"Definir",
  "cd.clear":"Limpar",
  "cd.ics":"Adicionar ao calendário",
- "recent.title":"Usados recentemente"
+ "recent.title":"Usados recentemente",
+ "home.new.h2":"Novidades no ToolTide",
+ "home.new.blurb":"As adições mais recentes à caixa de ferramentas, recém-chegadas."
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -406,7 +412,9 @@ ru:{
  "cd.set":"Установить",
  "cd.clear":"Сбросить",
  "cd.ics":"В календарь",
- "recent.title":"Недавно использованные"
+ "recent.title":"Недавно использованные",
+ "home.new.h2":"Новое на ToolTide",
+ "home.new.blurb":"Свежие пополнения набора инструментов — только что добавленные."
 },
 ja:{
  "skip":"本文へスキップ",
@@ -503,7 +511,9 @@ ja:{
  "cd.set":"設定",
  "cd.clear":"クリア",
  "cd.ics":"カレンダーに追加",
- "recent.title":"最近使ったツール"
+ "recent.title":"最近使ったツール",
+ "home.new.h2":"ToolTideの新着ツール",
+ "home.new.blurb":"ツールボックスに新しく仲間入りしたツール。"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -600,7 +610,9 @@ ko:{
  "cd.set":"설정",
  "cd.clear":"지우기",
  "cd.ics":"캘린더에 추가",
- "recent.title":"최근 사용"
+ "recent.title":"최근 사용",
+ "home.new.h2":"ToolTide의 새 도구",
+ "home.new.blurb":"도구 상자에 방금 추가된 가장 새로운 도구들."
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -697,7 +709,9 @@ de:{
  "cd.set":"Setzen",
  "cd.clear":"Löschen",
  "cd.ics":"Zum Kalender hinzufügen",
- "recent.title":"Zuletzt genutzt"
+ "recent.title":"Zuletzt genutzt",
+ "home.new.h2":"Neu auf ToolTide",
+ "home.new.blurb":"Frisch hinzugekommen: die neuesten Werkzeuge der Sammlung."
 },
 fr:{
  "skip":"Aller au contenu",
@@ -794,7 +808,9 @@ fr:{
  "cd.set":"Définir",
  "cd.clear":"Effacer",
  "cd.ics":"Ajouter au calendrier",
- "recent.title":"Récemment utilisés"
+ "recent.title":"Récemment utilisés",
+ "home.new.h2":"Nouveautés sur ToolTide",
+ "home.new.blurb":"Les derniers outils ajoutés à la boîte à outils, tout frais sortis."
 },
 id:{
  "skip":"Lewati ke konten",
@@ -891,7 +907,9 @@ id:{
  "cd.set":"Atur",
  "cd.clear":"Hapus",
  "cd.ics":"Tambahkan ke kalender",
- "recent.title":"Baru digunakan"
+ "recent.title":"Baru digunakan",
+ "home.new.h2":"Baru di ToolTide",
+ "home.new.blurb":"Penambahan terbaru ke kotak perkakas — baru saja dirilis."
 }
 };
 function detect(){
