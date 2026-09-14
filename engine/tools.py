@@ -5557,6 +5557,210 @@ document.getElementById('hb-share').addEventListener('click',function(){
 </script>
 """
 
+# Ratio solver: A:B = C:x with simplified ratio and percent views.
+# Retention hooks: title result hook, tt_ratio memory, URL state (?a=&b=&c=), Web Share.
+RATIOCALC = """<div class="tool" id="tt-ra">
+  <div class="fields">
+    <div class="field"><label for="ra-a">A</label><input type="number" id="ra-a" step="any" placeholder="3"></div>
+    <div class="field"><label for="ra-b">B</label><input type="number" id="ra-b" step="any" placeholder="4"></div>
+    <div class="field"><label for="ra-c">C</label><input type="number" id="ra-c" step="any" placeholder="x-input like 15"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ra-out">–</span><span class="result-unit" id="ra-u">the missing value</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ra-simp">–</b><span>A:B simplified</span></div>
+    <div class="stat"><b id="ra-dec">–</b><span>A ÷ B</span></div>
+    <div class="stat"><b id="ra-pct">–</b><span>A as % of B</span></div>
+  </div>
+  <div class="tool-note" id="ra-note"></div>
+  <button type="button" class="tool-btn" id="ra-share">Share this ratio</button>
+</div>
+<script>(function(){
+var A=document.getElementById('ra-a'),B=document.getElementById('ra-b'),C=document.getElementById('ra-c');
+var OUT=document.getElementById('ra-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function gcd(x,y){x=Math.abs(Math.round(x*1000));y=Math.abs(Math.round(y*1000));while(y){var t=x%y;x=y;y=t;}return x||1;}
+function calc(){
+  var a=parseFloat(A.value),b=parseFloat(B.value),c=parseFloat(C.value);
+  if(!isFinite(a)||!isFinite(b)||a===0||b===0){OUT.textContent='–';
+    document.getElementById('ra-simp').textContent='–';document.getElementById('ra-dec').textContent='–';
+    document.getElementById('ra-pct').textContent='–';document.getElementById('ra-note').textContent='';
+    document.title='Ratio Calculator - ToolTide';return;}
+  var dec=a/b;
+  document.getElementById('ra-dec').textContent=Math.round(dec*10000)/10000;
+  document.getElementById('ra-pct').textContent=Math.round(dec*10000)/100+'%';
+  var g=gcd(a,b),sa=a/g,sb=b/g;
+  if(sb<0){sa=-sa;sb=-sb;}
+  document.getElementById('ra-simp').textContent=sa+':'+sb;
+  if(!isFinite(c)){OUT.textContent='–';document.getElementById('ra-note').textContent='';
+    document.title='Ratio Calculator - ToolTide';return;}
+  var x=c*b/a;
+  OUT.textContent=Math.round(x*1e6)/1e6;
+  document.getElementById('ra-u').textContent='= C-companion (A:B = C:x)';
+  document.getElementById('ra-note').textContent='A:B = C:x means x = C x B / A: '+a+':'+b+' = '+c+':'+Math.round(x*1e6)/1e6+'. Cross-multiply to check: '+a+' x '+Math.round(x*1e6)/1e6+' = '+Math.round(a*x*1000)/1000+' and '+b+' x '+c+' = '+Math.round(b*c*1000)/1000+'.';
+  document.title=a+':'+b+' = '+c+':'+Math.round(x*100)/100+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_ratio',JSON.stringify({a:A.value,b:B.value,c:C.value}));}catch(e){}}
+[A,B,C].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['a',A],['b',B],['c',C]].forEach(function(z){var v=qs(z[0]);if(v!==null){z[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_ratio')||'null');if(mem){A.value=mem.a||'';B.value=mem.b||'';C.value=mem.c||'';}}catch(e){}}
+calc();
+document.getElementById('ra-share').addEventListener('click',function(){
+  var txt='Ratio solved: '+A.value+':'+B.value+' = '+C.value+':'+OUT.textContent+'. Solve yours (no sign-up):';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&b='+encodeURIComponent(B.value||'')+'&c='+encodeURIComponent(C.value||'');
+  if(navigator.share){navigator.share({title:'Ratio result',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this ratio';},1500);}
+});
+})();
+</script>
+"""
+
+# Calories burned via MET values: activity presets + custom MET, weight, duration.
+# Retention hooks: title result hook, tt_cal memory, URL state (?m=&w=&min=&u=), Web Share.
+CALBURN = """<div class="tool" id="tt-cb">
+  <div class="fields">
+    <div class="field"><label for="cb-act">Activity</label><select id="cb-act">
+      <option value="3.5">Walking (3 mph)</option>
+      <option value="5.0">Brisk walking (4 mph)</option>
+      <option value="6.0">Hiking</option>
+      <option value="7.0">Jogging</option>
+      <option value="9.8">Running (8 mph)</option>
+      <option value="7.5">Cycling (12-14 mph)</option>
+      <option value="8.0">Swimming laps</option>
+      <option value="5.0">Weight training</option>
+      <option value="3.0">Yoga</option>
+      <option value="10.0">HIIT</option>
+      <option value="5.5">Dancing</option>
+      <option value="3.0">Housework</option>
+      <option value="custom">Custom MET…</option>
+    </select></div>
+    <div class="field"><label for="cb-m">Custom MET</label><input type="number" id="cb-m" step="0.1" min="0" max="25" placeholder="optional"></div>
+    <div class="field"><label for="cb-w">Body weight</label><input type="number" id="cb-w" step="any" min="0" placeholder="70"></div>
+    <div class="field"><label for="cb-u">Units</label><select id="cb-u"><option value="kg">kg</option><option value="lb">lb</option></select></div>
+    <div class="field"><label for="cb-min">Duration (minutes)</label><input type="number" id="cb-min" step="1" min="1" max="600" placeholder="30"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cb-out">–</span><span class="result-unit">calories burned</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cb-rate">–</b><span>kcal per 10 min</span></div>
+    <div class="stat"><b id="cb-met">–</b><span>MET used</span></div>
+    <div class="stat"><b id="cb-equiv">–</b><span>≈ in food</span></div>
+  </div>
+  <div class="tool-note" id="cb-note"></div>
+  <button type="button" class="tool-btn" id="cb-share">Share this burn</button>
+</div>
+<script>(function(){
+var ACT=document.getElementById('cb-act'),M=document.getElementById('cb-m'),W=document.getElementById('cb-w'),U=document.getElementById('cb-u'),MI=document.getElementById('cb-min');
+var OUT=document.getElementById('cb-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var met=ACT.value==='custom'?parseFloat(M.value):parseFloat(ACT.value);
+  var w=parseFloat(W.value),min=parseFloat(MI.value);
+  if(!(met>0)||!(w>0)||!(min>0)){OUT.textContent='–';
+    document.getElementById('cb-rate').textContent='–';document.getElementById('cb-met').textContent='–';
+    document.getElementById('cb-equiv').textContent='–';document.getElementById('cb-note').textContent='';
+    document.title='Calories Burned Calculator - ToolTide';return;}
+  var kg=U.value==='lb'?w/2.2046:w;
+  var kcal=met*kg*(min/60);
+  OUT.textContent=Math.round(kcal);
+  document.getElementById('cb-rate').textContent=Math.round(met*kg/6);
+  document.getElementById('cb-met').textContent=Math.round(met*10)/10;
+  var eq=Math.round(kcal/95);
+  document.getElementById('cb-equiv').textContent=kcal<95?'—':eq+' banana'+(eq>1?'s':'');
+  document.getElementById('cb-note').textContent='MET x kg x hours: '+Math.round(met*10)/10+' x '+Math.round(kg*10)/10+'kg x '+(Math.round(min/60*100)/100)+'h = '+Math.round(kcal)+' kcal. MET figures are population averages - intensity, fitness and terrain move your real number by 10-20%.';
+  document.title=Math.round(kcal)+' kcal burned - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_cal',JSON.stringify({a:ACT.value,m:M.value,w:W.value,u:U.value,min:MI.value}));}catch(e){}}
+[W,M,MI].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+[ACT,U].forEach(function(el){el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['a',ACT],['m',M],['w',W],['u',U],['min',MI]].forEach(function(z){var v=qs(z[0]);if(v!==null){
+  if(z[0]==='a'){for(var i=0;i<ACT.options.length;i++){if(ACT.options[i].value===v){ACT.selectedIndex=i;break;}}}
+  else{z[1].value=v;}
+  pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_cal')||'null');if(mem){ACT.value=mem.a||'3.5';M.value=mem.m||'';W.value=mem.w||'';U.value=mem.u||'kg';MI.value=mem.min||'';}}catch(e){}}
+M.disabled=ACT.value!=='custom';
+calc();
+document.getElementById('cb-share').addEventListener('click',function(){
+  var txt=ACT.options[ACT.selectedIndex].text+' for '+MI.value+' min: '+OUT.textContent+' kcal. Estimate yours (no sign-up):';
+  var url=location.origin+location.pathname+'?a='+ACT.value+'&w='+encodeURIComponent(W.value||'')+'&min='+encodeURIComponent(MI.value||'')+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Calories burned',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this burn';},1500);}
+});
+})();
+</script>
+"""
+
+# Debt payoff: month-by-month simulation, interest trap detection, total cost.
+# Retention hooks: title result hook, tt_debt memory, URL state (?b=&r=&m=), Web Share.
+DEBTPAYOFF = """<div class="tool" id="tt-dp">
+  <div class="fields">
+    <div class="field"><label for="dp-b">Balance ($)</label><input type="number" id="dp-b" step="any" min="0" placeholder="5000"></div>
+    <div class="field"><label for="dp-r">APR %</label><input type="number" id="dp-r" step="any" min="0" max="45" placeholder="18"></div>
+    <div class="field"><label for="dp-m">Monthly payment ($)</label><input type="number" id="dp-m" step="any" min="0" placeholder="200"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dp-out">–</span><span class="result-unit">until debt-free</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dp-int">–</b><span>total interest</span></div>
+    <div class="stat"><b id="dp-tot">–</b><span>total paid</span></div>
+    <div class="stat"><b id="dp-yr">–</b><span>debt-free in</span></div>
+  </div>
+  <div class="tool-note" id="dp-note"></div>
+  <button type="button" class="tool-btn" id="dp-share">Share this payoff plan</button>
+</div>
+<script>(function(){
+var B=document.getElementById('dp-b'),R=document.getElementById('dp-r'),M=document.getElementById('dp-m');
+var OUT=document.getElementById('dp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function calc(){
+  var b=parseFloat(B.value),apr=parseFloat(R.value),pay=parseFloat(M.value);
+  if(!(b>0)||isNaN(apr)||apr<0||!(pay>0)){OUT.textContent='–';
+    document.getElementById('dp-int').textContent='–';document.getElementById('dp-tot').textContent='–';
+    document.getElementById('dp-yr').textContent='–';document.getElementById('dp-note').textContent='';
+    document.title='Debt Payoff Calculator - ToolTide';return;}
+  var r=apr/100/12,interest=0,months=0;
+  while(b>0&&months<600){
+    var add=b*r;
+    if(pay<=add&&months>0){
+      OUT.textContent='never';
+      document.getElementById('dp-int').textContent='grows forever';
+      document.getElementById('dp-tot').textContent='—';
+      document.getElementById('dp-yr').textContent='—';
+      document.getElementById('dp-note').textContent='At '+money(pay)+'/mo the payment does not cover the '+money(add)+' of interest accruing each month - the balance grows. Minimum payments are engineered exactly this way. You need at least '+money(Math.ceil(add*1.05))+'/mo to make progress, and realistically more.';
+      document.title='Payment below interest - ToolTide';return;}
+    interest+=add;b=b+add-pay;
+    if(b<0){interest+=b;b=0;}
+    months++;
+  }
+  if(months>=600){OUT.textContent='600+ mo';document.title='Debt Payoff Calculator - ToolTide';return;}
+  var yrs=Math.floor(months/12),mos=months%12;
+  OUT.textContent=months+' mo';
+  document.getElementById('dp-int').textContent=money(interest);
+  document.getElementById('dp-tot').textContent=money(interest+b);
+  document.getElementById('dp-yr').textContent=yrs?(yrs+'y '+(mos?mos+'m':'')):mos+' mo';
+  var start=parseFloat(B.value)||0;
+  var extra=pay*1.1,ei=0,eb=start,em=0;
+  while(eb>0&&em<600){var a2=eb*r;ei+=a2;eb=eb+a2-extra;if(eb<0){ei+=eb;eb=0;}em++;}
+  var saved=Math.round(interest-ei);
+  document.getElementById('dp-note').textContent=money(start)+' at '+apr+'% APR with '+money(pay)+'/mo: '+months+' payments, '+money(interest)+' of interest ('+Math.round(interest/(interest+start)*100)+'% on top of the balance).'+(saved>0?' Paying just '+money(Math.round(pay*0.1))+' more per month clears it '+(months-em)+' months sooner and saves '+money(saved)+'.':' Snowball (smallest balance first) or avalanche (highest APR first) both work - consistency is the variable that pays.');
+  document.title='Debt-free in '+months+' months - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_debt',JSON.stringify({b:B.value,r:R.value,m:M.value}));}catch(e){}}
+[B,R,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['b',B],['r',R],['m',M]].forEach(function(z){var v=qs(z[0]);if(v!==null){z[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_debt')||'null');if(mem){B.value=mem.b||'';R.value=mem.r||'';M.value=mem.m||'';}}catch(e){}}
+calc();
+document.getElementById('dp-share').addEventListener('click',function(){
+  var txt='Debt payoff: '+OUT.textContent+' to clear '+B.value+' at '+R.value+'% APR paying '+M.value+'/mo ('+document.getElementById('dp-int').textContent+' interest). Model yours (no sign-up):';
+  var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&r='+encodeURIComponent(R.value||'')+'&m='+encodeURIComponent(M.value||'');
+  if(navigator.share){navigator.share({title:'Debt payoff plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this payoff plan';},1500);}
+});
+})();
+</script>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -5666,6 +5870,9 @@ TOOLS = {
     "paintcalc": lambda args: PAINTCALC,
     "tilecalc": lambda args: TILECALC,
     "halfbday": lambda args: HALFBDAY,
+    "ratiocalc": lambda args: RATIOCALC,
+    "calburn": lambda args: CALBURN,
+    "debtpayoff": lambda args: DEBTPAYOFF,
 }
 
 

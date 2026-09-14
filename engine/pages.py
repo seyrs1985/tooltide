@@ -3993,6 +3993,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "ratio-calculator",
+        "title": "Ratio Calculator — Solve A:B = C:x, Simplify & Scale",
+        "h1": "Ratio Calculator",
+        "desc": "Solve the missing value in any proportion - A is to B as C is to what? - with the simplified ratio, decimal and percentage alongside. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "ratio calculator",
+        "tool": "ratiocalc",
+        "args": {},
+        "intro": [
+            "Proportions are the workhorse of everyday math: scale a recipe from 4 servings to 6, convert a map distance, mix paint at 3:2, work out screen aspect. All of it is one sentence - A is to B as C is to x - and one move: x = C × B ÷ A. Enter the three known values and this calculator fills in the fourth, then shows the ratio simplified, as a decimal and as a percentage, with the cross-multiplication check written out so the answer verifies itself.",
+            "The worked line is the point: 3:4 = 15:x resolves to x = 20 with the cross-products shown (3 × 20 = 60, 4 × 15 = 60), which is exactly the check a teacher wants to see. Values persist on your device for multi-step scaling sessions, and the page sits naturally beside the fraction calculator for the same students.",
+        ],
+        "howto": [
+            "Enter the three known values of your proportion - A, B and C.",
+            "Read x, plus the ratio simplified, decimal and percentage views.",
+            "Check the cross-multiplication line, then share or keep the values for the next step.",
+        ],
+        "faqs": [
+            ("How do I solve a proportion?",
+             "Cross-multiply and divide: A:B = C:x means A·x = B·C, so x = B·C ÷ A. For 3:4 = 15:x: x = 15 × 4 ÷ 3 = 20. The note line shows this arithmetic - and its reverse check - with your numbers."),
+            ("How do I simplify a ratio?",
+             "Divide both sides by their greatest common divisor: 12:18 shares a GCD of 6, so the ratio is 2:3. The calculator reduces whatever you enter, including decimals (scaled to integers first), so 1.5:2 becomes 3:4."),
+            ("How do I scale a recipe with ratios?",
+             "Treat servings as one side of the proportion. A recipe serving 4 with 2 cups of rice scales to 6 servings via 4:6 = 2:x - x = 3 cups. Enter recipe servings, target servings and the known quantity in the A, B, C slots in that order."),
+            ("What's the difference between a ratio and a rate?",
+             "A ratio compares like quantities (3 cups to 2 cups); a rate compares unlike ones with units kept (60 miles per hour). The math here solves both, but keep units explicit for rates - mixing numerators and denominators is the classic proportion error."),
+        ],
+    })
+
+    pages.append({
+        "slug": "calories-burned-calculator",
+        "title": "Calories Burned Calculator — MET-Based by Activity & Weight",
+        "h1": "Calories Burned Calculator",
+        "desc": "Estimate calories burned for walking, running, swimming, HIIT and more - MET values by activity, your body weight and duration. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "calories burned calculator",
+        "tool": "calburn",
+        "args": {},
+        "intro": [
+            "Calorie burn is three numbers multiplied: the activity's MET value (its metabolic cost), your body weight in kilograms, and the hours you do it. Walking at 3 mph is 3.5 METs, so a 70 kg person on a one-hour walk burns 3.5 × 70 ≈ 245 kcal; the same person running at 8 mph burns nearly 700. Pick an activity, enter weight and duration, and this calculator returns the burn along with the per-10-minute rate and a food-equivalent for honest perspective.",
+            "The MET table here covers twelve common activities from housework to HIIT, with a custom slot for anything the Compendium of Physical Activities lists. The note keeps the honesty: MET figures are population averages, and real burn moves 10-20% with intensity, fitness and terrain - a range that matters more the longer the session. Your last activity and weight persist on the device for daily logging, and the page pairs with the TDEE and macro calculators for the intake side of the equation.",
+        ],
+        "howto": [
+            "Pick your activity - or enter a custom MET value.",
+            "Enter body weight (kg or lb) and the duration in minutes.",
+            "Read the calories burned, per-10-minute rate and food equivalent.",
+        ],
+        "faqs": [
+            ("How are calories burned calculated?",
+             "kcal = MET × weight in kg × hours. MET (metabolic equivalent of task) expresses energy cost as a multiple of rest - 1 MET is roughly 1 kcal per kg per hour. The calculator applies exactly this formula and shows the substituted arithmetic in the note."),
+            ("How accurate are MET-based estimates?",
+             "Within 10-20% for most people - MET values are lab averages, and individual burn varies with fitness, effort and terrain. Treat the output as a planning figure, not a receipt; consistency across activities matters more than absolute precision."),
+            ("Why does body weight matter so much?",
+             "Moving more mass costs more energy at the same pace - the kg term multiplies directly. A 100 kg runner burns about 40% more than a 70 kg runner over the same 5k at the same speed, which is also why heavier runners see faster initial burn as weight drops."),
+            ("Do I burn calories differently than my fitness watch says?",
+             "Watches add heart-rate data, which captures effort but carries its own error - studies find commercial trackers range widely on burn (some off by 30%+). The MET method is the transparent baseline: no black box, reproducible arithmetic, easy to sanity-check any device against."),
+        ],
+    })
+
+    pages.append({
+        "slug": "debt-payoff-calculator",
+        "title": "Debt Payoff Calculator — Months to Debt-Free & Total Interest",
+        "h1": "Debt Payoff Calculator",
+        "desc": "See exactly when a balance dies: months to debt-free, total interest, the minimum-payment trap - and what paying a little more saves. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "debt payoff calculator",
+        "tool": "debtpayoff",
+        "args": {},
+        "intro": [
+            "Debt math hides its own cruelty inside the interest line: a $5,000 balance at 18% APR accrues $75 a month before you pay a cent, and minimum payments engineered just above that number stretch the payoff past a decade. Enter balance, APR and the payment you actually make, and this calculator simulates every month until the balance hits zero - then shows the months, the total interest, and the total that left your account.",
+            "The note does the motivational arithmetic automatically: the same simulation at a 10% higher payment shows how many months disappear and how much interest survives - usually a startling ratio, which is precisely the point. Payments below the monthly interest trigger a plain-language warning instead of a bogus answer, and the strategy one-liner (snowball vs avalanche) closes it out. It pairs with the loan payment calculator for the borrowing side.",
+        ],
+        "howto": [
+            "Enter the balance, the APR and your monthly payment.",
+            "Read months to debt-free, total interest and total paid.",
+            "Check the note for what a slightly bigger payment saves you.",
+        ],
+        "faqs": [
+            ("How long will it take to pay off my debt?",
+             "Depends on the gap between payment and interest: $5,000 at 18% APR with $200/month takes about 32 months and roughly $1,230 in interest; at $150/month it stretches to 43 months and over $1,900. The calculator simulates month by month rather than trusting a closed formula, so irregular inputs still get honest answers."),
+            ("What is the minimum payment trap?",
+             "Minimums are typically 1-2% of the balance plus interest - at 2%, most of the payment is interest, and the payoff stretches toward decades. This calculator flags it directly: if your payment doesn't clear the monthly interest, it says so and states the minimum payment that actually makes progress."),
+            ("Snowball or avalanche - which is better?",
+             "Avalanche (highest APR first) is mathematically optimal; snowball (smallest balance first) wins on psychology because closing an account builds momentum. The interest difference is usually modest - pick the one you'll sustain, and let the extra-payment note show what consistency buys."),
+            ("Should I pay extra or invest the difference?",
+             "Compare guaranteed vs expected: extra payments return the APR risk-free (18% card payoff beats almost any investment), while low-APR debt (sub-5%) against long-horizon investing is a genuine coin toss. Run your numbers here, then decide with the loan payment calculator as the counterweight."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),
