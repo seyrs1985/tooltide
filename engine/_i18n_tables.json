@@ -596,6 +596,146 @@
    [
     "cd.istoday",
     "就是今天！"
+   ],
+   [
+    "cd.ev.christmas",
+    "圣诞节"
+   ],
+   [
+    "cd.ev.christmas-eve",
+    "平安夜"
+   ],
+   [
+    "cd.ev.new-year",
+    "新年"
+   ],
+   [
+    "cd.ev.new-years-eve",
+    "跨年夜"
+   ],
+   [
+    "cd.ev.halloween",
+    "万圣节"
+   ],
+   [
+    "cd.ev.valentines-day",
+    "情人节"
+   ],
+   [
+    "cd.ev.st-patricks-day",
+    "圣帕特里克节"
+   ],
+   [
+    "cd.ev.easter",
+    "复活节"
+   ],
+   [
+    "cd.ev.mothers-day",
+    "母亲节"
+   ],
+   [
+    "cd.ev.fathers-day",
+    "父亲节"
+   ],
+   [
+    "cd.ev.thanksgiving",
+    "感恩节"
+   ],
+   [
+    "cd.ev.thanksgiving-canada",
+    "加拿大感恩节"
+   ],
+   [
+    "cd.ev.black-friday",
+    "黑色星期五"
+   ],
+   [
+    "cd.ev.boxing-day",
+    "节礼日"
+   ],
+   [
+    "cd.ev.earth-day",
+    "地球日"
+   ],
+   [
+    "cd.ev.cinco-de-mayo",
+    "五月五日节"
+   ],
+   [
+    "cd.ev.labor-day",
+    "劳动节"
+   ],
+   [
+    "cd.ev.remembrance-day",
+    "阵亡将士纪念日"
+   ],
+   [
+    "cd.ev.april-fools-day",
+    "愚人节"
+   ],
+   [
+    "cd.ev.january",
+    "一月"
+   ],
+   [
+    "cd.ev.february",
+    "二月"
+   ],
+   [
+    "cd.ev.march",
+    "三月"
+   ],
+   [
+    "cd.ev.april",
+    "四月"
+   ],
+   [
+    "cd.ev.may",
+    "五月"
+   ],
+   [
+    "cd.ev.june",
+    "六月"
+   ],
+   [
+    "cd.ev.july",
+    "七月"
+   ],
+   [
+    "cd.ev.august",
+    "八月"
+   ],
+   [
+    "cd.ev.september",
+    "九月"
+   ],
+   [
+    "cd.ev.october",
+    "十月"
+   ],
+   [
+    "cd.ev.november",
+    "十一月"
+   ],
+   [
+    "cd.ev.december",
+    "十二月"
+   ],
+   [
+    "cd.ev.spring",
+    "春天"
+   ],
+   [
+    "cd.ev.summer",
+    "夏天"
+   ],
+   [
+    "cd.ev.autumn",
+    "秋天"
+   ],
+   [
+    "cd.ev.winter",
+    "冬天"
    ]
   ],
   "es": [
@@ -1194,6 +1334,146 @@
    [
     "cd.istoday",
     "¡Es hoy!"
+   ],
+   [
+    "cd.ev.christmas",
+    "Navidad"
+   ],
+   [
+    "cd.ev.christmas-eve",
+    "Nochebuena"
+   ],
+   [
+    "cd.ev.new-year",
+    "Año Nuevo"
+   ],
+   [
+    "cd.ev.new-years-eve",
+    "Nochevieja"
+   ],
+   [
+    "cd.ev.halloween",
+    "Halloween"
+   ],
+   [
+    "cd.ev.valentines-day",
+    "San Valentín"
+   ],
+   [
+    "cd.ev.st-patricks-day",
+    "Día de San Patricio"
+   ],
+   [
+    "cd.ev.easter",
+    "Pascua"
+   ],
+   [
+    "cd.ev.mothers-day",
+    "Día de la Madre"
+   ],
+   [
+    "cd.ev.fathers-day",
+    "Día del Padre"
+   ],
+   [
+    "cd.ev.thanksgiving",
+    "Acción de Gracias"
+   ],
+   [
+    "cd.ev.thanksgiving-canada",
+    "Acción de Gracias (Canadá)"
+   ],
+   [
+    "cd.ev.black-friday",
+    "Viernes Negro"
+   ],
+   [
+    "cd.ev.boxing-day",
+    "San Esteban"
+   ],
+   [
+    "cd.ev.earth-day",
+    "Día de la Tierra"
+   ],
+   [
+    "cd.ev.cinco-de-mayo",
+    "Cinco de Mayo"
+   ],
+   [
+    "cd.ev.labor-day",
+    "Día del Trabajo"
+   ],
+   [
+    "cd.ev.remembrance-day",
+    "Día del Recuerdo"
+   ],
+   [
+    "cd.ev.april-fools-day",
+    "Día de las Bromas"
+   ],
+   [
+    "cd.ev.january",
+    "enero"
+   ],
+   [
+    "cd.ev.february",
+    "febrero"
+   ],
+   [
+    "cd.ev.march",
+    "marzo"
+   ],
+   [
+    "cd.ev.april",
+    "abril"
+   ],
+   [
+    "cd.ev.may",
+    "mayo"
+   ],
+   [
+    "cd.ev.june",
+    "junio"
+   ],
+   [
+    "cd.ev.july",
+    "julio"
+   ],
+   [
+    "cd.ev.august",
+    "agosto"
+   ],
+   [
+    "cd.ev.september",
+    "septiembre"
+   ],
+   [
+    "cd.ev.october",
+    "octubre"
+   ],
+   [
+    "cd.ev.november",
+    "noviembre"
+   ],
+   [
+    "cd.ev.december",
+    "diciembre"
+   ],
+   [
+    "cd.ev.spring",
+    "primavera"
+   ],
+   [
+    "cd.ev.summer",
+    "verano"
+   ],
+   [
+    "cd.ev.autumn",
+    "otoño"
+   ],
+   [
+    "cd.ev.winter",
+    "invierno"
    ]
   ],
   "pt": [
@@ -1792,6 +2072,146 @@
    [
     "cd.istoday",
     "É hoje!"
+   ],
+   [
+    "cd.ev.christmas",
+    "Natal"
+   ],
+   [
+    "cd.ev.christmas-eve",
+    "Véspera de Natal"
+   ],
+   [
+    "cd.ev.new-year",
+    "Ano Novo"
+   ],
+   [
+    "cd.ev.new-years-eve",
+    "Véspera de Ano Novo"
+   ],
+   [
+    "cd.ev.halloween",
+    "Halloween"
+   ],
+   [
+    "cd.ev.valentines-day",
+    "Dia dos Namorados"
+   ],
+   [
+    "cd.ev.st-patricks-day",
+    "Dia de São Patrício"
+   ],
+   [
+    "cd.ev.easter",
+    "Páscoa"
+   ],
+   [
+    "cd.ev.mothers-day",
+    "Dia das Mães"
+   ],
+   [
+    "cd.ev.fathers-day",
+    "Dia dos Pais"
+   ],
+   [
+    "cd.ev.thanksgiving",
+    "Dia de Ação de Graças"
+   ],
+   [
+    "cd.ev.thanksgiving-canada",
+    "Ação de Graças (Canadá)"
+   ],
+   [
+    "cd.ev.black-friday",
+    "Black Friday"
+   ],
+   [
+    "cd.ev.boxing-day",
+    "Santo Estêvão"
+   ],
+   [
+    "cd.ev.earth-day",
+    "Dia da Terra"
+   ],
+   [
+    "cd.ev.cinco-de-mayo",
+    "Cinco de Mayo"
+   ],
+   [
+    "cd.ev.labor-day",
+    "Dia do Trabalho"
+   ],
+   [
+    "cd.ev.remembrance-day",
+    "Dia da Memória"
+   ],
+   [
+    "cd.ev.april-fools-day",
+    "Dia das Mentiras"
+   ],
+   [
+    "cd.ev.january",
+    "janeiro"
+   ],
+   [
+    "cd.ev.february",
+    "fevereiro"
+   ],
+   [
+    "cd.ev.march",
+    "março"
+   ],
+   [
+    "cd.ev.april",
+    "abril"
+   ],
+   [
+    "cd.ev.may",
+    "maio"
+   ],
+   [
+    "cd.ev.june",
+    "junho"
+   ],
+   [
+    "cd.ev.july",
+    "julho"
+   ],
+   [
+    "cd.ev.august",
+    "agosto"
+   ],
+   [
+    "cd.ev.september",
+    "setembro"
+   ],
+   [
+    "cd.ev.october",
+    "outubro"
+   ],
+   [
+    "cd.ev.november",
+    "novembro"
+   ],
+   [
+    "cd.ev.december",
+    "dezembro"
+   ],
+   [
+    "cd.ev.spring",
+    "primavera"
+   ],
+   [
+    "cd.ev.summer",
+    "verão"
+   ],
+   [
+    "cd.ev.autumn",
+    "outono"
+   ],
+   [
+    "cd.ev.winter",
+    "inverno"
    ]
   ],
   "ru": [
@@ -2390,6 +2810,146 @@
    [
     "cd.istoday",
     "Сегодня!"
+   ],
+   [
+    "cd.ev.christmas",
+    "Рождество"
+   ],
+   [
+    "cd.ev.christmas-eve",
+    "Сочельник"
+   ],
+   [
+    "cd.ev.new-year",
+    "Новый год"
+   ],
+   [
+    "cd.ev.new-years-eve",
+    "Канун Нового года"
+   ],
+   [
+    "cd.ev.halloween",
+    "Хэллоуин"
+   ],
+   [
+    "cd.ev.valentines-day",
+    "День святого Валентина"
+   ],
+   [
+    "cd.ev.st-patricks-day",
+    "День святого Патрика"
+   ],
+   [
+    "cd.ev.easter",
+    "Пасха"
+   ],
+   [
+    "cd.ev.mothers-day",
+    "День матери"
+   ],
+   [
+    "cd.ev.fathers-day",
+    "День отца"
+   ],
+   [
+    "cd.ev.thanksgiving",
+    "День благодарения"
+   ],
+   [
+    "cd.ev.thanksgiving-canada",
+    "День благодарения (Канада)"
+   ],
+   [
+    "cd.ev.black-friday",
+    "Чёрная пятница"
+   ],
+   [
+    "cd.ev.boxing-day",
+    "День подарков"
+   ],
+   [
+    "cd.ev.earth-day",
+    "День Земли"
+   ],
+   [
+    "cd.ev.cinco-de-mayo",
+    "Синко де Майо"
+   ],
+   [
+    "cd.ev.labor-day",
+    "День труда"
+   ],
+   [
+    "cd.ev.remembrance-day",
+    "День поминовения"
+   ],
+   [
+    "cd.ev.april-fools-day",
+    "День смеха"
+   ],
+   [
+    "cd.ev.january",
+    "январь"
+   ],
+   [
+    "cd.ev.february",
+    "февраль"
+   ],
+   [
+    "cd.ev.march",
+    "март"
+   ],
+   [
+    "cd.ev.april",
+    "апрель"
+   ],
+   [
+    "cd.ev.may",
+    "май"
+   ],
+   [
+    "cd.ev.june",
+    "июнь"
+   ],
+   [
+    "cd.ev.july",
+    "июль"
+   ],
+   [
+    "cd.ev.august",
+    "август"
+   ],
+   [
+    "cd.ev.september",
+    "сентябрь"
+   ],
+   [
+    "cd.ev.october",
+    "октябрь"
+   ],
+   [
+    "cd.ev.november",
+    "ноябрь"
+   ],
+   [
+    "cd.ev.december",
+    "декабрь"
+   ],
+   [
+    "cd.ev.spring",
+    "весна"
+   ],
+   [
+    "cd.ev.summer",
+    "лето"
+   ],
+   [
+    "cd.ev.autumn",
+    "осень"
+   ],
+   [
+    "cd.ev.winter",
+    "зима"
    ]
   ],
   "ja": [
@@ -2988,6 +3548,146 @@
    [
     "cd.istoday",
     "今日がその日！"
+   ],
+   [
+    "cd.ev.christmas",
+    "クリスマス"
+   ],
+   [
+    "cd.ev.christmas-eve",
+    "クリスマスイブ"
+   ],
+   [
+    "cd.ev.new-year",
+    "新年"
+   ],
+   [
+    "cd.ev.new-years-eve",
+    "大晦日"
+   ],
+   [
+    "cd.ev.halloween",
+    "ハロウィン"
+   ],
+   [
+    "cd.ev.valentines-day",
+    "バレンタインデー"
+   ],
+   [
+    "cd.ev.st-patricks-day",
+    "セントパトリックデー"
+   ],
+   [
+    "cd.ev.easter",
+    "イースター"
+   ],
+   [
+    "cd.ev.mothers-day",
+    "母の日"
+   ],
+   [
+    "cd.ev.fathers-day",
+    "父の日"
+   ],
+   [
+    "cd.ev.thanksgiving",
+    "感謝祭"
+   ],
+   [
+    "cd.ev.thanksgiving-canada",
+    "感謝祭(カナダ)"
+   ],
+   [
+    "cd.ev.black-friday",
+    "ブラックフライデー"
+   ],
+   [
+    "cd.ev.boxing-day",
+    "ボクシングデー"
+   ],
+   [
+    "cd.ev.earth-day",
+    "アースデー"
+   ],
+   [
+    "cd.ev.cinco-de-mayo",
+    "シンコ・デ・マヨ"
+   ],
+   [
+    "cd.ev.labor-day",
+    "レイバーデー"
+   ],
+   [
+    "cd.ev.remembrance-day",
+    "リメンブランスデー"
+   ],
+   [
+    "cd.ev.april-fools-day",
+    "エイプリルフール"
+   ],
+   [
+    "cd.ev.january",
+    "1月"
+   ],
+   [
+    "cd.ev.february",
+    "2月"
+   ],
+   [
+    "cd.ev.march",
+    "3月"
+   ],
+   [
+    "cd.ev.april",
+    "4月"
+   ],
+   [
+    "cd.ev.may",
+    "5月"
+   ],
+   [
+    "cd.ev.june",
+    "6月"
+   ],
+   [
+    "cd.ev.july",
+    "7月"
+   ],
+   [
+    "cd.ev.august",
+    "8月"
+   ],
+   [
+    "cd.ev.september",
+    "9月"
+   ],
+   [
+    "cd.ev.october",
+    "10月"
+   ],
+   [
+    "cd.ev.november",
+    "11月"
+   ],
+   [
+    "cd.ev.december",
+    "12月"
+   ],
+   [
+    "cd.ev.spring",
+    "春"
+   ],
+   [
+    "cd.ev.summer",
+    "夏"
+   ],
+   [
+    "cd.ev.autumn",
+    "秋"
+   ],
+   [
+    "cd.ev.winter",
+    "冬"
    ]
   ],
   "ko": [
@@ -3586,6 +4286,146 @@
    [
     "cd.istoday",
     "바로 오늘!"
+   ],
+   [
+    "cd.ev.christmas",
+    "크리스마스"
+   ],
+   [
+    "cd.ev.christmas-eve",
+    "크리스마스 이브"
+   ],
+   [
+    "cd.ev.new-year",
+    "새 해"
+   ],
+   [
+    "cd.ev.new-years-eve",
+    "새해 전날 밤"
+   ],
+   [
+    "cd.ev.halloween",
+    "할로윈"
+   ],
+   [
+    "cd.ev.valentines-day",
+    "발렌타인 데이"
+   ],
+   [
+    "cd.ev.st-patricks-day",
+    "성 패트릭 데이"
+   ],
+   [
+    "cd.ev.easter",
+    "부활절"
+   ],
+   [
+    "cd.ev.mothers-day",
+    "어머니의 날"
+   ],
+   [
+    "cd.ev.fathers-day",
+    "아버지의 날"
+   ],
+   [
+    "cd.ev.thanksgiving",
+    "추수감사절"
+   ],
+   [
+    "cd.ev.thanksgiving-canada",
+    "추수감사절(캐나다)"
+   ],
+   [
+    "cd.ev.black-friday",
+    "블랙 프라이데이"
+   ],
+   [
+    "cd.ev.boxing-day",
+    "박싱 데이"
+   ],
+   [
+    "cd.ev.earth-day",
+    "지구의 날"
+   ],
+   [
+    "cd.ev.cinco-de-mayo",
+    "싱코 데 마요"
+   ],
+   [
+    "cd.ev.labor-day",
+    "노동절"
+   ],
+   [
+    "cd.ev.remembrance-day",
+    "현충일"
+   ],
+   [
+    "cd.ev.april-fools-day",
+    "만우절"
+   ],
+   [
+    "cd.ev.january",
+    "1월"
+   ],
+   [
+    "cd.ev.february",
+    "2월"
+   ],
+   [
+    "cd.ev.march",
+    "3월"
+   ],
+   [
+    "cd.ev.april",
+    "4월"
+   ],
+   [
+    "cd.ev.may",
+    "5월"
+   ],
+   [
+    "cd.ev.june",
+    "6월"
+   ],
+   [
+    "cd.ev.july",
+    "7월"
+   ],
+   [
+    "cd.ev.august",
+    "8월"
+   ],
+   [
+    "cd.ev.september",
+    "9월"
+   ],
+   [
+    "cd.ev.october",
+    "10월"
+   ],
+   [
+    "cd.ev.november",
+    "11월"
+   ],
+   [
+    "cd.ev.december",
+    "12월"
+   ],
+   [
+    "cd.ev.spring",
+    "봄"
+   ],
+   [
+    "cd.ev.summer",
+    "여름"
+   ],
+   [
+    "cd.ev.autumn",
+    "가을"
+   ],
+   [
+    "cd.ev.winter",
+    "겨울"
    ]
   ],
   "de": [
@@ -4184,6 +5024,146 @@
    [
     "cd.istoday",
     "Heute ist es!"
+   ],
+   [
+    "cd.ev.christmas",
+    "Weihnachten"
+   ],
+   [
+    "cd.ev.christmas-eve",
+    "Heiligabend"
+   ],
+   [
+    "cd.ev.new-year",
+    "Neujahr"
+   ],
+   [
+    "cd.ev.new-years-eve",
+    "Silvester"
+   ],
+   [
+    "cd.ev.halloween",
+    "Halloween"
+   ],
+   [
+    "cd.ev.valentines-day",
+    "Valentinstag"
+   ],
+   [
+    "cd.ev.st-patricks-day",
+    "St.-Patricks-Day"
+   ],
+   [
+    "cd.ev.easter",
+    "Ostern"
+   ],
+   [
+    "cd.ev.mothers-day",
+    "Muttertag"
+   ],
+   [
+    "cd.ev.fathers-day",
+    "Vatertag"
+   ],
+   [
+    "cd.ev.thanksgiving",
+    "Erntedankfest"
+   ],
+   [
+    "cd.ev.thanksgiving-canada",
+    "Erntedankfest (Kanada)"
+   ],
+   [
+    "cd.ev.black-friday",
+    "Black Friday"
+   ],
+   [
+    "cd.ev.boxing-day",
+    "2. Weihnachtstag"
+   ],
+   [
+    "cd.ev.earth-day",
+    "Tag der Erde"
+   ],
+   [
+    "cd.ev.cinco-de-mayo",
+    "Cinco de Mayo"
+   ],
+   [
+    "cd.ev.labor-day",
+    "Tag der Arbeit"
+   ],
+   [
+    "cd.ev.remembrance-day",
+    "Remembrance Day"
+   ],
+   [
+    "cd.ev.april-fools-day",
+    "Aprilscherz"
+   ],
+   [
+    "cd.ev.january",
+    "Januar"
+   ],
+   [
+    "cd.ev.february",
+    "Februar"
+   ],
+   [
+    "cd.ev.march",
+    "März"
+   ],
+   [
+    "cd.ev.april",
+    "April"
+   ],
+   [
+    "cd.ev.may",
+    "Mai"
+   ],
+   [
+    "cd.ev.june",
+    "Juni"
+   ],
+   [
+    "cd.ev.july",
+    "Juli"
+   ],
+   [
+    "cd.ev.august",
+    "August"
+   ],
+   [
+    "cd.ev.september",
+    "September"
+   ],
+   [
+    "cd.ev.october",
+    "Oktober"
+   ],
+   [
+    "cd.ev.november",
+    "November"
+   ],
+   [
+    "cd.ev.december",
+    "Dezember"
+   ],
+   [
+    "cd.ev.spring",
+    "Frühling"
+   ],
+   [
+    "cd.ev.summer",
+    "Sommer"
+   ],
+   [
+    "cd.ev.autumn",
+    "Herbst"
+   ],
+   [
+    "cd.ev.winter",
+    "Winter"
    ]
   ],
   "fr": [
@@ -4782,6 +5762,146 @@
    [
     "cd.istoday",
     "C est aujourd hui !"
+   ],
+   [
+    "cd.ev.christmas",
+    "Noël"
+   ],
+   [
+    "cd.ev.christmas-eve",
+    "Réveillon de Noël"
+   ],
+   [
+    "cd.ev.new-year",
+    "Nouvel An"
+   ],
+   [
+    "cd.ev.new-years-eve",
+    "Saint-Sylvestre"
+   ],
+   [
+    "cd.ev.halloween",
+    "Halloween"
+   ],
+   [
+    "cd.ev.valentines-day",
+    "Saint-Valentin"
+   ],
+   [
+    "cd.ev.st-patricks-day",
+    "Saint-Patrick"
+   ],
+   [
+    "cd.ev.easter",
+    "Pâques"
+   ],
+   [
+    "cd.ev.mothers-day",
+    "Fête des mères"
+   ],
+   [
+    "cd.ev.fathers-day",
+    "Fête des pères"
+   ],
+   [
+    "cd.ev.thanksgiving",
+    "Action de grâce"
+   ],
+   [
+    "cd.ev.thanksgiving-canada",
+    "Action de grâce (Canada)"
+   ],
+   [
+    "cd.ev.black-friday",
+    "Vendredi noir"
+   ],
+   [
+    "cd.ev.boxing-day",
+    "Lendemain de Noël"
+   ],
+   [
+    "cd.ev.earth-day",
+    "Jour de la Terre"
+   ],
+   [
+    "cd.ev.cinco-de-mayo",
+    "Cinco de Mayo"
+   ],
+   [
+    "cd.ev.labor-day",
+    "Fête du travail"
+   ],
+   [
+    "cd.ev.remembrance-day",
+    "Jour du Souvenir"
+   ],
+   [
+    "cd.ev.april-fools-day",
+    "Poisson d avril"
+   ],
+   [
+    "cd.ev.january",
+    "janvier"
+   ],
+   [
+    "cd.ev.february",
+    "février"
+   ],
+   [
+    "cd.ev.march",
+    "mars"
+   ],
+   [
+    "cd.ev.april",
+    "avril"
+   ],
+   [
+    "cd.ev.may",
+    "mai"
+   ],
+   [
+    "cd.ev.june",
+    "juin"
+   ],
+   [
+    "cd.ev.july",
+    "juillet"
+   ],
+   [
+    "cd.ev.august",
+    "août"
+   ],
+   [
+    "cd.ev.september",
+    "septembre"
+   ],
+   [
+    "cd.ev.october",
+    "octobre"
+   ],
+   [
+    "cd.ev.november",
+    "novembre"
+   ],
+   [
+    "cd.ev.december",
+    "décembre"
+   ],
+   [
+    "cd.ev.spring",
+    "printemps"
+   ],
+   [
+    "cd.ev.summer",
+    "été"
+   ],
+   [
+    "cd.ev.autumn",
+    "automne"
+   ],
+   [
+    "cd.ev.winter",
+    "hiver"
    ]
   ],
   "id": [
@@ -5380,6 +6500,146 @@
    [
     "cd.istoday",
     "Ini harinya!"
+   ],
+   [
+    "cd.ev.christmas",
+    "Natal"
+   ],
+   [
+    "cd.ev.christmas-eve",
+    "Malam Natal"
+   ],
+   [
+    "cd.ev.new-year",
+    "Tahun Baru"
+   ],
+   [
+    "cd.ev.new-years-eve",
+    "Malam Tahun Baru"
+   ],
+   [
+    "cd.ev.halloween",
+    "Halloween"
+   ],
+   [
+    "cd.ev.valentines-day",
+    "Hari Valentine"
+   ],
+   [
+    "cd.ev.st-patricks-day",
+    "Hari St Patrick"
+   ],
+   [
+    "cd.ev.easter",
+    "Paskah"
+   ],
+   [
+    "cd.ev.mothers-day",
+    "Hari Ibu"
+   ],
+   [
+    "cd.ev.fathers-day",
+    "Hari Ayah"
+   ],
+   [
+    "cd.ev.thanksgiving",
+    "Hari Pengucapan Syukur"
+   ],
+   [
+    "cd.ev.thanksgiving-canada",
+    "Hari Pengucapan Syukur (Kanada)"
+   ],
+   [
+    "cd.ev.black-friday",
+    "Black Friday"
+   ],
+   [
+    "cd.ev.boxing-day",
+    "Boxing Day"
+   ],
+   [
+    "cd.ev.earth-day",
+    "Hari Bumi"
+   ],
+   [
+    "cd.ev.cinco-de-mayo",
+    "Cinco de Mayo"
+   ],
+   [
+    "cd.ev.labor-day",
+    "Hari Buruh"
+   ],
+   [
+    "cd.ev.remembrance-day",
+    "Hari Peringatan"
+   ],
+   [
+    "cd.ev.april-fools-day",
+    "Hari April Mop"
+   ],
+   [
+    "cd.ev.january",
+    "Januari"
+   ],
+   [
+    "cd.ev.february",
+    "Februari"
+   ],
+   [
+    "cd.ev.march",
+    "Maret"
+   ],
+   [
+    "cd.ev.april",
+    "April"
+   ],
+   [
+    "cd.ev.may",
+    "Mei"
+   ],
+   [
+    "cd.ev.june",
+    "Juni"
+   ],
+   [
+    "cd.ev.july",
+    "Juli"
+   ],
+   [
+    "cd.ev.august",
+    "Agustus"
+   ],
+   [
+    "cd.ev.september",
+    "September"
+   ],
+   [
+    "cd.ev.october",
+    "Oktober"
+   ],
+   [
+    "cd.ev.november",
+    "November"
+   ],
+   [
+    "cd.ev.december",
+    "Desember"
+   ],
+   [
+    "cd.ev.spring",
+    "musim semi"
+   ],
+   [
+    "cd.ev.summer",
+    "musim panas"
+   ],
+   [
+    "cd.ev.autumn",
+    "musim gugur"
+   ],
+   [
+    "cd.ev.winter",
+    "musim dingin"
    ]
   ]
  }
