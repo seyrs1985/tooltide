@@ -1,12 +1,12 @@
 /* ToolTide service worker — offline fallback + fast repeat visits. */
 var BASE = "/tooltide/";
-var CACHE = "tooltide-v1-202609142024";
+var CACHE = "tooltide-v1-202609142029";
 var PRECACHE = [BASE, BASE + "i18n.js", BASE + "manifest.webmanifest",
   BASE + "favicon.ico", BASE + "apple-touch-icon.png",
   BASE + "icon-192.png", BASE + "icon-512.png", BASE + "opensearch.xml"];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) {
-    return c.addAll(PRECACHE);
+    return c.addAll(PRECACHE.map(function (u) { return new Request(u, { cache: "reload" }); }));
   }).then(function () { return self.skipWaiting(); }));
 });
 self.addEventListener("activate", function (e) {
@@ -22,6 +22,16 @@ self.addEventListener("fetch", function (e) {
   var url = new URL(req.url);
   if (url.origin !== location.origin || url.pathname.indexOf(BASE) !== 0) return;
   if (req.headers.get("range")) return;
+  if (url.pathname === BASE + "i18n.js") {
+    e.respondWith(fetch(req).then(function (res) {
+      if (res.ok) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (c) { c.put(req, copy); });
+      }
+      return res;
+    }).catch(function () { return caches.match(req); }));
+    return;
+  }
   if (req.mode === "navigate") {
     e.respondWith(fetch(req).then(function (res) {
       if (res.ok) {

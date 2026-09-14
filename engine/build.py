@@ -278,7 +278,7 @@ var PRECACHE = [BASE, BASE + "i18n.js", BASE + "manifest.webmanifest",
   BASE + "icon-192.png", BASE + "icon-512.png", BASE + "opensearch.xml"];
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) {
-    return c.addAll(PRECACHE);
+    return c.addAll(PRECACHE.map(function (u) { return new Request(u, { cache: "reload" }); }));
   }).then(function () { return self.skipWaiting(); }));
 });
 self.addEventListener("activate", function (e) {
@@ -294,6 +294,16 @@ self.addEventListener("fetch", function (e) {
   var url = new URL(req.url);
   if (url.origin !== location.origin || url.pathname.indexOf(BASE) !== 0) return;
   if (req.headers.get("range")) return;
+  if (url.pathname === BASE + "i18n.js") {
+    e.respondWith(fetch(req).then(function (res) {
+      if (res.ok) {
+        var copy = res.clone();
+        caches.open(CACHE).then(function (c) { c.put(req, copy); });
+      }
+      return res;
+    }).catch(function () { return caches.match(req); }));
+    return;
+  }
   if (req.mode === "navigate") {
     e.respondWith(fetch(req).then(function (res) {
       if (res.ok) {
@@ -350,7 +360,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="",
                if favicon_ready else "")
     # registered on window load so it never competes with first paint
     sw_reg = (f'<script>if("serviceWorker" in navigator)addEventListener("load",'
-              f'function(){{navigator.serviceWorker.register("{esc(cfg["base_url"])}sw.js")'
+              f'function(){{navigator.serviceWorker.register("{esc(cfg["base_url"])}sw.js",{{updateViaCache:"none"}})'
               f'.catch(function(){{}})}})</script>\n'
               if sw_ready else "")
     touch = (f'<link rel="apple-touch-icon" href="{esc(cfg["base_url"])}{TOUCH_ICON}">\n'

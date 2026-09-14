@@ -162,6 +162,7 @@ function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'
 var LC=(window.ttLang&&window.ttLang())||'en-US';
 var t=new Date();a.value=iso(t);b.value=iso(new Date(t.getTime()+12096e5));
 function run(){
+  LC=(window.ttLang&&window.ttLang())||LC;
   if(!a.value||!b.value)return;
   var d1=new Date(a.value+'T00:00:00'),d2=new Date(b.value+'T00:00:00');
   var sign=d2<d1?-1:1,lo=sign<0?d2:d1,hi=sign<0?d1:d2;
