@@ -642,6 +642,51 @@ if(document.addEventListener)document.addEventListener('click',function(e){
 hashExpand();
 })();</script>"""
 
+# Sticky chip-bar scrollspy — the docked category nav highlights the chip
+# whose section is nearest the viewport top, and on mobile keeps it visible
+# inside the horizontal strip. Progressive enhancement: without JS the bar
+# still works as plain anchors, just without the highlight.
+CHIPS_SPY_JS = """<script>(function(){
+var bar=document.querySelector('.hero-chips');
+if(!bar)return;
+var chips=bar.querySelectorAll('a'),secs=[],i;
+for(i=0;i<chips.length;i++)secs.push(document.getElementById(chips[i].getAttribute('href').slice(1)));
+var all=document.getElementById('all'),pending=false;
+function spy(){
+  pending=false;
+  var y=(bar.offsetHeight||80)+50,cur=-1,j,s;
+  for(j=0;j<secs.length;j++){
+    s=secs[j];
+    // offsetParent===null marks sections hidden by the live search:
+    // display:none collapses their rect to a zero box at the page top,
+    // which would otherwise grab the highlight for the last category.
+    if(s&&s.offsetParent!==null&&s.getBoundingClientRect().top<=y)cur=j;
+  }
+  if(all&&all.offsetParent!==null&&all.getBoundingClientRect().top<=y)cur=-1;
+  for(j=0;j<chips.length;j++){
+    if(j===cur)chips[j].setAttribute('aria-current','true');
+    else chips[j].removeAttribute('aria-current');
+  }
+  if(cur>-1&&chips[cur].scrollIntoView){
+    var smooth=true;
+    try{smooth=!matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+    try{chips[cur].scrollIntoView({block:'nearest',inline:'nearest',behavior:smooth?'smooth':'auto'});}catch(e){}
+  }
+}
+function queue(){
+  if(pending)return;
+  pending=true;
+  if(window.requestAnimationFrame)window.requestAnimationFrame(spy);
+  else spy();
+}
+if(window.addEventListener){
+  window.addEventListener('scroll',queue,{passive:true});
+  window.addEventListener('resize',queue,{passive:true});
+  window.addEventListener('load',queue);
+}
+spy();
+})();</script>"""
+
 
 def tool_card(p, base, extra=False, cat_label=""):
     emoji = (p.get("args") or {}).get("emoji") or TOOL_EMOJI.get(p["tool"], "🔧")
@@ -902,8 +947,8 @@ def build_index(cfg, all_pages, cat_info):
   <p data-i18n="home.hero.sub">Countdowns, calculators, converters and generators — fast, private, and free. Everything runs in your browser; nothing you type ever leaves your device.</p>
       <input type="search" id="tool-search" placeholder="Search tools… (e.g. percent, kg, christmas)" aria-label="Search tools" autocomplete="off" spellcheck="false" autocapitalize="off" enterkeyhint="search" data-i18n-placeholder="home.search.ph" data-i18n-aria="search.aria">
   <p class="search-status" id="search-status" role="status"></p>
-  <nav class="hero-chips" aria-label="Browse tools by category">{chips}</nav>
 </section>
+<nav class="hero-chips" aria-label="Browse tools by category">{chips}</nav>
 <div id="search-results" class="grid" style="display:none"></div>
 {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
 {new_section}
@@ -916,6 +961,7 @@ def build_index(cfg, all_pages, cat_info):
     doc += BACKTOP
     doc += THEME_JS
     doc += CATS_JS
+    doc += CHIPS_SPY_JS
     doc += f"""<script>(function(){{
 var CARDS={cards_js};
 var inp=document.getElementById('tool-search'),out=document.getElementById('search-results'),live=document.getElementById('search-status');

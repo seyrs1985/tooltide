@@ -7,6 +7,8 @@
 
 ## 已修
 - BUG-005|全站chrome(用户报告)|英文态|截图=切English后仍见中文(头部搜索占位符/面包屑计算器);线上HTML验证干净英文,IAB复现zh→en切换正常→定性=用户端reload未完成或bfcache恢复旧zh DOM|用户截图|已修R3(i18n.js pageshow persisted时原地重apply+选择器同步;ttSetLang加reload兜底重试)
+- BUG-006|倒计时族(days-until-*×7页,渲染器tools.py CD)|de/ja全部|动态结果文案零i18n接线:时钟行"h:m:s remaining today"、大数字标签"days to go"、标题钩子"100d to Christmas"、日期/千分位硬编码en-US|data/i18n_shots/(DOM探针证据:xmas页 de clock/title/lbl)|已修R4+线上复验通过(tools.py加T()辅助+LC=ttLang(),接cd.days/cd.daysyours/cd.today/cd.clock/cd.title×5键×9语言;复验de:clock=h:m:s heute verbleibend,title=Noch 100 Tage bis Christmas,lbl=Tage verbleibend,date=Fr., 25. Dez. 2026;ja日期2026年12月25日(金),overflowX=false;事件名Christmas英译键留下轮)
+- BUG-007|全站SW缓存|所有语言|sw.js字节永不变→CACHE"tooltide-v1"永不重装→PRECACHE里的i18n.js被钉死在访客安装SW当天(旧键缺失/旧文案顽固不更新,用户端旧缓存根因之一)|线上sw.js+IAB复现(二次reload仍旧i18n.js)|已修R4+线上复验通过(CACHE烙构建时间戳tooltide-v1-YYYYMMDDHHMM,每次部署字节变化→浏览器重装SW→预缓存重取最新资产;复验:新SW controlled后de全链德语生效)
 - BUG-004|全站 header|ru(桌面1280)|R1单行方案回归:logo被挤到内部折行(🌊与ToolTide两行,header高90px),nav末项"Все инст…"截断|data/i18n_shots/home-ru-top-7.png|已修R2+线上复验通过(logo nowrap+nav gap10/字号.9rem+行距8px+select收窄,navClip=0/headH68)
 - BUG-001|全站 header|de/ja 等宽语言(桌面1280+)|语言选择器被宽 nav 挤到第二行折行|data/i18n_shots/home-de-top-2.png|已修+线上复验通过 2026-09-14 R1(>700px 时 nav 单行+可横向滑、header 容器放宽 1200px,style.css)
 - BUG-002|首页|全部 9 译文语言|document.title 不随 tt_lang 切换,tab 始终英文标题|i18n_shots/home-de-top-2.png|已修+线上复验通过 2026-09-14 R1(首页 `<title data-i18n-title="meta.title">` + chrome.meta.title 键 ×9 语言 + i18n.js apply() 支持 title 节点;工具页 SEO 标题不动)

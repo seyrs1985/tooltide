@@ -1,25 +1,3 @@
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1171: SyntaxWarning: invalid escape sequence '\s'
-  t=t.replace(/<(script|style)[^>]*>[\s\S]*?<\/>/gi,function(m){tags++;return '';});
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1270: SyntaxWarning: invalid escape sequence '\d'
-  var nums=(inp.value.match(/-?\d+(?:\.\d+)?(?:e[+-]?\d+)?/gi)||[]).map(Number);
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1305: SyntaxWarning: invalid escape sequence '\s'
-  var parts=v.trim().split(/\s+/).filter(Boolean),bytes=[];
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1736: SyntaxWarning: invalid escape sequence '\d'
-  var m=v.match(/^(\d+)?[- ]?(\d+)\/(\d+)$/);
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1986: SyntaxWarning: invalid escape sequence '\s'
-  v=v.trim().toLowerCase().replace(/\s/g,'');
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2110: SyntaxWarning: invalid escape sequence '\d'
-  if(!/^\d+$/.test(v)){out.textContent='-';note.textContent='Whole numbers only.';return;}
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2577: SyntaxWarning: invalid escape sequence '\s'
-  return v.trim().split(/\s+/).filter(Boolean).map(function(g){
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2626: SyntaxWarning: invalid escape sequence '\d'
-  numStr=numStr.replace(/,/g,"").replace(/^0+(?=\d)/,"");
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2691: SyntaxWarning: invalid escape sequence '\s'
-  return s.toLowerCase().split(/\s+/).map(function(word){
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2779: SyntaxWarning: invalid escape sequence '\s'
-  s=s.toLowerCase().replace(/-/g,' ').replace(/\band\b/g,' ').replace(/,/g,' ').replace(/\s+/g,' ').trim();
-I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2880: SyntaxWarning: invalid escape sequence '\s'
-  out.value=mode==='chars'?v.split('').reverse().join(''):v.split(/\s+/).filter(Boolean).reverse().join(' ');
   asset /manifest.webmanifest
   asset /sw.js
   asset /style.css
@@ -269,14 +247,39 @@ I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2880: Synta
   page  /stock-average-calculator/
   page  /position-size-calculator/
   page  /lottery-odds-calculator/
+  page  /pomodoro-timer/
+  page  /password-strength-checker/
+  page  /crypto-profit-calculator/
+  page  /dog-age-calculator/
+  page  /cat-age-calculator/
+  page  /flesch-reading-ease-calculator/
+  page  /dew-point-calculator/
+  page  /btu-calculator/
+  page  /tire-size-comparison/
+  page  /heart-rate-zones-calculator/
+  page  /golf-handicap-calculator/
+  page  /bpm-delay-calculator/
+  page  /ev-charging-cost-calculator/
+  page  /golden-hour-calculator/
+  page  /pizza-dough-calculator/
+  page  /inflation-calculator/
+  page  /sleep-debt-calculator/
+  page  /coffee-ratio-calculator/
+  page  /break-even-calculator/
+  page  /ideal-weight-calculator/
+  page  /lorem-ipsum-generator/
+  page  /cagr-calculator/
+  page  /pool-volume-calculator/
+  page  /time-spent-calculator/
+  page  /meat-cooking-time-calculator/
+  page  /car-depreciation-calculator/
+  page  /jet-lag-calculator/
+  page  /mulch-calculator/
+  page  /laminate-flooring-calculator/
+  page  /wallpaper-calculator/
+  page  /diaper-cost-calculator/
+  page  /wake-window-calculator/
+  page  /formula-feeding-calculator/
   page  /
   asset /opensearch.xml
-Built 245 tool pages + 5 site pages → docs/  (https://seyrs1985.github.io/tooltide/)
-  removed docs/games/ (moved to NeonPlay)
-  games/index.html  ->  redirect
-  games/neon-tide/index.html  ->  redirect
-  games/snake/index.html  ->  redirect
-  games/2048/index.html  ->  redirect
-  games/memory-pairs/index.html  ->  redirect
-  games/tic-tac-toe/index.html  ->  redirect
-Games redirects built: 6 stubs -> https://seyrs1985.github.io/neonplay/
+Built 278 tool pages + 5 site pages → docs/  (https://seyrs1985.github.io/tooltide/)

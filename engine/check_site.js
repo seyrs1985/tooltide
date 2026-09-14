@@ -124,6 +124,18 @@ try {
   assert(idx.indexOf('id="new"') > -1 && idx.indexOf('id="new"') < idx.indexOf('id="countdown"'),
     'homepage: #new sits above the category sections');
 
+  // sticky category bar: lives OUTSIDE .hero (the hero scrolls away, the bar
+  // docks flush under the viewport top), directly above the results grid
+  assert(/<\/section>\s*<nav class="hero-chips"/.test(idx)
+    && idx.indexOf('class="hero-chips"') > -1
+    && idx.indexOf('class="hero-chips"') < idx.indexOf('id="search-results"'),
+    'homepage: chip bar docked between hero and search results');
+  const spyScript = [...idx.matchAll(/<script(?![^>]*ld\+json)(?![^>]*speculationrules)[^>]*>([\s\S]*?)<\/script>/g)]
+    .map(m => m[1]).find(s => s.includes("querySelector('.hero-chips')"));
+  assert(!!spyScript && spyScript.includes('offsetParent!==null')
+    && spyScript.includes("setAttribute('aria-current','true'"),
+    'homepage: chip scrollspy guards search-hidden sections and sets aria-current');
+
   // search inputs: mobile keyboards show a Search key, no autocorrect haze
   assert((idx.match(/enterkeyhint="search"/g) || []).length === 2,
     'homepage: hero + header search inputs enterkeyhint=search');
@@ -477,6 +489,13 @@ try {
     && /@media print\{[\s\S]*\.hero h1\{background-image:none;-webkit-text-fill-color:currentColor/.test(flatCss)
     && /\.site-head nav,\.head-search,\.theme-toggle,\.lang-select,\.to-top,\.hero-chips,#tool-search,\.search-status,\.ad,\.four04-search,\.cat-more\{display:none!important\}/.test(flatCss),
     'style.css: print forces light palette, plain headline, hides chrome');
+  // sticky chip bar: dock rule, scrollspy active pair, anchor offsets sized
+  // to clear the docked bar on desktop (120px) and the one-row mobile strip (60px)
+  assert(/\.hero-chips\{position:sticky;top:0;z-index:40;/.test(flatCss)
+    && /\.hero-chips a\[aria-current="true"\]\{background:var\(--brand-fill\);border-color:var\(--brand-fill\);color:#fff\}/.test(flatCss)
+    && /body\.home section\[id\]\{scroll-margin-top:120px\}/.test(flatCss)
+    && /body\.home section\[id\]\{scroll-margin-top:60px\}/.test(flatCss),
+    'style.css: sticky chip bar + scrollspy current pair + anchor scroll margins (desktop+mobile)');
 
   // stub-DOM behavior of CATS_JS
   const catsScript = [...idx.matchAll(/<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g)]

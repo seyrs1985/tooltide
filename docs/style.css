@@ -80,6 +80,10 @@ h2{font-size:1.25rem;margin:26px 0 10px;text-wrap:balance}
 p{text-wrap:pretty}
 ::selection{background:var(--accent-soft);color:var(--text)}
 section[id],main[id]{scroll-margin-top:16px}
+/* homepage only: the sticky chip bar docks over the viewport top, so anchor
+   targets (chips, footer category links, search "browse all") must land
+   below it instead of underneath */
+body.home section[id]{scroll-margin-top:120px}
 
 /* cross-document view transitions: a quiet cross-fade when moving between
    pages (Chromium 126+; every other browser ignores the rule). Users with
@@ -322,10 +326,15 @@ input[type=checkbox],input[type=radio],progress,meter{accent-color:var(--brand)}
 .value-card p{font-size:.9rem;color:var(--text-3);margin:0}
 .value-emoji{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:var(--result-bg);font-size:1.3rem}
 
-/* hero category chips */
-.hero-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.hero-chips a{padding:7px 14px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:.88rem;font-weight:600;color:var(--text-2);text-decoration:none;transition:border-color .15s,color .15s}
+/* hero category chips — sticky category nav for a very long page: travels
+   with the hero, then docks flush under the viewport top so categories stay
+   one click away from any scroll position */
+.hero-chips{position:sticky;top:0;z-index:40;display:flex;gap:8px;flex-wrap:wrap;padding:12px 0 10px;background:var(--bg);border-bottom:1px solid var(--border)}
+.hero-chips a{padding:7px 14px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:.88rem;font-weight:600;color:var(--text-2);text-decoration:none;transition:border-color .15s,color .15s,background-color .15s}
 .hero-chips a:hover{border-color:var(--accent-soft);color:var(--brand)}
+/* scrollspy current-section chip — same active pair as .chip.active */
+.hero-chips a[aria-current="true"]{background:var(--brand-fill);border-color:var(--brand-fill);color:#fff}
+.hero-chips a[aria-current="true"]:hover{border-color:var(--brand-fill-hover);color:#fff}
 
 /* homepage live search */
 #search-results mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
@@ -402,6 +411,12 @@ body.a2hs-show .to-top{bottom:76px}
   .head-search{order:4;flex:1 1 100%;max-width:none;margin-top:2px}
   .head-search input,.head-search button{height:44px}
   .lang-select{height:44px}
+  /* mobile: the docked bar must stay one row tall — chips become a
+     horizontally scrollable strip instead of wrapping into three rows */
+  .hero-chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-top:9px;padding-bottom:9px}
+  .hero-chips::-webkit-scrollbar{display:none}
+  .hero-chips a{flex:0 0 auto;white-space:nowrap}
+  body.home section[id]{scroll-margin-top:60px}
 }
 @media(prefers-reduced-motion:reduce){.card,.pw-bar,.hero-chips a,.to-top,.faq summary::after,.theme-toggle,.head-search button,.cat-more,.cat-more::after{transition:none}.card:hover,.to-top,.btn:active,.cat-more[aria-expanded="true"]::after{transform:none}html{scroll-behavior:auto}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
 
@@ -409,7 +424,7 @@ body.a2hs-show .to-top{bottom:76px}
    borderless primary button loses its affordance, and the gradient headline
    (background-clip:text + transparent fill) would vanish entirely. */
 @media(forced-colors:active){
-  .btn,.chip.active,.name-card.copied{border:1px solid CanvasText}
+  .btn,.chip.active,.hero-chips a[aria-current="true"],.name-card.copied{border:1px solid CanvasText}
   .hero h1{background-image:none;-webkit-text-fill-color:currentColor;color:CanvasText}
   .card:focus-visible,.card:hover{outline:2px solid Highlight;outline-offset:2px}
 }
