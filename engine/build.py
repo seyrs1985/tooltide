@@ -272,7 +272,7 @@ def ensure_favicon():
 # Third-party traffic (GA4/AdSense) and non-GET requests pass through untouched.
 SW_JS = """/* ToolTide service worker — offline fallback + fast repeat visits. */
 var BASE = "{base}";
-var CACHE = "tooltide-v1";
+var CACHE = "tooltide-{v}";
 var PRECACHE = [BASE, BASE + "i18n.js", BASE + "manifest.webmanifest",
   BASE + "favicon.ico", BASE + "apple-touch-icon.png",
   BASE + "icon-192.png", BASE + "icon-512.png", BASE + "opensearch.xml"];
@@ -323,11 +323,16 @@ self.addEventListener("fetch", function (e) {
 
 
 def ensure_sw(cfg):
-    """docs/sw.js with the site path prefix baked in (scope covers every page)."""
+    """docs/sw.js with the site path prefix baked in (scope covers every page).
+    The cache name carries a build stamp: sw.js bytes change on every deploy,
+    so browsers reinstall the SW and PRECACHE re-fetches current assets —
+    otherwise precached i18n.js stays frozen at install time forever."""
     global sw_ready
     from urllib.parse import urlparse
+    from datetime import datetime, timezone
     base = urlparse(cfg["base_url"]).path or "/"
-    write("sw.js", SW_JS.replace("{base}", base))
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M")
+    write("sw.js", SW_JS.replace("{base}", base).replace("{v}", "v1-" + stamp))
     sw_ready = True
     print("  asset /sw.js")
 
