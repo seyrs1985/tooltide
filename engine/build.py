@@ -40,10 +40,10 @@ TOOL_EMOJI = {
  "finalgrade": "🏁", "fraction": "🍰", "fuelcost": "🚗", "gpa": "🧑‍🎓",
  "gst": "🇮🇳", "halfbday": "🎈", "heatindex": "🥵", "hoursdiff": "🕐",
  "inchfrac": "🪚", "jsontool": "📋", "jwtdecode": "🔑", "loanpay": "🏠",
- "macros": "🥑", "onerepmax": "🏋️", "oven": "🥧", "overtime": "⏰",
+ "macros": "🥑", "onerepmax": "🏋️", "onlinetimer": "⏲️", "oven": "🥧", "overtime": "⏰",
  "pace": "👟", "paintcalc": "🖌️", "pregnancy": "🤰", "ratiocalc": "⚖️",
  "rent": "🏘️", "savings": "🐷", "simpleint": "💹", "sleepcycle": "😴",
- "slopecalc": "⛰️", "stddev": "🔔", "striphtml": "🧼", "tdee": "🍽️",
+ "slopecalc": "⛰️", "stddev": "🔔", "stopwatch": "🕰️", "striphtml": "🧼", "tdee": "🍽️",
  "teamgen": "👥", "tilecalc": "🔲", "timecard": "🕘", "tipsplit": "💸",
  "tzconvert": "🌐", "upside": "🙃", "urlcod": "🔣", "vatcalc": "🇪🇺",
  "water": "💧", "weeknum": "🗓️", "windchill": "🥶",
@@ -700,8 +700,29 @@ def build_page(cfg, p, all_pages, cat_info):
          "item": (item[1] or canonical)}
         for i, item in enumerate(crumb_items)]}
 
+    # Cluster-aware related links: rank siblings by shared significant
+    # keywords (loan pages surface amortize/debt, not random peers), then
+    # fill leftover slots with best-overlap pages from other categories.
+    def _sig_words(s):
+        stop = {"calculator", "converter", "to", "and", "for", "the", "of",
+                "in", "date", "time", "tool", "online", "free", "your"}
+        return {w for w in re.split(r"[^a-z0-9]+", s.lower())
+                if len(w) > 2 and w not in stop}
+    _own = _sig_words(str(p.get("keyword", "")) + " " + p["h1"])
+
+    def _overlap(x):
+        # one-sided containment: how many of THIS page's domain words the
+        # candidate mentions; keyword/h1 hits count double vs desc prose,
+        # so sparse keyword matches outrank generic description words
+        core = _sig_words(str(x.get("keyword", "")) + " " + x["h1"])
+        hay = core | _sig_words(str(x.get("desc", "")))
+        return 2 * len(_own & core) + len(_own & hay)
+
     related = [x for x in all_pages if x["category"] == p["category"] and x["slug"] != p["slug"]]
-    related += [x for x in all_pages if x["category"] != p["category"]]
+    related.sort(key=_overlap, reverse=True)
+    others = [x for x in all_pages if x["category"] != p["category"]]
+    others.sort(key=_overlap, reverse=True)
+    related += others
     related_html = "".join(
         tool_card(x, base, cat_label=(cat_info or {}).get(x["category"], ("",))[0])
         for x in related[:6])

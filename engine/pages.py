@@ -4263,6 +4263,66 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "online-timer",
+        "title": "Online Timer — Free Countdown Timer Minutes:Seconds with Beep",
+        "h1": "Online Timer",
+        "desc": "Free online countdown timer with presets (1-60 min), tab-title live countdown and a three-beep alarm at zero. Accurate wall-clock timing, no sign-up.",
+        "category": "countdown",
+        "keyword": "online timer",
+        "tool": "onlinetimer",
+        "args": {},
+        "intro": [
+            "A web timer should do three things well: start instantly, keep perfect time in a background tab, and get your attention when it ends. This one measures elapsed time from the system clock rather than counting ticks, so tab throttling cannot drift it - a 25-minute pomodoro finishes in 25 real minutes. At zero it plays three beeps and flips the tab title to an alarm, so you notice it even from another window.",
+            "Type minutes and seconds or hit a preset chip (1, 3, 5, 10, 15, 25, 45, 60), press Start, and glance at the tab title anytime - the remaining time lives there, which is the whole point of a timer you are not watching. Your last duration is remembered for the next session, and a share link carries the exact time you configured, so 'start a 10 minute timer' is one message to a friend or a class.",
+        ],
+        "howto": [
+            "Set minutes and seconds, or tap a preset chip for common durations.",
+            "Press Start - the tab title becomes a live countdown you can watch from any window; Pause and Reset are one keypress away.",
+            "At zero: three beeps sound and the title switches to an alarm. Share button sends the exact timer as a link.",
+        ],
+        "faqs": [
+            ("Is the timer accurate in a background tab?",
+             "Yes - each refresh recomputes remaining time as end-time minus the system clock, instead of trusting that setInterval fired on schedule. Background tabs throttle timers to roughly once per minute, but wall-clock math is immune: the display might refresh late, the finish moment never moves."),
+            ("Does it make a sound at zero?",
+             "Three 880 Hz beeps via the Web Audio API - no audio files, no autoplay restrictions to fight because sound only plays after you clicked Start. The tab title also flips to an alarm message, covering muted devices and silent mode."),
+            ("Can I use it for pomodoro or workout intervals?",
+             "Presets cover the classics - 25 minutes for pomodoro focus blocks, 45 for long sessions, 5 for short breaks, 3 and 1 for planks and rest intervals between sets. The remembered-last-duration feature means repeat intervals are two clicks: preset, Start."),
+            ("Does it work offline or without an account?",
+             "No account, no install - it is a plain page that runs entirely in your browser, and once loaded it keeps working with no network at all. Bookmark it and your duration settings follow you on this device."),
+        ],
+    })
+
+    pages.append({
+        "slug": "stopwatch",
+        "title": "Online Stopwatch with Laps — Free, Accurate to 10ms",
+        "h1": "Stopwatch",
+        "desc": "Free online stopwatch with lap splits, 10ms precision and a live tab-title display. Keeps running through reloads - no sign-up, no install.",
+        "category": "countdown",
+        "keyword": "online stopwatch, lap timer",
+        "tool": "stopwatch",
+        "args": {},
+        "intro": [
+            "Stopwatches fail in two familiar ways: they drift in background tabs, and they reset when the page reloads. This one fixes both - elapsed time comes from timestamp arithmetic (start time plus accumulated time, never tick counting), and the running state persists to local storage, so an accidental refresh mid-run restores the stopwatch still running with its laps intact.",
+            "Lap records both the split and the cumulative total, which is what you actually need for interval training, brewing timers, lab work or timing speakers. While running, the tab title shows elapsed time, letting you monitor a run from another window. Precision is 10 milliseconds - honest, since browser rendering rarely justifies more.",
+        ],
+        "howto": [
+            "Press Start; the display and the tab title begin counting immediately.",
+            "Press Lap at each split - laps list both split time and running total; Stop freezes, Start resumes without zeroing.",
+            "Reset clears everything. Reload the page mid-run and the stopwatch comes back still running.",
+        ],
+        "faqs": [
+            ("How precise is it?",
+             "10 milliseconds, shown as hundredths. Under the hood it uses millisecond timestamps, so timing is accurate to the clock; the display simply rounds to hundredths - the same resolution physical stopwatches advertise."),
+            ("What happens if I reload or close the tab?",
+             "Reload mid-run: state restores and timing continues seamlessly, because elapsed time is computed from the saved start timestamp. Close the tab entirely: the frozen total is remembered, and reopening the page shows the stopped stopwatch where you left it."),
+            ("How do lap splits work?",
+             "Each Lap press stores the time since the previous lap (the split) and since Start (the total). For a 4x400 workout that means you see each lap's own time and the session total - no manual subtraction."),
+            ("Can I time something while using other apps?",
+             "Yes - that is the tab-title feature. Switch windows and the running time stays visible in the browser tab; throttling may refresh it at one-second steps in the background, but the underlying timestamp math stays exact."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

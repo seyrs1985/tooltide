@@ -6227,6 +6227,145 @@ document.getElementById('cj-share').addEventListener('click',function(){
 </script>
 """
 
+# Online timer: minutes:seconds countdown, wall-clock accurate, title-tab live
+# countdown, WebAudio beep at zero. Retention: tab-title countdown + tt_timer.
+ONLINETIMER = """<div class="tool" id="tt-tm">
+  <div class="fields">
+    <div class="field"><label for="tm-m">Minutes</label><input type="number" id="tm-m" step="1" min="0" max="600" placeholder="10"></div>
+    <div class="field"><label for="tm-s">Seconds</label><input type="number" id="tm-s" step="1" min="0" max="59" placeholder="0"></div>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0" id="tm-presets"></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tm-out" style="font-variant-numeric:tabular-nums">10:00</span><span class="result-unit" id="tm-u">ready</span></div>
+  <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="tm-go">Start</button><button type="button" class="tool-btn" id="tm-rst">Reset</button></div>
+  <div class="tool-note" id="tm-note">The countdown keeps perfect time even if the tab throttles - it measures wall-clock, not ticks. Three beeps sound at zero and the tab title shows the time remaining.</div>
+  <button type="button" class="tool-btn" id="tm-share">Share this timer</button>
+</div>
+<script>(function(){
+var M=document.getElementById('tm-m'),S=document.getElementById('tm-s');
+var OUT=document.getElementById('tm-out'),U=document.getElementById('tm-u');
+var GO=document.getElementById('tm-go');
+var endAt=null,iv=null;
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function pad(n){return String(n).padStart(2,'0');}
+function fmt(ms){var t=Math.max(0,Math.ceil(ms/1000));return Math.floor(t/60)+':'+pad(t%60);}
+function beep(at,when){setTimeout(function(){try{var c=new (window.AudioContext||window.webkitAudioContext)();var o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.25;o.start();setTimeout(function(){try{o.stop();c.close();}catch(e){}},180);}catch(e){}},when);}
+function stop(){if(iv){clearInterval(iv);iv=null;}}
+function tick(){
+  var left=endAt-Date.now();
+  if(left<=0){
+    OUT.textContent='0:00';U.textContent='done';
+    document.title='⏰ Time is up! - ToolTide';
+    beep(0,0);beep(0,350);beep(0,700);
+    stop();endAt=null;GO.textContent='Start';
+    return;
+  }
+  OUT.textContent=fmt(left);U.textContent='running';
+  document.title=fmt(left)+' - Online Timer - ToolTide';
+}
+function total(){return (Math.max(0,parseInt(M.value,10)||0))*60+(Math.max(0,parseInt(S.value,10)||0));}
+GO.addEventListener('click',function(){
+  if(endAt){stop();endAt=null;GO.textContent='Start';U.textContent='paused';return;}
+  var t=total()*1000;
+  if(t<=0)return;
+  endAt=Date.now()+t;
+  GO.textContent='Pause';
+  tick();stop();iv=setInterval(tick,250);
+  try{localStorage.setItem('tt_timer',JSON.stringify({m:M.value,s:S.value}));}catch(e){}
+});
+document.getElementById('tm-rst').addEventListener('click',function(){
+  stop();endAt=null;GO.textContent='Start';
+  var t=total();
+  OUT.textContent=t?fmt(t*1000):'0:00';U.textContent='ready';
+  document.title='Online Timer - ToolTide';
+});
+[M,S].forEach(function(el){el.addEventListener('input',function(){
+  if(!endAt){var t=total();OUT.textContent=t?fmt(t*1000):'0:00';}
+  try{localStorage.setItem('tt_timer',JSON.stringify({m:M.value,s:S.value}));}catch(e){}
+});});
+var presets=[1,3,5,10,15,25,45,60];
+var ph='';
+presets.forEach(function(p){ph+='<button type="button" class="tool-btn" data-p="'+p+'" style="padding:4px 10px">'+p+' min</button>';});
+document.getElementById('tm-presets').innerHTML=ph;
+Array.prototype.forEach.call(document.querySelectorAll('#tm-presets button'),function(b){
+  b.addEventListener('click',function(){stop();endAt=null;GO.textContent='Start';
+    M.value=b.getAttribute('data-p');S.value=0;
+    OUT.textContent=fmt(parseInt(b.getAttribute('data-p'),10)*60000);U.textContent='ready';
+  });
+});
+var qm=qs('m'),qs2=qs('s');
+if(qm!==null)M.value=qm;
+if(qs2!==null)S.value=qs2;
+if(qm===null&&qs2===null){try{var mem=JSON.parse(localStorage.getItem('tt_timer')||'null');if(mem){M.value=mem.m||'';S.value=mem.s||'';}}catch(e){}}
+var t0=total();
+OUT.textContent=t0?fmt(t0*1000):'10:00';
+document.getElementById('tm-share').addEventListener('click',function(){
+  var txt='Set a timer for '+(total()||600)+' seconds and let the tab title count it down: ';
+  var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value||'')+'&s='+encodeURIComponent(S.value||'');
+  if(navigator.share){navigator.share({title:'Online timer',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this timer';},1500);}
+});
+})();
+</script>
+"""
+
+# Stopwatch: 10ms precision, laps, survives reload via timestamped state.
+STOPWATCH = """<div class="tool" id="tt-sw">
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sw-out" style="font-variant-numeric:tabular-nums">0:00.00</span><span class="result-unit" id="sw-u">stopped</span></div>
+  <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="sw-go">Start</button><button type="button" class="tool-btn" id="sw-lap">Lap</button><button type="button" class="tool-btn" id="sw-rst">Reset</button></div>
+  <div id="sw-laps" style="font-variant-numeric:tabular-nums;font-size:.95rem;margin-top:10px"></div>
+  <div class="tool-note" id="sw-note">Measures real elapsed time from timestamps, so it stays accurate through tab throttling and even survives a page reload while running. Laps record splits.</div>
+  <button type="button" class="tool-btn" id="sw-share">Share this stopwatch</button>
+</div>
+<script>(function(){
+var OUT=document.getElementById('sw-out'),U=document.getElementById('sw-u'),GO=document.getElementById('sw-go');
+var state={acc:0,start:null,laps:[]};
+var iv=null;
+function pad(n,w){return String(n).padStart(w||2,'0');}
+function fmt(ms){var m=Math.floor(ms/60000),s=Math.floor(ms/1000)%60,c=Math.floor(ms/10)%100;return m+':'+pad(s)+'.'+pad(c);}
+function render(){
+  var t=state.acc+(state.start?Date.now()-state.start:0);
+  OUT.textContent=fmt(t);
+  U.textContent=state.start?'running':(state.acc?'stopped':'stopped');
+  if(state.start)document.title=fmt(t)+' - Stopwatch - ToolTide';
+  else document.title='Stopwatch - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_stopwatch',JSON.stringify(state));}catch(e){}}
+function renderLaps(){
+  var h='';
+  state.laps.forEach(function(l,i){h+='<div>#'+(i+1)+' — '+fmt(l.split)+' <span style="opacity:.6">(total '+fmt(l.total)+')</span></div>';});
+  document.getElementById('sw-laps').innerHTML=h;
+}
+GO.addEventListener('click',function(){
+  if(state.start){state.acc+=Date.now()-state.start;state.start=null;GO.textContent='Start';stop();}
+  else{state.start=Date.now();GO.textContent='Stop';if(!iv)iv=setInterval(render,43);}
+  save();render();
+});
+document.getElementById('sw-lap').addEventListener('click',function(){
+  if(!state.start&&!state.acc)return;
+  var t=state.acc+(state.start?Date.now()-state.start:0);
+  var prev=state.laps.length?state.laps[state.laps.length-1].total:0;
+  state.laps.push({split:t-prev,total:t});
+  save();renderLaps();
+});
+document.getElementById('sw-rst').addEventListener('click',function(){
+  stop();state={acc:0,start:null,laps:[]};
+  GO.textContent='Start';renderLaps();save();render();
+});
+function stop(){if(iv){clearInterval(iv);iv=null;}}
+try{var m=JSON.parse(localStorage.getItem('tt_stopwatch')||'null');
+  if(m&&typeof m==='object'){state={acc:m.acc||0,start:m.start||null,laps:m.laps||[]};
+    if(state.start){GO.textContent='Stop';iv=setInterval(render,43);}}}catch(e){}
+renderLaps();render();
+document.getElementById('sw-share').addEventListener('click',function(){
+  var txt='Stopwatch at '+OUT.textContent+' with '+state.laps.length+' laps. Try it (no sign-up): ';
+  var url=location.origin+location.pathname;
+  if(navigator.share){navigator.share({title:'Stopwatch',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this stopwatch';},1500);}
+});
+})();
+</script>
+"""
+
 
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
@@ -6345,6 +6484,8 @@ TOOLS = {
     "jwtdecode": lambda args: JWTDECODE,
     "amortize": lambda args: AMORTIZE,
     "csv2json": lambda args: CSV2JSON,
+    "onlinetimer": lambda args: ONLINETIMER,
+    "stopwatch": lambda args: STOPWATCH,
 }
 
 
