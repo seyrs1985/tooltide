@@ -7,9 +7,9 @@
 (无)
 
 ## 已修
-- BUG-001|全站 header|de/ja 等宽语言(桌面1280+)|语言选择器被宽 nav 挤到第二行折行|data/i18n_shots/home-de-top-2.png|已修 2026-09-14 R1(>700px 时 nav 单行+可横向滑、header 容器放宽 1200px,style.css)
-- BUG-002|首页|全部 9 译文语言|document.title 不随 tt_lang 切换,tab 始终英文标题|i18n_shots/home-de-top-2.png|已修 2026-09-14 R1(首页 `<title data-i18n-title="meta.title">` + chrome.meta.title 键 ×9 语言 + i18n.js apply() 支持 title 节点;工具页 SEO 标题不动)
-- BUG-003|卡片/工具页图标|与语言无关(Win10 Chromium 缺 U13/U14 字形)|emoji 豆腐块:🪞idealweight、🪙coinflip、🪚inchfrac、🛞tire|i18n_shots/home-zh-top-1.png|已修 2026-09-14 R1(TOOL_EMOJI 换 ⚖️/💰/📏/🚗;🪐 为 U12 保留不动)
+- BUG-001|全站 header|de/ja 等宽语言(桌面1280+)|语言选择器被宽 nav 挤到第二行折行|data/i18n_shots/home-de-top-2.png|已修+线上复验通过 2026-09-14 R1(>700px 时 nav 单行+可横向滑、header 容器放宽 1200px,style.css)
+- BUG-002|首页|全部 9 译文语言|document.title 不随 tt_lang 切换,tab 始终英文标题|i18n_shots/home-de-top-2.png|已修+线上复验通过 2026-09-14 R1(首页 `<title data-i18n-title="meta.title">` + chrome.meta.title 键 ×9 语言 + i18n.js apply() 支持 title 节点;工具页 SEO 标题不动)
+- BUG-003|卡片/工具页图标|与语言无关(Win10 Chromium 缺 U13/U14 字形)|emoji 豆腐块:🪞idealweight、🪙coinflip、🪚inchfrac、🛞tire|i18n_shots/home-zh-top-1.png|已修+线上复验通过 2026-09-14 R1(TOOL_EMOJI 换 ⚖️/💰/📏/🚗;🪐 为 U12 保留不动)
 
 ## 范围外(记录不修)
 - 工具页正文(intro/howto/FAQ/卡片英文描述/页脚工具链接名)为英文 SEO 内容,按设计不翻译。
