@@ -7724,6 +7724,171 @@ document.getElementById('lr-copy').addEventListener('click',function(){
 </script>
 """
 
+# CAGR: compound annual growth rate between two values over N years.
+# Retention hooks: title result hook, tt_cagr memory, URL state (?b=&e=&y=), Web Share.
+CAGR = """<div class="tool" id="tt-cg">
+  <div class="fields">
+    <div class="field"><label for="cg-b">Beginning value ($)</label><input type="number" id="cg-b" step="any" min="0" placeholder="10000"></div>
+    <div class="field"><label for="cg-e">Ending value ($)</label><input type="number" id="cg-e" step="any" min="0" placeholder="26000"></div>
+    <div class="field"><label for="cg-y">Years</label><input type="number" id="cg-y" step="any" min="0.1" max="200" placeholder="6"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cg-out">–</span><span class="result-unit">CAGR per year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cg-tot">–</b><span>total growth</span></div>
+    <div class="stat"><b id="cg-mul">–</b><span>multiple of start</span></div>
+    <div class="stat"><b id="cg-dbl">–</b><span>years to double at this rate</span></div>
+  </div>
+  <div class="tool-note" id="cg-note"></div>
+  <button type="button" class="tool-btn" id="cg-share">Share this CAGR</button>
+</div>
+<script>(function(){
+var B=document.getElementById('cg-b'),E=document.getElementById('cg-e'),Y=document.getElementById('cg-y');
+var OUT=document.getElementById('cg-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var b=parseFloat(B.value),e=parseFloat(E.value),y=parseFloat(Y.value);
+  if(!(b>0)||!(e>0)||!(y>0)){OUT.textContent='–';
+    ['cg-tot','cg-mul','cg-dbl'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('cg-note').textContent='';document.title='CAGR Calculator - ToolTide';return;}
+  var c=Math.pow(e/b,1/y)-1;
+  OUT.textContent=(c*100>=0?'+':'')+(c*100).toFixed(2)+'%';
+  document.getElementById('cg-tot').textContent=((e/b-1)*100>=0?'+':'')+((e/b-1)*100).toFixed(1)+'%';
+  document.getElementById('cg-mul').textContent=(e/b).toFixed(2)+'×';
+  document.getElementById('cg-dbl').textContent=c>0?Math.round(Math.log(2)/Math.log(1+c)*10)/10+' yrs':'–';
+  document.getElementById('cg-note').textContent='CAGR smooths a jagged journey into one honest number: +26% a year for '+(Math.round(y*10)/10)+' years turns '+(b.toLocaleString('en-US'))+' into '+(e.toLocaleString('en-US'))+' - even if year two was -40% and year three +80%, the compound rate is what compounds. Rule of 72 for sanity: at this rate money doubles every '+(c>0?Math.round(72/(c*100)):'–')+' years. Watch the trap: a big loss needs a bigger gain to recover - -50% needs +100% just to get back to zero, which is why steady beats spectacular.';
+  document.title=(c*100>=0?'+':'')+(c*100).toFixed(1)+'% CAGR - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_cagr',JSON.stringify({b:B.value,e:E.value,y:Y.value}));}catch(e){}}
+[B,E,Y].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['b',B],['e',E],['y',Y]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_cagr')||'null');if(mem){B.value=mem.b||'';E.value=mem.e||'';Y.value=mem.y||'';}}catch(e){}}
+calc();
+document.getElementById('cg-share').addEventListener('click',function(){
+  var txt=B.value+' grew to '+E.value+' in '+Y.value+' years = '+OUT.textContent+' CAGR. Check your growth rate (free, no sign-up):';
+  var url=location.origin+location.pathname+'?b='+B.value+'&e='+E.value+'&y='+Y.value;
+  if(navigator.share){navigator.share({title:'CAGR',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this CAGR';},1500);}
+});
+})();
+</script>
+"""
+
+# Pool volume: rectangular/circular/oval -> liters, gallons, water weight.
+# Retention hooks: title result hook, tt_pool memory, URL state (?s=&a=&b=&c=&u=), Web Share.
+POOL = """<div class="tool" id="tt-pl">
+  <div class="fields">
+    <div class="field"><label for="pl-s">Shape</label><select id="pl-s"><option value="r">Rectangular</option><option value="c">Circular</option><option value="o">Oval</option></select></div>
+    <div class="field"><label for="pl-a" id="pl-aa">Length (m)</label><input type="number" id="pl-a" step="any" min="0" placeholder="8"></div>
+    <div class="field" id="pl-bw"><label for="pl-b" id="pl-bb">Width (m)</label><input type="number" id="pl-b" step="any" min="0" placeholder="4"></div>
+    <div class="field"><label for="pl-c">Average depth (m)</label><input type="number" id="pl-c" step="any" min="0" placeholder="1.4"></div>
+    <div class="field"><label for="pl-u">Units</label><select id="pl-u"><option value="m">meters / liters</option><option value="f">feet / gallons</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pl-out">–</span><span class="result-unit" id="pl-u2">liters</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pl-gal">–</b><span>US gallons</span></div>
+    <div class="stat"><b id="pl-m3">–</b><span>cubic meters</span></div>
+    <div class="stat"><b id="pl-ton">–</b><span>tonnes of water</span></div>
+  </div>
+  <div class="tool-note" id="pl-note"></div>
+  <button type="button" class="tool-btn" id="pl-share">Share this volume</button>
+</div>
+<script>(function(){
+var S=document.getElementById('pl-s'),A=document.getElementById('pl-a'),B=document.getElementById('pl-b'),C=document.getElementById('pl-c'),U=document.getElementById('pl-u');
+var OUT=document.getElementById('pl-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var s=S.value,a=parseFloat(A.value),b=parseFloat(B.value),c=parseFloat(C.value),u=U.value;
+  var circ=s==='c';
+  document.getElementById('pl-bw').style.display=circ?'none':'';
+  document.getElementById('pl-aa').textContent=circ?(u==='m'?'Diameter (m)':'Diameter (ft)'):(u==='m'?'Length (m)':'Length (ft)');
+  document.getElementById('pl-bb').textContent=u==='m'?'Width (m)':'Width (ft)';
+  document.getElementById('pl-u2').textContent=u==='m'?'liters':'US gallons';
+  if(!(a>0)||!(c>0)||(!circ&&!(b>0))){OUT.textContent='–';
+    ['pl-gal','pl-m3','pl-ton'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('pl-note').textContent='';document.title='Pool Volume Calculator - ToolTide';return;}
+  var m3;
+  if(circ){m3=Math.PI*(a/2)*(a/2)*c;}
+  else if(s==='o'){m3=Math.PI*(a/2)*(b/2)*c;}
+  else{m3=a*b*c;}
+  if(u==='f')m3*=0.0283168;
+  var lit=m3*1000,gal=m3*264.172;
+  OUT.textContent=Math.round(lit).toLocaleString('en-US');
+  document.getElementById('pl-gal').textContent=Math.round(gal).toLocaleString('en-US');
+  document.getElementById('pl-m3').textContent=(Math.round(m3*10)/10).toLocaleString('en-US');
+  document.getElementById('pl-ton').textContent=(Math.round(m3*10)/10)+' t';
+  var deep=c*1.4>2.2;
+  document.getElementById('pl-note').textContent='Average depth is the honest input: (shallow end + deep end) ÷ 2 - most owners overestimate, and every chemical dose, pump runtime and heating bill scales with this number. Fill to about 90% of the coping, so subtract ~10% for the actual refill. '+(deep?'Deep enough for a diving-type slide check with local rules.':'This is a pool for swimming, not for diving - the deep end is shallower than diving guidelines.')+' Refilling '+(Math.round(lit/100)/10)+'k liters costs real money; a cover pays for itself in evaporation alone.';
+  document.title=Math.round(lit).toLocaleString('en-US')+' L pool - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_pool',JSON.stringify({s:S.value,a:A.value,b:B.value,c:C.value,u:U.value}));}catch(e){}}
+[S,A,B,C,U].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['s',S],['a',A],['b',B],['c',C],['u',U]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_pool')||'null');if(mem){S.value=mem.s||'r';A.value=mem.a||'';B.value=mem.b||'';C.value=mem.c||'';U.value=mem.u||'m';}}catch(e){}}
+calc();
+document.getElementById('pl-share').addEventListener('click',function(){
+  var txt='My pool holds '+OUT.textContent+' '+(U.value==='m'?'liters':'gallons')+'. Calculate yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?s='+S.value+'&a='+A.value+(S.value!=='c'?'&b='+B.value:'')+'&c='+C.value+'&u='+U.value;
+  if(navigator.share){navigator.share({title:'Pool volume',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this volume';},1500);}
+});
+})();
+</script>
+"""
+
+# Time spent: daily hours -> years of a lifetime, waking-life share.
+# Retention hooks: title result hook, tt_timespent memory, URL state (?h=&d=&a=&t=), Web Share.
+TIMESPENT = """<div class="tool" id="tt-tsp">
+  <div class="fields">
+    <div class="field"><label for="ts2-h">Hours per day</label><input type="number" id="ts2-h" step="any" min="0" max="24" placeholder="3"></div>
+    <div class="field"><label for="ts2-d">Days per week</label><input type="number" id="ts2-d" step="any" min="0.5" max="7" placeholder="7"></div>
+    <div class="field"><label for="ts2-a">From age</label><input type="number" id="ts2-a" min="1" max="100" placeholder="15"></div>
+    <div class="field"><label for="ts2-t">To age</label><input type="number" id="ts2-t" min="2" max="100" placeholder="80"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ts2-out">–</span><span class="result-unit">years of your life</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ts2-months">–</b><span>in months</span></div>
+    <div class="stat"><b id="ts2-wake">–</b><span>% of waking hours</span></div>
+    <div class="stat"><b id="ts2-work">–</b><span>40-hour work-weeks</span></div>
+  </div>
+  <div class="tool-note" id="ts2-note"></div>
+  <button type="button" class="tool-btn" id="ts2-share">Share this math</button>
+</div>
+<script>(function(){
+var H=document.getElementById('ts2-h'),D=document.getElementById('ts2-d'),A=document.getElementById('ts2-a'),T=document.getElementById('ts2-t');
+var OUT=document.getElementById('ts2-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var h=parseFloat(H.value),d=parseFloat(D.value)||7,a=parseFloat(A.value),t=parseFloat(T.value);
+  if(!(h>0)||!(a>0)||!(t>a)){OUT.textContent='–';
+    ['ts2-months','ts2-wake','ts2-work'].forEach(function(id){document.getElementById(id).textContent='–';});
+    document.getElementById('ts2-note').textContent='';document.title='Time Spent Calculator - ToolTide';return;}
+  var years=h*(d*52.14)*(t-a)/24/365.25;
+  OUT.textContent=Math.round(years*10)/10;
+  document.getElementById('ts2-months').textContent=Math.round(years*12);
+  var wakePct=h*d*52.14/(16*365.25)*100;
+  document.getElementById('ts2-wake').textContent=Math.round(wakePct)+'%';
+  document.getElementById('ts2-work').textContent=Math.round(years*365.25*h/40).toLocaleString('en-US');
+  document.getElementById('ts2-note').textContent=years+' years of '+(t-a)+' is '+Math.round(years/(t-a)*100)+'% of that whole stretch - spent at '+h+' hours a day. Read it however you need: if this is the habit you love, that is a life well invested; if it is the app you open without noticing, the same math says what an hour back a day is worth over a decade. The calculator does not judge - it just refuses to let the number stay invisible.';
+  document.title=Math.round(years*10)/10+' years - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_timespent',JSON.stringify({h:H.value,d:D.value,a:A.value,t:T.value}));}catch(e){}}
+[H,D,A,T].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['h',H],['d',D],['a',A],['t',T]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_timespent')||'null');if(mem){H.value=mem.h||'';D.value=mem.d||'';A.value=mem.a||'';T.value=mem.t||'';}}catch(e){}}
+calc();
+document.getElementById('ts2-share').addEventListener('click',function(){
+  var txt=H.value+' hours a day from age '+A.value+' to '+T.value+' = '+OUT.textContent+' years of my life. Run your own math (free):';
+  var url=location.origin+location.pathname+'?h='+H.value+'&d='+D.value+'&a='+A.value+'&t='+T.value;
+  if(navigator.share){navigator.share({title:'Time spent',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -7867,6 +8032,9 @@ TOOLS = {
     "breakeven": lambda args: BREAKEVEN,
     "idealweight": lambda args: IDEALW,
     "lorem": lambda args: LOREM,
+    "cagr": lambda args: CAGR,
+    "pool": lambda args: POOL,
+    "timespent": lambda args: TIMESPENT,
 }
 
 

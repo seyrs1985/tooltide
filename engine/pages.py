@@ -5043,6 +5043,96 @@ def PAGES():
         ],
     })
 
+    pages.append({
+        "slug": "cagr-calculator",
+        "title": "CAGR Calculator — Compound Annual Growth Rate of Any Investment",
+        "h1": "CAGR Calculator",
+        "desc": "Smooth any investment's journey into one honest yearly rate: beginning value, ending value, years - CAGR, total growth and doubling time. Free.",
+        "category": "calculator",
+        "keyword": "cagr calculator",
+        "tool": "cagr",
+        "args": {},
+        "intro": [
+            "An investment that went +40%, then -15%, then +22% over three years didn't grow 47% - it grew at its compound annual growth rate, the single rate that would have taken the same money from the same start to the same finish at steady speed. CAGR = (ending ÷ beginning)^(1/years) − 1, and it is the only fair way to compare a wild ride with a boring one, a fund with a benchmark, or this year's portfolio with your neighbor's boast.",
+            "This calculator runs it instantly and adds the two sanity numbers professionals keep handy: the total multiple and the doubling time at that rate (Rule of 72 made precise). The note underneath keeps the recovery trap visible - a 50% loss needs a 100% gain to break even - which is the reason steady compounding beats spectacular swings over any real holding period.",
+        ],
+        "howto": [
+            "Enter the beginning value, the ending value, and the years between them.",
+            "Read the annualized rate, total growth and doubling time.",
+            "Compare: same CAGR with half the volatility is the better investment, every time.",
+        ],
+        "faqs": [
+            ("What is CAGR in simple terms?",
+             "The smoothed yearly rate: the growth percentage that, applied every year with compounding, lands exactly where your investment actually landed. A portfolio that doubled in 6 years has a 12.2% CAGR - even if it never grew exactly 12.2% in any single year. It converts stories into a comparable number."),
+            ("How is CAGR different from average return?",
+             "The arithmetic average of +50% and −50% is 0%, but the money is down 25% - averages ignore sequencing. CAGR uses the geometric path and tells the truth: √(1.5×0.5)−1 = −13.4%. Any comparison built on averaged yearly returns flatters volatility; CAGR doesn't."),
+            ("What is a good CAGR?",
+             "Context decides: 7% real has been the long-run equity market's rough song; a business growing revenue 20-30% a year is elite; a 40% CAGR sustained for a decade is almost unheard of. The right question is CAGR versus the risk-free alternative plus the risk you took - the calculator gives you the number; the benchmark gives it meaning."),
+            ("Does CAGR account for additional contributions?",
+             "No - it assumes one sum in, one sum out. For a portfolio with regular deposits, use the money-weighted return (IRR) instead; running CAGR on the combined deposits will overstate growth. This tool is honest for lump sums and for business metrics like revenue or users, which is where it's most used."),
+        ],
+    })
+
+    pages.append({
+        "slug": "pool-volume-calculator",
+        "title": "Pool Volume Calculator — Liters & Gallons by Shape and Depth",
+        "h1": "Pool Volume Calculator",
+        "desc": "Calculate your pool's water volume from shape and dimensions - liters, US gallons and tonnes, with average-depth guidance for honest dosing. Free.",
+        "category": "calculator",
+        "keyword": "pool volume calculator",
+        "tool": "pool",
+        "args": {},
+        "intro": [
+            "Every pool chemical label, pump spec and heating estimate starts from one number owners routinely get wrong: how much water is actually in the pool. Volume is length × width × average depth for a rectangle, π × radius² × depth for a circle - and 'average depth' is where the honest math happens, because (shallow + deep) ÷ 2 is not what most people eyeball. This calculator runs the geometry for rectangular, oval and round pools in metric or feet.",
+            "The outputs come back three ways - liters, US gallons and tonnes of water - because chemical dosing, filtration specs and water bills each speak a different dialect. The note adds the two practical truths: fill level sits near 90% of the coping, and at several thousand liters, evaporation alone is why a pool cover is the highest-ROI accessory you can buy.",
+        ],
+        "howto": [
+            "Pick the pool shape: rectangular, circular or oval.",
+            "Enter dimensions and the average depth - (shallow + deep) ÷ 2.",
+            "Read liters, gallons and tonnes; dose chemicals to the volume, not to guesswork.",
+        ],
+        "faqs": [
+            ("How do I calculate my pool's volume?",
+             "Rectangle: length × width × average depth. Circle: π × (diameter ÷ 2)² × depth. Oval: π × (length ÷ 2) × (width ÷ 2) × depth. Keep every measurement in the same unit; the calculator converts to liters or US gallons and shows both plus cubic meters for filter-flow specs."),
+            ("Why is average depth so important?",
+             "Because chemicals, heating and pump runtime all scale with true volume, and a wrong average compounds every dose: a pool that's really 60 m³ but treated as 45 gets 25% under-dosed sanitizer - which is how green water happens to tidy people. Measure both ends and split the difference; freeform pools need a honest middle estimate."),
+            ("How many liters is a typical backyard pool?",
+             "A 8×4 m family pool averaging 1.4 m deep holds about 45,000 liters (12,000 US gallons); a small round above-ground (4.5 m, 1.2 m) around 19,000 liters. knowing your number turns chemical labels from riddles into arithmetic - '100 ml per 10,000 L' finally means something."),
+            ("Does the shape of the floor (hopper, slope) change the math?",
+             "Averaging handles simple slopes; deep hopper ends in diving pools add volume the flat average misses - if yours has one, estimate the hopper separately and add it. Freeform kidney shapes: measure width at three points and average. The calculator's ±10% honest range beats most owners' ±30% guesses."),
+        ],
+    })
+
+    pages.append({
+        "slug": "time-spent-calculator",
+        "title": "Time Spent Calculator — What X Hours a Day Costs Over a Lifetime",
+        "h1": "Time Spent Calculator",
+        "desc": "Turn 'just an hour a day' into years of your life: daily hours, ages, and the total in years, months and 40-hour work-weeks. Free, no sign-up.",
+        "category": "calculator",
+        "keyword": "time spent calculator",
+        "tool": "timespent",
+        "args": {},
+        "intro": [
+            "Three hours a day doesn't sound like much - it's a commute, a scrolling habit, a series. Run the math across a life and it becomes 8 years: eight years of your one allocation, spent at 3 hours a day from 15 to 80. This calculator makes that arithmetic unavoidable: hours per day, days per week, the age span you choose, and the total in years, months and honest 40-hour work-weeks.",
+            "The tool refuses to moralize for you - the same math that indicts a doom-scrolling habit also celebrates a craft: 90 minutes of guitar a day from age 20 to 70 is nearly two years of deliberate practice, which is what mastery is actually made of. Your inputs are remembered, the total rides in the tab title, and the share link carries the scenario for the group chat that needs to see it.",
+        ],
+        "howto": [
+            "Enter the daily hours and days per week for the habit you're curious about.",
+            "Set the age span - from when it started to when you'd like it to end.",
+            "Read the total in years and work-weeks; adjust the daily number and watch it move.",
+        ],
+        "faqs": [
+            ("How is time spent calculated over a lifetime?",
+             "Hours per day × days per week × 52.14 weeks × the years in your age span, then ÷ 24 to express it as full 24-hour days worth of years. A 3-hour daily habit from 15 to 80 is 3 × 7 × 52.14 × 65 ÷ 24 ÷ 365.25 ≈ 7.7 years. The calculator does it live so you can watch the total react to each input."),
+            ("Why does an hour a day feel bigger than it sounds?",
+             "Because habits compound like money: an hour is only 4% of a day, but an hour every day for a decade is 365 hours - nine full work-weeks - and 4% of a day is closer to 6% of your waking hours. Small daily choices are where years actually go; the number just removes the camouflage."),
+            ("What can I realistically do with recovered time?",
+             "The classic benchmarks: a spoken language needs roughly 600-750 hours, a musical instrument's first competent year about 300, a sub-4-hour marathon maybe 500. One reclaimed hour a day pays for any of those inside two years - the calculator turns that from a motivational poster into arithmetic you've personally verified."),
+            ("Is some daily 'wasted' time actually fine?",
+             "Yes - rest, boredom and unstructured time are where recovery and ideas come from, and optimizing every minute is its own failure mode. The honest use of this number is on the habits you do without deciding to: the app you open on autopilot. Time you chose on purpose was never waste."),
+        ],
+    })
+
     # ---------- Index metadata used by build ----------
     CATEGORY_INFO = {
         "countdown": ("Countdowns", "Live countdown timers for the dates people care about — always accurate, automatically rolling over to the next year."),

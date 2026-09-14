@@ -45,7 +45,7 @@ TOOL_EMOJI = {
  "rent": "🏘️", "savings": "🐷", "simpleint": "💹", "sleepcycle": "😴",
  "slopecalc": "⛰️", "stddev": "🔔", "stopwatch": "🕰️", "striphtml": "🧼", "tdee": "🍽️",
  "teamgen": "👥", "tilecalc": "🔲", "timecard": "🕘", "tipsplit": "💸",
- "stockavg": "📉", "possize": "🛡️", "lotto": "🎰", "pomodoro": "🍅", "passstrength": "🕵️", "cryptoprofit": "🚀", "petagedog": "🐶", "petagecat": "🐱", "flesch": "📚", "dewpoint": "🌫️", "btucalc": "❄️", "tire": "🛞", "hrzone": "❤️", "golf": "⛳", "bpmdelay": "🎧", "evcharge": "🔌", "goldenhour": "🌅", "pizza": "🍕", "inflation": "💸", "sleepdebt": "😴", "coffee": "☕️", "breakeven": "🚦", "idealweight": "🪞", "lorem": "📝",
+ "stockavg": "📉", "possize": "🛡️", "lotto": "🎰", "pomodoro": "🍅", "passstrength": "🕵️", "cryptoprofit": "🚀", "petagedog": "🐶", "petagecat": "🐱", "flesch": "📚", "dewpoint": "🌫️", "btucalc": "❄️", "tire": "🛞", "hrzone": "❤️", "golf": "⛳", "bpmdelay": "🎧", "evcharge": "🔌", "goldenhour": "🌅", "pizza": "🍕", "inflation": "💸", "sleepdebt": "😴", "coffee": "☕️", "breakeven": "🚦", "idealweight": "🪞", "lorem": "📝", "cagr": "📶", "pool": "🏊", "timespent": "⌛",
  "tzconvert": "🌐", "upside": "🙃", "urlcod": "🔣", "vatcalc": "🇪🇺",
  "water": "💧", "weeknum": "🗓️", "windchill": "🥶",
 }
