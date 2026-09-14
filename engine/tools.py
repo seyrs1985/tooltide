@@ -8402,6 +8402,147 @@ document.getElementById('ff-share').addEventListener('click',function(){
 </script>
 """
 
+PROTEIN = """<div class="tool" id="tt-pr">
+  <div class="fields">
+    <div class="field"><label for="pr-w">Body weight (kg)</label><input type="number" id="pr-w" min="30" max="200" step="0.5" placeholder="75"></div>
+    <div class="field"><label for="pr-g">Goal</label><select id="pr-g"><option value="sed">General health (sedentary)</option><option value="act" selected>Active / training</option><option value="bld">Building muscle</option><option value="cut">Cutting (fat loss)</option><option value="old">Older adult (60+)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pr-out">–</span><span class="result-unit">g protein per day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pr-s1">–</b><span>range</span></div>
+    <div class="stat"><b id="pr-s2">–</b><span>per meal (×4)</span></div>
+    <div class="stat"><b id="pr-s3">–</b><span>chicken breast equiv.</span></div>
+  </div>
+  <div class="tool-note" id="pr-note"></div>
+  <button type="button" class="tool-btn" id="pr-share">Share this target</button>
+</div>
+<script>(function(){
+var W=document.getElementById('pr-w'),G=document.getElementById('pr-g');
+var OUT=document.getElementById('pr-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+var RG={sed:[0.8,1.0],act:[1.2,1.6],bld:[1.6,2.2],cut:[1.8,2.4],old:[1.2,1.5]};
+function calc(){
+  var w=parseFloat(W.value),g=G.value;
+  if(!(w>=30&&w<=200)){OUT.textContent='–';['pr-s1','pr-s2','pr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('pr-note').textContent='';document.title='Protein Intake Calculator - ToolTide';return;}
+  var r=RG[g],lo=w*r[0],hi=w*r[1],mid=(lo+hi)/2;
+  OUT.textContent=Math.round(mid);
+  document.getElementById('pr-s1').textContent=Math.round(lo)+'-'+Math.round(hi)+' g';
+  document.getElementById('pr-s2').textContent=Math.round(mid/4)+' g';
+  document.getElementById('pr-s3').textContent=Math.round(mid/31*100)+' g';
+  document.getElementById('pr-note').textContent='Ranges per kg of bodyweight, not per kg of magic: sedentary adults hold at 0.8, training pushes needs to 1.2-1.6, muscle building tops out near 2.2 - beyond that extra protein is just expensive energy. Cutting raises the target because protein protects muscle in a deficit. The chicken figure uses 31 g per 100 g cooked breast; eggs run about 6.5 g each, greek yogurt 10 g per 100 g, lentils 9 g per 100 g cooked. Spread it over 3-4 meals: muscle protein synthesis responds to per-meal doses near 0.4 g/kg, not one giant dinner.';
+  document.title=Math.round(mid)+' g protein per day - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_protein',JSON.stringify({w:W.value,g:G.value}));}catch(e){}}
+[W,G].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['w',W],['g',G]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_protein')||'null');if(mem){W.value=mem.w||'';G.value=mem.g||'act';}}catch(e){}}
+calc();
+document.getElementById('pr-share').addEventListener('click',function(){
+  var txt=Math.round(parseFloat(W.value)*(RG[G.value][0]+RG[G.value][1])/2)+' g protein a day for '+W.value+' kg. Get yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?w='+W.value+'&g='+G.value;
+  if(navigator.share){navigator.share({title:'Protein target',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this target';},1500);}
+});
+})();
+</script>
+"""
+
+CREATINE = """<div class="tool" id="tt-cr">
+  <div class="fields">
+    <div class="field"><label for="cr-w">Body weight (kg)</label><input type="number" id="cr-w" min="30" max="200" step="0.5" placeholder="75"></div>
+    <div class="field"><label for="cr-m">Protocol</label><select id="cr-m"><option value="load" selected>With loading week</option><option value="maint">Maintenance only</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cr-out">–</span><span class="result-unit">g per day (maintenance)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cr-s1">–</b><span>maintenance range</span></div>
+    <div class="stat"><b id="cr-s2">–</b><span>loading dose</span></div>
+    <div class="stat"><b id="cr-s3">–</b><span>days of 500 g tub</span></div>
+  </div>
+  <div class="tool-note" id="cr-note"></div>
+  <button type="button" class="tool-btn" id="cr-share">Share this dose</button>
+</div>
+<script>(function(){
+var W=document.getElementById('cr-w'),M=document.getElementById('cr-m');
+var OUT=document.getElementById('cr-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(W.value),m=M.value;
+  if(!(w>=30&&w<=200)){OUT.textContent='–';['cr-s1','cr-s2','cr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cr-note').textContent='';document.title='Creatine Calculator - ToolTide';return;}
+  var lo=w*0.03,hi=w*0.05,mid=Math.max(3,(lo+hi)/2);
+  OUT.textContent=mid.toFixed(1);
+  document.getElementById('cr-s1').textContent=Math.max(3,lo).toFixed(1)+'-'+Math.min(5,hi).toFixed(1)+' g';
+  document.getElementById('cr-s2').textContent=m==='load'?(w*0.3).toFixed(0)+' g/day × 5-7 days':'skipped';
+  document.getElementById('cr-s3').textContent=Math.round(500/mid);
+  document.getElementById('cr-note').textContent=(m==='load'?'Loading saturates muscles in about a week: '+(w*0.3).toFixed(0)+' g/day split into 4 doses, then drop to maintenance. ':'Skipping loading is fine - 3-5 g a day reaches the same saturation in 3-4 weeks. ')+'Do not cycle creatine: it is not a stimulant, and stopping just drains the stores you paid to fill. Expect 1-2 kg of water weight in the first weeks - that is the mechanism, not fat. Monohydrate is the cheapest and most-studied form; fancy versions buy marketing, not results. Healthy kidneys handle it fine; anyone with kidney disease should ask a doctor first.';
+  document.title=mid.toFixed(1)+' g creatine a day - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_creatine',JSON.stringify({w:W.value,m:M.value}));}catch(e){}}
+[W,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['w',W],['m',M]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_creatine')||'null');if(mem){W.value=mem.w||'';M.value=mem.m||'load';}}catch(e){}}
+calc();
+document.getElementById('cr-share').addEventListener('click',function(){
+  var txt=OUT.textContent+' g creatine a day for '+W.value+' kg'+(M.value==='load'?' after a loading week':'')+'. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?w='+W.value+'&m='+M.value;
+  if(navigator.share){navigator.share({title:'Creatine dose',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this dose';},1500);}
+});
+})();
+</script>
+"""
+
+DATAUSAGE = """<div class="tool" id="tt-du">
+  <div class="fields">
+    <div class="field"><label for="du-s">Streaming quality</label><select id="du-s"><option value="0.7">SD (0.7 GB/h)</option><option value="3" selected>HD (3 GB/h)</option><option value="7">4K (7 GB/h)</option></select></div>
+    <div class="field"><label for="du-sh">Streaming hours/day</label><input type="number" id="du-sh" min="0" max="16" step="0.5" placeholder="2"></div>
+    <div class="field"><label for="du-mu">Music hours/day</label><input type="number" id="du-mu" min="0" max="16" step="0.5" placeholder="1"></div>
+    <div class="field"><label for="du-vc">Video calls hours/day</label><input type="number" id="du-vc" min="0" max="12" step="0.5" placeholder="0.5"></div>
+    <div class="field"><label for="du-we">Web + social hours/day</label><input type="number" id="du-we" min="0" max="16" step="0.5" placeholder="2"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="du-out">–</span><span class="result-unit">GB per month</span></div>
+  <div class="stats">
+    <div class="stat"><b id="du-s1">–</b><span>GB per day</span></div>
+    <div class="stat"><b id="du-s2">–</b><span>streaming share</span></div>
+    <div class="stat"><b id="du-s3">–</b><span>unlimited-plan cut</span></div>
+  </div>
+  <div class="tool-note" id="du-note"></div>
+  <button type="button" class="tool-btn" id="du-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['du-s','du-sh','du-mu','du-vc','du-we'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('du-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var st=parseFloat(F[0].value),sh=parseFloat(F[1].value),mu=parseFloat(F[2].value),vc=parseFloat(F[3].value),we=parseFloat(F[4].value);
+  var ok=st>0&&sh>=0&&mu>=0&&vc>=0&&we>=0;
+  if(!ok){OUT.textContent='–';['du-s1','du-s2','du-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('du-note').textContent='';document.title='Data Usage Calculator - ToolTide';return;}
+  var streamGB=st*sh,day=streamGB+mu*0.1+vc*1.2+we*0.35;
+  var mon=day*30.44;
+  OUT.textContent=Math.round(mon);
+  document.getElementById('du-s1').textContent=day.toFixed(1)+' GB';
+  document.getElementById('du-s2').textContent=day>0?Math.round(streamGB/day*100)+'%':'0%';
+  document.getElementById('du-s3').textContent=Math.round(mon)+' GB';
+  document.getElementById('du-note').textContent='Quality is the lever that moves everything: one hour of 4K eats as much as 10 hours of SD, so dropping one notch on a capped plan saves more than any other tweak. Music at high streaming quality runs about 0.1 GB/h, HD video calls 1.2 GB/h, social feeds with autoplay video 0.3-0.5 GB/h. Downloads and OS updates arrive in spikes - add about 5-10 GB a month of background noise before comparing against a mobile plan cap. Home broadband caps are usually 1 TB+: if this figure clears 800 GB, check for stray cloud backups, not Netflix.';
+  document.title=Math.round(mon)+' GB per month - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_data',JSON.stringify({s:F[0].value,sh:F[1].value,mu:F[2].value,vc:F[3].value,we:F[4].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['s',F[0]],['sh',F[1]],['mu',F[2]],['vc',F[3]],['we',F[4]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_data')||'null');if(mem){F[0].value=mem.s||'3';F[1].value=mem.sh||'';F[2].value=mem.mu||'';F[3].value=mem.vc||'';F[4].value=mem.we||'';}}catch(e){}}
+calc();
+document.getElementById('du-share').addEventListener('click',function(){
+  var txt='My household burns about '+OUT.textContent+' GB a month. Measure yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?s='+F[0].value+'&sh='+F[1].value+'&mu='+F[2].value+'&vc='+F[3].value+'&we='+F[4].value;
+  if(navigator.share){navigator.share({title:'Data usage',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -8558,6 +8699,9 @@ TOOLS = {
     "diapers": lambda args: DIAPERS,
     "wake": lambda args: WAKE,
     "formula": lambda args: FORMULA,
+    "protein": lambda args: PROTEIN,
+    "creatine": lambda args: CREATINE,
+    "datausage": lambda args: DATAUSAGE,
 }
 
 
