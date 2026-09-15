@@ -244,7 +244,11 @@ zh:{
  "bindec.note":"十进制 {d} = 二进制 {b}",
  "temp.belowabs":"低于绝对零度——物理上不可能。",
  "wc.sec":"秒",
- "wc.min":"分钟"
+ "wc.min":"分钟",
+ "tip.tip":"小费",
+ "tip.total":"合计",
+ "tip.pp":"每人",
+ "tip.tpp":"小费/人"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -469,7 +473,11 @@ es:{
  "bindec.note":"{d} decimal = {b} binario",
  "temp.belowabs":"Por debajo del cero absoluto: físicamente imposible.",
  "wc.sec":"s",
- "wc.min":"min"
+ "wc.min":"min",
+ "tip.tip":"propina",
+ "tip.total":"total",
+ "tip.pp":"por persona",
+ "tip.tpp":"propina/persona"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -694,7 +702,11 @@ pt:{
  "bindec.note":"{d} decimal = {b} binário",
  "temp.belowabs":"Abaixo do zero absoluto — fisicamente impossível.",
  "wc.sec":"s",
- "wc.min":"min"
+ "wc.min":"min",
+ "tip.tip":"gorjeta",
+ "tip.total":"total",
+ "tip.pp":"por pessoa",
+ "tip.tpp":"gorjeta/pessoa"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -919,7 +931,11 @@ ru:{
  "bindec.note":"{d} в десятичной = {b} в двоичной",
  "temp.belowabs":"Ниже абсолютного нуля — физически невозможно.",
  "wc.sec":"с",
- "wc.min":"мин"
+ "wc.min":"мин",
+ "tip.tip":"чаевые",
+ "tip.total":"итого",
+ "tip.pp":"на человека",
+ "tip.tpp":"чаевые/чел."
 },
 ja:{
  "skip":"本文へスキップ",
@@ -1144,7 +1160,11 @@ ja:{
  "bindec.note":"10 進数 {d} = 2 進数 {b}",
  "temp.belowabs":"絶対零度未満 — 物理的に不可能です。",
  "wc.sec":"秒",
- "wc.min":"分"
+ "wc.min":"分",
+ "tip.tip":"チップ",
+ "tip.total":"合計",
+ "tip.pp":"一人あたり",
+ "tip.tpp":"チップ/人"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -1369,7 +1389,11 @@ ko:{
  "bindec.note":"10진수 {d} = 2진수 {b}",
  "temp.belowabs":"절대영도 이하 — 물리적으로 불가능합니다.",
  "wc.sec":"초",
- "wc.min":"분"
+ "wc.min":"분",
+ "tip.tip":"팁",
+ "tip.total":"합계",
+ "tip.pp":"1인당",
+ "tip.tpp":"팁/인"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -1594,7 +1618,11 @@ de:{
  "bindec.note":"{d} dezimal = {b} binär",
  "temp.belowabs":"Unter dem absoluten Nullpunkt — physikalisch unmöglich.",
  "wc.sec":"Sek.",
- "wc.min":"Min."
+ "wc.min":"Min.",
+ "tip.tip":"Trinkgeld",
+ "tip.total":"Gesamt",
+ "tip.pp":"pro Person",
+ "tip.tpp":"Trinkgeld/Person"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -1819,7 +1847,11 @@ fr:{
  "bindec.note":"{d} décimal = {b} binaire",
  "temp.belowabs":"En dessous du zéro absolu — physiquement impossible.",
  "wc.sec":"s",
- "wc.min":"min"
+ "wc.min":"min",
+ "tip.tip":"pourboire",
+ "tip.total":"total",
+ "tip.pp":"par personne",
+ "tip.tpp":"pourboire/personne"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -2044,7 +2076,11 @@ id:{
  "bindec.note":"{d} desimal = {b} biner",
  "temp.belowabs":"Di bawah nol mutlak — secara fisika tidak mungkin.",
  "wc.sec":"dtk",
- "wc.min":"menit"
+ "wc.min":"menit",
+ "tip.tip":"tip",
+ "tip.total":"total",
+ "tip.pp":"per orang",
+ "tip.tpp":"tip/orang"
 }
 };
 function detect(){

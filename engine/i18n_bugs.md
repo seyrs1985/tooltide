@@ -8,6 +8,7 @@
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修
+- BUG-013续2|word-counter|de|阅读时长值串 "sec"/"min" 英文后缀|IAB DOM探针|已修R9b(wc.sec/wc.min×2键×9语言,T()已入脚本;复验de:2.4 Min.)
 - BUG-013续|全站渲染器(tools.py)|所有译文语言|反馈与校验提示家族未本地化:106处Copied!、8个纯Copy按钮链、21条校验/状态串(pw/rng/roman/gr/prime/epoch/bindec/temp)硬编码英文|rg清单+构建grep|已修R9(render()注入window.TT()辅助+21键×9语言经_i18n_tables.json重生成;298文件4741检查0失败+审计过;de文案人工撰写,线上复验待push恢复后补)
 - BUG-005|全站chrome(用户报告)|英文态|截图=切English后仍见中文(头部搜索占位符/面包屑计算器);线上HTML验证干净英文,IAB复现zh→en切换正常→定性=用户端reload未完成或bfcache恢复旧zh DOM|用户截图|已修R3(i18n.js pageshow persisted时原地重apply+选择器同步;ttSetLang加reload兜底重试)
 - BUG-006|倒计时族(days-until-*×7页,渲染器tools.py CD)|de/ja全部|动态结果文案零i18n接线:时钟行"h:m:s remaining today"、大数字标签"days to go"、标题钩子"100d to Christmas"、日期/千分位硬编码en-US|data/i18n_shots/(DOM探针证据:xmas页 de clock/title/lbl)|已修R4+线上复验通过(tools.py加T()辅助+LC=ttLang(),接cd.days/cd.daysyours/cd.today/cd.clock/cd.title×5键×9语言;复验de:clock=h:m:s heute verbleibend,title=Noch 100 Tage bis Christmas,lbl=Tage verbleibend,date=Fr., 25. Dez. 2026;ja日期2026年12月25日(金),overflowX=false;事件名Christmas英译键留下轮)
