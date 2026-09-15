@@ -9021,7 +9021,12 @@ TOOLS = {
 
 
 TT_SNIPPET = ('<script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;'
-               '}catch(e){}return v||f};</script>')
+               '}catch(e){}return v||f};'
+               # a focused number input silently mutates on wheel while the user
+               # scrolls the page — block that; typing and arrow keys still work
+               'document.addEventListener("wheel",function(e){var t=e.target;'
+               'if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},'
+               '{passive:false});</script>')
 
 
 def render(tool, args):

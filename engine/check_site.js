@@ -111,6 +111,9 @@ try {
     'tool page: noscript JS-required notice');
   assert(tool.includes('window.TT=function'),
     'tool page: shared TT() i18n helper present');
+  assert(tool.includes('type==="number"&&document.activeElement===t')
+    && tool.includes('{passive:false}'),
+    'tool page: number-input wheel guard present');
 
   // "New on ToolTide": newest pages surfaced in their own row above the
   // categories (the per-category collapse otherwise buries them behind
