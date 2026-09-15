@@ -12,8 +12,11 @@ cd "$(dirname "$0")/.."          # project root (ai-growth-engine)
 if curl -s -o /dev/null -m 4 -x http://127.0.0.1:7890 https://api.github.com/robots.txt; then
   export http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890
 else
-  export http_proxy="${http_proxy:-http://127.0.0.1:7890}"
-  export https_proxy="${https_proxy:-http://127.0.0.1:7890}"
+  # 7890 dead AND inherited proxy is 7890 (or unset) -> proxies unusable, go direct
+  case "${http_proxy:-}" in
+    *7890*|"") unset http_proxy https_proxy ;;
+    *) export http_proxy="${http_proxy}" https_proxy="${https_proxy:-$http_proxy}" ;;
+  esac
 fi
 
 # GitHub account to deploy under (login name, not display name).
