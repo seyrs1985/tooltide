@@ -884,6 +884,14 @@
    [
     "temp.belowabs",
     "低于绝对零度——物理上不可能。"
+   ],
+   [
+    "wc.sec",
+    "秒"
+   ],
+   [
+    "wc.min",
+    "分钟"
    ]
   ],
   "es": [
@@ -1770,6 +1778,14 @@
    [
     "temp.belowabs",
     "Por debajo del cero absoluto: físicamente imposible."
+   ],
+   [
+    "wc.sec",
+    "s"
+   ],
+   [
+    "wc.min",
+    "min"
    ]
   ],
   "pt": [
@@ -2656,6 +2672,14 @@
    [
     "temp.belowabs",
     "Abaixo do zero absoluto — fisicamente impossível."
+   ],
+   [
+    "wc.sec",
+    "s"
+   ],
+   [
+    "wc.min",
+    "min"
    ]
   ],
   "ru": [
@@ -3542,6 +3566,14 @@
    [
     "temp.belowabs",
     "Ниже абсолютного нуля — физически невозможно."
+   ],
+   [
+    "wc.sec",
+    "с"
+   ],
+   [
+    "wc.min",
+    "мин"
    ]
   ],
   "ja": [
@@ -4428,6 +4460,14 @@
    [
     "temp.belowabs",
     "絶対零度未満 — 物理的に不可能です。"
+   ],
+   [
+    "wc.sec",
+    "秒"
+   ],
+   [
+    "wc.min",
+    "分"
    ]
   ],
   "ko": [
@@ -5314,6 +5354,14 @@
    [
     "temp.belowabs",
     "절대영도 이하 — 물리적으로 불가능합니다."
+   ],
+   [
+    "wc.sec",
+    "초"
+   ],
+   [
+    "wc.min",
+    "분"
    ]
   ],
   "de": [
@@ -6200,6 +6248,14 @@
    [
     "temp.belowabs",
     "Unter dem absoluten Nullpunkt — physikalisch unmöglich."
+   ],
+   [
+    "wc.sec",
+    "Sek."
+   ],
+   [
+    "wc.min",
+    "Min."
    ]
   ],
   "fr": [
@@ -7086,6 +7142,14 @@
    [
     "temp.belowabs",
     "En dessous du zéro absolu — physiquement impossible."
+   ],
+   [
+    "wc.sec",
+    "s"
+   ],
+   [
+    "wc.min",
+    "min"
    ]
   ],
   "id": [
@@ -7972,6 +8036,14 @@
    [
     "temp.belowabs",
     "Di bawah nol mutlak — secara fisika tidak mungkin."
+   ],
+   [
+    "wc.sec",
+    "dtk"
+   ],
+   [
+    "wc.min",
+    "menit"
    ]
   ]
  }
