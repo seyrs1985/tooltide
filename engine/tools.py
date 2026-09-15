@@ -433,6 +433,7 @@ WORDCOUNTER = """
   </div>
 </div>
 <script>(function(){
+function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
 function run(){
   var t=document.getElementById('wc-txt').value;
   var w=t.trim()?t.trim().split(/\\s+/).length:0;
@@ -444,7 +445,7 @@ function run(){
   document.getElementById('wc-s').textContent=sents.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('wc-p').textContent=paras.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var m=w/225;
-  document.getElementById('wc-rt').textContent=m<1?Math.max(1,Math.round(m*60))+' sec':(Math.round(m*10)/10)+' min';
+  document.getElementById('wc-rt').textContent=m<1?Math.max(1,Math.round(m*60))+' '+T('wc.sec','sec'):(Math.round(m*10)/10)+' '+T('wc.min','min');
 }
 document.getElementById('wc-txt').addEventListener('input',run);run();
 })();</script>
