@@ -217,9 +217,9 @@ function run(){
   var s=y+(y===1?' year':' years')+', '+mo+(mo===1?' month':' months')+', '+d+(d===1?' day':' days');
   document.getElementById('age-main').textContent=s;
   var totalDays=Math.floor((a-b)/864e5);
-  document.getElementById('age-total').textContent=totalDays.toLocaleString('en-US')+' days in total';
-  document.getElementById('age-days').textContent=totalDays.toLocaleString('en-US');
-  document.getElementById('age-hours').textContent=(totalDays*24).toLocaleString('en-US');
+  document.getElementById('age-total').textContent=totalDays.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' days in total';
+  document.getElementById('age-days').textContent=totalDays.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('age-hours').textContent=(totalDays*24).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var nb=new Date(a.getFullYear(),b.getMonth(),b.getDate());
   if(b.getMonth()===1&&b.getDate()===29&&!dim(a.getFullYear(),1)===29){nb=new Date(a.getFullYear(),1,28);}
   var today=new Date(a.getFullYear(),a.getMonth(),a.getDate());
@@ -269,7 +269,7 @@ chips.forEach(function(c){c.addEventListener('click',function(){
   run();
 });});
 function num(id){var v=document.getElementById(id).value;return v===''?null:parseFloat(v);}
-function fmt(n){return (Math.round(n*1e6)/1e6).toLocaleString('en-US',{maximumFractionDigits:6});}
+function fmt(n){return (Math.round(n*1e6)/1e6).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:6});}
 function run(){
   var f=document.getElementById('pc-formula');
   if(mode===0){var a=num('p0-a'),b=num('p0-b');
@@ -326,7 +326,7 @@ custom.addEventListener('input',function(){
   document.querySelectorAll('#tt-tip .chip').forEach(function(x){x.classList.remove('active');});
   run();
 });
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function run(){
   var b=parseFloat(bill.value)||0,n=Math.max(1,parseInt(split.value)||1);
   var tip=b*pct/100,total=b+tip;
@@ -359,7 +359,7 @@ DISCOUNT = """
 </div>
 <script>(function(){
 ['dc-price','dc-d1','dc-d2','dc-tax'].forEach(function(id){document.getElementById(id).addEventListener('input',run);});
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function run(){
   var p=parseFloat(document.getElementById('dc-price').value)||0;
   var d1=parseFloat(document.getElementById('dc-d1').value)||0;
@@ -408,8 +408,8 @@ function run(){
   var speed=parseFloat(document.getElementById('rt-speed').value)||225;
   document.getElementById('rt-read').textContent=dur(w/speed);
   document.getElementById('rt-speak').textContent=dur(w/140);
-  document.getElementById('rt-words').textContent=w.toLocaleString('en-US');
-  document.getElementById('rt-chars').textContent=t.length.toLocaleString('en-US');
+  document.getElementById('rt-words').textContent=w.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('rt-chars').textContent=t.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 document.getElementById('rt-txt').addEventListener('input',run);
 document.getElementById('rt-speed').addEventListener('change',run);run();
@@ -437,11 +437,11 @@ function run(){
   var w=t.trim()?t.trim().split(/\\s+/).length:0;
   var sents=(t.match(/[^.!?]+[.!?]+(\\s|$)|[^.!?]+$/g)||[]).filter(function(s){return s.trim();}).length;
   var paras=t.split(/\\n+/).filter(function(p){return p.trim();}).length;
-  document.getElementById('wc-w').textContent=w.toLocaleString('en-US');
-  document.getElementById('wc-c').textContent=t.length.toLocaleString('en-US');
-  document.getElementById('wc-cns').textContent=t.replace(/\\s/g,'').length.toLocaleString('en-US');
-  document.getElementById('wc-s').textContent=sents.toLocaleString('en-US');
-  document.getElementById('wc-p').textContent=paras.toLocaleString('en-US');
+  document.getElementById('wc-w').textContent=w.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('wc-c').textContent=t.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('wc-cns').textContent=t.replace(/\\s/g,'').length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('wc-s').textContent=sents.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('wc-p').textContent=paras.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var m=w/225;
   document.getElementById('wc-rt').textContent=m<1?Math.max(1,Math.round(m*60))+' sec':(Math.round(m*10)/10)+' min';
 }
@@ -869,8 +869,8 @@ var w=document.getElementById('wp-words'),s=document.getElementById('wp-space');
 function run(){
   var v=parseFloat(w.value)||0,per=parseFloat(s.value);
   var pages=v/per;
-  document.getElementById('wp-out').textContent=v?(Math.round(pages*10)/10).toLocaleString('en-US'):'–';
-  document.getElementById('wp-note').textContent=v?('≈ '+Math.ceil(pages)+' full page'+(Math.ceil(pages)>1?'s':'')+' · '+v.toLocaleString('en-US')+' words ÷ '+per+' words per page'):'';
+  document.getElementById('wp-out').textContent=v?(Math.round(pages*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'):'–';
+  document.getElementById('wp-note').textContent=v?('≈ '+Math.ceil(pages)+' full page'+(Math.ceil(pages)>1?'s':'')+' · '+v.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' words ÷ '+per+' words per page'):'';
 }
 w.addEventListener('input',run);s.addEventListener('change',run);run();
 })();</script>
@@ -916,7 +916,7 @@ rom.addEventListener('input',function(){
   if(!v){out.textContent='–';note.textContent='';lock=false;return;}
   var n=fromRoman(v);
   if(n===null){out.textContent='–';note.textContent='Not a valid standard Roman numeral (1–3999).';}
-  else{num.value=n;out.textContent=n.toLocaleString('en-US');note.textContent=v.toUpperCase()+' = '+n.toLocaleString('en-US');}
+  else{num.value=n;out.textContent=n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');note.textContent=v.toUpperCase()+' = '+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
   lock=false;
 });
 })();</script>
@@ -998,9 +998,9 @@ function run(){
     if(seen.hasOwnProperty(L))continue;
     seen[L]=1;res.push(L);
   }
-  document.getElementById('dd2-orig').textContent=lines.length.toLocaleString('en-US');
-  document.getElementById('dd2-uniq').textContent=res.length.toLocaleString('en-US');
-  document.getElementById('dd2-rem').textContent=(lines.length-res.length).toLocaleString('en-US');
+  document.getElementById('dd2-orig').textContent=lines.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('dd2-uniq').textContent=res.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('dd2-rem').textContent=(lines.length-res.length).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   out.value=res.join('\\n');
 }
 inp.addEventListener('input',run);
@@ -1071,7 +1071,7 @@ document.querySelectorAll('#tt-stx .chip').forEach(function(c){c.addEventListene
   document.getElementById('stx-f2').style.display=mode==='rev'?'flex':'none';
   run();
 });});
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function run(){
   var r=(parseFloat(rate.value)||0)/100;
   var base,tax,tot;
@@ -1153,7 +1153,7 @@ function run(){
   document.getElementById('hd-hm').textContent=h+' h '+m+' min';
   var dec=(Math.round(d/6)/100);
   document.getElementById('hd-dec').textContent=dec;
-  document.getElementById('hd-mins').textContent=d.toLocaleString('en-US');
+  document.getElementById('hd-mins').textContent=d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('hd-note').textContent=(overnight?'overnight shift · ':'')+
     a.value+' → '+b.value+'  ·  '+d+' minutes ÷ 60 = '+dec;
 }
@@ -1184,7 +1184,7 @@ function run(){
     return ENT[m.toLowerCase()];
   });
   out.value=t;
-  document.getElementById('sh-tags').textContent=tags.toLocaleString('en-US');
+  document.getElementById('sh-tags').textContent=tags.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 inp.addEventListener('input',run);
 document.getElementById('sh-copy').addEventListener('click',function(){
@@ -1283,11 +1283,11 @@ function run(){
     document.getElementById('avg-note').textContent='';return;}
   var sum=nums.reduce(function(a,b){return a+b;},0);
   var mean=sum/nums.length;
-  document.getElementById('avg-mean').textContent=(Math.round(mean*1e6)/1e6).toLocaleString('en-US');
-  document.getElementById('avg-sum').textContent=(Math.round(sum*1e6)/1e6).toLocaleString('en-US');
-  document.getElementById('avg-n').textContent=nums.length.toLocaleString('en-US');
-  document.getElementById('avg-min').textContent=Math.min.apply(null,nums).toLocaleString('en-US');
-  document.getElementById('avg-max').textContent=Math.max.apply(null,nums).toLocaleString('en-US');
+  document.getElementById('avg-mean').textContent=(Math.round(mean*1e6)/1e6).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('avg-sum').textContent=(Math.round(sum*1e6)/1e6).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('avg-n').textContent=nums.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('avg-min').textContent=Math.min.apply(null,nums).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('avg-max').textContent=Math.max.apply(null,nums).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('avg-note').textContent='Sum '+nums.length+' values ÷ '+nums.length+' = mean';
 }
 inp.addEventListener('input',run);run();
@@ -1429,8 +1429,8 @@ function run(){
   if(!d.value)return;
   var dt=new Date(d.value+'T00:00:00');
   if(isNaN(dt))return;
-  document.getElementById('dw-out').textContent=dt.toLocaleDateString('en-US',{weekday:'long'});
-  document.getElementById('dw-note').textContent=dt.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('dw-out').textContent=dt.toLocaleDateString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{weekday:'long'});
+  document.getElementById('dw-note').textContent=dt.toLocaleDateString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{year:'numeric',month:'long',day:'numeric'});
   var start=new Date(dt.getFullYear(),0,1);
   document.getElementById('dw-doy').textContent=Math.round((dt-start)/864e5)+1;
   document.getElementById('dw-iso').textContent='W'+isoWeek(dt);
@@ -1507,7 +1507,7 @@ var yr=document.getElementById('sal-yr'),hr=document.getElementById('sal-hr');
 var hpw=document.getElementById('sal-hpw'),wpy=document.getElementById('sal-wpy');
 var lock=false;
 function hoursPerYear(){return (parseFloat(hpw.value)||0)*(parseFloat(wpy.value)||0);}
-function money(n){return '$'+n.toLocaleString('en-US',{maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:2});}
 function runY(){
   if(lock)return;lock=true;hr.value='';
   var y=parseFloat(yr.value),h=hoursPerYear();
@@ -1605,9 +1605,9 @@ function run(){
   var sq=(isNaN(a)||isNaN(b))?null:a*b;
   var sqft=unit==='ft'?sq:sq*10.76391042;
   var sqm=unit==='ft'?sq*0.09290304:sq;
-  document.getElementById('sq-ft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString('en-US');
-  document.getElementById('sq-sqft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString('en-US');
-  document.getElementById('sq-sqm').textContent=sq===null?'-':(Math.round(sqm*10)/10).toLocaleString('en-US');
+  document.getElementById('sq-ft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('sq-sqft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('sq-sqm').textContent=sq===null?'-':(Math.round(sqm*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 l.addEventListener('input',run);w.addEventListener('input',run);
 document.getElementById('sq-add').addEventListener('click',function(){
@@ -1653,7 +1653,7 @@ hms.addEventListener('input',function(){
   if(lock)return;lock=true;
   var v=toSeconds(this.value);
   if(v===null){out.textContent='(use h:mm:ss)';sIn.value='';lock=false;return;}
-  out.textContent=v.toLocaleString('en-US')+' seconds';sIn.value=v;
+  out.textContent=v.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' seconds';sIn.value=v;
   lock=false;
 });
 })();</script>
@@ -1718,7 +1718,7 @@ document.getElementById('dc-go').addEventListener('click',function(){
   var f=Math.min(100,Math.max(2,parseInt(faces.value)||6));
   var rolls=[],sum=0;
   for(var i=0;i<n;i++){var r=secureInt(f)+1;rolls.push(r);sum+=r;}
-  document.getElementById('dc-total').textContent=sum.toLocaleString('en-US');
+  document.getElementById('dc-total').textContent=sum.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('dc-each').textContent='each die: '+rolls.join(',  ')+'  (D'+f+' x '+n+')';
 });
 })();</script>
@@ -1837,9 +1837,9 @@ function run(){
   var a=parseFloat(l.value),b=parseFloat(w.value),c=parseFloat(h.value);
   if(isNaN(a)||isNaN(b)||isNaN(c)){document.getElementById('cf-cuft').textContent='-';document.getElementById('cf-cum').textContent='-';return;}
   var cuft=unit==='ft'?a*b*c:(a*b*c)/28316.846592;
-  document.getElementById('cf-cuft').textContent=(Math.round(cuft*100)/100).toLocaleString('en-US');
-  document.getElementById('cf-cum').textContent=(Math.round(cuft*0.0283168466*1000)/1000).toLocaleString('en-US');
-  document.getElementById('cf-out').textContent=(Math.round(cuft*100)/100).toLocaleString('en-US');
+  document.getElementById('cf-cuft').textContent=(Math.round(cuft*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('cf-cum').textContent=(Math.round(cuft*0.0283168466*1000)/1000).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('cf-out').textContent=(Math.round(cuft*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 l.addEventListener('input',run);w.addEventListener('input',run);h.addEventListener('input',run);run();
 })();</script>
@@ -1921,7 +1921,7 @@ UNITPRICE = """
 <script>(function(){
 var ids=['up-ap','up-aq','up-bp','up-bq'];
 function val(id){return parseFloat(document.getElementById(id).value);}
-function money(n){return '$'+n.toLocaleString('en-US',{maximumFractionDigits:4});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:4});}
 function run(){
   var ap=val('up-ap'),aq=val('up-aq'),bp=val('up-bp'),bq=val('up-bq');
   if(!ap||!aq||!bp||!bq){document.getElementById('up-win').textContent='-';
@@ -2181,7 +2181,7 @@ function run(){
   if(n===0){document.getElementById('fa-out').textContent='1';document.getElementById('fa-digits').textContent='1';document.getElementById('fa-chain').textContent='0! = 1 by definition';return;}
   var f=bigFact(n);
   document.getElementById('fa-out').textContent=f;
-  document.getElementById('fa-digits').textContent=f.length.toLocaleString('en-US');
+  document.getElementById('fa-digits').textContent=f.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var chain=n<=10?Array.from({length:n},(_,i)=>i+1).join(' x ')+' = '+f:(n+'! = 1 x 2 x ... x '+n);
   document.getElementById('fa-chain').textContent=chain;
 }
@@ -2265,8 +2265,8 @@ function runSTLB(){
   if(lock)return;lock=true;kg2.value='';
   var s=parseFloat(st.value)||0,p=parseFloat(lb.value)||0;
   var kg=kgFrom(s,p);
-  document.getElementById('sl-kg').textContent=(Math.round(kg*100)/100).toLocaleString('en-US');
-  document.getElementById('sl-total-lb').textContent=Math.round(s*14+p).toLocaleString('en-US');
+  document.getElementById('sl-kg').textContent=(Math.round(kg*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('sl-total-lb').textContent=Math.round(s*14+p).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('sl-split').textContent='-';
   lock=false;
 }
@@ -2277,8 +2277,8 @@ function runKG(){
   var totalLb=k/0.45359237,stones=Math.floor(totalLb/14),lbs=totalLb-stones*14;
   document.getElementById('sl-st').value=stones;
   document.getElementById('sl-lb').value=Math.round(lbs);
-  document.getElementById('sl-kg').textContent=(Math.round(k*100)/100).toLocaleString('en-US');
-  document.getElementById('sl-total-lb').textContent=Math.round(totalLb).toLocaleString('en-US');
+  document.getElementById('sl-kg').textContent=(Math.round(k*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('sl-total-lb').textContent=Math.round(totalLb).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('sl-split').textContent=stones+' st '+Math.round(lbs)+' lb';
   lock=false;
 }
@@ -2312,8 +2312,8 @@ function runFI(){
   if(lock)return;lock=true;cm2.value='';
   var f=parseFloat(ft.value)||0,i=parseFloat(inch.value)||0;
   var cm=cmFrom(f,i);
-  document.getElementById('fi-cm').textContent=(Math.round(cm*100)/100).toLocaleString('en-US');
-  document.getElementById('fi-inonly').textContent=(Math.round(cm/2.54*10)/10).toLocaleString('en-US');
+  document.getElementById('fi-cm').textContent=(Math.round(cm*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('fi-inonly').textContent=(Math.round(cm/2.54*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('fi-split').textContent='-';
   lock=false;
 }
@@ -2324,8 +2324,8 @@ function runCM(){
   var inOnly=c/2.54,feet=Math.floor(inOnly/12),ins=inOnly-feet*12;
   document.getElementById('fi-ft').value=feet;
   document.getElementById('fi-in').value=Math.round(ins*10)/10;
-  document.getElementById('fi-cm').textContent=(Math.round(c*100)/100).toLocaleString('en-US');
-  document.getElementById('fi-inonly').textContent=(Math.round(inOnly*10)/10).toLocaleString('en-US');
+  document.getElementById('fi-cm').textContent=(Math.round(c*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('fi-inonly').textContent=(Math.round(inOnly*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('fi-split').textContent=feet+' ft '+Math.round(ins*10)/10+' in';
   lock=false;
 }
@@ -2554,8 +2554,8 @@ function run(){
   if(st.blank)lines=lines.filter(function(L){return L.trim();});
   var res=lines.join('\\n');
   out.value=res;
-  document.getElementById('ws-inlines').textContent=lines.length.toLocaleString('en-US');
-  document.getElementById('ws-chars').textContent=Math.max(0,before-res.length).toLocaleString('en-US');
+  document.getElementById('ws-inlines').textContent=lines.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('ws-chars').textContent=Math.max(0,before-res.length).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 inp.addEventListener('input',run);
 ['ws-trim','ws-collapse','ws-blank'].forEach(function(id){document.getElementById(id).addEventListener('click',run);});
@@ -2673,9 +2673,9 @@ function run(){
   var rr=parseFloat(r.value),hh=parseFloat(h.value);
   if(isNaN(rr)||isNaN(hh)){document.getElementById('cy-out').textContent='-';document.getElementById('cy-liters').textContent='-';return;}
   var v=Math.PI*rr*rr*hh;
-  document.getElementById('cy-out').textContent=(Math.round(v*100)/100).toLocaleString('en-US');
+  document.getElementById('cy-out').textContent=(Math.round(v*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('cy-unit').textContent='cubic '+('units');
-  document.getElementById('cy-liters').textContent=(Math.round(v/1000*1000)/1000).toLocaleString('en-US');
+  document.getElementById('cy-liters').textContent=(Math.round(v/1000*1000)/1000).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 r.addEventListener('input',run);h.addEventListener('input',run);run();
 })();</script>
@@ -2752,7 +2752,7 @@ function runTs(){
   var d=new Date(v*factor());
   if(isNaN(d.getTime())){document.getElementById('ep-utc').textContent='out of range';return;}
   document.getElementById('ep-utc').textContent=d.toISOString().slice(0,19).replace('T',' ')+' UTC';
-  document.getElementById('ep-local').textContent=d.toLocaleString('en-US');
+  document.getElementById('ep-local').textContent=d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 function runDate(){
   if(!dt.value)return;
@@ -2760,12 +2760,12 @@ function runDate(){
   var secs=Math.floor(d.getTime()/1000);
   ts.value=secs;
   document.getElementById('ep-utc').textContent=d.toISOString().slice(0,19).replace('T',' ')+' UTC';
-  document.getElementById('ep-local').textContent=d.toLocaleString('en-US');
+  document.getElementById('ep-local').textContent=d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 ts.addEventListener('input',runTs);
 dt.addEventListener('input',runDate);
 var now=document.getElementById('ep-now');
-function tick(){now.textContent=Math.floor(Date.now()/(ms?1:1000)).toLocaleString('en-US');}
+function tick(){now.textContent=Math.floor(Date.now()/(ms?1:1000)).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 setInterval(tick,1000);tick();
 })();</script>
 """
@@ -2809,7 +2809,7 @@ inp.addEventListener('input',function(){
   var v=this.value.trim();
   if(!v){out.textContent='-';return;}
   var n=parse(v);
-  out.textContent=(n===null)?'(could not parse - check the spelling)':n.toLocaleString('en-US');
+  out.textContent=(n===null)?'(could not parse - check the spelling)':n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 });
 })();</script>
 """
@@ -2951,8 +2951,8 @@ bin.addEventListener('input',function(){
   if(!/^[01]+$/.test(v)){out.textContent='-';note.textContent='Only 0s and 1s are valid in binary.';lock=false;return;}
   var d=BigInt('0b'+v);
   dec.value=d.toString();
-  out.textContent=d.toLocaleString('en-US');
-  note.textContent=v+' binary = '+d.toLocaleString('en-US')+' decimal';
+  out.textContent=d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  note.textContent=v+' binary = '+d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' decimal';
   lock=false;
 });
 dec.addEventListener('input',function(){
@@ -3034,7 +3034,7 @@ DOUBLEDISC = """<div class="tool" id="tt-ddisc">
 <script>(function(){
 var E={};['dd-price','dd-d1','dd-d2','dd-flat'].forEach(function(id){E[id]=document.getElementById(id);});
 var OUT=document.getElementById('dd-out'),NOTE=document.getElementById('dd-note');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function num(id){var v=E[id].value;return v===''?null:(parseFloat(v)||0);}
 function calc(){
@@ -3095,7 +3095,7 @@ SIMPLEINT = """<div class="tool" id="tt-si">
 <script>(function(){
 var P=document.getElementById('si-p'),R=document.getElementById('si-r'),T=document.getElementById('si-t');
 var OUT=document.getElementById('si-out');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var p=parseFloat(P.value)||0,r=(parseFloat(R.value)||0)/100,t=parseFloat(T.value)||0;
@@ -3109,7 +3109,7 @@ function calc(){
   document.getElementById('si-int').textContent=money(si);
   document.getElementById('si-permo').textContent=money(si/Math.max(t*12,1));
   document.getElementById('si-cmp').textContent=money(cmp);
-  document.getElementById('si-note').textContent='SI = P × r × t = '+p.toLocaleString('en-US')+' × '+(r*100).toFixed(2).replace('.00','')+'% × '+t+' = '+money(si)+
+  document.getElementById('si-note').textContent='SI = P × r × t = '+p.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' × '+(r*100).toFixed(2).replace('.00','')+'% × '+t+' = '+money(si)+
     '. Simple interest is flat on the original principal - compounding the same rate would add '+money(cmp-total)+' more over '+t+' years.';
   document.title=money(si)+' interest - ToolTide';
 }
@@ -3210,7 +3210,7 @@ OVERTIME = """<div class="tool" id="tt-ot">
 <script>(function(){
 var R=document.getElementById('ot-r'),H=document.getElementById('ot-h'),T=document.getElementById('ot-t'),M=document.getElementById('ot-m');
 var OUT=document.getElementById('ot-out');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var r=parseFloat(R.value)||0,h=parseFloat(H.value)||0,t=parseFloat(T.value)||40,m=parseFloat(M.value)||1.5;
@@ -3265,7 +3265,7 @@ RENT = """<div class="tool" id="tt-rent">
 <script>(function(){
 var I=document.getElementById('rt-inc'),D=document.getElementById('rt-debt'),RU=document.getElementById('rt-rule');
 var OUT=document.getElementById('rt-out');
-function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function money(n){return '$'+Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var inc=parseFloat(I.value)||0,debt=parseFloat(D.value)||0,rule=parseFloat(RU.value)||30;
@@ -3539,7 +3539,7 @@ COMMISSION = """<div class="tool" id="tt-cm">
 <script>(function(){
 var B=document.getElementById('cm-b'),R=document.getElementById('cm-r'),V=document.getElementById('cm-v'),Q=document.getElementById('cm-q');
 var OUT=document.getElementById('cm-out');
-function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function money(n){return '$'+Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var b=parseFloat(B.value)||0,r=(parseFloat(R.value)||0)/100,v=parseFloat(V.value)||0;
@@ -3648,7 +3648,7 @@ FUELCOST = """<div class="tool" id="tt-fc">
 <script>(function(){
 var U=document.getElementById('fc-u'),D=document.getElementById('fc-d'),E=document.getElementById('fc-e'),P=document.getElementById('fc-p');
 var OUT=document.getElementById('fc-out');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var d=parseFloat(D.value)||0,e=parseFloat(E.value)||0,p=parseFloat(P.value)||0,us=U.value==='us';
@@ -3772,7 +3772,7 @@ ELECTRIC = """<div class="tool" id="tt-el">
 <script>(function(){
 var W=document.getElementById('el-w'),H=document.getElementById('el-h'),R=document.getElementById('el-r');
 var OUT=document.getElementById('el-out');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var w=parseFloat(W.value)||0,h=parseFloat(H.value)||0,r=parseFloat(R.value)||0;
@@ -3783,7 +3783,7 @@ function calc(){
   OUT.textContent=money(mon);
   document.getElementById('el-day').textContent=money(day);
   document.getElementById('el-year').textContent=money(year);
-  document.getElementById('el-kwh').textContent=Math.round(kwhDay*30.4).toLocaleString('en-US');
+  document.getElementById('el-kwh').textContent=Math.round(kwhDay*30.4).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('el-note').textContent='Math: '+w+' W × '+h+' h = '+(Math.round(kwhDay*100)/100)+' kWh/day, × your $'+r.toFixed(2)+'/kWh. Standby power typically adds 1-2 W around the clock - devices left plugged in cost a few dollars a year each.';
   document.title=money(mon)+'/mo to run - ToolTide';
 }
@@ -4084,11 +4084,11 @@ function calc(){
     document.getElementById('td-loss').textContent='–';document.getElementById('td-gain').textContent='–';
     document.title='TDEE Calculator - ToolTide';return;}
   var bmr=10*w+6.25*h-5*a+(S.value==='m'?5:-161),tdee=bmr*m;
-  OUT.textContent=Math.round(tdee).toLocaleString('en-US');
-  document.getElementById('td-bmr').textContent=Math.round(bmr).toLocaleString('en-US');
-  document.getElementById('td-loss').textContent=Math.round(tdee-500).toLocaleString('en-US');
-  document.getElementById('td-gain').textContent=Math.round(tdee+300).toLocaleString('en-US');
-  document.title=Math.round(tdee).toLocaleString('en-US')+' kcal TDEE - ToolTide';
+  OUT.textContent=Math.round(tdee).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('td-bmr').textContent=Math.round(bmr).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('td-loss').textContent=Math.round(tdee-500).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('td-gain').textContent=Math.round(tdee+300).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.title=Math.round(tdee).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' kcal TDEE - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_tdee',JSON.stringify({s:S.value,a:A.value,h:H.value,w:W.value,act:ACT.value}));}catch(e){}}
 [S,A,H,W,ACT].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4126,7 +4126,7 @@ TIPSPLIT = """<div class="tool" id="tt-ts">
 <script>(function(){
 var B=document.getElementById('ts-bill'),P=document.getElementById('ts-tip'),N=document.getElementById('ts-people');
 var OUT=document.getElementById('ts-out');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var b=parseFloat(B.value)||0,p=parseFloat(P.value)||0,n=Math.max(1,Math.round(parseFloat(N.value)||1));
@@ -4403,7 +4403,7 @@ SAVINGS = """<div class="tool" id="tt-savings">
 var G=document.getElementById('sav-goal'),S=document.getElementById('sav-saved'),D=document.getElementById('sav-dep'),R=document.getElementById('sav-apy');
 var OUT=document.getElementById('sav-out'),UNIT=document.getElementById('sav-unit'),DET=document.getElementById('sav-detail'),FILL=document.getElementById('sav-fill');
 var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-function money(v){return '$'+Math.round(v).toLocaleString('en-US');}
+function money(v){return '$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var g=parseFloat(G.value),s=parseFloat(S.value)||0,d=parseFloat(D.value)||0,apy=parseFloat(R.value)||0;
@@ -4457,7 +4457,7 @@ COMPOUND = """<div class="tool" id="tt-compound">
 (function(){
 var P=document.getElementById('cp-p'),M=document.getElementById('cp-m'),R=document.getElementById('cp-r'),Y=document.getElementById('cp-y');
 var OUT=document.getElementById('cp-out'),UNIT=document.getElementById('cp-unit'),DET=document.getElementById('cp-detail'),TB=document.getElementById('cp-table');
-function money(v){return '$'+Math.round(v).toLocaleString('en-US');}
+function money(v){return '$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var p=parseFloat(P.value)||0,m=parseFloat(M.value)||0,r=(parseFloat(R.value)||0)/100,y=parseFloat(Y.value);
@@ -4515,7 +4515,7 @@ LOANPAY = """<div class="tool" id="tt-ln">
 <script>(function(){
 var P=document.getElementById('ln-p'),R=document.getElementById('ln-r'),Y=document.getElementById('ln-y');
 var OUT=document.getElementById('ln-out');
-function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function money(n){return '$'+Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var p=parseFloat(P.value),ar=parseFloat(R.value),y=parseFloat(Y.value);
@@ -4571,7 +4571,7 @@ VATCALC = """<div class="tool" id="tt-vat">
 <script>(function(){
 var M=document.getElementById('vat-m'),A=document.getElementById('vat-a'),R=document.getElementById('vat-r'),PR=document.getElementById('vat-p');
 var OUT=document.getElementById('vat-out'),U=document.getElementById('vat-u');
-function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var a=parseFloat(A.value),r=(parseFloat(R.value)||0)/100;
@@ -5720,7 +5720,7 @@ DEBTPAYOFF = """<div class="tool" id="tt-dp">
 var B=document.getElementById('dp-b'),R=document.getElementById('dp-r'),M=document.getElementById('dp-m');
 var OUT=document.getElementById('dp-out');
 function qs(k){return new URLSearchParams(location.search).get(k);}
-function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function money(n){return '$'+Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function calc(){
   var b=parseFloat(B.value),apr=parseFloat(R.value),pay=parseFloat(M.value);
   if(!(b>0)||isNaN(apr)||apr<0||!(pay>0)){OUT.textContent='–';
@@ -6101,7 +6101,7 @@ AMORTIZE = """<div class="tool" id="tt-am">
 var P=document.getElementById('am-p'),R=document.getElementById('am-r'),Y=document.getElementById('am-y'),X=document.getElementById('am-x');
 var OUT=document.getElementById('am-out');
 function qs(k){return new URLSearchParams(location.search).get(k);}
-function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});}
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:0,maximumFractionDigits:2});}
 function calc(){
   var p=parseFloat(P.value),ar=parseFloat(R.value),y=parseFloat(Y.value),x=Math.max(0,parseFloat(X.value)||0);
   if(!(p>0)||!(y>0)||isNaN(ar)||ar<0){OUT.textContent='–';
@@ -6396,7 +6396,7 @@ STOCKAVG = """<div class="tool" id="tt-sa">
 <script>(function(){
 var E=document.getElementById('sa-e'),EP=document.getElementById('sa-ep'),N=document.getElementById('sa-n'),NP=document.getElementById('sa-np');
 var OUT=document.getElementById('sa-out');
-function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});}
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var e=parseFloat(E.value),ep=parseFloat(EP.value),n=parseFloat(N.value),np=parseFloat(NP.value);
@@ -6405,12 +6405,12 @@ function calc(){
     document.getElementById('sa-note').textContent='';document.title='Stock Average Calculator - ToolTide';return;}
   var tc=e+n,inv=e*ep+n*np,avg=inv/tc;
   OUT.textContent=money(avg);
-  document.getElementById('sa-sh').textContent=tc.toLocaleString('en-US');
+  document.getElementById('sa-sh').textContent=tc.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('sa-inv').textContent=money(inv);
   document.getElementById('sa-dr').textContent=ep>avg?((ep-avg)/ep*100).toFixed(1)+'%':'0%';
   var br=ep>avg?'Break-even is now '+money(avg)+' - the stock no longer has to recover to '+money(ep)+' for you to be whole.':
     'The new buy is above your existing average, so the blend moved up to '+money(avg)+'.';
-  document.getElementById('sa-note').textContent=tc.toLocaleString('en-US')+' shares at '+money(avg)+' average = '+money(inv)+' invested. '+br+' Averaging down only pays if the thesis holds - it lowers the bar, it does not remove it.';
+  document.getElementById('sa-note').textContent=tc.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares at '+money(avg)+' average = '+money(inv)+' invested. '+br+' Averaging down only pays if the thesis holds - it lowers the bar, it does not remove it.';
   document.title=money(avg)+' avg cost - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_stockavg',JSON.stringify({e:E.value,ep:EP.value,n:N.value,np:NP.value}));}catch(e){}}
@@ -6452,7 +6452,7 @@ POSSIZE = """<div class="tool" id="tt-ps">
 <script>(function(){
 var A=document.getElementById('ps-a'),R=document.getElementById('ps-r'),EN=document.getElementById('ps-en'),SL=document.getElementById('ps-sl'),TG=document.getElementById('ps-tg');
 var OUT=document.getElementById('ps-out');
-function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});}
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var a=parseFloat(A.value),r=parseFloat(R.value),en=parseFloat(EN.value),sl=parseFloat(SL.value),tg=parseFloat(TG.value);
@@ -6460,15 +6460,15 @@ function calc(){
     ['ps-risk','ps-dist','ps-val','ps-rr'].forEach(function(id){document.getElementById(id).textContent='–';});
     document.getElementById('ps-note').textContent='';document.title='Position Size Calculator - ToolTide';return;}
   var risk=a*r/100,d=Math.abs(en-sl),units=Math.floor(risk/d),val=units*en;
-  OUT.textContent=units.toLocaleString('en-US');
+  OUT.textContent=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('ps-risk').textContent=money(risk);
   document.getElementById('ps-dist').textContent=(d/en*100).toFixed(2)+'%';
   document.getElementById('ps-val').textContent=money(val);
   var rr='–';
   if(tg>0){var rw=Math.abs(tg-en);rr=(rw/d).toFixed(2)+':1';}
   document.getElementById('ps-rr').textContent=rr;
-  document.getElementById('ps-note').textContent='Risking '+money(risk)+' ('+r+'% of '+money(a)+') with a '+(d/en*100).toFixed(2)+'% stop allows '+units.toLocaleString('en-US')+' shares ('+money(val)+'). Shares are rounded down so real risk stays at or under '+r+'%. '+(tg>0?'At target '+money(tg)+' that is '+rr+' reward vs risk.':'Add a target price to see reward:risk.');
-  document.title=units.toLocaleString('en-US')+' shares - ToolTide';
+  document.getElementById('ps-note').textContent='Risking '+money(risk)+' ('+r+'% of '+money(a)+') with a '+(d/en*100).toFixed(2)+'% stop allows '+units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares ('+money(val)+'). Shares are rounded down so real risk stays at or under '+r+'%. '+(tg>0?'At target '+money(tg)+' that is '+rr+' reward vs risk.':'Add a target price to see reward:risk.');
+  document.title=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_possize',JSON.stringify({a:A.value,r:R.value,en:EN.value,sl:SL.value,tg:TG.value}));}catch(e){}}
 [A,R,EN,SL,TG].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -6514,7 +6514,7 @@ LOTTO = """<div class="tool" id="tt-lo">
 var G=document.getElementById('lo-g'),P=document.getElementById('lo-p'),J=document.getElementById('lo-j'),A=document.getElementById('lo-a'),B=document.getElementById('lo-b');
 var OUT=document.getElementById('lo-out');
 function C(n,k){var r=1;for(var i=1;i<=k;i++){r=r*(n-k+i)/i;}return r;}
-function money(n){if(n>=1e9)return '$'+(n/1e9).toFixed(2)+'B';if(n>=1e6)return '$'+(n/1e6).toFixed(1)+'M';return '$'+Math.round(n).toLocaleString('en-US');}
+function money(n){if(n>=1e9)return '$'+(n/1e9).toFixed(2)+'B';if(n>=1e6)return '$'+(n/1e6).toFixed(1)+'M';return '$'+Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function cfg(){var g=G.value;
   if(g==='pb')return{a:69,b:26,bd:1,any:'1 in 24.9'};
   if(g==='mm')return{a:70,b:24,bd:1,any:'1 in 24'};
@@ -6528,13 +6528,13 @@ function calc(){
     document.getElementById('lo-note').textContent='';document.title='Lottery Odds Calculator - ToolTide';return;}
   var bonus=c.bd===2?C(c.b,2):c.b;
   var odds=C(c.a,5)*bonus;
-  OUT.textContent=Math.round(odds).toLocaleString('en-US');
+  OUT.textContent=Math.round(odds).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var ev=j>0?j/odds:0;
   document.getElementById('lo-ev').textContent=j>0?money(ev):'–';
   document.getElementById('lo-be').textContent=money(pr*odds);
   document.getElementById('lo-any').textContent=c.any;
   document.getElementById('lo-note').textContent='Jackpot-only expected value is '+money(ev)+' on a '+money(pr)+' ticket - the jackpot would need to hit '+money(pr*odds)+' just to break even on that line. Lower prize tiers add roughly $0.20-0.35 of EV, but taxes (lump sum is about half the headline) and split jackpots cut the rest. Every combination is equally likely - the machine has no memory of your lucky numbers.';
-  document.title='1 in '+Math.round(odds).toLocaleString('en-US')+' - ToolTide';
+  document.title='1 in '+Math.round(odds).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' - ToolTide';
 }
 function cuMode(){var cu=G.value==='cu';
   document.querySelectorAll('.cu-hide').forEach(function(el){el.style.display=cu?'':'none';});}
@@ -6720,7 +6720,7 @@ CRYPTOPROFIT = """<div class="tool" id="tt-cp">
 <script>(function(){
 var B=document.getElementById('cp-b'),S=document.getElementById('cp-s'),Q=document.getElementById('cp-q'),F=document.getElementById('cp-f');
 var OUT=document.getElementById('cp-out');
-function money(n){return '$'+(Math.abs(n)>=100?Math.round(n).toLocaleString('en-US'):(Math.round(n*100)/100).toString());}
+function money(n){return '$'+(Math.abs(n)>=100?Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'):(Math.round(n*100)/100).toString());}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var b=parseFloat(B.value),s=parseFloat(S.value),q=parseFloat(Q.value),f=parseFloat(F.value);
@@ -6860,7 +6860,7 @@ function calc(){
   var gl=0.39*(W/S)+11.8*(SY/W)-15.59;
   OUT.textContent=Math.max(0,Math.round(re));
   document.getElementById('fl-grade').textContent=Math.max(1,Math.round(gl*10)/10);
-  document.getElementById('fl-words').textContent=W.toLocaleString('en-US');
+  document.getElementById('fl-words').textContent=W.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('fl-sents').textContent=S;
   document.getElementById('fl-wps').textContent=Math.round(W/S*10)/10;
   var band=re>=90?'very easy (5th grade)':re>=80?'easy (6th grade)':re>=70?'fairly easy (7th grade)':re>=60?'plain English (8-9th grade)':re>=50?'fairly difficult (10-12th)':re>=30?'difficult (college)':'very difficult (graduate)';
@@ -6973,12 +6973,12 @@ function calc(){
   if(S.value==='su')f+=0.10;if(S.value==='sh')f-=0.10;
   var btu=base*f;if(p>2)btu+=600*(p-2);if(K.value==='y')btu+=4000;
   btu=Math.round(btu/500)*500;
-  OUT.textContent=btu.toLocaleString('en-US');
+  OUT.textContent=btu.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('bt-kw').textContent=(btu*0.000293).toFixed(1)+' kW';
   document.getElementById('bt-ton').textContent=(btu/12000).toFixed(1);
-  document.getElementById('bt-base').textContent=Math.round(base/500)*500>=1000?((Math.round(base/500)*500).toLocaleString('en-US')):Math.round(base);
+  document.getElementById('bt-base').textContent=Math.round(base/500)*500>=1000?((Math.round(base/500)*500).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')):Math.round(base);
   document.getElementById('bt-note').textContent='Roughly a '+(Math.round(btu/9000*10)/10)+' kW split unit. Undersized units run forever and never dehumidify; oversized ones short-cycle - cold but clammy, and they wear out faster. The 20 BTU/sqft rule of thumb is temperate-climate: in Phoenix or Dubai add 10-20%, and ducted losses can eat another 10%. Heat pumps list cooling and heating BTU separately - size for the dominant season.';
-  document.title=btu.toLocaleString('en-US')+' BTU - ToolTide';
+  document.title=btu.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' BTU - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_btu',JSON.stringify({a:A.value,h:H.value,i:I.value,s:S.value,p:P.value,k:K.value}));}catch(e){}}
 [A,H,I,S,P,K].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7190,7 +7190,7 @@ function calc(){
   document.getElementById('bp-d8').textContent=Math.round(q*1.5)+' ms';
   document.getElementById('bp-8t').textContent=Math.round(q*2/3)+' ms';
   document.getElementById('bp-hz').textContent=(b/60/4).toFixed(3)+' Hz';
-  document.getElementById('bp-bar').textContent=Math.round(q*4).toLocaleString('en-US')+' ms';
+  document.getElementById('bp-bar').textContent=Math.round(q*4).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' ms';
   document.getElementById('bp-note').textContent='Set a delay\\'s time in ms (not tap-tempo) to these values and echoes land exactly between the notes: dotted 1/8 is the classic ambient/edge-of-chaos choice, 1/4 keeps echoes on the beat, triplets swing. For reverb predelay, 10-30 ms keeps vocals in front of the wash. Many plugins accept Hz for modulation instead - one LFO cycle per bar is '+ (b/60/4).toFixed(3)+' Hz here.';
   document.title=Math.round(q)+' ms 1/4 delay - ToolTide';
 }
@@ -7436,14 +7436,14 @@ function calc(){
     document.getElementById('inf-note').textContent='';document.title='Inflation Calculator - ToolTide';return;}
   var ci=CPI[f-1913],ct=CPI[t-1913];
   var adj=a*ct/ci;
-  OUT.textContent='$'+(Math.round(adj*100)/100).toLocaleString('en-US');
+  OUT.textContent='$'+(Math.round(adj*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var cum=(ct/ci-1)*100, yrs=t-f;
   document.getElementById('inf-cum').textContent=(cum>=0?'+':'')+cum.toFixed(1)+'%';
   var avgPct=yrs>0?((Math.pow(ct/ci,1/yrs)-1)*100):null;
   document.getElementById('inf-avg').textContent=avgPct!==null?avgPct.toFixed(2)+'%/yr':'–';
   var halve=yrs>0&&ct>ci?Math.log(.5)/Math.log(ci/ct):0;
   document.getElementById('inf-half').textContent=halve>0?Math.round(halve)+' yrs':'–';
-  document.getElementById('inf-note').textContent=a.toLocaleString('en-US')+' dollars from '+f+' bought what $'+(Math.round(adj*100)/100).toLocaleString('en-US')+' buys in '+t+' - prices '+(cum>=0?'rose ':'fell ')+Math.abs(cum).toFixed(1)+'% over '+yrs+' years. Based on BLS CPI-U annual averages (1982-84=100; latest year approximate). CPI measures an average basket, not your basket: housing, health and education have outrun it while electronics defied it - treat the number as the honest map of the dollar, not of your receipt.';
+  document.getElementById('inf-note').textContent=a.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' dollars from '+f+' bought what $'+(Math.round(adj*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' buys in '+t+' - prices '+(cum>=0?'rose ':'fell ')+Math.abs(cum).toFixed(1)+'% over '+yrs+' years. Based on BLS CPI-U annual averages (1982-84=100; latest year approximate). CPI measures an average basket, not your basket: housing, health and education have outrun it while electronics defied it - treat the number as the honest map of the dollar, not of your receipt.';
   document.title='$'+(Math.round(adj*100)/100)+' in '+t+' money - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_inflation',JSON.stringify({a:A.value,f:F.value,t:T.value}));}catch(e){}}
@@ -7601,12 +7601,12 @@ function calc(){
     ['be-rev','be-margin','be-cm'].forEach(function(id){document.getElementById(id).textContent='–';});
     document.title='Break-Even Calculator - ToolTide';return;}
   var units=Math.ceil(f/(p-v));
-  OUT.textContent=units.toLocaleString('en-US');
-  document.getElementById('be-rev').textContent='$'+Math.round(units*p).toLocaleString('en-US');
+  OUT.textContent=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('be-rev').textContent='$'+Math.round(units*p).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('be-margin').textContent='$'+(Math.round((p-v)*100)/100);
   document.getElementById('be-cm').textContent=Math.round((p-v)/p*100)+'%';
-  document.getElementById('be-note').textContent='Each sale contributes '+(Math.round((p-v)*100)/100)+' ('+Math.round((p-v)/p*100)+'% of price) toward the $'+f.toLocaleString('en-US')+' of monthly fixed costs - unit #'+units.toLocaleString('en-US')+' is the one that clears the rent. Two levers move this number faster than hustle: a +$5 price usually beats a +5% volume push, and trimming variable cost compounds across every future unit. Anything above break-even drops to profit at nearly 100% margin - that is why startups celebrate it.';
-  document.title=units.toLocaleString('en-US')+' units to break even - ToolTide';
+  document.getElementById('be-note').textContent='Each sale contributes '+(Math.round((p-v)*100)/100)+' ('+Math.round((p-v)/p*100)+'% of price) toward the $'+f.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' of monthly fixed costs - unit #'+units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' is the one that clears the rent. Two levers move this number faster than hustle: a +$5 price usually beats a +5% volume push, and trimming variable cost compounds across every future unit. Anything above break-even drops to profit at nearly 100% margin - that is why startups celebrate it.';
+  document.title=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' units to break even - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_breakeven',JSON.stringify({f:F.value,p:P.value,v:V.value}));}catch(e){}}
 [F,P,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7764,7 +7764,7 @@ function calc(){
   document.getElementById('cg-tot').textContent=((e/b-1)*100>=0?'+':'')+((e/b-1)*100).toFixed(1)+'%';
   document.getElementById('cg-mul').textContent=(e/b).toFixed(2)+'×';
   document.getElementById('cg-dbl').textContent=c>0?Math.round(Math.log(2)/Math.log(1+c)*10)/10+' yrs':'–';
-  document.getElementById('cg-note').textContent='CAGR smooths a jagged journey into one honest number: +26% a year for '+(Math.round(y*10)/10)+' years turns '+(b.toLocaleString('en-US'))+' into '+(e.toLocaleString('en-US'))+' - even if year two was -40% and year three +80%, the compound rate is what compounds. Rule of 72 for sanity: at this rate money doubles every '+(c>0?Math.round(72/(c*100)):'–')+' years. Watch the trap: a big loss needs a bigger gain to recover - -50% needs +100% just to get back to zero, which is why steady beats spectacular.';
+  document.getElementById('cg-note').textContent='CAGR smooths a jagged journey into one honest number: +26% a year for '+(Math.round(y*10)/10)+' years turns '+(b.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'))+' into '+(e.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'))+' - even if year two was -40% and year three +80%, the compound rate is what compounds. Rule of 72 for sanity: at this rate money doubles every '+(c>0?Math.round(72/(c*100)):'–')+' years. Watch the trap: a big loss needs a bigger gain to recover - -50% needs +100% just to get back to zero, which is why steady beats spectacular.';
   document.title=(c*100>=0?'+':'')+(c*100).toFixed(1)+'% CAGR - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_cagr',JSON.stringify({b:B.value,e:E.value,y:Y.value}));}catch(e){}}
@@ -7822,13 +7822,13 @@ function calc(){
   else{m3=a*b*c;}
   if(u==='f')m3*=0.0283168;
   var lit=m3*1000,gal=m3*264.172;
-  OUT.textContent=Math.round(lit).toLocaleString('en-US');
-  document.getElementById('pl-gal').textContent=Math.round(gal).toLocaleString('en-US');
-  document.getElementById('pl-m3').textContent=(Math.round(m3*10)/10).toLocaleString('en-US');
+  OUT.textContent=Math.round(lit).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('pl-gal').textContent=Math.round(gal).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('pl-m3').textContent=(Math.round(m3*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('pl-ton').textContent=(Math.round(m3*10)/10)+' t';
   var deep=c*1.4>2.2;
   document.getElementById('pl-note').textContent='Average depth is the honest input: (shallow end + deep end) ÷ 2 - most owners overestimate, and every chemical dose, pump runtime and heating bill scales with this number. Fill to about 90% of the coping, so subtract ~10% for the actual refill. '+(deep?'Deep enough for a diving-type slide check with local rules.':'This is a pool for swimming, not for diving - the deep end is shallower than diving guidelines.')+' Refilling '+(Math.round(lit/100)/10)+'k liters costs real money; a cover pays for itself in evaporation alone.';
-  document.title=Math.round(lit).toLocaleString('en-US')+' L pool - ToolTide';
+  document.title=Math.round(lit).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' L pool - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_pool',JSON.stringify({s:S.value,a:A.value,b:B.value,c:C.value,u:U.value}));}catch(e){}}
 [S,A,B,C,U].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7878,7 +7878,7 @@ function calc(){
   document.getElementById('ts2-months').textContent=Math.round(years*12);
   var wakePct=h*d*52.14/(16*365.25)*100;
   document.getElementById('ts2-wake').textContent=Math.round(wakePct)+'%';
-  document.getElementById('ts2-work').textContent=Math.round(years*365.25*h/40).toLocaleString('en-US');
+  document.getElementById('ts2-work').textContent=Math.round(years*365.25*h/40).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('ts2-note').textContent=years+' years of '+(t-a)+' is '+Math.round(years/(t-a)*100)+'% of that whole stretch - spent at '+h+' hours a day. Read it however you need: if this is the habit you love, that is a life well invested; if it is the app you open without noticing, the same math says what an hour back a day is worth over a decade. The calculator does not judge - it just refuses to let the number stay invisible.';
   document.title=Math.round(years*10)/10+' years - ToolTide';
 }
@@ -7986,12 +7986,12 @@ function calc(){
     ['cd-lost','cd-pct','cd-yr'].forEach(function(id){document.getElementById(id).textContent='–';});
     document.getElementById('cd-note').textContent='';document.title='Car Depreciation Calculator - ToolTide';return;}
   var v=p*Math.pow(1-r/100,y);
-  OUT.textContent='$'+Math.round(v).toLocaleString('en-US');
-  document.getElementById('cd-lost').textContent='$'+Math.round(p-v).toLocaleString('en-US');
+  OUT.textContent='$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('cd-lost').textContent='$'+Math.round(p-v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('cd-pct').textContent=Math.round((1-v/p)*100)+'%';
-  document.getElementById('cd-yr').textContent='$'+Math.round((p-v)/Math.max(1,y)).toLocaleString('en-US');
+  document.getElementById('cd-yr').textContent='$'+Math.round((p-v)/Math.max(1,y)).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('cd-note').textContent='Depreciation is front-loaded: a typical car sheds 40-50% of its value in the first three years, then the curve flattens - which is why a 3-year-old car is the classic value pick: the steepest part of the curve is someone else\u2019s receipt. Run the rate at 15-18% for average sedans, more for luxury marques, less for rare hold-the-value models. The per-year figure is the honest cost of ownership that fuel calculators forget - often bigger than the fuel bill itself.';
-  document.title='$'+Math.round(v).toLocaleString('en-US')+' car value - ToolTide';
+  document.title='$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' car value - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_cardep',JSON.stringify({p:P.value,y:Y.value,r:R.value}));}catch(e){}}
 [P,Y,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
