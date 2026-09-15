@@ -248,7 +248,10 @@ zh:{
  "tip.tip":"小费",
  "tip.total":"合计",
  "tip.pp":"每人",
- "tip.tpp":"小费/人"
+ "tip.tpp":"小费/人",
+ "bmi.cat":"WHO 分类",
+ "bmi.lo":"健康下限",
+ "bmi.hi":"健康上限"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -477,7 +480,10 @@ es:{
  "tip.tip":"propina",
  "tip.total":"total",
  "tip.pp":"por persona",
- "tip.tpp":"propina/persona"
+ "tip.tpp":"propina/persona",
+ "bmi.cat":"categoría OMS",
+ "bmi.lo":"límite sano inf.",
+ "bmi.hi":"límite sano sup."
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -706,7 +712,10 @@ pt:{
  "tip.tip":"gorjeta",
  "tip.total":"total",
  "tip.pp":"por pessoa",
- "tip.tpp":"gorjeta/pessoa"
+ "tip.tpp":"gorjeta/pessoa",
+ "bmi.cat":"categoria OMS",
+ "bmi.lo":"mínimo saudável",
+ "bmi.hi":"máximo saudável"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -935,7 +944,10 @@ ru:{
  "tip.tip":"чаевые",
  "tip.total":"итого",
  "tip.pp":"на человека",
- "tip.tpp":"чаевые/чел."
+ "tip.tpp":"чаевые/чел.",
+ "bmi.cat":"категория ВОЗ",
+ "bmi.lo":"здоровый мин.",
+ "bmi.hi":"здоровый макс."
 },
 ja:{
  "skip":"本文へスキップ",
@@ -1164,7 +1176,10 @@ ja:{
  "tip.tip":"チップ",
  "tip.total":"合計",
  "tip.pp":"一人あたり",
- "tip.tpp":"チップ/人"
+ "tip.tpp":"チップ/人",
+ "bmi.cat":"WHO分類",
+ "bmi.lo":"健康下限",
+ "bmi.hi":"健康上限"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -1393,7 +1408,10 @@ ko:{
  "tip.tip":"팁",
  "tip.total":"합계",
  "tip.pp":"1인당",
- "tip.tpp":"팁/인"
+ "tip.tpp":"팁/인",
+ "bmi.cat":"WHO 분류",
+ "bmi.lo":"건강 하한",
+ "bmi.hi":"건강 상한"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -1622,7 +1640,10 @@ de:{
  "tip.tip":"Trinkgeld",
  "tip.total":"Gesamt",
  "tip.pp":"pro Person",
- "tip.tpp":"Trinkgeld/Person"
+ "tip.tpp":"Trinkgeld/Person",
+ "bmi.cat":"WHO-Kategorie",
+ "bmi.lo":"gesundheitl. Untergrenze",
+ "bmi.hi":"gesundheitl. Obergrenze"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -1851,7 +1872,10 @@ fr:{
  "tip.tip":"pourboire",
  "tip.total":"total",
  "tip.pp":"par personne",
- "tip.tpp":"pourboire/personne"
+ "tip.tpp":"pourboire/personne",
+ "bmi.cat":"catégorie OMS",
+ "bmi.lo":"limite santé basse",
+ "bmi.hi":"limite santé haute"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -2080,7 +2104,10 @@ id:{
  "tip.tip":"tip",
  "tip.total":"total",
  "tip.pp":"per orang",
- "tip.tpp":"tip/orang"
+ "tip.tpp":"tip/orang",
+ "bmi.cat":"kategori WHO",
+ "bmi.lo":"batas sehat bawah",
+ "bmi.hi":"batas sehat atas"
 }
 };
 function detect(){
