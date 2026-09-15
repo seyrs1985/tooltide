@@ -510,6 +510,34 @@ try {
     && flatCss.indexOf('.site-head nav a{white-space:nowrap;padding:11px 2px}', mobIdx) > -1
     && flatCss.indexOf('.foot-col a{padding:8px 0}', mobIdx) > -1,
     'style.css: mobile tap targets >=40px (chip strip, chips, header nav, footer links)');
+  // 16px floor on the one sub-16px form control: iOS Safari auto-zooms the
+  // page when a focused input/select computes under 16px
+  assert(mobIdx > -1 && flatCss.indexOf('.lang-select{height:44px;font-size:1rem}', mobIdx) > -1,
+    'style.css: mobile lang-select >=16px (no iOS focus zoom)');
+  // WCAG contrast audit over the palette tokens: parse the light :root and
+  // manual-dark blocks, compute real contrast for every text/background pair
+  // the tokens form — palette edits can no longer ship an unreadable combo
+  const toks = blk => Object.fromEntries(
+    [...blk.matchAll(/--([a-z0-9-]+):([^;]+);/g)].map(m => [m[1], m[2].trim()]));
+  const lum = h => {
+    h = h.replace(/^#/, '');
+    if (h.length === 3) h = [...h].map(c => c + c).join('');
+    const c = [0, 2, 4].map(i => {
+      const v = parseInt(h.slice(i, i + 2), 16) / 255;
+      return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4;
+    });
+    return .2126 * c[0] + .7152 * c[1] + .0722 * c[2];
+  };
+  const cr = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+  const rootT = toks(css.match(/:root\{([^}]+)\}/)[1]);
+  const darkT = toks(css.match(/html\[data-theme="dark"\]\{([^}]+)\}/)[1]);
+  const crPairs = [['text', 'surface', 4.5], ['text-2', 'surface', 4.5], ['muted', 'surface', 4.5],
+    ['result-num', 'result-bg', 4.5], ['note-text', 'note-bg', 4.5], ['tip-text', 'tip-bg', 4.5],
+    ['bad', 'bad-bg', 4.5], ['brand', 'surface', 3]];
+  const bad = crPairs.find(([f, b, req]) => cr(rootT[f], rootT[b]) < req)
+    || crPairs.find(([f, b, req]) => cr(darkT[f], darkT[b]) < req);
+  assert(!bad, 'style.css: WCAG token contrast (light+dark): '
+    + (bad ? bad[0] + '/' + bad[1] + ' < ' + bad[2] : 'all ' + crPairs.length + ' pairs pass'));
 
   // stub-DOM behavior of CATS_JS
   const catsScript = [...idx.matchAll(/<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g)]
@@ -679,8 +707,8 @@ try {
     'i18n.js: language switcher is a native select (keyboard accessible)');
   assert(/\.lang-select\{[^}]*border:1px solid var\(--input-border\)/.test(css)
     && /\.lang-select option\{[^}]*background:var\(--surface\)/.test(css)
-    && /\.lang-select\{height:44px\}/.test(css),
-    'style.css: language select themed by shared vars + 44px mobile touch height');
+    && /\.lang-select\{height:44px;font-size:1rem\}/.test(css),
+    'style.css: language select themed by shared vars + 44px/16px mobile touch height');
   try {
     let sel = null;
     const htmlEl = { attrs: {}, lang: '', getAttribute: k => htmlEl.attrs[k] || null,

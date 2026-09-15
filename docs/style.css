@@ -410,7 +410,8 @@ body.a2hs-show .to-top{bottom:76px}
   .site-head nav a{white-space:nowrap;padding:11px 2px}
   .head-search{order:4;flex:1 1 100%;max-width:none;margin-top:2px}
   .head-search input,.head-search button{height:44px}
-  .lang-select{height:44px}
+  /* 16px floor keeps iOS Safari from auto-zooming the page on focus */
+  .lang-select{height:44px;font-size:1rem}
   /* mobile: the docked bar must stay one row tall — chips become a
      horizontally scrollable strip instead of wrapping into three rows */
   .hero-chips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-top:9px;padding-bottom:9px}

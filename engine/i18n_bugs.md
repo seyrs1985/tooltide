@@ -30,3 +30,4 @@
 ## 覆盖矩阵(页×语言 视觉验证记录)
 - 2026-09-14 R1:首页 × zh/de/ja(1280px 桌面视口)——header/hero/搜索/分类芯片/#new/价值卡/页脚矩阵/版权行,除上表 3 项外干净。
 - 下轮建议:首页 × ru/fr/id(西里尔长词+变音),再进倒计时族工具页 × de/ja(动态结果文案、document.title 钩子、placeholder)。
+- 2026-09-15 R10:首页 × ko 全对(title/占位符韩语,零裸键)——**首页×9译文语言全覆盖达成**(zh/de/ja/ru/fr/id/es/pt/ko);巡逻抽查 tip-calculator fr 发现4个stat标签未接线,当轮即修(见BUG-013续3)。
