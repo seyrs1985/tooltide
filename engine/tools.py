@@ -192,32 +192,33 @@ try{
 AGE = """
 <div class="tool" id="tt-age">
   <div class="fields">
-    <div class="field"><label for="age-b">Date of birth</label><input type="date" id="age-b"></div>
-    <div class="field"><label for="age-a">Age at date</label><input type="date" id="age-a"></div>
+    <div class="field"><label for="age-b" data-i18n="age.dob">Date of birth</label><input type="date" id="age-b"></div>
+    <div class="field"><label for="age-a" data-i18n="age.at">Age at date</label><input type="date" id="age-a"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="age-main">–</span>
     <div class="result-formula" id="age-total"></div></div>
   <div class="stats">
-    <div class="stat"><b id="age-days">–</b><span>days lived</span></div>
-    <div class="stat"><b id="age-hours">–</b><span>hours lived</span></div>
-    <div class="stat"><b id="age-next">–</b><span>days to next birthday</span></div>
+    <div class="stat"><b id="age-days">–</b><span data-i18n="age.lived_d">days lived</span></div>
+    <div class="stat"><b id="age-hours">–</b><span data-i18n="age.lived_h">hours lived</span></div>
+    <div class="stat"><b id="age-next">–</b><span data-i18n="age.nextbday">days to next birthday</span></div>
   </div>
 </div>
 <script>(function(){
 var bi=document.getElementById('age-b'),ai=document.getElementById('age-a');
+function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
 var t=new Date();ai.value=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
 function dim(y,mo){return new Date(y,mo+1,0).getDate();}
 function run(){
   if(!bi.value||!ai.value)return;
   var b=new Date(bi.value+'T00:00:00'),a=new Date(ai.value+'T00:00:00');
-  if(b>a){document.getElementById('age-main').textContent='Birth date must be before the target date';document.getElementById('age-total').textContent='';return;}
+  if(b>a){document.getElementById('age-main').textContent=T('age.error','Birth date must be before the target date');document.getElementById('age-total').textContent='';return;}
   var y=a.getFullYear()-b.getFullYear(),mo=a.getMonth()-b.getMonth(),d=a.getDate()-b.getDate();
   if(d<0){mo--;d+=dim(a.getFullYear(),a.getMonth()-1);}
   if(mo<0){y--;mo+=12;}
-  var s=y+(y===1?' year':' years')+', '+mo+(mo===1?' month':' months')+', '+d+(d===1?' day':' days');
+  var s=T('age.ymd','{y} years, {m} months, {d} days').replace('{y}',y).replace('{m}',mo).replace('{d}',d);
   document.getElementById('age-main').textContent=s;
   var totalDays=Math.floor((a-b)/864e5);
-  document.getElementById('age-total').textContent=totalDays.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' days in total';
+  document.getElementById('age-total').textContent=T('age.dtotal','{n} days in total').replace('{n}',totalDays.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'));
   document.getElementById('age-days').textContent=totalDays.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('age-hours').textContent=(totalDays*24).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var nb=new Date(a.getFullYear(),b.getMonth(),b.getDate());
@@ -423,12 +424,12 @@ WORDCOUNTER = """
   <div class="field"><label for="wc-txt">Type or paste text</label>
     <textarea id="wc-txt" rows="9" placeholder="Start typing — counts update live. Nothing leaves your browser."></textarea></div>
   <div class="stats">
-    <div class="stat"><b id="wc-w">0</b><span>words</span></div>
-    <div class="stat"><b id="wc-c">0</b><span>characters</span></div>
-    <div class="stat"><b id="wc-cns">0</b><span>chars (no spaces)</span></div>
-    <div class="stat"><b id="wc-s">0</b><span>sentences</span></div>
-    <div class="stat"><b id="wc-p">0</b><span>paragraphs</span></div>
-    <div class="stat"><b id="wc-rt">–</b><span>reading time</span></div>
+    <div class="stat"><b id="wc-w">0</b><span data-i18n="wc.words">words</span></div>
+    <div class="stat"><b id="wc-c">0</b><span data-i18n="wc.chars">characters</span></div>
+    <div class="stat"><b id="wc-cns">0</b><span data-i18n="wc.cns">chars (no spaces)</span></div>
+    <div class="stat"><b id="wc-s">0</b><span data-i18n="wc.sentences">sentences</span></div>
+    <div class="stat"><b id="wc-p">0</b><span data-i18n="wc.paras">paragraphs</span></div>
+    <div class="stat"><b id="wc-rt">–</b><span data-i18n="wc.rt">reading time</span></div>
   </div>
 </div>
 <script>(function(){
