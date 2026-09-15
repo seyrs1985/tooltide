@@ -242,7 +242,9 @@ zh:{
  "ep.range":"超出范围",
  "bindec.big":"数字太大。",
  "bindec.note":"十进制 {d} = 二进制 {b}",
- "temp.belowabs":"低于绝对零度——物理上不可能。"
+ "temp.belowabs":"低于绝对零度——物理上不可能。",
+ "wc.sec":"秒",
+ "wc.min":"分钟"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -465,7 +467,9 @@ es:{
  "ep.range":"fuera de rango",
  "bindec.big":"El número es demasiado grande.",
  "bindec.note":"{d} decimal = {b} binario",
- "temp.belowabs":"Por debajo del cero absoluto: físicamente imposible."
+ "temp.belowabs":"Por debajo del cero absoluto: físicamente imposible.",
+ "wc.sec":"s",
+ "wc.min":"min"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -688,7 +692,9 @@ pt:{
  "ep.range":"fora do intervalo",
  "bindec.big":"O número é grande demais.",
  "bindec.note":"{d} decimal = {b} binário",
- "temp.belowabs":"Abaixo do zero absoluto — fisicamente impossível."
+ "temp.belowabs":"Abaixo do zero absoluto — fisicamente impossível.",
+ "wc.sec":"s",
+ "wc.min":"min"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -911,7 +917,9 @@ ru:{
  "ep.range":"вне диапазона",
  "bindec.big":"Слишком большое число.",
  "bindec.note":"{d} в десятичной = {b} в двоичной",
- "temp.belowabs":"Ниже абсолютного нуля — физически невозможно."
+ "temp.belowabs":"Ниже абсолютного нуля — физически невозможно.",
+ "wc.sec":"с",
+ "wc.min":"мин"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -1134,7 +1142,9 @@ ja:{
  "ep.range":"範囲外",
  "bindec.big":"数値が大きすぎます。",
  "bindec.note":"10 進数 {d} = 2 進数 {b}",
- "temp.belowabs":"絶対零度未満 — 物理的に不可能です。"
+ "temp.belowabs":"絶対零度未満 — 物理的に不可能です。",
+ "wc.sec":"秒",
+ "wc.min":"分"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -1357,7 +1367,9 @@ ko:{
  "ep.range":"범위를 벗어남",
  "bindec.big":"숫자가 너무 큽니다.",
  "bindec.note":"10진수 {d} = 2진수 {b}",
- "temp.belowabs":"절대영도 이하 — 물리적으로 불가능합니다."
+ "temp.belowabs":"절대영도 이하 — 물리적으로 불가능합니다.",
+ "wc.sec":"초",
+ "wc.min":"분"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -1580,7 +1592,9 @@ de:{
  "ep.range":"außerhalb des Bereichs",
  "bindec.big":"Zahl zu groß.",
  "bindec.note":"{d} dezimal = {b} binär",
- "temp.belowabs":"Unter dem absoluten Nullpunkt — physikalisch unmöglich."
+ "temp.belowabs":"Unter dem absoluten Nullpunkt — physikalisch unmöglich.",
+ "wc.sec":"Sek.",
+ "wc.min":"Min."
 },
 fr:{
  "skip":"Aller au contenu",
@@ -1803,7 +1817,9 @@ fr:{
  "ep.range":"hors plage",
  "bindec.big":"Nombre trop grand.",
  "bindec.note":"{d} décimal = {b} binaire",
- "temp.belowabs":"En dessous du zéro absolu — physiquement impossible."
+ "temp.belowabs":"En dessous du zéro absolu — physiquement impossible.",
+ "wc.sec":"s",
+ "wc.min":"min"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -2026,7 +2042,9 @@ id:{
  "ep.range":"di luar rentang",
  "bindec.big":"Angka terlalu besar.",
  "bindec.note":"{d} desimal = {b} biner",
- "temp.belowabs":"Di bawah nol mutlak — secara fisika tidak mungkin."
+ "temp.belowabs":"Di bawah nol mutlak — secara fisika tidak mungkin.",
+ "wc.sec":"dtk",
+ "wc.min":"menit"
 }
 };
 function detect(){
