@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>End-of-meal math is the worst kind: done on a phone, under peer pressure, twice. This calculator takes the bill, your tip percentage and the headcount, then shows each person&#x27;s exact share, the grand total, and — the part everyone actually wants — a round-up figure where each person throws in to the next whole dollar and the surplus becomes a better tip rather than an argument.</p><p>It complements the plain tip calculator for the &quot;one check, many wallets&quot; situation: the note line spells out what the round-up collection totals and how much extra the server receives, so the table can decide between exact fairness and clean cash. Every input is remembered and the share button packages the split for the group chat before the dessert menus arrive.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-ts">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-ts">
   <div class="fields">
     <div class="field"><label for="ts-bill">Bill total ($)</label><input type="number" id="ts-bill" step="0.01" min="0" placeholder="184.50"></div>
     <div class="field"><label for="ts-tip">Tip %</label><input type="number" id="ts-tip" step="any" min="0" max="100" placeholder="18"></div>

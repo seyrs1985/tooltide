@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>The internet&#x27;s recipes travel, but ovens don&#x27;t: American recipes speak Fahrenheit, European ones Celsius, and British vintage cookery writes gas marks. Enter any setting in one system and this converter gives the equivalent in both others — plus the full reference table from 275°F meringue-land to 500°F pizza-blast, so you can sanity-check any recipe at a glance.</p><p>The table&#x27;s fourth column is the practical one: what each temperature is actually used for, from slow-roasting to fast browning. One warning is built into the page: fan (convection) ovens run about 20°C hotter than these conventional settings — subtract 20°C or one gas mark equivalent when the manual says fan-assisted.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-oven">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-oven">
   <div class="fields">
     <div class="field"><label for="ov-u">Input unit</label><select id="ov-u"><option value="f">°Fahrenheit</option><option value="c">°Celsius</option><option value="g">Gas mark</option></select></div>
     <div class="field"><label for="ov-v">Oven temperature</label><input type="number" id="ov-v" step="any" placeholder="350"></div>

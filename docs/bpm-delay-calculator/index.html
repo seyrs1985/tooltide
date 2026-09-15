@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Tempo-synced delay is one note of arithmetic: a quarter-note delay lasts 60,000 ÷ BPM milliseconds, and every other subdivision is a multiple of it. Set a plugin&#x27;s time manually to those milliseconds and echoes land exactly between the notes - the dotted eighth that defines U2-style edge-of-chaos ambience, the triplet that swings, the one-bar wash that turns a vocal into a stadium. This calculator shows the whole family at once, live, from one field.</p><p>It also answers the questions the delay table doesn&#x27;t: how long a bar lasts (for reverb tails and loop lengths), and the modulation rate in Hz producers need when a plugin&#x27;s LFO syncs by frequency instead of tempo - one LFO cycle per bar at your tempo, to three decimals. Your last tempo is remembered for the session, and the share link carries the BPM.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-bpm">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-bpm">
   <div class="fields">
     <div class="field"><label for="bp-b">Track BPM</label><input type="number" id="bp-b" min="20" max="400" placeholder="120"></div>
   </div>

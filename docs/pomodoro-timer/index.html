@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>The pomodoro method is 25 minutes of focus, 5 minutes off, and a longer break every fourth cycle - simple to describe, easy to abandon, because most timers make you babysit them. This one runs the whole protocol: it cycles through focus and break phases automatically, beeps at each transition, and keeps the countdown in the browser tab title so it stays visible while you work in other windows.</p><p>It also keeps score: completed focus blocks and focus minutes accrue per day, survive a reload mid-session, and are there when you come back tomorrow - the counter that quietly asks whether today was a zero-focus day. Durations are adjustable, and the timing math runs on wall-clock timestamps, so background-tab throttling cannot make your 25 minutes drift.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-po">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-po">
   <div class="fields">
     <div class="field"><label for="po-w">Focus minutes</label><input type="number" id="po-w" min="1" max="120" value="25"></div>
     <div class="field"><label for="po-b">Short break</label><input type="number" id="po-b" min="1" max="60" value="5"></div>

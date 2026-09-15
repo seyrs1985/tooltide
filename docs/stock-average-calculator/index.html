@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Averaging down is the most common trade in investing and the least often computed: you own 100 shares at $50, the stock drops to $35, and buying another 100 lands your break-even at $42.50 - not $35, and not the midpoint either. This calculator does that blend instantly, plus the totals that decide whether the add is wise: combined shares, combined capital in the position, and how much the average actually moved.</p><p>The honest number here is break-even. Averaging down does not un-buy your expensive shares - it re-weights them - so the note under the result states the new bar plainly and what it does and does not fix. Your inputs are remembered for scenario testing, results land in the tab title, and one tap shares the full position via a link that carries the numbers.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-sa">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-sa">
   <div class="fields">
     <div class="field"><label for="sa-e">Shares you already own</label><input type="number" id="sa-e" step="any" min="0" placeholder="100"></div>
     <div class="field"><label for="sa-ep">Your average buy price ($)</label><input type="number" id="sa-ep" step="any" min="0" placeholder="50"></div>

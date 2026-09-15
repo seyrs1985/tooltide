@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Enter the perimeter of your walls, the height, your roll dimensions and the pattern repeat from the label. The calculator works out strips needed, strips per roll with the repeat applied, and whole rolls to buy — with the trim allowance built in.</p><p>Shop calculators quietly assume plain paper. This one prices the pattern repeat honestly: with a repeat, every strip cuts to a multiple of the repeat, offcuts stop being reusable, and the roll count jumps — better to know before the till than after.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-wp">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-wp">
   <div class="fields">
     <div class="field"><label for="wp-p">Perimeter of walls (m)</label><input type="number" id="wp-p" min="0.1" step="0.1" placeholder="14"></div>
     <div class="field"><label for="wp-h">Wall height (m)</label><input type="number" id="wp-h" min="0.5" step="0.05" placeholder="2.5"></div>

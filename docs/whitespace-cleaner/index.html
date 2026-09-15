@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Copied-from-PDF text, CSV exports and pasted emails all carry the same disease: stray leading spaces, doubled spaces and random blank lines. This cleaner trims every line, squeezes space runs down to a single space, and optionally drops blank lines — with a live count of what was removed.</p><p>It pairs with the duplicate remover and line sorter as the list-cleaning toolkit: dedupe, sort, strip whitespace, done. All processing is local JavaScript — nothing you paste leaves your browser.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-ws">
   <div class="chips">
     <button class="chip active" id="ws-trim" type="button">Trim line edges</button>

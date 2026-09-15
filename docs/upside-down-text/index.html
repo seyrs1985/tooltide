@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Type any text and get it flipped upside down — sᴉɥʇ ǝʞᴉl — using genuine Unicode characters, not an image. The flipped text copies and pastes anywhere: Instagram and TikTok bios, WhatsApp messages, Twitter/X posts, Discord names and game chat.</p><p>It also reverses the reading order automatically, so the result reads (upside down) from left to right the way you typed it. Everything runs locally in your browser; the flipped text is just characters, so it survives copy-paste across every app.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-flip">
   <div class="field"><label for="fl-in">Your text</label>
     <textarea id="fl-in" rows="4" placeholder="Type something…"></textarea></div>

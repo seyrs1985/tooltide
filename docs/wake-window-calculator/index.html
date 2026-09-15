@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Enter your baby&#x27;s age in months and get the typical wake window range, how many naps a day that age usually takes, and total daily sleep expectations — the three numbers sleep schedules are built on.</p><p>Sleep-site tables often present one magic number per age. This one shows honest ranges, because a 4-month-old&#x27;s comfortable window varies by half an hour baby to baby — and reading cues beats watching the clock anyway.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-ww">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-ww">
   <div class="fields">
     <div class="field"><label for="ww-a">Baby age (months)</label><input type="number" id="ww-a" min="0" max="24" step="1" placeholder="6"></div>
   </div>

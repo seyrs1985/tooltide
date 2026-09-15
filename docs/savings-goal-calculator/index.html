@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Most savings calculators show a chart and ask you to sign up for a bank account. This one answers the only question that actually motivates saving: &quot;when will I get there?&quot; Type your goal, what you already have, and your monthly deposit — the answer is a calendar date, not an abstraction.</p><p>Add an optional APY to see what interest contributes — for many goals the interest line is small at first and becomes the fast lane later, which is exactly the part cash savers underestimate. Your inputs are remembered on this device and the share button produces a link that reopens the plan with your numbers filled in, so you can text the plan to an accountability partner.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-savings">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-savings">
   <div class="fields">
     <div class="field"><label for="sav-goal">Savings goal ($)</label><input type="number" id="sav-goal" min="1" step="any" placeholder="10000"></div>
     <div class="field"><label for="sav-saved">Already saved ($)</label><input type="number" id="sav-saved" min="0" step="any" placeholder="1200"></div>

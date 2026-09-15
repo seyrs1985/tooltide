@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Pick two dates and see the working days between them - the count that actually matters for SLA clocks, shipping lead times, contract notice periods and &#x27;we need it by Friday&#x27; promises. Weekend days are counted separately so both numbers are on screen.</p><p>The weekday count excludes Saturdays and Sundays automatically; public holidays vary by country, so add those on top of this number for your region. Your last inputs are remembered on the page between visits.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-dd">
   <div class="fields">
     <div class="field"><label for="dd-a" data-i18n="dd.start">Start date</label><input type="date" id="dd-a"></div>

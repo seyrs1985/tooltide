@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Every international call scheduling failure is the same three traps: the raw hour difference, the date rolling over, and daylight saving moving one city but not the other. Enter a date and time in one zone and this converter answers all three for the zone on the other end — the local wall-clock time, the signed difference including half-hours, and whether the result lands next day or the day before.</p><p>The zone list covers the world&#x27;s business hubs from New York to Auckland, and your device&#x27;s own zone appears first so the common case is one dropdown. Conversions use your browser&#x27;s built-in IANA timezone database, so DST transitions are computed exactly — a July date and a January date between London and New York genuinely differ by an hour, and the converter knows it. Your pairing is remembered for the next call.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-tz">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-tz">
   <div class="fields">
     <div class="field"><label for="tz-f">From zone</label><select id="tz-f"></select></div>
     <div class="field"><label for="tz-dt">Date &amp; time there</label><input type="datetime-local" id="tz-dt"></div>

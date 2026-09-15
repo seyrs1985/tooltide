@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Sleep debt is the gap between what your body asked for and what it got, compounded nightly: sleep 6.5 against an 8-hour target and by Sunday you owe 10.5 hours - which explains why the alarm on Monday morning feels like a court summons. This calculator makes the ledger visible: your average hours, your personal target, and the running balance across however many nights you&#x27;ve been living like this.</p><p>The note under the number keeps the science honest, because the popular advice is half-wrong: weekend catch-up restores how awake you feel but not the metabolic and memory costs of the shortfall, and a single 14-hour recovery sleep is not a repayment plan. What works is boringly effective - a 15-minutes-earlier bedtime each week and an extra hour a night until the balance clears.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-sd">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-a">Avg hours slept / night</label><input type="number" id="sd-a" step="any" min="0" max="14" placeholder="6.5"></div>
     <div class="field"><label for="sd-t">Your target hours</label><input type="number" id="sd-t" step="any" min="5" max="12" placeholder="8"></div>

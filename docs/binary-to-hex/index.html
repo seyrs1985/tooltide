@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Paste binary code (space-separated bytes like 01001000 01101001) and get clean hexadecimal — 48 69 — or paste hex and get the binary. The conversion works in groups of four bits: each binary nibble maps to exactly one hex digit, which is why programmers write memory dumps in hex.</p><p>Both directions update live and strict validation rejects malformed groups instead of guessing. It pairs with the text-to-binary converter for the full journey from human text to machine notation.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-bh">
   <div class="field"><label for="bh-bin">Binary (space-separated groups)</label>
     <textarea id="bh-bin" rows="3" placeholder="01001000 01101001"></textarea></div>

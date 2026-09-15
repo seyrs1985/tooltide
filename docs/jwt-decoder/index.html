@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>A JWT is three base64url parts separated by dots - header, payload, signature - and almost every debugging session starts with &#x27;what&#x27;s actually in this token?&#x27;. Paste it here and the decoder unpacks the first two parts into clean JSON, names the algorithm, counts the claims, and translates the unix timestamps into plain language: expired 3 hours ago, issued in 2 days, not yet valid for 40 minutes.</p><p>Two boundaries are stated up front: signatures are never verified (decoding proves readability, not authenticity), and the token never leaves the browser - by design there is no URL state, so a pasted token can&#x27;t leak into a shared link. This makes it safe for the tokens you actually debug: session JWTs, OIDC id_tokens, service-account tokens from cloud consoles.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-jw">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-jw">
   <div class="fields">
     <div class="field"><label for="jw-in">JWT token (paste the whole thing)</label><textarea id="jw-in" rows="4" placeholder="eyJhbGciOi..."></textarea></div>
   </div>

@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Paste any list of numbers — test scores, monthly bills, race times, sales figures — and get the average instantly, along with the sum and how many numbers you entered. Values can be separated by commas, spaces or new lines, in any mix.</p><p>The average (strictly, the arithmetic mean) is the single most useful summary of a list: one number that represents the typical value. It also shows the sum, because half the time the follow-up question is &#x27;so what was the total?&#x27;</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-avg">
   <div class="field"><label for="avg-in">Numbers <small>(comma, space or line separated)</small></label>
     <textarea id="avg-in" rows="5" placeholder="4, 8, 15, 16, 23, 42"></textarea></div>

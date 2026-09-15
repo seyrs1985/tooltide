@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>See the final price after any percentage discount — and exactly how much you save — before you get to the checkout. Add a second, stacked discount (like &#x27;extra 20% off sale items&#x27;) to reveal the true final price, because two discounts in a row are not the same as adding them together.</p><p>This is the Black Friday and clearance-season companion: type the tag price and the advertised percent off, and know within a second whether the deal is real.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-disc">
   <div class="fields">
     <div class="field"><label for="dc-price">Original price ($)</label><input type="number" id="dc-price" step="0.01" min="0" placeholder="120"></div>

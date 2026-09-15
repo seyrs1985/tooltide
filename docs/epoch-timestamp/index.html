@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Every API response, database row and log line stores time as a Unix timestamp - seconds since January 1, 1970, UTC. This converter turns those numbers back into dates humans can read, and turns dates into timestamps for the query you are about to write. It also shows the current timestamp ticking live, which is the fastest way to check whether a mystery number is in seconds or milliseconds.</p><p>Developers live in this conversion daily; everyone else meets it once and never forgets it. Paste, read, move on - all locally in your browser.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-ep">
   <div class="chips"><button class="chip active" id="ep-ms" type="button">Milliseconds (13 digits)</button></div>
   <div class="fields two">

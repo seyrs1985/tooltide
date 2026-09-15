@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Europe measures fuel economy in liters per 100 km; America uses miles per gallon. They are not just different units — they run in opposite directions: lower L/100km is better, higher MPG is better. The conversion is MPG = 235.215 ÷ (L/100km), and this calculator handles the inversion both ways.</p><p>So a European-spec car at 6.5 L/100km is a 36 MPG car; an American 30 MPG sedan is a 7.8 L/100km car. Useful when importing, comparing spec sheets, or decoding a rental car dashboard on holiday.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-fuel">
   <div class="fields two">
     <div class="field"><label for="fu-l">Liters per 100 km</label><input type="number" id="fu-l" step="any" min="0" placeholder="6.5"></div>

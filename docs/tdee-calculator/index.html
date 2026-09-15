@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>TDEE — total daily energy expenditure — is the number of calories you burn in 24 hours including everything from digestion to workouts. It is the anchor every sensible plan hangs from: eat below it to lose weight, above it to gain. This calculator computes your BMR with the Mifflin-St Jeor equation (the formula most dietitians start from), then applies an honest activity multiplier you pick from five plain-language levels.</p><p>Two reference lines sit next to the maintenance number: a 500 kcal deficit for steady loss (about half a kilo a week) and a +300 kcal surplus for lean gain, because eating wildly past your TDEE mostly buys fat, not muscle. Your inputs are remembered on this device — recheck after your activity level changes and the whole picture updates in one tap.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-tdee">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-tdee">
   <div class="fields">
     <div class="field"><label for="td-sex">Sex</label><select id="td-sex"><option value="m">Male</option><option value="f">Female</option></select></div>
     <div class="field"><label for="td-age">Age</label><input type="number" id="td-age" min="10" max="100" step="1" placeholder="30"></div>

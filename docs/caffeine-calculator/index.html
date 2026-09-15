@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Caffeine sneaks up in sums: two filter coffees, an afternoon cola and a pre-workout energy drink land you at 284 mg before anything with a shot count. This calculator lists the nine most common sources with their typical milligrams — pick how many of each you&#x27;ve had and the total appears against the 400 mg daily guideline for healthy adults.</p><p>The second stat answers the sleep question: caffeine&#x27;s half-life is roughly 5-6 hours, so the tool prints a last-safe-cup time for an 11 PM bedtime. The countdown logic pairs naturally with the sleep cycle calculator — and because the page remembers your usual picks, tomorrow&#x27;s tally is two taps instead of a memory test.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-caf">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-caf">
   <div id="caf-rows"></div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="caf-out">–</span><span class="result-unit">mg caffeine today</span></div>
   <div class="stats">

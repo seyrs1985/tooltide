@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>This live countdown shows exactly how long until the 4th of July — down to the second. The timer works out the next occurrence of the 4th of July automatically, so this page is always accurate, whether you are checking months ahead or counting down the final hours.</p><p>Planning fireworks, a lake trip or a backyard party? The countdown below always targets the upcoming July 4th and rolls over automatically after the holiday.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-cd">
   <div class="cd-event"><span id="cd-emoji"></span><span id="cd-name"></span></div>
   <div class="cd-big" id="cd-days">–</div>

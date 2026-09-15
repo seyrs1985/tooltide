@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Type any whole number and find out whether it is prime — and if it is not, one of its factors is shown, so you can see exactly why. Numbers up to 15 digits are checked with deterministic Miller-Rabin plus trial division, which is instant for homework numbers and fast well beyond them.</p><p>Prime numbers are the atoms of arithmetic: divisible only by 1 and themselves. They drive cryptography, appear in nature (cicada life cycles), and are the endless fascination of number theory — this checker settles any &#x27;is 1,009 prime?&#x27; argument in a keystroke.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-pr">
   <div class="field"><label for="pr-in">Whole number (up to 15 digits)</label>
     <input type="number" id="pr-in" step="1" placeholder="1009"></div>

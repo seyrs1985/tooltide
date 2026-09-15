@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Calories decide weight change; macros decide where those calories take your body. This calculator converts any daily calorie target into grams of protein, carbohydrate and fat using the standard energy factors — 4 kcal per gram of protein or carbs, 9 per gram of fat — so a 2,400 kcal day at 30/40/30 becomes 180 g protein, 240 g carbs and 80 g fat you can actually put on a plate.</p><p>Four goal presets cover the common splits (balanced, high-protein, endurance, low-carb), and switching to Custom unlocks the three percentage fields directly — the note line warns when a split doesn&#x27;t sum to 100. Feed it your maintenance number from the TDEE calculator and the pair gives you a complete, no-app subscription nutrition plan; both pages remember your numbers locally for daily rechecks.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-mac">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-mac">
   <div class="fields">
     <div class="field"><label for="mc-cal">Daily calories (kcal)</label><input type="number" id="mc-cal" step="any" min="0" placeholder="2400"></div>
     <div class="field"><label for="mc-goal">Goal preset</label>

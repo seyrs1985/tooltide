@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>A tire size like 225/45-17 is a formula, not a name: 225 mm of width, a sidewall that is 45% of that width, on a 17-inch rim. Put those three numbers in the diameter equation and you can predict everything that matters before the tires are mounted - how much taller the new setup sits, what your speedometer will read when you&#x27;re actually doing 100, and whether the odometer just started lying to you.</p><p>This calculator runs the comparison live and adds the verdict that tire shops argue about: the ±3% rule. Stay inside it and gearing, ABS, ESP and rub clearances stay within what your car was engineered for; drift outside and the note explains exactly which problems you&#x27;ve signed up for. It&#x27;s the math behind why plus-sizing pairs a bigger rim with a smaller aspect ratio - and why some swaps simply don&#x27;t work.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-ts">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-ts">
   <div class="fields">
     <div class="field"><label for="ts-w">Current width (mm)</label><input type="number" id="ts-w" step="1" placeholder="225"></div>
     <div class="field"><label for="ts-a">Current aspect (%)</label><input type="number" id="ts-a" step="1" placeholder="45"></div>

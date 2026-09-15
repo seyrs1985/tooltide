@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>What week is it? The question sounds trivial until ISO-8601&#x27;s answer bites: weeks run Monday to Sunday, and week 1 of a year is the one containing the first Thursday — so 1 January can belong to week 52 of the previous year, and some years legitimately have 53 weeks. Pick any date and this calculator returns the ISO week number, the exact Monday-Sunday span it covers, the quarter, and the day-of-year out of 365 or 366.</p><p>It defaults to today, which makes it a handy weekly reference: planners, sprint cadences, manufacturing date codes and European calendars all speak ISO weeks. The note explains the first-Thursday rule because that&#x27;s the part that breaks expectations — a date and its week number can disagree about the year, and the calculator shows which ISO year each week actually belongs to. Your last date is remembered between visits.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-wk">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-wk">
   <div class="fields">
     <div class="field"><label for="wk-d">Any date in the week</label><input type="date" id="wk-d"></div>
   </div>

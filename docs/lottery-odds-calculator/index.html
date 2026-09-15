@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Every lottery advertisement quotes the jackpot; none quotes what the ticket is mathematically worth. This calculator does: pick a game and a jackpot, and it computes the exact jackpot odds from the combinatorics (Powerball&#x27;s 1 in 292,201,338 is not a marketing number - it is 69-choose-5 times 26), the expected value per $2 ticket, and the jackpot at which the ticket would stop being a guaranteed loss.</p><p>That break-even number is the punchline: with only jackpot dollars counted, Powerball&#x27;s ticket price is not covered until the jackpot reaches roughly $584 million - and taxes, the lump-sum discount and shared jackpots push the true bar far higher. The note under the result keeps score honestly, which is exactly what makes this a better answer than a bare odds table.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-lo">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-lo">
   <div class="fields">
     <div class="field"><label for="lo-g">Game</label><select id="lo-g">
       <option value="pb">Powerball (5/69 + 1/26)</option>

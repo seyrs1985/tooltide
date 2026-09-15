@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Your weight is your mass times local gravity - and lunar gravity is one-sixth of Earth&#x27;s. Enter your Earth weight and see your Moon weight instantly, plus Mars, Jupiter and the rest of the solar system, because the scale reading is a local opinion.</p><p>Important distinction for science class: your mass never changes anywhere in the universe; weight is just the force your mass experiences under local gravity. On the Moon you would weigh 16% of Earth - but you would still be exactly you.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-mw">
   <div class="field"><label for="mw-in">Your weight on Earth</label>
     <input type="number" id="mw-in" step="any" min="0" value="70"></div>

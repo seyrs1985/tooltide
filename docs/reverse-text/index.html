@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Paste text and read it backwards - either character-by-character (esrever) or with the word order reversed (backwards the in order word). Puzzle makers, bio stylers and anyone playing with palindromes use both modes constantly.</p><p>The output updates live and copies in one tap. Unlike the upside-down generator (which substitutes look-alike Unicode letters), reversing keeps your exact original characters in a new order - so it survives every platform perfectly.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-rv">
   <div class="chips">
     <button class="chip active" data-m="chars">Reverse characters</button>

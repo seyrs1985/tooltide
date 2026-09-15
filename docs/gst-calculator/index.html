@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Two GST questions cover almost every real situation: &quot;what will this cost with GST added?&quot; and &quot;how much of this GST-inclusive price was tax?&quot; This calculator handles both — add mode applies the slab to a net price, extract mode backs the tax out of a MRP-style inclusive price — using India&#x27;s four standard slabs (5, 12, 18, 28%) with one tap each.</p><p>The CGST/SGST line is the invoice detail most calculators skip: intra-state sales split the tax equally between Central and State GST, while inter-state bills carry the full amount as IGST. Whether you are checking a restaurant bill, pricing a product or filing a reimbursement, the split is shown in rupees, and the share button packages the whole breakdown for the accounts chat.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-gst">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-gst">
   <div class="fields">
     <div class="field"><label for="gs-p">Price (₹)</label><input type="number" id="gs-p" step="any" min="0" placeholder="2499"></div>
     <div class="field"><label for="gs-r">GST rate</label>

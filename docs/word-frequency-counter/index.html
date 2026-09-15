@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Paste an article, essay or transcript and instantly see which words you use most: a ranked table of every word with its count and percentage of the text. Toggle small function words (the, a, of…) off to reveal the words that actually carry your meaning — writers use this to catch overused words; SEO folks, to check keyword balance.</p><p>The analysis runs entirely in your browser: nothing you paste is uploaded anywhere. Case is folded (The and the count together), punctuation is ignored, and the table re-ranks live as you edit.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-wf">
   <div class="chips"><button class="chip active" id="wf-stop" type="button">Ignore common words</button></div>
   <div class="field"><label for="wf-in">Paste text</label>

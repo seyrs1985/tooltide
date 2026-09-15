@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Compound interest is interest earning interest: every month your balance grows, and the growth itself starts growing. Enter a starting amount, an optional monthly contribution, a rate and a time horizon — you get the future value plus a year-by-year table that shows exactly when compounding starts doing the heavy lifting.</p><p>The detail line also applies the rule of 72 — the classic mental math that divides 72 by your rate to estimate the doubling time. At 7%, money doubles roughly every decade; the yearly table lets you watch that doubling happen. Pair this with the savings goal calculator when you have a target date instead of a horizon.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-compound">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-compound">
   <div class="fields">
     <div class="field"><label for="cp-p">Starting amount ($)</label><input type="number" id="cp-p" min="0" step="any" placeholder="5000"></div>
     <div class="field"><label for="cp-m">Monthly contribution ($, optional)</label><input type="number" id="cp-m" min="0" step="any" placeholder="200"></div>

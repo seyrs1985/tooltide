@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>The triangle every driving instructor, runner and dispatcher draws on a napkin: speed = distance / time. Enter any two of the three values and this calculator solves the third - a 120 km trip at 80 km/h takes exactly 1.5 hours, shown as 1:30:00 for the trip computer.</p><p>Distance and speed default to kilometers and km/h but accept any consistent units - miles with mph, meters with seconds - because the formula does not care as long as the units agree. The time field accepts h:mm:ss, which is how GPS watches and delivery apps actually report durations.</p></section>
-  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-sdt">
   <div class="fields">
     <div class="field"><label for="sdt-d">Distance</label><input type="number" id="sdt-d" step="any" min="0" placeholder="120"></div>
