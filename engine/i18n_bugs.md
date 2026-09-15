@@ -3,10 +3,12 @@
 格式:`编号|页面|语言|现象|截图|状态`。状态=待修/已修/范围外。每轮先视觉验证、记录,再修复,部署后线上复验回写。
 
 ## 待修
-- BUG-013余量|其余渲染器家族|所有译文语言|动态字符串后缀类(同age/wc模式:JS拼接文案未走i18n)在其余家族仍存在,随逐轮家族巡查接续接入(参照age/wc的T()键模式)|IAB DOM探针|待修(逐轮蚕食)
+- Share按钮家族(92处)|所有译文语言|共享/复制链未本地化:静态标签与1.5s恢复标签共74种Share文案(Share this estimate×12等)+92处恢复赋值;反馈Copied!已R9本地化,仅剩按钮标签本身(内容性文案,量大可逐簇)|rg清单(uniq -c)|待修(下轮或分簇)
+- BUG-013余量|其余渲染器家族|所有译文语言|动态字符串后缀类剩余量:校验/状态/复制反馈已R9清空,仍散见科普长注记(FLSA/折扣顺序等运行时note长句)与零星标签,随逐轮家族巡查接续(参照TT()键模式)|IAB DOM探针|待修(逐轮蚕食)
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修
+- BUG-013续|全站渲染器(tools.py)|所有译文语言|反馈与校验提示家族未本地化:106处Copied!、8个纯Copy按钮链、21条校验/状态串(pw/rng/roman/gr/prime/epoch/bindec/temp)硬编码英文|rg清单+构建grep|已修R9(render()注入window.TT()辅助+21键×9语言经_i18n_tables.json重生成;298文件4741检查0失败+审计过;de文案人工撰写,线上复验待push恢复后补)
 - BUG-005|全站chrome(用户报告)|英文态|截图=切English后仍见中文(头部搜索占位符/面包屑计算器);线上HTML验证干净英文,IAB复现zh→en切换正常→定性=用户端reload未完成或bfcache恢复旧zh DOM|用户截图|已修R3(i18n.js pageshow persisted时原地重apply+选择器同步;ttSetLang加reload兜底重试)
 - BUG-006|倒计时族(days-until-*×7页,渲染器tools.py CD)|de/ja全部|动态结果文案零i18n接线:时钟行"h:m:s remaining today"、大数字标签"days to go"、标题钩子"100d to Christmas"、日期/千分位硬编码en-US|data/i18n_shots/(DOM探针证据:xmas页 de clock/title/lbl)|已修R4+线上复验通过(tools.py加T()辅助+LC=ttLang(),接cd.days/cd.daysyours/cd.today/cd.clock/cd.title×5键×9语言;复验de:clock=h:m:s heute verbleibend,title=Noch 100 Tage bis Christmas,lbl=Tage verbleibend,date=Fr., 25. Dez. 2026;ja日期2026年12月25日(金),overflowX=false;事件名Christmas英译键留下轮)
 - BUG-007|全站SW缓存|所有语言|sw.js字节永不变→CACHE"tooltide-v1"永不重装→PRECACHE里的i18n.js被钉死在访客安装SW当天(旧键缺失/旧文案顽固不更新,用户端旧缓存根因之一)|线上sw.js+IAB复现(二次reload仍旧i18n.js)|已修R4+线上复验通过(CACHE烙构建时间戳tooltide-v1-YYYYMMDDHHMM,每次部署字节变化→浏览器重装SW→预缓存重取最新资产;复验:新SW controlled后de全链德语生效)
