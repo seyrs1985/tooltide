@@ -88,7 +88,7 @@ function calc(){
   document.getElementById('ts2-months').textContent=Math.round(years*12);
   var wakePct=h*d*52.14/(16*365.25)*100;
   document.getElementById('ts2-wake').textContent=Math.round(wakePct)+'%';
-  document.getElementById('ts2-work').textContent=Math.round(years*365.25*h/40).toLocaleString('en-US');
+  document.getElementById('ts2-work').textContent=Math.round(years*365.25*h/40).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('ts2-note').textContent=years+' years of '+(t-a)+' is '+Math.round(years/(t-a)*100)+'% of that whole stretch - spent at '+h+' hours a day. Read it however you need: if this is the habit you love, that is a life well invested; if it is the app you open without noticing, the same math says what an hour back a day is worth over a decade. The calculator does not judge - it just refuses to let the number stay invisible.';
   document.title=Math.round(years*10)/10+' years - ToolTide';
 }

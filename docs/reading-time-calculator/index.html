@@ -85,8 +85,8 @@ function run(){
   var speed=parseFloat(document.getElementById('rt-speed').value)||225;
   document.getElementById('rt-read').textContent=dur(w/speed);
   document.getElementById('rt-speak').textContent=dur(w/140);
-  document.getElementById('rt-words').textContent=w.toLocaleString('en-US');
-  document.getElementById('rt-chars').textContent=t.length.toLocaleString('en-US');
+  document.getElementById('rt-words').textContent=w.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('rt-chars').textContent=t.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 document.getElementById('rt-txt').addEventListener('input',run);
 document.getElementById('rt-speed').addEventListener('change',run);run();

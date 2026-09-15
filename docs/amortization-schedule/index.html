@@ -79,7 +79,7 @@
 var P=document.getElementById('am-p'),R=document.getElementById('am-r'),Y=document.getElementById('am-y'),X=document.getElementById('am-x');
 var OUT=document.getElementById('am-out');
 function qs(k){return new URLSearchParams(location.search).get(k);}
-function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});}
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:0,maximumFractionDigits:2});}
 function calc(){
   var p=parseFloat(P.value),ar=parseFloat(R.value),y=parseFloat(Y.value),x=Math.max(0,parseFloat(X.value)||0);
   if(!(p>0)||!(y>0)||isNaN(ar)||ar<0){OUT.textContent='–';

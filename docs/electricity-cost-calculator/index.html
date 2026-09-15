@@ -76,7 +76,7 @@
 <script>(function(){
 var W=document.getElementById('el-w'),H=document.getElementById('el-h'),R=document.getElementById('el-r');
 var OUT=document.getElementById('el-out');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var w=parseFloat(W.value)||0,h=parseFloat(H.value)||0,r=parseFloat(R.value)||0;
@@ -87,7 +87,7 @@ function calc(){
   OUT.textContent=money(mon);
   document.getElementById('el-day').textContent=money(day);
   document.getElementById('el-year').textContent=money(year);
-  document.getElementById('el-kwh').textContent=Math.round(kwhDay*30.4).toLocaleString('en-US');
+  document.getElementById('el-kwh').textContent=Math.round(kwhDay*30.4).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('el-note').textContent='Math: '+w+' W × '+h+' h = '+(Math.round(kwhDay*100)/100)+' kWh/day, × your $'+r.toFixed(2)+'/kWh. Standby power typically adds 1-2 W around the clock - devices left plugged in cost a few dollars a year each.';
   document.title=money(mon)+'/mo to run - ToolTide';
 }

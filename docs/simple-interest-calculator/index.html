@@ -76,7 +76,7 @@
 <script>(function(){
 var P=document.getElementById('si-p'),R=document.getElementById('si-r'),T=document.getElementById('si-t');
 var OUT=document.getElementById('si-out');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var p=parseFloat(P.value)||0,r=(parseFloat(R.value)||0)/100,t=parseFloat(T.value)||0;
@@ -90,7 +90,7 @@ function calc(){
   document.getElementById('si-int').textContent=money(si);
   document.getElementById('si-permo').textContent=money(si/Math.max(t*12,1));
   document.getElementById('si-cmp').textContent=money(cmp);
-  document.getElementById('si-note').textContent='SI = P × r × t = '+p.toLocaleString('en-US')+' × '+(r*100).toFixed(2).replace('.00','')+'% × '+t+' = '+money(si)+
+  document.getElementById('si-note').textContent='SI = P × r × t = '+p.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' × '+(r*100).toFixed(2).replace('.00','')+'% × '+t+' = '+money(si)+
     '. Simple interest is flat on the original principal - compounding the same rate would add '+money(cmp-total)+' more over '+t+' years.';
   document.title=money(si)+' interest - ToolTide';
 }

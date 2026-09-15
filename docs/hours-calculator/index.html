@@ -82,7 +82,7 @@ function run(){
   document.getElementById('hd-hm').textContent=h+' h '+m+' min';
   var dec=(Math.round(d/6)/100);
   document.getElementById('hd-dec').textContent=dec;
-  document.getElementById('hd-mins').textContent=d.toLocaleString('en-US');
+  document.getElementById('hd-mins').textContent=d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('hd-note').textContent=(overnight?'overnight shift · ':'')+
     a.value+' → '+b.value+'  ·  '+d+' minutes ÷ 60 = '+dec;
 }

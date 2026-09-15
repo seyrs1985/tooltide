@@ -76,7 +76,7 @@
 <script>(function(){
 var B=document.getElementById('ts-bill'),P=document.getElementById('ts-tip'),N=document.getElementById('ts-people');
 var OUT=document.getElementById('ts-out');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var b=parseFloat(B.value)||0,p=parseFloat(P.value)||0,n=Math.max(1,Math.round(parseFloat(N.value)||1));

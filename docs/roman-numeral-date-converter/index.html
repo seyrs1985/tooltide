@@ -96,7 +96,7 @@ rom.addEventListener('input',function(){
   if(!v){out.textContent='–';note.textContent='';lock=false;return;}
   var n=fromRoman(v);
   if(n===null){out.textContent='–';note.textContent='Not a valid standard Roman numeral (1–3999).';}
-  else{num.value=n;out.textContent=n.toLocaleString('en-US');note.textContent=v.toUpperCase()+' = '+n.toLocaleString('en-US');}
+  else{num.value=n;out.textContent=n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');note.textContent=v.toUpperCase()+' = '+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
   lock=false;
 });
 })();</script>

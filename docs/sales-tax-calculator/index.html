@@ -87,7 +87,7 @@ document.querySelectorAll('#tt-stx .chip').forEach(function(c){c.addEventListene
   document.getElementById('stx-f2').style.display=mode==='rev'?'flex':'none';
   run();
 });});
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function run(){
   var r=(parseFloat(rate.value)||0)/100;
   var base,tax,tot;

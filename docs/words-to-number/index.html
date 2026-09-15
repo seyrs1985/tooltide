@@ -95,7 +95,7 @@ inp.addEventListener('input',function(){
   var v=this.value.trim();
   if(!v){out.textContent='-';return;}
   var n=parse(v);
-  out.textContent=(n===null)?'(could not parse - check the spelling)':n.toLocaleString('en-US');
+  out.textContent=(n===null)?'(could not parse - check the spelling)':n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 });
 })();</script>
 

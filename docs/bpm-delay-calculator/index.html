@@ -86,7 +86,7 @@ function calc(){
   document.getElementById('bp-d8').textContent=Math.round(q*1.5)+' ms';
   document.getElementById('bp-8t').textContent=Math.round(q*2/3)+' ms';
   document.getElementById('bp-hz').textContent=(b/60/4).toFixed(3)+' Hz';
-  document.getElementById('bp-bar').textContent=Math.round(q*4).toLocaleString('en-US')+' ms';
+  document.getElementById('bp-bar').textContent=Math.round(q*4).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' ms';
   document.getElementById('bp-note').textContent='Set a delay\'s time in ms (not tap-tempo) to these values and echoes land exactly between the notes: dotted 1/8 is the classic ambient/edge-of-chaos choice, 1/4 keeps echoes on the beat, triplets swing. For reverb predelay, 10-30 ms keeps vocals in front of the wash. Many plugins accept Hz for modulation instead - one LFO cycle per bar is '+ (b/60/4).toFixed(3)+' Hz here.';
   document.title=Math.round(q)+' ms 1/4 delay - ToolTide';
 }

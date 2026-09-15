@@ -77,7 +77,7 @@
 <script>(function(){
 var E=document.getElementById('sa-e'),EP=document.getElementById('sa-ep'),N=document.getElementById('sa-n'),NP=document.getElementById('sa-np');
 var OUT=document.getElementById('sa-out');
-function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});}
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var e=parseFloat(E.value),ep=parseFloat(EP.value),n=parseFloat(N.value),np=parseFloat(NP.value);
@@ -86,12 +86,12 @@ function calc(){
     document.getElementById('sa-note').textContent='';document.title='Stock Average Calculator - ToolTide';return;}
   var tc=e+n,inv=e*ep+n*np,avg=inv/tc;
   OUT.textContent=money(avg);
-  document.getElementById('sa-sh').textContent=tc.toLocaleString('en-US');
+  document.getElementById('sa-sh').textContent=tc.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('sa-inv').textContent=money(inv);
   document.getElementById('sa-dr').textContent=ep>avg?((ep-avg)/ep*100).toFixed(1)+'%':'0%';
   var br=ep>avg?'Break-even is now '+money(avg)+' - the stock no longer has to recover to '+money(ep)+' for you to be whole.':
     'The new buy is above your existing average, so the blend moved up to '+money(avg)+'.';
-  document.getElementById('sa-note').textContent=tc.toLocaleString('en-US')+' shares at '+money(avg)+' average = '+money(inv)+' invested. '+br+' Averaging down only pays if the thesis holds - it lowers the bar, it does not remove it.';
+  document.getElementById('sa-note').textContent=tc.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares at '+money(avg)+' average = '+money(inv)+' invested. '+br+' Averaging down only pays if the thesis holds - it lowers the bar, it does not remove it.';
   document.title=money(avg)+' avg cost - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_stockavg',JSON.stringify({e:E.value,ep:EP.value,n:N.value,np:NP.value}));}catch(e){}}

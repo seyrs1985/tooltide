@@ -76,7 +76,7 @@
 var G=document.getElementById('sav-goal'),S=document.getElementById('sav-saved'),D=document.getElementById('sav-dep'),R=document.getElementById('sav-apy');
 var OUT=document.getElementById('sav-out'),UNIT=document.getElementById('sav-unit'),DET=document.getElementById('sav-detail'),FILL=document.getElementById('sav-fill');
 var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-function money(v){return '$'+Math.round(v).toLocaleString('en-US');}
+function money(v){return '$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var g=parseFloat(G.value),s=parseFloat(S.value)||0,d=parseFloat(D.value)||0,apy=parseFloat(R.value)||0;

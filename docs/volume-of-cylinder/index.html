@@ -74,9 +74,9 @@ function run(){
   var rr=parseFloat(r.value),hh=parseFloat(h.value);
   if(isNaN(rr)||isNaN(hh)){document.getElementById('cy-out').textContent='-';document.getElementById('cy-liters').textContent='-';return;}
   var v=Math.PI*rr*rr*hh;
-  document.getElementById('cy-out').textContent=(Math.round(v*100)/100).toLocaleString('en-US');
+  document.getElementById('cy-out').textContent=(Math.round(v*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('cy-unit').textContent='cubic '+('units');
-  document.getElementById('cy-liters').textContent=(Math.round(v/1000*1000)/1000).toLocaleString('en-US');
+  document.getElementById('cy-liters').textContent=(Math.round(v/1000*1000)/1000).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 r.addEventListener('input',run);h.addEventListener('input',run);run();
 })();</script>

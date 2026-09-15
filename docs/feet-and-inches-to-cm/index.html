@@ -79,8 +79,8 @@ function runFI(){
   if(lock)return;lock=true;cm2.value='';
   var f=parseFloat(ft.value)||0,i=parseFloat(inch.value)||0;
   var cm=cmFrom(f,i);
-  document.getElementById('fi-cm').textContent=(Math.round(cm*100)/100).toLocaleString('en-US');
-  document.getElementById('fi-inonly').textContent=(Math.round(cm/2.54*10)/10).toLocaleString('en-US');
+  document.getElementById('fi-cm').textContent=(Math.round(cm*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('fi-inonly').textContent=(Math.round(cm/2.54*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('fi-split').textContent='-';
   lock=false;
 }
@@ -91,8 +91,8 @@ function runCM(){
   var inOnly=c/2.54,feet=Math.floor(inOnly/12),ins=inOnly-feet*12;
   document.getElementById('fi-ft').value=feet;
   document.getElementById('fi-in').value=Math.round(ins*10)/10;
-  document.getElementById('fi-cm').textContent=(Math.round(c*100)/100).toLocaleString('en-US');
-  document.getElementById('fi-inonly').textContent=(Math.round(inOnly*10)/10).toLocaleString('en-US');
+  document.getElementById('fi-cm').textContent=(Math.round(c*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('fi-inonly').textContent=(Math.round(inOnly*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('fi-split').textContent=feet+' ft '+Math.round(ins*10)/10+' in';
   lock=false;
 }

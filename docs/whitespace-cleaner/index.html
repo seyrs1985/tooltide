@@ -96,8 +96,8 @@ function run(){
   if(st.blank)lines=lines.filter(function(L){return L.trim();});
   var res=lines.join('\n');
   out.value=res;
-  document.getElementById('ws-inlines').textContent=lines.length.toLocaleString('en-US');
-  document.getElementById('ws-chars').textContent=Math.max(0,before-res.length).toLocaleString('en-US');
+  document.getElementById('ws-inlines').textContent=lines.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('ws-chars').textContent=Math.max(0,before-res.length).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 inp.addEventListener('input',run);
 ['ws-trim','ws-collapse','ws-blank'].forEach(function(id){document.getElementById(id).addEventListener('click',run);});

@@ -79,8 +79,8 @@ function runSTLB(){
   if(lock)return;lock=true;kg2.value='';
   var s=parseFloat(st.value)||0,p=parseFloat(lb.value)||0;
   var kg=kgFrom(s,p);
-  document.getElementById('sl-kg').textContent=(Math.round(kg*100)/100).toLocaleString('en-US');
-  document.getElementById('sl-total-lb').textContent=Math.round(s*14+p).toLocaleString('en-US');
+  document.getElementById('sl-kg').textContent=(Math.round(kg*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('sl-total-lb').textContent=Math.round(s*14+p).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('sl-split').textContent='-';
   lock=false;
 }
@@ -91,8 +91,8 @@ function runKG(){
   var totalLb=k/0.45359237,stones=Math.floor(totalLb/14),lbs=totalLb-stones*14;
   document.getElementById('sl-st').value=stones;
   document.getElementById('sl-lb').value=Math.round(lbs);
-  document.getElementById('sl-kg').textContent=(Math.round(k*100)/100).toLocaleString('en-US');
-  document.getElementById('sl-total-lb').textContent=Math.round(totalLb).toLocaleString('en-US');
+  document.getElementById('sl-kg').textContent=(Math.round(k*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('sl-total-lb').textContent=Math.round(totalLb).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('sl-split').textContent=stones+' st '+Math.round(lbs)+' lb';
   lock=false;
 }

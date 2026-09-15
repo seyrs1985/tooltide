@@ -76,7 +76,7 @@
 <script>(function(){
 var P=document.getElementById('ln-p'),R=document.getElementById('ln-r'),Y=document.getElementById('ln-y');
 var OUT=document.getElementById('ln-out');
-function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function money(n){return '$'+Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var p=parseFloat(P.value),ar=parseFloat(R.value),y=parseFloat(Y.value);

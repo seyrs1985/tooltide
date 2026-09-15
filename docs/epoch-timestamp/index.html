@@ -86,7 +86,7 @@ function runTs(){
   var d=new Date(v*factor());
   if(isNaN(d.getTime())){document.getElementById('ep-utc').textContent='out of range';return;}
   document.getElementById('ep-utc').textContent=d.toISOString().slice(0,19).replace('T',' ')+' UTC';
-  document.getElementById('ep-local').textContent=d.toLocaleString('en-US');
+  document.getElementById('ep-local').textContent=d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 function runDate(){
   if(!dt.value)return;
@@ -94,12 +94,12 @@ function runDate(){
   var secs=Math.floor(d.getTime()/1000);
   ts.value=secs;
   document.getElementById('ep-utc').textContent=d.toISOString().slice(0,19).replace('T',' ')+' UTC';
-  document.getElementById('ep-local').textContent=d.toLocaleString('en-US');
+  document.getElementById('ep-local').textContent=d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 ts.addEventListener('input',runTs);
 dt.addEventListener('input',runDate);
 var now=document.getElementById('ep-now');
-function tick(){now.textContent=Math.floor(Date.now()/(ms?1:1000)).toLocaleString('en-US');}
+function tick(){now.textContent=Math.floor(Date.now()/(ms?1:1000)).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 setInterval(tick,1000);tick();
 })();</script>
 

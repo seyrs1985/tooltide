@@ -91,12 +91,12 @@ function calc(){
   if(S.value==='su')f+=0.10;if(S.value==='sh')f-=0.10;
   var btu=base*f;if(p>2)btu+=600*(p-2);if(K.value==='y')btu+=4000;
   btu=Math.round(btu/500)*500;
-  OUT.textContent=btu.toLocaleString('en-US');
+  OUT.textContent=btu.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('bt-kw').textContent=(btu*0.000293).toFixed(1)+' kW';
   document.getElementById('bt-ton').textContent=(btu/12000).toFixed(1);
-  document.getElementById('bt-base').textContent=Math.round(base/500)*500>=1000?((Math.round(base/500)*500).toLocaleString('en-US')):Math.round(base);
+  document.getElementById('bt-base').textContent=Math.round(base/500)*500>=1000?((Math.round(base/500)*500).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')):Math.round(base);
   document.getElementById('bt-note').textContent='Roughly a '+(Math.round(btu/9000*10)/10)+' kW split unit. Undersized units run forever and never dehumidify; oversized ones short-cycle - cold but clammy, and they wear out faster. The 20 BTU/sqft rule of thumb is temperate-climate: in Phoenix or Dubai add 10-20%, and ducted losses can eat another 10%. Heat pumps list cooling and heating BTU separately - size for the dominant season.';
-  document.title=btu.toLocaleString('en-US')+' BTU - ToolTide';
+  document.title=btu.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' BTU - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_btu',JSON.stringify({a:A.value,h:H.value,i:I.value,s:S.value,p:P.value,k:K.value}));}catch(e){}}
 [A,H,I,S,P,K].forEach(function(el){el.addEventListener('input',function(){calc();save();});});

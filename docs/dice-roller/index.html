@@ -77,7 +77,7 @@ document.getElementById('dc-go').addEventListener('click',function(){
   var f=Math.min(100,Math.max(2,parseInt(faces.value)||6));
   var rolls=[],sum=0;
   for(var i=0;i<n;i++){var r=secureInt(f)+1;rolls.push(r);sum+=r;}
-  document.getElementById('dc-total').textContent=sum.toLocaleString('en-US');
+  document.getElementById('dc-total').textContent=sum.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('dc-each').textContent='each die: '+rolls.join(',  ')+'  (D'+f+' x '+n+')';
 });
 })();</script>

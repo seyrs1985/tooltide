@@ -90,9 +90,9 @@ function run(){
   var a=parseFloat(l.value),b=parseFloat(w.value),c=parseFloat(h.value);
   if(isNaN(a)||isNaN(b)||isNaN(c)){document.getElementById('cf-cuft').textContent='-';document.getElementById('cf-cum').textContent='-';return;}
   var cuft=unit==='ft'?a*b*c:(a*b*c)/28316.846592;
-  document.getElementById('cf-cuft').textContent=(Math.round(cuft*100)/100).toLocaleString('en-US');
-  document.getElementById('cf-cum').textContent=(Math.round(cuft*0.0283168466*1000)/1000).toLocaleString('en-US');
-  document.getElementById('cf-out').textContent=(Math.round(cuft*100)/100).toLocaleString('en-US');
+  document.getElementById('cf-cuft').textContent=(Math.round(cuft*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('cf-cum').textContent=(Math.round(cuft*0.0283168466*1000)/1000).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('cf-out').textContent=(Math.round(cuft*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 l.addEventListener('input',run);w.addEventListener('input',run);h.addEventListener('input',run);run();
 })();</script>

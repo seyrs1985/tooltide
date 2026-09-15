@@ -78,7 +78,7 @@
 <script>(function(){
 var B=document.getElementById('cp-b'),S=document.getElementById('cp-s'),Q=document.getElementById('cp-q'),F=document.getElementById('cp-f');
 var OUT=document.getElementById('cp-out');
-function money(n){return '$'+(Math.abs(n)>=100?Math.round(n).toLocaleString('en-US'):(Math.round(n*100)/100).toString());}
+function money(n){return '$'+(Math.abs(n)>=100?Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'):(Math.round(n*100)/100).toString());}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var b=parseFloat(B.value),s=parseFloat(S.value),q=parseFloat(Q.value),f=parseFloat(F.value);

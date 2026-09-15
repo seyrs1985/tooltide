@@ -92,7 +92,7 @@ hms.addEventListener('input',function(){
   if(lock)return;lock=true;
   var v=toSeconds(this.value);
   if(v===null){out.textContent='(use h:mm:ss)';sIn.value='';lock=false;return;}
-  out.textContent=v.toLocaleString('en-US')+' seconds';sIn.value=v;
+  out.textContent=v.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' seconds';sIn.value=v;
   lock=false;
 });
 })();</script>

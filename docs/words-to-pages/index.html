@@ -77,8 +77,8 @@ var w=document.getElementById('wp-words'),s=document.getElementById('wp-space');
 function run(){
   var v=parseFloat(w.value)||0,per=parseFloat(s.value);
   var pages=v/per;
-  document.getElementById('wp-out').textContent=v?(Math.round(pages*10)/10).toLocaleString('en-US'):'–';
-  document.getElementById('wp-note').textContent=v?('≈ '+Math.ceil(pages)+' full page'+(Math.ceil(pages)>1?'s':'')+' · '+v.toLocaleString('en-US')+' words ÷ '+per+' words per page'):'';
+  document.getElementById('wp-out').textContent=v?(Math.round(pages*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'):'–';
+  document.getElementById('wp-note').textContent=v?('≈ '+Math.ceil(pages)+' full page'+(Math.ceil(pages)>1?'s':'')+' · '+v.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' words ÷ '+per+' words per page'):'';
 }
 w.addEventListener('input',run);s.addEventListener('change',run);run();
 })();</script>

@@ -79,7 +79,7 @@
 <script>(function(){
 var A=document.getElementById('ps-a'),R=document.getElementById('ps-r'),EN=document.getElementById('ps-en'),SL=document.getElementById('ps-sl'),TG=document.getElementById('ps-tg');
 var OUT=document.getElementById('ps-out');
-function money(n){return '$'+(Math.round(n*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});}
+function money(n){return '$'+(Math.round(n*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var a=parseFloat(A.value),r=parseFloat(R.value),en=parseFloat(EN.value),sl=parseFloat(SL.value),tg=parseFloat(TG.value);
@@ -87,15 +87,15 @@ function calc(){
     ['ps-risk','ps-dist','ps-val','ps-rr'].forEach(function(id){document.getElementById(id).textContent='–';});
     document.getElementById('ps-note').textContent='';document.title='Position Size Calculator - ToolTide';return;}
   var risk=a*r/100,d=Math.abs(en-sl),units=Math.floor(risk/d),val=units*en;
-  OUT.textContent=units.toLocaleString('en-US');
+  OUT.textContent=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('ps-risk').textContent=money(risk);
   document.getElementById('ps-dist').textContent=(d/en*100).toFixed(2)+'%';
   document.getElementById('ps-val').textContent=money(val);
   var rr='–';
   if(tg>0){var rw=Math.abs(tg-en);rr=(rw/d).toFixed(2)+':1';}
   document.getElementById('ps-rr').textContent=rr;
-  document.getElementById('ps-note').textContent='Risking '+money(risk)+' ('+r+'% of '+money(a)+') with a '+(d/en*100).toFixed(2)+'% stop allows '+units.toLocaleString('en-US')+' shares ('+money(val)+'). Shares are rounded down so real risk stays at or under '+r+'%. '+(tg>0?'At target '+money(tg)+' that is '+rr+' reward vs risk.':'Add a target price to see reward:risk.');
-  document.title=units.toLocaleString('en-US')+' shares - ToolTide';
+  document.getElementById('ps-note').textContent='Risking '+money(risk)+' ('+r+'% of '+money(a)+') with a '+(d/en*100).toFixed(2)+'% stop allows '+units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares ('+money(val)+'). Shares are rounded down so real risk stays at or under '+r+'%. '+(tg>0?'At target '+money(tg)+' that is '+rr+' reward vs risk.':'Add a target price to see reward:risk.');
+  document.title=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_possize',JSON.stringify({a:A.value,r:R.value,en:EN.value,sl:SL.value,tg:TG.value}));}catch(e){}}
 [A,R,EN,SL,TG].forEach(function(el){el.addEventListener('input',function(){calc();save();});});

@@ -83,9 +83,9 @@ function run(){
     if(seen.hasOwnProperty(L))continue;
     seen[L]=1;res.push(L);
   }
-  document.getElementById('dd2-orig').textContent=lines.length.toLocaleString('en-US');
-  document.getElementById('dd2-uniq').textContent=res.length.toLocaleString('en-US');
-  document.getElementById('dd2-rem').textContent=(lines.length-res.length).toLocaleString('en-US');
+  document.getElementById('dd2-orig').textContent=lines.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('dd2-uniq').textContent=res.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('dd2-rem').textContent=(lines.length-res.length).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   out.value=res.join('\n');
 }
 inp.addEventListener('input',run);

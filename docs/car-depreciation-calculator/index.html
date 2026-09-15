@@ -83,12 +83,12 @@ function calc(){
     ['cd-lost','cd-pct','cd-yr'].forEach(function(id){document.getElementById(id).textContent='–';});
     document.getElementById('cd-note').textContent='';document.title='Car Depreciation Calculator - ToolTide';return;}
   var v=p*Math.pow(1-r/100,y);
-  OUT.textContent='$'+Math.round(v).toLocaleString('en-US');
-  document.getElementById('cd-lost').textContent='$'+Math.round(p-v).toLocaleString('en-US');
+  OUT.textContent='$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('cd-lost').textContent='$'+Math.round(p-v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('cd-pct').textContent=Math.round((1-v/p)*100)+'%';
-  document.getElementById('cd-yr').textContent='$'+Math.round((p-v)/Math.max(1,y)).toLocaleString('en-US');
+  document.getElementById('cd-yr').textContent='$'+Math.round((p-v)/Math.max(1,y)).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('cd-note').textContent='Depreciation is front-loaded: a typical car sheds 40-50% of its value in the first three years, then the curve flattens - which is why a 3-year-old car is the classic value pick: the steepest part of the curve is someone else’s receipt. Run the rate at 15-18% for average sedans, more for luxury marques, less for rare hold-the-value models. The per-year figure is the honest cost of ownership that fuel calculators forget - often bigger than the fuel bill itself.';
-  document.title='$'+Math.round(v).toLocaleString('en-US')+' car value - ToolTide';
+  document.title='$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' car value - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_cardep',JSON.stringify({p:P.value,y:Y.value,r:R.value}));}catch(e){}}
 [P,Y,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});

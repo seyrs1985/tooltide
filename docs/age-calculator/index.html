@@ -86,9 +86,9 @@ function run(){
   var s=y+(y===1?' year':' years')+', '+mo+(mo===1?' month':' months')+', '+d+(d===1?' day':' days');
   document.getElementById('age-main').textContent=s;
   var totalDays=Math.floor((a-b)/864e5);
-  document.getElementById('age-total').textContent=totalDays.toLocaleString('en-US')+' days in total';
-  document.getElementById('age-days').textContent=totalDays.toLocaleString('en-US');
-  document.getElementById('age-hours').textContent=(totalDays*24).toLocaleString('en-US');
+  document.getElementById('age-total').textContent=totalDays.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' days in total';
+  document.getElementById('age-days').textContent=totalDays.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('age-hours').textContent=(totalDays*24).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var nb=new Date(a.getFullYear(),b.getMonth(),b.getDate());
   if(b.getMonth()===1&&b.getDate()===29&&!dim(a.getFullYear(),1)===29){nb=new Date(a.getFullYear(),1,28);}
   var today=new Date(a.getFullYear(),a.getMonth(),a.getDate());

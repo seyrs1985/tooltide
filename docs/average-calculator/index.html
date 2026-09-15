@@ -81,11 +81,11 @@ function run(){
     document.getElementById('avg-note').textContent='';return;}
   var sum=nums.reduce(function(a,b){return a+b;},0);
   var mean=sum/nums.length;
-  document.getElementById('avg-mean').textContent=(Math.round(mean*1e6)/1e6).toLocaleString('en-US');
-  document.getElementById('avg-sum').textContent=(Math.round(sum*1e6)/1e6).toLocaleString('en-US');
-  document.getElementById('avg-n').textContent=nums.length.toLocaleString('en-US');
-  document.getElementById('avg-min').textContent=Math.min.apply(null,nums).toLocaleString('en-US');
-  document.getElementById('avg-max').textContent=Math.max.apply(null,nums).toLocaleString('en-US');
+  document.getElementById('avg-mean').textContent=(Math.round(mean*1e6)/1e6).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('avg-sum').textContent=(Math.round(sum*1e6)/1e6).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('avg-n').textContent=nums.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('avg-min').textContent=Math.min.apply(null,nums).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('avg-max').textContent=Math.max.apply(null,nums).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('avg-note').textContent='Sum '+nums.length+' values ÷ '+nums.length+' = mean';
 }
 inp.addEventListener('input',run);run();

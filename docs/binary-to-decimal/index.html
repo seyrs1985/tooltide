@@ -83,8 +83,8 @@ bin.addEventListener('input',function(){
   if(!/^[01]+$/.test(v)){out.textContent='-';note.textContent='Only 0s and 1s are valid in binary.';lock=false;return;}
   var d=BigInt('0b'+v);
   dec.value=d.toString();
-  out.textContent=d.toLocaleString('en-US');
-  note.textContent=v+' binary = '+d.toLocaleString('en-US')+' decimal';
+  out.textContent=d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  note.textContent=v+' binary = '+d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' decimal';
   lock=false;
 });
 dec.addEventListener('input',function(){

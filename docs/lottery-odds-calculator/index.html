@@ -84,7 +84,7 @@
 var G=document.getElementById('lo-g'),P=document.getElementById('lo-p'),J=document.getElementById('lo-j'),A=document.getElementById('lo-a'),B=document.getElementById('lo-b');
 var OUT=document.getElementById('lo-out');
 function C(n,k){var r=1;for(var i=1;i<=k;i++){r=r*(n-k+i)/i;}return r;}
-function money(n){if(n>=1e9)return '$'+(n/1e9).toFixed(2)+'B';if(n>=1e6)return '$'+(n/1e6).toFixed(1)+'M';return '$'+Math.round(n).toLocaleString('en-US');}
+function money(n){if(n>=1e9)return '$'+(n/1e9).toFixed(2)+'B';if(n>=1e6)return '$'+(n/1e6).toFixed(1)+'M';return '$'+Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function cfg(){var g=G.value;
   if(g==='pb')return{a:69,b:26,bd:1,any:'1 in 24.9'};
   if(g==='mm')return{a:70,b:24,bd:1,any:'1 in 24'};
@@ -98,13 +98,13 @@ function calc(){
     document.getElementById('lo-note').textContent='';document.title='Lottery Odds Calculator - ToolTide';return;}
   var bonus=c.bd===2?C(c.b,2):c.b;
   var odds=C(c.a,5)*bonus;
-  OUT.textContent=Math.round(odds).toLocaleString('en-US');
+  OUT.textContent=Math.round(odds).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var ev=j>0?j/odds:0;
   document.getElementById('lo-ev').textContent=j>0?money(ev):'–';
   document.getElementById('lo-be').textContent=money(pr*odds);
   document.getElementById('lo-any').textContent=c.any;
   document.getElementById('lo-note').textContent='Jackpot-only expected value is '+money(ev)+' on a '+money(pr)+' ticket - the jackpot would need to hit '+money(pr*odds)+' just to break even on that line. Lower prize tiers add roughly $0.20-0.35 of EV, but taxes (lump sum is about half the headline) and split jackpots cut the rest. Every combination is equally likely - the machine has no memory of your lucky numbers.';
-  document.title='1 in '+Math.round(odds).toLocaleString('en-US')+' - ToolTide';
+  document.title='1 in '+Math.round(odds).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' - ToolTide';
 }
 function cuMode(){var cu=G.value==='cu';
   document.querySelectorAll('.cu-hide').forEach(function(el){el.style.display=cu?'':'none';});}

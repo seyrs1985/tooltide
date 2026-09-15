@@ -91,7 +91,7 @@ function calc(){
   var gl=0.39*(W/S)+11.8*(SY/W)-15.59;
   OUT.textContent=Math.max(0,Math.round(re));
   document.getElementById('fl-grade').textContent=Math.max(1,Math.round(gl*10)/10);
-  document.getElementById('fl-words').textContent=W.toLocaleString('en-US');
+  document.getElementById('fl-words').textContent=W.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('fl-sents').textContent=S;
   document.getElementById('fl-wps').textContent=Math.round(W/S*10)/10;
   var band=re>=90?'very easy (5th grade)':re>=80?'easy (6th grade)':re>=70?'fairly easy (7th grade)':re>=60?'plain English (8-9th grade)':re>=50?'fairly difficult (10-12th)':re>=30?'difficult (college)':'very difficult (graduate)';

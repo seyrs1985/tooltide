@@ -76,7 +76,7 @@
 </div>
 <script>(function(){
 ['dc-price','dc-d1','dc-d2','dc-tax'].forEach(function(id){document.getElementById(id).addEventListener('input',run);});
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function run(){
   var p=parseFloat(document.getElementById('dc-price').value)||0;
   var d1=parseFloat(document.getElementById('dc-d1').value)||0;

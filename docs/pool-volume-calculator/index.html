@@ -95,13 +95,13 @@ function calc(){
   else{m3=a*b*c;}
   if(u==='f')m3*=0.0283168;
   var lit=m3*1000,gal=m3*264.172;
-  OUT.textContent=Math.round(lit).toLocaleString('en-US');
-  document.getElementById('pl-gal').textContent=Math.round(gal).toLocaleString('en-US');
-  document.getElementById('pl-m3').textContent=(Math.round(m3*10)/10).toLocaleString('en-US');
+  OUT.textContent=Math.round(lit).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('pl-gal').textContent=Math.round(gal).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('pl-m3').textContent=(Math.round(m3*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('pl-ton').textContent=(Math.round(m3*10)/10)+' t';
   var deep=c*1.4>2.2;
   document.getElementById('pl-note').textContent='Average depth is the honest input: (shallow end + deep end) ÷ 2 - most owners overestimate, and every chemical dose, pump runtime and heating bill scales with this number. Fill to about 90% of the coping, so subtract ~10% for the actual refill. '+(deep?'Deep enough for a diving-type slide check with local rules.':'This is a pool for swimming, not for diving - the deep end is shallower than diving guidelines.')+' Refilling '+(Math.round(lit/100)/10)+'k liters costs real money; a cover pays for itself in evaporation alone.';
-  document.title=Math.round(lit).toLocaleString('en-US')+' L pool - ToolTide';
+  document.title=Math.round(lit).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' L pool - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_pool',JSON.stringify({s:S.value,a:A.value,b:B.value,c:C.value,u:U.value}));}catch(e){}}
 [S,A,B,C,U].forEach(function(el){el.addEventListener('input',function(){calc();save();});});

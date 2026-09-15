@@ -85,8 +85,8 @@ function run(){
   if(!d.value)return;
   var dt=new Date(d.value+'T00:00:00');
   if(isNaN(dt))return;
-  document.getElementById('dw-out').textContent=dt.toLocaleDateString('en-US',{weekday:'long'});
-  document.getElementById('dw-note').textContent=dt.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('dw-out').textContent=dt.toLocaleDateString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{weekday:'long'});
+  document.getElementById('dw-note').textContent=dt.toLocaleDateString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{year:'numeric',month:'long',day:'numeric'});
   var start=new Date(dt.getFullYear(),0,1);
   document.getElementById('dw-doy').textContent=Math.round((dt-start)/864e5)+1;
   document.getElementById('dw-iso').textContent='W'+isoWeek(dt);

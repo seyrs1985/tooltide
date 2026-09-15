@@ -79,7 +79,7 @@ function run(){
     return ENT[m.toLowerCase()];
   });
   out.value=t;
-  document.getElementById('sh-tags').textContent=tags.toLocaleString('en-US');
+  document.getElementById('sh-tags').textContent=tags.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 inp.addEventListener('input',run);
 document.getElementById('sh-copy').addEventListener('click',function(){

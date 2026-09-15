@@ -91,9 +91,9 @@ function run(){
   var sq=(isNaN(a)||isNaN(b))?null:a*b;
   var sqft=unit==='ft'?sq:sq*10.76391042;
   var sqm=unit==='ft'?sq*0.09290304:sq;
-  document.getElementById('sq-ft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString('en-US');
-  document.getElementById('sq-sqft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString('en-US');
-  document.getElementById('sq-sqm').textContent=sq===null?'-':(Math.round(sqm*10)/10).toLocaleString('en-US');
+  document.getElementById('sq-ft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('sq-sqft').textContent=sq===null?'-':(Math.round(sqft*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('sq-sqm').textContent=sq===null?'-':(Math.round(sqm*10)/10).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
 l.addEventListener('input',run);w.addEventListener('input',run);
 document.getElementById('sq-add').addEventListener('click',function(){

@@ -87,12 +87,12 @@ function calc(){
     ['be-rev','be-margin','be-cm'].forEach(function(id){document.getElementById(id).textContent='–';});
     document.title='Break-Even Calculator - ToolTide';return;}
   var units=Math.ceil(f/(p-v));
-  OUT.textContent=units.toLocaleString('en-US');
-  document.getElementById('be-rev').textContent='$'+Math.round(units*p).toLocaleString('en-US');
+  OUT.textContent=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('be-rev').textContent='$'+Math.round(units*p).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('be-margin').textContent='$'+(Math.round((p-v)*100)/100);
   document.getElementById('be-cm').textContent=Math.round((p-v)/p*100)+'%';
-  document.getElementById('be-note').textContent='Each sale contributes '+(Math.round((p-v)*100)/100)+' ('+Math.round((p-v)/p*100)+'% of price) toward the $'+f.toLocaleString('en-US')+' of monthly fixed costs - unit #'+units.toLocaleString('en-US')+' is the one that clears the rent. Two levers move this number faster than hustle: a +$5 price usually beats a +5% volume push, and trimming variable cost compounds across every future unit. Anything above break-even drops to profit at nearly 100% margin - that is why startups celebrate it.';
-  document.title=units.toLocaleString('en-US')+' units to break even - ToolTide';
+  document.getElementById('be-note').textContent='Each sale contributes '+(Math.round((p-v)*100)/100)+' ('+Math.round((p-v)/p*100)+'% of price) toward the $'+f.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' of monthly fixed costs - unit #'+units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' is the one that clears the rent. Two levers move this number faster than hustle: a +$5 price usually beats a +5% volume push, and trimming variable cost compounds across every future unit. Anything above break-even drops to profit at nearly 100% margin - that is why startups celebrate it.';
+  document.title=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' units to break even - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_breakeven',JSON.stringify({f:F.value,p:P.value,v:V.value}));}catch(e){}}
 [F,P,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});

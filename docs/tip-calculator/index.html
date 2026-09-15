@@ -93,7 +93,7 @@ custom.addEventListener('input',function(){
   document.querySelectorAll('#tt-tip .chip').forEach(function(x){x.classList.remove('active');});
   run();
 });
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function run(){
   var b=parseFloat(bill.value)||0,n=Math.max(1,parseInt(split.value)||1);
   var tip=b*pct/100,total=b+tip;

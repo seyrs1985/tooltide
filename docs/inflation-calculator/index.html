@@ -85,14 +85,14 @@ function calc(){
     document.getElementById('inf-note').textContent='';document.title='Inflation Calculator - ToolTide';return;}
   var ci=CPI[f-1913],ct=CPI[t-1913];
   var adj=a*ct/ci;
-  OUT.textContent='$'+(Math.round(adj*100)/100).toLocaleString('en-US');
+  OUT.textContent='$'+(Math.round(adj*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var cum=(ct/ci-1)*100, yrs=t-f;
   document.getElementById('inf-cum').textContent=(cum>=0?'+':'')+cum.toFixed(1)+'%';
   var avgPct=yrs>0?((Math.pow(ct/ci,1/yrs)-1)*100):null;
   document.getElementById('inf-avg').textContent=avgPct!==null?avgPct.toFixed(2)+'%/yr':'–';
   var halve=yrs>0&&ct>ci?Math.log(.5)/Math.log(ci/ct):0;
   document.getElementById('inf-half').textContent=halve>0?Math.round(halve)+' yrs':'–';
-  document.getElementById('inf-note').textContent=a.toLocaleString('en-US')+' dollars from '+f+' bought what $'+(Math.round(adj*100)/100).toLocaleString('en-US')+' buys in '+t+' - prices '+(cum>=0?'rose ':'fell ')+Math.abs(cum).toFixed(1)+'% over '+yrs+' years. Based on BLS CPI-U annual averages (1982-84=100; latest year approximate). CPI measures an average basket, not your basket: housing, health and education have outrun it while electronics defied it - treat the number as the honest map of the dollar, not of your receipt.';
+  document.getElementById('inf-note').textContent=a.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' dollars from '+f+' bought what $'+(Math.round(adj*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' buys in '+t+' - prices '+(cum>=0?'rose ':'fell ')+Math.abs(cum).toFixed(1)+'% over '+yrs+' years. Based on BLS CPI-U annual averages (1982-84=100; latest year approximate). CPI measures an average basket, not your basket: housing, health and education have outrun it while electronics defied it - treat the number as the honest map of the dollar, not of your receipt.';
   document.title='$'+(Math.round(adj*100)/100)+' in '+t+' money - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_inflation',JSON.stringify({a:A.value,f:F.value,t:T.value}));}catch(e){}}

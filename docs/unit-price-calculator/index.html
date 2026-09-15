@@ -78,7 +78,7 @@
 <script>(function(){
 var ids=['up-ap','up-aq','up-bp','up-bq'];
 function val(id){return parseFloat(document.getElementById(id).value);}
-function money(n){return '$'+n.toLocaleString('en-US',{maximumFractionDigits:4});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:4});}
 function run(){
   var ap=val('up-ap'),aq=val('up-aq'),bp=val('up-bp'),bq=val('up-bq');
   if(!ap||!aq||!bp||!bq){document.getElementById('up-win').textContent='-';

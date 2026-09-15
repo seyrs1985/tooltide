@@ -87,7 +87,7 @@ function calc(){
   document.getElementById('cg-tot').textContent=((e/b-1)*100>=0?'+':'')+((e/b-1)*100).toFixed(1)+'%';
   document.getElementById('cg-mul').textContent=(e/b).toFixed(2)+'×';
   document.getElementById('cg-dbl').textContent=c>0?Math.round(Math.log(2)/Math.log(1+c)*10)/10+' yrs':'–';
-  document.getElementById('cg-note').textContent='CAGR smooths a jagged journey into one honest number: +26% a year for '+(Math.round(y*10)/10)+' years turns '+(b.toLocaleString('en-US'))+' into '+(e.toLocaleString('en-US'))+' - even if year two was -40% and year three +80%, the compound rate is what compounds. Rule of 72 for sanity: at this rate money doubles every '+(c>0?Math.round(72/(c*100)):'–')+' years. Watch the trap: a big loss needs a bigger gain to recover - -50% needs +100% just to get back to zero, which is why steady beats spectacular.';
+  document.getElementById('cg-note').textContent='CAGR smooths a jagged journey into one honest number: +26% a year for '+(Math.round(y*10)/10)+' years turns '+(b.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'))+' into '+(e.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'))+' - even if year two was -40% and year three +80%, the compound rate is what compounds. Rule of 72 for sanity: at this rate money doubles every '+(c>0?Math.round(72/(c*100)):'–')+' years. Watch the trap: a big loss needs a bigger gain to recover - -50% needs +100% just to get back to zero, which is why steady beats spectacular.';
   document.title=(c*100>=0?'+':'')+(c*100).toFixed(1)+'% CAGR - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_cagr',JSON.stringify({b:B.value,e:E.value,y:Y.value}));}catch(e){}}

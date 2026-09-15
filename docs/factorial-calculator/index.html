@@ -84,7 +84,7 @@ function run(){
   if(n===0){document.getElementById('fa-out').textContent='1';document.getElementById('fa-digits').textContent='1';document.getElementById('fa-chain').textContent='0! = 1 by definition';return;}
   var f=bigFact(n);
   document.getElementById('fa-out').textContent=f;
-  document.getElementById('fa-digits').textContent=f.length.toLocaleString('en-US');
+  document.getElementById('fa-digits').textContent=f.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   var chain=n<=10?Array.from({length:n},(_,i)=>i+1).join(' x ')+' = '+f:(n+'! = 1 x 2 x ... x '+n);
   document.getElementById('fa-chain').textContent=chain;
 }

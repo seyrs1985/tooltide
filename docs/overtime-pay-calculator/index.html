@@ -77,7 +77,7 @@
 <script>(function(){
 var R=document.getElementById('ot-r'),H=document.getElementById('ot-h'),T=document.getElementById('ot-t'),M=document.getElementById('ot-m');
 var OUT=document.getElementById('ot-out');
-function money(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var r=parseFloat(R.value)||0,h=parseFloat(H.value)||0,t=parseFloat(T.value)||40,m=parseFloat(M.value)||1.5;

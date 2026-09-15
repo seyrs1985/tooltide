@@ -80,7 +80,7 @@ var yr=document.getElementById('sal-yr'),hr=document.getElementById('sal-hr');
 var hpw=document.getElementById('sal-hpw'),wpy=document.getElementById('sal-wpy');
 var lock=false;
 function hoursPerYear(){return (parseFloat(hpw.value)||0)*(parseFloat(wpy.value)||0);}
-function money(n){return '$'+n.toLocaleString('en-US',{maximumFractionDigits:2});}
+function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:2});}
 function runY(){
   if(lock)return;lock=true;hr.value='';
   var y=parseFloat(yr.value),h=hoursPerYear();

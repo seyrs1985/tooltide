@@ -95,7 +95,7 @@ chips.forEach(function(c){c.addEventListener('click',function(){
   run();
 });});
 function num(id){var v=document.getElementById(id).value;return v===''?null:parseFloat(v);}
-function fmt(n){return (Math.round(n*1e6)/1e6).toLocaleString('en-US',{maximumFractionDigits:6});}
+function fmt(n){return (Math.round(n*1e6)/1e6).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:6});}
 function run(){
   var f=document.getElementById('pc-formula');
   if(mode===0){var a=num('p0-a'),b=num('p0-b');

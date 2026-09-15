@@ -94,11 +94,11 @@ function calc(){
     document.getElementById('td-loss').textContent='–';document.getElementById('td-gain').textContent='–';
     document.title='TDEE Calculator - ToolTide';return;}
   var bmr=10*w+6.25*h-5*a+(S.value==='m'?5:-161),tdee=bmr*m;
-  OUT.textContent=Math.round(tdee).toLocaleString('en-US');
-  document.getElementById('td-bmr').textContent=Math.round(bmr).toLocaleString('en-US');
-  document.getElementById('td-loss').textContent=Math.round(tdee-500).toLocaleString('en-US');
-  document.getElementById('td-gain').textContent=Math.round(tdee+300).toLocaleString('en-US');
-  document.title=Math.round(tdee).toLocaleString('en-US')+' kcal TDEE - ToolTide';
+  OUT.textContent=Math.round(tdee).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('td-bmr').textContent=Math.round(bmr).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('td-loss').textContent=Math.round(tdee-500).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.getElementById('td-gain').textContent=Math.round(tdee+300).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
+  document.title=Math.round(tdee).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' kcal TDEE - ToolTide';
 }
 function save(){try{localStorage.setItem('tt_tdee',JSON.stringify({s:S.value,a:A.value,h:H.value,w:W.value,act:ACT.value}));}catch(e){}}
 [S,A,H,W,ACT].forEach(function(el){el.addEventListener('input',function(){calc();save();});});

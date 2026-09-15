@@ -77,7 +77,7 @@
 <script>(function(){
 var I=document.getElementById('rt-inc'),D=document.getElementById('rt-debt'),RU=document.getElementById('rt-rule');
 var OUT=document.getElementById('rt-out');
-function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function money(n){return '$'+Math.round(n).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var inc=parseFloat(I.value)||0,debt=parseFloat(D.value)||0,rule=parseFloat(RU.value)||30;
