@@ -892,6 +892,22 @@
    [
     "wc.min",
     "分钟"
+   ],
+   [
+    "tip.tip",
+    "小费"
+   ],
+   [
+    "tip.total",
+    "合计"
+   ],
+   [
+    "tip.pp",
+    "每人"
+   ],
+   [
+    "tip.tpp",
+    "小费/人"
    ]
   ],
   "es": [
@@ -1786,6 +1802,22 @@
    [
     "wc.min",
     "min"
+   ],
+   [
+    "tip.tip",
+    "propina"
+   ],
+   [
+    "tip.total",
+    "total"
+   ],
+   [
+    "tip.pp",
+    "por persona"
+   ],
+   [
+    "tip.tpp",
+    "propina/persona"
    ]
   ],
   "pt": [
@@ -2680,6 +2712,22 @@
    [
     "wc.min",
     "min"
+   ],
+   [
+    "tip.tip",
+    "gorjeta"
+   ],
+   [
+    "tip.total",
+    "total"
+   ],
+   [
+    "tip.pp",
+    "por pessoa"
+   ],
+   [
+    "tip.tpp",
+    "gorjeta/pessoa"
    ]
   ],
   "ru": [
@@ -3574,6 +3622,22 @@
    [
     "wc.min",
     "мин"
+   ],
+   [
+    "tip.tip",
+    "чаевые"
+   ],
+   [
+    "tip.total",
+    "итого"
+   ],
+   [
+    "tip.pp",
+    "на человека"
+   ],
+   [
+    "tip.tpp",
+    "чаевые/чел."
    ]
   ],
   "ja": [
@@ -4468,6 +4532,22 @@
    [
     "wc.min",
     "分"
+   ],
+   [
+    "tip.tip",
+    "チップ"
+   ],
+   [
+    "tip.total",
+    "合計"
+   ],
+   [
+    "tip.pp",
+    "一人あたり"
+   ],
+   [
+    "tip.tpp",
+    "チップ/人"
    ]
   ],
   "ko": [
@@ -5362,6 +5442,22 @@
    [
     "wc.min",
     "분"
+   ],
+   [
+    "tip.tip",
+    "팁"
+   ],
+   [
+    "tip.total",
+    "합계"
+   ],
+   [
+    "tip.pp",
+    "1인당"
+   ],
+   [
+    "tip.tpp",
+    "팁/인"
    ]
   ],
   "de": [
@@ -6256,6 +6352,22 @@
    [
     "wc.min",
     "Min."
+   ],
+   [
+    "tip.tip",
+    "Trinkgeld"
+   ],
+   [
+    "tip.total",
+    "Gesamt"
+   ],
+   [
+    "tip.pp",
+    "pro Person"
+   ],
+   [
+    "tip.tpp",
+    "Trinkgeld/Person"
    ]
   ],
   "fr": [
@@ -7150,6 +7262,22 @@
    [
     "wc.min",
     "min"
+   ],
+   [
+    "tip.tip",
+    "pourboire"
+   ],
+   [
+    "tip.total",
+    "total"
+   ],
+   [
+    "tip.pp",
+    "par personne"
+   ],
+   [
+    "tip.tpp",
+    "pourboire/personne"
    ]
   ],
   "id": [
@@ -8044,6 +8172,22 @@
    [
     "wc.min",
     "menit"
+   ],
+   [
+    "tip.tip",
+    "tip"
+   ],
+   [
+    "tip.total",
+    "total"
+   ],
+   [
+    "tip.pp",
+    "per orang"
+   ],
+   [
+    "tip.tpp",
+    "tip/orang"
    ]
   ]
  }
