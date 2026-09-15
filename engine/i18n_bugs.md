@@ -3,7 +3,7 @@
 格式:`编号|页面|语言|现象|截图|状态`。状态=待修/已修/范围外。每轮先视觉验证、记录,再修复,部署后线上复验回写。
 
 ## 待修
-- BUG-012|全站渲染器(tools.py约100处)|所有译文语言|数字格式系统性硬编码 toLocaleString('en-US')(约100处:age/wordcounter/avg/tdeb/财经money()等),千分位与区域习惯未随界面语言|data/i18n_scan(rg清单)|待修(分家族逐轮接入 LC=ttLang() 模式,参照R5-R6的UNITCONV/DD/CD做法;范围外备注:单位名(A.a/A.b)与正文SEO英文按设计不翻)
+- BUG-013|全站渲染器(新伞形)|所有译文语言|动态字符串后缀类:如age页"days in total"/"36 years, 3 months, 0 days"、wordcounter标签旁注等 JS 拼接文案未走 i18n(与数字格式不同的另一类,本次de探针实证age页stat串仍英文)|IAB DOM探针 age-calculator|待修(逐家族接 T() 键;优先级低于数字类,因多为短标签)
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修
@@ -13,6 +13,8 @@
 - BUG-008|倒计时族35事件页|de/ja全部|事件名不走i18n:cd-name与标题钩子恒英文(Christmas/Thanksgiving等)|IAB DOM探针|已修R5+线上复验通过(cd.ev.*35键×9语言(12月份+4季节+19节日);注意args无slug,改用事件名派生键cd.ev.+event小写连字符化;复验de:cd-name=Weihnachten,title=Noch 100 Tage bis Weihnachten)
 - BUG-009|days-between-dates+business-days-calculator|de全部|DATEDIFF渲染器静态标签(Start date/End date/days/weeks&days/weekdays/total hours)+动态周数串"2 weeks + 0 days"+日期区间/千分位硬编码en-US|IAB DOM探针|已修R5+线上复验通过(dd.start/end/days/wkslbl/wdays/hours/wksfmt×7键×9语言+LC;复验de:Startdatum/Enddatum/Tage/2 Wochen + 0 Tage/note=Dienstag, 15. September 2026;修解析期竞态=window load重跑run())
 - BUG-010|全站SW|所有语言|SWR实测不自愈:旧SW cache-first命中毒化预缓存,新SW install取数又经旧SW handler→i18n.js跨部署顽固陈旧(连续4次部署后tab仍无cd.ev键,缓存诊断fresh:false实证)|IAB caches诊断(唯一cache 69845字节旧版)|已修R5+线上复验通过(①install改new Request(u,{cache:'reload'})绕过HTTP缓存直取源站②fetch handler对i18n.js改network-first(离线回缓存)③注册加updateViaCache:'none'消除sw.js的10分钟HTTP缓存滞后;重置SW后de全链验证通过)
+- BUG-011|换算族UNITCONV(约101页)|de全部|⇄Swap direction按钮、Formula:公式前缀×4分支硬编码英文;fmt()与换算表列 toLocaleString('en-US')千分位不随语言|IAB DOM探针 cm-to-inches|已修R6+线上复验通过(uc.swap/uc.formula×2键×9语言+T()/LC辅助;复验de:⇄Richtung wechseln,Formel: 1 × 0.39…;补window load重跑run()修解析期竞态)
+- BUG-012|全站渲染器(tools.py 111处)|所有译文语言|数字格式系统性硬编码 toLocaleString/DateString('en-US'),千分位与区域习惯不随界面语言|rg清单+IAB DOM探针|已修R7+线上复验通过(正则清扫115处为 (typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US' 带守卫表达式;复验de age页:13.241 days/317.784 德语千分位端到端生效)
 - BUG-004|全站 header|ru(桌面1280)|R1单行方案回归:logo被挤到内部折行(🌊与ToolTide两行,header高90px),nav末项"Все инст…"截断|data/i18n_shots/home-ru-top-7.png|已修R2+线上复验通过(logo nowrap+nav gap10/字号.9rem+行距8px+select收窄,navClip=0/headH68)
 - BUG-001|全站 header|de/ja 等宽语言(桌面1280+)|语言选择器被宽 nav 挤到第二行折行|data/i18n_shots/home-de-top-2.png|已修+线上复验通过 2026-09-14 R1(>700px 时 nav 单行+可横向滑、header 容器放宽 1200px,style.css)
 - BUG-002|首页|全部 9 译文语言|document.title 不随 tt_lang 切换,tab 始终英文标题|i18n_shots/home-de-top-2.png|已修+线上复验通过 2026-09-14 R1(首页 `<title data-i18n-title="meta.title">` + chrome.meta.title 键 ×9 语言 + i18n.js apply() 支持 title 节点;工具页 SEO 标题不动)
