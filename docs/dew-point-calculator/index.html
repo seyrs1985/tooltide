@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Relative humidity is the most misleading number in the weather app: 70% humidity at 15°C is a crisp autumn day, while 70% at 30°C is a swamp - the same percentage, completely different air. The dew point cuts through it by stating the actual water vapor content: the temperature at which that air would saturate. Meteorologists read comfort straight off it, and this calculator runs the Magnus formula the moment you type.</p><p>The comfort bands under the result are the ones forecasters actually use - below 10°C dry, 10-16 comfortable, 16-21 noticeable, 21-24 muggy, and past 24 oppressive - plus a stat most tools skip: the temp-dew-point spread, which tells you how close fog or overnight dew is. Your last inputs are remembered, the result lands in the tab title, and the share link carries the whole reading.</p></section>
-  <div class="tool" id="tt-dp">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-dp">
   <div class="fields">
     <div class="field"><label for="dp-u">Units</label><select id="dp-u"><option value="c">°C</option><option value="f">°F</option></select></div>
     <div class="field"><label for="dp-t">Air temperature</label><input type="number" id="dp-t" step="any" placeholder="30"></div>
@@ -107,7 +107,7 @@ document.getElementById('dp-share').addEventListener('click',function(){
   var txt='Dew point '+OUT.textContent+'°'+U.value+' ('+document.getElementById('dp-band').textContent+'). Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?u='+encodeURIComponent(U.value)+'&t='+encodeURIComponent(T.value||'')+'&h='+encodeURIComponent(H.value||'');
   if(navigator.share){navigator.share({title:'Dew point',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this dew point';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this dew point';},1500);}
 });
 })();
 </script>

@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Proportions are the workhorse of everyday math: scale a recipe from 4 servings to 6, convert a map distance, mix paint at 3:2, work out screen aspect. All of it is one sentence - A is to B as C is to x - and one move: x = C × B ÷ A. Enter the three known values and this calculator fills in the fourth, then shows the ratio simplified, as a decimal and as a percentage, with the cross-multiplication check written out so the answer verifies itself.</p><p>The worked line is the point: 3:4 = 15:x resolves to x = 20 with the cross-products shown (3 × 20 = 60, 4 × 15 = 60), which is exactly the check a teacher wants to see. Values persist on your device for multi-step scaling sessions, and the page sits naturally beside the fraction calculator for the same students.</p></section>
-  <div class="tool" id="tt-ra">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-ra">
   <div class="fields">
     <div class="field"><label for="ra-a">A</label><input type="number" id="ra-a" step="any" placeholder="3"></div>
     <div class="field"><label for="ra-b">B</label><input type="number" id="ra-b" step="any" placeholder="4"></div>
@@ -108,7 +108,7 @@ document.getElementById('ra-share').addEventListener('click',function(){
   var txt='Ratio solved: '+A.value+':'+B.value+' = '+C.value+':'+OUT.textContent+'. Solve yours (no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&b='+encodeURIComponent(B.value||'')+'&c='+encodeURIComponent(C.value||'');
   if(navigator.share){navigator.share({title:'Ratio result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this ratio';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this ratio';},1500);}
 });
 })();
 </script>

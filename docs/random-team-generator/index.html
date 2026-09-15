@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Every teacher, coach and facilitator knows the ritual: 24 names, 4 teams, and the suspicion that the draw wasn&#x27;t quite random. Paste the list - one name per line - choose how many teams, press Shuffle, and this generator deals everyone out using cryptographically secure randomness from your own device, with team sizes balanced to within one person and the roster preserved for the next session.</p><p>The balance line shows the exact distribution (2 teams of 7 and 2 of 5, for instance), and re-shuffling costs one click - no recutting strips of paper. The share button packages the full draw as text for the group chat, with a link that carries the name list so colleagues can re-run it on their side. It joins the coin flip, dice roller and random number tools for every decision that should not be yours to make.</p></section>
-  <div class="tool" id="tt-tg">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-tg">
   <div class="fields">
     <div class="field"><label for="tg-in">Names (one per line)</label><textarea id="tg-in" rows="5" placeholder="Alice&#10;Bob&#10;Carol&#10;Dave&#10;Eve&#10;Frank"></textarea></div>
     <div class="field"><label for="tg-n">Number of teams</label><input type="number" id="tg-n" step="1" min="2" max="20" placeholder="2"></div>
@@ -138,7 +138,7 @@ document.getElementById('tg-share').addEventListener('click',function(){
   txt+='. Draw yours (no sign-up):';
   var url=location.origin+location.pathname+'?n='+encodeURIComponent(N.value||'')+'&s='+encodeURIComponent(IN.value.split(/[\n\r]+/).filter(function(x){return x.trim();}).join('|'));
   if(navigator.share){navigator.share({title:'Team draw',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this draw';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this draw';},1500);}
 });
 })();
 </script>

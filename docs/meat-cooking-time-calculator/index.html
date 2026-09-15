@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Every roast dinner panic is the same arithmetic: how long does THIS weight need, and when do I actually put it in the oven. This calculator answers per cut - whole chicken, turkey, pork loin, beef ribs, lamb leg - scaling the classic per-kilogram times to your exact weight, then adding the two things time-only charts forget: the resting period that finishes the carryover cooking, and the target core temperature that decides juicy versus sawdust.</p><p>The honest rule the note keeps repeating: minutes are the plan, the probe is the boss. Ovens run hot or cold by 15 degrees, meat shapes fool charts, and only the internal temperature is both safe and delicious - which is why the result pairs every time range with its core target and the reminder to pull the meat a few degrees early and let rest do the rest.</p></section>
-  <div class="tool" id="tt-mt">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-mt">
   <div class="fields">
     <div class="field"><label for="mt-m">Cut</label><select id="mt-m">
       <option value="cw">Whole chicken</option>
@@ -111,7 +111,7 @@ document.getElementById('mt-share').addEventListener('click',function(){
   var txt=M.options[M.selectedIndex].text+' ('+W.value+(U.value==='k'?'kg':'lb')+'): '+OUT.textContent+' at 180°C, rest '+t[2]+' min. Plan your roast (free):';
   var url=location.origin+location.pathname+'?m='+M.value+'&w='+W.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Roast timing',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this roast plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this roast plan';},1500);}
 });
 })();
 </script>

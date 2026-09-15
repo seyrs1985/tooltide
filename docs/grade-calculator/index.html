@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Enter the points you earned and the points possible, and get your percentage and letter grade instantly — A through F on the standard US scale. Built for the post-exam ritual of every student: &#x27;what did 42 out of 50 actually get me?&#x27; (84% — a solid B).</p><p>It also answers the forward-looking question: what do you need on the final to hit your target grade? Enter what you have so far plus the final&#x27;s weight, and the target box shows the exact score required — sometimes reassuring, sometimes a wake-up call.</p></section>
-  
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
 <div class="tool" id="tt-grade">
   <div class="fields">
     <div class="field"><label for="gr-earned">Points earned</label><input type="number" id="gr-earned" min="0" step="any" placeholder="42"></div>
@@ -95,11 +95,11 @@ var cur=document.getElementById('gr-cur'),wt=document.getElementById('gr-weight'
 function runTarget(){
   var c=parseFloat(cur.value),w=parseFloat(wt.value),target=parseFloat(tg.value);
   var box=document.getElementById('gr-need'),txt=document.getElementById('gr-need-txt');
-  if(!w||w<=0||w>100||isNaN(c)){box.textContent='–';txt.textContent='needed on the final';return;}
+  if(!w||w<=0||w>100||isNaN(c)){box.textContent='–';txt.textContent=TT('gr.needlbl','needed on the final');return;}
   var need=(target-c*(1-w/100))/(w/100);
-  if(need<0){box.textContent='0%';txt.textContent='— target already secured 🎉';}
-  else if(need>100){box.textContent='>100%';txt.textContent='— mathematically out of reach';}
-  else{box.textContent=(Math.round(need*10)/10)+'%';txt.textContent='needed on the final';}
+  if(need<0){box.textContent='0%';txt.textContent=TT('gr.secured','— target already secured 🎉');}
+  else if(need>100){box.textContent='>100%';txt.textContent=TT('gr.outreach','— mathematically out of reach');}
+  else{box.textContent=(Math.round(need*10)/10)+'%';txt.textContent=TT('gr.needlbl','needed on the final');}
 }
 cur.addEventListener('input',runTarget);wt.addEventListener('input',runTarget);tg.addEventListener('change',runTarget);runTarget();
 })();</script>

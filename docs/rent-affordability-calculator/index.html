@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>The 30% rule — spend no more than 30% of gross income on housing — is the landlord&#x27;s screen and the budget&#x27;s oldest guardrail. This calculator applies it instantly, then adds the check that matters when you actually have debts: a 36% debt-to-income ceiling that lowers the honest ceiling by exactly what your car loan, student loan and cards already eat.</p><p>The &quot;left for everything else&quot; stat is the reality check most rent calculators skip: rent is the largest line, but groceries, transport and savings still have to fit underneath it. Three budget rules are on offer — 25% for aggressive saving, 30% classic, 35% for high-cost cities — and the page remembers your numbers so re-budgeting after a raise takes one field.</p></section>
-  <div class="tool" id="tt-rent">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-rent">
   <div class="fields">
     <div class="field"><label for="rt-inc">Gross monthly income ($)</label><input type="number" id="rt-inc" step="any" min="0" placeholder="4800"></div>
     <div class="field"><label for="rt-debt">Monthly debt payments ($, optional)</label><input type="number" id="rt-debt" step="any" min="0" placeholder="350"></div>
@@ -107,7 +107,7 @@ document.getElementById('rt-share').addEventListener('click',function(){
     '). Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?inc='+encodeURIComponent(I.value||'')+'&debt='+encodeURIComponent(D.value||'')+'&r='+RU.value;
   if(navigator.share){navigator.share({title:'Rent budget',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my budget';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my budget';},1500);}
 });
 })();
 </script>

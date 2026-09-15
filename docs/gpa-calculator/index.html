@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>GPA is a credit-weighted average, not a plain average of grades — a 4-credit A outweighs a 3-credit B+, and that weighting is where most hand calculations go wrong. Enter each course with its credit hours and letter grade; the calculator applies the standard 4.0 scale (A=4.0, A−=3.7, B+=3.3, and so on) and does the weighting for you.</p><p>Added your prior cumulative GPA and graded credits below? The headline result switches to your cumulative GPA — the number scholarships, internships and grad schools actually ask for. Everything runs in your browser: courses are remembered on this device between visits and never sent anywhere.</p></section>
-  <div class="tool" id="tt-gpa">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-gpa">
   <div id="gpa-rows"></div>
   <div class="fields">
     <div class="field"><label for="gpa-pg">Prior cumulative GPA (optional)</label><input type="number" id="gpa-pg" step="any" min="0" max="4" placeholder="3.48"></div>
@@ -118,7 +118,7 @@ document.getElementById('gpa-share').addEventListener('click',function(){
   var txt='My '+(document.getElementById('gpa-unit').textContent==='cumulative GPA'?'cumulative ':'')+'GPA: '+v+' on the 4.0 scale. Calculate yours (no sign-up):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'GPA result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my GPA';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my GPA';},1500);}
 });
 })();
 </script>

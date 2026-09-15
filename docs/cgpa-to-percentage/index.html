@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Indian application forms ask for percentages; transcripts report CGPA out of 10. The standard bridge is the CBSE formula — percentage = CGPA × 9.5 — and this converter runs it in both directions: enter your CGPA for the percentage, or your percentage for the CGPA equivalent, with the typical class band (first class, distinction territory) shown alongside so you know how the number reads.</p><p>The caveat matters enough to print on the tool itself: some universities use factors from 9.0 to 10.0, and a few issue their own conversion certificates. Treat the ×9.5 result as the widely-accepted default, check your institution&#x27;s rule before writing it on a form, and use the share button to send the exact conversion to whoever asked for it.</p></section>
-  <div class="tool" id="tt-cg">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-cg">
   <div class="fields">
     <div class="field"><label for="cg-d">Direction</label><select id="cg-d"><option value="c2p">CGPA → Percentage</option><option value="p2c">Percentage → CGPA</option></select></div>
     <div class="field"><label for="cg-v">Value (CGPA out of 10, or %)</label><input type="number" id="cg-v" step="any" min="0" max="100" placeholder="8.6"></div>
@@ -102,7 +102,7 @@ document.getElementById('cg-share').addEventListener('click',function(){
   var txt='CGPA '+V.value+' converts to '+OUT.textContent+' ('+UNIT.textContent+'). Convert yours (no sign-up):';
   var url=location.origin+location.pathname+'?d='+D.value+'&v='+encodeURIComponent(V.value||'');
   if(navigator.share){navigator.share({title:'CGPA conversion',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the result';},1500);}
 });
 })();
 </script>

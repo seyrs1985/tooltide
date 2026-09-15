@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Two VAT jobs account for almost every search: a business prices up — £100 net becomes £120 gross at the UK&#x27;s 20% standard rate — and an accountant digs the tax back out of a receipt, where the right move is dividing by 1.2, never subtracting 20% (that gives £96, not the true £100 net). This calculator does both directions from one amount box, with quick-pick rates for the UK, Germany, the Netherlands, Spain, Italy and Ireland.</p><p>The net / VAT / gross trio updates live so the breakdown is always in view, and the note line shows the exact arithmetic — the multiplier or divisor used — so the method transfers to your own spreadsheet. Fractions of a penny are kept to two decimals the way invoices round, and your last rate stays on this device for the next receipt. It sits alongside the sales tax calculator for US prices and the GST calculator for Indian ones.</p></section>
-  <div class="tool" id="tt-vat">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-vat">
   <div class="fields">
     <div class="field"><label for="vat-m">Mode</label><select id="vat-m"><option value="add">Add VAT (net to gross)</option><option value="rem">Remove VAT (gross to net)</option></select></div>
     <div class="field"><label for="vat-a">Amount</label><input type="number" id="vat-a" step="any" min="0" placeholder="100"></div>
@@ -110,7 +110,7 @@ document.getElementById('vat-share').addEventListener('click',function(){
   var txt='VAT breakdown: net '+document.getElementById('vat-net').textContent+' + VAT '+document.getElementById('vat-amt').textContent+' = gross '+document.getElementById('vat-gr').textContent+'. Run yours (no sign-up):';
   var url=location.origin+location.pathname+'?m='+M.value+'&a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'');
   if(navigator.share){navigator.share({title:'VAT breakdown',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this breakdown';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this breakdown';},1500);}
 });
 })();
 </script>

@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>The Flesch Reading Ease score is the number behind &#x27;write for an 8th-grade reading level&#x27;: 206.835 minus 1.015 times average sentence length minus 84.6 times average syllables per word. It powers readability checks in Word, in SEO tools and in government plain-language laws - and this calculator computes it live as you type, with the grade level beside it, so you can watch a rewrite push the number up in real time.</p><p>The stat that moves the score most surprises people: words per sentence is weighted 1.015 while syllables per word gets 84.6 ÷ (words × words) - practically, cutting a sentence in half moves the needle more than swapping every long word. Your text stays in the browser (nothing is uploaded), is remembered between visits up to a cap, and the share button sends the score, not the essay.</p></section>
-  <div class="tool" id="tt-fl">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-fl">
   <div class="fields">
     <div class="field" style="flex:1 1 100%"><label for="fl-in">Paste text to score</label><textarea id="fl-in" rows="7" style="width:100%;box-sizing:border-box" placeholder="Paste a paragraph, an article intro or your essay here…"></textarea></div>
   </div>
@@ -106,7 +106,7 @@ document.getElementById('fl-share').addEventListener('click',function(){
   var txt='My text scores '+OUT.textContent+'/100 reading ease ('+document.getElementById('fl-grade').textContent+'th grade level). Score yours (free, local):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'Flesch reading ease',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this readability score';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this readability score';},1500);}
 });
 })();
 </script>

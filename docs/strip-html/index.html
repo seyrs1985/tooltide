@@ -58,11 +58,11 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Paste HTML — an email template, a scraped page, a CMS export — and get clean plain text with every tag removed: no divs, no spans, no inline styles, no surprise &amp;nbsp; characters. The tag count shows how much markup was hiding in there.</p><p>It exists for the moment every developer, marketer and data analyst has: text arrives full of markup and something downstream needs it naked. Everything runs locally in your browser, so it is safe for confidential content.</p></section>
-  
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
 <div class="tool" id="tt-sh">
   <div class="field"><label for="sh-in">Paste HTML</label>
     <textarea id="sh-in" rows="8" placeholder="<div>Hello <b>world</b></div>"></textarea></div>
-  <div class="field" style="margin-top:10px"><label for="sh-out">Plain text <button class="btn btn-sm" id="sh-copy" type="button">Copy</button></label>
+  <div class="field" style="margin-top:10px"><label for="sh-out">Plain text <button class="btn btn-sm" id="sh-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="sh-out" rows="8" readonly placeholder="clean text appears here…"></textarea></div>
   <div class="stats"><div class="stat"><b id="sh-tags">0</b><span>tags stripped</span></div></div>
 </div>
@@ -86,7 +86,7 @@ document.getElementById('sh-copy').addEventListener('click',function(){
   out.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('sh-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('sh-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 run();
 })();</script>

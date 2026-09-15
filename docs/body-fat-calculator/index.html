@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>The scale can&#x27;t tell muscle from fat; a tape measure gets surprisingly close. The US Navy developed this circumference formula to field-assess recruits without lab equipment — neck and waist for men, plus hips for women — and validation studies put it within roughly ±3% of DEXA scans for most people. Enter four numbers and you get a body fat percentage, a fitness category, and the fat-versus-lean split of your current weight.</p><p>That lean-mass number is the one worth tracking: at a constant body weight, falling body fat means you are recomposing — gaining muscle while losing fat — something the scale alone would hide. Re-measure with the same tape at the same time of day, and the page remembers your measurements locally so the monthly comparison takes thirty seconds.</p></section>
-  <div class="tool" id="tt-bf">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-bf">
   <div class="fields">
     <div class="field"><label for="bf-s">Sex</label><select id="bf-s"><option value="m">Male</option><option value="f">Female</option></select></div>
     <div class="field"><label for="bf-h">Height (cm)</label><input type="number" id="bf-h" step="any" min="100" max="230" placeholder="175"></div>
@@ -112,7 +112,7 @@ document.getElementById('bf-share').addEventListener('click',function(){
   var txt='My estimated body fat: '+OUT.textContent+' (US Navy method). Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&h='+encodeURIComponent(H.value||'')+'&n='+encodeURIComponent(N.value||'')+'&w='+encodeURIComponent(W.value||'')+(S.value==='f'?'&hp='+encodeURIComponent(HP.value||''):'')+'&kg='+encodeURIComponent(document.getElementById('bf-kg').value||'');
   if(navigator.share){navigator.share({title:'Body fat estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my estimate';},1500);}
 });
 })();
 </script>

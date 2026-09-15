@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Enter the perimeter of your walls, the height, your roll dimensions and the pattern repeat from the label. The calculator works out strips needed, strips per roll with the repeat applied, and whole rolls to buy — with the trim allowance built in.</p><p>Shop calculators quietly assume plain paper. This one prices the pattern repeat honestly: with a repeat, every strip cuts to a multiple of the repeat, offcuts stop being reusable, and the roll count jumps — better to know before the till than after.</p></section>
-  <div class="tool" id="tt-wp">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-wp">
   <div class="fields">
     <div class="field"><label for="wp-p">Perimeter of walls (m)</label><input type="number" id="wp-p" min="0.1" step="0.1" placeholder="14"></div>
     <div class="field"><label for="wp-h">Wall height (m)</label><input type="number" id="wp-h" min="0.5" step="0.05" placeholder="2.5"></div>
@@ -109,7 +109,7 @@ document.getElementById('wp-share').addEventListener('click',function(){
   var txt=OUT.textContent+' rolls of wallpaper for '+F[0].value+' m of walls'+(parseFloat(F[4].value)>0?' with a '+F[4].value+' cm pattern repeat':'')+'. Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?p='+F[0].value+'&h='+F[1].value+'&rw='+F[2].value+'&rl='+F[3].value+'&r='+F[4].value;
   if(navigator.share){navigator.share({title:'Wallpaper estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>

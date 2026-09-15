@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Commission plans are quoted in percentages but lived in dollars: 8% of $45,000 on top of a $2,000 base is $5,600 — and whether that&#x27;s a good month depends entirely on where the quota sits. Enter base, rate, revenue and an optional quota; the calculator returns the total, the commission share of pay, and your attainment percentage in one line.</p><p>The note line does the part sales reps actually need mid-month: how many dollars of revenue stand between you and quota, and what each additional 10% of revenue is worth at your current rate. Inputs are remembered on this device, so updating after every closed deal takes seconds — and the share button packages the math for the manager conversation.</p></section>
-  <div class="tool" id="tt-cm">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-cm">
   <div class="fields">
     <div class="field"><label for="cm-b">Base pay per period ($)</label><input type="number" id="cm-b" step="any" min="0" placeholder="2000"></div>
     <div class="field"><label for="cm-r">Commission rate %</label><input type="number" id="cm-r" step="any" min="0" max="100" placeholder="8"></div>
@@ -108,7 +108,7 @@ document.getElementById('cm-share').addEventListener('click',function(){
   var txt='My period pay: '+OUT.textContent+' ('+money(parseFloat(B.value)||0)+' base + '+money(parseFloat(V.value)||0)*(parseFloat(R.value)||0)/100+' commission). Run your numbers (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&r='+encodeURIComponent(R.value||'')+'&rev='+encodeURIComponent(V.value||'')+'&q='+encodeURIComponent(Q.value||'');
   if(navigator.share){navigator.share({title:'Commission pay',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my paycheck math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my paycheck math';},1500);}
 });
 })();
 </script>

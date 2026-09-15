@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Generic &quot;8 glasses a day&quot; advice ignores the two things that change everything: body size and the day you&#x27;re actually having. This calculator starts from ~33 ml per kilo of body weight, then adds roughly 400 ml per 30 minutes of exercise and half a liter for hot weather — the same adjustments sports-nutrition guidelines use, minus the guesswork.</p><p>The result lands in the units that matter at the fridge: liters, 500 ml bottles and 8 oz cups, so &quot;2.9 liters&quot; becomes &quot;6 bottles&quot; and an actual plan. The note line includes a realistic spread-it-through-the-day schedule, because hitting a target is about distribution, not chugging. Bookmark it — the page remembers your weight and adjusts in one tap when the workout or the heat changes tomorrow.</p></section>
-  <div class="tool" id="tt-water">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-water">
   <div class="fields">
     <div class="field"><label for="wt-kg">Body weight (kg)</label><input type="number" id="wt-kg" step="any" min="20" max="300" placeholder="70"></div>
     <div class="field"><label for="wt-ex">Exercise today (minutes)</label><input type="number" id="wt-ex" step="any" min="0" placeholder="45"></div>
@@ -105,7 +105,7 @@ document.getElementById('wt-share').addEventListener('click',function(){
   var txt='My daily water target: '+OUT.textContent+' L ('+document.getElementById('wt-bottles').textContent+' bottles). Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?kg='+encodeURIComponent(KG.value||'')+'&ex='+encodeURIComponent(EX.value||'')+'&hot='+encodeURIComponent(HOT.value||'0');
   if(navigator.share){navigator.share({title:'Daily water target',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my target';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my target';},1500);}
 });
 })();
 </script>

@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>&#x27;Ideal weight&#x27; sounds like one number, but the two formulas behind the phrase disagree on purpose. The Devine formula - 50 kg for a man plus 2.3 kg per inch over five feet - was built in 1974 to dose medications, and became the classic single answer. The healthy-BMI band (18.5-24.9) is wider because bodies are. This calculator shows both, side by side, in kg or lb, so you can see the range instead of worshipping a point.</p><p>The note under the result is the differentiator: no formula knows your frame, muscle mass or history, and an athletic body at the top of the BMI band can be healthier than a sedentary one at the bottom. Treat the band as a range, the trend as the signal, and your doctor as the tiebreaker - that is the honest version of this tool, and it&#x27;s remembered here for your next check-in.</p></section>
-  <div class="tool" id="tt-iw">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-iw">
   <div class="fields">
     <div class="field"><label for="iw-u">Units</label><select id="iw-u"><option value="m">cm / kg</option><option value="i">ft-in / lb</option></select></div>
     <div class="field"><label for="iw-s">Sex</label><select id="iw-s"><option value="m">Male</option><option value="f">Female</option></select></div>
@@ -107,7 +107,7 @@ document.getElementById('iw-share').addEventListener('click',function(){
   var txt='Healthy weight band at my height: '+document.getElementById('iw-bmi').textContent+'. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?h='+H.value+'&u='+U.value+'&s='+S.value;
   if(navigator.share){navigator.share({title:'Ideal weight',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this range';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this range';},1500);}
 });
 })();
 </script>

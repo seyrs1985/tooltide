@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Compound interest is interest earning interest: every month your balance grows, and the growth itself starts growing. Enter a starting amount, an optional monthly contribution, a rate and a time horizon — you get the future value plus a year-by-year table that shows exactly when compounding starts doing the heavy lifting.</p><p>The detail line also applies the rule of 72 — the classic mental math that divides 72 by your rate to estimate the doubling time. At 7%, money doubles roughly every decade; the yearly table lets you watch that doubling happen. Pair this with the savings goal calculator when you have a target date instead of a horizon.</p></section>
-  <div class="tool" id="tt-compound">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-compound">
   <div class="fields">
     <div class="field"><label for="cp-p">Starting amount ($)</label><input type="number" id="cp-p" min="0" step="any" placeholder="5000"></div>
     <div class="field"><label for="cp-m">Monthly contribution ($, optional)</label><input type="number" id="cp-m" min="0" step="any" placeholder="200"></div>
@@ -104,7 +104,7 @@ SB.addEventListener('click',function(){
   var txt='Compound interest projection: '+OUT.textContent+' after '+Math.round(parseFloat(Y.value)||0)+' years. Run your own numbers (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&m='+encodeURIComponent(M.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'');
   if(navigator.share){navigator.share({title:'Compound interest projection',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent='Copied!';setTimeout(function(){SB.textContent='Share this projection';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent=TT('ui.copied','Copied!');setTimeout(function(){SB.textContent='Share this projection';},1500);}
 });
 })();
 </script>

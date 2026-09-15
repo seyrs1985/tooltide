@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>&quot;30% off, then an extra 20% at checkout&quot; is not 50% off — it is 44%, because the second discount applies to the already-reduced price. Retailers know most shoppers add the numbers, which is exactly why stacked discounts look juicier than they are. This calculator applies the discounts in order, shows the true combined percentage, and prices the deal honestly.</p><p>The flat-alternative field answers the question deal hunters actually face: is &quot;30% + extra 20%&quot; better than the competitor&#x27;s flat 45%? Enter both offers and the verdict line tells you which one wins and by how many dollars — the math most coupon threads argue about for pages, settled in one glance.</p></section>
-  <div class="tool" id="tt-ddisc">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-ddisc">
   <div class="fields">
     <div class="field"><label for="dd-price">Original price ($)</label><input type="number" id="dd-price" step="0.01" min="0" placeholder="200"></div>
     <div class="field"><label for="dd-d1">First discount %</label><input type="number" id="dd-d1" step="any" min="0" max="100" placeholder="30"></div>
@@ -112,7 +112,7 @@ document.getElementById('dd-share').addEventListener('click',function(){
     ' off - final '+OUT.textContent+'. Check any deal (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(E['dd-price'].value||'')+'&d1='+encodeURIComponent(E['dd-d1'].value||'')+'&d2='+encodeURIComponent(E['dd-d2'].value||'')+'&flat='+encodeURIComponent(E['dd-flat'].value||'');
   if(navigator.share){navigator.share({title:'Stacked discount math',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this deal math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this deal math';},1500);}
 });
 })();
 </script>

@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>URL encoding is why &#x27;café &amp; croissants&#x27; survives a query string: spaces become %20, the ampersand becomes %26 so it can&#x27;t be misread as a separator, é becomes %C3%A9. This tool does both directions with the distinction most tools skip - component mode (for values inside ?a=1&amp;b=2, escaping &amp; = ? /) versus full-URL mode (keeping the :// and separators that make a URL work), with the difference explained in the note as you type.</p><p>Decode mode is the reader for mystery links: paste a tracking URL or an encoded API parameter and see the human version instantly, with malformed sequences (% not followed by two hex digits) flagged precisely rather than decoding to garbage. The stats count the % sequences for you, and everything runs locally - your URLs, with their tokens and tracking parameters, stay on your device.</p></section>
-  <div class="tool" id="tt-ue">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-ue">
   <div class="fields">
     <div class="field"><label for="ue-m">Mode</label><select id="ue-m"><option value="enc">Encode</option><option value="dec">Decode</option></select></div>
     <div class="field"><label for="ue-k">Scope</label><select id="ue-k"><option value="component">Component (?q= value style)</option><option value="full">Full URL (keep ://?&)</option></select></div>
@@ -115,7 +115,7 @@ document.getElementById('ue-copy').addEventListener('click',function(){
   var t=OUT.textContent;
   if(t==='–'||t==='Malformed input'){this.textContent='Nothing to copy';var b0=this;setTimeout(function(){b0.textContent='Copy output';},1500);return;}
   var b=this;
-  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
 });
 })();
 </script>

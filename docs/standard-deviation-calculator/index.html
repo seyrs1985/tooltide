@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Standard deviation answers the question averages hide: how spread out is the data? Two classes can both average 75 while one has everyone at 74-76 and the other ranges from 40 to 100 - the mean is identical, the standard deviations are worlds apart. Paste numbers separated by spaces, commas or new lines and this calculator returns the sample SD (the n-1 figure for data drawn from a bigger population), the population SD (when your data is everyone), the variance both ways, the mean, and the range.</p><p>The n-1 versus n choice is where most homework loses marks, so the note line states which divisor produced each number and when to use it: sample data reports n-1, a complete population reports n. Results are rounded to six decimals, datasets are remembered between visits, and it pairs with the average calculator for the rest of the summary statistics.</p></section>
-  <div class="tool" id="tt-sd">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-in">Data (separated by spaces, commas or new lines)</label><textarea id="sd-in" rows="4" placeholder="2 4 4 4 5 5 7 9"></textarea></div>
   </div>
@@ -106,7 +106,7 @@ document.getElementById('sd-share').addEventListener('click',function(){
   var txt='Data summary: mean '+document.getElementById('sd-mean').textContent+', sample SD '+OUT.textContent+', population SD '+document.getElementById('sd-pop').textContent+' (n='+document.getElementById('sd-n').textContent+'). Summarize yours (no sign-up):';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(IN.value);
   if(navigator.share){navigator.share({title:'Data summary',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this summary';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this summary';},1500);}
 });
 })();
 </script>

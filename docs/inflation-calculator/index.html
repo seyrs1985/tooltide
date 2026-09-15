@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>A dollar is not a unit of measurement - it is a share of a shifting basket. $100 in 1990 has the buying power of roughly $240 today; $100 in 1920 had the power of about $1,600. This calculator runs those conversions on the Bureau of Labor Statistics&#x27; CPI-U annual averages, from 1913 to the present, and shows not just the headline number but the machinery behind it: cumulative inflation and the compound average rate per year.</p><p>That yearly rate is the number worth internalizing: even the &#x27;quiet&#x27; 2-3% years halve a dollar&#x27;s value in 25-35 years, which is why a savings account under inflation is a slow leak with good manners. The note under the result keeps the map honest - CPI tracks an average basket, and your personal basket (housing, health, tuition) has its own weather.</p></section>
-  <div class="tool" id="tt-inf">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-inf">
   <div class="fields">
     <div class="field"><label for="inf-a">Amount ($)</label><input type="number" id="inf-a" step="any" min="0" placeholder="100"></div>
     <div class="field"><label for="inf-f">From year</label><input type="number" id="inf-f" min="1913" max="2025" step="1" placeholder="1990"></div>
@@ -105,7 +105,7 @@ document.getElementById('inf-share').addEventListener('click',function(){
   var txt=A.value+' dollars in '+F.value+' = '+OUT.textContent+' in '+T.value+' money. Check any year (free, no sign-up):';
   var url=location.origin+location.pathname+'?a='+A.value+'&f='+F.value+'&t='+T.value;
   if(navigator.share){navigator.share({title:'Inflation calculator',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
 });
 })();
 </script>

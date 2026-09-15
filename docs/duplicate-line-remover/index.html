@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Paste a list — keywords, emails, log lines, CSV rows, URLs — and strip out every duplicate while keeping the first-seen order. Cleaned output appears instantly with a count of what was removed, and one click copies the result.</p><p>This is the everyday data-cleaning chore: deduplicating keyword exports before analysis, merging mailing lists, tidying SQL results, or trimming a wordlist. Everything runs locally in your browser — your data never touches a server, which matters when the list contains something private.</p></section>
-  
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
 <div class="tool" id="tt-dd2">
   <div class="field"><label for="dd2-in">Paste your list or text</label>
     <textarea id="dd2-in" rows="9" placeholder="one item per line…"></textarea></div>
@@ -67,7 +67,7 @@
     <div class="stat"><b id="dd2-uniq">0</b><span>unique lines</span></div>
     <div class="stat"><b id="dd2-rem">0</b><span>duplicates removed</span></div>
   </div>
-  <div class="field" style="margin-top:12px"><label for="dd2-out">Cleaned output <button class="btn btn-sm" id="dd2-copy" type="button">Copy</button></label>
+  <div class="field" style="margin-top:12px"><label for="dd2-out">Cleaned output <button class="btn btn-sm" id="dd2-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="dd2-out" rows="9" readonly placeholder="cleaned list appears here…"></textarea></div>
 </div>
 <script>(function(){
@@ -93,7 +93,7 @@ document.getElementById('dd2-copy').addEventListener('click',function(){
   out.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('dd2-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('dd2-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 run();
 })();</script>

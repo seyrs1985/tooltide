@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Enter the length and width of your bed, the depth you want in centimetres, and your bag size in litres. The calculator converts everything to cubic metres, rounds up to whole bags, and totals the cost if you enter a price per bag.</p><p>Garden-centre mulch calculators usually push one brand and one bag size. This one is brand-neutral, metric, and honest about the point where a delivered bulk skip of a cubic metre or two beats carrying dozens of plastic bags home.</p></section>
-  <div class="tool" id="tt-mu">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-mu">
   <div class="fields">
     <div class="field"><label for="mu-l">Bed length (m)</label><input type="number" id="mu-l" min="0.1" step="0.1" placeholder="6"></div>
     <div class="field"><label for="mu-w">Bed width (m)</label><input type="number" id="mu-w" min="0.1" step="0.1" placeholder="2"></div>
@@ -103,7 +103,7 @@ document.getElementById('mu-share').addEventListener('click',function(){
   var txt=document.getElementById('mu-s1').textContent+' of beds at '+F[2].value+' cm deep = '+OUT.textContent+' bags of mulch. Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?l='+F[0].value+'&w='+F[1].value+'&d='+F[2].value+'&b='+F[3].value+'&p='+F[4].value;
   if(navigator.share){navigator.share({title:'Mulch estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>

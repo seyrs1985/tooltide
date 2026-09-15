@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Wind doesn&#x27;t lower the air temperature — it strips away the thin layer of warm air your body heats around itself, so exposed skin loses heat faster and the cold bites deeper. Wind chill is the temperature calm air would have to be for that same rate of heat loss, and this calculator applies the official NOAA formula used in every winter weather bulletin.</p><p>The frostbite stat is the one worth knowing before a winter run or a scraped windshield: at a wind chill of −19°F exposed skin can freeze in 30 minutes, at −32°F in 10, and at −48°F in 5. The figure assumes night shade per NOAA — sunshine softens it a little, wet skin and clothing harden it a lot. It is the winter twin of the heat index: one formula, the whole story of what the weather will do to you.</p></section>
-  <div class="tool" id="tt-wc">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-wc">
   <div class="fields">
     <div class="field"><label for="wc-u">Units</label><select id="wc-u"><option value="f">°F, mph</option><option value="c">°C, km/h</option></select></div>
     <div class="field"><label for="wc-t">Air temperature</label><input type="number" id="wc-t" step="any" placeholder="20"></div>
@@ -116,7 +116,7 @@ document.getElementById('wc-share').addEventListener('click',function(){
   var txt='It is '+T.value+'°'+(U.value==='f'?'F':'C')+' with '+V.value+' '+(U.value==='f'?'mph':'km/h')+' wind - feels like '+OUT.textContent+'. Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&v='+encodeURIComponent(V.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Wind chill',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
 });
 })();
 </script>

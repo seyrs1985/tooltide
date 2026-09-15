@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Fraction homework fails on the same step every time: 3/4 + 5/6 needs a common denominator before anything else can happen. This calculator works with whole-number numerators and denominators in both fractions, then returns the exact simplified answer — 19/12 — alongside the mixed number (1 7/12), the decimal, and the worked line that shows the common denominator it used, so the answer teaches the method instead of replacing it.</p><p>Division gets the same treatment with its own trick — flip and multiply — and every result is reduced by the greatest common divisor, with the divisor named in the note. Negative numerators work for subtracting-below-zero cases. Inputs are remembered on this device, which makes checking a whole worksheet&#x27;s worth of problems a matter of editing two numbers between questions. It pairs with the roman numeral and prime factorization tools in the study corner of the site.</p></section>
-  <div class="tool" id="tt-fr">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-fr">
   <div class="fields">
     <div class="field"><label for="fr-a">Numerator 1</label><input type="number" id="fr-a" step="1" placeholder="3"></div>
     <div class="field"><label for="fr-b">Denominator 1</label><input type="number" id="fr-b" step="1" placeholder="4"></div>
@@ -125,7 +125,7 @@ document.getElementById('fr-share').addEventListener('click',function(){
   var txt=document.getElementById('fr-note').textContent+'. Solve yours step by step (no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&b='+encodeURIComponent(B.value||'')+'&c='+encodeURIComponent(C.value||'')+'&d='+encodeURIComponent(D.value||'')+'&op='+encodeURIComponent(OP.value);
   if(navigator.share){navigator.share({title:'Fraction result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this result';},1500);}
 });
 })();
 </script>

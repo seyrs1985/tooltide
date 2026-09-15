@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Fuel gets the headlines but depreciation eats the budget: for most owners, the value a car silently loses each year is the single biggest cost of driving - often larger than fuel and insurance combined. This calculator runs the compounding curve from purchase price, years owned and an annual rate, and reports the three numbers that matter: current value, total value lost, and the honest cost per year of ownership.</p><p>The default 15% annual rate encodes the industry&#x27;s uncomfortable shape: cars lose 40-50% of their value in the first three years, then the curve flattens dramatically - which is why the 3-year-old used car is the classic rational purchase (someone else paid the steep part), and why a two-year lease on a new luxury badge is the most expensive way to own anything with wheels.</p></section>
-  <div class="tool" id="tt-cd">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-cd">
   <div class="fields">
     <div class="field"><label for="cd-p">Purchase price ($)</label><input type="number" id="cd-p" step="any" min="0" placeholder="30000"></div>
     <div class="field"><label for="cd-y">Years owned</label><input type="number" id="cd-y" step="1" min="0" max="30" placeholder="3"></div>
@@ -100,7 +100,7 @@ document.getElementById('cd-share').addEventListener('click',function(){
   var txt='A $'+P.value+' car after '+Y.value+' years at '+R.value+'%/yr: '+OUT.textContent+'. Depreciation is the real cost - check yours (free):';
   var url=location.origin+location.pathname+'?p='+P.value+'&y='+Y.value+'&r='+R.value;
   if(navigator.share){navigator.share({title:'Car depreciation',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
 });
 })();
 </script>

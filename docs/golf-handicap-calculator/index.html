@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>The World Handicap System made one number the currency of amateur golf: the differential, (113 ÷ slope) × (adjusted gross score − course rating). It is the only fair way to compare a 95 at a brute 74.8/140 course with a 95 at a friendly 69.9/113 one - and it is the raw material your index is made of, being the average of your best 8 differentials from the last 20 rounds.</p><p>This calculator runs the differential from any scorecard in one line, then answers the question you actually have on the first tee: with your index entered, it gives the course handicap for today&#x27;s rating and slope, the target score that counts as a &#x27;handicap round&#x27;, and whether today beat your index. Inputs are remembered for league night, and the share link carries your round.</p></section>
-  <div class="tool" id="tt-gf">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-gf">
   <div class="fields">
     <div class="field"><label for="gf-s">Adjusted gross score</label><input type="number" id="gf-s" min="18" max="200" placeholder="95"></div>
     <div class="field"><label for="gf-c">Course rating</label><input type="number" id="gf-c" step="any" min="55" max="85" placeholder="72.4"></div>
@@ -103,7 +103,7 @@ document.getElementById('gf-share').addEventListener('click',function(){
   var txt='Shot '+S.value+' on a '+C.value+'/'+SL.value+' course = '+OUT.textContent+' differential. Do your round math (free, no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&c='+C.value+'&sl='+SL.value;
   if(navigator.share){navigator.share({title:'Golf differential',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this round math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this round math';},1500);}
 });
 })();
 </script>

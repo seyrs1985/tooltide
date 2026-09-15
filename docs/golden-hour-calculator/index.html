@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Golden hour is the hour-ish window when the sun sits within about 6° of the horizon and light turns warm, directional and forgiving - portraits glow, cities turn amber, and every photographer&#x27;s feed gets better. It is not a fixed time: it shifts with latitude and season, from a reliable hour at mid-latitudes to most of the nightless summer day up north. This calculator computes it from solar position, not from a lookup table.</p><p>Enter a date and coordinates and it gives the full light plan: sunrise, when the morning window closes, when the evening window opens, and sunset - all in your device&#x27;s timezone, with the window length stated so you know whether you&#x27;re working with 70 minutes or 25. Location and date are remembered for the next scout, and the share link hands the whole schedule to your shooting partner.</p></section>
-  <div class="tool" id="tt-gh">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-gh">
   <div class="fields">
     <div class="field"><label for="gh-d">Date</label><input type="date" id="gh-d"></div>
     <div class="field"><label for="gh-la">Latitude (+N)</label><input type="number" id="gh-la" step="any" min="-66" max="66" placeholder="40.7"></div>
@@ -132,7 +132,7 @@ document.getElementById('gh-share').addEventListener('click',function(){
   var txt='Golden hour on '+D.value+' at '+LA.value+','+LO.value+': '+OUT.textContent+'. Plan your shoot (free, no sign-up):';
   var url=location.origin+location.pathname+'?d='+D.value+'&la='+LA.value+'&lo='+LO.value;
   if(navigator.share){navigator.share({title:'Golden hour',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent="Share tonight's light";},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent="Share tonight's light";},1500);}
 });
 })();
 </script>

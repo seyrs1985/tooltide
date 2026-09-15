@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>A half birthday is exactly what it sounds like: the calendar day six months after yours, when you turn X-and-a-half. Parents throw them for summer-born kids whose real birthdays collide with school holidays; leap-year and December 31 folks use them as the sane alternative; and everyone else enjoys a perfectly good excuse for cake in the off-season. Enter your birthday and this calculator names the exact date with its weekday, counts down the days to the next one, and states your precise age in years, months and days today.</p><p>The arithmetic has one trap worth doing properly: six months after August 31 lands on a date that doesn&#x27;t exist in February, so the calculator clamps to the month&#x27;s last day and says so in the note. Your birthday is remembered on the device, which quietly turns the page into a little countdown you can revisit - and the share button packages the date for whoever needs to start planning.</p></section>
-  <div class="tool" id="tt-hb">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-hb">
   <div class="fields">
     <div class="field"><label for="hb-b">Your birthday</label><input type="date" id="hb-b"></div>
   </div>
@@ -130,7 +130,7 @@ document.getElementById('hb-share').addEventListener('click',function(){
   var txt='My half birthday is '+document.getElementById('hb-date').textContent+' - '+OUT.textContent+'! Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'');
   if(navigator.share){navigator.share({title:'Half birthday',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this countdown';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this countdown';},1500);}
 });
 })();
 </script>

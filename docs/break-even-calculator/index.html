@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Every business has a magic unit number: the sale where the rent stops being your money and becomes profit&#x27;s. Break-even is fixed costs ÷ (price − variable cost) - the whole discipline of a business plan compressed into one line, and the first number any investor, lender or spouse asks for. This calculator runs it live, plus the two numbers that make it mean something: revenue required at break-even and the contribution margin each sale carries.</p><p>The note under the result is where strategy lives: because everything past break-even falls to profit at nearly 100% margin, small levers matter enormously - and a price increase almost always beats a volume chase. Your assumptions are remembered between visits, the result rides in the tab title, and the share link carries the scenario for partners to poke at.</p></section>
-  <div class="tool" id="tt-be">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-be">
   <div class="fields">
     <div class="field"><label for="be-f">Fixed costs (per month, $)</label><input type="number" id="be-f" step="any" min="0" placeholder="3000"></div>
     <div class="field"><label for="be-p">Price per unit ($)</label><input type="number" id="be-p" step="any" min="0" placeholder="49"></div>
@@ -104,7 +104,7 @@ document.getElementById('be-share').addEventListener('click',function(){
   var txt='Break-even: '+OUT.textContent+' units/month ($'+P.value+' price, $'+V.value+' cost). Run your numbers (free, no sign-up):';
   var url=location.origin+location.pathname+'?f='+F.value+'&p='+P.value+'&v='+V.value;
   if(navigator.share){navigator.share({title:'Break-even',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this break-even';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this break-even';},1500);}
 });
 })();
 </script>

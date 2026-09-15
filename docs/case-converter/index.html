@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Paste text, click a case, copy the result. Beyond the basics (UPPERCASE, lowercase, Title Case, Sentence case), it also outputs camelCase, snake_case and kebab-case — the formats developers and writers constantly need for variable names, URLs, filenames and hashtags.</p><p>Everything runs locally in your browser, so it is safe for private or sensitive text. There is no length limit — convert a headline or an entire chapter.</p></section>
-  
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
 <div class="tool" id="tt-case">
   <div class="field"><label for="case-in">Your text</label>
     <textarea id="case-in" rows="6" placeholder="Type or paste text…"></textarea></div>
@@ -72,7 +72,7 @@
     <button class="chip" data-c="kebab">kebab-case</button>
     <button class="chip" data-c="alt">aLtErNaTiNg</button>
   </div>
-  <div class="field"><label for="case-out">Result <button class="btn btn-sm" id="case-copy" type="button">Copy</button></label>
+  <div class="field"><label for="case-out">Result <button class="btn btn-sm" id="case-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="case-out" rows="6" readonly placeholder="Click a case above…"></textarea></div>
 </div>
 <script>(function(){
@@ -96,7 +96,7 @@ var inp=document.getElementById('case-in'),out=document.getElementById('case-out
 document.querySelectorAll('#tt-case .chip').forEach(function(c){c.addEventListener('click',function(){out.value=F[c.dataset.c](inp.value);});});
 document.getElementById('case-copy').addEventListener('click',function(){
   out.select();document.execCommand('copy');
-  var b=document.getElementById('case-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('case-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 })();</script>
 

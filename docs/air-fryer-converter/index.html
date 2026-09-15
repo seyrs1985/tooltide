@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>An air fryer is a compact convection oven, and the internet&#x27;s recipes were mostly written for big conventional ones. The conversion rule of thumb is reliable: drop the temperature about 25°F (15°C), cut the cooking time to roughly 80%, and start checking early — the concentrated fan heat does its crisping fast in the final minutes.</p><p>Enter the recipe&#x27;s oven temperature and time, and the converter returns the fryer setting plus the minutes you save. The built-in tips cover the three things that actually cause air-fryer failures: crowding the basket, skipping the halfway shake, and trusting the timer over your eyes for the last two minutes. It pairs with the oven temperature converter when the recipe itself is in a foreign unit.</p></section>
-  <div class="tool" id="tt-af">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-af">
   <div class="fields">
     <div class="field"><label for="af-u">Recipe units</label><select id="af-u"><option value="f">°F + minutes</option><option value="c">°C + minutes</option></select></div>
     <div class="field"><label for="af-t">Recipe oven temperature</label><input type="number" id="af-t" step="any" placeholder="400"></div>
@@ -101,7 +101,7 @@ document.getElementById('af-share').addEventListener('click',function(){
   var txt='Air fryer version: '+OUT.textContent+' (recipe said '+T.value+'° for '+MI.value+' min). Convert yours (no sign-up):';
   var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&min='+encodeURIComponent(MI.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Air fryer setting',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the setting';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the setting';},1500);}
 });
 })();
 </script>

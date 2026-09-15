@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Sleep moves in roughly 90-minute cycles, and the groggiest mornings come from an alarm landing mid-cycle rather than at its end. This planner works in both directions: sleep right now and it lists the four best wake-up windows over the next nine hours; entering a target wake-up time lists the four bedtimes that line up with a cycle boundary.</p><p>Fifteen minutes of fall-asleep time is built in, because &quot;in bed at 11:00&quot; and &quot;asleep at 11:15&quot; are different plans. Six cycles (about 9 hours) is the generous pick, five (7.5 hours) suits most adults, and three cycles (4.5 hours) is the short-night floor — the times update live, are remembered on this device, and the share button packages your plan for whoever needs to be up with you.</p></section>
-  <div class="tool" id="tt-sleep">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-sleep">
   <div class="fields">
     <div class="field"><label for="sl-mode">Plan</label>
       <select id="sl-mode"><option value="wake">Wake-up times if I sleep now</option><option value="bed">Bedtime for a target wake-up</option></select></div>
@@ -103,7 +103,7 @@ document.getElementById('sl-share').addEventListener('click',function(){
     :('Set bedtime '+OUT.textContent+' to wake at '+T.value+' between cycles. Plan sleep (no sign-up):');
   var url=location.origin+location.pathname+'?mode='+MODE.value+(MODE.value==='bed'?'&t='+encodeURIComponent(T.value):'');
   if(navigator.share){navigator.share({title:'Sleep cycle plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share these times';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share these times';},1500);}
 });
 })();
 </script>

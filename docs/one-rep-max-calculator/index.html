@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Nobody should test a true 1RM every week - it beats up the joints and stalls the program - so lifters estimate it from heavy sets instead. Enter the weight and reps you actually moved, and this calculator runs the three standard formulas at once: Epley (the classic, generous at high reps), Brzycki (accurate under 10 reps), and Lander, then averages them into the working number your percentages come from.</p><p>Alongside the max you get the practical translation: the 80% weight for 5x5 strength blocks, and the note reminds you where the estimates live honestly - tight under 10 reps, drifting beyond. Your last lift is remembered on the device, so week-to-week progression means editing one number. It pairs with the macro calculator for the kitchen half of the training equation.</p></section>
-  <div class="tool" id="tt-orm">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-orm">
   <div class="fields">
     <div class="field"><label for="orm-w">Weight lifted</label><input type="number" id="orm-w" step="any" min="0" placeholder="100"></div>
     <div class="field"><label for="orm-r">Reps completed</label><input type="number" id="orm-r" step="1" min="1" max="12" placeholder="5"></div>
@@ -105,7 +105,7 @@ document.getElementById('orm-share').addEventListener('click',function(){
   var txt='Estimated 1RM: '+OUT.textContent+' from '+W.value+U.value+' x '+R.value+' reps. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value||'')+'&r='+encodeURIComponent(R.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'One rep max',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this max';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this max';},1500);}
 });
 })();
 </script>

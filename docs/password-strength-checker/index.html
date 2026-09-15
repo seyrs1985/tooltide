@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>&#x27;Strong password&#x27; is useless advice without a number. This checker gives two: entropy in bits (length × log₂ of the character pool you actually used) and what those bits mean in practice - how long the password survives a throttled online attack, a single gaming GPU, or a well-funded datacenter. Dictionary words, keyboard patterns, repeats and date-shaped tails are detected and deducted, because crackers try them first and brute-force math flatters them.</p><p>The privacy bar is absolute: nothing you type is stored, remembered or sent anywhere - there is deliberately no URL state and no input memory on this tool, because a password must never persist. The note under the result explains why length beats symbol soup and why reuse is the real breach multiplier.</p></section>
-  <div class="tool" id="tt-pw">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-pw">
   <div class="fields">
     <div class="field"><label for="pw-in">Type a password to test</label><input type="password" id="pw-in" autocomplete="off" spellcheck="false" placeholder="try something…"></div>
     <div class="field"><label for="pw-show">Show it</label><input type="checkbox" id="pw-show"></div>
@@ -117,7 +117,7 @@ document.getElementById('pw-share').addEventListener('click',function(){
   var txt='My test password scores '+OUT.textContent+' bits ('+document.getElementById('pw-verdict').textContent+') - it would survive an offline GPU attack for '+document.getElementById('pw-gpu')+'. Check yours (nothing is stored):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'Password strength',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the score (not the password)';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the score (not the password)';},1500);}
 });
 })();
 </script>

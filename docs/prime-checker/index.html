@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Type any whole number and find out whether it is prime — and if it is not, one of its factors is shown, so you can see exactly why. Numbers up to 15 digits are checked with deterministic Miller-Rabin plus trial division, which is instant for homework numbers and fast well beyond them.</p><p>Prime numbers are the atoms of arithmetic: divisible only by 1 and themselves. They drive cryptography, appear in nature (cicada life cycles), and are the endless fascination of number theory — this checker settles any &#x27;is 1,009 prime?&#x27; argument in a keystroke.</p></section>
-  
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
 <div class="tool" id="tt-pr">
   <div class="field"><label for="pr-in">Whole number (up to 15 digits)</label>
     <input type="number" id="pr-in" step="1" placeholder="1009"></div>
@@ -89,13 +89,13 @@ function isPrime(n){
 inp.addEventListener('input',function(){
   var v=this.value.trim();
   if(v===''){out.textContent='-';note.textContent='';return;}
-  if(!/^\d+$/.test(v)){out.textContent='-';note.textContent='Whole numbers only.';return;}
+  if(!/^\d+$/.test(v)){out.textContent='-';note.textContent=TT('num.whole','Whole numbers only.');return;}
   var n=BigInt(v);
-  if(n<2n){out.textContent='Not prime';note.textContent='Numbers below 2 are neither prime nor composite.';return;}
+  if(n<2n){out.textContent=TT('prime.no','Not prime');note.textContent=TT('prime.lt2','Numbers below 2 are neither prime nor composite.');return;}
   var small=[2n,3n,5n,7n,11n,13n,17n,19n,23n,29n,31n,37n];
   for(var i=0;i<small.length;i++){
-    if(n===small[i]){out.textContent='Prime!';note.textContent=v+' is prime (it is in the base list).';return;}
-    if(n%small[i]===0n){out.textContent='Not prime';note.textContent='Divisible by '+small[i]+'.';return;}
+    if(n===small[i]){out.textContent=TT('prime.yes','Prime!');note.textContent=TT('prime.list','{v} is prime (it is in the base list).').replace('{v}',v);return;}
+    if(n%small[i]===0n){out.textContent=TT('prime.no','Not prime');note.textContent=TT('prime.div','Divisible by {n}.').replace('{n}',small[i].toString());return;}
   }
   var ok=true,factor=null;
   if(v.length<=15){

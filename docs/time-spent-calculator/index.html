@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Three hours a day doesn&#x27;t sound like much - it&#x27;s a commute, a scrolling habit, a series. Run the math across a life and it becomes 8 years: eight years of your one allocation, spent at 3 hours a day from 15 to 80. This calculator makes that arithmetic unavoidable: hours per day, days per week, the age span you choose, and the total in years, months and honest 40-hour work-weeks.</p><p>The tool refuses to moralize for you - the same math that indicts a doom-scrolling habit also celebrates a craft: 90 minutes of guitar a day from age 20 to 70 is nearly two years of deliberate practice, which is what mastery is actually made of. Your inputs are remembered, the total rides in the tab title, and the share link carries the scenario for the group chat that needs to see it.</p></section>
-  <div class="tool" id="tt-tsp">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-tsp">
   <div class="fields">
     <div class="field"><label for="ts2-h">Hours per day</label><input type="number" id="ts2-h" step="any" min="0" max="24" placeholder="3"></div>
     <div class="field"><label for="ts2-d">Days per week</label><input type="number" id="ts2-d" step="any" min="0.5" max="7" placeholder="7"></div>
@@ -102,7 +102,7 @@ document.getElementById('ts2-share').addEventListener('click',function(){
   var txt=H.value+' hours a day from age '+A.value+' to '+T.value+' = '+OUT.textContent+' years of my life. Run your own math (free):';
   var url=location.origin+location.pathname+'?h='+H.value+'&d='+D.value+'&a='+A.value+'&t='+T.value;
   if(navigator.share){navigator.share({title:'Time spent',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
 });
 })();
 </script>

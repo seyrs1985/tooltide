@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Calorie burn is three numbers multiplied: the activity&#x27;s MET value (its metabolic cost), your body weight in kilograms, and the hours you do it. Walking at 3 mph is 3.5 METs, so a 70 kg person on a one-hour walk burns 3.5 × 70 ≈ 245 kcal; the same person running at 8 mph burns nearly 700. Pick an activity, enter weight and duration, and this calculator returns the burn along with the per-10-minute rate and a food-equivalent for honest perspective.</p><p>The MET table here covers twelve common activities from housework to HIIT, with a custom slot for anything the Compendium of Physical Activities lists. The note keeps the honesty: MET figures are population averages, and real burn moves 10-20% with intensity, fitness and terrain - a range that matters more the longer the session. Your last activity and weight persist on the device for daily logging, and the page pairs with the TDEE and macro calculators for the intake side of the equation.</p></section>
-  <div class="tool" id="tt-cb">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-cb">
   <div class="fields">
     <div class="field"><label for="cb-act">Activity</label><select id="cb-act">
       <option value="3.5">Walking (3 mph)</option>
@@ -125,7 +125,7 @@ document.getElementById('cb-share').addEventListener('click',function(){
   var txt=ACT.options[ACT.selectedIndex].text+' for '+MI.value+' min: '+OUT.textContent+' kcal. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?a='+ACT.value+'&w='+encodeURIComponent(W.value||'')+'&min='+encodeURIComponent(MI.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Calories burned',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this burn';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this burn';},1500);}
 });
 })();
 </script>

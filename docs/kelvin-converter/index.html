@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Three temperature scales, one converter: type a value into Kelvin, Celsius or Fahrenheit and the other two update instantly. Kelvin is Celsius shifted by exactly 273.15 - same degree size, different zero - while Fahrenheit needs both an offset and a fraction. The formulas are displayed with your numbers in place.</p><p>Kelvin matters because it is absolute: 0 K is the temperature where molecular motion stops, which is why gas laws and thermodynamics refuse to work in degrees. This converter is the bridge between the physics classroom and the weather report.</p></section>
-  
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
 <div class="tool" id="tt-kel">
   <div class="fields">
     <div class="field"><label for="kel-k">Kelvin (K)</label><input type="number" id="kel-k" step="any" placeholder="300"></div>
@@ -80,7 +80,7 @@ function set(k,c,f,noteTxt){
 }
 function fromK(k){
   if(isNaN(k)){set(null,null,null,'');return;}
-  if(k<0){set(k,k*1-273.15,null,'Below absolute zero - physically impossible.');return;}
+  if(k<0){set(k,k*1-273.15,null,TT('temp.belowabs','Below absolute zero - physically impossible.'));return;}
   var c=k-273.15,f=c*9/5+32;
   set(k,c,f,'K - 273.15 = C; C x 9/5 + 32 = F');
 }

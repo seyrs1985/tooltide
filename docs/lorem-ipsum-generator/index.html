@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Placeholder text is a utility, and utilities should be exact: this generator produces as many paragraphs as you ask, each word-count-true, starting with the canonical &#x27;Lorem ipsum dolor sit amet&#x27; when you want the classic look or with fresh random Latin when you don&#x27;t. One tap copies it to your clipboard - no signup walls, no ads between you and the paste, no nonsense.</p><p>Under the hood it draws from the full classical passage plus Cicero&#x27;s De Finibus roots (the text has been filler since the 1500s, when a printer scrambled it to show a typeface), reshuffling sentence-length fragments every regenerate. Your last settings are remembered for the next mockup, and the word count rides in the tab title so you can size a layout without counting.</p></section>
-  <div class="tool" id="tt-lr">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-lr">
   <div class="fields">
     <div class="field"><label for="lr-p">Paragraphs</label><input type="number" id="lr-p" min="1" max="20" value="3"></div>
     <div class="field"><label for="lr-w">Words per paragraph</label><input type="number" id="lr-w" min="20" max="200" value="60"></div>
@@ -101,8 +101,8 @@ else{try{var mem=JSON.parse(localStorage.getItem('tt_lorem')||'null');if(mem){P.
 gen();
 document.getElementById('lr-copy').addEventListener('click',function(){
   TX.select();
-  if(navigator.clipboard){navigator.clipboard.writeText(TX.value);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Copy to clipboard';},1500);}
-  else{document.execCommand('copy');this.textContent='Copied!';var c=this;setTimeout(function(){c.textContent='Copy to clipboard';},1500);}
+  if(navigator.clipboard){navigator.clipboard.writeText(TX.value);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Copy to clipboard';},1500);}
+  else{document.execCommand('copy');this.textContent=TT('ui.copied','Copied!');var c=this;setTimeout(function(){c.textContent='Copy to clipboard';},1500);}
 });
 })();
 </script>

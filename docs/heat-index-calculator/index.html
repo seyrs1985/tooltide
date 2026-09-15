@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Humidity is why 95°F in Phoenix feels survivable and 95°F in Houston feels hostile: sweat evaporates slower in moist air, so your body&#x27;s cooling system underperforms exactly when it matters. The heat index puts one number on that — and this calculator runs the full NOAA Rothfusz regression, the same formula the National Weather Service publishes, not the rough doubling shortcuts.</p><p>The risk band under the result translates the number into what to actually do: caution means hydrate and pace yourself, extreme caution means cut midday effort, danger and extreme danger mean heat illness becomes likely without intervention. The delta stat shows how many degrees humidity added — the number most people find genuinely surprising. Note the figure is for shade with light wind; full sun can push the effective temperature up another 15°F.</p></section>
-  <div class="tool" id="tt-hi">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-hi">
   <div class="fields">
     <div class="field"><label for="hi-u">Units</label><select id="hi-u"><option value="f">°F</option><option value="c">°C</option></select></div>
     <div class="field"><label for="hi-t">Air temperature</label><input type="number" id="hi-t" step="any" placeholder="95"></div>
@@ -112,7 +112,7 @@ document.getElementById('hi-share').addEventListener('click',function(){
   var txt='It is '+T.value+'°'+U.value.toUpperCase()+' at '+RH.value+'% humidity - feels like '+OUT.textContent+' ('+document.getElementById('hi-band').textContent.split(':')[0].toLowerCase()+'). Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&rh='+encodeURIComponent(RH.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Heat index',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
 });
 })();
 </script>

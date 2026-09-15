@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Enter your track or pole width, the finished drop, the fullness your heading style needs, and the fabric roll width. The calculator works out panel count, cut length with hem and heading allowances, and total metres to buy.</p><p>Fabric-shop calculators assume one window and hide the allowances. This one shows the 30 cm per panel that proper hems eat, and why fullness - not window size - is the number that moves the bill.</p></section>
-  <div class="tool" id="tt-cu">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-cu">
   <div class="fields">
     <div class="field"><label for="cu-w">Track or pole width (cm)</label><input type="number" id="cu-w" min="40" max="600" step="1" placeholder="150"></div>
     <div class="field"><label for="cu-d">Finished drop (cm)</label><input type="number" id="cu-d" min="30" max="350" step="1" placeholder="137"></div>
@@ -103,7 +103,7 @@ document.getElementById('cu-share').addEventListener('click',function(){
   var txt='Those curtains need about '+OUT.textContent+' m of fabric ('+document.getElementById('cu-s1').textContent+' panels). Measure yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Curtain fabric',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>

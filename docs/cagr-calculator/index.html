@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>An investment that went +40%, then -15%, then +22% over three years didn&#x27;t grow 47% - it grew at its compound annual growth rate, the single rate that would have taken the same money from the same start to the same finish at steady speed. CAGR = (ending ÷ beginning)^(1/years) − 1, and it is the only fair way to compare a wild ride with a boring one, a fund with a benchmark, or this year&#x27;s portfolio with your neighbor&#x27;s boast.</p><p>This calculator runs it instantly and adds the two sanity numbers professionals keep handy: the total multiple and the doubling time at that rate (Rule of 72 made precise). The note underneath keeps the recovery trap visible - a 50% loss needs a 100% gain to break even - which is the reason steady compounding beats spectacular swings over any real holding period.</p></section>
-  <div class="tool" id="tt-cg">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-cg">
   <div class="fields">
     <div class="field"><label for="cg-b">Beginning value ($)</label><input type="number" id="cg-b" step="any" min="0" placeholder="10000"></div>
     <div class="field"><label for="cg-e">Ending value ($)</label><input type="number" id="cg-e" step="any" min="0" placeholder="26000"></div>
@@ -100,7 +100,7 @@ document.getElementById('cg-share').addEventListener('click',function(){
   var txt=B.value+' grew to '+E.value+' in '+Y.value+' years = '+OUT.textContent+' CAGR. Check your growth rate (free, no sign-up):';
   var url=location.origin+location.pathname+'?b='+B.value+'&e='+E.value+'&y='+Y.value;
   if(navigator.share){navigator.share({title:'CAGR',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this CAGR';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this CAGR';},1500);}
 });
 })();
 </script>

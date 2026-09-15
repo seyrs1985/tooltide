@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Enter head circumference, your blocked gauge per 10 cm, the negative ease, and your pattern&#x27;s stitch multiple. The calculator gives the cast-on count adjusted to the multiple, the raw figure, and the finished relaxed width.</p><p>Ball-band gauges and generic tables create hats that fit nobody. This calculator uses your gauge and the physics of negative ease - the 2-3 cm by which knitted hats are deliberately smaller than the head.</p></section>
-  <div class="tool" id="tt-co">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-co">
   <div class="fields">
     <div class="field"><label for="co-h">Head circumference (cm)</label><input type="number" id="co-h" min="30" max="70" step="0.5" placeholder="56"></div>
     <div class="field"><label for="co-g">Gauge (stitches per 10 cm)</label><input type="number" id="co-g" min="8" max="40" step="0.5" placeholder="20"></div>
@@ -101,7 +101,7 @@ document.getElementById('co-share').addEventListener('click',function(){
   var txt='Cast on '+OUT.textContent+' stitches for a '+F[0].value+' cm head. Get yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Cast-on count',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this number';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this number';},1500);}
 });
 })();
 </script>

@@ -58,9 +58,9 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Generate cryptographically strong random passwords using your browser&#x27;s built-in secure random number generator (WebCrypto). Choose length and character sets; every password is created locally on your device and is never transmitted, logged or stored — you can even disconnect from the internet and it keeps working.</p><p>For most accounts, a 16-character password with mixed character types is the sweet spot of strength and memorability-with-a-manager. For high-value accounts (email, banking, password manager master key), go 20+ characters.</p></section>
-  
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
 <div class="tool" id="tt-pw">
-  <div class="pw-out-row"><input type="text" id="pw-out" readonly><button class="btn btn-sm" id="pw-copy" type="button">Copy</button></div>
+  <div class="pw-out-row"><input type="text" id="pw-out" readonly><button class="btn btn-sm" id="pw-copy" type="button" data-i18n="ui.copy">Copy</button></div>
   <div class="pw-strength"><div class="pw-bar" id="pw-bar"></div><span id="pw-strength"></span></div>
   <div class="fields">
     <div class="field"><label for="pw-len">Length: <b id="pw-lenv">16</b></label><input type="range" id="pw-len" min="8" max="64" value="16"></div>
@@ -98,7 +98,7 @@ function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*
   do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
 function gen(){
   var pool=charset();
-  if(!pool){document.getElementById('pw-out').value='Select at least one character set';return;}
+  if(!pool){document.getElementById('pw-out').value=TT('pw.noset','Select at least one character set');return;}
   var n=+lenIn.value,out='';
   for(var i=0;i<n;i++)out+=pool[secureInt(pool.length)];
   document.getElementById('pw-out').value=out;
@@ -115,7 +115,7 @@ document.getElementById('pw-copy').addEventListener('click',function(){
   var o=document.getElementById('pw-out');o.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(o.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('pw-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('pw-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 gen();
 })();</script>

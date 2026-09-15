@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Every appliance has a wattage printed on its label or spec sheet, and your utility bill states a price per kWh — multiply through the hours and you know exactly what anything costs to run. A 1,500 W space heater for 3 hours a day at $0.17/kWh is about $23 a month; a gaming PC for 5 hours is similar. This calculator does that arithmetic for any device, any rate, any country&#x27;s billing unit.</p><p>The yearly figure is where decisions live: that old second fridge, the dehumidifier in the basement, the always-on server — each line item is one entry away from a number you can act on. The note adds the standby-power reality check (1-2 W around the clock for anything left plugged in), and the share button sends the cost to whoever in the house needs convincing.</p></section>
-  <div class="tool" id="tt-el">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-el">
   <div class="fields">
     <div class="field"><label for="el-w">Power rating (watts)</label><input type="number" id="el-w" step="any" min="0" placeholder="1500"></div>
     <div class="field"><label for="el-h">Hours used per day</label><input type="number" id="el-h" step="any" min="0" max="24" placeholder="3"></div>
@@ -101,7 +101,7 @@ document.getElementById('el-share').addEventListener('click',function(){
   var txt='Running my '+W.value+' W device '+H.value+' h/day costs '+OUT.textContent+'/month ('+document.getElementById('el-year').textContent+'/year). Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value||'')+'&h='+encodeURIComponent(H.value||'')+'&r='+encodeURIComponent(R.value||'');
   if(navigator.share){navigator.share({title:'Electricity cost',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this cost';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this cost';},1500);}
 });
 })();
 </script>

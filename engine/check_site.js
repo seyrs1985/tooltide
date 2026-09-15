@@ -109,6 +109,8 @@ try {
     'tool page: .result containers aria-live');
   assert(tool.includes('<noscript') && tool.includes('noscript-note'),
     'tool page: noscript JS-required notice');
+  assert(tool.includes('window.TT=function'),
+    'tool page: shared TT() i18n helper present');
 
   // "New on ToolTide": newest pages surfaced in their own row above the
   // categories (the per-category collapse otherwise buries them behind
@@ -666,6 +668,9 @@ try {
     && !/<script src="[^"]*i18n\.js">/.test(idx),
     'head: i18n.js loads deferred on every page type (non render-blocking)');
   const i18nJs = fs.readFileSync(path.join(root, 'i18n.js'), 'utf8');
+  assert(['ui.copied', 'ui.copy', 'rng.maxmin', 'prime.no', 'temp.belowabs']
+    .every(k => (i18nJs.match(new RegExp('"' + k + '"', 'g')) || []).length === 9),
+    'i18n.js: R9 feedback/validation keys present in all 9 languages');
   assert(/createElement\("select"\)/.test(i18nJs) && /lang-select/.test(i18nJs)
     && /addEventListener\("change"/.test(i18nJs) && !/lang-btn/.test(i18nJs),
     'i18n.js: language switcher is a native select (keyboard accessible)');

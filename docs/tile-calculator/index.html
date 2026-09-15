@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Tile math looks like simple division and then bites at the edges: a 12 × 10 ft floor takes 120 one-foot tiles on paper, but real floors have cuts, breakages, and the half-tile that shatters on the nipper - the trade&#x27;s answer is 10% overage, and the tile shop&#x27;s unit is the box, not the tile. This calculator does the full chain: area and tile size in, exact tile count, the 10% waste margin applied, and boxes rounded up to whole cartons.</p><p>Both unit systems work - inches over feet, centimeters over meters - so imported tile specs and local room measurements coexist. The note keeps the spare-tile doctrine visible: dye lots change between production runs, so the leftovers from the 10% are your repair stock for the next decade. Dimensions are remembered on your device for comparing rooms and layouts.</p></section>
-  <div class="tool" id="tt-ti">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-ti">
   <div class="fields">
     <div class="field"><label for="ti-l">Area length</label><input type="number" id="ti-l" step="any" min="0" placeholder="12"></div>
     <div class="field"><label for="ti-w">Area width</label><input type="number" id="ti-w" step="any" min="0" placeholder="10"></div>
@@ -117,7 +117,7 @@ document.getElementById('ti-share').addEventListener('click',function(){
   var txt='Tile estimate: '+OUT.textContent+' tiles ('+document.getElementById('ti-box').textContent+') for a '+document.getElementById('ti-area').textContent+' area. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&tw='+encodeURIComponent(TW.value||'')+'&th='+encodeURIComponent(TH.value||'')+'&b='+encodeURIComponent(B.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Tile estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this estimate';},1500);}
 });
 })();
 </script>

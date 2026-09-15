@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Paste any list — names, keywords, URLs, tasks — and sort the lines alphabetically in one pass. A-Z or Z-A, with case-insensitive comparison so &#x27;apple&#x27; and &#x27;Apple&#x27; sort together instead of by capital letter. Blank lines can be dropped, duplicates collapsed, and the line count updates live.</p><p>It pairs naturally with the duplicate remover for list cleaning: dedupe first, sort second, copy the result. Like every ToolTide text tool, it runs entirely in your browser — private by architecture.</p></section>
-  
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
 <div class="tool" id="tt-sort">
   <div class="chips">
     <button class="chip active" data-d="az">A-Z</button>
@@ -69,7 +69,7 @@
   </div>
   <div class="field"><label for="sort-in">Paste your list</label>
     <textarea id="sort-in" rows="8" placeholder="one item per line…"></textarea></div>
-  <div class="field" style="margin-top:10px"><label for="sort-out">Sorted <button class="btn btn-sm" id="sort-copy" type="button">Copy</button></label>
+  <div class="field" style="margin-top:10px"><label for="sort-out">Sorted <button class="btn btn-sm" id="sort-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="sort-out" rows="8" readonly placeholder="sorted list appears here…"></textarea></div>
   <div class="stats"><div class="stat"><b id="sort-n">0</b><span>lines out</span></div></div>
 </div>
@@ -104,7 +104,7 @@ document.getElementById('sort-copy').addEventListener('click',function(){
   out.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('sort-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('sort-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 run();
 })();</script>

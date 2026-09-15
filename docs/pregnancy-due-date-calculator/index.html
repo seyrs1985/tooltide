@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Due dates are arithmetic with a disclaimer: Naegele&#x27;s rule adds 280 days to the first day of your last period, because the average pregnancy runs 40 weeks from that anchor. Enter an LMP date, a conception date (266 days), or an ultrasound reading with its gestational age and the calculator returns the estimated due date with its weekday, how far along you are today in weeks and days, the countdown, and which trimester you&#x27;re in.</p><p>The date is remembered on this device, so each visit shows the current week without re-entering anything — the kind of page people genuinely come back to weekly. Two honest caveats travel with the answer: only about 5% of babies arrive on the due date itself (most come within two weeks of it), and first-trimester ultrasound dating beats LMP when cycles are irregular. This tool does the math your midwife will recognize; it doesn&#x27;t replace them.</p></section>
-  <div class="tool" id="tt-pg">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-pg">
   <div class="fields">
     <div class="field"><label for="pg-m">Method</label><select id="pg-m"><option value="lmp">Last period (LMP)</option><option value="con">Conception date</option><option value="us">Ultrasound (date + GA)</option></select></div>
     <div class="field"><label for="pg-d">Reference date</label><input type="date" id="pg-d"></div>
@@ -128,7 +128,7 @@ document.getElementById('pg-share').addEventListener('click',function(){
   var txt='Due date: '+OUT.textContent+' - '+document.getElementById('pg-ga').textContent+' along today. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?m='+M.value+'&d='+encodeURIComponent(D.value||'')+'&w='+encodeURIComponent(W.value||'')+'&g='+encodeURIComponent(G.value||'');
   if(navigator.share){navigator.share({title:'Due date',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this due date';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this due date';},1500);}
 });
 })();
 </script>

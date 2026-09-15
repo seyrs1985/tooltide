@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Timesheet math has three traps that a calculator removes: subtracting lunch twice (or never), overnight shifts where the clock-out is a smaller number than the clock-in, and the hour-and-minute to decimal conversion payroll actually wants. Fill in the week&#x27;s in/out pairs, set one unpaid-lunch figure, and this time card returns total hours in h m format, the decimal total for the payroll system, hours past the 40-hour overtime line, and the average day.</p><p>Empty days are simply skipped, so part-time weeks and mid-week starts work without zero-filling. Overnight shifts roll past midnight automatically, and the whole week is remembered on your device — next week you edit the days that changed instead of retyping the roster. It pairs with the hours calculator for single spans and the overtime pay calculator once the hours become money.</p></section>
-  <div class="tool" id="tt-tc">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-tc">
   <div class="fields" id="tc-rows">
     <div class="field"><label for="tc-l">Unpaid lunch (min/day)</label><input type="number" id="tc-l" step="5" min="0" max="180" placeholder="30"></div>
   </div>
@@ -139,7 +139,7 @@ document.getElementById('tc-share').addEventListener('click',function(){
   var txt='Time card this week: '+OUT.textContent+' ('+document.getElementById('tc-dec').textContent+'h decimal, '+document.getElementById('tc-days-w').textContent+' days). Tally yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&s='+encodeURIComponent(pack());
   if(navigator.share){navigator.share({title:'Weekly hours',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this time card';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this time card';},1500);}
 });
 })();
 </script>

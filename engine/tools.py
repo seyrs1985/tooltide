@@ -466,7 +466,7 @@ CASE = """
     <button class="chip" data-c="kebab">kebab-case</button>
     <button class="chip" data-c="alt">aLtErNaTiNg</button>
   </div>
-  <div class="field"><label for="case-out">Result <button class="btn btn-sm" id="case-copy" type="button">Copy</button></label>
+  <div class="field"><label for="case-out">Result <button class="btn btn-sm" id="case-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="case-out" rows="6" readonly placeholder="Click a case above…"></textarea></div>
 </div>
 <script>(function(){
@@ -490,7 +490,7 @@ var inp=document.getElementById('case-in'),out=document.getElementById('case-out
 document.querySelectorAll('#tt-case .chip').forEach(function(c){c.addEventListener('click',function(){out.value=F[c.dataset.c](inp.value);});});
 document.getElementById('case-copy').addEventListener('click',function(){
   out.select();document.execCommand('copy');
-  var b=document.getElementById('case-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('case-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 })();</script>
 """
@@ -738,7 +738,7 @@ gen();
 # ---------------------------------------------------------------- password generator
 PASSWORD = """
 <div class="tool" id="tt-pw">
-  <div class="pw-out-row"><input type="text" id="pw-out" readonly><button class="btn btn-sm" id="pw-copy" type="button">Copy</button></div>
+  <div class="pw-out-row"><input type="text" id="pw-out" readonly><button class="btn btn-sm" id="pw-copy" type="button" data-i18n="ui.copy">Copy</button></div>
   <div class="pw-strength"><div class="pw-bar" id="pw-bar"></div><span id="pw-strength"></span></div>
   <div class="fields">
     <div class="field"><label for="pw-len">Length: <b id="pw-lenv">16</b></label><input type="range" id="pw-len" min="8" max="64" value="16"></div>
@@ -776,7 +776,7 @@ function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*
   do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
 function gen(){
   var pool=charset();
-  if(!pool){document.getElementById('pw-out').value='Select at least one character set';return;}
+  if(!pool){document.getElementById('pw-out').value=TT('pw.noset','Select at least one character set');return;}
   var n=+lenIn.value,out='';
   for(var i=0;i<n;i++)out+=pool[secureInt(pool.length)];
   document.getElementById('pw-out').value=out;
@@ -793,7 +793,7 @@ document.getElementById('pw-copy').addEventListener('click',function(){
   var o=document.getElementById('pw-out');o.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(o.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('pw-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('pw-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 gen();
 })();</script>
@@ -827,24 +827,24 @@ $('rng-go').addEventListener('click',function(){
   var min=parseFloat($('rng-min').value),max=parseFloat($('rng-max').value);
   var count=parseInt($('rng-count').value)||1;
   var note=$('rng-note');
-  if(isNaN(min)||isNaN(max)||max<=min){note.textContent='Maximum must be greater than minimum.';return;}
-  if(count<1||count>100){note.textContent='Count must be between 1 and 100.';return;}
+  if(isNaN(min)||isNaN(max)||max<=min){note.textContent=TT('rng.maxmin','Maximum must be greater than minimum.');return;}
+  if(count<1||count>100){note.textContent=TT('rng.count','Count must be between 1 and 100.');return;}
   var out=[],seen={};
   if(whole){
     var size=Math.floor(max)-Math.ceil(min)+1;
-    if(unique&&count>size){note.textContent='Cannot pick '+count+' unique numbers from a range of '+size+'. Widen the range or allow duplicates.';return;}
+    if(unique&&count>size){note.textContent=TT('rng.cantpick','Cannot pick {n} unique numbers from a range of {m}. Widen the range or allow duplicates.').replace('{n}',count).replace('{m}',size);return;}
     while(out.length<count){
       var v=Math.ceil(min)+secureInt(size);
       if(unique&&seen[v])continue;
       seen[v]=1;out.push(v);
     }
   }else{
-    if(unique){note.textContent='No-duplicates applies to whole numbers only.';return;}
+    if(unique){note.textContent=TT('rng.nodup','No-duplicates applies to whole numbers only.');return;}
     for(var i=0;i<count;i++){out.push((min+(max-min)*secureInt(100000)/100000).toFixed(4));}
   }
   $('rng-res').textContent=out.join(',  ');
   $('rng-out').style.display='block';
-  note.textContent='Generated '+out.length+' number'+(out.length>1?'s':'')+' · crypto-secure · nothing recorded.';
+  note.textContent=TT('rng.gen','Generated: {n} · crypto-secure · nothing recorded.').replace('{n}',out.length);
 });
 })();</script>
 """
@@ -916,7 +916,7 @@ rom.addEventListener('input',function(){
   var v=this.value.trim();
   if(!v){out.textContent='–';note.textContent='';lock=false;return;}
   var n=fromRoman(v);
-  if(n===null){out.textContent='–';note.textContent='Not a valid standard Roman numeral (1–3999).';}
+  if(n===null){out.textContent='–';note.textContent=TT('roman.invalid','Not a valid standard Roman numeral (1–3999).');}
   else{num.value=n;out.textContent=n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');note.textContent=v.toUpperCase()+' = '+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');}
   lock=false;
 });
@@ -962,11 +962,11 @@ var cur=document.getElementById('gr-cur'),wt=document.getElementById('gr-weight'
 function runTarget(){
   var c=parseFloat(cur.value),w=parseFloat(wt.value),target=parseFloat(tg.value);
   var box=document.getElementById('gr-need'),txt=document.getElementById('gr-need-txt');
-  if(!w||w<=0||w>100||isNaN(c)){box.textContent='–';txt.textContent='needed on the final';return;}
+  if(!w||w<=0||w>100||isNaN(c)){box.textContent='–';txt.textContent=TT('gr.needlbl','needed on the final');return;}
   var need=(target-c*(1-w/100))/(w/100);
-  if(need<0){box.textContent='0%';txt.textContent='— target already secured 🎉';}
-  else if(need>100){box.textContent='>100%';txt.textContent='— mathematically out of reach';}
-  else{box.textContent=(Math.round(need*10)/10)+'%';txt.textContent='needed on the final';}
+  if(need<0){box.textContent='0%';txt.textContent=TT('gr.secured','— target already secured 🎉');}
+  else if(need>100){box.textContent='>100%';txt.textContent=TT('gr.outreach','— mathematically out of reach');}
+  else{box.textContent=(Math.round(need*10)/10)+'%';txt.textContent=TT('gr.needlbl','needed on the final');}
 }
 cur.addEventListener('input',runTarget);wt.addEventListener('input',runTarget);tg.addEventListener('change',runTarget);runTarget();
 })();</script>
@@ -983,7 +983,7 @@ DEDUPE = """
     <div class="stat"><b id="dd2-uniq">0</b><span>unique lines</span></div>
     <div class="stat"><b id="dd2-rem">0</b><span>duplicates removed</span></div>
   </div>
-  <div class="field" style="margin-top:12px"><label for="dd2-out">Cleaned output <button class="btn btn-sm" id="dd2-copy" type="button">Copy</button></label>
+  <div class="field" style="margin-top:12px"><label for="dd2-out">Cleaned output <button class="btn btn-sm" id="dd2-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="dd2-out" rows="9" readonly placeholder="cleaned list appears here…"></textarea></div>
 </div>
 <script>(function(){
@@ -1009,7 +1009,7 @@ document.getElementById('dd2-copy').addEventListener('click',function(){
   out.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('dd2-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('dd2-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 run();
 })();</script>
@@ -1108,7 +1108,7 @@ UPSIDE = """
 <div class="tool" id="tt-flip">
   <div class="field"><label for="fl-in">Your text</label>
     <textarea id="fl-in" rows="4" placeholder="Type something…"></textarea></div>
-  <div class="field" style="margin-top:10px"><label for="fl-out">Flipped upside down <button class="btn btn-sm" id="fl-copy" type="button">Copy</button></label>
+  <div class="field" style="margin-top:10px"><label for="fl-out">Flipped upside down <button class="btn btn-sm" id="fl-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="fl-out" rows="4" readonly></textarea></div>
   <div class="tool-note">Uses real Unicode upside-down characters — it survives copy-paste into WhatsApp, Instagram, Twitter/X and bios. Purely local, nothing recorded.</div>
 </div>
@@ -1123,7 +1123,7 @@ document.getElementById('fl-copy').addEventListener('click',function(){
   out.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('fl-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('fl-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 })();</script>
 """
@@ -1168,7 +1168,7 @@ STRIPHTML = """
 <div class="tool" id="tt-sh">
   <div class="field"><label for="sh-in">Paste HTML</label>
     <textarea id="sh-in" rows="8" placeholder="<div>Hello <b>world</b></div>"></textarea></div>
-  <div class="field" style="margin-top:10px"><label for="sh-out">Plain text <button class="btn btn-sm" id="sh-copy" type="button">Copy</button></label>
+  <div class="field" style="margin-top:10px"><label for="sh-out">Plain text <button class="btn btn-sm" id="sh-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="sh-out" rows="8" readonly placeholder="clean text appears here…"></textarea></div>
   <div class="stats"><div class="stat"><b id="sh-tags">0</b><span>tags stripped</span></div></div>
 </div>
@@ -1192,7 +1192,7 @@ document.getElementById('sh-copy').addEventListener('click',function(){
   out.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('sh-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('sh-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 run();
 })();</script>
@@ -1859,7 +1859,7 @@ SORTER = """
   </div>
   <div class="field"><label for="sort-in">Paste your list</label>
     <textarea id="sort-in" rows="8" placeholder="one item per line…"></textarea></div>
-  <div class="field" style="margin-top:10px"><label for="sort-out">Sorted <button class="btn btn-sm" id="sort-copy" type="button">Copy</button></label>
+  <div class="field" style="margin-top:10px"><label for="sort-out">Sorted <button class="btn btn-sm" id="sort-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="sort-out" rows="8" readonly placeholder="sorted list appears here…"></textarea></div>
   <div class="stats"><div class="stat"><b id="sort-n">0</b><span>lines out</span></div></div>
 </div>
@@ -1894,7 +1894,7 @@ document.getElementById('sort-copy').addEventListener('click',function(){
   out.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('sort-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('sort-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 run();
 })();</script>
@@ -2117,13 +2117,13 @@ function isPrime(n){
 inp.addEventListener('input',function(){
   var v=this.value.trim();
   if(v===''){out.textContent='-';note.textContent='';return;}
-  if(!/^\d+$/.test(v)){out.textContent='-';note.textContent='Whole numbers only.';return;}
+  if(!/^\d+$/.test(v)){out.textContent='-';note.textContent=TT('num.whole','Whole numbers only.');return;}
   var n=BigInt(v);
-  if(n<2n){out.textContent='Not prime';note.textContent='Numbers below 2 are neither prime nor composite.';return;}
+  if(n<2n){out.textContent=TT('prime.no','Not prime');note.textContent=TT('prime.lt2','Numbers below 2 are neither prime nor composite.');return;}
   var small=[2n,3n,5n,7n,11n,13n,17n,19n,23n,29n,31n,37n];
   for(var i=0;i<small.length;i++){
-    if(n===small[i]){out.textContent='Prime!';note.textContent=v+' is prime (it is in the base list).';return;}
-    if(n%small[i]===0n){out.textContent='Not prime';note.textContent='Divisible by '+small[i]+'.';return;}
+    if(n===small[i]){out.textContent=TT('prime.yes','Prime!');note.textContent=TT('prime.list','{v} is prime (it is in the base list).').replace('{v}',v);return;}
+    if(n%small[i]===0n){out.textContent=TT('prime.no','Not prime');note.textContent=TT('prime.div','Divisible by {n}.').replace('{n}',small[i].toString());return;}
   }
   var ok=true,factor=null;
   if(v.length<=15){
@@ -2530,7 +2530,7 @@ WHITESPACE = """
     <div class="stat"><b id="ws-inlines">-</b><span>lines in</span></div>
     <div class="stat"><b id="ws-chars">-</b><span>chars removed</span></div>
   </div>
-  <div class="field" style="margin-top:10px"><label for="ws-out">Cleaned <button class="btn btn-sm" id="ws-copy" type="button">Copy</button></label>
+  <div class="field" style="margin-top:10px"><label for="ws-out">Cleaned <button class="btn btn-sm" id="ws-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="ws-out" rows="8" readonly placeholder="clean text appears here…"></textarea></div>
 </div>
 <script>(function(){
@@ -2564,7 +2564,7 @@ document.getElementById('ws-copy').addEventListener('click',function(){
   out.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('ws-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('ws-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 run();
 })();</script>
@@ -2751,7 +2751,7 @@ function runTs(){
   var v=parseFloat(ts.value);
   if(isNaN(v)){return;}
   var d=new Date(v*factor());
-  if(isNaN(d.getTime())){document.getElementById('ep-utc').textContent='out of range';return;}
+  if(isNaN(d.getTime())){document.getElementById('ep-utc').textContent=TT('ep.range','out of range');return;}
   document.getElementById('ep-utc').textContent=d.toISOString().slice(0,19).replace('T',' ')+' UTC';
   document.getElementById('ep-local').textContent=d.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
@@ -2874,7 +2874,7 @@ REVERSER = """
   </div>
   <div class="field"><label for="rv-in">Your text</label>
     <textarea id="rv-in" rows="4" placeholder="Type something to reverse..."></textarea></div>
-  <div class="field" style="margin-top:10px"><label for="rv-out">Reversed <button class="btn btn-sm" id="rv-copy" type="button">Copy</button></label>
+  <div class="field" style="margin-top:10px"><label for="rv-out">Reversed <button class="btn btn-sm" id="rv-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="rv-out" rows="4" readonly placeholder="result appears here..."></textarea></div>
 </div>
 <script>(function(){
@@ -2895,7 +2895,7 @@ document.getElementById('rv-copy').addEventListener('click',function(){
   out.select();
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(out.value);}
   else{document.execCommand('copy');}
-  var b=document.getElementById('rv-copy');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy';},1200);
+  var b=document.getElementById('rv-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
 });
 run();
 })();</script>
@@ -2964,8 +2964,8 @@ dec.addEventListener('input',function(){
     var b=BigInt(v).toString(2);
     bin.value=b;
     out.textContent=b;
-    note.textContent=v+' decimal = '+b+' binary';
-  }catch(e){out.textContent='-';note.textContent='Number too large.';}
+    note.textContent=TT('bindec.note','{d} decimal = {b} binary').replace('{d}',v).replace('{b}',b);
+  }catch(e){out.textContent='-';note.textContent=TT('bindec.big','Number too large.');}
   lock=false;
 });
 })();</script>
@@ -2995,7 +2995,7 @@ function set(k,c,f,noteTxt){
 }
 function fromK(k){
   if(isNaN(k)){set(null,null,null,'');return;}
-  if(k<0){set(k,k*1-273.15,null,'Below absolute zero - physically impossible.');return;}
+  if(k<0){set(k,k*1-273.15,null,TT('temp.belowabs','Below absolute zero - physically impossible.'));return;}
   var c=k-273.15,f=c*9/5+32;
   set(k,c,f,'K - 273.15 = C; C x 9/5 + 32 = F');
 }
@@ -3070,7 +3070,7 @@ document.getElementById('dd-share').addEventListener('click',function(){
     ' off - final '+OUT.textContent+'. Check any deal (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(E['dd-price'].value||'')+'&d1='+encodeURIComponent(E['dd-d1'].value||'')+'&d2='+encodeURIComponent(E['dd-d2'].value||'')+'&flat='+encodeURIComponent(E['dd-flat'].value||'');
   if(navigator.share){navigator.share({title:'Stacked discount math',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this deal math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this deal math';},1500);}
 });
 })();
 </script>
@@ -3125,7 +3125,7 @@ document.getElementById('si-share').addEventListener('click',function(){
     ' years = '+OUT.textContent+'. Run your own (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+encodeURIComponent(R.value||'')+'&t='+encodeURIComponent(T.value||'');
   if(navigator.share){navigator.share({title:'Simple interest result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this result';},1500);}
 });
 })();
 </script>
@@ -3184,7 +3184,7 @@ document.getElementById('gs-share').addEventListener('click',function(){
     '. Split any invoice (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+R.value+'&mode='+M.value;
   if(navigator.share){navigator.share({title:'GST split',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the split';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the split';},1500);}
 });
 })();
 </script>
@@ -3239,7 +3239,7 @@ document.getElementById('ot-share').addEventListener('click',function(){
     ' gross'+((parseFloat(H.value)||0)>(parseFloat(T.value)||40)?' (with overtime)':'')+'. Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?r='+encodeURIComponent(R.value||'')+'&h='+encodeURIComponent(H.value||'')+'&t='+encodeURIComponent(T.value||'')+'&m='+encodeURIComponent(M.value||'');
   if(navigator.share){navigator.share({title:'Overtime pay',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my week';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my week';},1500);}
 });
 })();
 </script>
@@ -3296,7 +3296,7 @@ document.getElementById('rt-share').addEventListener('click',function(){
     '). Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?inc='+encodeURIComponent(I.value||'')+'&debt='+encodeURIComponent(D.value||'')+'&r='+RU.value;
   if(navigator.share){navigator.share({title:'Rent budget',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my budget';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my budget';},1500);}
 });
 })();
 </script>
@@ -3348,7 +3348,7 @@ document.getElementById('cg-share').addEventListener('click',function(){
   var txt='CGPA '+V.value+' converts to '+OUT.textContent+' ('+UNIT.textContent+'). Convert yours (no sign-up):';
   var url=location.origin+location.pathname+'?d='+D.value+'&v='+encodeURIComponent(V.value||'');
   if(navigator.share){navigator.share({title:'CGPA conversion',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the result';},1500);}
 });
 })();
 </script>
@@ -3401,7 +3401,7 @@ document.getElementById('caf-share').addEventListener('click',function(){
   var s=sel(),a=[];for(var i=0;i<s.length;i++)a.push(s[i].value);
   var url=location.origin+location.pathname+'?drinks='+a.join(',');
   if(navigator.share){navigator.share({title:'Caffeine total',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my total';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my total';},1500);}
 });
 })();
 </script>
@@ -3463,7 +3463,7 @@ document.getElementById('bf-share').addEventListener('click',function(){
   var txt='My estimated body fat: '+OUT.textContent+' (US Navy method). Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&h='+encodeURIComponent(H.value||'')+'&n='+encodeURIComponent(N.value||'')+'&w='+encodeURIComponent(W.value||'')+(S.value==='f'?'&hp='+encodeURIComponent(HP.value||''):'')+'&kg='+encodeURIComponent(document.getElementById('bf-kg').value||'');
   if(navigator.share){navigator.share({title:'Body fat estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my estimate';},1500);}
 });
 })();
 </script>
@@ -3513,7 +3513,7 @@ document.getElementById('ov-share').addEventListener('click',function(){
   var txt='Oven setting: '+OUT.textContent+' ('+UNIT.textContent+'). Convert any recipe (no sign-up):';
   var url=location.origin+location.pathname+'?u='+U.value+'&v='+encodeURIComponent(V.value||'');
   if(navigator.share){navigator.share({title:'Oven temperature',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the conversion';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the conversion';},1500);}
 });
 })();
 </script>
@@ -3571,7 +3571,7 @@ document.getElementById('cm-share').addEventListener('click',function(){
   var txt='My period pay: '+OUT.textContent+' ('+money(parseFloat(B.value)||0)+' base + '+money(parseFloat(V.value)||0)*(parseFloat(R.value)||0)/100+' commission). Run your numbers (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&r='+encodeURIComponent(R.value||'')+'&rev='+encodeURIComponent(V.value||'')+'&q='+encodeURIComponent(Q.value||'');
   if(navigator.share){navigator.share({title:'Commission pay',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my paycheck math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my paycheck math';},1500);}
 });
 })();
 </script>
@@ -3622,7 +3622,7 @@ document.getElementById('af-share').addEventListener('click',function(){
   var txt='Air fryer version: '+OUT.textContent+' (recipe said '+T.value+'° for '+MI.value+' min). Convert yours (no sign-up):';
   var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&min='+encodeURIComponent(MI.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Air fryer setting',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the setting';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the setting';},1500);}
 });
 })();
 </script>
@@ -3681,7 +3681,7 @@ document.getElementById('fc-share').addEventListener('click',function(){
     ' one-way ('+document.getElementById('fc-fuel').textContent+'). Split yours (no sign-up):';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value||'')+'&e='+encodeURIComponent(E.value||'')+'&p='+encodeURIComponent(P.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Fuel cost',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the trip cost';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the trip cost';},1500);}
 });
 })();
 </script>
@@ -3747,7 +3747,7 @@ document.getElementById('mc-share').addEventListener('click',function(){
   var txt='My macros at '+(parseFloat(CAL.value)||0)+' kcal: '+OUT.textContent+' g (P/C/F). Plan yours (no sign-up):';
   var url=location.origin+location.pathname+'?cal='+encodeURIComponent(CAL.value||'')+'&p='+encodeURIComponent(P.value||'')+'&c='+encodeURIComponent(C.value||'')+'&f='+encodeURIComponent(F.value||'');
   if(navigator.share){navigator.share({title:'Macro targets',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my macros';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my macros';},1500);}
 });
 })();
 </script>
@@ -3798,7 +3798,7 @@ document.getElementById('el-share').addEventListener('click',function(){
   var txt='Running my '+W.value+' W device '+H.value+' h/day costs '+OUT.textContent+'/month ('+document.getElementById('el-year').textContent+'/year). Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value||'')+'&h='+encodeURIComponent(H.value||'')+'&r='+encodeURIComponent(R.value||'');
   if(navigator.share){navigator.share({title:'Electricity cost',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this cost';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this cost';},1500);}
 });
 })();
 </script>
@@ -3864,7 +3864,7 @@ document.getElementById('wc-share').addEventListener('click',function(){
   var txt='It is '+T.value+'°'+(U.value==='f'?'F':'C')+' with '+V.value+' '+(U.value==='f'?'mph':'km/h')+' wind - feels like '+OUT.textContent+'. Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&v='+encodeURIComponent(V.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Wind chill',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
 });
 })();
 </script>
@@ -3925,7 +3925,7 @@ document.getElementById('pa-share').addEventListener('click',function(){
     's - that is '+OUT.textContent+UNIT.textContent+'. Calculate your pace (no sign-up):';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value||'')+'&h='+encodeURIComponent(H.value||'')+'&m='+encodeURIComponent(M.value||'')+'&s='+encodeURIComponent(S.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Running pace',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my pace';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my pace';},1500);}
 });
 })();
 </script>
@@ -3987,7 +3987,7 @@ document.getElementById('hi-share').addEventListener('click',function(){
   var txt='It is '+T.value+'°'+U.value.toUpperCase()+' at '+RH.value+'% humidity - feels like '+OUT.textContent+' ('+document.getElementById('hi-band').textContent.split(':')[0].toLowerCase()+'). Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&rh='+encodeURIComponent(RH.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Heat index',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
 });
 })();
 </script>
@@ -4041,7 +4041,7 @@ document.getElementById('bmi-share').addEventListener('click',function(){
   var txt='My BMI: '+OUT.textContent+' ('+document.getElementById('bmi-cat').textContent.split(' - ')[0].toLowerCase()+'). Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?u='+U.value+'&h='+encodeURIComponent(H.value||'')+'&w='+encodeURIComponent(W.value||'');
   if(navigator.share){navigator.share({title:'BMI result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my BMI';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my BMI';},1500);}
 });
 })();
 </script>
@@ -4101,7 +4101,7 @@ document.getElementById('td-share').addEventListener('click',function(){
   var txt='My maintenance calories (TDEE): '+OUT.textContent+' kcal/day. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&a='+encodeURIComponent(A.value||'')+'&h='+encodeURIComponent(H.value||'')+'&w='+encodeURIComponent(W.value||'')+'&act='+ACT.value;
   if(navigator.share){navigator.share({title:'TDEE estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my TDEE';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my TDEE';},1500);}
 });
 })();
 </script>
@@ -4154,7 +4154,7 @@ document.getElementById('ts-share').addEventListener('click',function(){
     ' people = '+OUT.textContent+' each. Split yours (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&p='+encodeURIComponent(P.value||'')+'&n='+encodeURIComponent(N.value||'');
   if(navigator.share){navigator.share({title:'Tip split',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the split';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the split';},1500);}
 });
 })();
 </script>
@@ -4204,7 +4204,7 @@ document.getElementById('fg-share').addEventListener('click',function(){
   var txt='To end '+document.getElementById('fg-tgt').value+'% in the course I need '+OUT.textContent+' on the final. Plan yours (no sign-up):';
   var url=location.origin+location.pathname+'?cur='+encodeURIComponent(C.value||'')+'&w='+encodeURIComponent(W.value||'')+'&tgt='+encodeURIComponent(G.value||'');
   if(navigator.share){navigator.share({title:'Final grade plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my plan';},1500);}
 });
 })();
 </script>
@@ -4259,7 +4259,7 @@ document.getElementById('wt-share').addEventListener('click',function(){
   var txt='My daily water target: '+OUT.textContent+' L ('+document.getElementById('wt-bottles').textContent+' bottles). Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?kg='+encodeURIComponent(KG.value||'')+'&ex='+encodeURIComponent(EX.value||'')+'&hot='+encodeURIComponent(HOT.value||'0');
   if(navigator.share){navigator.share({title:'Daily water target',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my target';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my target';},1500);}
 });
 })();
 </script>
@@ -4327,7 +4327,7 @@ document.getElementById('gpa-share').addEventListener('click',function(){
   var txt='My '+(document.getElementById('gpa-unit').textContent==='cumulative GPA'?'cumulative ':'')+'GPA: '+v+' on the 4.0 scale. Calculate yours (no sign-up):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'GPA result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my GPA';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my GPA';},1500);}
 });
 })();
 </script>
@@ -4380,7 +4380,7 @@ document.getElementById('sl-share').addEventListener('click',function(){
     :('Set bedtime '+OUT.textContent+' to wake at '+T.value+' between cycles. Plan sleep (no sign-up):');
   var url=location.origin+location.pathname+'?mode='+MODE.value+(MODE.value==='bed'?'&t='+encodeURIComponent(T.value):'');
   if(navigator.share){navigator.share({title:'Sleep cycle plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share these times';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share these times';},1500);}
 });
 })();
 </script>
@@ -4434,7 +4434,7 @@ SB.addEventListener('click',function(){
   var url=location.origin+location.pathname+
     '?goal='+encodeURIComponent(G.value||'')+'&saved='+encodeURIComponent(S.value||'')+'&dep='+encodeURIComponent(D.value||'')+'&apy='+encodeURIComponent(R.value||'');
   if(navigator.share){navigator.share({title:'Savings goal plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent='Copied!';setTimeout(function(){SB.textContent='Share my plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent=TT('ui.copied','Copied!');setTimeout(function(){SB.textContent='Share my plan';},1500);}
 });
 })();
 </script>
@@ -4488,7 +4488,7 @@ SB.addEventListener('click',function(){
   var txt='Compound interest projection: '+OUT.textContent+' after '+Math.round(parseFloat(Y.value)||0)+' years. Run your own numbers (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&m='+encodeURIComponent(M.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'');
   if(navigator.share){navigator.share({title:'Compound interest projection',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent='Copied!';setTimeout(function(){SB.textContent='Share this projection';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent=TT('ui.copied','Copied!');setTimeout(function(){SB.textContent='Share this projection';},1500);}
 });
 })();
 </script>
@@ -4545,7 +4545,7 @@ document.getElementById('ln-share').addEventListener('click',function(){
   var txt='Loan payment: '+OUT.textContent+'/mo ('+document.getElementById('ln-int').textContent+' total interest). Run your numbers (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'');
   if(navigator.share){navigator.share({title:'Loan payment',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this payment';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this payment';},1500);}
 });
 })();
 </script>
@@ -4605,7 +4605,7 @@ document.getElementById('vat-share').addEventListener('click',function(){
   var txt='VAT breakdown: net '+document.getElementById('vat-net').textContent+' + VAT '+document.getElementById('vat-amt').textContent+' = gross '+document.getElementById('vat-gr').textContent+'. Run yours (no sign-up):';
   var url=location.origin+location.pathname+'?m='+M.value+'&a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'');
   if(navigator.share){navigator.share({title:'VAT breakdown',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this breakdown';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this breakdown';},1500);}
 });
 })();
 </script>
@@ -4680,7 +4680,7 @@ document.getElementById('fr-share').addEventListener('click',function(){
   var txt=document.getElementById('fr-note').textContent+'. Solve yours step by step (no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&b='+encodeURIComponent(B.value||'')+'&c='+encodeURIComponent(C.value||'')+'&d='+encodeURIComponent(D.value||'')+'&op='+encodeURIComponent(OP.value);
   if(navigator.share){navigator.share({title:'Fraction result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this result';},1500);}
 });
 })();
 </script>
@@ -4758,7 +4758,7 @@ document.getElementById('pg-share').addEventListener('click',function(){
   var txt='Due date: '+OUT.textContent+' - '+document.getElementById('pg-ga').textContent+' along today. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?m='+M.value+'&d='+encodeURIComponent(D.value||'')+'&w='+encodeURIComponent(W.value||'')+'&g='+encodeURIComponent(G.value||'');
   if(navigator.share){navigator.share({title:'Due date',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this due date';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this due date';},1500);}
 });
 })();
 </script>
@@ -4857,7 +4857,7 @@ document.getElementById('tz-share').addEventListener('click',function(){
   var txt=F.options[F.selectedIndex].text+' '+DT.value.replace('T',' at ')+' = '+OUT.textContent+'. Line up yours (no sign-up):';
   var url=location.origin+location.pathname+'?f='+encodeURIComponent(F.value)+'&t='+encodeURIComponent(T.value)+'&dt='+encodeURIComponent(DT.value);
   if(navigator.share){navigator.share({title:'Meeting time',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this meeting time';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this meeting time';},1500);}
 });
 })();
 </script>
@@ -4925,7 +4925,7 @@ document.getElementById('wk-share').addEventListener('click',function(){
   var txt=OUT.textContent+' of '+isoCal(new Date(D.value+'T00:00:00Z').getTime()).isoYear+' ('+document.getElementById('wk-span').textContent+'). Check any week (no sign-up):';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
   if(navigator.share){navigator.share({title:'Week number',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this week';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this week';},1500);}
 });
 })();
 </script>
@@ -5014,7 +5014,7 @@ document.getElementById('tc-share').addEventListener('click',function(){
   var txt='Time card this week: '+OUT.textContent+' ('+document.getElementById('tc-dec').textContent+'h decimal, '+document.getElementById('tc-days-w').textContent+' days). Tally yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&s='+encodeURIComponent(pack());
   if(navigator.share){navigator.share({title:'Weekly hours',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this time card';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this time card';},1500);}
 });
 })();
 </script>
@@ -5069,7 +5069,7 @@ document.getElementById('orm-share').addEventListener('click',function(){
   var txt='Estimated 1RM: '+OUT.textContent+' from '+W.value+U.value+' x '+R.value+' reps. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value||'')+'&r='+encodeURIComponent(R.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'One rep max',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this max';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this max';},1500);}
 });
 })();
 </script>
@@ -5125,7 +5125,7 @@ document.getElementById('sd-share').addEventListener('click',function(){
   var txt='Data summary: mean '+document.getElementById('sd-mean').textContent+', sample SD '+OUT.textContent+', population SD '+document.getElementById('sd-pop').textContent+' (n='+document.getElementById('sd-n').textContent+'). Summarize yours (no sign-up):';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(IN.value);
   if(navigator.share){navigator.share({title:'Data summary',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this summary';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this summary';},1500);}
 });
 })();
 </script>
@@ -5186,7 +5186,7 @@ document.getElementById('cc-share').addEventListener('click',function(){
   var txt='Concrete estimate: '+OUT.textContent+' yd³ ('+L.value+'x'+W.value+', '+T.value+' in thick). Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&t='+T.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Concrete estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -5253,7 +5253,7 @@ document.getElementById('sl-share').addEventListener('click',function(){
   var txt='Line through ('+X1.value+', '+Y1.value+') and ('+X2.value+', '+Y2.value+'): slope '+OUT.textContent+', y-intercept '+document.getElementById('sl-b').textContent+'. Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?x1='+encodeURIComponent(X1.value||'')+'&y1='+encodeURIComponent(Y1.value||'')+'&x2='+encodeURIComponent(X2.value||'')+'&y2='+encodeURIComponent(Y2.value||'');
   if(navigator.share){navigator.share({title:'Slope result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this line';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this line';},1500);}
 });
 })();
 </script>
@@ -5341,7 +5341,7 @@ document.getElementById('tg-share').addEventListener('click',function(){
   txt+='. Draw yours (no sign-up):';
   var url=location.origin+location.pathname+'?n='+encodeURIComponent(N.value||'')+'&s='+encodeURIComponent(IN.value.split(/[\\n\\r]+/).filter(function(x){return x.trim();}).join('|'));
   if(navigator.share){navigator.share({title:'Team draw',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this draw';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this draw';},1500);}
 });
 })();
 </script>
@@ -5414,7 +5414,7 @@ document.getElementById('pt-share').addEventListener('click',function(){
   var txt='Paint estimate for a '+L.value+'x'+W.value+' room: '+OUT.textContent+' ('+document.getElementById('pt-area').textContent+' paintable). Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&h='+encodeURIComponent(H.value||'')+'&d='+encodeURIComponent(DD.value||'')+'&n='+encodeURIComponent(NN.value||'')+'&c='+C.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Paint estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -5481,7 +5481,7 @@ document.getElementById('ti-share').addEventListener('click',function(){
   var txt='Tile estimate: '+OUT.textContent+' tiles ('+document.getElementById('ti-box').textContent+') for a '+document.getElementById('ti-area').textContent+' area. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&tw='+encodeURIComponent(TW.value||'')+'&th='+encodeURIComponent(TH.value||'')+'&b='+encodeURIComponent(B.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Tile estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -5561,7 +5561,7 @@ document.getElementById('hb-share').addEventListener('click',function(){
   var txt='My half birthday is '+document.getElementById('hb-date').textContent+' - '+OUT.textContent+'! Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'');
   if(navigator.share){navigator.share({title:'Half birthday',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this countdown';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this countdown';},1500);}
 });
 })();
 </script>
@@ -5619,7 +5619,7 @@ document.getElementById('ra-share').addEventListener('click',function(){
   var txt='Ratio solved: '+A.value+':'+B.value+' = '+C.value+':'+OUT.textContent+'. Solve yours (no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&b='+encodeURIComponent(B.value||'')+'&c='+encodeURIComponent(C.value||'');
   if(navigator.share){navigator.share({title:'Ratio result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this ratio';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this ratio';},1500);}
 });
 })();
 </script>
@@ -5694,7 +5694,7 @@ document.getElementById('cb-share').addEventListener('click',function(){
   var txt=ACT.options[ACT.selectedIndex].text+' for '+MI.value+' min: '+OUT.textContent+' kcal. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?a='+ACT.value+'&w='+encodeURIComponent(W.value||'')+'&min='+encodeURIComponent(MI.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Calories burned',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this burn';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this burn';},1500);}
 });
 })();
 </script>
@@ -5765,7 +5765,7 @@ document.getElementById('dp-share').addEventListener('click',function(){
   var txt='Debt payoff: '+OUT.textContent+' to clear '+B.value+' at '+R.value+'% APR paying '+M.value+'/mo ('+document.getElementById('dp-int').textContent+' interest). Model yours (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&r='+encodeURIComponent(R.value||'')+'&m='+encodeURIComponent(M.value||'');
   if(navigator.share){navigator.share({title:'Debt payoff plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this payoff plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this payoff plan';},1500);}
 });
 })();
 </script>
@@ -5848,7 +5848,7 @@ document.getElementById('js-share').addEventListener('click',function(){
   var txt='Format and validate JSON locally in the browser - nothing uploaded: ';
   var url=location.origin+location.pathname+(IN.value.length<800?'?d='+encodeURIComponent(IN.value):'');
   if(navigator.share){navigator.share({title:'JSON formatter',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this tool';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this tool';},1500);}
 });
 })();
 </script>
@@ -5914,7 +5914,7 @@ document.getElementById('b6-copy').addEventListener('click',function(){
   var t=OUT.textContent;
   if(t==='–'||t==='Invalid Base64'){this.textContent='Nothing to copy';var b0=this;setTimeout(function(){b0.textContent='Copy output';},1500);return;}
   var b=this;
-  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
 });
 })();
 </script>
@@ -5979,7 +5979,7 @@ document.getElementById('ue-copy').addEventListener('click',function(){
   var t=OUT.textContent;
   if(t==='–'||t==='Malformed input'){this.textContent='Nothing to copy';var b0=this;setTimeout(function(){b0.textContent='Copy output';},1500);return;}
   var b=this;
-  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
 });
 })();
 </script>
@@ -6073,7 +6073,7 @@ document.getElementById('jw-share').addEventListener('click',function(){
   var txt='Decode JWTs locally - header, payload and expiry timing, nothing uploaded: ';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'JWT decoder',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this tool';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this tool';},1500);}
 });
 })();
 </script>
@@ -6147,7 +6147,7 @@ document.getElementById('am-share').addEventListener('click',function(){
   var txt='Loan schedule: '+OUT.textContent+'/mo, '+document.getElementById('am-mo').textContent+' months, '+document.getElementById('am-int').textContent+' interest. Build yours (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'')+'&x='+encodeURIComponent(X.value||'');
   if(navigator.share){navigator.share({title:'Amortization schedule',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this schedule';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this schedule';},1500);}
 });
 })();
 </script>
@@ -6231,7 +6231,7 @@ document.getElementById('cj-share').addEventListener('click',function(){
   var txt='Convert CSV to JSON locally in the browser: ';
   var url=location.origin+location.pathname+(IN.value.length<800?'?d='+encodeURIComponent(IN.value):'');
   if(navigator.share){navigator.share({title:'CSV to JSON',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this converter';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this converter';},1500);}
 });
 })();
 </script>
@@ -6312,7 +6312,7 @@ document.getElementById('tm-share').addEventListener('click',function(){
   var txt='Set a timer for '+(total()||600)+' seconds and let the tab title count it down: ';
   var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value||'')+'&s='+encodeURIComponent(S.value||'');
   if(navigator.share){navigator.share({title:'Online timer',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b2=this;setTimeout(function(){b2.textContent='Share this timer';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this timer';},1500);}
 });
 })();
 </script>
@@ -6370,7 +6370,7 @@ document.getElementById('sw-share').addEventListener('click',function(){
   var txt='Stopwatch at '+OUT.textContent+' with '+state.laps.length+' laps. Try it (no sign-up): ';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'Stopwatch',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this stopwatch';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this stopwatch';},1500);}
 });
 })();
 </script>
@@ -6424,7 +6424,7 @@ document.getElementById('sa-share').addEventListener('click',function(){
   var txt='Averaging '+E.value+'@'+money(parseFloat(EP.value))+' with '+N.value+'@'+money(parseFloat(NP.value))+' gives '+OUT.textContent+' average. Run your numbers (no sign-up):';
   var url=location.origin+location.pathname+'?e='+encodeURIComponent(E.value||'')+'&ep='+encodeURIComponent(EP.value||'')+'&n='+encodeURIComponent(N.value||'')+'&np='+encodeURIComponent(NP.value||'');
   if(navigator.share){navigator.share({title:'Stock average',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this cost basis';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this cost basis';},1500);}
 });
 })();
 </script>
@@ -6481,7 +6481,7 @@ document.getElementById('ps-share').addEventListener('click',function(){
   var txt='Position size: '+OUT.textContent+' shares for '+document.getElementById('ps-risk').textContent+' risk. Plan your trades (no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'')+'&en='+encodeURIComponent(EN.value||'')+'&sl='+encodeURIComponent(SL.value||'')+'&tg='+encodeURIComponent(TG.value||'');
   if(navigator.share){navigator.share({title:'Position size',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this position size';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this position size';},1500);}
 });
 })();
 </script>
@@ -6552,7 +6552,7 @@ document.getElementById('lo-share').addEventListener('click',function(){
   var txt='Jackpot odds: 1 in '+OUT.textContent+'. Check what a jackpot is really worth (no sign-up):';
   var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value)+'&j='+encodeURIComponent(J.value||'');
   if(navigator.share){navigator.share({title:'Lottery odds',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share these odds';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share these odds';},1500);}
 });
 })();
 </script>
@@ -6624,7 +6624,7 @@ document.getElementById('po-share').addEventListener('click',function(){
   var txt=st.done+' pomodoros ('+st.mins+' focus minutes) today. Start your own timer (no sign-up):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'Pomodoro',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent="Share today's count";},1500);}});
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent="Share today's count";},1500);}});
 [W,B,L].forEach(function(el){el.addEventListener('input',function(){if(!st.run){st.mode='work';st.left=(parseInt(W.value)||25)*60;render();}save();});});
 load();st.left=(parseInt(W.value)||25)*60;render();
 })();
@@ -6693,7 +6693,7 @@ document.getElementById('pw-share').addEventListener('click',function(){
   var txt='My test password scores '+OUT.textContent+' bits ('+document.getElementById('pw-verdict').textContent+') - it would survive an offline GPU attack for '+document.getElementById('pw-gpu')+'. Check yours (nothing is stored):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'Password strength',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the score (not the password)';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the score (not the password)';},1500);}
 });
 })();
 </script>
@@ -6749,7 +6749,7 @@ document.getElementById('cp-share').addEventListener('click',function(){
   var txt='Trade math: '+OUT.textContent+' ('+document.getElementById('cp-roi').textContent+' ROI) after fees, break-even at '+document.getElementById('cp-be').textContent+'. Run yours (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&s='+encodeURIComponent(S.value||'')+'&q='+encodeURIComponent(Q.value||'')+'&f='+encodeURIComponent(F.value||'');
   if(navigator.share){navigator.share({title:'Crypto profit',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this trade math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this trade math';},1500);}
 });
 })();
 </script>
@@ -6820,7 +6820,7 @@ document.getElementById('pa-share').addEventListener('click',function(){
   var txt='A '+Y.value+'-year-old '+(SP==='dog'?'dog':'cat')+' is about '+OUT.textContent+' in human years. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?y='+encodeURIComponent(Y.value||'')+'&m='+encodeURIComponent(M.value||'');
   if(navigator.share){navigator.share({title:'Pet age',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent="Share this pet's age";},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent="Share this pet's age";},1500);}
 });
 })();
 </script>
@@ -6876,7 +6876,7 @@ document.getElementById('fl-share').addEventListener('click',function(){
   var txt='My text scores '+OUT.textContent+'/100 reading ease ('+document.getElementById('fl-grade').textContent+'th grade level). Score yours (free, local):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'Flesch reading ease',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this readability score';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this readability score';},1500);}
 });
 })();
 </script>
@@ -6933,7 +6933,7 @@ document.getElementById('dp-share').addEventListener('click',function(){
   var txt='Dew point '+OUT.textContent+'°'+U.value+' ('+document.getElementById('dp-band').textContent+'). Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?u='+encodeURIComponent(U.value)+'&t='+encodeURIComponent(T.value||'')+'&h='+encodeURIComponent(H.value||'');
   if(navigator.share){navigator.share({title:'Dew point',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this dew point';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this dew point';},1500);}
 });
 })();
 </script>
@@ -6991,7 +6991,7 @@ document.getElementById('bt-share').addEventListener('click',function(){
   var txt='My '+A.value+' m² room needs about '+OUT.textContent+' BTU of cooling. Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&h='+encodeURIComponent(H.value||'')+'&i='+I.value+'&s='+S.value;
   if(navigator.share){navigator.share({title:'BTU sizing',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this AC size';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this AC size';},1500);}
 });
 })();
 </script>
@@ -7052,7 +7052,7 @@ document.getElementById('ts-share').addEventListener('click',function(){
   var txt='Tire swap 225/45-17 → '+W2.value+'/'+A2.value+'-'+R2.value+' = '+OUT.textContent+'% diameter (speedo at '+document.getElementById('ts-speed').textContent+'). Compare yours (free):';
   var url=location.origin+location.pathname+'?w='+W.value+'&a='+A.value+'&r='+R.value+'&w2='+W2.value+'&a2='+A2.value+'&r2='+R2.value;
   if(navigator.share){navigator.share({title:'Tire size comparison',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this comparison';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this comparison';},1500);}
 });
 })();
 </script>
@@ -7102,7 +7102,7 @@ document.getElementById('hz-share').addEventListener('click',function(){
   var txt='My max HR is '+OUT.textContent+' bpm - Z2 aerobic base runs '+(ROWS.textContent.split('Z2')[0]||'').trim()+' . Find your training zones (free):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'')+'&m='+M.value;
   if(navigator.share){navigator.share({title:'HR zones',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my zones';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my zones';},1500);}
 });
 })();
 </script>
@@ -7155,7 +7155,7 @@ document.getElementById('gf-share').addEventListener('click',function(){
   var txt='Shot '+S.value+' on a '+C.value+'/'+SL.value+' course = '+OUT.textContent+' differential. Do your round math (free, no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&c='+C.value+'&sl='+SL.value;
   if(navigator.share){navigator.share({title:'Golf differential',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this round math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this round math';},1500);}
 });
 })();
 </script>
@@ -7204,7 +7204,7 @@ document.getElementById('bp-share').addEventListener('click',function(){
   var txt='At '+B.value+' BPM: 1/4 delay = '+OUT.textContent+' ms, dotted 1/8 = '+document.getElementById('bp-d8').textContent+'. Sync your delays (free):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'');
   if(navigator.share){navigator.share({title:'BPM delay times',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share these delay times';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share these delay times';},1500);}
 });
 })();
 </script>
@@ -7264,7 +7264,7 @@ document.getElementById('ev-share').addEventListener('click',function(){
   var txt='My EV costs '+OUT.textContent+' '+(U.value==='mi'?'per mile':'per km')+' to charge'+(parseFloat(G.value)>0?' vs '+document.getElementById('ev-gasc').textContent+' for gas':'')+'. Run your numbers (free):';
   var url=location.origin+location.pathname+'?k='+K.value+'&e='+E.value+'&r='+R.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'EV charging cost',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this cost math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this cost math';},1500);}
 });
 })();
 </script>
@@ -7346,7 +7346,7 @@ document.getElementById('gh-share').addEventListener('click',function(){
   var txt='Golden hour on '+D.value+' at '+LA.value+','+LO.value+': '+OUT.textContent+'. Plan your shoot (free, no sign-up):';
   var url=location.origin+location.pathname+'?d='+D.value+'&la='+LA.value+'&lo='+LO.value;
   if(navigator.share){navigator.share({title:'Golden hour',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent="Share tonight's light";},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent="Share tonight's light";},1500);}
 });
 })();
 </script>
@@ -7402,7 +7402,7 @@ document.getElementById('pz-share').addEventListener('click',function(){
   var txt=N.value+' pizzas: '+OUT.textContent+'g flour, '+document.getElementById('pz-wat').textContent+'g water, '+document.getElementById('pz-salt').textContent+'g salt. Scale your dough (free):';
   var url=location.origin+location.pathname+'?n='+N.value+'&w='+W.value+'&h='+H.value+'&y='+Y.value;
   if(navigator.share){navigator.share({title:'Pizza dough',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this recipe';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this recipe';},1500);}
 });
 })();
 </script>
@@ -7457,7 +7457,7 @@ document.getElementById('inf-share').addEventListener('click',function(){
   var txt=A.value+' dollars in '+F.value+' = '+OUT.textContent+' in '+T.value+' money. Check any year (free, no sign-up):';
   var url=location.origin+location.pathname+'?a='+A.value+'&f='+F.value+'&t='+T.value;
   if(navigator.share){navigator.share({title:'Inflation calculator',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
 });
 })();
 </script>
@@ -7509,7 +7509,7 @@ document.getElementById('sd-share').addEventListener('click',function(){
   var txt='My sleep math: '+A.value+'h vs a '+T.value+'h target = '+OUT.textContent+' hours of debt. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?a='+A.value+'&t='+T.value+'&n='+N.value;
   if(navigator.share){navigator.share({title:'Sleep debt',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my sleep math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my sleep math';},1500);}
 });
 })();
 </script>
@@ -7565,7 +7565,7 @@ document.getElementById('cf-share').addEventListener('click',function(){
   var txt='My brew: '+OUT.textContent+'g coffee at 1:'+R.value+' ('+document.getElementById('cf-strength').textContent+'). Dial in yours (free):';
   var url=location.origin+location.pathname+'?d='+D.value+'&w='+W.value+'&r='+R.value;
   if(navigator.share){navigator.share({title:'Coffee ratio',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this brew';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this brew';},1500);}
 });
 })();
 </script>
@@ -7619,7 +7619,7 @@ document.getElementById('be-share').addEventListener('click',function(){
   var txt='Break-even: '+OUT.textContent+' units/month ($'+P.value+' price, $'+V.value+' cost). Run your numbers (free, no sign-up):';
   var url=location.origin+location.pathname+'?f='+F.value+'&p='+P.value+'&v='+V.value;
   if(navigator.share){navigator.share({title:'Break-even',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this break-even';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this break-even';},1500);}
 });
 })();
 </script>
@@ -7676,7 +7676,7 @@ document.getElementById('iw-share').addEventListener('click',function(){
   var txt='Healthy weight band at my height: '+document.getElementById('iw-bmi').textContent+'. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?h='+H.value+'&u='+U.value+'&s='+S.value;
   if(navigator.share){navigator.share({title:'Ideal weight',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this range';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this range';},1500);}
 });
 })();
 </script>
@@ -7727,8 +7727,8 @@ else{try{var mem=JSON.parse(localStorage.getItem('tt_lorem')||'null');if(mem){P.
 gen();
 document.getElementById('lr-copy').addEventListener('click',function(){
   TX.select();
-  if(navigator.clipboard){navigator.clipboard.writeText(TX.value);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Copy to clipboard';},1500);}
-  else{document.execCommand('copy');this.textContent='Copied!';var c=this;setTimeout(function(){c.textContent='Copy to clipboard';},1500);}
+  if(navigator.clipboard){navigator.clipboard.writeText(TX.value);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Copy to clipboard';},1500);}
+  else{document.execCommand('copy');this.textContent=TT('ui.copied','Copied!');var c=this;setTimeout(function(){c.textContent='Copy to clipboard';},1500);}
 });
 })();
 </script>
@@ -7778,7 +7778,7 @@ document.getElementById('cg-share').addEventListener('click',function(){
   var txt=B.value+' grew to '+E.value+' in '+Y.value+' years = '+OUT.textContent+' CAGR. Check your growth rate (free, no sign-up):';
   var url=location.origin+location.pathname+'?b='+B.value+'&e='+E.value+'&y='+Y.value;
   if(navigator.share){navigator.share({title:'CAGR',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this CAGR';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this CAGR';},1500);}
 });
 })();
 </script>
@@ -7841,7 +7841,7 @@ document.getElementById('pl-share').addEventListener('click',function(){
   var txt='My pool holds '+OUT.textContent+' '+(U.value==='m'?'liters':'gallons')+'. Calculate yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&a='+A.value+(S.value!=='c'?'&b='+B.value:'')+'&c='+C.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Pool volume',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this volume';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this volume';},1500);}
 });
 })();
 </script>
@@ -7893,7 +7893,7 @@ document.getElementById('ts2-share').addEventListener('click',function(){
   var txt=H.value+' hours a day from age '+A.value+' to '+T.value+' = '+OUT.textContent+' years of my life. Run your own math (free):';
   var url=location.origin+location.pathname+'?h='+H.value+'&d='+D.value+'&a='+A.value+'&t='+T.value;
   if(navigator.share){navigator.share({title:'Time spent',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
 });
 })();
 </script>
@@ -7954,7 +7954,7 @@ document.getElementById('mt-share').addEventListener('click',function(){
   var txt=M.options[M.selectedIndex].text+' ('+W.value+(U.value==='k'?'kg':'lb')+'): '+OUT.textContent+' at 180°C, rest '+t[2]+' min. Plan your roast (free):';
   var url=location.origin+location.pathname+'?m='+M.value+'&w='+W.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Roast timing',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this roast plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this roast plan';},1500);}
 });
 })();
 </script>
@@ -8004,7 +8004,7 @@ document.getElementById('cd-share').addEventListener('click',function(){
   var txt='A $'+P.value+' car after '+Y.value+' years at '+R.value+'%/yr: '+OUT.textContent+'. Depreciation is the real cost - check yours (free):';
   var url=location.origin+location.pathname+'?p='+P.value+'&y='+Y.value+'&r='+R.value;
   if(navigator.share){navigator.share({title:'Car depreciation',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
 });
 })();
 </script>
@@ -8054,7 +8054,7 @@ document.getElementById('jl-share').addEventListener('click',function(){
   var txt=Z.value+' time zones '+(D.value==='e'?'east':'west')+'ward = about '+OUT.textContent+' days of jet lag. Plan yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?z='+Z.value+'&d='+D.value;
   if(navigator.share){navigator.share({title:'Jet lag plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this plan';},1500);}
 });
 })();
 </script>
@@ -8106,7 +8106,7 @@ document.getElementById('pa-share').addEventListener('click',function(){
   var txt='Painting '+document.getElementById('pa-s1').textContent+' needs about '+OUT.textContent+' L ('+document.getElementById('pa-s3').textContent+' with spare). Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+F[0].value+'&h='+F[1].value+'&n='+F[2].value+'&c='+F[3].value+'&x='+F[4].value+'&cv='+F[5].value;
   if(navigator.share){navigator.share({title:'Paint estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -8157,7 +8157,7 @@ document.getElementById('mu-share').addEventListener('click',function(){
   var txt=document.getElementById('mu-s1').textContent+' of beds at '+F[2].value+' cm deep = '+OUT.textContent+' bags of mulch. Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?l='+F[0].value+'&w='+F[1].value+'&d='+F[2].value+'&b='+F[3].value+'&p='+F[4].value;
   if(navigator.share){navigator.share({title:'Mulch estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -8207,7 +8207,7 @@ document.getElementById('lm-share').addEventListener('click',function(){
   var txt=document.getElementById('lm-s1').textContent+' room = '+OUT.textContent+' packs of laminate (with '+F[3].value+'% waste). Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?l='+F[0].value+'&w='+F[1].value+'&p='+F[2].value+'&s='+F[3].value;
   if(navigator.share){navigator.share({title:'Laminate estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -8264,7 +8264,7 @@ document.getElementById('wp-share').addEventListener('click',function(){
   var txt=OUT.textContent+' rolls of wallpaper for '+F[0].value+' m of walls'+(parseFloat(F[4].value)>0?' with a '+F[4].value+' cm pattern repeat':'')+'. Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?p='+F[0].value+'&h='+F[1].value+'&rw='+F[2].value+'&rl='+F[3].value+'&r='+F[4].value;
   if(navigator.share){navigator.share({title:'Wallpaper estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -8312,7 +8312,7 @@ document.getElementById('dp-share').addEventListener('click',function(){
   var txt=OUT.textContent+' of diapers over '+F[2].value+' months (about '+document.getElementById('dp-s2').textContent+'/month). Price yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?n='+F[0].value+'&p='+F[1].value+'&m='+F[2].value;
   if(navigator.share){navigator.share({title:'Diaper cost',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -8358,7 +8358,7 @@ document.getElementById('ww-share').addEventListener('click',function(){
   var txt='At '+A.value+' months, typical wake windows are '+OUT.textContent+' min. Check your baby (free, no sign-up):';
   var url=location.origin+location.pathname+'?a='+A.value;
   if(navigator.share){navigator.share({title:'Wake windows',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this guide';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this guide';},1500);}
 });
 })();
 </script>
@@ -8404,7 +8404,7 @@ document.getElementById('ff-share').addEventListener('click',function(){
   var txt='At '+F[0].value+' kg and '+F[1].value+' feeds/day: about '+OUT.textContent+' ml per feed. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+F[0].value+'&f='+F[1].value;
   if(navigator.share){navigator.share({title:'Formula feeding',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -8450,7 +8450,7 @@ document.getElementById('pr-share').addEventListener('click',function(){
   var txt=Math.round(parseFloat(W.value)*(RG[G.value][0]+RG[G.value][1])/2)+' g protein a day for '+W.value+' kg. Get yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+W.value+'&g='+G.value;
   if(navigator.share){navigator.share({title:'Protein target',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this target';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this target';},1500);}
 });
 })();
 </script>
@@ -8495,7 +8495,7 @@ document.getElementById('cr-share').addEventListener('click',function(){
   var txt=OUT.textContent+' g creatine a day for '+W.value+' kg'+(M.value==='load'?' after a loading week':'')+'. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+W.value+'&m='+M.value;
   if(navigator.share){navigator.share({title:'Creatine dose',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this dose';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this dose';},1500);}
 });
 })();
 </script>
@@ -8545,7 +8545,7 @@ document.getElementById('du-share').addEventListener('click',function(){
   var txt='My household burns about '+OUT.textContent+' GB a month. Measure yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?s='+F[0].value+'&sh='+F[1].value+'&mu='+F[2].value+'&vc='+F[3].value+'&we='+F[4].value;
   if(navigator.share){navigator.share({title:'Data usage',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -8595,7 +8595,7 @@ document.getElementById('fd-share').addEventListener('click',function(){
   var txt='Delay of '+H.value+' h on a '+K.value+' km flight = fixed compensation '+OUT.textContent+'. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?k='+K.value+'&h='+H.value;
   if(navigator.share){navigator.share({title:'Flight delay compensation',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this result';},1500);}
 });
 })();
 </script>
@@ -8646,7 +8646,7 @@ document.getElementById('su-share').addEventListener('click',function(){
   var txt=OUT.textContent+' a year on subscriptions. Audit yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Subscription audit',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this audit';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this audit';},1500);}
 });
 })();
 </script>
@@ -8694,7 +8694,7 @@ document.getElementById('sv-share').addEventListener('click',function(){
   var txt=F[0].value+' g of silver = '+OUT.textContent+' melt value. Value yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+F[0].value+'&p='+F[1].value+'&s='+F[2].value;
   if(navigator.share){navigator.share({title:'Silver value',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this value';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this value';},1500);}
 });
 })();
 </script>
@@ -8745,7 +8745,7 @@ document.getElementById('yn-share').addEventListener('click',function(){
   var txt='That project needs about '+OUT.textContent+' m of yarn ('+document.getElementById('yn-s2').textContent+' skeins). Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Yarn yardage',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -8794,7 +8794,7 @@ document.getElementById('co-share').addEventListener('click',function(){
   var txt='Cast on '+OUT.textContent+' stitches for a '+F[0].value+' cm head. Get yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Cast-on count',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this number';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this number';},1500);}
 });
 })();
 </script>
@@ -8845,7 +8845,7 @@ document.getElementById('cu-share').addEventListener('click',function(){
   var txt='Those curtains need about '+OUT.textContent+' m of fabric ('+document.getElementById('cu-s1').textContent+' panels). Measure yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Curtain fabric',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
@@ -9019,5 +9019,9 @@ TOOLS = {
 }
 
 
+TT_SNIPPET = ('<script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;'
+               '}catch(e){}return v||f};</script>')
+
+
 def render(tool, args):
-    return TOOLS[tool](args)
+    return TT_SNIPPET + TOOLS[tool](args)

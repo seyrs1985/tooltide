@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Training zones turn &#x27;go for a run&#x27; into a dosage: Z1 recovery, Z2 aerobic base, Z3 tempo, Z4 threshold, Z5 VO2max - five bands with five different jobs. The catch is that every watch and wall chart computes them differently, and the two mainstream formulas disagree: % of max gives everyone the same bands, while the Karvonen method scales by heart rate reserve (max − resting) and hands trained hearts genuinely higher working zones for the same effort.</p><p>This calculator runs both, side by side with your resting heart rate factored in where it belongs, and keeps the honesty column open: 220 − age is a population average with over ±10 bpm of scatter on any individual. Your zones are remembered, shown in the tab title mid-workout, and shareable as a link that carries your settings.</p></section>
-  <div class="tool" id="tt-hz">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-hz">
   <div class="fields">
     <div class="field"><label for="hz-a">Age</label><input type="number" id="hz-a" min="10" max="100" placeholder="35"></div>
     <div class="field"><label for="hz-r">Resting heart rate</label><input type="number" id="hz-r" min="30" max="120" placeholder="60"></div>
@@ -100,7 +100,7 @@ document.getElementById('hz-share').addEventListener('click',function(){
   var txt='My max HR is '+OUT.textContent+' bpm - Z2 aerobic base runs '+(ROWS.textContent.split('Z2')[0]||'').trim()+' . Find your training zones (free):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'')+'&m='+M.value;
   if(navigator.share){navigator.share({title:'HR zones',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my zones';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my zones';},1500);}
 });
 })();
 </script>

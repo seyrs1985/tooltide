@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Overtime is where paychecks get quietly wrong: 47 hours at $25/hour is not $1,175 — the 7 extra hours earn time-and-a-half, bringing the week to $1,337.50. Enter your rate and hours and this calculator splits the week into regular and overtime pay using the FLSA baseline (1.5× past 40 in a workweek), with the threshold and multiplier adjustable for state daily-OT rules or contract double time.</p><p>The note line translates the math into negotiating terms: how many OT hours you worked, and the exact dollar premium they earned over plain time — the number that makes the case for (or against) that extra shift. Inputs are remembered on this device, so next week is a one-field update, and the share button packages the split for payroll questions.</p></section>
-  <div class="tool" id="tt-ot">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-ot">
   <div class="fields">
     <div class="field"><label for="ot-r">Hourly rate ($)</label><input type="number" id="ot-r" step="any" min="0" placeholder="25"></div>
     <div class="field"><label for="ot-h">Hours this week</label><input type="number" id="ot-h" step="any" min="0" max="100" placeholder="47"></div>
@@ -105,7 +105,7 @@ document.getElementById('ot-share').addEventListener('click',function(){
     ' gross'+((parseFloat(H.value)||0)>(parseFloat(T.value)||40)?' (with overtime)':'')+'. Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?r='+encodeURIComponent(R.value||'')+'&h='+encodeURIComponent(H.value||'')+'&t='+encodeURIComponent(T.value||'')+'&m='+encodeURIComponent(M.value||'');
   if(navigator.share){navigator.share({title:'Overtime pay',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my week';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my week';},1500);}
 });
 })();
 </script>

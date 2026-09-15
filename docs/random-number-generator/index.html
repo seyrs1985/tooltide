@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Pick random numbers in any range — for prize draws, raffle winners, picking who goes first, sampling, or games. Choose whole numbers or decimals, allow or ban duplicates, and generate up to 100 at once. Results come from your browser&#x27;s WebCrypto cryptographically secure random source, not a predictable pseudo-random shortcut.</p><p>Fairness matters when a draw has real consequences. Cryptographic randomness is the same class of generator used for security keys, so every number in the range is equally likely and impossible to predict in advance — even by this page.</p></section>
-  
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script>
 <div class="tool" id="tt-rng">
   <div class="fields">
     <div class="field"><label for="rng-min">Minimum</label><input type="number" id="rng-min" value="1" step="any"></div>
@@ -84,24 +84,24 @@ $('rng-go').addEventListener('click',function(){
   var min=parseFloat($('rng-min').value),max=parseFloat($('rng-max').value);
   var count=parseInt($('rng-count').value)||1;
   var note=$('rng-note');
-  if(isNaN(min)||isNaN(max)||max<=min){note.textContent='Maximum must be greater than minimum.';return;}
-  if(count<1||count>100){note.textContent='Count must be between 1 and 100.';return;}
+  if(isNaN(min)||isNaN(max)||max<=min){note.textContent=TT('rng.maxmin','Maximum must be greater than minimum.');return;}
+  if(count<1||count>100){note.textContent=TT('rng.count','Count must be between 1 and 100.');return;}
   var out=[],seen={};
   if(whole){
     var size=Math.floor(max)-Math.ceil(min)+1;
-    if(unique&&count>size){note.textContent='Cannot pick '+count+' unique numbers from a range of '+size+'. Widen the range or allow duplicates.';return;}
+    if(unique&&count>size){note.textContent=TT('rng.cantpick','Cannot pick {n} unique numbers from a range of {m}. Widen the range or allow duplicates.').replace('{n}',count).replace('{m}',size);return;}
     while(out.length<count){
       var v=Math.ceil(min)+secureInt(size);
       if(unique&&seen[v])continue;
       seen[v]=1;out.push(v);
     }
   }else{
-    if(unique){note.textContent='No-duplicates applies to whole numbers only.';return;}
+    if(unique){note.textContent=TT('rng.nodup','No-duplicates applies to whole numbers only.');return;}
     for(var i=0;i<count;i++){out.push((min+(max-min)*secureInt(100000)/100000).toFixed(4));}
   }
   $('rng-res').textContent=out.join(',  ');
   $('rng-out').style.display='block';
-  note.textContent='Generated '+out.length+' number'+(out.length>1?'s':'')+' · crypto-secure · nothing recorded.';
+  note.textContent=TT('rng.gen','Generated: {n} · crypto-secure · nothing recorded.').replace('{n}',out.length);
 });
 })();</script>
 

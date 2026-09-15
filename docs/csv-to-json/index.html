@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>CSV is what spreadsheets export and JSON is what APIs and code want, and the conversion breaks on the same details every time: commas hiding inside quoted cells, semicolon delimiters from European exports, and numbers that arrive as strings. This converter handles all three - quoted values are parsed properly, the delimiter is sniffed from the header row, numeric cells are typed as JSON numbers - and shows the result as clean, copyable JSON.</p><p>The first row becomes object keys, so &#x27;name,role&#x27; headers yield {&quot;name&quot;:..., &quot;role&quot;:...} records. Everything runs locally in your browser: customer exports and spreadsheet data never leave the page. Your last CSV is remembered for iteration, and the tool sits between the JSON formatter and Base64 decoder in the data-tools corner of the site.</p></section>
-  <div class="tool" id="tt-cj">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-cj">
   <div class="fields">
     <div class="field"><label for="cj-in">CSV (first row = headers)</label><textarea id="cj-in" rows="7" placeholder="name,role&#10;Ada,engineer&#10;Grace,admiral"></textarea></div>
   </div>
@@ -134,7 +134,7 @@ document.getElementById('cj-share').addEventListener('click',function(){
   var txt='Convert CSV to JSON locally in the browser: ';
   var url=location.origin+location.pathname+(IN.value.length<800?'?d='+encodeURIComponent(IN.value):'');
   if(navigator.share){navigator.share({title:'CSV to JSON',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this converter';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this converter';},1500);}
 });
 })();
 </script>

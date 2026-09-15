@@ -58,7 +58,7 @@
   <noscript><p class="noscript-note" data-i18n="tool.noscript">This tool runs entirely in your browser and needs JavaScript — please enable it and reload.</p></noscript>
   
   <section class="intro"><p>Enter your daily hours for streaming, music, video calls and ordinary browsing, and pick your streaming quality. The calculator converts honest per-hour figures into GB per day and per month — the number to compare against your plan cap.</p><p>Plan-checker tools ask what apps you use and never show the maths. This one prices the lever that actually matters: one hour of 4K costs the same as ten hours of SD, so quality choice moves your bill more than any usage habit.</p></section>
-  <div class="tool" id="tt-du">
+  <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};</script><div class="tool" id="tt-du">
   <div class="fields">
     <div class="field"><label for="du-s">Streaming quality</label><select id="du-s"><option value="0.7">SD (0.7 GB/h)</option><option value="3" selected>HD (3 GB/h)</option><option value="7">4K (7 GB/h)</option></select></div>
     <div class="field"><label for="du-sh">Streaming hours/day</label><input type="number" id="du-sh" min="0" max="16" step="0.5" placeholder="2"></div>
@@ -102,7 +102,7 @@ document.getElementById('du-share').addEventListener('click',function(){
   var txt='My household burns about '+OUT.textContent+' GB a month. Measure yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?s='+F[0].value+'&sh='+F[1].value+'&mu='+F[2].value+'&vc='+F[3].value+'&we='+F[4].value;
   if(navigator.share){navigator.share({title:'Data usage',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
 });
 })();
 </script>
