@@ -908,6 +908,18 @@
    [
     "tip.tpp",
     "小费/人"
+   ],
+   [
+    "bmi.cat",
+    "WHO 分类"
+   ],
+   [
+    "bmi.lo",
+    "健康下限"
+   ],
+   [
+    "bmi.hi",
+    "健康上限"
    ]
   ],
   "es": [
@@ -1818,6 +1830,18 @@
    [
     "tip.tpp",
     "propina/persona"
+   ],
+   [
+    "bmi.cat",
+    "categoría OMS"
+   ],
+   [
+    "bmi.lo",
+    "límite sano inf."
+   ],
+   [
+    "bmi.hi",
+    "límite sano sup."
    ]
   ],
   "pt": [
@@ -2728,6 +2752,18 @@
    [
     "tip.tpp",
     "gorjeta/pessoa"
+   ],
+   [
+    "bmi.cat",
+    "categoria OMS"
+   ],
+   [
+    "bmi.lo",
+    "mínimo saudável"
+   ],
+   [
+    "bmi.hi",
+    "máximo saudável"
    ]
   ],
   "ru": [
@@ -3638,6 +3674,18 @@
    [
     "tip.tpp",
     "чаевые/чел."
+   ],
+   [
+    "bmi.cat",
+    "категория ВОЗ"
+   ],
+   [
+    "bmi.lo",
+    "здоровый мин."
+   ],
+   [
+    "bmi.hi",
+    "здоровый макс."
    ]
   ],
   "ja": [
@@ -4548,6 +4596,18 @@
    [
     "tip.tpp",
     "チップ/人"
+   ],
+   [
+    "bmi.cat",
+    "WHO分類"
+   ],
+   [
+    "bmi.lo",
+    "健康下限"
+   ],
+   [
+    "bmi.hi",
+    "健康上限"
    ]
   ],
   "ko": [
@@ -5458,6 +5518,18 @@
    [
     "tip.tpp",
     "팁/인"
+   ],
+   [
+    "bmi.cat",
+    "WHO 분류"
+   ],
+   [
+    "bmi.lo",
+    "건강 하한"
+   ],
+   [
+    "bmi.hi",
+    "건강 상한"
    ]
   ],
   "de": [
@@ -6368,6 +6440,18 @@
    [
     "tip.tpp",
     "Trinkgeld/Person"
+   ],
+   [
+    "bmi.cat",
+    "WHO-Kategorie"
+   ],
+   [
+    "bmi.lo",
+    "gesundheitl. Untergrenze"
+   ],
+   [
+    "bmi.hi",
+    "gesundheitl. Obergrenze"
    ]
   ],
   "fr": [
@@ -7278,6 +7362,18 @@
    [
     "tip.tpp",
     "pourboire/personne"
+   ],
+   [
+    "bmi.cat",
+    "catégorie OMS"
+   ],
+   [
+    "bmi.lo",
+    "limite santé basse"
+   ],
+   [
+    "bmi.hi",
+    "limite santé haute"
    ]
   ],
   "id": [
@@ -8188,6 +8284,18 @@
    [
     "tip.tpp",
     "tip/orang"
+   ],
+   [
+    "bmi.cat",
+    "kategori WHO"
+   ],
+   [
+    "bmi.lo",
+    "batas sehat bawah"
+   ],
+   [
+    "bmi.hi",
+    "batas sehat atas"
    ]
   ]
  }
