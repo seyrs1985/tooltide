@@ -496,6 +496,15 @@ try {
     && /body\.home section\[id\]\{scroll-margin-top:120px\}/.test(flatCss)
     && /body\.home section\[id\]\{scroll-margin-top:60px\}/.test(flatCss),
     'style.css: sticky chip bar + scrollspy current pair + anchor scroll margins (desktop+mobile)');
+  // mobile thumb-sized tap targets: the 700px block must raise the chip strip,
+  // renderer chips, header nav and footer links to the 40px comfort floor
+  const mobIdx = flatCss.indexOf('@media(max-width:700px){');
+  assert(mobIdx > -1
+    && flatCss.indexOf('.hero-chips a{flex:0 0 auto;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center}', mobIdx) > -1
+    && flatCss.indexOf('.chip{min-height:40px;display:inline-flex;align-items:center}', mobIdx) > -1
+    && flatCss.indexOf('.site-head nav a{white-space:nowrap;padding:11px 2px}', mobIdx) > -1
+    && flatCss.indexOf('.foot-col a{padding:8px 0}', mobIdx) > -1,
+    'style.css: mobile tap targets >=40px (chip strip, chips, header nav, footer links)');
 
   // stub-DOM behavior of CATS_JS
   const catsScript = [...idx.matchAll(/<script(?![^>]*ld\+json)[^>]*>([\s\S]*?)<\/script>/g)]
