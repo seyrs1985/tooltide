@@ -6617,6 +6617,7 @@ function arm(){if(iv)clearInterval(iv);iv=null;
     var s=(st.end-Date.now())/1000;
     if(s<=0){next();}else{OUT.textContent=fmt(s);
       document.title='🍅 '+fmt(s)+' '+(st.mode==='work'?TT('pomo.titlefocus','Focus'):TT('pomo.titlebreak','Break'))+' - ToolTide';}},250);}
+window.addEventListener('load',render);
 GO.addEventListener('click',function(){
   if(st.run){st.run=false;st.left=(st.end-Date.now())/1000;GO.textContent=TT('pomo.start','Start');}
   else{if(!st.left||st.left<=0){var mins=(st.mode==='work'?parseInt(W.value):parseInt(B.value))||25;st.left=mins*60;}
