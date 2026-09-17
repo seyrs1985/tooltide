@@ -60,9 +60,9 @@
   <section class="intro"><p>Training zones turn &#x27;go for a run&#x27; into a dosage: Z1 recovery, Z2 aerobic base, Z3 tempo, Z4 threshold, Z5 VO2max - five bands with five different jobs. The catch is that every watch and wall chart computes them differently, and the two mainstream formulas disagree: % of max gives everyone the same bands, while the Karvonen method scales by heart rate reserve (max − resting) and hands trained hearts genuinely higher working zones for the same effort.</p><p>This calculator runs both, side by side with your resting heart rate factored in where it belongs, and keeps the honesty column open: 220 − age is a population average with over ±10 bpm of scatter on any individual. Your zones are remembered, shown in the tab title mid-workout, and shareable as a link that carries your settings.</p></section>
   <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-hz">
   <div class="fields">
-    <div class="field"><label for="hz-a">Age</label><input type="number" id="hz-a" min="10" max="100" placeholder="35"></div>
+    <div class="field"><label for="hz-a"><span data-i18n="lbl.age">Age</span></label><input type="number" id="hz-a" min="10" max="100" placeholder="35"></div>
     <div class="field"><label for="hz-r">Resting heart rate</label><input type="number" id="hz-r" min="30" max="120" placeholder="60"></div>
-    <div class="field"><label for="hz-m">Method</label><select id="hz-m"><option value="k">Karvonen (% of reserve)</option><option value="m">% of max HR</option></select></div>
+    <div class="field"><label for="hz-m"><span data-i18n="lbl.method">Method</span></label><select id="hz-m"><option value="k">Karvonen (% of reserve)</option><option value="m">% of max HR</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hz-out">–</span><span class="result-unit">max heart rate</span></div>
   <div class="stats" id="hz-rows"></div>

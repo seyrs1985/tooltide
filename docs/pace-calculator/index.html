@@ -61,12 +61,12 @@
   <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-pace">
   <div class="fields">
     <div class="field"><label for="pa-u">Distance unit</label><select id="pa-u"><option value="km">Kilometers</option><option value="mi">Miles</option></select></div>
-    <div class="field"><label for="pa-d">Distance</label><input type="number" id="pa-d" step="any" min="0" placeholder="10"></div>
+    <div class="field"><label for="pa-d"><span data-i18n="lbl.distance">Distance</span></label><input type="number" id="pa-d" step="any" min="0" placeholder="10"></div>
   </div>
   <div class="fields">
     <div class="field"><label for="pa-h">Hours</label><input type="number" id="pa-h" step="1" min="0" max="30" placeholder="0"></div>
-    <div class="field"><label for="pa-m">Minutes</label><input type="number" id="pa-m" step="1" min="0" max="59" placeholder="52"></div>
-    <div class="field"><label for="pa-s">Seconds</label><input type="number" id="pa-s" step="1" min="0" max="59" placeholder="30"></div>
+    <div class="field"><label for="pa-m"><span data-i18n="lbl.minutes">Minutes</span></label><input type="number" id="pa-m" step="1" min="0" max="59" placeholder="52"></div>
+    <div class="field"><label for="pa-s"><span data-i18n="lbl.seconds">Seconds</span></label><input type="number" id="pa-s" step="1" min="0" max="59" placeholder="30"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pa-out">–</span><span class="result-unit" id="pa-unit">/km</span></div>
   <div class="stats">

@@ -60,9 +60,9 @@
   <section class="intro"><p>BMI is one division — weight over height squared — and yet it is the first number most doctors, insurers and sports programs ask for. This calculator handles both metric and imperial input, prints your BMI with the official WHO category, and converts the healthy range (18.5-24.9) back into an actual weight window for your height, which is the part that turns a score into a target.</p><p>The honest framing matters: BMI is a population screening tool, not a body composition scan. Muscle-heavy athletes read overweight; older adults with low muscle read healthy. Use the number as a checkpoint — if it sits outside the range and you don&#x27;t know why, that&#x27;s the moment to look at waist measurement or body fat rather than panic. The page remembers your inputs on this device for quick rechecks.</p></section>
   <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-bmi">
   <div class="fields">
-    <div class="field"><label for="bmi-u">Units</label><select id="bmi-u"><option value="m">Metric (cm, kg)</option><option value="i">Imperial (in, lb)</option></select></div>
-    <div class="field"><label for="bmi-h">Height</label><input type="number" id="bmi-h" step="any" min="50" placeholder="175"></div>
-    <div class="field"><label for="bmi-w">Weight</label><input type="number" id="bmi-w" step="any" min="10" placeholder="70"></div>
+    <div class="field"><label for="bmi-u"><span data-i18n="lbl.units">Units</span></label><select id="bmi-u"><option value="m">Metric (cm, kg)</option><option value="i">Imperial (in, lb)</option></select></div>
+    <div class="field"><label for="bmi-h"><span data-i18n="lbl.height">Height</span></label><input type="number" id="bmi-h" step="any" min="50" placeholder="175"></div>
+    <div class="field"><label for="bmi-w"><span data-i18n="lbl.weight">Weight</span></label><input type="number" id="bmi-w" step="any" min="10" placeholder="70"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bmi-out">–</span><span class="result-unit" id="bmi-unit">BMI</span></div>
   <div class="stats">

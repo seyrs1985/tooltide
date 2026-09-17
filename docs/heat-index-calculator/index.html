@@ -60,9 +60,9 @@
   <section class="intro"><p>Humidity is why 95°F in Phoenix feels survivable and 95°F in Houston feels hostile: sweat evaporates slower in moist air, so your body&#x27;s cooling system underperforms exactly when it matters. The heat index puts one number on that — and this calculator runs the full NOAA Rothfusz regression, the same formula the National Weather Service publishes, not the rough doubling shortcuts.</p><p>The risk band under the result translates the number into what to actually do: caution means hydrate and pace yourself, extreme caution means cut midday effort, danger and extreme danger mean heat illness becomes likely without intervention. The delta stat shows how many degrees humidity added — the number most people find genuinely surprising. Note the figure is for shade with light wind; full sun can push the effective temperature up another 15°F.</p></section>
   <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-hi">
   <div class="fields">
-    <div class="field"><label for="hi-u">Units</label><select id="hi-u"><option value="f">°F</option><option value="c">°C</option></select></div>
-    <div class="field"><label for="hi-t">Air temperature</label><input type="number" id="hi-t" step="any" placeholder="95"></div>
-    <div class="field"><label for="hi-rh">Relative humidity %</label><input type="number" id="hi-rh" step="any" min="0" max="100" placeholder="60"></div>
+    <div class="field"><label for="hi-u"><span data-i18n="lbl.units">Units</span></label><select id="hi-u"><option value="f">°F</option><option value="c">°C</option></select></div>
+    <div class="field"><label for="hi-t"><span data-i18n="lbl.airtemp">Air temperature</span></label><input type="number" id="hi-t" step="any" placeholder="95"></div>
+    <div class="field"><label for="hi-rh"><span data-i18n="lbl.relhum">Relative humidity %</span></label><input type="number" id="hi-rh" step="any" min="0" max="100" placeholder="60"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hi-out">–</span><span class="result-unit" id="hi-unit">feels like (in shade)</span></div>
   <div class="stats">

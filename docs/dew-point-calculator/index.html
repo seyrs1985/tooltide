@@ -60,9 +60,9 @@
   <section class="intro"><p>Relative humidity is the most misleading number in the weather app: 70% humidity at 15°C is a crisp autumn day, while 70% at 30°C is a swamp - the same percentage, completely different air. The dew point cuts through it by stating the actual water vapor content: the temperature at which that air would saturate. Meteorologists read comfort straight off it, and this calculator runs the Magnus formula the moment you type.</p><p>The comfort bands under the result are the ones forecasters actually use - below 10°C dry, 10-16 comfortable, 16-21 noticeable, 21-24 muggy, and past 24 oppressive - plus a stat most tools skip: the temp-dew-point spread, which tells you how close fog or overnight dew is. Your last inputs are remembered, the result lands in the tab title, and the share link carries the whole reading.</p></section>
   <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-dp">
   <div class="fields">
-    <div class="field"><label for="dp-u">Units</label><select id="dp-u"><option value="c">°C</option><option value="f">°F</option></select></div>
-    <div class="field"><label for="dp-t">Air temperature</label><input type="number" id="dp-t" step="any" placeholder="30"></div>
-    <div class="field"><label for="dp-h">Relative humidity %</label><input type="number" id="dp-h" step="any" min="1" max="100" placeholder="70"></div>
+    <div class="field"><label for="dp-u"><span data-i18n="lbl.units">Units</span></label><select id="dp-u"><option value="c">°C</option><option value="f">°F</option></select></div>
+    <div class="field"><label for="dp-t"><span data-i18n="lbl.airtemp">Air temperature</span></label><input type="number" id="dp-t" step="any" placeholder="30"></div>
+    <div class="field"><label for="dp-h"><span data-i18n="lbl.relhum">Relative humidity %</span></label><input type="number" id="dp-h" step="any" min="1" max="100" placeholder="70"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dp-out">–</span><span class="result-unit" id="dp-u2">°C dew point</span></div>
   <div class="stats">
