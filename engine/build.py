@@ -821,7 +821,7 @@ def build_page(cfg, p, all_pages, cat_info):
     doc = doc.replace('<div class="result">', '<div class="result" aria-live="polite" aria-atomic="true">')
     doc += header_nav(cfg, base)
     doc += crumb(base, crumb_items)
-    doc += f"""<main class="wrap" id="main">
+    doc += f"""<main class="wrap" id="main" tabindex="-1">
 <article>
   <div class="page-emoji cat-{p['category']}" aria-hidden="true">{emoji}</div>
   <h1>{esc(p['h1'])}</h1>
@@ -955,7 +955,7 @@ def build_index(cfg, all_pages, cat_info):
     doc = head_tags(cfg, "ToolTide — Free Online Tools: Calculators, Converters & Countdowns",
                     desc, canonical, [website_ld], root=True, body_cls="home", title_key="meta.title")
     doc += header_nav(cfg, base)
-    doc += f"""<main class="wrap" id="main">
+    doc += f"""<main class="wrap" id="main" tabindex="-1">
 <section class="hero">
   <h1 data-i18n="home.hero.h1">Free online tools that just work</h1>
   <p data-i18n="home.hero.sub">Countdowns, calculators, converters and generators — fast, private, and free. Everything runs in your browser; nothing you type ever leaves your device.</p>
@@ -1103,7 +1103,7 @@ def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None, bod
     inner2 = (inner.replace("{date}", TODAY.isoformat())
                    .replace("{base}", base)
                    .replace("{email}", cfg.get("contact_email", "hello@example.com")))
-    doc += f'<main class="wrap"><article class="static-page">{inner2}</article></main>'
+    doc += f'<main class="wrap" id="main" tabindex="-1"><article class="static-page">{inner2}</article></main>'
     doc += footer(cfg, base, all_pages, cat_info)
     doc += BACKTOP
     doc += THEME_JS

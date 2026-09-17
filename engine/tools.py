@@ -3031,7 +3031,7 @@ DOUBLEDISC = """<div class="tool" id="tt-ddisc">
     <div class="stat"><b id="dd-save">–</b><span>you save</span></div>
     <div class="stat"><b id="dd-verdict">–</b><span>vs flat deal</span></div>
   </div>
-  <button type="button" class="tool-btn" id="dd-share">Share this deal math</button>
+  <button type="button" class="tool-btn" id="dd-share" data-i18n="share.share-this-deal-math">Share this deal math</button>
 </div>
 <script>(function(){
 var E={};['dd-price','dd-d1','dd-d2','dd-flat'].forEach(function(id){E[id]=document.getElementById(id);});
@@ -3071,7 +3071,7 @@ document.getElementById('dd-share').addEventListener('click',function(){
     ' off - final '+OUT.textContent+'. Check any deal (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(E['dd-price'].value||'')+'&d1='+encodeURIComponent(E['dd-d1'].value||'')+'&d2='+encodeURIComponent(E['dd-d2'].value||'')+'&flat='+encodeURIComponent(E['dd-flat'].value||'');
   if(navigator.share){navigator.share({title:'Stacked discount math',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this deal math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-deal-math','Share this deal math');},1500);}
 });
 })();
 </script>
@@ -3092,7 +3092,7 @@ SIMPLEINT = """<div class="tool" id="tt-si">
     <div class="stat"><b id="si-cmp">–</b><span>if compounded monthly</span></div>
   </div>
   <div class="tool-note" id="si-note"></div>
-  <button type="button" class="tool-btn" id="si-share">Share this result</button>
+  <button type="button" class="tool-btn" id="si-share" data-i18n="share.share-this-result">Share this result</button>
 </div>
 <script>(function(){
 var P=document.getElementById('si-p'),R=document.getElementById('si-r'),T=document.getElementById('si-t');
@@ -3126,7 +3126,7 @@ document.getElementById('si-share').addEventListener('click',function(){
     ' years = '+OUT.textContent+'. Run your own (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+encodeURIComponent(R.value||'')+'&t='+encodeURIComponent(T.value||'');
   if(navigator.share){navigator.share({title:'Simple interest result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-result','Share this result');},1500);}
 });
 })();
 </script>
@@ -3149,7 +3149,7 @@ GST = """<div class="tool" id="tt-gst">
     <div class="stat"><b id="sg-cgst">–</b><span>CGST / SGST each</span></div>
   </div>
   <div class="tool-note" id="gs-note"></div>
-  <button type="button" class="tool-btn" id="gs-share">Share the split</button>
+  <button type="button" class="tool-btn" id="gs-share" data-i18n="share.share-the-split">Share the split</button>
 </div>
 <script>(function(){
 var P=document.getElementById('gs-p'),R=document.getElementById('gs-r'),M=document.getElementById('gs-m');
@@ -3185,7 +3185,7 @@ document.getElementById('gs-share').addEventListener('click',function(){
     '. Split any invoice (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+R.value+'&mode='+M.value;
   if(navigator.share){navigator.share({title:'GST split',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the split';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-the-split','Share the split');},1500);}
 });
 })();
 </script>
@@ -3207,7 +3207,7 @@ OVERTIME = """<div class="tool" id="tt-ot">
     <div class="stat"><b id="ot-rate">–</b><span>OT hourly rate</span></div>
   </div>
   <div class="tool-note" id="ot-note"></div>
-  <button type="button" class="tool-btn" id="ot-share">Share my week</button>
+  <button type="button" class="tool-btn" id="ot-share" data-i18n="share.share-my-week">Share my week</button>
 </div>
 <script>(function(){
 var R=document.getElementById('ot-r'),H=document.getElementById('ot-h'),T=document.getElementById('ot-t'),M=document.getElementById('ot-m');
@@ -3240,7 +3240,7 @@ document.getElementById('ot-share').addEventListener('click',function(){
     ' gross'+((parseFloat(H.value)||0)>(parseFloat(T.value)||40)?' (with overtime)':'')+'. Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?r='+encodeURIComponent(R.value||'')+'&h='+encodeURIComponent(H.value||'')+'&t='+encodeURIComponent(T.value||'')+'&m='+encodeURIComponent(M.value||'');
   if(navigator.share){navigator.share({title:'Overtime pay',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my week';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-week','Share my week');},1500);}
 });
 })();
 </script>
@@ -3262,7 +3262,7 @@ RENT = """<div class="tool" id="tt-rent">
     <div class="stat"><b id="rt-left">–</b><span>left for everything else</span></div>
   </div>
   <div class="tool-note" id="rt-note"></div>
-  <button type="button" class="tool-btn" id="rt-share">Share my budget</button>
+  <button type="button" class="tool-btn" id="rt-share" data-i18n="share.share-my-budget">Share my budget</button>
 </div>
 <script>(function(){
 var I=document.getElementById('rt-inc'),D=document.getElementById('rt-debt'),RU=document.getElementById('rt-rule');
@@ -3297,7 +3297,7 @@ document.getElementById('rt-share').addEventListener('click',function(){
     '). Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?inc='+encodeURIComponent(I.value||'')+'&debt='+encodeURIComponent(D.value||'')+'&r='+RU.value;
   if(navigator.share){navigator.share({title:'Rent budget',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my budget';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-budget','Share my budget');},1500);}
 });
 })();
 </script>
@@ -3316,7 +3316,7 @@ CGPA = """<div class="tool" id="tt-cg">
     <div class="stat"><b id="cg-other">–</b><span>other direction</span></div>
   </div>
   <div class="tool-note" id="cg-note"></div>
-  <button type="button" class="tool-btn" id="cg-share">Share the result</button>
+  <button type="button" class="tool-btn" id="cg-share" data-i18n="share.share-the-result">Share the result</button>
 </div>
 <script>(function(){
 var D=document.getElementById('cg-d'),V=document.getElementById('cg-v');
@@ -3349,7 +3349,7 @@ document.getElementById('cg-share').addEventListener('click',function(){
   var txt='CGPA '+V.value+' converts to '+OUT.textContent+' ('+UNIT.textContent+'). Convert yours (no sign-up):';
   var url=location.origin+location.pathname+'?d='+D.value+'&v='+encodeURIComponent(V.value||'');
   if(navigator.share){navigator.share({title:'CGPA conversion',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-the-result','Share the result');},1500);}
 });
 })();
 </script>
@@ -3365,7 +3365,7 @@ CAFFEINE = """<div class="tool" id="tt-caf">
     <div class="stat"><b id="caf-cutoff">–</b><span>last safe cup by</span></div>
   </div>
   <div class="tool-note">Half-life is about 5-6 hours: a 4 PM double shot still holds ~100 mg at 10 PM. Sensitive people, pregnancy and some medications lower the safe ceiling - treat 400 mg as the healthy-adult maximum, not a target.</div>
-  <button type="button" class="tool-btn" id="caf-share">Share my total</button>
+  <button type="button" class="tool-btn" id="caf-share" data-i18n="share.share-my-total">Share my total</button>
 </div>
 <script>(function(){
 var DR=[['Filter coffee',95],['Espresso',63],['Instant coffee',66],['Black tea',47],['Green tea',28],['Cola (330 ml)',34],['Energy drink (250 ml)',80],['Matcha latte',70],['Decaf coffee',7]];
@@ -3402,7 +3402,7 @@ document.getElementById('caf-share').addEventListener('click',function(){
   var s=sel(),a=[];for(var i=0;i<s.length;i++)a.push(s[i].value);
   var url=location.origin+location.pathname+'?drinks='+a.join(',');
   if(navigator.share){navigator.share({title:'Caffeine total',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my total';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-total','Share my total');},1500);}
 });
 })();
 </script>
@@ -3426,7 +3426,7 @@ BODYFAT = """<div class="tool" id="tt-bf">
     <div class="stat"><b id="bf-leankg">–</b><span>lean mass</span></div>
   </div>
   <div class="tool-note" id="bf-note"></div>
-  <button type="button" class="tool-btn" id="bf-share">Share my estimate</button>
+  <button type="button" class="tool-btn" id="bf-share" data-i18n="share.share-my-estimate">Share my estimate</button>
 </div>
 <script>(function(){
 var S=document.getElementById('bf-s'),H=document.getElementById('bf-h'),N=document.getElementById('bf-n'),W=document.getElementById('bf-w'),HP=document.getElementById('bf-hip'),HW=document.getElementById('bf-hip-wrap');
@@ -3464,7 +3464,7 @@ document.getElementById('bf-share').addEventListener('click',function(){
   var txt='My estimated body fat: '+OUT.textContent+' (US Navy method). Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&h='+encodeURIComponent(H.value||'')+'&n='+encodeURIComponent(N.value||'')+'&w='+encodeURIComponent(W.value||'')+(S.value==='f'?'&hp='+encodeURIComponent(HP.value||''):'')+'&kg='+encodeURIComponent(document.getElementById('bf-kg').value||'');
   if(navigator.share){navigator.share({title:'Body fat estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-estimate','Share my estimate');},1500);}
 });
 })();
 </script>
@@ -3480,7 +3480,7 @@ OVEN = """<div class="tool" id="tt-oven">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ov-out">–</span><span class="result-unit" id="ov-unit"></span></div>
   <div id="ov-table"></div>
   <div class="tool-note">Recipes from the US use °F, Europe uses °C, and UK ovens use gas marks. Fan ovens run about 20°C hotter than the numbers here - subtract 20°C (or one gas mark equivalent) for fan-assisted settings.</div>
-  <button type="button" class="tool-btn" id="ov-share">Share the conversion</button>
+  <button type="button" class="tool-btn" id="ov-share" data-i18n="share.share-the-conversion">Share the conversion</button>
 </div>
 <script>(function(){
 var U=document.getElementById('ov-u'),V=document.getElementById('ov-v');
@@ -3514,7 +3514,7 @@ document.getElementById('ov-share').addEventListener('click',function(){
   var txt='Oven setting: '+OUT.textContent+' ('+UNIT.textContent+'). Convert any recipe (no sign-up):';
   var url=location.origin+location.pathname+'?u='+U.value+'&v='+encodeURIComponent(V.value||'');
   if(navigator.share){navigator.share({title:'Oven temperature',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the conversion';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-the-conversion','Share the conversion');},1500);}
 });
 })();
 </script>
@@ -3536,7 +3536,7 @@ COMMISSION = """<div class="tool" id="tt-cm">
     <div class="stat"><b id="cm-mix">–</b><span>commission share of pay</span></div>
   </div>
   <div class="tool-note" id="cm-note"></div>
-  <button type="button" class="tool-btn" id="cm-share">Share my paycheck math</button>
+  <button type="button" class="tool-btn" id="cm-share" data-i18n="share.share-my-paycheck-math">Share my paycheck math</button>
 </div>
 <script>(function(){
 var B=document.getElementById('cm-b'),R=document.getElementById('cm-r'),V=document.getElementById('cm-v'),Q=document.getElementById('cm-q');
@@ -3572,7 +3572,7 @@ document.getElementById('cm-share').addEventListener('click',function(){
   var txt='My period pay: '+OUT.textContent+' ('+money(parseFloat(B.value)||0)+' base + '+money(parseFloat(V.value)||0)*(parseFloat(R.value)||0)/100+' commission). Run your numbers (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&r='+encodeURIComponent(R.value||'')+'&rev='+encodeURIComponent(V.value||'')+'&q='+encodeURIComponent(Q.value||'');
   if(navigator.share){navigator.share({title:'Commission pay',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my paycheck math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-paycheck-math','Share my paycheck math');},1500);}
 });
 })();
 </script>
@@ -3593,7 +3593,7 @@ AIRFRYER = """<div class="tool" id="tt-af">
     <div class="stat"><b id="af-save">–</b><span>time saved</span></div>
   </div>
   <div class="tool-note">Air fryers are small convection ovens: drop the temperature by about 25°F (15°C), cut the time to roughly 80%, and check food early - the fan crisps fast in the last minutes. Shake or flip halfway for even browning, and don't crowd the basket.</div>
-  <button type="button" class="tool-btn" id="af-share">Share the setting</button>
+  <button type="button" class="tool-btn" id="af-share" data-i18n="share.share-the-setting">Share the setting</button>
 </div>
 <script>(function(){
 var U=document.getElementById('af-u'),T=document.getElementById('af-t'),MI=document.getElementById('af-min');
@@ -3623,7 +3623,7 @@ document.getElementById('af-share').addEventListener('click',function(){
   var txt='Air fryer version: '+OUT.textContent+' (recipe said '+T.value+'° for '+MI.value+' min). Convert yours (no sign-up):';
   var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&min='+encodeURIComponent(MI.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Air fryer setting',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the setting';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-the-setting','Share the setting');},1500);}
 });
 })();
 </script>
@@ -3645,7 +3645,7 @@ FUELCOST = """<div class="tool" id="tt-fc">
     <div class="stat"><b id="fc-rt">–</b><span>round trip</span></div>
   </div>
   <div class="tool-note" id="fc-note"></div>
-  <button type="button" class="tool-btn" id="fc-share">Share the trip cost</button>
+  <button type="button" class="tool-btn" id="fc-share" data-i18n="share.share-the-trip-cost">Share the trip cost</button>
 </div>
 <script>(function(){
 var U=document.getElementById('fc-u'),D=document.getElementById('fc-d'),E=document.getElementById('fc-e'),P=document.getElementById('fc-p');
@@ -3682,7 +3682,7 @@ document.getElementById('fc-share').addEventListener('click',function(){
     ' one-way ('+document.getElementById('fc-fuel').textContent+'). Split yours (no sign-up):';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value||'')+'&e='+encodeURIComponent(E.value||'')+'&p='+encodeURIComponent(P.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Fuel cost',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the trip cost';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-the-trip-cost','Share the trip cost');},1500);}
 });
 })();
 </script>
@@ -3714,7 +3714,7 @@ MACROS = """<div class="tool" id="tt-mac">
     <div class="stat"><b id="mc-fg">–</b><span>fat g</span></div>
   </div>
   <div class="tool-note" id="mc-note"></div>
-  <button type="button" class="tool-btn" id="mc-share">Share my macros</button>
+  <button type="button" class="tool-btn" id="mc-share" data-i18n="share.share-my-macros">Share my macros</button>
 </div>
 <script>(function(){
 var CAL=document.getElementById('mc-cal'),GOAL=document.getElementById('mc-goal'),P=document.getElementById('mc-p'),C=document.getElementById('mc-c'),F=document.getElementById('mc-f');
@@ -3748,7 +3748,7 @@ document.getElementById('mc-share').addEventListener('click',function(){
   var txt='My macros at '+(parseFloat(CAL.value)||0)+' kcal: '+OUT.textContent+' g (P/C/F). Plan yours (no sign-up):';
   var url=location.origin+location.pathname+'?cal='+encodeURIComponent(CAL.value||'')+'&p='+encodeURIComponent(P.value||'')+'&c='+encodeURIComponent(C.value||'')+'&f='+encodeURIComponent(F.value||'');
   if(navigator.share){navigator.share({title:'Macro targets',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my macros';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-macros','Share my macros');},1500);}
 });
 })();
 </script>
@@ -3769,7 +3769,7 @@ ELECTRIC = """<div class="tool" id="tt-el">
     <div class="stat"><b id="el-kwh">–</b><span>kWh per month</span></div>
   </div>
   <div class="tool-note" id="el-note"></div>
-  <button type="button" class="tool-btn" id="el-share">Share this cost</button>
+  <button type="button" class="tool-btn" id="el-share" data-i18n="share.share-this-cost">Share this cost</button>
 </div>
 <script>(function(){
 var W=document.getElementById('el-w'),H=document.getElementById('el-h'),R=document.getElementById('el-r');
@@ -3799,7 +3799,7 @@ document.getElementById('el-share').addEventListener('click',function(){
   var txt='Running my '+W.value+' W device '+H.value+' h/day costs '+OUT.textContent+'/month ('+document.getElementById('el-year').textContent+'/year). Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value||'')+'&h='+encodeURIComponent(H.value||'')+'&r='+encodeURIComponent(R.value||'');
   if(navigator.share){navigator.share({title:'Electricity cost',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this cost';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-cost','Share this cost');},1500);}
 });
 })();
 </script>
@@ -3819,7 +3819,7 @@ WINDCHILL = """<div class="tool" id="tt-wc">
     <div class="stat"><b id="wc-delta">–</b><span>added by wind</span></div>
   </div>
   <div class="tool-note" id="wc-note"></div>
-  <button type="button" class="tool-btn" id="wc-share">Share the feels-like</button>
+  <button type="button" class="tool-btn" id="wc-share" data-i18n="share.share-the-feels-like">Share the feels-like</button>
 </div>
 <script>(function(){
 var U=document.getElementById('wc-u'),T=document.getElementById('wc-t'),V=document.getElementById('wc-v');
@@ -3865,7 +3865,7 @@ document.getElementById('wc-share').addEventListener('click',function(){
   var txt='It is '+T.value+'°'+(U.value==='f'?'F':'C')+' with '+V.value+' '+(U.value==='f'?'mph':'km/h')+' wind - feels like '+OUT.textContent+'. Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&v='+encodeURIComponent(V.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Wind chill',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-the-feels-like','Share the feels-like');},1500);}
 });
 })();
 </script>
@@ -3890,7 +3890,7 @@ PACE = """<div class="tool" id="tt-pace">
     <div class="stat"><b id="pa-mph">–</b><span>speed mph</span></div>
   </div>
   <div class="tool-note" id="pa-note"></div>
-  <button type="button" class="tool-btn" id="pa-share">Share my pace</button>
+  <button type="button" class="tool-btn" id="pa-share" data-i18n="share.share-my-pace">Share my pace</button>
 </div>
 <script>(function(){
 var U=document.getElementById('pa-u'),D=document.getElementById('pa-d'),H=document.getElementById('pa-h'),M=document.getElementById('pa-m'),S=document.getElementById('pa-s');
@@ -3926,7 +3926,7 @@ document.getElementById('pa-share').addEventListener('click',function(){
     's - that is '+OUT.textContent+UNIT.textContent+'. Calculate your pace (no sign-up):';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value||'')+'&h='+encodeURIComponent(H.value||'')+'&m='+encodeURIComponent(M.value||'')+'&s='+encodeURIComponent(S.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Running pace',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my pace';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-pace','Share my pace');},1500);}
 });
 })();
 </script>
@@ -3946,7 +3946,7 @@ HEATINDEX = """<div class="tool" id="tt-hi">
     <div class="stat"><b id="hi-delta">–</b><span>added by humidity</span></div>
   </div>
   <div class="tool-note" id="hi-note"></div>
-  <button type="button" class="tool-btn" id="hi-share">Share the feels-like</button>
+  <button type="button" class="tool-btn" id="hi-share" data-i18n="share.share-the-feels-like">Share the feels-like</button>
 </div>
 <script>(function(){
 var U=document.getElementById('hi-u'),T=document.getElementById('hi-t'),RH=document.getElementById('hi-rh');
@@ -3988,7 +3988,7 @@ document.getElementById('hi-share').addEventListener('click',function(){
   var txt='It is '+T.value+'°'+U.value.toUpperCase()+' at '+RH.value+'% humidity - feels like '+OUT.textContent+' ('+document.getElementById('hi-band').textContent.split(':')[0].toLowerCase()+'). Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value||'')+'&rh='+encodeURIComponent(RH.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Heat index',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the feels-like';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-the-feels-like','Share the feels-like');},1500);}
 });
 })();
 </script>
@@ -4009,7 +4009,7 @@ BMI = """<div class="tool" id="tt-bmi">
     <div class="stat"><b id="bmi-hi">–</b><span data-i18n="bmi.hi">healthy high</span></div>
   </div>
   <div class="tool-note">BMI = weight ÷ height². It is a population screening tool, not a diagnosis - muscle, age and frame all shift what a healthy number looks like for you individually.</div>
-  <button type="button" class="tool-btn" id="bmi-share">Share my BMI</button>
+  <button type="button" class="tool-btn" id="bmi-share" data-i18n="share.share-my-bmi">Share my BMI</button>
 </div>
 <script>(function(){
 var U=document.getElementById('bmi-u'),H=document.getElementById('bmi-h'),W=document.getElementById('bmi-w');
@@ -4046,7 +4046,7 @@ document.getElementById('bmi-share').addEventListener('click',function(){
   var txt='My BMI: '+OUT.textContent+' ('+document.getElementById('bmi-cat').textContent.split(' - ')[0].toLowerCase()+'). Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?u='+U.value+'&h='+encodeURIComponent(H.value||'')+'&w='+encodeURIComponent(W.value||'');
   if(navigator.share){navigator.share({title:'BMI result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my BMI';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-bmi','Share my BMI');},1500);}
 });
 })();
 </script>
@@ -4078,7 +4078,7 @@ TDEE = """<div class="tool" id="tt-tdee">
     <div class="stat"><b id="td-gain">–</b><span>lean gain (+300)</span></div>
   </div>
   <div class="tool-note">Mifflin-St Jeor equation × activity multiplier — the same method most dietitians start from. Treat every figure as a starting estimate: track real weight change for two weeks and adjust by 100-200 kcal rather than trusting any formula blindly.</div>
-  <button type="button" class="tool-btn" id="td-share">Share my TDEE</button>
+  <button type="button" class="tool-btn" id="td-share" data-i18n="share.share-my-tdee">Share my TDEE</button>
 </div>
 <script>(function(){
 var S=document.getElementById('td-sex'),A=document.getElementById('td-age'),H=document.getElementById('td-h'),W=document.getElementById('td-w'),ACT=document.getElementById('td-act');
@@ -4106,7 +4106,7 @@ document.getElementById('td-share').addEventListener('click',function(){
   var txt='My maintenance calories (TDEE): '+OUT.textContent+' kcal/day. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&a='+encodeURIComponent(A.value||'')+'&h='+encodeURIComponent(H.value||'')+'&w='+encodeURIComponent(W.value||'')+'&act='+ACT.value;
   if(navigator.share){navigator.share({title:'TDEE estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my TDEE';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-tdee','Share my TDEE');},1500);}
 });
 })();
 </script>
@@ -4127,7 +4127,7 @@ TIPSPLIT = """<div class="tool" id="tt-ts">
     <div class="stat"><b id="ts-round">–</b><span>if each rounds up</span></div>
   </div>
   <div class="tool-note" id="ts-note"></div>
-  <button type="button" class="tool-btn" id="ts-share">Share the split</button>
+  <button type="button" class="tool-btn" id="ts-share" data-i18n="share.share-the-split">Share the split</button>
 </div>
 <script>(function(){
 var B=document.getElementById('ts-bill'),P=document.getElementById('ts-tip'),N=document.getElementById('ts-people');
@@ -4159,7 +4159,7 @@ document.getElementById('ts-share').addEventListener('click',function(){
     ' people = '+OUT.textContent+' each. Split yours (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&p='+encodeURIComponent(P.value||'')+'&n='+encodeURIComponent(N.value||'');
   if(navigator.share){navigator.share({title:'Tip split',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the split';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-the-split','Share the split');},1500);}
 });
 })();
 </script>
@@ -4180,7 +4180,7 @@ FINALGRADE = """<div class="tool" id="tt-fg">
     <div class="stat"><b id="fg-s80">–</b><span>if you score 80%</span></div>
     <div class="stat"><b id="fg-s60">–</b><span>if you score 60%</span></div>
   </div>
-  <button type="button" class="tool-btn" id="fg-share">Share my plan</button>
+  <button type="button" class="tool-btn" id="fg-share" data-i18n="share.share-my-plan">Share my plan</button>
 </div>
 <script>(function(){
 var C=document.getElementById('fg-cur'),W=document.getElementById('fg-w'),G=document.getElementById('fg-tgt');
@@ -4209,7 +4209,7 @@ document.getElementById('fg-share').addEventListener('click',function(){
   var txt='To end '+document.getElementById('fg-tgt').value+'% in the course I need '+OUT.textContent+' on the final. Plan yours (no sign-up):';
   var url=location.origin+location.pathname+'?cur='+encodeURIComponent(C.value||'')+'&w='+encodeURIComponent(W.value||'')+'&tgt='+encodeURIComponent(G.value||'');
   if(navigator.share){navigator.share({title:'Final grade plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-plan','Share my plan');},1500);}
 });
 })();
 </script>
@@ -4232,7 +4232,7 @@ WATER = """<div class="tool" id="tt-water">
     <div class="stat"><b id="wt-cups">–</b><span>8 oz cups</span></div>
   </div>
   <div class="tool-note" id="wt-note"></div>
-  <button type="button" class="tool-btn" id="wt-share">Share my target</button>
+  <button type="button" class="tool-btn" id="wt-share" data-i18n="share.share-my-target">Share my target</button>
 </div>
 <script>(function(){
 var KG=document.getElementById('wt-kg'),EX=document.getElementById('wt-ex'),HOT=document.getElementById('wt-hot');
@@ -4264,7 +4264,7 @@ document.getElementById('wt-share').addEventListener('click',function(){
   var txt='My daily water target: '+OUT.textContent+' L ('+document.getElementById('wt-bottles').textContent+' bottles). Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?kg='+encodeURIComponent(KG.value||'')+'&ex='+encodeURIComponent(EX.value||'')+'&hot='+encodeURIComponent(HOT.value||'0');
   if(navigator.share){navigator.share({title:'Daily water target',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my target';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-target','Share my target');},1500);}
 });
 })();
 </script>
@@ -4284,7 +4284,7 @@ GPACALC = """<div class="tool" id="tt-gpa">
     <div class="stat"><b id="gpa-cr">–</b><span>graded credits</span></div>
   </div>
   <div class="tool-note">Weighted by credit hours: A=4.0, A−=3.7, B+=3.3, B=3.0, B−=2.7, C+=2.3, C=2.0, C−=1.7, D+=1.3, D=1.0, F=0. Leave a row blank to exclude it.</div>
-  <button type="button" class="tool-btn" id="gpa-share">Share my GPA</button>
+  <button type="button" class="tool-btn" id="gpa-share" data-i18n="share.share-my-gpa">Share my GPA</button>
 </div>
 <script>(function(){
 var GR=[['A',4],['A-',3.7],['B+',3.3],['B',3],['B-',2.7],['C+',2.3],['C',2],['C-',1.7],['D+',1.3],['D',1],['F',0]];
@@ -4332,7 +4332,7 @@ document.getElementById('gpa-share').addEventListener('click',function(){
   var txt='My '+(document.getElementById('gpa-unit').textContent==='cumulative GPA'?'cumulative ':'')+'GPA: '+v+' on the 4.0 scale. Calculate yours (no sign-up):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'GPA result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my GPA';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-gpa','Share my GPA');},1500);}
 });
 })();
 </script>
@@ -4349,7 +4349,7 @@ SLEEP = """<div class="tool" id="tt-sleep">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sl-out">–</span><span class="result-unit" id="sl-unit"></span></div>
   <div id="sl-list"></div>
   <div class="tool-note">Cycles average 90 minutes and most people take about 15 minutes to fall asleep. Waking between cycles feels far easier than mid-cycle — 5-6 cycles (7.5-9 h in bed) suits most adults, 3 cycles (4.5 h) is the short-night floor.</div>
-  <button type="button" class="tool-btn" id="sl-share">Share these times</button>
+  <button type="button" class="tool-btn" id="sl-share" data-i18n="share.share-these-times">Share these times</button>
 </div>
 <script>(function(){
 var MODE=document.getElementById('sl-mode'),T=document.getElementById('sl-t'),TW=document.getElementById('sl-t-wrap');
@@ -4385,7 +4385,7 @@ document.getElementById('sl-share').addEventListener('click',function(){
     :('Set bedtime '+OUT.textContent+' to wake at '+T.value+' between cycles. Plan sleep (no sign-up):');
   var url=location.origin+location.pathname+'?mode='+MODE.value+(MODE.value==='bed'?'&t='+encodeURIComponent(T.value):'');
   if(navigator.share){navigator.share({title:'Sleep cycle plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share these times';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-these-times','Share these times');},1500);}
 });
 })();
 </script>
@@ -4401,7 +4401,7 @@ SAVINGS = """<div class="tool" id="tt-savings">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sav-out">-</span><span class="result-unit" id="sav-unit"></span></div>
   <div class="sav-bar" aria-hidden="true"><div id="sav-fill"></div></div>
   <div class="tool-note" id="sav-detail"></div>
-  <button type="button" class="tool-btn" id="sav-share">Share my plan</button>
+  <button type="button" class="tool-btn" id="sav-share" data-i18n="share.share-my-plan">Share my plan</button>
 </div>
 <style>.sav-bar{height:10px;border-radius:5px;background:rgba(127,127,127,.18);overflow:hidden;margin:10px 0 4px}.sav-bar>div{height:100%;width:0;border-radius:5px;background:var(--ink,#0891b2);transition:width .3s}</style>
 <script>
@@ -4439,7 +4439,7 @@ SB.addEventListener('click',function(){
   var url=location.origin+location.pathname+
     '?goal='+encodeURIComponent(G.value||'')+'&saved='+encodeURIComponent(S.value||'')+'&dep='+encodeURIComponent(D.value||'')+'&apy='+encodeURIComponent(R.value||'');
   if(navigator.share){navigator.share({title:'Savings goal plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent=TT('ui.copied','Copied!');setTimeout(function(){SB.textContent='Share my plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent=TT('ui.copied','Copied!');setTimeout(function(){SB.textContent=TT('share.share-my-plan','Share my plan');},1500);}
 });
 })();
 </script>
@@ -4457,7 +4457,7 @@ COMPOUND = """<div class="tool" id="tt-compound">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cp-out">-</span><span class="result-unit" id="cp-unit"></span></div>
   <div class="tool-note" id="cp-detail"></div>
   <div id="cp-table"></div>
-  <button type="button" class="tool-btn" id="cp-share">Share this projection</button>
+  <button type="button" class="tool-btn" id="cp-share" data-i18n="share.share-this-projection">Share this projection</button>
 </div>
 <script>
 (function(){
@@ -4493,7 +4493,7 @@ SB.addEventListener('click',function(){
   var txt='Compound interest projection: '+OUT.textContent+' after '+Math.round(parseFloat(Y.value)||0)+' years. Run your own numbers (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&m='+encodeURIComponent(M.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'');
   if(navigator.share){navigator.share({title:'Compound interest projection',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent=TT('ui.copied','Copied!');setTimeout(function(){SB.textContent='Share this projection';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);SB.textContent=TT('ui.copied','Copied!');setTimeout(function(){SB.textContent=TT('share.share-this-projection','Share this projection');},1500);}
 });
 })();
 </script>
@@ -4516,7 +4516,7 @@ LOANPAY = """<div class="tool" id="tt-ln">
     <div class="stat"><b id="ln-share">–</b><span>interest share of payments</span></div>
   </div>
   <div class="tool-note" id="ln-note"></div>
-  <button type="button" class="tool-btn" id="ln-share">Share this payment</button>
+  <button type="button" class="tool-btn" id="ln-share" data-i18n="share.share-this-payment">Share this payment</button>
 </div>
 <script>(function(){
 var P=document.getElementById('ln-p'),R=document.getElementById('ln-r'),Y=document.getElementById('ln-y');
@@ -4550,7 +4550,7 @@ document.getElementById('ln-share').addEventListener('click',function(){
   var txt='Loan payment: '+OUT.textContent+'/mo ('+document.getElementById('ln-int').textContent+' total interest). Run your numbers (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'');
   if(navigator.share){navigator.share({title:'Loan payment',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this payment';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-payment','Share this payment');},1500);}
 });
 })();
 </script>
@@ -4572,7 +4572,7 @@ VATCALC = """<div class="tool" id="tt-vat">
     <div class="stat"><b id="vat-gr">–</b><span>gross (incl VAT)</span></div>
   </div>
   <div class="tool-note" id="vat-note"></div>
-  <button type="button" class="tool-btn" id="vat-share">Share this breakdown</button>
+  <button type="button" class="tool-btn" id="vat-share" data-i18n="share.share-this-breakdown">Share this breakdown</button>
 </div>
 <script>(function(){
 var M=document.getElementById('vat-m'),A=document.getElementById('vat-a'),R=document.getElementById('vat-r'),PR=document.getElementById('vat-p');
@@ -4610,7 +4610,7 @@ document.getElementById('vat-share').addEventListener('click',function(){
   var txt='VAT breakdown: net '+document.getElementById('vat-net').textContent+' + VAT '+document.getElementById('vat-amt').textContent+' = gross '+document.getElementById('vat-gr').textContent+'. Run yours (no sign-up):';
   var url=location.origin+location.pathname+'?m='+M.value+'&a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'');
   if(navigator.share){navigator.share({title:'VAT breakdown',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this breakdown';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-breakdown','Share this breakdown');},1500);}
 });
 })();
 </script>
@@ -4633,7 +4633,7 @@ FRACTION = """<div class="tool" id="tt-fr">
     <div class="stat"><b id="fr-lcd">–</b><span>common denominator used</span></div>
   </div>
   <div class="tool-note" id="fr-note"></div>
-  <button type="button" class="tool-btn" id="fr-share">Share this result</button>
+  <button type="button" class="tool-btn" id="fr-share" data-i18n="share.share-this-result">Share this result</button>
 </div>
 <script>(function(){
 var A=document.getElementById('fr-a'),B=document.getElementById('fr-b'),C=document.getElementById('fr-c'),D=document.getElementById('fr-d'),OP=document.getElementById('fr-op');
@@ -4685,7 +4685,7 @@ document.getElementById('fr-share').addEventListener('click',function(){
   var txt=document.getElementById('fr-note').textContent+'. Solve yours step by step (no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&b='+encodeURIComponent(B.value||'')+'&c='+encodeURIComponent(C.value||'')+'&d='+encodeURIComponent(D.value||'')+'&op='+encodeURIComponent(OP.value);
   if(navigator.share){navigator.share({title:'Fraction result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent=TT('share.share-this-result','Share this result');},1500);}
 });
 })();
 </script>
@@ -4707,7 +4707,7 @@ PREGNANCY = """<div class="tool" id="tt-pg">
     <div class="stat"><b id="pg-tri">–</b><span>trimester</span></div>
   </div>
   <div class="tool-note" id="pg-note"></div>
-  <button type="button" class="tool-btn" id="pg-share">Share this due date</button>
+  <button type="button" class="tool-btn" id="pg-share" data-i18n="share.share-this-due-date">Share this due date</button>
 </div>
 <script>(function(){
 var M=document.getElementById('pg-m'),D=document.getElementById('pg-d'),W=document.getElementById('pg-w'),G=document.getElementById('pg-g');
@@ -4763,7 +4763,7 @@ document.getElementById('pg-share').addEventListener('click',function(){
   var txt='Due date: '+OUT.textContent+' - '+document.getElementById('pg-ga').textContent+' along today. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?m='+M.value+'&d='+encodeURIComponent(D.value||'')+'&w='+encodeURIComponent(W.value||'')+'&g='+encodeURIComponent(G.value||'');
   if(navigator.share){navigator.share({title:'Due date',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this due date';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-due-date','Share this due date');},1500);}
 });
 })();
 </script>
@@ -4784,7 +4784,7 @@ TZCONVERT = """<div class="tool" id="tt-tz">
     <div class="stat"><b id="tz-day">–</b><span>your device now</span></div>
   </div>
   <div class="tool-note" id="tz-note"></div>
-  <button type="button" class="tool-btn" id="tz-share">Share this meeting time</button>
+  <button type="button" class="tool-btn" id="tz-share" data-i18n="share.share-this-meeting-time">Share this meeting time</button>
 </div>
 <script>(function(){
 var F=document.getElementById('tz-f'),T=document.getElementById('tz-t'),DT=document.getElementById('tz-dt');
@@ -4862,7 +4862,7 @@ document.getElementById('tz-share').addEventListener('click',function(){
   var txt=F.options[F.selectedIndex].text+' '+DT.value.replace('T',' at ')+' = '+OUT.textContent+'. Line up yours (no sign-up):';
   var url=location.origin+location.pathname+'?f='+encodeURIComponent(F.value)+'&t='+encodeURIComponent(T.value)+'&dt='+encodeURIComponent(DT.value);
   if(navigator.share){navigator.share({title:'Meeting time',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this meeting time';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-meeting-time','Share this meeting time');},1500);}
 });
 })();
 </script>
@@ -4881,7 +4881,7 @@ WEEKNUM = """<div class="tool" id="tt-wk">
     <div class="stat"><b id="wk-doy">–</b><span>day of year</span></div>
   </div>
   <div class="tool-note" id="wk-note"></div>
-  <button type="button" class="tool-btn" id="wk-share">Share this week</button>
+  <button type="button" class="tool-btn" id="wk-share" data-i18n="share.share-this-week">Share this week</button>
 </div>
 <script>(function(){
 var D=document.getElementById('wk-d');
@@ -4930,7 +4930,7 @@ document.getElementById('wk-share').addEventListener('click',function(){
   var txt=OUT.textContent+' of '+isoCal(new Date(D.value+'T00:00:00Z').getTime()).isoYear+' ('+document.getElementById('wk-span').textContent+'). Check any week (no sign-up):';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
   if(navigator.share){navigator.share({title:'Week number',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this week';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-week','Share this week');},1500);}
 });
 })();
 </script>
@@ -4950,7 +4950,7 @@ TIMECARD = """<div class="tool" id="tt-tc">
     <div class="stat"><b id="tc-days-w">–</b><span>days worked</span></div>
   </div>
   <div class="tool-note" id="tc-note"></div>
-  <button type="button" class="tool-btn" id="tc-share">Share this time card</button>
+  <button type="button" class="tool-btn" id="tc-share" data-i18n="share.share-this-time-card">Share this time card</button>
 </div>
 <script>(function(){
 var DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
@@ -5019,7 +5019,7 @@ document.getElementById('tc-share').addEventListener('click',function(){
   var txt='Time card this week: '+OUT.textContent+' ('+document.getElementById('tc-dec').textContent+'h decimal, '+document.getElementById('tc-days-w').textContent+' days). Tally yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&s='+encodeURIComponent(pack());
   if(navigator.share){navigator.share({title:'Weekly hours',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this time card';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-time-card','Share this time card');},1500);}
 });
 })();
 </script>
@@ -5040,7 +5040,7 @@ ONEREPMAX = """<div class="tool" id="tt-orm">
     <div class="stat"><b id="orm-w5">–</b><span>5x5 working weight</span></div>
   </div>
   <div class="tool-note" id="orm-note"></div>
-  <button type="button" class="tool-btn" id="orm-share">Share this max</button>
+  <button type="button" class="tool-btn" id="orm-share" data-i18n="share.share-this-max">Share this max</button>
 </div>
 <script>(function(){
 var W=document.getElementById('orm-w'),R=document.getElementById('orm-r'),U=document.getElementById('orm-u');
@@ -5074,7 +5074,7 @@ document.getElementById('orm-share').addEventListener('click',function(){
   var txt='Estimated 1RM: '+OUT.textContent+' from '+W.value+U.value+' x '+R.value+' reps. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value||'')+'&r='+encodeURIComponent(R.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'One rep max',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this max';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-max','Share this max');},1500);}
 });
 })();
 </script>
@@ -5093,7 +5093,7 @@ STDDEV = """<div class="tool" id="tt-sd">
     <div class="stat"><b id="sd-n">–</b><span>n · min-max</span></div>
   </div>
   <div class="tool-note" id="sd-note"></div>
-  <button type="button" class="tool-btn" id="sd-share">Share this summary</button>
+  <button type="button" class="tool-btn" id="sd-share" data-i18n="share.share-this-summary">Share this summary</button>
 </div>
 <script>(function(){
 var IN=document.getElementById('sd-in');
@@ -5130,7 +5130,7 @@ document.getElementById('sd-share').addEventListener('click',function(){
   var txt='Data summary: mean '+document.getElementById('sd-mean').textContent+', sample SD '+OUT.textContent+', population SD '+document.getElementById('sd-pop').textContent+' (n='+document.getElementById('sd-n').textContent+'). Summarize yours (no sign-up):';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(IN.value);
   if(navigator.share){navigator.share({title:'Data summary',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this summary';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-summary','Share this summary');},1500);}
 });
 })();
 </script>
@@ -5152,7 +5152,7 @@ CONCRETE = """<div class="tool" id="tt-cc">
     <div class="stat"><b id="cc-b60">–</b><span>60 lb bags</span></div>
   </div>
   <div class="tool-note" id="cc-note"></div>
-  <button type="button" class="tool-btn" id="cc-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="cc-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var L=document.getElementById('cc-l'),W=document.getElementById('cc-w'),T=document.getElementById('cc-t'),U=document.getElementById('cc-u');
@@ -5191,7 +5191,7 @@ document.getElementById('cc-share').addEventListener('click',function(){
   var txt='Concrete estimate: '+OUT.textContent+' yd³ ('+L.value+'x'+W.value+', '+T.value+' in thick). Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&t='+T.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Concrete estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -5213,7 +5213,7 @@ SLOPECALC = """<div class="tool" id="tt-sl">
     <div class="stat"><b id="sl-b">–</b><span>y-intercept b</span></div>
   </div>
   <div class="tool-note" id="sl-note"></div>
-  <button type="button" class="tool-btn" id="sl-share">Share this line</button>
+  <button type="button" class="tool-btn" id="sl-share" data-i18n="share.share-this-line">Share this line</button>
 </div>
 <script>(function(){
 var X1=document.getElementById('sl-x1'),Y1=document.getElementById('sl-y1'),X2=document.getElementById('sl-x2'),Y2=document.getElementById('sl-y2');
@@ -5258,7 +5258,7 @@ document.getElementById('sl-share').addEventListener('click',function(){
   var txt='Line through ('+X1.value+', '+Y1.value+') and ('+X2.value+', '+Y2.value+'): slope '+OUT.textContent+', y-intercept '+document.getElementById('sl-b').textContent+'. Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?x1='+encodeURIComponent(X1.value||'')+'&y1='+encodeURIComponent(Y1.value||'')+'&x2='+encodeURIComponent(X2.value||'')+'&y2='+encodeURIComponent(Y2.value||'');
   if(navigator.share){navigator.share({title:'Slope result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this line';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-line','Share this line');},1500);}
 });
 })();
 </script>
@@ -5280,7 +5280,7 @@ TEAMGEN = """<div class="tool" id="tt-tg">
   <div class="tool-note" id="tg-note">Press Shuffle to draw teams.</div>
   <div style="margin-top:10px"><button type="button" class="tool-btn" id="tg-run">Shuffle teams</button></div>
   <div class="tool-note" id="tg-list" style="margin-top:10px"></div>
-  <button type="button" class="tool-btn" id="tg-share">Share this draw</button>
+  <button type="button" class="tool-btn" id="tg-share" data-i18n="share.share-this-draw">Share this draw</button>
 </div>
 <script>(function(){
 var IN=document.getElementById('tg-in'),N=document.getElementById('tg-n');
@@ -5341,12 +5341,12 @@ else{try{var mem=JSON.parse(localStorage.getItem('tt_team')||'null');if(mem){IN.
 calc();
 if(names().length&&parseInt(N.value,10)>=2){run();}
 document.getElementById('tg-share').addEventListener('click',function(){
-  if(!lastDraw){this.textContent='Shuffle first';var b0=this;setTimeout(function(){b0.textContent='Share this draw';},1500);return;}
+  if(!lastDraw){this.textContent='Shuffle first';var b0=this;setTimeout(function(){b0.textContent=TT('share.share-this-draw','Share this draw');},1500);return;}
   var txt=lastDraw.map(function(t,i){return 'Team '+(i+1)+': '+t.join(', ');}).join(' | ');
   txt+='. Draw yours (no sign-up):';
   var url=location.origin+location.pathname+'?n='+encodeURIComponent(N.value||'')+'&s='+encodeURIComponent(IN.value.split(/[\\n\\r]+/).filter(function(x){return x.trim();}).join('|'));
   if(navigator.share){navigator.share({title:'Team draw',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this draw';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-draw','Share this draw');},1500);}
 });
 })();
 </script>
@@ -5371,7 +5371,7 @@ PAINTCALC = """<div class="tool" id="tt-pt">
     <div class="stat"><b id="pt-waste">–</b><span>with 10% rounding</span></div>
   </div>
   <div class="tool-note" id="pt-note"></div>
-  <button type="button" class="tool-btn" id="pt-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="pt-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var L=document.getElementById('pt-l'),W=document.getElementById('pt-w'),H=document.getElementById('pt-h'),DD=document.getElementById('pt-d'),NN=document.getElementById('pt-n'),C=document.getElementById('pt-c'),U=document.getElementById('pt-u');
@@ -5419,7 +5419,7 @@ document.getElementById('pt-share').addEventListener('click',function(){
   var txt='Paint estimate for a '+L.value+'x'+W.value+' room: '+OUT.textContent+' ('+document.getElementById('pt-area').textContent+' paintable). Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&h='+encodeURIComponent(H.value||'')+'&d='+encodeURIComponent(DD.value||'')+'&n='+encodeURIComponent(NN.value||'')+'&c='+C.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Paint estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -5443,7 +5443,7 @@ TILECALC = """<div class="tool" id="tt-ti">
     <div class="stat"><b id="ti-wst">–</b><span>includes 10% waste</span></div>
   </div>
   <div class="tool-note" id="ti-note"></div>
-  <button type="button" class="tool-btn" id="ti-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="ti-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var L=document.getElementById('ti-l'),W=document.getElementById('ti-w'),TW=document.getElementById('ti-tw'),TH=document.getElementById('ti-th'),B=document.getElementById('ti-b'),U=document.getElementById('ti-u');
@@ -5486,7 +5486,7 @@ document.getElementById('ti-share').addEventListener('click',function(){
   var txt='Tile estimate: '+OUT.textContent+' tiles ('+document.getElementById('ti-box').textContent+') for a '+document.getElementById('ti-area').textContent+' area. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value||'')+'&w='+encodeURIComponent(W.value||'')+'&tw='+encodeURIComponent(TW.value||'')+'&th='+encodeURIComponent(TH.value||'')+'&b='+encodeURIComponent(B.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Tile estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -5505,7 +5505,7 @@ HALFBDAY = """<div class="tool" id="tt-hb">
     <div class="stat"><b id="hb-next">–</b><span>next birthday</span></div>
   </div>
   <div class="tool-note" id="hb-note"></div>
-  <button type="button" class="tool-btn" id="hb-share">Share this countdown</button>
+  <button type="button" class="tool-btn" id="hb-share" data-i18n="share.share-this-countdown">Share this countdown</button>
 </div>
 <script>(function(){
 var B=document.getElementById('hb-b');
@@ -5566,7 +5566,7 @@ document.getElementById('hb-share').addEventListener('click',function(){
   var txt='My half birthday is '+document.getElementById('hb-date').textContent+' - '+OUT.textContent+'! Find yours (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'');
   if(navigator.share){navigator.share({title:'Half birthday',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this countdown';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent=TT('share.share-this-countdown','Share this countdown');},1500);}
 });
 })();
 </script>
@@ -5587,7 +5587,7 @@ RATIOCALC = """<div class="tool" id="tt-ra">
     <div class="stat"><b id="ra-pct">–</b><span>A as % of B</span></div>
   </div>
   <div class="tool-note" id="ra-note"></div>
-  <button type="button" class="tool-btn" id="ra-share">Share this ratio</button>
+  <button type="button" class="tool-btn" id="ra-share" data-i18n="share.share-this-ratio">Share this ratio</button>
 </div>
 <script>(function(){
 var A=document.getElementById('ra-a'),B=document.getElementById('ra-b'),C=document.getElementById('ra-c');
@@ -5624,7 +5624,7 @@ document.getElementById('ra-share').addEventListener('click',function(){
   var txt='Ratio solved: '+A.value+':'+B.value+' = '+C.value+':'+OUT.textContent+'. Solve yours (no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&b='+encodeURIComponent(B.value||'')+'&c='+encodeURIComponent(C.value||'');
   if(navigator.share){navigator.share({title:'Ratio result',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this ratio';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent=TT('share.share-this-ratio','Share this ratio');},1500);}
 });
 })();
 </script>
@@ -5661,7 +5661,7 @@ CALBURN = """<div class="tool" id="tt-cb">
     <div class="stat"><b id="cb-equiv">–</b><span>≈ in food</span></div>
   </div>
   <div class="tool-note" id="cb-note"></div>
-  <button type="button" class="tool-btn" id="cb-share">Share this burn</button>
+  <button type="button" class="tool-btn" id="cb-share" data-i18n="share.share-this-burn">Share this burn</button>
 </div>
 <script>(function(){
 var ACT=document.getElementById('cb-act'),M=document.getElementById('cb-m'),W=document.getElementById('cb-w'),U=document.getElementById('cb-u'),MI=document.getElementById('cb-min');
@@ -5699,7 +5699,7 @@ document.getElementById('cb-share').addEventListener('click',function(){
   var txt=ACT.options[ACT.selectedIndex].text+' for '+MI.value+' min: '+OUT.textContent+' kcal. Estimate yours (no sign-up):';
   var url=location.origin+location.pathname+'?a='+ACT.value+'&w='+encodeURIComponent(W.value||'')+'&min='+encodeURIComponent(MI.value||'')+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Calories burned',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this burn';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-burn','Share this burn');},1500);}
 });
 })();
 </script>
@@ -5720,7 +5720,7 @@ DEBTPAYOFF = """<div class="tool" id="tt-dp">
     <div class="stat"><b id="dp-yr">–</b><span>debt-free in</span></div>
   </div>
   <div class="tool-note" id="dp-note"></div>
-  <button type="button" class="tool-btn" id="dp-share">Share this payoff plan</button>
+  <button type="button" class="tool-btn" id="dp-share" data-i18n="share.share-this-payoff-plan">Share this payoff plan</button>
 </div>
 <script>(function(){
 var B=document.getElementById('dp-b'),R=document.getElementById('dp-r'),M=document.getElementById('dp-m');
@@ -5770,7 +5770,7 @@ document.getElementById('dp-share').addEventListener('click',function(){
   var txt='Debt payoff: '+OUT.textContent+' to clear '+B.value+' at '+R.value+'% APR paying '+M.value+'/mo ('+document.getElementById('dp-int').textContent+' interest). Model yours (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&r='+encodeURIComponent(R.value||'')+'&m='+encodeURIComponent(M.value||'');
   if(navigator.share){navigator.share({title:'Debt payoff plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this payoff plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent=TT('share.share-this-payoff-plan','Share this payoff plan');},1500);}
 });
 })();
 </script>
@@ -5792,7 +5792,7 @@ JSONTOOL = """<div class="tool" id="tt-js">
   </div>
   <pre id="js-pre" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:340px;overflow:auto;margin:10px 0"></pre>
   <div class="tool-note" id="js-note">Everything runs locally in your browser - API keys and payloads never leave this page.</div>
-  <button type="button" class="tool-btn" id="js-share">Share this tool</button>
+  <button type="button" class="tool-btn" id="js-share" data-i18n="share.share-this-tool">Share this tool</button>
 </div>
 <script>(function(){
 var IN=document.getElementById('js-in'),IND=document.getElementById('js-ind'),PRE=document.getElementById('js-pre');
@@ -5853,7 +5853,7 @@ document.getElementById('js-share').addEventListener('click',function(){
   var txt='Format and validate JSON locally in the browser - nothing uploaded: ';
   var url=location.origin+location.pathname+(IN.value.length<800?'?d='+encodeURIComponent(IN.value):'');
   if(navigator.share){navigator.share({title:'JSON formatter',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this tool';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-tool','Share this tool');},1500);}
 });
 })();
 </script>
@@ -6008,7 +6008,7 @@ JWTDECODE = """<div class="tool" id="tt-jw">
   <h3 style="margin:12px 0 4px">Payload</h3>
   <pre id="jw-p" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:280px;overflow:auto"></pre>
   <div class="tool-note" id="jw-note">Decode only - signatures are never verified here. Tokens stay in your browser: no URL state by design, so a token cannot leak into a shared link.</div>
-  <button type="button" class="tool-btn" id="jw-share">Share this tool</button>
+  <button type="button" class="tool-btn" id="jw-share" data-i18n="share.share-this-tool">Share this tool</button>
 </div>
 <script>(function(){
 var IN=document.getElementById('jw-in');
@@ -6078,7 +6078,7 @@ document.getElementById('jw-share').addEventListener('click',function(){
   var txt='Decode JWTs locally - header, payload and expiry timing, nothing uploaded: ';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'JWT decoder',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this tool';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-tool','Share this tool');},1500);}
 });
 })();
 </script>
@@ -6101,7 +6101,7 @@ AMORTIZE = """<div class="tool" id="tt-am">
   </div>
   <div class="tool-note" id="am-note"></div>
   <table id="am-t" style="width:100%;border-collapse:collapse;margin-top:10px;font-size:.88em"></table>
-  <button type="button" class="tool-btn" id="am-share">Share this schedule</button>
+  <button type="button" class="tool-btn" id="am-share" data-i18n="share.share-this-schedule">Share this schedule</button>
 </div>
 <script>(function(){
 var P=document.getElementById('am-p'),R=document.getElementById('am-r'),Y=document.getElementById('am-y'),X=document.getElementById('am-x');
@@ -6152,7 +6152,7 @@ document.getElementById('am-share').addEventListener('click',function(){
   var txt='Loan schedule: '+OUT.textContent+'/mo, '+document.getElementById('am-mo').textContent+' months, '+document.getElementById('am-int').textContent+' interest. Build yours (no sign-up):';
   var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value||'')+'&r='+encodeURIComponent(R.value||'')+'&y='+encodeURIComponent(Y.value||'')+'&x='+encodeURIComponent(X.value||'');
   if(navigator.share){navigator.share({title:'Amortization schedule',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this schedule';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-schedule','Share this schedule');},1500);}
 });
 })();
 </script>
@@ -6172,7 +6172,7 @@ CSV2JSON = """<div class="tool" id="tt-cj">
   </div>
   <pre id="cj-pre" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:340px;overflow:auto;margin:10px 0"></pre>
   <div class="tool-note" id="cj-note">Quotes handled: commas inside quoted cells stay put. Numeric cells become JSON numbers. Runs locally.</div>
-  <button type="button" class="tool-btn" id="cj-share">Share this converter</button>
+  <button type="button" class="tool-btn" id="cj-share" data-i18n="share.share-this-converter">Share this converter</button>
 </div>
 <script>(function(){
 var IN=document.getElementById('cj-in');
@@ -6236,7 +6236,7 @@ document.getElementById('cj-share').addEventListener('click',function(){
   var txt='Convert CSV to JSON locally in the browser: ';
   var url=location.origin+location.pathname+(IN.value.length<800?'?d='+encodeURIComponent(IN.value):'');
   if(navigator.share){navigator.share({title:'CSV to JSON',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this converter';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-converter','Share this converter');},1500);}
 });
 })();
 </script>
@@ -6253,7 +6253,7 @@ ONLINETIMER = """<div class="tool" id="tt-tm">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tm-out" style="font-variant-numeric:tabular-nums">10:00</span><span class="result-unit" id="tm-u">ready</span></div>
   <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="tm-go">Start</button><button type="button" class="tool-btn" id="tm-rst">Reset</button></div>
   <div class="tool-note" id="tm-note">The countdown keeps perfect time even if the tab throttles - it measures wall-clock, not ticks. Three beeps sound at zero and the tab title shows the time remaining.</div>
-  <button type="button" class="tool-btn" id="tm-share">Share this timer</button>
+  <button type="button" class="tool-btn" id="tm-share" data-i18n="share.share-this-timer">Share this timer</button>
 </div>
 <script>(function(){
 var M=document.getElementById('tm-m'),S=document.getElementById('tm-s');
@@ -6317,7 +6317,7 @@ document.getElementById('tm-share').addEventListener('click',function(){
   var txt='Set a timer for '+(total()||600)+' seconds and let the tab title count it down: ';
   var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value||'')+'&s='+encodeURIComponent(S.value||'');
   if(navigator.share){navigator.share({title:'Online timer',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent='Share this timer';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b2=this;setTimeout(function(){b2.textContent=TT('share.share-this-timer','Share this timer');},1500);}
 });
 })();
 </script>
@@ -6329,7 +6329,7 @@ STOPWATCH = """<div class="tool" id="tt-sw">
   <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="sw-go">Start</button><button type="button" class="tool-btn" id="sw-lap">Lap</button><button type="button" class="tool-btn" id="sw-rst">Reset</button></div>
   <div id="sw-laps" style="font-variant-numeric:tabular-nums;font-size:.95rem;margin-top:10px"></div>
   <div class="tool-note" id="sw-note">Measures real elapsed time from timestamps, so it stays accurate through tab throttling and even survives a page reload while running. Laps record splits.</div>
-  <button type="button" class="tool-btn" id="sw-share">Share this stopwatch</button>
+  <button type="button" class="tool-btn" id="sw-share" data-i18n="share.share-this-stopwatch">Share this stopwatch</button>
 </div>
 <script>(function(){
 var OUT=document.getElementById('sw-out'),U=document.getElementById('sw-u'),GO=document.getElementById('sw-go');
@@ -6375,7 +6375,7 @@ document.getElementById('sw-share').addEventListener('click',function(){
   var txt='Stopwatch at '+OUT.textContent+' with '+state.laps.length+' laps. Try it (no sign-up): ';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'Stopwatch',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this stopwatch';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-stopwatch','Share this stopwatch');},1500);}
 });
 })();
 </script>
@@ -6397,7 +6397,7 @@ STOCKAVG = """<div class="tool" id="tt-sa">
     <div class="stat"><b id="sa-dr">–</b><span>average lowered by</span></div>
   </div>
   <div class="tool-note" id="sa-note"></div>
-  <button type="button" class="tool-btn" id="sa-share">Share this cost basis</button>
+  <button type="button" class="tool-btn" id="sa-share" data-i18n="share.share-this-cost-basis">Share this cost basis</button>
 </div>
 <script>(function(){
 var E=document.getElementById('sa-e'),EP=document.getElementById('sa-ep'),N=document.getElementById('sa-n'),NP=document.getElementById('sa-np');
@@ -6429,7 +6429,7 @@ document.getElementById('sa-share').addEventListener('click',function(){
   var txt='Averaging '+E.value+'@'+money(parseFloat(EP.value))+' with '+N.value+'@'+money(parseFloat(NP.value))+' gives '+OUT.textContent+' average. Run your numbers (no sign-up):';
   var url=location.origin+location.pathname+'?e='+encodeURIComponent(E.value||'')+'&ep='+encodeURIComponent(EP.value||'')+'&n='+encodeURIComponent(N.value||'')+'&np='+encodeURIComponent(NP.value||'');
   if(navigator.share){navigator.share({title:'Stock average',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this cost basis';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-cost-basis','Share this cost basis');},1500);}
 });
 })();
 </script>
@@ -6453,7 +6453,7 @@ POSSIZE = """<div class="tool" id="tt-ps">
     <div class="stat"><b id="ps-rr">–</b><span>reward:risk</span></div>
   </div>
   <div class="tool-note" id="ps-note"></div>
-  <button type="button" class="tool-btn" id="ps-share">Share this position size</button>
+  <button type="button" class="tool-btn" id="ps-share" data-i18n="share.share-this-position-size">Share this position size</button>
 </div>
 <script>(function(){
 var A=document.getElementById('ps-a'),R=document.getElementById('ps-r'),EN=document.getElementById('ps-en'),SL=document.getElementById('ps-sl'),TG=document.getElementById('ps-tg');
@@ -6486,7 +6486,7 @@ document.getElementById('ps-share').addEventListener('click',function(){
   var txt='Position size: '+OUT.textContent+' shares for '+document.getElementById('ps-risk').textContent+' risk. Plan your trades (no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'')+'&en='+encodeURIComponent(EN.value||'')+'&sl='+encodeURIComponent(SL.value||'')+'&tg='+encodeURIComponent(TG.value||'');
   if(navigator.share){navigator.share({title:'Position size',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this position size';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-position-size','Share this position size');},1500);}
 });
 })();
 </script>
@@ -6514,7 +6514,7 @@ LOTTO = """<div class="tool" id="tt-lo">
     <div class="stat"><b id="lo-any">–</b><span>odds of any prize</span></div>
   </div>
   <div class="tool-note" id="lo-note"></div>
-  <button type="button" class="tool-btn" id="lo-share">Share these odds</button>
+  <button type="button" class="tool-btn" id="lo-share" data-i18n="share.share-these-odds">Share these odds</button>
 </div>
 <script>(function(){
 var G=document.getElementById('lo-g'),P=document.getElementById('lo-p'),J=document.getElementById('lo-j'),A=document.getElementById('lo-a'),B=document.getElementById('lo-b');
@@ -6557,7 +6557,7 @@ document.getElementById('lo-share').addEventListener('click',function(){
   var txt='Jackpot odds: 1 in '+OUT.textContent+'. Check what a jackpot is really worth (no sign-up):';
   var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value)+'&j='+encodeURIComponent(J.value||'');
   if(navigator.share){navigator.share({title:'Lottery odds',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share these odds';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-these-odds','Share these odds');},1500);}
 });
 })();
 </script>
@@ -6581,7 +6581,7 @@ POMODORO = """<div class="tool" id="tt-po">
   <div class="tool-note" id="po-note">Auto-runs focus → break cycles. The tab title counts down, so the timer survives tab-switching; progress is saved per day and comes back after a reload.</div>
   <button type="button" class="tool-btn" id="po-go">Start</button>
   <button type="button" class="tool-btn" id="po-reset">Reset</button>
-  <button type="button" class="tool-btn" id="po-share">Share today's count</button>
+  <button type="button" class="tool-btn" id="po-share" data-i18n="share.share-today-s-count">Share today's count</button>
 </div>
 <script>(function(){
 var W=document.getElementById('po-w'),B=document.getElementById('po-b'),L=document.getElementById('po-l');
@@ -6651,7 +6651,7 @@ PASSSTRENGTH = """<div class="tool" id="tt-pw">
     <div class="stat"><b id="pw-gpu">–</b><span>vs offline GPU (10^10/s)</span></div>
   </div>
   <div class="tool-note" id="pw-note"></div>
-  <button type="button" class="tool-btn" id="pw-share">Share the score (not the password)</button>
+  <button type="button" class="tool-btn" id="pw-share" data-i18n="share.share-the-score-not-the-password">Share the score (not the password)</button>
 </div>
 <script>(function(){
 var IN=document.getElementById('pw-in'),OUT=document.getElementById('pw-out');
@@ -6698,7 +6698,7 @@ document.getElementById('pw-share').addEventListener('click',function(){
   var txt='My test password scores '+OUT.textContent+' bits ('+document.getElementById('pw-verdict').textContent+') - it would survive an offline GPU attack for '+document.getElementById('pw-gpu')+'. Check yours (nothing is stored):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'Password strength',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share the score (not the password)';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-the-score-not-the-password','Share the score (not the password)');},1500);}
 });
 })();
 </script>
@@ -6721,7 +6721,7 @@ CRYPTOPROFIT = """<div class="tool" id="tt-cp">
     <div class="stat"><b id="cp-be">–</b><span>break-even sell price</span></div>
   </div>
   <div class="tool-note" id="cp-note"></div>
-  <button type="button" class="tool-btn" id="cp-share">Share this trade math</button>
+  <button type="button" class="tool-btn" id="cp-share" data-i18n="share.share-this-trade-math">Share this trade math</button>
 </div>
 <script>(function(){
 var B=document.getElementById('cp-b'),S=document.getElementById('cp-s'),Q=document.getElementById('cp-q'),F=document.getElementById('cp-f');
@@ -6754,7 +6754,7 @@ document.getElementById('cp-share').addEventListener('click',function(){
   var txt='Trade math: '+OUT.textContent+' ('+document.getElementById('cp-roi').textContent+' ROI) after fees, break-even at '+document.getElementById('cp-be').textContent+'. Run yours (no sign-up):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'')+'&s='+encodeURIComponent(S.value||'')+'&q='+encodeURIComponent(Q.value||'')+'&f='+encodeURIComponent(F.value||'');
   if(navigator.share){navigator.share({title:'Crypto profit',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this trade math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-trade-math','Share this trade math');},1500);}
 });
 })();
 </script>
@@ -6775,7 +6775,7 @@ PETAGE = """<div class="tool" id="tt-pa">
     <div class="stat"><b id="pa-pct">–</b><span>of life lived (est.)</span></div>
   </div>
   <div class="tool-note" id="pa-note"></div>
-  <button type="button" class="tool-btn" id="pa-share">Share this pet's age</button>
+  <button type="button" class="tool-btn" id="pa-share" data-i18n="share.share-this-pet-s-age">Share this pet's age</button>
 </div>
 <script>(function(){
 var Y=document.getElementById('pa-y'),M=document.getElementById('pa-m'),Z=document.getElementById('pa-z');
@@ -6845,7 +6845,7 @@ FLESCH = """<div class="tool" id="tt-fl">
     <div class="stat"><b id="fl-wps">–</b><span>words / sentence</span></div>
   </div>
   <div class="tool-note" id="fl-note"></div>
-  <button type="button" class="tool-btn" id="fl-share">Share this readability score</button>
+  <button type="button" class="tool-btn" id="fl-share" data-i18n="share.share-this-readability-score">Share this readability score</button>
 </div>
 <script>(function(){
 var IN=document.getElementById('fl-in'),OUT=document.getElementById('fl-out');
@@ -6881,7 +6881,7 @@ document.getElementById('fl-share').addEventListener('click',function(){
   var txt='My text scores '+OUT.textContent+'/100 reading ease ('+document.getElementById('fl-grade').textContent+'th grade level). Score yours (free, local):';
   var url=location.origin+location.pathname;
   if(navigator.share){navigator.share({title:'Flesch reading ease',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this readability score';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-readability-score','Share this readability score');},1500);}
 });
 })();
 </script>
@@ -6902,7 +6902,7 @@ DEWPOINT = """<div class="tool" id="tt-dp">
     <div class="stat"><b id="dp-gap">–</b><span>temp − dew point</span></div>
   </div>
   <div class="tool-note" id="dp-note"></div>
-  <button type="button" class="tool-btn" id="dp-share">Share this dew point</button>
+  <button type="button" class="tool-btn" id="dp-share" data-i18n="share.share-this-dew-point">Share this dew point</button>
 </div>
 <script>(function(){
 var U=document.getElementById('dp-u'),T=document.getElementById('dp-t'),H=document.getElementById('dp-h');
@@ -6938,7 +6938,7 @@ document.getElementById('dp-share').addEventListener('click',function(){
   var txt='Dew point '+OUT.textContent+'°'+U.value+' ('+document.getElementById('dp-band').textContent+'). Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?u='+encodeURIComponent(U.value)+'&t='+encodeURIComponent(T.value||'')+'&h='+encodeURIComponent(H.value||'');
   if(navigator.share){navigator.share({title:'Dew point',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this dew point';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-dew-point','Share this dew point');},1500);}
 });
 })();
 </script>
@@ -6962,7 +6962,7 @@ BTUCALC = """<div class="tool" id="tt-bt">
     <div class="stat"><b id="bt-base">–</b><span>base before adjustments</span></div>
   </div>
   <div class="tool-note" id="bt-note"></div>
-  <button type="button" class="tool-btn" id="bt-share">Share this AC size</button>
+  <button type="button" class="tool-btn" id="bt-share" data-i18n="share.share-this-ac-size">Share this AC size</button>
 </div>
 <script>(function(){
 var A=document.getElementById('bt-a'),H=document.getElementById('bt-h'),I=document.getElementById('bt-i'),S=document.getElementById('bt-s'),P=document.getElementById('bt-p'),K=document.getElementById('bt-k');
@@ -6996,7 +6996,7 @@ document.getElementById('bt-share').addEventListener('click',function(){
   var txt='My '+A.value+' m² room needs about '+OUT.textContent+' BTU of cooling. Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&h='+encodeURIComponent(H.value||'')+'&i='+I.value+'&s='+S.value;
   if(navigator.share){navigator.share({title:'BTU sizing',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this AC size';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-ac-size','Share this AC size');},1500);}
 });
 })();
 </script>
@@ -7021,7 +7021,7 @@ TIRE = """<div class="tool" id="tt-ts">
     <div class="stat"><b id="ts-fit">–</b><span>fitment verdict</span></div>
   </div>
   <div class="tool-note" id="ts-note"></div>
-  <button type="button" class="tool-btn" id="ts-share">Share this comparison</button>
+  <button type="button" class="tool-btn" id="ts-share" data-i18n="share.share-this-comparison">Share this comparison</button>
 </div>
 <script>(function(){
 var W=document.getElementById('ts-w'),A=document.getElementById('ts-a'),R=document.getElementById('ts-r'),
@@ -7057,7 +7057,7 @@ document.getElementById('ts-share').addEventListener('click',function(){
   var txt='Tire swap 225/45-17 → '+W2.value+'/'+A2.value+'-'+R2.value+' = '+OUT.textContent+'% diameter (speedo at '+document.getElementById('ts-speed').textContent+'). Compare yours (free):';
   var url=location.origin+location.pathname+'?w='+W.value+'&a='+A.value+'&r='+R.value+'&w2='+W2.value+'&a2='+A2.value+'&r2='+R2.value;
   if(navigator.share){navigator.share({title:'Tire size comparison',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this comparison';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-comparison','Share this comparison');},1500);}
 });
 })();
 </script>
@@ -7074,7 +7074,7 @@ HRZONE = """<div class="tool" id="tt-hz">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hz-out">–</span><span class="result-unit">max heart rate</span></div>
   <div class="stats" id="hz-rows"></div>
   <div class="tool-note" id="hz-note"></div>
-  <button type="button" class="tool-btn" id="hz-share">Share my zones</button>
+  <button type="button" class="tool-btn" id="hz-share" data-i18n="share.share-my-zones">Share my zones</button>
 </div>
 <script>(function(){
 var A=document.getElementById('hz-a'),R=document.getElementById('hz-r'),M=document.getElementById('hz-m');
@@ -7107,7 +7107,7 @@ document.getElementById('hz-share').addEventListener('click',function(){
   var txt='My max HR is '+OUT.textContent+' bpm - Z2 aerobic base runs '+(ROWS.textContent.split('Z2')[0]||'').trim()+' . Find your training zones (free):';
   var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value||'')+'&r='+encodeURIComponent(R.value||'')+'&m='+M.value;
   if(navigator.share){navigator.share({title:'HR zones',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my zones';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-zones','Share my zones');},1500);}
 });
 })();
 </script>
@@ -7130,7 +7130,7 @@ GOLF = """<div class="tool" id="tt-gf">
     <div class="stat"><b id="gf-vs">–</b><span>vs your index</span></div>
   </div>
   <div class="tool-note" id="gf-note"></div>
-  <button type="button" class="tool-btn" id="gf-share">Share this round math</button>
+  <button type="button" class="tool-btn" id="gf-share" data-i18n="share.share-this-round-math">Share this round math</button>
 </div>
 <script>(function(){
 var S=document.getElementById('gf-s'),C=document.getElementById('gf-c'),SL=document.getElementById('gf-sl'),HI=document.getElementById('gf-h'),P=document.getElementById('gf-p');
@@ -7160,7 +7160,7 @@ document.getElementById('gf-share').addEventListener('click',function(){
   var txt='Shot '+S.value+' on a '+C.value+'/'+SL.value+' course = '+OUT.textContent+' differential. Do your round math (free, no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&c='+C.value+'&sl='+SL.value;
   if(navigator.share){navigator.share({title:'Golf differential',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this round math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-round-math','Share this round math');},1500);}
 });
 })();
 </script>
@@ -7180,7 +7180,7 @@ BPMDelay = """<div class="tool" id="tt-bpm">
     <div class="stat"><b id="bp-bar">–</b><span>one 4/4 bar</span></div>
   </div>
   <div class="tool-note" id="bp-note"></div>
-  <button type="button" class="tool-btn" id="bp-share">Share these delay times</button>
+  <button type="button" class="tool-btn" id="bp-share" data-i18n="share.share-these-delay-times">Share these delay times</button>
 </div>
 <script>(function(){
 var B=document.getElementById('bp-b');
@@ -7209,7 +7209,7 @@ document.getElementById('bp-share').addEventListener('click',function(){
   var txt='At '+B.value+' BPM: 1/4 delay = '+OUT.textContent+' ms, dotted 1/8 = '+document.getElementById('bp-d8').textContent+'. Sync your delays (free):';
   var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value||'');
   if(navigator.share){navigator.share({title:'BPM delay times',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share these delay times';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-these-delay-times','Share these delay times');},1500);}
 });
 })();
 </script>
@@ -7234,7 +7234,7 @@ EVCHARGE = """<div class="tool" id="tt-ev">
     <div class="stat"><b id="ev-save">–</b><span>saved vs gas</span></div>
   </div>
   <div class="tool-note" id="ev-note"></div>
-  <button type="button" class="tool-btn" id="ev-share">Share this cost math</button>
+  <button type="button" class="tool-btn" id="ev-share" data-i18n="share.share-this-cost-math">Share this cost math</button>
 </div>
 <script>(function(){
 var U=document.getElementById('ev-u'),K=document.getElementById('ev-k'),E=document.getElementById('ev-e'),R=document.getElementById('ev-r'),G=document.getElementById('ev-g'),M=document.getElementById('ev-m');
@@ -7269,7 +7269,7 @@ document.getElementById('ev-share').addEventListener('click',function(){
   var txt='My EV costs '+OUT.textContent+' '+(U.value==='mi'?'per mile':'per km')+' to charge'+(parseFloat(G.value)>0?' vs '+document.getElementById('ev-gasc').textContent+' for gas':'')+'. Run your numbers (free):';
   var url=location.origin+location.pathname+'?k='+K.value+'&e='+E.value+'&r='+R.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'EV charging cost',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this cost math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-cost-math','Share this cost math');},1500);}
 });
 })();
 </script>
@@ -7291,7 +7291,7 @@ GOLDEN = """<div class="tool" id="tt-gh">
     <div class="stat"><b id="gh-len">–</b><span>window length</span></div>
   </div>
   <div class="tool-note" id="gh-note"></div>
-  <button type="button" class="tool-btn" id="gh-share">Share tonight's light</button>
+  <button type="button" class="tool-btn" id="gh-share" data-i18n="share.share-tonight-s-light">Share tonight's light</button>
 </div>
 <script>(function(){
 var D=document.getElementById('gh-d'),LA=document.getElementById('gh-la'),LO=document.getElementById('gh-lo');
@@ -7374,7 +7374,7 @@ PIZZA = """<div class="tool" id="tt-pz">
     <div class="stat"><b id="pz-tot">–</b><span>g total dough</span></div>
   </div>
   <div class="tool-note" id="pz-note"></div>
-  <button type="button" class="tool-btn" id="pz-share">Share this recipe</button>
+  <button type="button" class="tool-btn" id="pz-share" data-i18n="share.share-this-recipe">Share this recipe</button>
 </div>
 <script>(function(){
 var N=document.getElementById('pz-n'),W=document.getElementById('pz-w'),H=document.getElementById('pz-h'),Y=document.getElementById('pz-y');
@@ -7407,7 +7407,7 @@ document.getElementById('pz-share').addEventListener('click',function(){
   var txt=N.value+' pizzas: '+OUT.textContent+'g flour, '+document.getElementById('pz-wat').textContent+'g water, '+document.getElementById('pz-salt').textContent+'g salt. Scale your dough (free):';
   var url=location.origin+location.pathname+'?n='+N.value+'&w='+W.value+'&h='+H.value+'&y='+Y.value;
   if(navigator.share){navigator.share({title:'Pizza dough',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this recipe';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-recipe','Share this recipe');},1500);}
 });
 })();
 </script>
@@ -7428,7 +7428,7 @@ INFLATION = """<div class="tool" id="tt-inf">
     <div class="stat"><b id="inf-half">–</b><span>years to halve value</span></div>
   </div>
   <div class="tool-note" id="inf-note"></div>
-  <button type="button" class="tool-btn" id="inf-share">Share this math</button>
+  <button type="button" class="tool-btn" id="inf-share" data-i18n="share.share-this-math">Share this math</button>
 </div>
 <script>(function(){
 var A=document.getElementById('inf-a'),F=document.getElementById('inf-f'),T=document.getElementById('inf-t');
@@ -7462,7 +7462,7 @@ document.getElementById('inf-share').addEventListener('click',function(){
   var txt=A.value+' dollars in '+F.value+' = '+OUT.textContent+' in '+T.value+' money. Check any year (free, no sign-up):';
   var url=location.origin+location.pathname+'?a='+A.value+'&f='+F.value+'&t='+T.value;
   if(navigator.share){navigator.share({title:'Inflation calculator',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-math','Share this math');},1500);}
 });
 })();
 </script>
@@ -7483,7 +7483,7 @@ SLEEPDEBT = """<div class="tool" id="tt-sd">
     <div class="stat"><b id="sd-pay">–</b><span>nights to clear (at target+1h)</span></div>
   </div>
   <div class="tool-note" id="sd-note"></div>
-  <button type="button" class="tool-btn" id="sd-share">Share my sleep math</button>
+  <button type="button" class="tool-btn" id="sd-share" data-i18n="share.share-my-sleep-math">Share my sleep math</button>
 </div>
 <script>(function(){
 var A=document.getElementById('sd-a'),T=document.getElementById('sd-t'),N=document.getElementById('sd-n');
@@ -7514,7 +7514,7 @@ document.getElementById('sd-share').addEventListener('click',function(){
   var txt='My sleep math: '+A.value+'h vs a '+T.value+'h target = '+OUT.textContent+' hours of debt. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?a='+A.value+'&t='+T.value+'&n='+N.value;
   if(navigator.share){navigator.share({title:'Sleep debt',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share my sleep math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-my-sleep-math','Share my sleep math');},1500);}
 });
 })();
 </script>
@@ -7536,7 +7536,7 @@ COFFEE = """<div class="tool" id="tt-cf">
     <div class="stat"><b id="cf-scoop">–</b><span>tablespoons (whole beans)</span></div>
   </div>
   <div class="tool-note" id="cf-note"></div>
-  <button type="button" class="tool-btn" id="cf-share">Share this brew</button>
+  <button type="button" class="tool-btn" id="cf-share" data-i18n="share.share-this-brew">Share this brew</button>
 </div>
 <script>(function(){
 var D=document.getElementById('cf-d'),W=document.getElementById('cf-w'),B=document.getElementById('cf-b'),R=document.getElementById('cf-r');
@@ -7570,7 +7570,7 @@ document.getElementById('cf-share').addEventListener('click',function(){
   var txt='My brew: '+OUT.textContent+'g coffee at 1:'+R.value+' ('+document.getElementById('cf-strength').textContent+'). Dial in yours (free):';
   var url=location.origin+location.pathname+'?d='+D.value+'&w='+W.value+'&r='+R.value;
   if(navigator.share){navigator.share({title:'Coffee ratio',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this brew';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-brew','Share this brew');},1500);}
 });
 })();
 </script>
@@ -7591,7 +7591,7 @@ BREAKEVEN = """<div class="tool" id="tt-be">
     <div class="stat"><b id="be-cm">–</b><span>contribution margin</span></div>
   </div>
   <div class="tool-note" id="be-note"></div>
-  <button type="button" class="tool-btn" id="be-share">Share this break-even</button>
+  <button type="button" class="tool-btn" id="be-share" data-i18n="share.share-this-break-even">Share this break-even</button>
 </div>
 <script>(function(){
 var F=document.getElementById('be-f'),P=document.getElementById('be-p'),V=document.getElementById('be-v');
@@ -7624,7 +7624,7 @@ document.getElementById('be-share').addEventListener('click',function(){
   var txt='Break-even: '+OUT.textContent+' units/month ($'+P.value+' price, $'+V.value+' cost). Run your numbers (free, no sign-up):';
   var url=location.origin+location.pathname+'?f='+F.value+'&p='+P.value+'&v='+V.value;
   if(navigator.share){navigator.share({title:'Break-even',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this break-even';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-break-even','Share this break-even');},1500);}
 });
 })();
 </script>
@@ -7645,7 +7645,7 @@ IDEALW = """<div class="tool" id="tt-iw">
     <div class="stat"><b id="iw-lo">–</b><span>lower / upper of band</span></div>
   </div>
   <div class="tool-note" id="iw-note"></div>
-  <button type="button" class="tool-btn" id="iw-share">Share this range</button>
+  <button type="button" class="tool-btn" id="iw-share" data-i18n="share.share-this-range">Share this range</button>
 </div>
 <script>(function(){
 var U=document.getElementById('iw-u'),S=document.getElementById('iw-s'),H=document.getElementById('iw-h');
@@ -7681,7 +7681,7 @@ document.getElementById('iw-share').addEventListener('click',function(){
   var txt='Healthy weight band at my height: '+document.getElementById('iw-bmi').textContent+'. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?h='+H.value+'&u='+U.value+'&s='+S.value;
   if(navigator.share){navigator.share({title:'Ideal weight',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this range';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-range','Share this range');},1500);}
 });
 })();
 </script>
@@ -7754,7 +7754,7 @@ CAGR = """<div class="tool" id="tt-cg">
     <div class="stat"><b id="cg-dbl">–</b><span>years to double at this rate</span></div>
   </div>
   <div class="tool-note" id="cg-note"></div>
-  <button type="button" class="tool-btn" id="cg-share">Share this CAGR</button>
+  <button type="button" class="tool-btn" id="cg-share" data-i18n="share.share-this-cagr">Share this CAGR</button>
 </div>
 <script>(function(){
 var B=document.getElementById('cg-b'),E=document.getElementById('cg-e'),Y=document.getElementById('cg-y');
@@ -7783,7 +7783,7 @@ document.getElementById('cg-share').addEventListener('click',function(){
   var txt=B.value+' grew to '+E.value+' in '+Y.value+' years = '+OUT.textContent+' CAGR. Check your growth rate (free, no sign-up):';
   var url=location.origin+location.pathname+'?b='+B.value+'&e='+E.value+'&y='+Y.value;
   if(navigator.share){navigator.share({title:'CAGR',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this CAGR';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-cagr','Share this CAGR');},1500);}
 });
 })();
 </script>
@@ -7806,7 +7806,7 @@ POOL = """<div class="tool" id="tt-pl">
     <div class="stat"><b id="pl-ton">–</b><span>tonnes of water</span></div>
   </div>
   <div class="tool-note" id="pl-note"></div>
-  <button type="button" class="tool-btn" id="pl-share">Share this volume</button>
+  <button type="button" class="tool-btn" id="pl-share" data-i18n="share.share-this-volume">Share this volume</button>
 </div>
 <script>(function(){
 var S=document.getElementById('pl-s'),A=document.getElementById('pl-a'),B=document.getElementById('pl-b'),C=document.getElementById('pl-c'),U=document.getElementById('pl-u');
@@ -7846,7 +7846,7 @@ document.getElementById('pl-share').addEventListener('click',function(){
   var txt='My pool holds '+OUT.textContent+' '+(U.value==='m'?'liters':'gallons')+'. Calculate yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?s='+S.value+'&a='+A.value+(S.value!=='c'?'&b='+B.value:'')+'&c='+C.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Pool volume',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this volume';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-volume','Share this volume');},1500);}
 });
 })();
 </script>
@@ -7868,7 +7868,7 @@ TIMESPENT = """<div class="tool" id="tt-tsp">
     <div class="stat"><b id="ts2-work">–</b><span>40-hour work-weeks</span></div>
   </div>
   <div class="tool-note" id="ts2-note"></div>
-  <button type="button" class="tool-btn" id="ts2-share">Share this math</button>
+  <button type="button" class="tool-btn" id="ts2-share" data-i18n="share.share-this-math">Share this math</button>
 </div>
 <script>(function(){
 var H=document.getElementById('ts2-h'),D=document.getElementById('ts2-d'),A=document.getElementById('ts2-a'),T=document.getElementById('ts2-t');
@@ -7898,7 +7898,7 @@ document.getElementById('ts2-share').addEventListener('click',function(){
   var txt=H.value+' hours a day from age '+A.value+' to '+T.value+' = '+OUT.textContent+' years of my life. Run your own math (free):';
   var url=location.origin+location.pathname+'?h='+H.value+'&d='+D.value+'&a='+A.value+'&t='+T.value;
   if(navigator.share){navigator.share({title:'Time spent',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-math','Share this math');},1500);}
 });
 })();
 </script>
@@ -7926,7 +7926,7 @@ MEATTIME = """<div class="tool" id="tt-mt">
     <div class="stat"><b id="mt-total">–</b><span>total including rest</span></div>
   </div>
   <div class="tool-note" id="mt-note"></div>
-  <button type="button" class="tool-btn" id="mt-share">Share this roast plan</button>
+  <button type="button" class="tool-btn" id="mt-share" data-i18n="share.share-this-roast-plan">Share this roast plan</button>
 </div>
 <script>(function(){
 var M=document.getElementById('mt-m'),W=document.getElementById('mt-w'),U=document.getElementById('mt-u');
@@ -7959,7 +7959,7 @@ document.getElementById('mt-share').addEventListener('click',function(){
   var txt=M.options[M.selectedIndex].text+' ('+W.value+(U.value==='k'?'kg':'lb')+'): '+OUT.textContent+' at 180°C, rest '+t[2]+' min. Plan your roast (free):';
   var url=location.origin+location.pathname+'?m='+M.value+'&w='+W.value+'&u='+U.value;
   if(navigator.share){navigator.share({title:'Roast timing',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this roast plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-roast-plan','Share this roast plan');},1500);}
 });
 })();
 </script>
@@ -7980,7 +7980,7 @@ CARDEP = """<div class="tool" id="tt-cd">
     <div class="stat"><b id="cd-yr">–</b><span>avg cost per year owned</span></div>
   </div>
   <div class="tool-note" id="cd-note"></div>
-  <button type="button" class="tool-btn" id="cd-share">Share this math</button>
+  <button type="button" class="tool-btn" id="cd-share" data-i18n="share.share-this-math">Share this math</button>
 </div>
 <script>(function(){
 var P=document.getElementById('cd-p'),Y=document.getElementById('cd-y'),R=document.getElementById('cd-r');
@@ -8009,7 +8009,7 @@ document.getElementById('cd-share').addEventListener('click',function(){
   var txt='A $'+P.value+' car after '+Y.value+' years at '+R.value+'%/yr: '+OUT.textContent+'. Depreciation is the real cost - check yours (free):';
   var url=location.origin+location.pathname+'?p='+P.value+'&y='+Y.value+'&r='+R.value;
   if(navigator.share){navigator.share({title:'Car depreciation',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-math','Share this math');},1500);}
 });
 })();
 </script>
@@ -8029,7 +8029,7 @@ JETLAG = """<div class="tool" id="tt-jl">
     <div class="stat"><b id="jl-back">–</b><span>days to readjust home</span></div>
   </div>
   <div class="tool-note" id="jl-note"></div>
-  <button type="button" class="tool-btn" id="jl-share">Share this plan</button>
+  <button type="button" class="tool-btn" id="jl-share" data-i18n="share.share-this-plan">Share this plan</button>
 </div>
 <script>(function(){
 var Z=document.getElementById('jl-z'),D=document.getElementById('jl-d');
@@ -8059,7 +8059,7 @@ document.getElementById('jl-share').addEventListener('click',function(){
   var txt=Z.value+' time zones '+(D.value==='e'?'east':'west')+'ward = about '+OUT.textContent+' days of jet lag. Plan yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?z='+Z.value+'&d='+D.value;
   if(navigator.share){navigator.share({title:'Jet lag plan',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this plan';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-plan','Share this plan');},1500);}
 });
 })();
 </script>
@@ -8081,7 +8081,7 @@ PAINT = """<div class="tool" id="tt-pa">
     <div class="stat"><b id="pa-s3">–</b><span>buy (10% spare)</span></div>
   </div>
   <div class="tool-note" id="pa-note"></div>
-  <button type="button" class="tool-btn" id="pa-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="pa-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var F=['pa-w','pa-h','pa-n','pa-c','pa-x','pa-cv'].map(function(id){return document.getElementById(id);});
@@ -8111,7 +8111,7 @@ document.getElementById('pa-share').addEventListener('click',function(){
   var txt='Painting '+document.getElementById('pa-s1').textContent+' needs about '+OUT.textContent+' L ('+document.getElementById('pa-s3').textContent+' with spare). Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+F[0].value+'&h='+F[1].value+'&n='+F[2].value+'&c='+F[3].value+'&x='+F[4].value+'&cv='+F[5].value;
   if(navigator.share){navigator.share({title:'Paint estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -8132,7 +8132,7 @@ MULCH = """<div class="tool" id="tt-mu">
     <div class="stat"><b id="mu-s3">–</b><span>total cost</span></div>
   </div>
   <div class="tool-note" id="mu-note"></div>
-  <button type="button" class="tool-btn" id="mu-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="mu-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var F=['mu-l','mu-w','mu-d','mu-b','mu-p'].map(function(id){return document.getElementById(id);});
@@ -8162,7 +8162,7 @@ document.getElementById('mu-share').addEventListener('click',function(){
   var txt=document.getElementById('mu-s1').textContent+' of beds at '+F[2].value+' cm deep = '+OUT.textContent+' bags of mulch. Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?l='+F[0].value+'&w='+F[1].value+'&d='+F[2].value+'&b='+F[3].value+'&p='+F[4].value;
   if(navigator.share){navigator.share({title:'Mulch estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -8182,7 +8182,7 @@ LAMINATE = """<div class="tool" id="tt-lm">
     <div class="stat"><b id="lm-s3">–</b><span>extra you buy</span></div>
   </div>
   <div class="tool-note" id="lm-note"></div>
-  <button type="button" class="tool-btn" id="lm-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="lm-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var F=['lm-l','lm-w','lm-p','lm-s'].map(function(id){return document.getElementById(id);});
@@ -8212,7 +8212,7 @@ document.getElementById('lm-share').addEventListener('click',function(){
   var txt=document.getElementById('lm-s1').textContent+' room = '+OUT.textContent+' packs of laminate (with '+F[3].value+'% waste). Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?l='+F[0].value+'&w='+F[1].value+'&p='+F[2].value+'&s='+F[3].value;
   if(navigator.share){navigator.share({title:'Laminate estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -8233,7 +8233,7 @@ WALLP = """<div class="tool" id="tt-wp">
     <div class="stat"><b id="wp-s3">–</b><span>cut length</span></div>
   </div>
   <div class="tool-note" id="wp-note"></div>
-  <button type="button" class="tool-btn" id="wp-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="wp-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var F=['wp-p','wp-h','wp-rw','wp-rl','wp-r'].map(function(id){return document.getElementById(id);});
@@ -8269,7 +8269,7 @@ document.getElementById('wp-share').addEventListener('click',function(){
   var txt=OUT.textContent+' rolls of wallpaper for '+F[0].value+' m of walls'+(parseFloat(F[4].value)>0?' with a '+F[4].value+' cm pattern repeat':'')+'. Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?p='+F[0].value+'&h='+F[1].value+'&rw='+F[2].value+'&rl='+F[3].value+'&r='+F[4].value;
   if(navigator.share){navigator.share({title:'Wallpaper estimate',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -8288,7 +8288,7 @@ DIAPERS = """<div class="tool" id="tt-dp">
     <div class="stat"><b id="dp-s3">–</b><span>per year</span></div>
   </div>
   <div class="tool-note" id="dp-note"></div>
-  <button type="button" class="tool-btn" id="dp-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="dp-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var F=['dp-n','dp-p','dp-m'].map(function(id){return document.getElementById(id);});
@@ -8317,7 +8317,7 @@ document.getElementById('dp-share').addEventListener('click',function(){
   var txt=OUT.textContent+' of diapers over '+F[2].value+' months (about '+document.getElementById('dp-s2').textContent+'/month). Price yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?n='+F[0].value+'&p='+F[1].value+'&m='+F[2].value;
   if(navigator.share){navigator.share({title:'Diaper cost',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -8334,7 +8334,7 @@ WAKE = """<div class="tool" id="tt-ww">
     <div class="stat"><b id="ww-s3">–</b><span>total sleep / day</span></div>
   </div>
   <div class="tool-note" id="ww-note"></div>
-  <button type="button" class="tool-btn" id="ww-share">Share this guide</button>
+  <button type="button" class="tool-btn" id="ww-share" data-i18n="share.share-this-guide">Share this guide</button>
 </div>
 <script>(function(){
 var A=document.getElementById('ww-a');
@@ -8363,7 +8363,7 @@ document.getElementById('ww-share').addEventListener('click',function(){
   var txt='At '+A.value+' months, typical wake windows are '+OUT.textContent+' min. Check your baby (free, no sign-up):';
   var url=location.origin+location.pathname+'?a='+A.value;
   if(navigator.share){navigator.share({title:'Wake windows',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this guide';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-guide','Share this guide');},1500);}
 });
 })();
 </script>
@@ -8381,7 +8381,7 @@ FORMULA = """<div class="tool" id="tt-ff">
     <div class="stat"><b id="ff-s3">–</b><span>fl oz per feed</span></div>
   </div>
   <div class="tool-note" id="ff-note"></div>
-  <button type="button" class="tool-btn" id="ff-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="ff-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var F=['ff-w','ff-f'].map(function(id){return document.getElementById(id);});
@@ -8409,7 +8409,7 @@ document.getElementById('ff-share').addEventListener('click',function(){
   var txt='At '+F[0].value+' kg and '+F[1].value+' feeds/day: about '+OUT.textContent+' ml per feed. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+F[0].value+'&f='+F[1].value;
   if(navigator.share){navigator.share({title:'Formula feeding',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -8427,7 +8427,7 @@ PROTEIN = """<div class="tool" id="tt-pr">
     <div class="stat"><b id="pr-s3">–</b><span>chicken breast equiv.</span></div>
   </div>
   <div class="tool-note" id="pr-note"></div>
-  <button type="button" class="tool-btn" id="pr-share">Share this target</button>
+  <button type="button" class="tool-btn" id="pr-share" data-i18n="share.share-this-target">Share this target</button>
 </div>
 <script>(function(){
 var W=document.getElementById('pr-w'),G=document.getElementById('pr-g');
@@ -8455,7 +8455,7 @@ document.getElementById('pr-share').addEventListener('click',function(){
   var txt=Math.round(parseFloat(W.value)*(RG[G.value][0]+RG[G.value][1])/2)+' g protein a day for '+W.value+' kg. Get yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+W.value+'&g='+G.value;
   if(navigator.share){navigator.share({title:'Protein target',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this target';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-target','Share this target');},1500);}
 });
 })();
 </script>
@@ -8473,7 +8473,7 @@ CREATINE = """<div class="tool" id="tt-cr">
     <div class="stat"><b id="cr-s3">–</b><span>days of 500 g tub</span></div>
   </div>
   <div class="tool-note" id="cr-note"></div>
-  <button type="button" class="tool-btn" id="cr-share">Share this dose</button>
+  <button type="button" class="tool-btn" id="cr-share" data-i18n="share.share-this-dose">Share this dose</button>
 </div>
 <script>(function(){
 var W=document.getElementById('cr-w'),M=document.getElementById('cr-m');
@@ -8500,7 +8500,7 @@ document.getElementById('cr-share').addEventListener('click',function(){
   var txt=OUT.textContent+' g creatine a day for '+W.value+' kg'+(M.value==='load'?' after a loading week':'')+'. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+W.value+'&m='+M.value;
   if(navigator.share){navigator.share({title:'Creatine dose',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this dose';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-dose','Share this dose');},1500);}
 });
 })();
 </script>
@@ -8521,7 +8521,7 @@ DATAUSAGE = """<div class="tool" id="tt-du">
     <div class="stat"><b id="du-s3">–</b><span>unlimited-plan cut</span></div>
   </div>
   <div class="tool-note" id="du-note"></div>
-  <button type="button" class="tool-btn" id="du-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="du-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var F=['du-s','du-sh','du-mu','du-vc','du-we'].map(function(id){return document.getElementById(id);});
@@ -8550,7 +8550,7 @@ document.getElementById('du-share').addEventListener('click',function(){
   var txt='My household burns about '+OUT.textContent+' GB a month. Measure yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?s='+F[0].value+'&sh='+F[1].value+'&mu='+F[2].value+'&vc='+F[3].value+'&we='+F[4].value;
   if(navigator.share){navigator.share({title:'Data usage',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -8568,7 +8568,7 @@ FLIGHTDELAY = """<div class="tool" id="tt-fd">
     <div class="stat"><b id="fd-s3">–</b><span>also claimable</span></div>
   </div>
   <div class="tool-note" id="fd-note"></div>
-  <button type="button" class="tool-btn" id="fd-share">Share this result</button>
+  <button type="button" class="tool-btn" id="fd-share" data-i18n="share.share-this-result">Share this result</button>
 </div>
 <script>(function(){
 var K=document.getElementById('fd-k'),H=document.getElementById('fd-h');
@@ -8600,7 +8600,7 @@ document.getElementById('fd-share').addEventListener('click',function(){
   var txt='Delay of '+H.value+' h on a '+K.value+' km flight = fixed compensation '+OUT.textContent+'. Check yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?k='+K.value+'&h='+H.value;
   if(navigator.share){navigator.share({title:'Flight delay compensation',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this result';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-result','Share this result');},1500);}
 });
 })();
 </script>
@@ -8624,7 +8624,7 @@ SUBS = """<div class="tool" id="tt-sub">
     <div class="stat"><b id="su-s3">–</b><span>cut biggest, save</span></div>
   </div>
   <div class="tool-note" id="su-note"></div>
-  <button type="button" class="tool-btn" id="su-share">Share this audit</button>
+  <button type="button" class="tool-btn" id="su-share" data-i18n="share.share-this-audit">Share this audit</button>
 </div>
 <script>(function(){
 var F=['su-p1','su-f1','su-p2','su-f2','su-p3','su-f3','su-p4','su-f4'].map(function(id){return document.getElementById(id);});
@@ -8651,7 +8651,7 @@ document.getElementById('su-share').addEventListener('click',function(){
   var txt=OUT.textContent+' a year on subscriptions. Audit yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Subscription audit',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this audit';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-audit','Share this audit');},1500);}
 });
 })();
 </script>
@@ -8670,7 +8670,7 @@ SILVERVAL = """<div class="tool" id="tt-sv">
     <div class="stat"><b id="sv-s3">–</b><span>typical dealer offer</span></div>
   </div>
   <div class="tool-note" id="sv-note"></div>
-  <button type="button" class="tool-btn" id="sv-share">Share this value</button>
+  <button type="button" class="tool-btn" id="sv-share" data-i18n="share.share-this-value">Share this value</button>
 </div>
 <script>(function(){
 var F=['sv-w','sv-p','sv-s'].map(function(id){return document.getElementById(id);});
@@ -8699,7 +8699,7 @@ document.getElementById('sv-share').addEventListener('click',function(){
   var txt=F[0].value+' g of silver = '+OUT.textContent+' melt value. Value yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?w='+F[0].value+'&p='+F[1].value+'&s='+F[2].value;
   if(navigator.share){navigator.share({title:'Silver value',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this value';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-value','Share this value');},1500);}
 });
 })();
 </script>
@@ -8721,7 +8721,7 @@ YARN = """<div class="tool" id="tt-yn">
     <div class="stat"><b id="yn-s3">–</b><span>project ÷ swatch area</span></div>
   </div>
   <div class="tool-note" id="yn-note"></div>
-  <button type="button" class="tool-btn" id="yn-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="yn-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var F=['yn-sw','yn-sh','yn-sy','yn-pw','yn-ph','yn-sk'].map(function(id){return document.getElementById(id);});
@@ -8750,7 +8750,7 @@ document.getElementById('yn-share').addEventListener('click',function(){
   var txt='That project needs about '+OUT.textContent+' m of yarn ('+document.getElementById('yn-s2').textContent+' skeins). Size yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Yarn yardage',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>
@@ -8770,7 +8770,7 @@ CASTON = """<div class="tool" id="tt-co">
     <div class="stat"><b id="co-s3">–</b><span>finished stretch</span></div>
   </div>
   <div class="tool-note" id="co-note"></div>
-  <button type="button" class="tool-btn" id="co-share">Share this number</button>
+  <button type="button" class="tool-btn" id="co-share" data-i18n="share.share-this-number">Share this number</button>
 </div>
 <script>(function(){
 var F=['co-h','co-g','co-n','co-m'].map(function(id){return document.getElementById(id);});
@@ -8799,7 +8799,7 @@ document.getElementById('co-share').addEventListener('click',function(){
   var txt='Cast on '+OUT.textContent+' stitches for a '+F[0].value+' cm head. Get yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Cast-on count',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this number';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-number','Share this number');},1500);}
 });
 })();
 </script>
@@ -8819,7 +8819,7 @@ CURTAIN = """<div class="tool" id="tt-cu">
     <div class="stat"><b id="cu-s3">–</b><span>gathering width</span></div>
   </div>
   <div class="tool-note" id="cu-note"></div>
-  <button type="button" class="tool-btn" id="cu-share">Share this estimate</button>
+  <button type="button" class="tool-btn" id="cu-share" data-i18n="share.share-this-estimate">Share this estimate</button>
 </div>
 <script>(function(){
 var F=['cu-w','cu-d','cu-f','cu-r'].map(function(id){return document.getElementById(id);});
@@ -8850,7 +8850,7 @@ document.getElementById('cu-share').addEventListener('click',function(){
   var txt='Those curtains need about '+OUT.textContent+' m of fabric ('+document.getElementById('cu-s1').textContent+' panels). Measure yours (free, no sign-up):';
   var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
   if(navigator.share){navigator.share({title:'Curtain fabric',text:txt,url:url}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('share.share-this-estimate','Share this estimate');},1500);}
 });
 })();
 </script>

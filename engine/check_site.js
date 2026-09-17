@@ -35,6 +35,20 @@ for (const f of files) {
     } catch (e) { fail++; console.log('SPEC FAIL', f, e.message); }
   }
   if (!/canonical/.test(html)) { fail++; console.log('NO CANONICAL', f); }
+  // skip-link pattern: anchor targets #main and <main> receives focus
+  // (tabindex="-1") so keyboard focus actually moves past the header
+  // (games/ redirect stubs ship a minimal head, so they're exempt too)
+  if (html.includes('og:title')) {
+    checked++;
+    if (!/<a class="skip" href="#main"/.test(html)) {
+      fail++; console.log('SKIP FAIL', f, 'skip link missing');
+    } else {
+      const main = html.match(/<main[^>]*>/) || [];
+      if (!main[0] || !main[0].includes('id="main"') || !main[0].includes('tabindex="-1"')) {
+        fail++; console.log('SKIP FAIL', f, '<main> must carry id="main" + tabindex="-1" (skip-link target)');
+      }
+    }
+  }
   // full-head pages must ask for large image previews in search listings
   // (games/ redirect stubs ship their own minimal head, so they're exempt)
   if (html.includes('og:title')) {
