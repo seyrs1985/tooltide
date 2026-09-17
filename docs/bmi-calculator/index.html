@@ -83,10 +83,13 @@ function calc(){
     document.getElementById('bmi-lo').textContent='–';document.getElementById('bmi-hi').textContent='–';
     document.title='BMI Calculator - ToolTide';return;}
   var bmi=imp?703*w/(h*h):w/((h/100)*(h/100)),u2=imp?'lb':'kg';
-  var cat='Obese (Class I) - BMI 30-34.9';
-  if(bmi<18.5)cat='Underweight - BMI below 18.5';
-  else if(bmi<25)cat='Healthy weight - BMI 18.5-24.9';
-  else if(bmi<30)cat='Overweight - BMI 25-29.9';
+  var cat=TT('bmi.v.o1','Obese (Class I) - BMI 30-34.9');
+  if(bmi<18.5)cat=TT('bmi.v.uw','Underweight - BMI below 18.5');
+  else if(bmi<25)cat=TT('bmi.v.hw','Healthy weight - BMI 18.5-24.9');
+  else if(bmi<30)cat=TT('bmi.v.ow','Overweight - BMI 25-29.9');
+  else if(bmi<35)cat=TT('bmi.v.o1','Obese (Class I) - BMI 30-34.9');
+  else if(bmi<40)cat=TT('bmi.v.o2','Obese (Class II) - BMI 35-39.9');
+  else cat=TT('bmi.v.o3','Obese (Class III) - BMI 40+');
   document.getElementById('bmi-cat').textContent=cat;
   OUT.textContent=Math.round(bmi*10)/10;
   document.getElementById('bmi-lo').textContent=Math.round(18.5*(imp?(h/39.37)*(h/39.37):(h/100)*(h/100)))+' '+u2;

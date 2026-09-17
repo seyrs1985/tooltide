@@ -251,7 +251,13 @@ zh:{
  "tip.tpp":"小费/人",
  "bmi.cat":"WHO 分类",
  "bmi.lo":"健康下限",
- "bmi.hi":"健康上限"
+ "bmi.hi":"健康上限",
+ "bmi.v.uw":"体重过轻 - BMI 低于 18.5",
+ "bmi.v.hw":"健康体重 - BMI 18.5-24.9",
+ "bmi.v.ow":"超重 - BMI 25-29.9",
+ "bmi.v.o1":"肥胖（I 级）- BMI 30-34.9",
+ "bmi.v.o2":"肥胖（II 级）- BMI 35-39.9",
+ "bmi.v.o3":"肥胖（III 级）- BMI 40 及以上"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -483,7 +489,13 @@ es:{
  "tip.tpp":"propina/persona",
  "bmi.cat":"categoría OMS",
  "bmi.lo":"límite sano inf.",
- "bmi.hi":"límite sano sup."
+ "bmi.hi":"límite sano sup.",
+ "bmi.v.uw":"Bajo peso - IMC por debajo de 18.5",
+ "bmi.v.hw":"Peso saludable - IMC 18.5-24.9",
+ "bmi.v.ow":"Sobrepeso - IMC 25-29.9",
+ "bmi.v.o1":"Obesidad (Grado I) - IMC 30-34.9",
+ "bmi.v.o2":"Obesidad (Grado II) - IMC 35-39.9",
+ "bmi.v.o3":"Obesidad (Grado III) - IMC 40 o más"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -715,7 +727,13 @@ pt:{
  "tip.tpp":"gorjeta/pessoa",
  "bmi.cat":"categoria OMS",
  "bmi.lo":"mínimo saudável",
- "bmi.hi":"máximo saudável"
+ "bmi.hi":"máximo saudável",
+ "bmi.v.uw":"Abaixo do peso - IMC abaixo de 18.5",
+ "bmi.v.hw":"Peso saudável - IMC 18.5-24.9",
+ "bmi.v.ow":"Sobrepeso - IMC 25-29.9",
+ "bmi.v.o1":"Obesidade (Grau I) - IMC 30-34.9",
+ "bmi.v.o2":"Obesidade (Grau II) - IMC 35-39.9",
+ "bmi.v.o3":"Obesidade (Grau III) - IMC 40 ou mais"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -947,7 +965,13 @@ ru:{
  "tip.tpp":"чаевые/чел.",
  "bmi.cat":"категория ВОЗ",
  "bmi.lo":"здоровый мин.",
- "bmi.hi":"здоровый макс."
+ "bmi.hi":"здоровый макс.",
+ "bmi.v.uw":"Недостаточный вес - ИМТ ниже 18.5",
+ "bmi.v.hw":"Здоровый вес - ИМТ 18.5-24.9",
+ "bmi.v.ow":"Избыточный вес - ИМТ 25-29.9",
+ "bmi.v.o1":"Ожирение (I ст.) - ИМТ 30-34.9",
+ "bmi.v.o2":"Ожирение (II ст.) - ИМТ 35-39.9",
+ "bmi.v.o3":"Ожирение (III ст.) - ИМТ 40 и выше"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -1179,7 +1203,13 @@ ja:{
  "tip.tpp":"チップ/人",
  "bmi.cat":"WHO分類",
  "bmi.lo":"健康下限",
- "bmi.hi":"健康上限"
+ "bmi.hi":"健康上限",
+ "bmi.v.uw":"低体重 - BMI 18.5未満",
+ "bmi.v.hw":"健康体重 - BMI 18.5-24.9",
+ "bmi.v.ow":"過体重 - BMI 25-29.9",
+ "bmi.v.o1":"肥満（1度）- BMI 30-34.9",
+ "bmi.v.o2":"肥満（2度）- BMI 35-39.9",
+ "bmi.v.o3":"肥満（3度）- BMI 40以上"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -1411,7 +1441,13 @@ ko:{
  "tip.tpp":"팁/인",
  "bmi.cat":"WHO 분류",
  "bmi.lo":"건강 하한",
- "bmi.hi":"건강 상한"
+ "bmi.hi":"건강 상한",
+ "bmi.v.uw":"저체중 - BMI 18.5 미만",
+ "bmi.v.hw":"건강 체중 - BMI 18.5-24.9",
+ "bmi.v.ow":"과체중 - BMI 25-29.9",
+ "bmi.v.o1":"비만 (1단계) - BMI 30-34.9",
+ "bmi.v.o2":"비만 (2단계) - BMI 35-39.9",
+ "bmi.v.o3":"비만 (3단계) - BMI 40 이상"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -1643,7 +1679,13 @@ de:{
  "tip.tpp":"Trinkgeld/Person",
  "bmi.cat":"WHO-Kategorie",
  "bmi.lo":"gesundheitl. Untergrenze",
- "bmi.hi":"gesundheitl. Obergrenze"
+ "bmi.hi":"gesundheitl. Obergrenze",
+ "bmi.v.uw":"Untergewicht - BMI unter 18,5",
+ "bmi.v.hw":"Normalgewicht - BMI 18,5-24,9",
+ "bmi.v.ow":"Übergewicht - BMI 25-29,9",
+ "bmi.v.o1":"Fettleibigkeit (Grad I) - BMI 30-34,9",
+ "bmi.v.o2":"Fettleibigkeit (Grad II) - BMI 35-39,9",
+ "bmi.v.o3":"Fettleibigkeit (Grad III) - BMI 40+"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -1875,7 +1917,13 @@ fr:{
  "tip.tpp":"pourboire/personne",
  "bmi.cat":"catégorie OMS",
  "bmi.lo":"limite santé basse",
- "bmi.hi":"limite santé haute"
+ "bmi.hi":"limite santé haute",
+ "bmi.v.uw":"Insuffisance pondérale - IMC inférieur à 18,5",
+ "bmi.v.hw":"Poids sain - IMC 18,5-24,9",
+ "bmi.v.ow":"Surpoids - IMC 25-29,9",
+ "bmi.v.o1":"Obésité (classe I) - IMC 30-34,9",
+ "bmi.v.o2":"Obésité (classe II) - IMC 35-39,9",
+ "bmi.v.o3":"Obésité (classe III) - IMC 40 et plus"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -2107,7 +2155,13 @@ id:{
  "tip.tpp":"tip/orang",
  "bmi.cat":"kategori WHO",
  "bmi.lo":"batas sehat bawah",
- "bmi.hi":"batas sehat atas"
+ "bmi.hi":"batas sehat atas",
+ "bmi.v.uw":"Berat badan kurang - IMT di bawah 18.5",
+ "bmi.v.hw":"Berat badan sehat - IMT 18.5-24.9",
+ "bmi.v.ow":"Berat badan berlebih - IMT 25-29.9",
+ "bmi.v.o1":"Obesitas (Kelas I) - IMT 30-34.9",
+ "bmi.v.o2":"Obesitas (Kelas II) - IMT 35-39.9",
+ "bmi.v.o3":"Obesitas (Kelas III) - IMT 40+"
 }
 };
 function detect(){
