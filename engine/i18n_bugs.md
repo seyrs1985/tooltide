@@ -25,7 +25,7 @@
 - BUG-003|卡片/工具页图标|与语言无关(Win10 Chromium 缺 U13/U14 字形)|emoji 豆腐块:🪞idealweight、🪙coinflip、🪚inchfrac、🛞tire|i18n_shots/home-zh-top-1.png|已修+线上复验通过 2026-09-14 R1(TOOL_EMOJI 换 ⚖️/💰/📏/🚗;🪐 为 U12 保留不动)
 
 ## 范围外(记录不修)
-- 范围外转交|bmi-calculator|全部|①bmi-cat动态分类值为英文(Underweight/Healthy weight/Overweight/Obese Class I...5变体,属BUG-013余量待接键);②疑似逻辑缺陷:bmi≥35时仍显示Class I - BMI 30-34.9(缺Class II/III分支),数值误导,建议扩页/UX侧修calc()分支|R11巡逻发现
+- BUG-013续5|bmi-calculator|ru全部|①bmi-cat动态分类值6变体英文硬编码;②逻辑缺陷:BMI≥35误标Class I - BMI 30-34.9(缺Class II/III分支,数值误导)|IAB URL参数实证(?h=170&w=110)|已修R12+线上复验(calc()补Class II(35-39.9)/III(40+)分支+TT()接bmi.v.uw/hw/ow/o1/o2/o3×6键×9语言+window load重跑修解析期竞态;复验ru:BMI38.1→Ожирение (II ст.) - ИМТ 35-39.9/健康档24.2→Здоровый вес,标签категория ВОЗ等全俄)
 - 工具页正文(intro/howto/FAQ/卡片英文描述/页脚工具链接名)为英文 SEO 内容,按设计不翻译。
 
 ## 覆盖矩阵(页×语言 视觉验证记录)
