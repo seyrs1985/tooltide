@@ -920,6 +920,30 @@
    [
     "bmi.hi",
     "健康上限"
+   ],
+   [
+    "bmi.v.uw",
+    "体重过轻 - BMI 低于 18.5"
+   ],
+   [
+    "bmi.v.hw",
+    "健康体重 - BMI 18.5-24.9"
+   ],
+   [
+    "bmi.v.ow",
+    "超重 - BMI 25-29.9"
+   ],
+   [
+    "bmi.v.o1",
+    "肥胖（I 级）- BMI 30-34.9"
+   ],
+   [
+    "bmi.v.o2",
+    "肥胖（II 级）- BMI 35-39.9"
+   ],
+   [
+    "bmi.v.o3",
+    "肥胖（III 级）- BMI 40 及以上"
    ]
   ],
   "es": [
@@ -1842,6 +1866,30 @@
    [
     "bmi.hi",
     "límite sano sup."
+   ],
+   [
+    "bmi.v.uw",
+    "Bajo peso - IMC por debajo de 18.5"
+   ],
+   [
+    "bmi.v.hw",
+    "Peso saludable - IMC 18.5-24.9"
+   ],
+   [
+    "bmi.v.ow",
+    "Sobrepeso - IMC 25-29.9"
+   ],
+   [
+    "bmi.v.o1",
+    "Obesidad (Grado I) - IMC 30-34.9"
+   ],
+   [
+    "bmi.v.o2",
+    "Obesidad (Grado II) - IMC 35-39.9"
+   ],
+   [
+    "bmi.v.o3",
+    "Obesidad (Grado III) - IMC 40 o más"
    ]
   ],
   "pt": [
@@ -2764,6 +2812,30 @@
    [
     "bmi.hi",
     "máximo saudável"
+   ],
+   [
+    "bmi.v.uw",
+    "Abaixo do peso - IMC abaixo de 18.5"
+   ],
+   [
+    "bmi.v.hw",
+    "Peso saudável - IMC 18.5-24.9"
+   ],
+   [
+    "bmi.v.ow",
+    "Sobrepeso - IMC 25-29.9"
+   ],
+   [
+    "bmi.v.o1",
+    "Obesidade (Grau I) - IMC 30-34.9"
+   ],
+   [
+    "bmi.v.o2",
+    "Obesidade (Grau II) - IMC 35-39.9"
+   ],
+   [
+    "bmi.v.o3",
+    "Obesidade (Grau III) - IMC 40 ou mais"
    ]
   ],
   "ru": [
@@ -3686,6 +3758,30 @@
    [
     "bmi.hi",
     "здоровый макс."
+   ],
+   [
+    "bmi.v.uw",
+    "Недостаточный вес - ИМТ ниже 18.5"
+   ],
+   [
+    "bmi.v.hw",
+    "Здоровый вес - ИМТ 18.5-24.9"
+   ],
+   [
+    "bmi.v.ow",
+    "Избыточный вес - ИМТ 25-29.9"
+   ],
+   [
+    "bmi.v.o1",
+    "Ожирение (I ст.) - ИМТ 30-34.9"
+   ],
+   [
+    "bmi.v.o2",
+    "Ожирение (II ст.) - ИМТ 35-39.9"
+   ],
+   [
+    "bmi.v.o3",
+    "Ожирение (III ст.) - ИМТ 40 и выше"
    ]
   ],
   "ja": [
@@ -4608,6 +4704,30 @@
    [
     "bmi.hi",
     "健康上限"
+   ],
+   [
+    "bmi.v.uw",
+    "低体重 - BMI 18.5未満"
+   ],
+   [
+    "bmi.v.hw",
+    "健康体重 - BMI 18.5-24.9"
+   ],
+   [
+    "bmi.v.ow",
+    "過体重 - BMI 25-29.9"
+   ],
+   [
+    "bmi.v.o1",
+    "肥満（1度）- BMI 30-34.9"
+   ],
+   [
+    "bmi.v.o2",
+    "肥満（2度）- BMI 35-39.9"
+   ],
+   [
+    "bmi.v.o3",
+    "肥満（3度）- BMI 40以上"
    ]
   ],
   "ko": [
@@ -5530,6 +5650,30 @@
    [
     "bmi.hi",
     "건강 상한"
+   ],
+   [
+    "bmi.v.uw",
+    "저체중 - BMI 18.5 미만"
+   ],
+   [
+    "bmi.v.hw",
+    "건강 체중 - BMI 18.5-24.9"
+   ],
+   [
+    "bmi.v.ow",
+    "과체중 - BMI 25-29.9"
+   ],
+   [
+    "bmi.v.o1",
+    "비만 (1단계) - BMI 30-34.9"
+   ],
+   [
+    "bmi.v.o2",
+    "비만 (2단계) - BMI 35-39.9"
+   ],
+   [
+    "bmi.v.o3",
+    "비만 (3단계) - BMI 40 이상"
    ]
   ],
   "de": [
@@ -6452,6 +6596,30 @@
    [
     "bmi.hi",
     "gesundheitl. Obergrenze"
+   ],
+   [
+    "bmi.v.uw",
+    "Untergewicht - BMI unter 18,5"
+   ],
+   [
+    "bmi.v.hw",
+    "Normalgewicht - BMI 18,5-24,9"
+   ],
+   [
+    "bmi.v.ow",
+    "Übergewicht - BMI 25-29,9"
+   ],
+   [
+    "bmi.v.o1",
+    "Fettleibigkeit (Grad I) - BMI 30-34,9"
+   ],
+   [
+    "bmi.v.o2",
+    "Fettleibigkeit (Grad II) - BMI 35-39,9"
+   ],
+   [
+    "bmi.v.o3",
+    "Fettleibigkeit (Grad III) - BMI 40+"
    ]
   ],
   "fr": [
@@ -7374,6 +7542,30 @@
    [
     "bmi.hi",
     "limite santé haute"
+   ],
+   [
+    "bmi.v.uw",
+    "Insuffisance pondérale - IMC inférieur à 18,5"
+   ],
+   [
+    "bmi.v.hw",
+    "Poids sain - IMC 18,5-24,9"
+   ],
+   [
+    "bmi.v.ow",
+    "Surpoids - IMC 25-29,9"
+   ],
+   [
+    "bmi.v.o1",
+    "Obésité (classe I) - IMC 30-34,9"
+   ],
+   [
+    "bmi.v.o2",
+    "Obésité (classe II) - IMC 35-39,9"
+   ],
+   [
+    "bmi.v.o3",
+    "Obésité (classe III) - IMC 40 et plus"
    ]
   ],
   "id": [
@@ -8296,6 +8488,30 @@
    [
     "bmi.hi",
     "batas sehat atas"
+   ],
+   [
+    "bmi.v.uw",
+    "Berat badan kurang - IMT di bawah 18.5"
+   ],
+   [
+    "bmi.v.hw",
+    "Berat badan sehat - IMT 18.5-24.9"
+   ],
+   [
+    "bmi.v.ow",
+    "Berat badan berlebih - IMT 25-29.9"
+   ],
+   [
+    "bmi.v.o1",
+    "Obesitas (Kelas I) - IMT 30-34.9"
+   ],
+   [
+    "bmi.v.o2",
+    "Obesitas (Kelas II) - IMT 35-39.9"
+   ],
+   [
+    "bmi.v.o3",
+    "Obesitas (Kelas III) - IMT 40+"
    ]
   ]
  }
