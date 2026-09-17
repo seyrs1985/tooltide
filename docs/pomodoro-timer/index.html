@@ -60,19 +60,19 @@
   <section class="intro"><p>The pomodoro method is 25 minutes of focus, 5 minutes off, and a longer break every fourth cycle - simple to describe, easy to abandon, because most timers make you babysit them. This one runs the whole protocol: it cycles through focus and break phases automatically, beeps at each transition, and keeps the countdown in the browser tab title so it stays visible while you work in other windows.</p><p>It also keeps score: completed focus blocks and focus minutes accrue per day, survive a reload mid-session, and are there when you come back tomorrow - the counter that quietly asks whether today was a zero-focus day. Durations are adjustable, and the timing math runs on wall-clock timestamps, so background-tab throttling cannot make your 25 minutes drift.</p></section>
   <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-po">
   <div class="fields">
-    <div class="field"><label for="po-w">Focus minutes</label><input type="number" id="po-w" min="1" max="120" value="25"></div>
-    <div class="field"><label for="po-b">Short break</label><input type="number" id="po-b" min="1" max="60" value="5"></div>
-    <div class="field"><label for="po-l">Long break (every 4)</label><input type="number" id="po-l" min="1" max="90" value="15"></div>
+    <div class="field"><label for="po-w" data-i18n="pomo.focusmin">Focus minutes</label><input type="number" id="po-w" min="1" max="120" value="25"></div>
+    <div class="field"><label for="po-b" data-i18n="pomo.shortbreak">Short break</label><input type="number" id="po-b" min="1" max="60" value="5"></div>
+    <div class="field"><label for="po-l" data-i18n="pomo.longbreak">Long break (every 4)</label><input type="number" id="po-l" min="1" max="90" value="15"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="po-out">25:00</span><span class="result-unit" id="po-phase">focus - ready</span></div>
   <div class="stats">
-    <div class="stat"><b id="po-today">0</b><span>focus blocks today</span></div>
-    <div class="stat"><b id="po-cycle">1/4</b><span>cycle position</span></div>
-    <div class="stat"><b id="po-total">0</b><span>focus minutes today</span></div>
+    <div class="stat"><b id="po-today">0</b><span data-i18n="pomo.blocks">focus blocks today</span></div>
+    <div class="stat"><b id="po-cycle">1/4</b><span data-i18n="pomo.cycle">cycle position</span></div>
+    <div class="stat"><b id="po-total">0</b><span data-i18n="pomo.mins">focus minutes today</span></div>
   </div>
   <div class="tool-note" id="po-note">Auto-runs focus → break cycles. The tab title counts down, so the timer survives tab-switching; progress is saved per day and comes back after a reload.</div>
-  <button type="button" class="tool-btn" id="po-go">Start</button>
-  <button type="button" class="tool-btn" id="po-reset">Reset</button>
+  <button type="button" class="tool-btn" id="po-go" data-i18n="pomo.start">Start</button>
+  <button type="button" class="tool-btn" id="po-reset" data-i18n="pomo.reset">Reset</button>
   <button type="button" class="tool-btn" id="po-share" data-i18n="share.share-today-s-count">Share today's count</button>
 </div>
 <script>(function(){
@@ -91,9 +91,9 @@ function beep(){try{var c=new (window.AudioContext||window.webkitAudioContext)()
   o.frequency.value=880;o.type='sine';g.gain.value=.12;o.start(c.currentTime+t/1000);o.stop(c.currentTime+t/1000+.22);});}catch(e){}}
 function render(){var s=st.run?(st.end-Date.now())/1000:st.left;
   OUT.textContent=fmt(s);
-  var label=(st.mode==='work'?'focus':'break')+(st.run?'':' - paused');
+  var label=(st.mode==='work'?TT('pomo.focus','focus'):TT('pomo.break','break'))+(st.run?'':' '+TT('pomo.paused','- paused'));
   PH.textContent=label;
-  document.title=(st.run?'🍅 ':'⏸ ')+fmt(s)+' '+(st.mode==='work'?'Focus':'Break')+' - ToolTide';
+  document.title=(st.run?'🍅 ':'⏸ ')+fmt(s)+' '+(st.mode==='work'?TT('pomo.titlefocus','Focus'):TT('pomo.titlebreak','Break'))+' - ToolTide';
   document.getElementById('po-today').textContent=st.done;
   document.getElementById('po-cycle').textContent=(st.cyc%4+1)+'/4';
   document.getElementById('po-total').textContent=st.mins;}
@@ -108,15 +108,15 @@ function arm(){if(iv)clearInterval(iv);iv=null;
   if(!st.run)return;iv=setInterval(function(){
     var s=(st.end-Date.now())/1000;
     if(s<=0){next();}else{OUT.textContent=fmt(s);
-      document.title='🍅 '+fmt(s)+' '+(st.mode==='work'?'Focus':'Break')+' - ToolTide';}},250);}
+      document.title='🍅 '+fmt(s)+' '+(st.mode==='work'?TT('pomo.titlefocus','Focus'):TT('pomo.titlebreak','Break'))+' - ToolTide';}},250);}
 GO.addEventListener('click',function(){
-  if(st.run){st.run=false;st.left=(st.end-Date.now())/1000;GO.textContent='Start';}
+  if(st.run){st.run=false;st.left=(st.end-Date.now())/1000;GO.textContent=TT('pomo.start','Start');}
   else{if(!st.left||st.left<=0){var mins=(st.mode==='work'?parseInt(W.value):parseInt(B.value))||25;st.left=mins*60;}
-    st.end=Date.now()+st.left*1000;st.run=true;GO.textContent='Pause';arm();}
+    st.end=Date.now()+st.left*1000;st.run=true;GO.textContent=TT('pomo.pause','Pause');arm();}
   render();});
 document.getElementById('po-reset').addEventListener('click',function(){
   if(iv)clearInterval(iv);iv=null;st.run=false;st.mode='work';st.cyc=0;
-  st.left=(parseInt(W.value)||25)*60;GO.textContent='Start';save();render();});
+  st.left=(parseInt(W.value)||25)*60;GO.textContent=TT('pomo.start','Start');save();render();});
 document.getElementById('po-share').addEventListener('click',function(){
   var txt=st.done+' pomodoros ('+st.mins+' focus minutes) today. Start your own timer (no sign-up):';
   var url=location.origin+location.pathname;
