@@ -1336,6 +1336,62 @@
    [
     "lbl.coats",
     "涂刷层数"
+   ],
+   [
+    "pomo.focusmin",
+    "专注时长"
+   ],
+   [
+    "pomo.shortbreak",
+    "短休息"
+   ],
+   [
+    "pomo.longbreak",
+    "长休息（每 4 轮）"
+   ],
+   [
+    "pomo.focus",
+    "专注"
+   ],
+   [
+    "pomo.break",
+    "休息"
+   ],
+   [
+    "pomo.paused",
+    "- 已暂停"
+   ],
+   [
+    "pomo.titlefocus",
+    "专注"
+   ],
+   [
+    "pomo.titlebreak",
+    "休息"
+   ],
+   [
+    "pomo.start",
+    "开始"
+   ],
+   [
+    "pomo.pause",
+    "暂停"
+   ],
+   [
+    "pomo.reset",
+    "重置"
+   ],
+   [
+    "pomo.blocks",
+    "今日专注块"
+   ],
+   [
+    "pomo.cycle",
+    "轮次位置"
+   ],
+   [
+    "pomo.mins",
+    "今日专注分钟"
    ]
   ],
   "es": [
@@ -2674,6 +2730,62 @@
    [
     "lbl.coats",
     "Capas"
+   ],
+   [
+    "pomo.focusmin",
+    "Minutos de enfoque"
+   ],
+   [
+    "pomo.shortbreak",
+    "Pausa corta"
+   ],
+   [
+    "pomo.longbreak",
+    "Pausa larga (cada 4)"
+   ],
+   [
+    "pomo.focus",
+    "enfoque"
+   ],
+   [
+    "pomo.break",
+    "pausa"
+   ],
+   [
+    "pomo.paused",
+    "- en pausa"
+   ],
+   [
+    "pomo.titlefocus",
+    "Enfoque"
+   ],
+   [
+    "pomo.titlebreak",
+    "Pausa"
+   ],
+   [
+    "pomo.start",
+    "Iniciar"
+   ],
+   [
+    "pomo.pause",
+    "Pausar"
+   ],
+   [
+    "pomo.reset",
+    "Reiniciar"
+   ],
+   [
+    "pomo.blocks",
+    "bloques de enfoque hoy"
+   ],
+   [
+    "pomo.cycle",
+    "posición del ciclo"
+   ],
+   [
+    "pomo.mins",
+    "minutos de enfoque hoy"
    ]
   ],
   "pt": [
@@ -4012,6 +4124,62 @@
    [
     "lbl.coats",
     "Demãos"
+   ],
+   [
+    "pomo.focusmin",
+    "Minutos de foco"
+   ],
+   [
+    "pomo.shortbreak",
+    "Pausa curta"
+   ],
+   [
+    "pomo.longbreak",
+    "Pausa longa (a cada 4)"
+   ],
+   [
+    "pomo.focus",
+    "foco"
+   ],
+   [
+    "pomo.break",
+    "pausa"
+   ],
+   [
+    "pomo.paused",
+    "- pausado"
+   ],
+   [
+    "pomo.titlefocus",
+    "Foco"
+   ],
+   [
+    "pomo.titlebreak",
+    "Pausa"
+   ],
+   [
+    "pomo.start",
+    "Iniciar"
+   ],
+   [
+    "pomo.pause",
+    "Pausar"
+   ],
+   [
+    "pomo.reset",
+    "Redefinir"
+   ],
+   [
+    "pomo.blocks",
+    "blocos de foco hoje"
+   ],
+   [
+    "pomo.cycle",
+    "posição do ciclo"
+   ],
+   [
+    "pomo.mins",
+    "minutos de foco hoje"
    ]
   ],
   "ru": [
@@ -5350,6 +5518,62 @@
    [
     "lbl.coats",
     "Слои"
+   ],
+   [
+    "pomo.focusmin",
+    "Минуты фокуса"
+   ],
+   [
+    "pomo.shortbreak",
+    "Короткий перерыв"
+   ],
+   [
+    "pomo.longbreak",
+    "Длинный перерыв (каждые 4)"
+   ],
+   [
+    "pomo.focus",
+    "фокус"
+   ],
+   [
+    "pomo.break",
+    "перерыв"
+   ],
+   [
+    "pomo.paused",
+    "- пауза"
+   ],
+   [
+    "pomo.titlefocus",
+    "Фокус"
+   ],
+   [
+    "pomo.titlebreak",
+    "Перерыв"
+   ],
+   [
+    "pomo.start",
+    "Старт"
+   ],
+   [
+    "pomo.pause",
+    "Пауза"
+   ],
+   [
+    "pomo.reset",
+    "Сброс"
+   ],
+   [
+    "pomo.blocks",
+    "блоки фокуса сегодня"
+   ],
+   [
+    "pomo.cycle",
+    "позиция цикла"
+   ],
+   [
+    "pomo.mins",
+    "минуты фокуса сегодня"
    ]
   ],
   "ja": [
@@ -6688,6 +6912,62 @@
    [
     "lbl.coats",
     "塗り回数"
+   ],
+   [
+    "pomo.focusmin",
+    "集中時間(分)"
+   ],
+   [
+    "pomo.shortbreak",
+    "短い休憩"
+   ],
+   [
+    "pomo.longbreak",
+    "長い休憩（4回ごと）"
+   ],
+   [
+    "pomo.focus",
+    "集中"
+   ],
+   [
+    "pomo.break",
+    "休憩"
+   ],
+   [
+    "pomo.paused",
+    "- 一時停止"
+   ],
+   [
+    "pomo.titlefocus",
+    "集中"
+   ],
+   [
+    "pomo.titlebreak",
+    "休憩"
+   ],
+   [
+    "pomo.start",
+    "スタート"
+   ],
+   [
+    "pomo.pause",
+    "一時停止"
+   ],
+   [
+    "pomo.reset",
+    "リセット"
+   ],
+   [
+    "pomo.blocks",
+    "今日の集中ブロック"
+   ],
+   [
+    "pomo.cycle",
+    "サイクル位置"
+   ],
+   [
+    "pomo.mins",
+    "今日の集中時間(分)"
    ]
   ],
   "ko": [
@@ -8026,6 +8306,62 @@
    [
     "lbl.coats",
     "도장 횟수"
+   ],
+   [
+    "pomo.focusmin",
+    "집중 시간(분)"
+   ],
+   [
+    "pomo.shortbreak",
+    "짧은 휴식"
+   ],
+   [
+    "pomo.longbreak",
+    "긴 휴식 (4회마다)"
+   ],
+   [
+    "pomo.focus",
+    "집중"
+   ],
+   [
+    "pomo.break",
+    "휴식"
+   ],
+   [
+    "pomo.paused",
+    "- 일시정지"
+   ],
+   [
+    "pomo.titlefocus",
+    "집중"
+   ],
+   [
+    "pomo.titlebreak",
+    "휴식"
+   ],
+   [
+    "pomo.start",
+    "시작"
+   ],
+   [
+    "pomo.pause",
+    "일시정지"
+   ],
+   [
+    "pomo.reset",
+    "초기화"
+   ],
+   [
+    "pomo.blocks",
+    "오늘의 집중 블록"
+   ],
+   [
+    "pomo.cycle",
+    "사이클 위치"
+   ],
+   [
+    "pomo.mins",
+    "오늘의 집중 시간(분)"
    ]
   ],
   "de": [
@@ -9364,6 +9700,62 @@
    [
     "lbl.coats",
     "Anstriche"
+   ],
+   [
+    "pomo.focusmin",
+    "Fokusminuten"
+   ],
+   [
+    "pomo.shortbreak",
+    "Kurze Pause"
+   ],
+   [
+    "pomo.longbreak",
+    "Lange Pause (alle 4)"
+   ],
+   [
+    "pomo.focus",
+    "Fokus"
+   ],
+   [
+    "pomo.break",
+    "Pause"
+   ],
+   [
+    "pomo.paused",
+    "- pausiert"
+   ],
+   [
+    "pomo.titlefocus",
+    "Fokus"
+   ],
+   [
+    "pomo.titlebreak",
+    "Pause"
+   ],
+   [
+    "pomo.start",
+    "Start"
+   ],
+   [
+    "pomo.pause",
+    "Pause"
+   ],
+   [
+    "pomo.reset",
+    "Zurücksetzen"
+   ],
+   [
+    "pomo.blocks",
+    "Fokusblöcke heute"
+   ],
+   [
+    "pomo.cycle",
+    "Zyklusposition"
+   ],
+   [
+    "pomo.mins",
+    "Fokusminuten heute"
    ]
   ],
   "fr": [
@@ -10702,6 +11094,62 @@
    [
     "lbl.coats",
     "Couches"
+   ],
+   [
+    "pomo.focusmin",
+    "Minutes de concentration"
+   ],
+   [
+    "pomo.shortbreak",
+    "Pause courte"
+   ],
+   [
+    "pomo.longbreak",
+    "Pause longue (toutes les 4)"
+   ],
+   [
+    "pomo.focus",
+    "concentration"
+   ],
+   [
+    "pomo.break",
+    "pause"
+   ],
+   [
+    "pomo.paused",
+    "- en pause"
+   ],
+   [
+    "pomo.titlefocus",
+    "Concentration"
+   ],
+   [
+    "pomo.titlebreak",
+    "Pause"
+   ],
+   [
+    "pomo.start",
+    "Démarrer"
+   ],
+   [
+    "pomo.pause",
+    "Pause"
+   ],
+   [
+    "pomo.reset",
+    "Réinitialiser"
+   ],
+   [
+    "pomo.blocks",
+    "blocs de concentration aujourd hui"
+   ],
+   [
+    "pomo.cycle",
+    "position du cycle"
+   ],
+   [
+    "pomo.mins",
+    "minutes de concentration aujourd hui"
    ]
   ],
   "id": [
@@ -12040,6 +12488,62 @@
    [
     "lbl.coats",
     "Lapisan"
+   ],
+   [
+    "pomo.focusmin",
+    "Menit fokus"
+   ],
+   [
+    "pomo.shortbreak",
+    "Istirahat pendek"
+   ],
+   [
+    "pomo.longbreak",
+    "Istirahat panjang (tiap 4)"
+   ],
+   [
+    "pomo.focus",
+    "fokus"
+   ],
+   [
+    "pomo.break",
+    "istirahat"
+   ],
+   [
+    "pomo.paused",
+    "- dijeda"
+   ],
+   [
+    "pomo.titlefocus",
+    "Fokus"
+   ],
+   [
+    "pomo.titlebreak",
+    "Istirahat"
+   ],
+   [
+    "pomo.start",
+    "Mulai"
+   ],
+   [
+    "pomo.pause",
+    "Jeda"
+   ],
+   [
+    "pomo.reset",
+    "Atur ulang"
+   ],
+   [
+    "pomo.blocks",
+    "blok fokus hari ini"
+   ],
+   [
+    "pomo.cycle",
+    "posisi siklus"
+   ],
+   [
+    "pomo.mins",
+    "menit fokus hari ini"
    ]
   ]
  }
