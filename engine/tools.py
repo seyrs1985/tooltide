@@ -4041,6 +4041,7 @@ var pre=false;
 [['u',U],['h',H],['w',W]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
 if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_bmi')||'null');if(mem){U.value=mem.u||'m';H.value=mem.h||'';W.value=mem.w||'';}}catch(e){}}
 calc();
+window.addEventListener('load',calc);
 document.getElementById('bmi-share').addEventListener('click',function(){
   var txt='My BMI: '+OUT.textContent+' ('+document.getElementById('bmi-cat').textContent.split(' - ')[0].toLowerCase()+'). Check yours (no sign-up):';
   var url=location.origin+location.pathname+'?u='+U.value+'&h='+encodeURIComponent(H.value||'')+'&w='+encodeURIComponent(W.value||'');
