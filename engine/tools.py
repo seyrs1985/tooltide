@@ -455,7 +455,7 @@ document.getElementById('wc-txt').addEventListener('input',run);run();
 # ---------------------------------------------------------------- case converter
 CASE = """
 <div class="tool" id="tt-case">
-  <div class="field"><label for="case-in">Your text</label>
+  <div class="field"><label for="case-in"><span data-i18n="lbl.yourtext">Your text</span></label>
     <textarea id="case-in" rows="6" placeholder="Type or paste text…"></textarea></div>
   <div class="chips">
     <button class="chip" data-c="upper">UPPERCASE</button>
@@ -1107,7 +1107,7 @@ function clear(){document.getElementById('stx-out').textContent='–';document.g
 # ---------------------------------------------------------------- upside down text
 UPSIDE = """
 <div class="tool" id="tt-flip">
-  <div class="field"><label for="fl-in">Your text</label>
+  <div class="field"><label for="fl-in"><span data-i18n="lbl.yourtext">Your text</span></label>
     <textarea id="fl-in" rows="4" placeholder="Type something…"></textarea></div>
   <div class="field" style="margin-top:10px"><label for="fl-out">Flipped upside down <button class="btn btn-sm" id="fl-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="fl-out" rows="4" readonly></textarea></div>
@@ -1300,7 +1300,7 @@ inp.addEventListener('input',run);run();
 # ---------------------------------------------------------------- text <-> binary
 BINARY = """
 <div class="tool" id="tt-bin">
-  <div class="field"><label for="bin-txt">Text</label>
+  <div class="field"><label for="bin-txt"><span data-i18n="lbl.text">Text</span></label>
     <textarea id="bin-txt" rows="4" placeholder="Hi"></textarea></div>
   <div class="field" style="margin-top:10px"><label for="bin-code">Binary (UTF-8, space-separated bytes)</label>
     <textarea id="bin-code" rows="4" placeholder="01001000 01101001"></textarea></div>
@@ -1581,8 +1581,8 @@ SQFT = """
     <button class="chip" data-u="m">Meters</button>
   </div>
   <div class="fields">
-    <div class="field"><label for="sq-l">Length</label><input type="number" id="sq-l" step="any" min="0" placeholder="12"></div>
-    <div class="field"><label for="sq-w">Width</label><input type="number" id="sq-w" step="any" min="0" placeholder="15"></div>
+    <div class="field"><label for="sq-l"><span data-i18n="lbl.length">Length</span></label><input type="number" id="sq-l" step="any" min="0" placeholder="12"></div>
+    <div class="field"><label for="sq-w"><span data-i18n="lbl.width">Width</span></label><input type="number" id="sq-w" step="any" min="0" placeholder="15"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sq-ft">-</span><span class="result-unit">sq ft</span></div>
   <div class="stats">
@@ -2663,7 +2663,7 @@ CYLINDER = """
 <div class="tool" id="tt-cy">
   <div class="fields">
     <div class="field"><label for="cy-r">Radius</label><input type="number" id="cy-r" step="any" min="0" placeholder="5"></div>
-    <div class="field"><label for="cy-h">Height</label><input type="number" id="cy-h" step="any" min="0" placeholder="10"></div>
+    <div class="field"><label for="cy-h"><span data-i18n="lbl.height">Height</span></label><input type="number" id="cy-h" step="any" min="0" placeholder="10"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cy-out">-</span><span class="result-unit" id="cy-unit">cubic units</span></div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cy-liters">-</span><span class="result-unit">liters (if cm)</span></div>
@@ -2687,7 +2687,7 @@ r.addEventListener('input',run);h.addEventListener('input',run);run();
 # ---------------------------------------------------------------- morse code
 MORSE = """
 <div class="tool" id="tt-mo">
-  <div class="field"><label for="mo-txt">Text</label>
+  <div class="field"><label for="mo-txt"><span data-i18n="lbl.text">Text</span></label>
     <textarea id="mo-txt" rows="3" placeholder="SOS"></textarea></div>
   <div class="field" style="margin-top:10px"><label for="mo-code">Morse code (dots and dashes, / between words)</label>
     <textarea id="mo-code" rows="3" placeholder="... --- ..."></textarea></div>
@@ -2821,7 +2821,7 @@ inp.addEventListener('input',function(){
 SDT = """
 <div class="tool" id="tt-sdt">
   <div class="fields">
-    <div class="field"><label for="sdt-d">Distance</label><input type="number" id="sdt-d" step="any" min="0" placeholder="120"></div>
+    <div class="field"><label for="sdt-d"><span data-i18n="lbl.distance">Distance</span></label><input type="number" id="sdt-d" step="any" min="0" placeholder="120"></div>
     <div class="field"><label for="sdt-s">Speed (per hour)</label><input type="number" id="sdt-s" step="any" min="0" placeholder="80"></div>
     <div class="field"><label for="sdt-t">Time (h:mm:ss)</label><input type="text" id="sdt-t" placeholder="1:30:00"></div>
   </div>
@@ -2873,7 +2873,7 @@ REVERSER = """
     <button class="chip active" data-m="chars">Reverse characters</button>
     <button class="chip" data-m="words">Reverse word order</button>
   </div>
-  <div class="field"><label for="rv-in">Your text</label>
+  <div class="field"><label for="rv-in"><span data-i18n="lbl.yourtext">Your text</span></label>
     <textarea id="rv-in" rows="4" placeholder="Type something to reverse..."></textarea></div>
   <div class="field" style="margin-top:10px"><label for="rv-out">Reversed <button class="btn btn-sm" id="rv-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="rv-out" rows="4" readonly placeholder="result appears here..."></textarea></div>
@@ -3307,7 +3307,7 @@ document.getElementById('rt-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_cgpa input memory, URL state (?v=&d=), Web Share.
 CGPA = """<div class="tool" id="tt-cg">
   <div class="fields">
-    <div class="field"><label for="cg-d">Direction</label><select id="cg-d"><option value="c2p">CGPA → Percentage</option><option value="p2c">Percentage → CGPA</option></select></div>
+    <div class="field"><label for="cg-d"><span data-i18n="lbl.direction">Direction</span></label><select id="cg-d"><option value="c2p">CGPA → Percentage</option><option value="p2c">Percentage → CGPA</option></select></div>
     <div class="field"><label for="cg-v">Value (CGPA out of 10, or %)</label><input type="number" id="cg-v" step="any" min="0" max="100" placeholder="8.6"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cg-out">–</span><span class="result-unit" id="cg-unit">percentage</span></div>
@@ -3412,7 +3412,7 @@ document.getElementById('caf-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_bodyfat input memory, URL state (?s=&h=&n=&w=&hp=), Web Share.
 BODYFAT = """<div class="tool" id="tt-bf">
   <div class="fields">
-    <div class="field"><label for="bf-s">Sex</label><select id="bf-s"><option value="m">Male</option><option value="f">Female</option></select></div>
+    <div class="field"><label for="bf-s"><span data-i18n="lbl.sex">Sex</span></label><select id="bf-s"><option value="m">Male</option><option value="f">Female</option></select></div>
     <div class="field"><label for="bf-h">Height (cm)</label><input type="number" id="bf-h" step="any" min="100" max="230" placeholder="175"></div>
     <div class="field"><label for="bf-n">Neck (cm)</label><input type="number" id="bf-n" step="any" min="20" max="60" placeholder="38"></div>
     <div class="field"><label for="bf-w">Waist (cm)</label><input type="number" id="bf-w" step="any" min="40" max="200" placeholder="85"></div>
@@ -3633,7 +3633,7 @@ document.getElementById('af-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_fuelcost input memory, URL state (?d=&e=&p=&u=), Web Share.
 FUELCOST = """<div class="tool" id="tt-fc">
   <div class="fields">
-    <div class="field"><label for="fc-u">Units</label><select id="fc-u"><option value="us">Miles / MPG / $ per gallon</option><option value="eu">Kilometers / L per 100 km / $ per liter</option></select></div>
+    <div class="field"><label for="fc-u"><span data-i18n="lbl.units">Units</span></label><select id="fc-u"><option value="us">Miles / MPG / $ per gallon</option><option value="eu">Kilometers / L per 100 km / $ per liter</option></select></div>
     <div class="field"><label for="fc-d">Trip distance</label><input type="number" id="fc-d" step="any" min="0" placeholder="480"></div>
     <div class="field"><label for="fc-e">Consumption</label><input type="number" id="fc-e" step="any" min="0" placeholder="30"></div>
     <div class="field"><label for="fc-p">Fuel price</label><input type="number" id="fc-p" step="any" min="0" placeholder="3.45"></div>
@@ -3809,8 +3809,8 @@ document.getElementById('el-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_windchill input memory, URL state (?t=&v=&u=), Web Share.
 WINDCHILL = """<div class="tool" id="tt-wc">
   <div class="fields">
-    <div class="field"><label for="wc-u">Units</label><select id="wc-u"><option value="f">°F, mph</option><option value="c">°C, km/h</option></select></div>
-    <div class="field"><label for="wc-t">Air temperature</label><input type="number" id="wc-t" step="any" placeholder="20"></div>
+    <div class="field"><label for="wc-u"><span data-i18n="lbl.units">Units</span></label><select id="wc-u"><option value="f">°F, mph</option><option value="c">°C, km/h</option></select></div>
+    <div class="field"><label for="wc-t"><span data-i18n="lbl.airtemp">Air temperature</span></label><input type="number" id="wc-t" step="any" placeholder="20"></div>
     <div class="field"><label for="wc-v">Wind speed</label><input type="number" id="wc-v" step="any" min="0" placeholder="20"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wc-out">–</span><span class="result-unit" id="wc-unit">feels like on exposed skin</span></div>
@@ -3876,12 +3876,12 @@ document.getElementById('wc-share').addEventListener('click',function(){
 PACE = """<div class="tool" id="tt-pace">
   <div class="fields">
     <div class="field"><label for="pa-u">Distance unit</label><select id="pa-u"><option value="km">Kilometers</option><option value="mi">Miles</option></select></div>
-    <div class="field"><label for="pa-d">Distance</label><input type="number" id="pa-d" step="any" min="0" placeholder="10"></div>
+    <div class="field"><label for="pa-d"><span data-i18n="lbl.distance">Distance</span></label><input type="number" id="pa-d" step="any" min="0" placeholder="10"></div>
   </div>
   <div class="fields">
     <div class="field"><label for="pa-h">Hours</label><input type="number" id="pa-h" step="1" min="0" max="30" placeholder="0"></div>
-    <div class="field"><label for="pa-m">Minutes</label><input type="number" id="pa-m" step="1" min="0" max="59" placeholder="52"></div>
-    <div class="field"><label for="pa-s">Seconds</label><input type="number" id="pa-s" step="1" min="0" max="59" placeholder="30"></div>
+    <div class="field"><label for="pa-m"><span data-i18n="lbl.minutes">Minutes</span></label><input type="number" id="pa-m" step="1" min="0" max="59" placeholder="52"></div>
+    <div class="field"><label for="pa-s"><span data-i18n="lbl.seconds">Seconds</span></label><input type="number" id="pa-s" step="1" min="0" max="59" placeholder="30"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pa-out">–</span><span class="result-unit" id="pa-unit">/km</span></div>
   <div class="stats">
@@ -3936,9 +3936,9 @@ document.getElementById('pa-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_heatindex input memory, URL state (?t=&rh=&u=), Web Share.
 HEATINDEX = """<div class="tool" id="tt-hi">
   <div class="fields">
-    <div class="field"><label for="hi-u">Units</label><select id="hi-u"><option value="f">°F</option><option value="c">°C</option></select></div>
-    <div class="field"><label for="hi-t">Air temperature</label><input type="number" id="hi-t" step="any" placeholder="95"></div>
-    <div class="field"><label for="hi-rh">Relative humidity %</label><input type="number" id="hi-rh" step="any" min="0" max="100" placeholder="60"></div>
+    <div class="field"><label for="hi-u"><span data-i18n="lbl.units">Units</span></label><select id="hi-u"><option value="f">°F</option><option value="c">°C</option></select></div>
+    <div class="field"><label for="hi-t"><span data-i18n="lbl.airtemp">Air temperature</span></label><input type="number" id="hi-t" step="any" placeholder="95"></div>
+    <div class="field"><label for="hi-rh"><span data-i18n="lbl.relhum">Relative humidity %</span></label><input type="number" id="hi-rh" step="any" min="0" max="100" placeholder="60"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hi-out">–</span><span class="result-unit" id="hi-unit">feels like (in shade)</span></div>
   <div class="stats">
@@ -3998,9 +3998,9 @@ document.getElementById('hi-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_bmi input memory, URL state (?u=&h=&w=), Web Share.
 BMI = """<div class="tool" id="tt-bmi">
   <div class="fields">
-    <div class="field"><label for="bmi-u">Units</label><select id="bmi-u"><option value="m">Metric (cm, kg)</option><option value="i">Imperial (in, lb)</option></select></div>
-    <div class="field"><label for="bmi-h">Height</label><input type="number" id="bmi-h" step="any" min="50" placeholder="175"></div>
-    <div class="field"><label for="bmi-w">Weight</label><input type="number" id="bmi-w" step="any" min="10" placeholder="70"></div>
+    <div class="field"><label for="bmi-u"><span data-i18n="lbl.units">Units</span></label><select id="bmi-u"><option value="m">Metric (cm, kg)</option><option value="i">Imperial (in, lb)</option></select></div>
+    <div class="field"><label for="bmi-h"><span data-i18n="lbl.height">Height</span></label><input type="number" id="bmi-h" step="any" min="50" placeholder="175"></div>
+    <div class="field"><label for="bmi-w"><span data-i18n="lbl.weight">Weight</span></label><input type="number" id="bmi-w" step="any" min="10" placeholder="70"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bmi-out">–</span><span class="result-unit" id="bmi-unit">BMI</span></div>
   <div class="stats">
@@ -4056,8 +4056,8 @@ document.getElementById('bmi-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_tdee input memory, URL state (?s=&a=&h=&w=&act=), Web Share.
 TDEE = """<div class="tool" id="tt-tdee">
   <div class="fields">
-    <div class="field"><label for="td-sex">Sex</label><select id="td-sex"><option value="m">Male</option><option value="f">Female</option></select></div>
-    <div class="field"><label for="td-age">Age</label><input type="number" id="td-age" min="10" max="100" step="1" placeholder="30"></div>
+    <div class="field"><label for="td-sex"><span data-i18n="lbl.sex">Sex</span></label><select id="td-sex"><option value="m">Male</option><option value="f">Female</option></select></div>
+    <div class="field"><label for="td-age"><span data-i18n="lbl.age">Age</span></label><input type="number" id="td-age" min="10" max="100" step="1" placeholder="30"></div>
   </div>
   <div class="fields">
     <div class="field"><label for="td-h">Height (cm)</label><input type="number" id="td-h" min="100" max="230" step="any" placeholder="175"></div>
@@ -4219,7 +4219,7 @@ document.getElementById('fg-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_water input memory, URL state (?kg=&ex=&hot=), Web Share.
 WATER = """<div class="tool" id="tt-water">
   <div class="fields">
-    <div class="field"><label for="wt-kg">Body weight (kg)</label><input type="number" id="wt-kg" step="any" min="20" max="300" placeholder="70"></div>
+    <div class="field"><label for="wt-kg"><span data-i18n="lbl.bodyweight">Body weight (kg)</span></label><input type="number" id="wt-kg" step="any" min="20" max="300" placeholder="70"></div>
     <div class="field"><label for="wt-ex">Exercise today (minutes)</label><input type="number" id="wt-ex" step="any" min="0" placeholder="45"></div>
     <div class="field"><label for="wt-hot">Hot weather (over 30°C / 86°F)</label>
       <select id="wt-hot"><option value="0">No</option><option value="1">Yes</option></select></div>
@@ -4452,7 +4452,7 @@ COMPOUND = """<div class="tool" id="tt-compound">
     <div class="field"><label for="cp-p">Starting amount ($)</label><input type="number" id="cp-p" min="0" step="any" placeholder="5000"></div>
     <div class="field"><label for="cp-m">Monthly contribution ($, optional)</label><input type="number" id="cp-m" min="0" step="any" placeholder="200"></div>
     <div class="field"><label for="cp-r">Annual rate %</label><input type="number" id="cp-r" min="0" step="any" placeholder="7"></div>
-    <div class="field"><label for="cp-y">Years</label><input type="number" id="cp-y" min="1" max="50" step="1" placeholder="10"></div>
+    <div class="field"><label for="cp-y"><span data-i18n="lbl.years">Years</span></label><input type="number" id="cp-y" min="1" max="50" step="1" placeholder="10"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cp-out">-</span><span class="result-unit" id="cp-unit"></span></div>
   <div class="tool-note" id="cp-detail"></div>
@@ -4507,7 +4507,7 @@ LOANPAY = """<div class="tool" id="tt-ln">
   <div class="fields">
     <div class="field"><label for="ln-p">Loan amount ($)</label><input type="number" id="ln-p" step="any" min="0" placeholder="25000"></div>
     <div class="field"><label for="ln-r">Annual interest rate %</label><input type="number" id="ln-r" step="any" min="0" max="40" placeholder="7.5"></div>
-    <div class="field"><label for="ln-y">Term (years)</label><input type="number" id="ln-y" step="any" min="0.5" max="40" placeholder="5"></div>
+    <div class="field"><label for="ln-y"><span data-i18n="lbl.term-years">Term (years)</span></label><input type="number" id="ln-y" step="any" min="0.5" max="40" placeholder="5"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ln-out">–</span><span class="result-unit">per month</span></div>
   <div class="stats">
@@ -4560,7 +4560,7 @@ document.getElementById('ln-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_vat input memory, URL state (?m=&a=&r=), Web Share.
 VATCALC = """<div class="tool" id="tt-vat">
   <div class="fields">
-    <div class="field"><label for="vat-m">Mode</label><select id="vat-m"><option value="add">Add VAT (net to gross)</option><option value="rem">Remove VAT (gross to net)</option></select></div>
+    <div class="field"><label for="vat-m"><span data-i18n="lbl.mode">Mode</span></label><select id="vat-m"><option value="add">Add VAT (net to gross)</option><option value="rem">Remove VAT (gross to net)</option></select></div>
     <div class="field"><label for="vat-a">Amount</label><input type="number" id="vat-a" step="any" min="0" placeholder="100"></div>
     <div class="field"><label for="vat-r">VAT rate %</label><input type="number" id="vat-r" step="any" min="0" max="40" placeholder="20"></div>
     <div class="field"><label for="vat-p">Quick rates</label><select id="vat-p"><option value="">Choose a rate…</option><option value="20">UK standard 20%</option><option value="5">UK reduced 5%</option><option value="19">Germany 19%</option><option value="21">Netherlands / Spain 21%</option><option value="22">Italy 22%</option><option value="23">Ireland 23%</option><option value="10">Common reduced 10%</option></select></div>
@@ -4695,7 +4695,7 @@ document.getElementById('fr-share').addEventListener('click',function(){
 # Retention hooks: title result hook (gestational age), tt_preg memory, URL state (?m=&d=&w=&g=), Web Share.
 PREGNANCY = """<div class="tool" id="tt-pg">
   <div class="fields">
-    <div class="field"><label for="pg-m">Method</label><select id="pg-m"><option value="lmp">Last period (LMP)</option><option value="con">Conception date</option><option value="us">Ultrasound (date + GA)</option></select></div>
+    <div class="field"><label for="pg-m"><span data-i18n="lbl.method">Method</span></label><select id="pg-m"><option value="lmp">Last period (LMP)</option><option value="con">Conception date</option><option value="us">Ultrasound (date + GA)</option></select></div>
     <div class="field"><label for="pg-d">Reference date</label><input type="date" id="pg-d"></div>
     <div class="field"><label for="pg-w">GA weeks (ultrasound only)</label><input type="number" id="pg-w" step="1" min="0" max="42" placeholder="8"></div>
     <div class="field"><label for="pg-g">GA days</label><input type="number" id="pg-g" step="1" min="0" max="6" placeholder="3"></div>
@@ -5031,7 +5031,7 @@ ONEREPMAX = """<div class="tool" id="tt-orm">
   <div class="fields">
     <div class="field"><label for="orm-w">Weight lifted</label><input type="number" id="orm-w" step="any" min="0" placeholder="100"></div>
     <div class="field"><label for="orm-r">Reps completed</label><input type="number" id="orm-r" step="1" min="1" max="12" placeholder="5"></div>
-    <div class="field"><label for="orm-u">Units</label><select id="orm-u"><option value="lb">lb</option><option value="kg">kg</option></select></div>
+    <div class="field"><label for="orm-u"><span data-i18n="lbl.units">Units</span></label><select id="orm-u"><option value="lb">lb</option><option value="kg">kg</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="orm-out">–</span><span class="result-unit" id="orm-u2">estimated 1RM</span></div>
   <div class="stats">
@@ -5140,10 +5140,10 @@ document.getElementById('sd-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_conc memory, URL state (?l=&w=&t=&u=), Web Share.
 CONCRETE = """<div class="tool" id="tt-cc">
   <div class="fields">
-    <div class="field"><label for="cc-l">Length</label><input type="number" id="cc-l" step="any" min="0" placeholder="10"></div>
-    <div class="field"><label for="cc-w">Width</label><input type="number" id="cc-w" step="any" min="0" placeholder="10"></div>
+    <div class="field"><label for="cc-l"><span data-i18n="lbl.length">Length</span></label><input type="number" id="cc-l" step="any" min="0" placeholder="10"></div>
+    <div class="field"><label for="cc-w"><span data-i18n="lbl.width">Width</span></label><input type="number" id="cc-w" step="any" min="0" placeholder="10"></div>
     <div class="field"><label for="cc-t">Thickness</label><select id="cc-t"><option value="4">4 in - patio/walkway</option><option value="5">5 in</option><option value="6">6 in - driveway</option><option value="8">8 in</option><option value="12">12 in (1 ft)</option></select></div>
-    <div class="field"><label for="cc-u">Units</label><select id="cc-u"><option value="ft">feet</option><option value="m">meters</option></select></div>
+    <div class="field"><label for="cc-u"><span data-i18n="lbl.units">Units</span></label><select id="cc-u"><option value="ft">feet</option><option value="m">meters</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cc-out">–</span><span class="result-unit">cubic yards to order</span></div>
   <div class="stats">
@@ -5361,8 +5361,8 @@ PAINTCALC = """<div class="tool" id="tt-pt">
     <div class="field"><label for="pt-h">Wall height</label><input type="number" id="pt-h" step="any" min="0" placeholder="8"></div>
     <div class="field"><label for="pt-d">Doors (21 sq each)</label><input type="number" id="pt-d" step="1" min="0" max="20" placeholder="2"></div>
     <div class="field"><label for="pt-n">Windows (12 sq each)</label><input type="number" id="pt-n" step="1" min="0" max="20" placeholder="2"></div>
-    <div class="field"><label for="pt-c">Coats</label><select id="pt-c"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></div>
-    <div class="field"><label for="pt-u">Units</label><select id="pt-u"><option value="ft">feet / gallons</option><option value="m">meters / liters</option></select></div>
+    <div class="field"><label for="pt-c"><span data-i18n="lbl.coats">Coats</span></label><select id="pt-c"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></div>
+    <div class="field"><label for="pt-u"><span data-i18n="lbl.units">Units</span></label><select id="pt-u"><option value="ft">feet / gallons</option><option value="m">meters / liters</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pt-out">–</span><span class="result-unit" id="pt-u2">to buy</span></div>
   <div class="stats">
@@ -5434,7 +5434,7 @@ TILECALC = """<div class="tool" id="tt-ti">
     <div class="field"><label for="ti-tw">Tile length</label><input type="number" id="ti-tw" step="any" min="0" placeholder="12"></div>
     <div class="field"><label for="ti-th">Tile width</label><input type="number" id="ti-th" step="any" min="0" placeholder="12"></div>
     <div class="field"><label for="ti-b">Tiles per box</label><input type="number" id="ti-b" step="1" min="1" placeholder="12"></div>
-    <div class="field"><label for="ti-u">Units</label><select id="ti-u"><option value="in">inches / feet</option><option value="cm">cm / meters</option></select></div>
+    <div class="field"><label for="ti-u"><span data-i18n="lbl.units">Units</span></label><select id="ti-u"><option value="in">inches / feet</option><option value="cm">cm / meters</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ti-out">–</span><span class="result-unit">tiles to buy</span></div>
   <div class="stats">
@@ -5651,7 +5651,7 @@ CALBURN = """<div class="tool" id="tt-cb">
     </select></div>
     <div class="field"><label for="cb-m">Custom MET</label><input type="number" id="cb-m" step="0.1" min="0" max="25" placeholder="optional"></div>
     <div class="field"><label for="cb-w">Body weight</label><input type="number" id="cb-w" step="any" min="0" placeholder="70"></div>
-    <div class="field"><label for="cb-u">Units</label><select id="cb-u"><option value="kg">kg</option><option value="lb">lb</option></select></div>
+    <div class="field"><label for="cb-u"><span data-i18n="lbl.units">Units</span></label><select id="cb-u"><option value="kg">kg</option><option value="lb">lb</option></select></div>
     <div class="field"><label for="cb-min">Duration (minutes)</label><input type="number" id="cb-min" step="1" min="1" max="600" placeholder="30"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cb-out">–</span><span class="result-unit">calories burned</span></div>
@@ -5863,8 +5863,8 @@ document.getElementById('js-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_b64 memory, URL state for short payloads (?d=&m=), Web Share.
 BASE64 = """<div class="tool" id="tt-b6">
   <div class="fields">
-    <div class="field"><label for="b6-m">Mode</label><select id="b6-m"><option value="enc">Encode text → Base64</option><option value="dec">Decode Base64 → text</option></select></div>
-    <div class="field"><label for="b6-in">Input</label><textarea id="b6-in" rows="5" placeholder="Hello, ToolTide!"></textarea></div>
+    <div class="field"><label for="b6-m"><span data-i18n="lbl.mode">Mode</span></label><select id="b6-m"><option value="enc">Encode text → Base64</option><option value="dec">Decode Base64 → text</option></select></div>
+    <div class="field"><label for="b6-in"><span data-i18n="lbl.input">Input</span></label><textarea id="b6-in" rows="5" placeholder="Hello, ToolTide!"></textarea></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="b6-out" style="font-size:.95rem;word-break:break-all">–</span><span class="result-unit" id="b6-u">output</span></div>
   <div class="stats">
@@ -5929,9 +5929,9 @@ document.getElementById('b6-copy').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_url memory, URL state for short payloads (?d=&m=), Web Share.
 URLCOD = """<div class="tool" id="tt-ue">
   <div class="fields">
-    <div class="field"><label for="ue-m">Mode</label><select id="ue-m"><option value="enc">Encode</option><option value="dec">Decode</option></select></div>
+    <div class="field"><label for="ue-m"><span data-i18n="lbl.mode">Mode</span></label><select id="ue-m"><option value="enc">Encode</option><option value="dec">Decode</option></select></div>
     <div class="field"><label for="ue-k">Scope</label><select id="ue-k"><option value="component">Component (?q= value style)</option><option value="full">Full URL (keep ://?&)</option></select></div>
-    <div class="field"><label for="ue-in">Input</label><textarea id="ue-in" rows="4" placeholder="café & croissants / menu"></textarea></div>
+    <div class="field"><label for="ue-in"><span data-i18n="lbl.input">Input</span></label><textarea id="ue-in" rows="4" placeholder="café & croissants / menu"></textarea></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ue-out" style="font-size:.95rem;word-break:break-all">–</span><span class="result-unit" id="ue-u">output</span></div>
   <div class="stats">
@@ -6090,7 +6090,7 @@ AMORTIZE = """<div class="tool" id="tt-am">
   <div class="fields">
     <div class="field"><label for="am-p">Loan amount ($)</label><input type="number" id="am-p" step="any" min="0" placeholder="25000"></div>
     <div class="field"><label for="am-r">Annual rate %</label><input type="number" id="am-r" step="any" min="0" max="40" placeholder="7.5"></div>
-    <div class="field"><label for="am-y">Term (years)</label><input type="number" id="am-y" step="any" min="0.5" max="40" placeholder="5"></div>
+    <div class="field"><label for="am-y"><span data-i18n="lbl.term-years">Term (years)</span></label><input type="number" id="am-y" step="any" min="0.5" max="40" placeholder="5"></div>
     <div class="field"><label for="am-x">Extra monthly ($)</label><input type="number" id="am-x" step="any" min="0" placeholder="0"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="am-out">–</span><span class="result-unit">monthly payment</span></div>
@@ -6246,8 +6246,8 @@ document.getElementById('cj-share').addEventListener('click',function(){
 # countdown, WebAudio beep at zero. Retention: tab-title countdown + tt_timer.
 ONLINETIMER = """<div class="tool" id="tt-tm">
   <div class="fields">
-    <div class="field"><label for="tm-m">Minutes</label><input type="number" id="tm-m" step="1" min="0" max="600" placeholder="10"></div>
-    <div class="field"><label for="tm-s">Seconds</label><input type="number" id="tm-s" step="1" min="0" max="59" placeholder="0"></div>
+    <div class="field"><label for="tm-m"><span data-i18n="lbl.minutes">Minutes</span></label><input type="number" id="tm-m" step="1" min="0" max="600" placeholder="10"></div>
+    <div class="field"><label for="tm-s"><span data-i18n="lbl.seconds">Seconds</span></label><input type="number" id="tm-s" step="1" min="0" max="59" placeholder="0"></div>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0" id="tm-presets"></div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tm-out" style="font-variant-numeric:tabular-nums">10:00</span><span class="result-unit" id="tm-u">ready</span></div>
@@ -6891,9 +6891,9 @@ document.getElementById('fl-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_dewpoint memory, URL state (?t=&h=&u=), Web Share.
 DEWPOINT = """<div class="tool" id="tt-dp">
   <div class="fields">
-    <div class="field"><label for="dp-u">Units</label><select id="dp-u"><option value="c">°C</option><option value="f">°F</option></select></div>
-    <div class="field"><label for="dp-t">Air temperature</label><input type="number" id="dp-t" step="any" placeholder="30"></div>
-    <div class="field"><label for="dp-h">Relative humidity %</label><input type="number" id="dp-h" step="any" min="1" max="100" placeholder="70"></div>
+    <div class="field"><label for="dp-u"><span data-i18n="lbl.units">Units</span></label><select id="dp-u"><option value="c">°C</option><option value="f">°F</option></select></div>
+    <div class="field"><label for="dp-t"><span data-i18n="lbl.airtemp">Air temperature</span></label><input type="number" id="dp-t" step="any" placeholder="30"></div>
+    <div class="field"><label for="dp-h"><span data-i18n="lbl.relhum">Relative humidity %</span></label><input type="number" id="dp-h" step="any" min="1" max="100" placeholder="70"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dp-out">–</span><span class="result-unit" id="dp-u2">°C dew point</span></div>
   <div class="stats">
@@ -7067,9 +7067,9 @@ document.getElementById('ts-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_hrzone memory, URL state (?a=&r=&m=), Web Share.
 HRZONE = """<div class="tool" id="tt-hz">
   <div class="fields">
-    <div class="field"><label for="hz-a">Age</label><input type="number" id="hz-a" min="10" max="100" placeholder="35"></div>
+    <div class="field"><label for="hz-a"><span data-i18n="lbl.age">Age</span></label><input type="number" id="hz-a" min="10" max="100" placeholder="35"></div>
     <div class="field"><label for="hz-r">Resting heart rate</label><input type="number" id="hz-r" min="30" max="120" placeholder="60"></div>
-    <div class="field"><label for="hz-m">Method</label><select id="hz-m"><option value="k">Karvonen (% of reserve)</option><option value="m">% of max HR</option></select></div>
+    <div class="field"><label for="hz-m"><span data-i18n="lbl.method">Method</span></label><select id="hz-m"><option value="k">Karvonen (% of reserve)</option><option value="m">% of max HR</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hz-out">–</span><span class="result-unit">max heart rate</span></div>
   <div class="stats" id="hz-rows"></div>
@@ -7219,7 +7219,7 @@ document.getElementById('bp-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_evcharge memory, URL state (?k=&e=&u=&r=&g=&m=), Web Share.
 EVCHARGE = """<div class="tool" id="tt-ev">
   <div class="fields">
-    <div class="field"><label for="ev-u">Units</label><select id="ev-u"><option value="mi">miles / mpg</option><option value="km">km / L100</option></select></div>
+    <div class="field"><label for="ev-u"><span data-i18n="lbl.units">Units</span></label><select id="ev-u"><option value="mi">miles / mpg</option><option value="km">km / L100</option></select></div>
     <div class="field"><label for="ev-k">Usable battery (kWh)</label><input type="number" id="ev-k" step="any" min="1" placeholder="60"></div>
     <div class="field"><label for="ev-e">Efficiency (mi/kWh)</label><input type="number" id="ev-e" step="any" min="1" max="10" placeholder="4"></div>
     <div class="field"><label for="ev-r">Electricity rate ($/kWh)</label><input type="number" id="ev-r" step="any" min="0" placeholder="0.15"></div>
@@ -7524,7 +7524,7 @@ document.getElementById('sd-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_coffee memory, URL state (?w=&r=&d=), Web Share.
 COFFEE = """<div class="tool" id="tt-cf">
   <div class="fields">
-    <div class="field"><label for="cf-d">Direction</label><select id="cf-d"><option value="w2b">I know my water → beans</option><option value="b2w">I have beans → water</option></select></div>
+    <div class="field"><label for="cf-d"><span data-i18n="lbl.direction">Direction</span></label><select id="cf-d"><option value="w2b">I know my water → beans</option><option value="b2w">I have beans → water</option></select></div>
     <div class="field"><label for="cf-w">Water (ml)</label><input type="number" id="cf-w" step="any" min="0" placeholder="500"></div>
     <div class="field" id="cf-bw"><label for="cf-b">Coffee (g)</label><input type="number" id="cf-b" step="any" min="0" placeholder="30"></div>
     <div class="field"><label for="cf-r">Ratio (1 : X)</label><input type="number" id="cf-r" step="any" min="10" max="25" placeholder="16"></div>
@@ -7634,8 +7634,8 @@ document.getElementById('be-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_idealweight memory, URL state (?h=&u=&s=), Web Share.
 IDEALW = """<div class="tool" id="tt-iw">
   <div class="fields">
-    <div class="field"><label for="iw-u">Units</label><select id="iw-u"><option value="m">cm / kg</option><option value="i">ft-in / lb</option></select></div>
-    <div class="field"><label for="iw-s">Sex</label><select id="iw-s"><option value="m">Male</option><option value="f">Female</option></select></div>
+    <div class="field"><label for="iw-u"><span data-i18n="lbl.units">Units</span></label><select id="iw-u"><option value="m">cm / kg</option><option value="i">ft-in / lb</option></select></div>
+    <div class="field"><label for="iw-s"><span data-i18n="lbl.sex">Sex</span></label><select id="iw-s"><option value="m">Male</option><option value="f">Female</option></select></div>
     <div class="field"><label for="iw-h" id="iw-hl">Height (cm)</label><input type="number" id="iw-h" step="any" min="120" max="230" placeholder="175"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="iw-out">–</span><span class="result-unit" id="iw-un">kg</span></div>
@@ -7745,7 +7745,7 @@ CAGR = """<div class="tool" id="tt-cg">
   <div class="fields">
     <div class="field"><label for="cg-b">Beginning value ($)</label><input type="number" id="cg-b" step="any" min="0" placeholder="10000"></div>
     <div class="field"><label for="cg-e">Ending value ($)</label><input type="number" id="cg-e" step="any" min="0" placeholder="26000"></div>
-    <div class="field"><label for="cg-y">Years</label><input type="number" id="cg-y" step="any" min="0.1" max="200" placeholder="6"></div>
+    <div class="field"><label for="cg-y"><span data-i18n="lbl.years">Years</span></label><input type="number" id="cg-y" step="any" min="0.1" max="200" placeholder="6"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cg-out">–</span><span class="result-unit">CAGR per year</span></div>
   <div class="stats">
@@ -7797,7 +7797,7 @@ POOL = """<div class="tool" id="tt-pl">
     <div class="field"><label for="pl-a" id="pl-aa">Length (m)</label><input type="number" id="pl-a" step="any" min="0" placeholder="8"></div>
     <div class="field" id="pl-bw"><label for="pl-b" id="pl-bb">Width (m)</label><input type="number" id="pl-b" step="any" min="0" placeholder="4"></div>
     <div class="field"><label for="pl-c">Average depth (m)</label><input type="number" id="pl-c" step="any" min="0" placeholder="1.4"></div>
-    <div class="field"><label for="pl-u">Units</label><select id="pl-u"><option value="m">meters / liters</option><option value="f">feet / gallons</option></select></div>
+    <div class="field"><label for="pl-u"><span data-i18n="lbl.units">Units</span></label><select id="pl-u"><option value="m">meters / liters</option><option value="f">feet / gallons</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pl-out">–</span><span class="result-unit" id="pl-u2">liters</span></div>
   <div class="stats">
@@ -7916,8 +7916,8 @@ MEATTIME = """<div class="tool" id="tt-mt">
       <option value="br">Beef ribs / pot roast</option>
       <option value="ll">Lamb leg</option>
     </select></div>
-    <div class="field"><label for="mt-w">Weight</label><input type="number" id="mt-w" step="any" min="0.1" placeholder="1.5"></div>
-    <div class="field"><label for="mt-u">Units</label><select id="mt-u"><option value="k">kg</option><option value="p">lb</option></select></div>
+    <div class="field"><label for="mt-w"><span data-i18n="lbl.weight">Weight</span></label><input type="number" id="mt-w" step="any" min="0.1" placeholder="1.5"></div>
+    <div class="field"><label for="mt-u"><span data-i18n="lbl.units">Units</span></label><select id="mt-u"><option value="k">kg</option><option value="p">lb</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="mt-out">–</span><span class="result-unit">in the oven (180°C / 350°F)</span></div>
   <div class="stats">
@@ -8020,7 +8020,7 @@ document.getElementById('cd-share').addEventListener('click',function(){
 JETLAG = """<div class="tool" id="tt-jl">
   <div class="fields">
     <div class="field"><label for="jl-z">Time zones crossed</label><input type="number" id="jl-z" min="1" max="12" placeholder="7"></div>
-    <div class="field"><label for="jl-d">Direction</label><select id="jl-d"><option value="e">Eastward (losing hours)</option><option value="w">Westward (gaining hours)</option></select></div>
+    <div class="field"><label for="jl-d"><span data-i18n="lbl.direction">Direction</span></label><select id="jl-d"><option value="e">Eastward (losing hours)</option><option value="w">Westward (gaining hours)</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="jl-out">–</span><span class="result-unit">days to feel normal</span></div>
   <div class="stats">
@@ -8068,9 +8068,9 @@ document.getElementById('jl-share').addEventListener('click',function(){
 PAINT = """<div class="tool" id="tt-pa">
   <div class="fields">
     <div class="field"><label for="pa-w">Wall width (m)</label><input type="number" id="pa-w" min="0.1" step="0.1" placeholder="4"></div>
-    <div class="field"><label for="pa-h">Wall height (m)</label><input type="number" id="pa-h" min="0.1" step="0.1" placeholder="2.5"></div>
+    <div class="field"><label for="pa-h"><span data-i18n="lbl.wallheight">Wall height (m)</span></label><input type="number" id="pa-h" min="0.1" step="0.1" placeholder="2.5"></div>
     <div class="field"><label for="pa-n">Walls</label><input type="number" id="pa-n" min="1" step="1" placeholder="4"></div>
-    <div class="field"><label for="pa-c">Coats</label><input type="number" id="pa-c" min="1" max="4" step="1" placeholder="2"></div>
+    <div class="field"><label for="pa-c"><span data-i18n="lbl.coats">Coats</span></label><input type="number" id="pa-c" min="1" max="4" step="1" placeholder="2"></div>
     <div class="field"><label for="pa-x">Doors + windows (m²)</label><input type="number" id="pa-x" min="0" step="0.1" placeholder="3"></div>
     <div class="field"><label for="pa-cv">Coverage (m² per litre, per coat)</label><input type="number" id="pa-cv" min="1" step="0.5" placeholder="10"></div>
   </div>
@@ -8221,7 +8221,7 @@ document.getElementById('lm-share').addEventListener('click',function(){
 WALLP = """<div class="tool" id="tt-wp">
   <div class="fields">
     <div class="field"><label for="wp-p">Perimeter of walls (m)</label><input type="number" id="wp-p" min="0.1" step="0.1" placeholder="14"></div>
-    <div class="field"><label for="wp-h">Wall height (m)</label><input type="number" id="wp-h" min="0.5" step="0.05" placeholder="2.5"></div>
+    <div class="field"><label for="wp-h"><span data-i18n="lbl.wallheight">Wall height (m)</span></label><input type="number" id="wp-h" min="0.5" step="0.05" placeholder="2.5"></div>
     <div class="field"><label for="wp-rw">Roll width (m)</label><input type="number" id="wp-rw" min="0.1" step="0.01" placeholder="0.53"></div>
     <div class="field"><label for="wp-rl">Roll length (m)</label><input type="number" id="wp-rl" min="0.5" step="0.05" placeholder="10.05"></div>
     <div class="field"><label for="wp-r">Pattern repeat (cm, 0 if plain)</label><input type="number" id="wp-r" min="0" max="200" step="0.5" placeholder="0"></div>
@@ -8417,7 +8417,7 @@ document.getElementById('ff-share').addEventListener('click',function(){
 
 PROTEIN = """<div class="tool" id="tt-pr">
   <div class="fields">
-    <div class="field"><label for="pr-w">Body weight (kg)</label><input type="number" id="pr-w" min="30" max="200" step="0.5" placeholder="75"></div>
+    <div class="field"><label for="pr-w"><span data-i18n="lbl.bodyweight">Body weight (kg)</span></label><input type="number" id="pr-w" min="30" max="200" step="0.5" placeholder="75"></div>
     <div class="field"><label for="pr-g">Goal</label><select id="pr-g"><option value="sed">General health (sedentary)</option><option value="act" selected>Active / training</option><option value="bld">Building muscle</option><option value="cut">Cutting (fat loss)</option><option value="old">Older adult (60+)</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pr-out">–</span><span class="result-unit">g protein per day</span></div>
@@ -8463,7 +8463,7 @@ document.getElementById('pr-share').addEventListener('click',function(){
 
 CREATINE = """<div class="tool" id="tt-cr">
   <div class="fields">
-    <div class="field"><label for="cr-w">Body weight (kg)</label><input type="number" id="cr-w" min="30" max="200" step="0.5" placeholder="75"></div>
+    <div class="field"><label for="cr-w"><span data-i18n="lbl.bodyweight">Body weight (kg)</span></label><input type="number" id="cr-w" min="30" max="200" step="0.5" placeholder="75"></div>
     <div class="field"><label for="cr-m">Protocol</label><select id="cr-m"><option value="load" selected>With loading week</option><option value="maint">Maintenance only</option></select></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cr-out">–</span><span class="result-unit">g per day (maintenance)</span></div>

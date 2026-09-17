@@ -1244,6 +1244,98 @@
    [
     "share.share-tonight-s-light",
     "分享今晚光照"
+   ],
+   [
+    "lbl.units",
+    "单位"
+   ],
+   [
+    "lbl.height",
+    "高度"
+   ],
+   [
+    "lbl.weight",
+    "重量"
+   ],
+   [
+    "lbl.sex",
+    "性别"
+   ],
+   [
+    "lbl.mode",
+    "模式"
+   ],
+   [
+    "lbl.length",
+    "长度"
+   ],
+   [
+    "lbl.width",
+    "宽度"
+   ],
+   [
+    "lbl.age",
+    "年龄"
+   ],
+   [
+    "lbl.distance",
+    "距离"
+   ],
+   [
+    "lbl.input",
+    "输入"
+   ],
+   [
+    "lbl.text",
+    "文本"
+   ],
+   [
+    "lbl.years",
+    "年"
+   ],
+   [
+    "lbl.minutes",
+    "分钟"
+   ],
+   [
+    "lbl.seconds",
+    "秒"
+   ],
+   [
+    "lbl.direction",
+    "方向"
+   ],
+   [
+    "lbl.method",
+    "方法"
+   ],
+   [
+    "lbl.term-years",
+    "期限（年）"
+   ],
+   [
+    "lbl.airtemp",
+    "气温"
+   ],
+   [
+    "lbl.relhum",
+    "相对湿度 %"
+   ],
+   [
+    "lbl.bodyweight",
+    "体重（kg）"
+   ],
+   [
+    "lbl.wallheight",
+    "墙高（m）"
+   ],
+   [
+    "lbl.yourtext",
+    "你的文本"
+   ],
+   [
+    "lbl.coats",
+    "涂刷层数"
    ]
   ],
   "es": [
@@ -2490,6 +2582,98 @@
    [
     "share.share-tonight-s-light",
     "Compartir la luz de esta noche"
+   ],
+   [
+    "lbl.units",
+    "Unidades"
+   ],
+   [
+    "lbl.height",
+    "Altura"
+   ],
+   [
+    "lbl.weight",
+    "Peso"
+   ],
+   [
+    "lbl.sex",
+    "Sexo"
+   ],
+   [
+    "lbl.mode",
+    "Modo"
+   ],
+   [
+    "lbl.length",
+    "Longitud"
+   ],
+   [
+    "lbl.width",
+    "Anchura"
+   ],
+   [
+    "lbl.age",
+    "Edad"
+   ],
+   [
+    "lbl.distance",
+    "Distancia"
+   ],
+   [
+    "lbl.input",
+    "Entrada"
+   ],
+   [
+    "lbl.text",
+    "Texto"
+   ],
+   [
+    "lbl.years",
+    "años"
+   ],
+   [
+    "lbl.minutes",
+    "minutos"
+   ],
+   [
+    "lbl.seconds",
+    "segundos"
+   ],
+   [
+    "lbl.direction",
+    "Dirección"
+   ],
+   [
+    "lbl.method",
+    "Método"
+   ],
+   [
+    "lbl.term-years",
+    "Plazo (años)"
+   ],
+   [
+    "lbl.airtemp",
+    "Temperatura del aire"
+   ],
+   [
+    "lbl.relhum",
+    "Humedad relativa %"
+   ],
+   [
+    "lbl.bodyweight",
+    "Peso corporal (kg)"
+   ],
+   [
+    "lbl.wallheight",
+    "Altura de la pared (m)"
+   ],
+   [
+    "lbl.yourtext",
+    "Tu texto"
+   ],
+   [
+    "lbl.coats",
+    "Capas"
    ]
   ],
   "pt": [
@@ -3736,6 +3920,98 @@
    [
     "share.share-tonight-s-light",
     "Compartir a luz de hoje à noite"
+   ],
+   [
+    "lbl.units",
+    "Unidades"
+   ],
+   [
+    "lbl.height",
+    "Altura"
+   ],
+   [
+    "lbl.weight",
+    "Peso"
+   ],
+   [
+    "lbl.sex",
+    "Sexo"
+   ],
+   [
+    "lbl.mode",
+    "Modo"
+   ],
+   [
+    "lbl.length",
+    "Comprimento"
+   ],
+   [
+    "lbl.width",
+    "Largura"
+   ],
+   [
+    "lbl.age",
+    "Idade"
+   ],
+   [
+    "lbl.distance",
+    "Distância"
+   ],
+   [
+    "lbl.input",
+    "Entrada"
+   ],
+   [
+    "lbl.text",
+    "Texto"
+   ],
+   [
+    "lbl.years",
+    "anos"
+   ],
+   [
+    "lbl.minutes",
+    "minutos"
+   ],
+   [
+    "lbl.seconds",
+    "segundos"
+   ],
+   [
+    "lbl.direction",
+    "Direção"
+   ],
+   [
+    "lbl.method",
+    "Método"
+   ],
+   [
+    "lbl.term-years",
+    "Prazo (anos)"
+   ],
+   [
+    "lbl.airtemp",
+    "Temperatura do ar"
+   ],
+   [
+    "lbl.relhum",
+    "Umidade relativa %"
+   ],
+   [
+    "lbl.bodyweight",
+    "Peso corporal (kg)"
+   ],
+   [
+    "lbl.wallheight",
+    "Altura da parede (m)"
+   ],
+   [
+    "lbl.yourtext",
+    "Seu texto"
+   ],
+   [
+    "lbl.coats",
+    "Demãos"
    ]
   ],
   "ru": [
@@ -4982,6 +5258,98 @@
    [
     "share.share-tonight-s-light",
     "Поделиться светом этой ночи"
+   ],
+   [
+    "lbl.units",
+    "Единицы"
+   ],
+   [
+    "lbl.height",
+    "Высота"
+   ],
+   [
+    "lbl.weight",
+    "Вес"
+   ],
+   [
+    "lbl.sex",
+    "Пол"
+   ],
+   [
+    "lbl.mode",
+    "Режим"
+   ],
+   [
+    "lbl.length",
+    "Длина"
+   ],
+   [
+    "lbl.width",
+    "Ширина"
+   ],
+   [
+    "lbl.age",
+    "Возраст"
+   ],
+   [
+    "lbl.distance",
+    "Дистанция"
+   ],
+   [
+    "lbl.input",
+    "Ввод"
+   ],
+   [
+    "lbl.text",
+    "Текст"
+   ],
+   [
+    "lbl.years",
+    "лет"
+   ],
+   [
+    "lbl.minutes",
+    "минут"
+   ],
+   [
+    "lbl.seconds",
+    "секунды"
+   ],
+   [
+    "lbl.direction",
+    "Направление"
+   ],
+   [
+    "lbl.method",
+    "Метод"
+   ],
+   [
+    "lbl.term-years",
+    "Срок (лет)"
+   ],
+   [
+    "lbl.airtemp",
+    "Температура воздуха"
+   ],
+   [
+    "lbl.relhum",
+    "Относительная влажность %"
+   ],
+   [
+    "lbl.bodyweight",
+    "Вес тела (кг)"
+   ],
+   [
+    "lbl.wallheight",
+    "Высота стены (м)"
+   ],
+   [
+    "lbl.yourtext",
+    "Ваш текст"
+   ],
+   [
+    "lbl.coats",
+    "Слои"
    ]
   ],
   "ja": [
@@ -6228,6 +6596,98 @@
    [
     "share.share-tonight-s-light",
     "今夜の光照を共有"
+   ],
+   [
+    "lbl.units",
+    "単位"
+   ],
+   [
+    "lbl.height",
+    "高さ"
+   ],
+   [
+    "lbl.weight",
+    "重量"
+   ],
+   [
+    "lbl.sex",
+    "性別"
+   ],
+   [
+    "lbl.mode",
+    "モード"
+   ],
+   [
+    "lbl.length",
+    "長さ"
+   ],
+   [
+    "lbl.width",
+    "幅"
+   ],
+   [
+    "lbl.age",
+    "年齢"
+   ],
+   [
+    "lbl.distance",
+    "距離"
+   ],
+   [
+    "lbl.input",
+    "入力"
+   ],
+   [
+    "lbl.text",
+    "テキスト"
+   ],
+   [
+    "lbl.years",
+    "年"
+   ],
+   [
+    "lbl.minutes",
+    "分"
+   ],
+   [
+    "lbl.seconds",
+    "秒"
+   ],
+   [
+    "lbl.direction",
+    "方向"
+   ],
+   [
+    "lbl.method",
+    "方法"
+   ],
+   [
+    "lbl.term-years",
+    "期間（年）"
+   ],
+   [
+    "lbl.airtemp",
+    "気温"
+   ],
+   [
+    "lbl.relhum",
+    "相対湿度 %"
+   ],
+   [
+    "lbl.bodyweight",
+    "体重（kg）"
+   ],
+   [
+    "lbl.wallheight",
+    "壁の高さ（m）"
+   ],
+   [
+    "lbl.yourtext",
+    "あなたのテキスト"
+   ],
+   [
+    "lbl.coats",
+    "塗り回数"
    ]
   ],
   "ko": [
@@ -7474,6 +7934,98 @@
    [
     "share.share-tonight-s-light",
     "오늘 밤 빛 공유"
+   ],
+   [
+    "lbl.units",
+    "단위"
+   ],
+   [
+    "lbl.height",
+    "높이"
+   ],
+   [
+    "lbl.weight",
+    "무게"
+   ],
+   [
+    "lbl.sex",
+    "성별"
+   ],
+   [
+    "lbl.mode",
+    "모드"
+   ],
+   [
+    "lbl.length",
+    "길이"
+   ],
+   [
+    "lbl.width",
+    "너비"
+   ],
+   [
+    "lbl.age",
+    "나이"
+   ],
+   [
+    "lbl.distance",
+    "거리"
+   ],
+   [
+    "lbl.input",
+    "입력"
+   ],
+   [
+    "lbl.text",
+    "텍스트"
+   ],
+   [
+    "lbl.years",
+    "년"
+   ],
+   [
+    "lbl.minutes",
+    "분"
+   ],
+   [
+    "lbl.seconds",
+    "초"
+   ],
+   [
+    "lbl.direction",
+    "방향"
+   ],
+   [
+    "lbl.method",
+    "방법"
+   ],
+   [
+    "lbl.term-years",
+    "기간 (년)"
+   ],
+   [
+    "lbl.airtemp",
+    "기온"
+   ],
+   [
+    "lbl.relhum",
+    "상대 습도 %"
+   ],
+   [
+    "lbl.bodyweight",
+    "체중 (kg)"
+   ],
+   [
+    "lbl.wallheight",
+    "벽 높이 (m)"
+   ],
+   [
+    "lbl.yourtext",
+    "내 텍스트"
+   ],
+   [
+    "lbl.coats",
+    "도장 횟수"
    ]
   ],
   "de": [
@@ -8720,6 +9272,98 @@
    [
     "share.share-tonight-s-light",
     "Das Licht heute Nacht teilen"
+   ],
+   [
+    "lbl.units",
+    "Einheiten"
+   ],
+   [
+    "lbl.height",
+    "Höhe"
+   ],
+   [
+    "lbl.weight",
+    "Gewicht"
+   ],
+   [
+    "lbl.sex",
+    "Geschlecht"
+   ],
+   [
+    "lbl.mode",
+    "Modus"
+   ],
+   [
+    "lbl.length",
+    "Länge"
+   ],
+   [
+    "lbl.width",
+    "Breite"
+   ],
+   [
+    "lbl.age",
+    "Alter"
+   ],
+   [
+    "lbl.distance",
+    "Distanz"
+   ],
+   [
+    "lbl.input",
+    "Eingabe"
+   ],
+   [
+    "lbl.text",
+    "Text"
+   ],
+   [
+    "lbl.years",
+    "Jahre"
+   ],
+   [
+    "lbl.minutes",
+    "Minuten"
+   ],
+   [
+    "lbl.seconds",
+    "Sekunden"
+   ],
+   [
+    "lbl.direction",
+    "Richtung"
+   ],
+   [
+    "lbl.method",
+    "Methode"
+   ],
+   [
+    "lbl.term-years",
+    "Laufzeit (Jahre)"
+   ],
+   [
+    "lbl.airtemp",
+    "Lufttemperatur"
+   ],
+   [
+    "lbl.relhum",
+    "Relative Luftfeuchtigkeit %"
+   ],
+   [
+    "lbl.bodyweight",
+    "Körpergewicht (kg)"
+   ],
+   [
+    "lbl.wallheight",
+    "Wandhöhe (m)"
+   ],
+   [
+    "lbl.yourtext",
+    "Dein Text"
+   ],
+   [
+    "lbl.coats",
+    "Anstriche"
    ]
   ],
   "fr": [
@@ -9966,6 +10610,98 @@
    [
     "share.share-tonight-s-light",
     "Partager la lumière de ce soir"
+   ],
+   [
+    "lbl.units",
+    "Unités"
+   ],
+   [
+    "lbl.height",
+    "Hauteur"
+   ],
+   [
+    "lbl.weight",
+    "Poids"
+   ],
+   [
+    "lbl.sex",
+    "Sexe"
+   ],
+   [
+    "lbl.mode",
+    "Mode"
+   ],
+   [
+    "lbl.length",
+    "Longueur"
+   ],
+   [
+    "lbl.width",
+    "Largeur"
+   ],
+   [
+    "lbl.age",
+    "Âge"
+   ],
+   [
+    "lbl.distance",
+    "Distance"
+   ],
+   [
+    "lbl.input",
+    "Entrée"
+   ],
+   [
+    "lbl.text",
+    "Texte"
+   ],
+   [
+    "lbl.years",
+    "années"
+   ],
+   [
+    "lbl.minutes",
+    "minutes"
+   ],
+   [
+    "lbl.seconds",
+    "secondes"
+   ],
+   [
+    "lbl.direction",
+    "Direction"
+   ],
+   [
+    "lbl.method",
+    "Méthode"
+   ],
+   [
+    "lbl.term-years",
+    "Durée (années)"
+   ],
+   [
+    "lbl.airtemp",
+    "Température de l air"
+   ],
+   [
+    "lbl.relhum",
+    "Humidité relative %"
+   ],
+   [
+    "lbl.bodyweight",
+    "Poids corporel (kg)"
+   ],
+   [
+    "lbl.wallheight",
+    "Hauteur du mur (m)"
+   ],
+   [
+    "lbl.yourtext",
+    "Votre texte"
+   ],
+   [
+    "lbl.coats",
+    "Couches"
    ]
   ],
   "id": [
@@ -11212,6 +11948,98 @@
    [
     "share.share-tonight-s-light",
     "Bagikan cahaya malam ini"
+   ],
+   [
+    "lbl.units",
+    "Satuan"
+   ],
+   [
+    "lbl.height",
+    "Tinggi"
+   ],
+   [
+    "lbl.weight",
+    "Berat"
+   ],
+   [
+    "lbl.sex",
+    "Jenis kelamin"
+   ],
+   [
+    "lbl.mode",
+    "Mode"
+   ],
+   [
+    "lbl.length",
+    "Panjang"
+   ],
+   [
+    "lbl.width",
+    "Lebar"
+   ],
+   [
+    "lbl.age",
+    "Usia"
+   ],
+   [
+    "lbl.distance",
+    "Jarak"
+   ],
+   [
+    "lbl.input",
+    "Input"
+   ],
+   [
+    "lbl.text",
+    "Teks"
+   ],
+   [
+    "lbl.years",
+    "tahun"
+   ],
+   [
+    "lbl.minutes",
+    "menit"
+   ],
+   [
+    "lbl.seconds",
+    "detik"
+   ],
+   [
+    "lbl.direction",
+    "Arah"
+   ],
+   [
+    "lbl.method",
+    "Metode"
+   ],
+   [
+    "lbl.term-years",
+    "Jangka waktu (tahun)"
+   ],
+   [
+    "lbl.airtemp",
+    "Suhu udara"
+   ],
+   [
+    "lbl.relhum",
+    "Kelembapan relatif %"
+   ],
+   [
+    "lbl.bodyweight",
+    "Berat badan (kg)"
+   ],
+   [
+    "lbl.wallheight",
+    "Tinggi dinding (m)"
+   ],
+   [
+    "lbl.yourtext",
+    "Teks Anda"
+   ],
+   [
+    "lbl.coats",
+    "Lapisan"
    ]
   ]
  }
