@@ -9006,6 +9006,149 @@ document.getElementById('cp-share').addEventListener('click',function(){
 </script>
 """
 
+EBIKERANGE = """<div class="tool" id="tt-er">
+  <div class="fields">
+    <div class="field"><label for="er-wh">Battery capacity (Wh)</label><input type="number" id="er-wh" min="100" max="1500" step="10" placeholder="500"></div>
+    <div class="field"><label for="er-st">Assist style</label><select id="er-st"><option value="10">Eco (~10 Wh/km)</option><option value="15" selected>Mixed (~15 Wh/km)</option><option value="22">High assist (~22 Wh/km)</option></select></div>
+    <div class="field"><label for="er-rs">Reserve kept (% never used)</label><input type="number" id="er-rs" min="0" max="30" step="5" placeholder="10"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="er-out">–</span><span class="result-unit">km of real range</span></div>
+  <div class="stats">
+    <div class="stat"><b id="er-s1">–</b><span>at eco assist</span></div>
+    <div class="stat"><b id="er-s2">–</b><span>at high assist</span></div>
+    <div class="stat"><b id="er-s3">–</b><span>km per 20% of battery</span></div>
+  </div>
+  <div class="tool-note" id="er-note"></div>
+  <button type="button" class="tool-btn" id="er-share">Share this range</button>
+</div>
+<script>(function(){
+var F=['er-wh','er-st','er-rs'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('er-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var wh=parseFloat(F[0].value),st=parseFloat(F[1].value),rs=parseFloat(F[2].value);
+  var ok=wh>=100&&wh<=1500&&st>0&&rs>=0&&rs<=30;
+  if(!ok){OUT.textContent='–';['er-s1','er-s2','er-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('er-note').textContent='';document.title='E-Bike Range Calculator - ToolTide';return;}
+  var usable=wh*(1-rs/100);
+  var mid=usable/st;
+  OUT.textContent=Math.round(mid);
+  document.getElementById('er-s1').textContent=Math.round(usable/10)+' km';
+  document.getElementById('er-s2').textContent=Math.round(usable/22)+' km';
+  document.getElementById('er-s3').textContent=(usable*0.2/st).toFixed(0)+' km';
+  document.getElementById('er-note').textContent='Manufacturer ranges assume the lightest rider, flattest route and eco mode - real riding lands 25-40% below the sticker, which is why this starts from your usable Wh, not the brochure. What moves Wh/km: rider plus cargo weight, hills, headwind, tyre pressure, temperature (below 10 °C cuts 15-25%), and above all assist level - the throttle habit can halve range. The 10% reserve is not pessimism: lithium batteries age faster at empty, and the reserve is what gets you home when winter arrives early. Charge to 80-90% for daily use and store around half-charge; full-and-empty cycling is what quietly eats capacity year two.';
+  document.title=Math.round(mid)+' km real e-bike range - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_ebikerange',JSON.stringify({wh:F[0].value,st:F[1].value,rs:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['wh','st','rs'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_ebikerange')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('er-share').addEventListener('click',function(){
+  var txt='My e-bike goes about '+OUT.textContent+' km on a charge. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'E-bike range',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this range';},1500);}
+});
+})();
+</script>
+"""
+
+SADDLE = """<div class="tool" id="tt-sh">
+  <div class="fields">
+    <div class="field"><label for="sh-i">Inseam / inside leg (cm)</label><input type="number" id="sh-i" min="50" max="110" step="0.5" placeholder="80"></div>
+    <div class="field"><label for="sh-t">Riding type</label><select id="sh-t"><option value="0.883" selected>Road / fitness (LeMond)</option><option value="0.87">City / upright comfort</option><option value="0.88">Mountain bike</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sh-out">–</span><span class="result-unit">cm saddle height</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sh-s1">–</b><span>in mm</span></div>
+    <div class="stat"><b id="sh-s2">–</b><span>fine-tune ±</span></div>
+    <div class="stat"><b id="sh-s3">–</b><span>heel check</span></div>
+  </div>
+  <div class="tool-note" id="sh-note"></div>
+  <button type="button" class="tool-btn" id="sh-share">Share this height</button>
+</div>
+<script>(function(){
+var F=['sh-i','sh-t'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('sh-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var i=parseFloat(F[0].value),t=parseFloat(F[1].value);
+  var ok=i>=50&&i<=110;
+  if(!ok){OUT.textContent='–';['sh-s1','sh-s2','sh-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sh-note').textContent='';document.title='Bike Saddle Height Calculator - ToolTide';return;}
+  var h=i*t;
+  OUT.textContent=h.toFixed(1);
+  document.getElementById('sh-s1').textContent=Math.round(h*10)+' mm';
+  document.getElementById('sh-s2').textContent='2-3 mm steps';
+  document.getElementById('sh-s3').textContent=(i*0.885).toFixed(1)+' cm';
+  document.getElementById('sh-note').textContent='Measure the inseam honestly: barefoot, back against a wall, a hard book or spirit level pressed firm into the crotch, measured floor to book top - soft trousers add a centimetre of fiction. The LeMond factor 0.883 sets saddle top to bottom-bracket distance and lands most riders in a 25-35 degree knee extension at the bottom of the stroke. Pain is the diagnostic: front-of-knee ache usually means the saddle is too low, back-of-knee or rocking hips means too high - adjust 2-3 mm at a time and ride a week before judging. The heel check cross-verifies: heel on the pedal at bottom dead centre, leg should be straight without hitching your hip.';
+  document.title=h.toFixed(1)+' cm saddle height - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_saddle',JSON.stringify({i:F[0].value,t:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['i','t'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_saddle')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('sh-share').addEventListener('click',function(){
+  var txt='Saddle height for an '+F[0].value+' cm inseam: '+OUT.textContent+' cm. Get yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Saddle height',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this height';},1500);}
+});
+})();
+</script>
+"""
+
+EBIKECHARGE = """<div class="tool" id="tt-ec">
+  <div class="fields">
+    <div class="field"><label for="ec-wh">Battery capacity (Wh)</label><input type="number" id="ec-wh" min="100" max="1500" step="10" placeholder="500"></div>
+    <div class="field"><label for="ec-p">Electricity price (per kWh)</label><input type="number" id="ec-p" min="0.01" step="0.01" placeholder="0.30"></div>
+    <div class="field"><label for="ec-c">Typical charge use (%)</label><input type="number" id="ec-c" min="10" max="100" step="5" placeholder="60"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ec-out">–</span><span class="result-unit">per typical charge</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ec-s1">–</b><span>full charge cost</span></div>
+    <div class="stat"><b id="ec-s2">–</b><span>per 100 km</span></div>
+    <div class="stat"><b id="ec-s3">–</b><span>per year (3,000 km)</span></div>
+  </div>
+  <div class="tool-note" id="ec-note"></div>
+  <button type="button" class="tool-btn" id="ec-share">Share this cost</button>
+</div>
+<script>(function(){
+var F=['ec-wh','ec-p','ec-c'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('ec-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var wh=parseFloat(F[0].value),p=parseFloat(F[1].value),c=parseFloat(F[2].value);
+  var ok=wh>=100&&wh<=1500&&p>0&&c>=10&&c<=100;
+  if(!ok){OUT.textContent='–';['ec-s1','ec-s2','ec-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ec-note').textContent='';document.title='E-Bike Charging Cost Calculator - ToolTide';return;}
+  var loss=1.12;
+  var kwhFull=wh/1000*loss;
+  var perCharge=kwhFull*c/100*p;
+  OUT.textContent=perCharge.toFixed(3);
+  document.getElementById('ec-s1').textContent=kwhFull*p.toFixed(2);
+  document.getElementById('ec-s2').textContent=(kwhFull*p/ (wh/15) *100).toFixed(3);
+  document.getElementById('ec-s3').textContent=(kwhFull*p/(wh/15)*30).toFixed(2);
+  document.getElementById('ec-note').textContent='The 12% uplift covers charger and battery losses - wall energy is always more than the label Wh. At 15 Wh/km, 100 km costs well under a loaf of bread: the money case for e-biking is not the electricity, it is the fuel, parking and second-car depreciation you never spend. The battery itself is the real cost centre: 500-900 cycles to 80% capacity means the pack is a per-km cost of a few cents if you use it, or pure waste if the bike rusts in the shed. Charge from partial states without guilt - lithium prefers shallow cycles; only depth-of-discharge myth says otherwise.';
+  document.title=perCharge.toFixed(2)+' to charge the e-bike - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_ebikecharge',JSON.stringify({wh:F[0].value,p:F[1].value,c:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['wh','p','c'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_ebikecharge')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('ec-share').addEventListener('click',function(){
+  var txt='My e-bike costs '+OUT.textContent+' per typical charge. Price yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'E-bike charging cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this cost';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -9174,6 +9317,9 @@ TOOLS = {
     "commute": lambda args: COMMUTE,
     "mileage": lambda args: MILEAGE,
     "carpool": lambda args: CARPOOL,
+    "ebikerange": lambda args: EBIKERANGE,
+    "saddle": lambda args: SADDLE,
+    "ebikecharge": lambda args: EBIKECHARGE,
 }
 
 
