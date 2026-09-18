@@ -414,6 +414,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="",
 <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)">
 {fav_ico}<link rel="icon" href="{fav}">
 {touch}{pwa}<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
+<link rel="alternate" type="application/rss+xml" title="ToolTide RSS" href="{esc(cfg['base_url'])}feed.xml">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
 <script defer src="{esc(cfg['base_url'])}i18n.js"></script>
@@ -1226,6 +1227,30 @@ def main():
                   f"<changefreq>weekly</changefreq><priority>{'1.0' if u == cfg['base_url'] else '0.8'}</priority></url>")
     sm.append("</urlset>")
     write("sitemap.xml", "\n".join(sm) + "\n")
+
+    # RSS feed — another discovery channel (readers, Bing, crawl-along paths);
+    # newest pages first (pages.py appends new pages at the tail).
+    from email.utils import format_datetime
+    from datetime import datetime as _dt, timezone as _tz
+    now_rfc = format_datetime(_dt.now(_tz.utc))
+    base = cfg["base_url"]
+    items = []
+    for p in reversed(all_pages[-20:]):
+        items.append(
+            "    <item>\n"
+            f"      <title>{esc(p['title'])}</title>\n"
+            f"      <link>{esc(base + p['slug'] + '/')}</link>\n"
+            f"      <guid isPermaLink=\"true\">{esc(base + p['slug'] + '/')}</guid>\n"
+            f"      <description>{esc(p.get('desc', ''))}</description>\n"
+            f"      <pubDate>{now_rfc}</pubDate>\n"
+            "    </item>")
+    write("feed.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+          "<rss version=\"2.0\"><channel>\n"
+          f"  <title>{esc(cfg.get('site_name', 'ToolTide'))}</title>\n"
+          f"  <link>{esc(base)}</link>\n"
+          "  <description>Free online tools: countdown timers, calculators, unit converters, text tools and generators.</description>\n"
+          f"  <lastBuildDate>{now_rfc}</lastBuildDate>\n"
+          + "\n".join(items) + "\n</channel></rss>\n")
 
     # robots
     write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {cfg['base_url']}sitemap.xml\n")
