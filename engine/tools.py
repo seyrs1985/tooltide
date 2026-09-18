@@ -5866,14 +5866,14 @@ BASE64 = """<div class="tool" id="tt-b6">
     <div class="field"><label for="b6-m"><span data-i18n="lbl.mode">Mode</span></label><select id="b6-m"><option value="enc">Encode text → Base64</option><option value="dec">Decode Base64 → text</option></select></div>
     <div class="field"><label for="b6-in"><span data-i18n="lbl.input">Input</span></label><textarea id="b6-in" rows="5" placeholder="Hello, ToolTide!"></textarea></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="b6-out" style="font-size:.95rem;word-break:break-all">–</span><span class="result-unit" id="b6-u">output</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="b6-out" style="font-size:.95rem;word-break:break-all">–</span><span class="result-unit" id="b6-u"><span data-i18n="dev.output">output</span></span></div>
   <div class="stats">
-    <div class="stat"><b id="b6-in-len">–</b><span>input chars</span></div>
-    <div class="stat"><b id="b6-out-len">–</b><span>output chars</span></div>
-    <div class="stat"><b id="b6-bytes">–</b><span>UTF-8 bytes in</span></div>
+    <div class="stat"><b id="b6-in-len">–</b><span><span data-i18n="dev.inchars">input chars</span></span></div>
+    <div class="stat"><b id="b6-out-len">–</b><span><span data-i18n="dev.outchars">output chars</span></span></div>
+    <div class="stat"><b id="b6-bytes">–</b><span><span data-i18n="dev.utf8">UTF-8 bytes in</span></span></div>
   </div>
   <div class="tool-note" id="b6-note">UTF-8 safe: emoji and non-Latin text round-trip correctly in both directions. All local, nothing uploaded.</div>
-  <button type="button" class="tool-btn" id="b6-copy">Copy output</button>
+  <button type="button" class="tool-btn" id="b6-copy" data-i18n="dev.copyout">Copy output</button>
 </div>
 <script>(function(){
 var M=document.getElementById('b6-m'),IN=document.getElementById('b6-in');
@@ -5901,7 +5901,7 @@ function calc(){
       :('Decoded '+v.length+' Base64 chars back to '+out.length+' chars ('+bytes+'→'+new Blob([out]).size+' bytes). Invalid characters or wrong length would have thrown here.');
     document.title=(enc?'Encoded ':'Decoded ')+out.length+' chars - ToolTide';
   }catch(e){
-    OUT.textContent='Invalid Base64';
+    OUT.textContent=TT('dev.invalidb64','Invalid Base64');
     document.getElementById('b6-u').textContent='cannot decode';
     document.getElementById('b6-note').textContent='Not valid Base64: the alphabet is A-Z a-z 0-9 + / with = padding, and length must be a multiple of 4. Whitespace is usually the culprit - paste the bare string.';
     document.title='Invalid Base64 - ToolTide';
@@ -5917,9 +5917,9 @@ else{try{var mem=JSON.parse(localStorage.getItem('tt_b64')||'null');if(mem){M.va
 calc();
 document.getElementById('b6-copy').addEventListener('click',function(){
   var t=OUT.textContent;
-  if(t==='–'||t==='Invalid Base64'){this.textContent='Nothing to copy';var b0=this;setTimeout(function(){b0.textContent='Copy output';},1500);return;}
+  if(t==='–'||t===TT('dev.invalidb64','Invalid Base64')){this.textContent=TT('dev.nothing','Nothing to copy');var b0=this;setTimeout(function(){b0.textContent=TT('dev.copyout','Copy output');},1500);return;}
   var b=this;
-  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('dev.copyout','Copy output');},1500);}).catch(function(){});}
 });
 })();
 </script>
@@ -5933,14 +5933,14 @@ URLCOD = """<div class="tool" id="tt-ue">
     <div class="field"><label for="ue-k">Scope</label><select id="ue-k"><option value="component">Component (?q= value style)</option><option value="full">Full URL (keep ://?&)</option></select></div>
     <div class="field"><label for="ue-in"><span data-i18n="lbl.input">Input</span></label><textarea id="ue-in" rows="4" placeholder="café & croissants / menu"></textarea></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ue-out" style="font-size:.95rem;word-break:break-all">–</span><span class="result-unit" id="ue-u">output</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ue-out" style="font-size:.95rem;word-break:break-all">–</span><span class="result-unit" id="ue-u"><span data-i18n="dev.output">output</span></span></div>
   <div class="stats">
-    <div class="stat"><b id="ue-in-len">–</b><span>input chars</span></div>
-    <div class="stat"><b id="ue-out-len">–</b><span>output chars</span></div>
+    <div class="stat"><b id="ue-in-len">–</b><span><span data-i18n="dev.inchars">input chars</span></span></div>
+    <div class="stat"><b id="ue-out-len">–</b><span><span data-i18n="dev.outchars">output chars</span></span></div>
     <div class="stat"><b id="ue-pct">–</b><span>% sequences</span></div>
   </div>
   <div class="tool-note" id="ue-note">Component mode encodes everything a query-string value must have encoded (& = ? / and spaces as %20); full-URL mode keeps the structure characters a URL needs. Runs locally.</div>
-  <button type="button" class="tool-btn" id="ue-copy">Copy output</button>
+  <button type="button" class="tool-btn" id="ue-copy" data-i18n="dev.copyout">Copy output</button>
 </div>
 <script>(function(){
 var M=document.getElementById('ue-m'),K=document.getElementById('ue-k'),IN=document.getElementById('ue-in');
@@ -5965,7 +5965,7 @@ function calc(){
       :('Decoded '+v.length+' → '+out.length+' chars. Malformed sequences like a lone % or a truncated %E2 would throw - the error note explains when that happens.');
     document.title=(enc?'Encoded ':'Decoded ')+out.length+' chars - ToolTide';
   }catch(e){
-    OUT.textContent='Malformed input';
+    OUT.textContent=TT('dev.malformed','Malformed input');
     document.getElementById('ue-u').textContent='cannot decode';
     document.getElementById('ue-note').textContent='A % sequence is incomplete or not followed by two hex digits - every % must introduce exactly two hex characters (like %20). Fix or remove the stray percent sign and decode again.';
     document.title='URL Decoder error - ToolTide';
@@ -5982,9 +5982,9 @@ else{try{var mem=JSON.parse(localStorage.getItem('tt_url')||'null');if(mem){M.va
 calc();
 document.getElementById('ue-copy').addEventListener('click',function(){
   var t=OUT.textContent;
-  if(t==='–'||t==='Malformed input'){this.textContent='Nothing to copy';var b0=this;setTimeout(function(){b0.textContent='Copy output';},1500);return;}
+  if(t==='–'||t===TT('dev.malformed','Malformed input')){this.textContent=TT('dev.nothing','Nothing to copy');var b0=this;setTimeout(function(){b0.textContent=TT('dev.copyout','Copy output');},1500);return;}
   var b=this;
-  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent='Copy output';},1500);}).catch(function(){});}
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('dev.copyout','Copy output');},1500);}).catch(function(){});}
 });
 })();
 </script>
