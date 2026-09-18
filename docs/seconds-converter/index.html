@@ -82,6 +82,7 @@ function toSeconds(v){
   if(parts.length===1)return parts[0];
   return null;
 }
+function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
 sIn.addEventListener('input',function(){
   if(lock)return;lock=true;
   var v=parseInt(sIn.value);
@@ -92,8 +93,8 @@ sIn.addEventListener('input',function(){
 hms.addEventListener('input',function(){
   if(lock)return;lock=true;
   var v=toSeconds(this.value);
-  if(v===null){out.textContent='(use h:mm:ss)';sIn.value='';lock=false;return;}
-  out.textContent=v.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' seconds';sIn.value=v;
+  if(v===null){out.textContent=T('secconv.usehms','(use h:mm:ss)');sIn.value='';lock=false;return;}
+  out.textContent=v.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' '+T('secconv.seconds','seconds');sIn.value=v;
   lock=false;
 });
 })();</script>

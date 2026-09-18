@@ -400,7 +400,9 @@ zh:{
  "json.depth":"最大深度",
  "jwt.alg":"算法",
  "jwt.expiry":"过期时间",
- "jwt.claims":"声明"
+ "jwt.claims":"声明",
+ "secconv.seconds":"秒",
+ "secconv.usehms":"（请用 h:mm:ss 格式）"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -781,7 +783,9 @@ es:{
  "json.depth":"profundidad máx.",
  "jwt.alg":"Algoritmo",
  "jwt.expiry":"Caducidad",
- "jwt.claims":"Claims"
+ "jwt.claims":"Claims",
+ "secconv.seconds":"segundos",
+ "secconv.usehms":"(usa h:mm:ss)"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1162,7 +1166,9 @@ pt:{
  "json.depth":"profundidade máx.",
  "jwt.alg":"Algoritmo",
  "jwt.expiry":"Expiração",
- "jwt.claims":"Claims"
+ "jwt.claims":"Claims",
+ "secconv.seconds":"segundos",
+ "secconv.usehms":"(use h:mm:ss)"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1543,7 +1549,9 @@ ru:{
  "json.depth":"макс. глубина",
  "jwt.alg":"Алгоритм",
  "jwt.expiry":"Срок действия",
- "jwt.claims":"Клеймы"
+ "jwt.claims":"Клеймы",
+ "secconv.seconds":"секунды",
+ "secconv.usehms":"(используйте ч:мм:сс)"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -1924,7 +1932,9 @@ ja:{
  "json.depth":"最大の深さ",
  "jwt.alg":"アルゴリズム",
  "jwt.expiry":"有効期限",
- "jwt.claims":"クレーム"
+ "jwt.claims":"クレーム",
+ "secconv.seconds":"秒",
+ "secconv.usehms":"（h:mm:ss 形式）"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2305,7 +2315,9 @@ ko:{
  "json.depth":"최대 깊이",
  "jwt.alg":"알고리즘",
  "jwt.expiry":"만료",
- "jwt.claims":"클레임"
+ "jwt.claims":"클레임",
+ "secconv.seconds":"초",
+ "secconv.usehms":"(h:mm:ss 형식)"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -2686,7 +2698,9 @@ de:{
  "json.depth":"max. Tiefe",
  "jwt.alg":"Algorithmus",
  "jwt.expiry":"Ablauf",
- "jwt.claims":"Claims"
+ "jwt.claims":"Claims",
+ "secconv.seconds":"Sekunden",
+ "secconv.usehms":"(Format h:mm:ss)"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3067,7 +3081,9 @@ fr:{
  "json.depth":"profondeur max",
  "jwt.alg":"Algorithme",
  "jwt.expiry":"Expiration",
- "jwt.claims":"Claims"
+ "jwt.claims":"Claims",
+ "secconv.seconds":"secondes",
+ "secconv.usehms":"(format h:mm:ss)"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3448,7 +3464,9 @@ id:{
  "json.depth":"kedalaman maks.",
  "jwt.alg":"Algoritma",
  "jwt.expiry":"Kedaluwarsa",
- "jwt.claims":"Klaim"
+ "jwt.claims":"Klaim",
+ "secconv.seconds":"detik",
+ "secconv.usehms":"(format h:mm:ss)"
 }
 };
 function detect(){
