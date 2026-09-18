@@ -1,3 +1,25 @@
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1182: SyntaxWarning: invalid escape sequence '\s'
+  t=t.replace(/<(script|style)[^>]*>[\s\S]*?<\/>/gi,function(m){tags++;return '';});
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1281: SyntaxWarning: invalid escape sequence '\d'
+  var nums=(inp.value.match(/-?\d+(?:\.\d+)?(?:e[+-]?\d+)?/gi)||[]).map(Number);
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1316: SyntaxWarning: invalid escape sequence '\s'
+  var parts=v.trim().split(/\s+/).filter(Boolean),bytes=[];
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1747: SyntaxWarning: invalid escape sequence '\d'
+  var m=v.match(/^(\d+)?[- ]?(\d+)\/(\d+)$/);
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:1997: SyntaxWarning: invalid escape sequence '\s'
+  v=v.trim().toLowerCase().replace(/\s/g,'');
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2121: SyntaxWarning: invalid escape sequence '\d'
+  if(!/^\d+$/.test(v)){out.textContent='-';note.textContent=TT('num.whole','Whole numbers only.');return;}
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2588: SyntaxWarning: invalid escape sequence '\s'
+  return v.trim().split(/\s+/).filter(Boolean).map(function(g){
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2637: SyntaxWarning: invalid escape sequence '\d'
+  numStr=numStr.replace(/,/g,"").replace(/^0+(?=\d)/,"");
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2702: SyntaxWarning: invalid escape sequence '\s'
+  return s.toLowerCase().split(/\s+/).map(function(word){
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2790: SyntaxWarning: invalid escape sequence '\s'
+  s=s.toLowerCase().replace(/-/g,' ').replace(/\band\b/g,' ').replace(/,/g,' ').replace(/\s+/g,' ').trim();
+I:\BaiduSyncdisk\Drill\数据报告\ai-growth-engine\engine\tools.py:2891: SyntaxWarning: invalid escape sequence '\s'
+  out.value=mode==='chars'?v.split('').reverse().join(''):v.split(/\s+/).filter(Boolean).reverse().join(' ');
   asset /manifest.webmanifest
   asset /sw.js
   asset /style.css
@@ -280,6 +302,23 @@
   page  /diaper-cost-calculator/
   page  /wake-window-calculator/
   page  /formula-feeding-calculator/
+  page  /protein-intake-calculator/
+  page  /creatine-calculator/
+  page  /data-usage-calculator/
+  page  /flight-delay-compensation-calculator/
+  page  /subscription-cost-calculator/
+  page  /silver-value-calculator/
+  page  /yarn-yardage-calculator/
+  page  /knitting-cast-on-calculator/
+  page  /curtain-fabric-calculator/
   page  /
   asset /opensearch.xml
-Built 278 tool pages + 5 site pages → docs/  (https://seyrs1985.github.io/tooltide/)
+Built 287 tool pages + 5 site pages → docs/  (https://seyrs1985.github.io/tooltide/)
+  removed docs/games/ (moved to NeonPlay)
+  games/index.html  ->  redirect
+  games/neon-tide/index.html  ->  redirect
+  games/snake/index.html  ->  redirect
+  games/2048/index.html  ->  redirect
+  games/memory-pairs/index.html  ->  redirect
+  games/tic-tac-toe/index.html  ->  redirect
+Games redirects built: 6 stubs -> https://seyrs1985.github.io/neonplay/
