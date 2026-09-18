@@ -51,6 +51,8 @@ for dirpath, _dirs, files in os.walk(DOCS):
         pages += 1
         if "i18n.js" not in html_txt:
             err("%s: i18n.js not loaded" % rel)
+        if "> data-i18n=" in html_txt:
+            err("%s: malformed data-i18n (attribute leaked into text content)" % rel)
         for m in key_attrs.finditer(html_txt):
             used.setdefault(m.group(1), set()).add(rel)
         for m in js_lit.finditer(html_txt):
