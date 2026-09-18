@@ -1628,9 +1628,9 @@ document.getElementById('sq-add').addEventListener('click',function(){
 # ---------------------------------------------------------------- seconds converter
 SECONDS = """
 <div class="tool" id="tt-sec">
-  <div class="field"><label for="sec-in">Total seconds</label><input type="number" id="sec-in" step="1" min="0" placeholder="3725"></div>
+  <div class="field"><label for="sec-in" data-i18n="secconv.totalseconds">Total seconds</label><input type="number" id="sec-in" step="1" min="0" placeholder="3725"></div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sec-out">-</span></div>
-  <div class="field" style="margin-top:12px"><label for="sec-hms">Duration (h:mm:ss or mm:ss)</label><input type="text" id="sec-hms" placeholder="1:02:05"></div>
+  <div class="field" style="margin-top:12px"><label for="sec-hms" data-i18n="secconv.duration">Duration (h:mm:ss or mm:ss)</label><input type="text" id="sec-hms" placeholder="1:02:05"></div>
 </div>
 <script>(function(){
 var sIn=document.getElementById('sec-in'),hms=document.getElementById('sec-hms');
