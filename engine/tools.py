@@ -241,18 +241,18 @@ PERCENT = """
     <button class="chip" data-t="2">% change X → Y</button>
   </div>
   <div class="pane" data-p="0">
-    <div class="inline"><input type="number" id="p0-a" step="any" placeholder="20"> <span class="pct">%</span>
-      <span class="of">of</span> <input type="number" id="p0-b" step="any" placeholder="150"> <span>=</span>
+    <div class="inline"><input type="number" id="p0-a" step="any" placeholder="20" aria-label="Percentage"> <span class="pct">%</span>
+      <span class="of">of</span> <input type="number" id="p0-b" step="any" placeholder="150" aria-label="Base number"> <span>=</span>
       <b id="p0-r">–</b></div>
   </div>
   <div class="pane" data-p="1" style="display:none">
-    <div class="inline"><input type="number" id="p1-a" step="any" placeholder="15"> <span class="of">is what % of</span>
-      <input type="number" id="p1-b" step="any" placeholder="60"> <span>=</span>
+    <div class="inline"><input type="number" id="p1-a" step="any" placeholder="15" aria-label="Part value"> <span class="of">is what % of</span>
+      <input type="number" id="p1-b" step="any" placeholder="60" aria-label="Total"> <span>=</span>
       <b id="p1-r">–</b><span class="pct2">%</span></div>
   </div>
   <div class="pane" data-p="2" style="display:none">
-    <div class="inline"><input type="number" id="p2-a" step="any" placeholder="80"> <span class="of">→</span>
-      <input type="number" id="p2-b" step="any" placeholder="100"> <span>=</span>
+    <div class="inline"><input type="number" id="p2-a" step="any" placeholder="80" aria-label="Old value"> <span class="of">→</span>
+      <input type="number" id="p2-b" step="any" placeholder="100" aria-label="New value"> <span>=</span>
       <b id="p2-r">–</b></div>
   </div>
   <div class="tool-note" id="pc-formula"></div>
@@ -304,7 +304,7 @@ TIP = """
     <button class="chip active" data-v="18">18%</button>
     <button class="chip" data-v="20">20%</button>
     <button class="chip" data-v="25">25%</button>
-    <input type="number" id="tip-custom" step="1" min="0" max="100" placeholder="custom %">
+    <input type="number" id="tip-custom" step="1" min="0" max="100" placeholder="custom %" aria-label="Custom tip percent">
   </div>
   <div class="stats">
     <div class="stat"><b id="tip-amt">–</b><span data-i18n="tip.tip">tip</span></div>
@@ -616,7 +616,7 @@ TYPING = """
     <button class="btn btn-sm" id="type-restart" type="button">↻ Restart</button>
   </div>
   <div class="type-passive" id="type-passage"></div>
-  <textarea id="type-in" rows="4" placeholder="Click here and start typing — the timer starts with your first key…"></textarea>
+  <textarea id="type-in" rows="4" placeholder="Click here and start typing — the timer starts with your first key…" aria-label="Typing area"></textarea>
   <div class="cd-clock" id="type-timer">1:00</div>
   <div class="stats">
     <div class="stat"><b id="type-wpm">–</b><span>WPM (net)</span></div>
@@ -739,7 +739,7 @@ gen();
 # ---------------------------------------------------------------- password generator
 PASSWORD = """
 <div class="tool" id="tt-pw">
-  <div class="pw-out-row"><input type="text" id="pw-out" readonly><button class="btn btn-sm" id="pw-copy" type="button" data-i18n="ui.copy">Copy</button></div>
+  <div class="pw-out-row"><input type="text" id="pw-out" readonly aria-label="Generated password"><button class="btn btn-sm" id="pw-copy" type="button" data-i18n="ui.copy">Copy</button></div>
   <div class="pw-strength"><div class="pw-bar" id="pw-bar"></div><span id="pw-strength"></span></div>
   <div class="fields">
     <div class="field"><label for="pw-len">Length: <b id="pw-lenv">16</b></label><input type="range" id="pw-len" min="8" max="64" value="16"></div>
@@ -3372,7 +3372,7 @@ var DR=[['Filter coffee',95],['Espresso',63],['Instant coffee',66],['Black tea',
 var box=document.getElementById('caf-rows');
 DR.forEach(function(d,i){
   var f=document.createElement('div');f.className='fields';
-  f.innerHTML='<div class="field"><label>'+d[0]+' ('+d[1]+' mg each)</label><select class="caf-n" data-mg="'+d[1]+'">'+
+  f.innerHTML='<div class="field"><label for="caf-n'+i+'">'+d[0]+' ('+d[1]+' mg each)</label><select id="caf-n'+i+'" class="caf-n" data-mg="'+d[1]+'">'+
     [0,1,2,3,4,5].map(function(n){return '<option value="'+n+'"'+(n===0?' selected':'')+'>'+n+'</option>';}).join('')+'</select></div>';
   box.appendChild(f);
 });
@@ -4291,9 +4291,9 @@ var GR=[['A',4],['A-',3.7],['B+',3.3],['B',3],['B-',2.7],['C+',2.3],['C',2],['C-
 var ROWS=7,box=document.getElementById('gpa-rows');
 for(var i=0;i<ROWS;i++){
   var d=document.createElement('div');d.className='fields';
-  d.innerHTML='<div class="field"><label>Course '+(i+1)+' (name optional)</label><input type="text" class="gpa-n" placeholder="Calculus II"></div>'+
-    '<div class="field"><label>Credits</label><input type="number" class="gpa-c" step="any" min="0" placeholder="4"></div>'+
-    '<div class="field"><label>Grade</label><select class="gpa-g"><option value=""></option>'+
+  d.innerHTML='<div class="field"><label for="gpa-n'+i+'">Course '+(i+1)+' (name optional)</label><input type="text" id="gpa-n'+i+'" class="gpa-n" placeholder="Calculus II"></div>'+
+    '<div class="field"><label for="gpa-c'+i+'">Credits</label><input type="number" id="gpa-c'+i+'" class="gpa-c" step="any" min="0" placeholder="4"></div>'+
+    '<div class="field"><label for="gpa-g'+i+'">Grade</label><select id="gpa-g'+i+'" class="gpa-g"><option value=""></option>'+
     GR.map(function(g){return '<option value="'+g[1]+'">'+g[0]+'</option>';}).join('')+'</select></div>';
   box.appendChild(d);
 }
@@ -4513,7 +4513,7 @@ LOANPAY = """<div class="tool" id="tt-ln">
   <div class="stats">
     <div class="stat"><b id="ln-int">–</b><span>total interest</span></div>
     <div class="stat"><b id="ln-tot">–</b><span>total paid</span></div>
-    <div class="stat"><b id="ln-share">–</b><span>interest share of payments</span></div>
+    <div class="stat"><b id="ln-sharepct">–</b><span>interest share of payments</span></div>
   </div>
   <div class="tool-note" id="ln-note"></div>
   <button type="button" class="tool-btn" id="ln-share" data-i18n="share.share-this-payment">Share this payment</button>
@@ -4527,7 +4527,7 @@ function calc(){
   var p=parseFloat(P.value),ar=parseFloat(R.value),y=parseFloat(Y.value);
   if(!(p>0)||!(y>0)||isNaN(ar)||ar<0){OUT.textContent='–';
     document.getElementById('ln-int').textContent='–';document.getElementById('ln-tot').textContent='–';
-    document.getElementById('ln-share').textContent='–';document.getElementById('ln-note').textContent='';
+    document.getElementById('ln-sharepct').textContent='–';document.getElementById('ln-note').textContent='';
     document.title='Loan Payment Calculator - ToolTide';return;}
   var r=ar/100/12,n=Math.round(y*12),m;
   if(r===0){m=p/n;}
@@ -4536,7 +4536,7 @@ function calc(){
   OUT.textContent=money(m);
   document.getElementById('ln-int').textContent=money(int);
   document.getElementById('ln-tot').textContent=money(tot);
-  document.getElementById('ln-share').textContent=Math.round(int/tot*100)+'%';
+  document.getElementById('ln-sharepct').textContent=Math.round(int/tot*100)+'%';
   document.getElementById('ln-note').textContent=money(p)+' at '+ar+'% for '+y+' years costs '+money(int)+' in interest - '+Math.round(int/tot*100)+' cents of every payment. Extra principal each month shortens the term and skips the interest those months would have carried.';
   document.title=money(m)+'/mo loan payment - ToolTide';
 }
@@ -6003,9 +6003,9 @@ JWTDECODE = """<div class="tool" id="tt-jw">
     <div class="stat"><b id="jw-exp">–</b><span>expiry</span></div>
     <div class="stat"><b id="jw-claims">–</b><span>claims</span></div>
   </div>
-  <h3 style="margin:12px 0 4px">Header</h3>
+  <h2 style="margin:12px 0 4px;font-size:1.17rem">Header</h2>
   <pre id="jw-h" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:180px;overflow:auto"></pre>
-  <h3 style="margin:12px 0 4px">Payload</h3>
+  <h2 style="margin:12px 0 4px;font-size:1.17rem">Payload</h2>
   <pre id="jw-p" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:280px;overflow:auto"></pre>
   <div class="tool-note" id="jw-note">Decode only - signatures are never verified here. Tokens stay in your browser: no URL state by design, so a token cannot leak into a shared link.</div>
   <button type="button" class="tool-btn" id="jw-share" data-i18n="share.share-this-tool">Share this tool</button>
@@ -7697,7 +7697,7 @@ LOREM = """<div class="tool" id="tt-lr">
     <div class="field"><label for="lr-s">Start with \u201cLorem ipsum\u2026\u201d</label><input type="checkbox" id="lr-s" checked></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="lr-out">–</span><span class="result-unit">words generated</span></div>
-  <textarea id="lr-tx" rows="9" style="width:100%;box-sizing:border-box;margin-top:10px;font-size:.95em" readonly></textarea>
+  <textarea id="lr-tx" rows="9" style="width:100%;box-sizing:border-box;margin-top:10px;font-size:.95em" readonly aria-label="Generated lorem ipsum text"></textarea>
   <div class="tool-note" id="lr-note"></div>
   <button type="button" class="tool-btn" id="lr-copy">Copy to clipboard</button>
   <button type="button" class="tool-btn" id="lr-new">Regenerate</button>

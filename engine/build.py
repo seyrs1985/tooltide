@@ -493,7 +493,7 @@ def footer(cfg, base, all_pages=(), cat_info=None):
         cat_pages = spread([x for x in all_pages if x["category"] == cat], 4)
         items = "".join(f'<a href="{base}{x["slug"]}/">{esc(foot_label(x))}</a>' for x in cat_pages)
         cols += (f'<nav class="foot-col" aria-label="{esc(label)}" data-i18n-aria="cat.{cat}">'
-                 f'<h3><a href="{base}#{cat}">{cat_emoji_html(cat)}<span data-i18n="cat.{cat}">{esc(label)}</span></a></h3>'
+                 f'<h2><a href="{base}#{cat}">{cat_emoji_html(cat)}<span data-i18n="cat.{cat}">{esc(label)}</span></a></h2>'
                  f'{items}</nav>')
     aff = ""
     if affiliate.get("url"):

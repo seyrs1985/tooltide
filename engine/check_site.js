@@ -71,6 +71,37 @@ for (const f of files) {
     checked++;
     if (!rTags.every(t => t.includes('aria-live="polite"') && t.includes('aria-atomic="true"'))) { fail++; console.log('A11Y FAIL', f, '.result missing aria-live/aria-atomic'); }
   }
+  // structural a11y: heading order, unique ids, labelled controls, named
+  // links/buttons/iframes — markup only (inline JS stripped: dynamic rows
+  // build their labels in JS strings, which would false-positive here)
+  const body = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
+  const hs = [...body.matchAll(/<h([1-6])\b/g)].map(m => +m[1]);
+  checked++;
+  if (hs.some((v, i) => i > 0 && v > hs[i - 1] + 1)) { fail++; console.log('A11Y FAIL', f, 'heading level skip (h' + hs.join('>h') + ')'); }
+  const ids = [...body.matchAll(/\sid="([^"]+)"/g)].map(m => m[1]);
+  const dup = ids.find((v, i) => ids.indexOf(v) !== i);
+  checked++;
+  if (dup) { fail++; console.log('A11Y FAIL', f, 'duplicate id "' + dup + '"'); }
+  const labelFor = new Set([...body.matchAll(/<label[^>]*\bfor="([^"]+)"/g)].map(m => m[1]));
+  for (const c of body.matchAll(/<(input|select|textarea)\b([^>]*)>/g)) {
+    const a = c[2];
+    if (/type\s*=\s*"(hidden|submit|button)"/.test(a)) continue;
+    const id = (a.match(/\sid="([^"]+)"/) || [])[1];
+    checked++;
+    if (!/aria-label/.test(a) && !(id && labelFor.has(id))) { fail++; console.log('A11Y FAIL', f, 'form control without label:', a.slice(0, 60)); }
+  }
+  for (const m of body.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)) {
+    checked++;
+    const txt = m[2].replace(/<[^>]+>/g, '').trim();
+    if (!txt && !/aria-label|title=/.test(m[1])) { fail++; console.log('A11Y FAIL', f, 'link without accessible name'); }
+  }
+  for (const m of body.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)) {
+    checked++;
+    const txt = m[2].replace(/<[^>]+>/g, '').trim();
+    if (!txt && !/aria-label/.test(m[1])) { fail++; console.log('A11Y FAIL', f, 'button without accessible name'); }
+  }
+  checked++;
+  if (/<iframe\b(?![^>]*\btitle=)/.test(body)) { fail++; console.log('A11Y FAIL', f, 'iframe without title'); }
 }
 // site-level assertions: back-to-top, 3-level breadcrumbs, category counts
 try {
