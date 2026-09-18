@@ -8857,6 +8857,155 @@ document.getElementById('cu-share').addEventListener('click',function(){
 </script>
 """
 
+COMMUTE = """<div class="tool" id="tt-cm">
+  <div class="fields">
+    <div class="field"><label for="cm-d">One-way distance (km)</label><input type="number" id="cm-d" min="0.5" max="200" step="0.5" placeholder="15"></div>
+    <div class="field"><label for="cm-y">Commuting days per year</label><input type="number" id="cm-y" min="50" max="320" step="1" placeholder="220"></div>
+    <div class="field"><label for="cm-c">True car cost per km</label><input type="number" id="cm-c" min="0.05" step="0.01" placeholder="0.45"></div>
+    <div class="field"><label for="cm-p">Parking per year</label><input type="number" id="cm-p" min="0" step="10" placeholder="600"></div>
+    <div class="field"><label for="cm-t">Transit pass per month</label><input type="number" id="cm-t" min="0" step="1" placeholder="75"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cm-out">–</span><span class="result-unit">car cost per year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cm-s1">–</b><span>transit per year</span></div>
+    <div class="stat"><b id="cm-s2">–</b><span>difference per year</span></div>
+    <div class="stat"><b id="cm-s3">–</b><span>per commuting day</span></div>
+  </div>
+  <div class="tool-note" id="cm-note"></div>
+  <button type="button" class="tool-btn" id="cm-share">Share this comparison</button>
+</div>
+<script>(function(){
+var F=['cm-d','cm-y','cm-c','cm-p','cm-t'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('cm-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=parseFloat(F[0].value),y=parseInt(F[1].value),c=parseFloat(F[2].value),p=parseFloat(F[3].value),t=parseFloat(F[4].value);
+  var ok=d>0&&y>=50&&c>0&&!isNaN(p)&&p>=0&&!isNaN(t)&&t>=0;
+  if(!ok){OUT.textContent='–';['cm-s1','cm-s2','cm-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cm-note').textContent='';document.title='Commute Cost Calculator - ToolTide';return;}
+  var km=2*d*y;
+  var car=km*c+ +p;
+  var transit=t*12;
+  OUT.textContent=car.toFixed(0);
+  document.getElementById('cm-s1').textContent=transit.toFixed(0);
+  document.getElementById('cm-s2').textContent=(car-transit).toFixed(0);
+  document.getElementById('cm-s3').textContent=(car/y).toFixed(2);
+  document.getElementById('cm-note').textContent='Fuel is the visible third of driving costs; depreciation, maintenance, tyres and insurance are the invisible two-thirds, which is why the all-in figure of 0.35-0.55 per km is the honest one to use - not the pump price. The comparison that matters is marginal versus average: if the car sits there anyway, transit saves you the marginal km cost plus parking; if the commute is the reason you own the car, the full figure is fair to charge against it. Missing from the ledger: 20-40 minutes of reading or sleeping on a train, and the 8,000-19,000 km of annual wear a 15 km commute quietly books against the car. Hybrid splits - drive to a transit hub, ride the rest - cut parking to zero and the km bill by two-thirds in most metro areas.';
+  document.title=car.toFixed(0)+' a year to commute by car - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_commute',JSON.stringify({d:F[0].value,y:F[1].value,c:F[2].value,p:F[3].value,t:F[4].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['d','y','c','p','t'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_commute')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('cm-share').addEventListener('click',function(){
+  var txt='My commute costs '+OUT.textContent+' a year by car vs '+document.getElementById('cm-s1').textContent+' on transit. Compare yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Commute cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this comparison';},1500);}
+});
+})();
+</script>
+"""
+
+MILEAGE = """<div class="tool" id="tt-ml">
+  <div class="fields">
+    <div class="field"><label for="ml-u">Distance unit</label><select id="ml-u"><option value="mi" selected>Miles</option><option value="km">Kilometres</option></select></div>
+    <div class="field"><label for="ml-d">Distance driven</label><input type="number" id="ml-d" min="0.1" step="1" placeholder="1200"></div>
+    <div class="field"><label for="ml-r">Reimbursement rate (per unit)</label><input type="number" id="ml-r" min="0.01" step="0.01" placeholder="0.67"></div>
+    <div class="field"><label for="ml-c">Your true cost per unit (optional)</label><input type="number" id="ml-c" min="0" step="0.01" placeholder="0.45"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ml-out">–</span><span class="result-unit">total reimbursement</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ml-s1">–</b><span>per 100 units</span></div>
+    <div class="stat"><b id="ml-s2">–</b><span>gap vs your true cost</span></div>
+    <div class="stat"><b id="ml-s3">–</b><span>fuel-only would pay</span></div>
+  </div>
+  <div class="tool-note" id="ml-note"></div>
+  <button type="button" class="tool-btn" id="ml-share">Share this total</button>
+</div>
+<script>(function(){
+var F=['ml-u','ml-d','ml-r','ml-c'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('ml-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var u=F[0].value,d=parseFloat(F[1].value),r=parseFloat(F[2].value),c=parseFloat(F[3].value);
+  var ok=d>0&&r>0;
+  if(!ok){OUT.textContent='–';['ml-s1','ml-s2','ml-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ml-note').textContent='';document.title='Mileage Reimbursement Calculator - ToolTide';return;}
+  var tot=d*r;
+  OUT.textContent=tot.toFixed(2);
+  document.getElementById('ml-s1').textContent=(r*100).toFixed(2);
+  document.getElementById('ml-s2').textContent=(c>0&&!isNaN(c))?((d*(r-c)).toFixed(2)):'set your cost';
+  document.getElementById('ml-s3').textContent=(c>0&&!isNaN(c))?(d*c*0.35).toFixed(2):'~35% of total';
+  document.getElementById('ml-note').textContent='Standard rates exist because fuel is roughly a third of what a kilometre truly costs - the rest is maintenance, tyres, insurance and above all depreciation. Accepting a fuel-only rate silently donates about two-thirds of the real expense to your employer or client. The rate field: national tax authorities publish yearly figures (0.67 per mile is a recent US-style benchmark; 0.45 per km a UK-style one) - use your authority\u2019s current number for tax-free claims. Log trips the day they happen with start, end and purpose: reconstructed logs are the first thing rejected in an audit, and a standing calendar entry per recurring trip makes the log write itself.';
+  document.title=tot.toFixed(0)+' reimbursement for '+d+' '+u+' - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_mileage',JSON.stringify({u:F[0].value,d:F[1].value,r:F[2].value,c:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['u','d','r','c'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_mileage')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('ml-share').addEventListener('click',function(){
+  var txt=F[1].value+' '+F[0].value+' reimbursed = '+OUT.textContent+'. Total yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Mileage total',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this total';},1500);}
+});
+})();
+</script>
+"""
+
+CARPOOL = """<div class="tool" id="tt-cp">
+  <div class="fields">
+    <div class="field"><label for="cp-d">One-way distance (km)</label><input type="number" id="cp-d" min="0.5" max="200" step="0.5" placeholder="25"></div>
+    <div class="field"><label for="cp-w">Days per week</label><input type="number" id="cp-w" min="1" max="7" step="1" placeholder="5"></div>
+    <div class="field"><label for="cp-c">Driving cost per km</label><input type="number" id="cp-c" min="0.05" step="0.01" placeholder="0.45"></div>
+    <div class="field"><label for="cp-n">People sharing the ride</label><select id="cp-n"><option value="2" selected>2 (driver + 1)</option><option value="3">3</option><option value="4">4</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cp-out">–</span><span class="result-unit">saved per person, per year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cp-s1">–</b><span>solo driving cost/yr</span></div>
+    <div class="stat"><b id="cp-s2">–</b><span>your share/yr</span></div>
+    <div class="stat"><b id="cp-s3">–</b><span>CO₂ saved per year</span></div>
+  </div>
+  <div class="tool-note" id="cp-note"></div>
+  <button type="button" class="tool-btn" id="cp-share">Share these savings</button>
+</div>
+<script>(function(){
+var F=['cp-d','cp-w','cp-c','cp-n'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('cp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=parseFloat(F[0].value),w=parseInt(F[1].value),c=parseFloat(F[2].value),n=parseInt(F[3].value);
+  var ok=d>0&&w>=1&&w<=7&&c>0&&n>=2&&n<=4;
+  if(!ok){OUT.textContent='–';['cp-s1','cp-s2','cp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cp-note').textContent='';document.title='Carpool Savings Calculator - ToolTide';return;}
+  var km=2*d*w*46;
+  var solo=km*c;
+  var share=solo/n;
+  OUT.textContent=(solo-share).toFixed(0);
+  document.getElementById('cp-s1').textContent=solo.toFixed(0);
+  document.getElementById('cp-s2').textContent=share.toFixed(0);
+  document.getElementById('cp-s3').textContent=Math.round(km*0.17*(1-1/n))+' kg';
+  document.getElementById('cp-note').textContent='Cost-sharing between colleagues is what makes carpooling work: split the running cost evenly and the driver stops subsidising everyone\u2019s commute. The CO\u2082 figure uses 170 g per km, a typical petrol car - each removed car is the whole point, and three sharers take two cars off the road, which is why high-occupancy lanes exist. The practical failure mode is schedule rigidity, not maths: agree in writing what happens when someone\u2019s evening runs late (flexible departure window, or a pre-agreed solo-day allowance), and the pool survives the first missed train. Insurance almost never blocks cost-sharing pools - it is sharing, not hire - but a genuine taxi-style operation is a different policy.';
+  document.title=(solo-share).toFixed(0)+' a year saved by carpooling - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_carpool',JSON.stringify({d:F[0].value,w:F[1].value,c:F[2].value,n:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['d','w','c','n'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_carpool')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('cp-share').addEventListener('click',function(){
+  var txt='Carpooling '+F[0].value+' km each way saves each of us '+OUT.textContent+' a year. Do your sums (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Carpool savings',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share these savings';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
     "datediff": lambda args: DATEDIFF,
@@ -9022,6 +9171,9 @@ TOOLS = {
     "yarn": lambda args: YARN,
     "caston": lambda args: CASTON,
     "curtain": lambda args: CURTAIN,
+    "commute": lambda args: COMMUTE,
+    "mileage": lambda args: MILEAGE,
+    "carpool": lambda args: CARPOOL,
 }
 
 
