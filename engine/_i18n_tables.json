@@ -1516,6 +1516,14 @@
    [
     "jwt.claims",
     "声明"
+   ],
+   [
+    "secconv.seconds",
+    "秒"
+   ],
+   [
+    "secconv.usehms",
+    "（请用 h:mm:ss 格式）"
    ]
   ],
   "es": [
@@ -3034,6 +3042,14 @@
    [
     "jwt.claims",
     "Claims"
+   ],
+   [
+    "secconv.seconds",
+    "segundos"
+   ],
+   [
+    "secconv.usehms",
+    "(usa h:mm:ss)"
    ]
   ],
   "pt": [
@@ -4552,6 +4568,14 @@
    [
     "jwt.claims",
     "Claims"
+   ],
+   [
+    "secconv.seconds",
+    "segundos"
+   ],
+   [
+    "secconv.usehms",
+    "(use h:mm:ss)"
    ]
   ],
   "ru": [
@@ -6070,6 +6094,14 @@
    [
     "jwt.claims",
     "Клеймы"
+   ],
+   [
+    "secconv.seconds",
+    "секунды"
+   ],
+   [
+    "secconv.usehms",
+    "(используйте ч:мм:сс)"
    ]
   ],
   "ja": [
@@ -7588,6 +7620,14 @@
    [
     "jwt.claims",
     "クレーム"
+   ],
+   [
+    "secconv.seconds",
+    "秒"
+   ],
+   [
+    "secconv.usehms",
+    "（h:mm:ss 形式）"
    ]
   ],
   "ko": [
@@ -9106,6 +9146,14 @@
    [
     "jwt.claims",
     "클레임"
+   ],
+   [
+    "secconv.seconds",
+    "초"
+   ],
+   [
+    "secconv.usehms",
+    "(h:mm:ss 형식)"
    ]
   ],
   "de": [
@@ -10624,6 +10672,14 @@
    [
     "jwt.claims",
     "Claims"
+   ],
+   [
+    "secconv.seconds",
+    "Sekunden"
+   ],
+   [
+    "secconv.usehms",
+    "(Format h:mm:ss)"
    ]
   ],
   "fr": [
@@ -12142,6 +12198,14 @@
    [
     "jwt.claims",
     "Claims"
+   ],
+   [
+    "secconv.seconds",
+    "secondes"
+   ],
+   [
+    "secconv.usehms",
+    "(format h:mm:ss)"
    ]
   ],
   "id": [
@@ -13660,6 +13724,14 @@
    [
     "jwt.claims",
     "Klaim"
+   ],
+   [
+    "secconv.seconds",
+    "detik"
+   ],
+   [
+    "secconv.usehms",
+    "(format h:mm:ss)"
    ]
   ]
  }
