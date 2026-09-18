@@ -369,7 +369,15 @@ zh:{
  "pomo.reset":"重置",
  "pomo.blocks":"今日专注块",
  "pomo.cycle":"轮次位置",
- "pomo.mins":"今日专注分钟"
+ "pomo.mins":"今日专注分钟",
+ "sa.avgcost":"新的平均成本",
+ "sa.shares":"总股数",
+ "sa.invested":"总投入",
+ "sa.lowered":"平均成本降幅",
+ "cg.peryear":"年复合增长率",
+ "cg.totgrowth":"总增长",
+ "cg.multiple":"相对本金的倍数",
+ "cg.yrsdouble":"按此速率翻倍年数"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -719,7 +727,15 @@ es:{
  "pomo.reset":"Reiniciar",
  "pomo.blocks":"bloques de enfoque hoy",
  "pomo.cycle":"posición del ciclo",
- "pomo.mins":"minutos de enfoque hoy"
+ "pomo.mins":"minutos de enfoque hoy",
+ "sa.avgcost":"nuevo coste promedio",
+ "sa.shares":"acciones totales",
+ "sa.invested":"total invertido",
+ "sa.lowered":"promedio reducido en",
+ "cg.peryear":"CAGR anual",
+ "cg.totgrowth":"crecimiento total",
+ "cg.multiple":"múltiplo del inicio",
+ "cg.yrsdouble":"años para duplicarse a esta tasa"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1069,7 +1085,15 @@ pt:{
  "pomo.reset":"Redefinir",
  "pomo.blocks":"blocos de foco hoje",
  "pomo.cycle":"posição do ciclo",
- "pomo.mins":"minutos de foco hoje"
+ "pomo.mins":"minutos de foco hoje",
+ "sa.avgcost":"novo custo médio",
+ "sa.shares":"ações totais",
+ "sa.invested":"total investido",
+ "sa.lowered":"média reduzida em",
+ "cg.peryear":"CAGR anual",
+ "cg.totgrowth":"crescimento total",
+ "cg.multiple":"múltiplo do inicial",
+ "cg.yrsdouble":"anos para dobrar a esta taxa"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1419,7 +1443,15 @@ ru:{
  "pomo.reset":"Сброс",
  "pomo.blocks":"блоки фокуса сегодня",
  "pomo.cycle":"позиция цикла",
- "pomo.mins":"минуты фокуса сегодня"
+ "pomo.mins":"минуты фокуса сегодня",
+ "sa.avgcost":"новая средняя цена",
+ "sa.shares":"всего акций",
+ "sa.invested":"всего вложено",
+ "sa.lowered":"средняя снижена на",
+ "cg.peryear":"CAGR в год",
+ "cg.totgrowth":"общий рост",
+ "cg.multiple":"кратность к начальному",
+ "cg.yrsdouble":"лет до удвоения при этом темпе"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -1769,7 +1801,15 @@ ja:{
  "pomo.reset":"リセット",
  "pomo.blocks":"今日の集中ブロック",
  "pomo.cycle":"サイクル位置",
- "pomo.mins":"今日の集中時間(分)"
+ "pomo.mins":"今日の集中時間(分)",
+ "sa.avgcost":"新しい平均取得単価",
+ "sa.shares":"合計株数",
+ "sa.invested":"合計投資額",
+ "sa.lowered":"平均取得単価の低下幅",
+ "cg.peryear":"年間CAGR",
+ "cg.totgrowth":"累積成長率",
+ "cg.multiple":"元本の倍率",
+ "cg.yrsdouble":"この利率で倍增する年数"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2119,7 +2159,15 @@ ko:{
  "pomo.reset":"초기화",
  "pomo.blocks":"오늘의 집중 블록",
  "pomo.cycle":"사이클 위치",
- "pomo.mins":"오늘의 집중 시간(분)"
+ "pomo.mins":"오늘의 집중 시간(분)",
+ "sa.avgcost":"새 평단가",
+ "sa.shares":"총 주식 수",
+ "sa.invested":"총 투자금",
+ "sa.lowered":"평단가 하락폭",
+ "cg.peryear":"연간 CAGR",
+ "cg.totgrowth":"총 성장률",
+ "cg.multiple":"원금 대비 배수",
+ "cg.yrsdouble":"이 비율로 두 배가 되는 연수"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -2469,7 +2517,15 @@ de:{
  "pomo.reset":"Zurücksetzen",
  "pomo.blocks":"Fokusblöcke heute",
  "pomo.cycle":"Zyklusposition",
- "pomo.mins":"Fokusminuten heute"
+ "pomo.mins":"Fokusminuten heute",
+ "sa.avgcost":"neue Durchschnittskosten",
+ "sa.shares":"Gesamtaktien",
+ "sa.invested":"gesamt investiert",
+ "sa.lowered":"Durchschnitt gesenkt um",
+ "cg.peryear":"CAGR pro Jahr",
+ "cg.totgrowth":"Gesamtwachstum",
+ "cg.multiple":"Vielfaches des Starts",
+ "cg.yrsdouble":"Jahre zur Verdoppelung bei dieser Rate"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -2819,7 +2875,15 @@ fr:{
  "pomo.reset":"Réinitialiser",
  "pomo.blocks":"blocs de concentration aujourd hui",
  "pomo.cycle":"position du cycle",
- "pomo.mins":"minutes de concentration aujourd hui"
+ "pomo.mins":"minutes de concentration aujourd hui",
+ "sa.avgcost":"nouveau coût moyen",
+ "sa.shares":"actions totales",
+ "sa.invested":"total investi",
+ "sa.lowered":"moyenne réduite de",
+ "cg.peryear":"TCAC par an",
+ "cg.totgrowth":"croissance totale",
+ "cg.multiple":"multiple du départ",
+ "cg.yrsdouble":"années pour doubler à ce taux"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3169,7 +3233,15 @@ id:{
  "pomo.reset":"Atur ulang",
  "pomo.blocks":"blok fokus hari ini",
  "pomo.cycle":"posisi siklus",
- "pomo.mins":"menit fokus hari ini"
+ "pomo.mins":"menit fokus hari ini",
+ "sa.avgcost":"harga rata-rata baru",
+ "sa.shares":"total saham",
+ "sa.invested":"total diinvestasikan",
+ "sa.lowered":"rata-rata turun sebesar",
+ "cg.peryear":"CAGR per tahun",
+ "cg.totgrowth":"pertumbuhan total",
+ "cg.multiple":"kelipatan dari awal",
+ "cg.yrsdouble":"tahun untuk dua kali lipat dengan tarif ini"
 }
 };
 function detect(){
