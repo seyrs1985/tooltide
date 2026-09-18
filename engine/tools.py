@@ -6390,11 +6390,11 @@ STOCKAVG = """<div class="tool" id="tt-sa">
     <div class="field"><label for="sa-n">New shares to buy</label><input type="number" id="sa-n" step="any" min="0" placeholder="100"></div>
     <div class="field"><label for="sa-np">New buy price ($)</label><input type="number" id="sa-np" step="any" min="0" placeholder="35"></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sa-out">–</span><span class="result-unit">new average cost</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sa-out">–</span><span class="result-unit" data-i18n="sa.avgcost">new average cost</span></div>
   <div class="stats">
-    <div class="stat"><b id="sa-sh">–</b><span>total shares</span></div>
-    <div class="stat"><b id="sa-inv">–</b><span>total invested</span></div>
-    <div class="stat"><b id="sa-dr">–</b><span>average lowered by</span></div>
+    <div class="stat"><b id="sa-sh">–</b><span data-i18n="sa.shares">total shares</span></div>
+    <div class="stat"><b id="sa-inv">–</b><span data-i18n="sa.invested">total invested</span></div>
+    <div class="stat"><b id="sa-dr">–</b><span data-i18n="sa.lowered">average lowered by</span></div>
   </div>
   <div class="tool-note" id="sa-note"></div>
   <button type="button" class="tool-btn" id="sa-share" data-i18n="share.share-this-cost-basis">Share this cost basis</button>
@@ -7748,11 +7748,11 @@ CAGR = """<div class="tool" id="tt-cg">
     <div class="field"><label for="cg-e">Ending value ($)</label><input type="number" id="cg-e" step="any" min="0" placeholder="26000"></div>
     <div class="field"><label for="cg-y"><span data-i18n="lbl.years">Years</span></label><input type="number" id="cg-y" step="any" min="0.1" max="200" placeholder="6"></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cg-out">–</span><span class="result-unit">CAGR per year</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cg-out">–</span><span class="result-unit" data-i18n="cg.peryear">CAGR per year</span></div>
   <div class="stats">
-    <div class="stat"><b id="cg-tot">–</b><span>total growth</span></div>
-    <div class="stat"><b id="cg-mul">–</b><span>multiple of start</span></div>
-    <div class="stat"><b id="cg-dbl">–</b><span>years to double at this rate</span></div>
+    <div class="stat"><b id="cg-tot">–</b><span data-i18n="cg.totgrowth">total growth</span></div>
+    <div class="stat"><b id="cg-mul">–</b><span data-i18n="cg.multiple">multiple of start</span></div>
+    <div class="stat"><b id="cg-dbl">–</b><span data-i18n="cg.yrsdouble">years to double at this rate</span></div>
   </div>
   <div class="tool-note" id="cg-note"></div>
   <button type="button" class="tool-btn" id="cg-share" data-i18n="share.share-this-cagr">Share this CAGR</button>
