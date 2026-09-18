@@ -59,6 +59,32 @@ const TESTS = [
     js: `let m=set('age-b','1990-05-15'); if(m)return m; m=set('age-a','2026-09-19'); return m||get('age-main');` },
   { slug: "days-between-dates", want: 59,
     js: `let m=set('dd-a','2026-01-01'); if(m)return m; m=set('dd-b','2026-03-01'); return m||get('dd-days');` },
+  // ---- extended coverage (night of 2026-09-19) ----
+  { slug: "grade-calculator", want: 85,
+    js: `let m=set('gr-earned','85'); if(m)return m; m=set('gr-total','100'); return m||get('gr-pct');` },
+  { slug: "half-calculator", text: "3-1/2",
+    js: `const m=set('hf-in','7'); return m||get('hf-out');` },
+  { slug: "unit-price-calculator", want: 0.16,
+    js: `let m=set('up-ap','2.50'); if(m)return m; m=set('up-aq','10'); if(m)return m; m=set('up-bp','4.00'); if(m)return m; m=set('up-bq','25'); return m||get('up-ub');` },
+  { slug: "water-intake-calculator", want: 2.31,
+    js: `let m=set('wt-kg','70'); if(m)return m; m=set('wt-ex','0'); return m||get('wt-out');` },
+  { slug: "tdee-calculator", want: 1730,
+    js: `let m=set('td-sex','m'); if(m)return m; m=set('td-age','30'); if(m)return m; m=set('td-h','180'); if(m)return m; m=set('td-w','75'); return m||get('td-bmr');` },
+  { slug: "macro-calculator", cons: 2000,
+    js: `let m=set('mc-cal','2000'); if(m)return m; return [get('mc-pg'),get('mc-cg'),get('mc-fg')].join('|');` },
+  { slug: "standard-deviation-calculator", want: 2.138,
+    js: `const m=set('sd-in','2,4,4,4,5,5,7,9'); return m||get('sd-out');` },
+  { slug: "debt-payoff-calculator", want: 10,
+    js: `let m=set('dp-b','1000'); if(m)return m; m=set('dp-r','0'); if(m)return m; m=set('dp-m','100'); return m||get('dp-out');` },
+  { slug: "cagr-calculator", want: 14.87, tol: 0.01,
+    js: `let m=set('cg-b','100'); if(m)return m; m=set('cg-e','200'); if(m)return m; m=set('cg-y','5'); return m||get('cg-out');` },
+  // unitconv family sample: expected = (7 * factor).toFixed(dec), computed independently below
+  { slug: "liters-to-ml", want: 7000, js: `const m=set('uc-a','7'); return m||get('uc-r');` },
+  { slug: "inches-to-feet", want: 0.583, js: `const m=set('uc-a','7'); return m||get('uc-r');` },
+  { slug: "gallons-to-quarts", want: 28, js: `const m=set('uc-a','7'); return m||get('uc-r');` },
+  { slug: "mm-to-inches", want: 0.28, js: `const m=set('uc-a','7'); return m||get('uc-r');` },
+  { slug: "ounces-to-grams", want: 198.45, js: `const m=set('uc-a','7'); return m||get('uc-r');` },
+  { slug: "grams-to-kilograms", want: 0.01, js: `const m=set('uc-a','7'); return m||get('uc-r');` },
 ];
 const tests = only ? TESTS.filter(t => only.split(",").includes(t.slug)) : TESTS;
 
@@ -105,6 +131,12 @@ for (const t of tests) {
     } else if (t.text) {
       const ok = raw.includes(t.text);
       results.push({ slug: t.slug, ok, why: ok ? "" : `expected text "${t.text}"`, raw });
+    } else if (t.cons) {
+      // macros consistency: grams split must sum back to the calorie input (4/4/9 kcal per g)
+      const [pg, cg, fg] = raw.split("|").map(s => parseFloat(String(s).replace(/[^\d.]/g, "")));
+      const sum = (pg || 0) * 4 + (cg || 0) * 4 + (fg || 0) * 9;
+      const ok = isFinite(sum) && Math.abs(sum - t.cons) <= t.cons * 0.01;
+      results.push({ slug: t.slug, ok, why: ok ? "" : `grams sum to ${sum}, want ${t.cons}`, raw });
     } else {
       const num = parseFloat(String(raw).replace(/[^\d.,-]/g, "").replace(/,/g, "").match(/-?\d+(\.\d+)?/)?.[0]);
       const tol = t.tol ?? 0.005;

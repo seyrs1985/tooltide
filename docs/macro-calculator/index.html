@@ -112,6 +112,7 @@ var pre=false;
 [['cal',CAL],['p',P],['c',C],['f',F]].forEach(function(a){var v=qs(a[0]);if(v!==null){a[1].value=v;pre=true;}});
 if(pre){GOAL.value='custom';}
 else{try{var mem=JSON.parse(localStorage.getItem('tt_macros')||'null');if(mem){CAL.value=mem.c||'';GOAL.value=mem.g||'30,40,30';P.value=mem.p||'30';C.value=mem.ca||'40';F.value=mem.f||'30';}}catch(e){}}
+if(GOAL.value!=='custom'&&!P.value&&!C.value&&!F.value){var dv=(GOAL.value||'30,40,30').split(',');P.value=dv[0];C.value=dv[1];F.value=dv[2];}
 calc();
 document.getElementById('mc-share').addEventListener('click',function(){
   var txt='My macros at '+(parseFloat(CAL.value)||0)+' kcal: '+OUT.textContent+' g (P/C/F). Plan yours (no sign-up):';
