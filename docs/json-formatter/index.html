@@ -64,12 +64,12 @@
     <div class="field"><label for="js-in">JSON input</label><textarea id="js-in" rows="7" placeholder='{"name":"ToolTide","tools":237,"free":true}'></textarea></div>
     <div class="field"><label for="js-ind">Indent</label><select id="js-ind"><option value="2" selected>2 spaces</option><option value="4">4 spaces</option><option value="tab">Tabs</option></select></div>
   </div>
-  <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="js-fmt">Format</button><button type="button" class="tool-btn" id="js-min">Minify</button></div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="js-out">–</span><span class="result-unit" id="js-u">status</span></div>
+  <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="js-fmt" data-i18n="json.fmt">Format</button><button type="button" class="tool-btn" id="js-min" data-i18n="json.minify">Minify</button></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="js-out">–</span><span class="result-unit" id="js-u" data-i18n="lbl.status">status</span></div>
   <div class="stats">
-    <div class="stat"><b id="js-size">–</b><span>size</span></div>
-    <div class="stat"><b id="js-nodes">–</b><span>keys + values</span></div>
-    <div class="stat"><b id="js-depth">–</b><span>max depth</span></div>
+    <div class="stat"><b id="js-size">–</b><span> data-i18n="json.size">size</span></div>
+    <div class="stat"><b id="js-nodes">–</b><span> data-i18n="json.kv">keys + values</span></div>
+    <div class="stat"><b id="js-depth">–</b><span> data-i18n="json.depth">max depth</span></div>
   </div>
   <pre id="js-pre" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:340px;overflow:auto;margin:10px 0"></pre>
   <div class="tool-note" id="js-note">Everything runs locally in your browser - API keys and payloads never leave this page.</div>

@@ -4077,11 +4077,11 @@ TDEE = """<div class="tool" id="tt-tdee">
       <option value="1.725">Very active — 6-7 workouts a week</option>
       <option value="1.9">Athlete — twice-daily training or physical job</option>
     </select></div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="td-out">–</span><span class="result-unit">kcal / day to maintain weight (TDEE)</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="td-out">–</span><span class="result-unit"> data-i18n="td.unit">kcal / day to maintain weight (TDEE)</span></div>
   <div class="stats">
-    <div class="stat"><b id="td-bmr">–</b><span>BMR at rest</span></div>
-    <div class="stat"><b id="td-loss">–</b><span>steady loss (−500)</span></div>
-    <div class="stat"><b id="td-gain">–</b><span>lean gain (+300)</span></div>
+    <div class="stat"><b id="td-bmr">–</b><span> data-i18n="td.bmr">BMR at rest</span></div>
+    <div class="stat"><b id="td-loss">–</b><span> data-i18n="td.loss">steady loss (−500)</span></div>
+    <div class="stat"><b id="td-gain">–</b><span> data-i18n="td.gain">lean gain (+300)</span></div>
   </div>
   <div class="tool-note">Mifflin-St Jeor equation × activity multiplier — the same method most dietitians start from. Treat every figure as a starting estimate: track real weight change for two weeks and adjust by 100-200 kcal rather than trusting any formula blindly.</div>
   <button type="button" class="tool-btn" id="td-share" data-i18n="share.share-my-tdee">Share my TDEE</button>
@@ -5789,12 +5789,12 @@ JSONTOOL = """<div class="tool" id="tt-js">
     <div class="field"><label for="js-in">JSON input</label><textarea id="js-in" rows="7" placeholder='{"name":"ToolTide","tools":237,"free":true}'></textarea></div>
     <div class="field"><label for="js-ind">Indent</label><select id="js-ind"><option value="2" selected>2 spaces</option><option value="4">4 spaces</option><option value="tab">Tabs</option></select></div>
   </div>
-  <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="js-fmt">Format</button><button type="button" class="tool-btn" id="js-min">Minify</button></div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="js-out">–</span><span class="result-unit" id="js-u">status</span></div>
+  <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="js-fmt" data-i18n="json.fmt">Format</button><button type="button" class="tool-btn" id="js-min" data-i18n="json.minify">Minify</button></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="js-out">–</span><span class="result-unit" id="js-u" data-i18n="lbl.status">status</span></div>
   <div class="stats">
-    <div class="stat"><b id="js-size">–</b><span>size</span></div>
-    <div class="stat"><b id="js-nodes">–</b><span>keys + values</span></div>
-    <div class="stat"><b id="js-depth">–</b><span>max depth</span></div>
+    <div class="stat"><b id="js-size">–</b><span> data-i18n="json.size">size</span></div>
+    <div class="stat"><b id="js-nodes">–</b><span> data-i18n="json.kv">keys + values</span></div>
+    <div class="stat"><b id="js-depth">–</b><span> data-i18n="json.depth">max depth</span></div>
   </div>
   <pre id="js-pre" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:340px;overflow:auto;margin:10px 0"></pre>
   <div class="tool-note" id="js-note">Everything runs locally in your browser - API keys and payloads never leave this page.</div>
@@ -6003,11 +6003,11 @@ JWTDECODE = """<div class="tool" id="tt-jw">
   <div class="fields">
     <div class="field"><label for="jw-in">JWT token (paste the whole thing)</label><textarea id="jw-in" rows="4" placeholder="eyJhbGciOi..."></textarea></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="jw-out">–</span><span class="result-unit" id="jw-u">status</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="jw-out">–</span><span class="result-unit" id="jw-u" data-i18n="lbl.status">status</span></div>
   <div class="stats">
-    <div class="stat"><b id="jw-alg">–</b><span>algorithm</span></div>
-    <div class="stat"><b id="jw-exp">–</b><span>expiry</span></div>
-    <div class="stat"><b id="jw-claims">–</b><span>claims</span></div>
+    <div class="stat"><b id="jw-alg">–</b><span> data-i18n="jwt.alg">algorithm</span></div>
+    <div class="stat"><b id="jw-exp">–</b><span> data-i18n="jwt.expiry">expiry</span></div>
+    <div class="stat"><b id="jw-claims">–</b><span> data-i18n="jwt.claims">claims</span></div>
   </div>
   <h2 style="margin:12px 0 4px;font-size:1.17rem">Header</h2>
   <pre id="jw-h" style="white-space:pre-wrap;word-break:break-all;background:rgba(14,116,144,.06);border:1px solid rgba(14,116,144,.2);border-radius:10px;padding:12px;font-size:.85rem;max-height:180px;overflow:auto"></pre>
