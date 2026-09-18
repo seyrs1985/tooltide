@@ -85,6 +85,17 @@ const TESTS = [
   { slug: "mm-to-inches", want: 0.28, js: `const m=set('uc-a','7'); return m||get('uc-r');` },
   { slug: "ounces-to-grams", want: 198.45, js: `const m=set('uc-a','7'); return m||get('uc-r');` },
   { slug: "grams-to-kilograms", want: 0.01, js: `const m=set('uc-a','7'); return m||get('uc-r');` },
+  // money-adjacent batch (trust-critical)
+  { slug: "amortization-schedule", want: 599.55, tol: 0.01,
+    js: `let m=set('am-p','20000'); if(m)return m; m=set('am-r','5'); if(m)return m; m=set('am-y','3'); return m||get('am-out');` },
+  { slug: "salary-to-hourly", want: 25,
+    js: `let m=set('sal-yr','52000'); if(m)return m; m=set('sal-hpw','40'); if(m)return m; m=set('sal-wpy','52'); return m||get('sal-h');` },
+  { slug: "overtime-pay-calculator", want: 950,
+    js: `let m=set('ot-r','20'); if(m)return m; m=set('ot-h','45'); if(m)return m; m=set('ot-t','40'); if(m)return m; m=set('ot-m','1.5'); return m||get('ot-out');` },
+  { slug: "inflation-calculator", want: 246.37, tol: 0.01,
+    js: `let m=set('inf-a','100'); if(m)return m; m=set('inf-f','1990'); if(m)return m; m=set('inf-t','2025'); return m||get('inf-out');` },
+  { slug: "break-even-calculator", want: 100,
+    js: `let m=set('be-f','1000'); if(m)return m; m=set('be-p','25'); if(m)return m; m=set('be-v','15'); return m||get('be-out');` },
 ];
 const tests = only ? TESTS.filter(t => only.split(",").includes(t.slug)) : TESTS;
 
