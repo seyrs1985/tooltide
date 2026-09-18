@@ -7,6 +7,7 @@ JavaScript free of Python string-formatting braces.
 """
 
 import json
+import datetime
 
 
 def _args(args):
@@ -17,8 +18,9 @@ def _args(args):
 COUNTDOWN = """
 <div class="tool" id="tt-cd">
   <div class="cd-event"><span id="cd-emoji"></span><span id="cd-name"></span></div>
-  <div class="cd-big" id="cd-days">–</div>
+  <div class="cd-big" id="cd-days">__STATIC_DAYS__</div>
   <div class="cd-big-label" id="cd-days-label" data-i18n="cd.days">days to go</div>
+  <p class="cd-asof" id="cd-asof" style="margin:.25rem 0 0;font-size:.85rem;opacity:.75">__STATIC_ASOF__</p>
   <div class="cd-clock" id="cd-clock">–</div>
   <div class="stats">
     <div class="stat"><b id="cd-weeks">–</b><span data-i18n="cd.weeks">weeks</span></div>
@@ -91,9 +93,11 @@ function tick(){
   var days=Math.floor(diff/86400000);
   var hours=Math.floor(diff/3600000)%24, mins=Math.floor(diff/60000)%60, secs=Math.floor(diff/1000)%60;
   var real=r.today?0:days;
+  if(A.unit==='weeks')real=Math.max(1,Math.ceil(days/7));
   var LC=(window.ttLang&&window.ttLang())||'en-US';
   function T(k,f){var v=null;try{v=window.npT?window.npT(k):null;}catch(e){}return v||f;}
   var EV=T('cd.ev.'+A.event.toLowerCase().replace(/[^a-z]+/g,'-').replace(/^-+|-+$/g,''),A.event),daysLbl=T('cd.days','days to go');
+  if(A.unit_label)daysLbl=A.unit_label;
   if(CUST){EV=r.cand.toLocaleDateString(LC,{month:'short',day:'numeric',year:'numeric'})+' ★';daysLbl=T('cd.daysyours','days to your date');}
   el('cd-name').textContent=EV;
   if(ICV&&ICONLINK&&real!==ILAST){ILAST=real;try{
@@ -102,10 +106,11 @@ function tick(){
     g.fillStyle=grd;g.fillRect(0,0,180,180);g.fillStyle='#fff';g.textAlign='center';
     g.font='40px serif';g.fillText(A.emoji||'📅',90,48);
     g.font='700 74px Arial,sans-serif';g.fillText(String(real),90,128);
-    g.font='700 15px Arial,sans-serif';g.fillText('DAYS TO GO',90,154);
+    g.font='700 15px Arial,sans-serif';g.fillText((A.unit_label||'DAYS TO GO').toUpperCase().replace(/ TO GO$/,''),90,154);
     ICONLINK.href=ICV.toDataURL('image/png');
   }catch(e){ILAST=-2;}}
   el('cd-days').textContent=real;
+  var ASOF=el('cd-asof');if(ASOF)ASOF.style.display='none';
   el('cd-days-label').textContent=r.today?T('cd.today',"It's {ev} today! 🎉").replace('{ev}',EV):daysLbl;
   el('cd-clock').textContent=pad(hours)+':'+pad(mins)+':'+pad(secs)+'  '+T('cd.clock','h:m:s remaining today');
   el('cd-clock').style.display=r.today?'none':'block';
@@ -9293,8 +9298,79 @@ document.getElementById('ld-share').addEventListener('click',function(){
 </script>
 """
 
+def _easter_date(y):
+    """Anonymous Gregorian computus — same algorithm as easterSunday() in the countdown JS."""
+    a=y%19; b=y//100; c=y%100; d=b//4; e=b%4; f=(b+8)//25; g=(b-f+1)//3
+    h=(19*a+b-d-g+15)%30; i=c//4; k=c%4; l=(32+2*e+2*i-h-k)%7
+    mm=(a+11*h+22*l)//451; mo=(h+l-7*mm+114)//31; da=((h+l-7*mm+114)%31)+1
+    return datetime.date(y, mo, da)
+
+
+def _cd_next_target(args, today):
+    """Next occurrence of a countdown event, mirroring target()/candidate() in the countdown JS.
+    JS weekday convention 0=Sun..6=Sat is shifted to Python's Mon=0..Sun=6."""
+    import calendar as _cal
+    m, d, rule = args.get("month"), args.get("day"), args.get("rule")
+    py_wd = lambda w: (w + 6) % 7
+    def cand(y):
+        if rule:
+            if rule.get("easter"):
+                return _easter_date(y)
+            if rule.get("weekly"):
+                delta = (py_wd(rule["weekday"]) - today.weekday()) % 7
+                if delta == 0:
+                    delta = 7
+                return today + datetime.timedelta(days=delta)
+            count = 0
+            for day in range(1, _cal.monthrange(y, m)[1] + 1):
+                dt = datetime.date(y, m, day)
+                if dt.weekday() == py_wd(rule["weekday"]):
+                    count += 1
+                    if count == rule["week"]:
+                        return dt
+            return None
+        return datetime.date(y, m, d)
+    if rule and rule.get("weekly"):
+        return cand(today.year)
+    t = cand(today.year)
+    if t is None or t < today:
+        t = cand(today.year + 1)
+    return t
+
+
+def _render_countdown(args):
+    """Injects a build-time countdown snapshot so crawlers/no-JS visitors see real numbers;
+    the page JS overwrites both and hides the snapshot line on first tick."""
+    today = datetime.date.today()
+    t = _cd_next_target(args, today)
+    days = (t - today).days
+    ev = args.get("event", "the event")
+    unit = args.get("unit", "days")
+    if unit == "weeks":
+        n, word = max(1, -(-days // 7)), "weeks"
+    elif unit == "sleeps":
+        n, word = days, "sleeps"
+    else:
+        n, word = days, "days"
+    if days == 0:
+        asof = (f"It's {ev} today! 🎉 Snapshot taken at this site build — the live timer above "
+                "is exact to the second.")
+    else:
+        if n == 1:
+            word = word[:-1]
+        asof = (f"Snapshot at this site build ({today:%B} {today.day}, {today:%Y}): {n} {word} to go "
+                f"until {ev} — {t:%A}, {t:%B} {t.day}, {t:%Y}. The live timer above is exact to the second.")
+    html = COUNTDOWN.replace("__ARGS__", _args(args))
+    html = html.replace("__STATIC_DAYS__", str(n)).replace("__STATIC_ASOF__", asof)
+    if args.get("unit_label"):
+        html = html.replace(
+            '<div class="cd-big-label" id="cd-days-label" data-i18n="cd.days">days to go</div>',
+            '<div class="cd-big-label" id="cd-days-label">' + args["unit_label"] + "</div>")
+    return html
+
+
 TOOLS = {
-    "countdown": lambda args: COUNTDOWN.replace("__ARGS__", _args(args)),
+    "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
     "age": lambda args: AGE,
     "percent": lambda args: PERCENT.replace("__ARGS__", json.dumps(args or {})),

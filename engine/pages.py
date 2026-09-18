@@ -8,9 +8,12 @@ variants are one-line additions — that is the programmatic-SEO lever.
 """
 
 
-def _cd(slug, event, month, day, keyword, facts, seasonal, emoji):
-    """Countdown page: fixed month/day, recurs yearly (JS computes next occurrence)."""
-    return {
+def _cd(slug, event, month, day, keyword, facts, seasonal, emoji,
+        unit=None, unit_label=None, title=None, h1=None, desc=None, faqs=None, slug_out=None):
+    """Countdown page: fixed month/day, recurs yearly (JS computes next occurrence).
+    Optional unit/unit_label render the big number as weeks/sleeps instead of days;
+    slug_out overrides the default days-until-{slug} URL."""
+    page = {
         "slug": f"days-until-{slug}",
         "title": f"How Many Days Until {event}? Live {event} Countdown",
         "h1": f"How Many Days Until {event}?",
@@ -42,6 +45,21 @@ def _cd(slug, event, month, day, keyword, facts, seasonal, emoji):
         ],
         "facts": facts,
     }
+    if slug_out:
+        page["slug"] = slug_out
+    if unit:
+        page["args"]["unit"] = unit
+    if unit_label:
+        page["args"]["unit_label"] = unit_label
+    if title:
+        page["title"] = title
+    if h1:
+        page["h1"] = h1
+    if desc:
+        page["desc"] = desc
+    if faqs:
+        page["faqs"] = faqs
+    return page
 
 
 def _conv(slug, title_kw, a_name, b_name, factor, category_label, about, tip, dec=2):
@@ -104,6 +122,48 @@ def PAGES():
                "Whether you are planning gifts, booking travel, or just excited for the holidays, a precise countdown keeps the anticipation fun. Bookmark this page and check back anytime — the timer rolls over automatically after Christmas to count down to the next one.",
                "🎄")
     pages.append(xmas)
+
+    # Christmas unit variants — "sleeps" (kid/family ritual) and "weeks" (planner) are
+    # distinct high-volume query angles with their own SERPs, same countdown engine.
+    sleeps = _cd("sleeps", "Christmas", 12, 25, "how many sleeps until christmas",
+                 "One sleep means one night. Kids have used the sleep count for generations because it turns an abstract number of days into something you can feel at bedtime: on December 24th there is exactly one sleep left.",
+                 "Ask \"how many sleeps\" at bedtime and let the page answer. The count follows your device's clock and rolls over automatically to next Christmas after the big day, so the bookmark never goes stale.",
+                 "🛏️",
+                 unit="sleeps", unit_label="sleeps to go", slug_out="sleeps-until-christmas",
+                 title="How Many Sleeps Until Christmas? Live Sleeps Countdown for Kids",
+                 h1="How Many Sleeps Until Christmas?",
+                 desc="Count the sleeps until Christmas — one sleep per night, made for kids and families. Live countdown, always correct, works on any device, no sign-up.",
+                 faqs=[
+                     ("How many sleeps until Christmas?",
+                      "The big number counts the nights between tonight and Christmas morning. Each bedtime that passes takes one sleep off the total, so on Christmas Eve you will see exactly one sleep left."),
+                     ("Is a sleep the same as a day?",
+                      "Almost — the number of sleeps matches the number of days on a regular countdown until the final stretch. The difference is the ritual: sleeps are counted at bedtime, which is why kids (and honestly, adults) find them easier to feel."),
+                     ("When does the count change to one sleep?",
+                      "It follows your device's calendar. When your date shows December 24th, one sleep remains; on December 25th the page switches to celebrate that it's Christmas today."),
+                     ("Does it work next year too?",
+                      "Yes. After Christmas the page automatically starts counting the sleeps until next Christmas, so you can keep it bookmarked all year."),
+                 ])
+    pages.append(sleeps)
+
+    weeks = _cd("weeks", "Christmas", 12, 25, "how many weeks until christmas",
+                 "Planning in weeks matches how the run-up to Christmas actually works: Advent is four weeks long, most shoppers spread costs week by week, and travel and parcel deadlines are quoted in weeks ahead.",
+                 "Use the weeks figure for planning and the live timer for precision — the page also shows exact days, hours and minutes underneath, plus the date Christmas falls on this year.",
+                 "🗓️",
+                 unit="weeks", unit_label="weeks to go", slug_out="weeks-until-christmas",
+                 title="How Many Weeks Until Christmas? Live Weeks Countdown & Planner",
+                 h1="How Many Weeks Until Christmas?",
+                 desc="See how many weeks until Christmas, with a live timer showing exact days, hours and minutes too. Plan gifts, travel and Advent week by week — free, no sign-up.",
+                 faqs=[
+                     ("How many weeks until Christmas?",
+                      "The big number shows the full weeks remaining, counted from your device's clock right now — the same live calculation as a days countdown, scaled to weeks so it matches how most people plan December."),
+                     ("Is the weeks figure rounded?",
+                      "It is rounded up to the next whole week, so a part-week still counts as one. If you need precision, the timer below shows the exact days, hours, minutes and seconds remaining."),
+                     ("Why plan Christmas in weeks instead of days?",
+                      "Weeks line up with real deadlines: Advent calendars, weekly shopping budgets, school terms and flight price windows are all quoted in weeks. Days feel endless in September; weeks give you a workable plan."),
+                     ("Does the countdown work after Christmas?",
+                      "Yes — it rolls over automatically to next year's Christmas, so the weeks figure stays correct all year round."),
+                 ])
+    pages.append(weeks)
 
     ny = _cd("new-year", "New Year", 1, 1, "days until new year",
              "New Year's Day marks the first day of the calendar year. New Year's Eve — the night before — is one of the most celebrated nights on Earth.",
