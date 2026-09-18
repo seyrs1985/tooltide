@@ -8,6 +8,7 @@
 - BUG-013余量|其余渲染器家族|所有译文语言|动态字符串后缀类剩余量:校验/状态/复制反馈已R9清空,仍散见科普长注记(FLSA/折扣顺序等运行时note长句)与零星标签,随逐轮家族巡查接续(参照TT()键模式)|IAB DOM探针|待修(逐轮蚕食)
 - BUG-013续6|pomodoro-timer|ko全部|计时器14处未接线:3字段标签+3stat+Start/Pause/Reset按钮+focus/break相位与document.title|IAB DOM探针|已修R14+线上复验(pomo.*14键×9语言;复验ko:시작/초기화/집중 시간(분)/오늘의 집중 블록/phase=집중 - 일시정지全韩;并补window load重跑render修解析期竞态第四例)
 - BUG-013续7|stock-average-calculator+cagr-calculator|es/id各4处|stat标签与result单位未接线(new average cost/total shares/total invested/average lowered by;CAGR per year/total growth/multiple of start/years to double)|IAB DOM探针|已修R15+线上复验(sa.avgcost/shares/invested/lowered+cg.peryear/totgrowth/multiple/yrsdouble×8键×9语言;复验es/id:total saham/rata-rata turun sebesar/pertumbuhan total全对;savings-goal×ru全净)
+- BUG-013续8|开发者族base64/urlencode等+heart-rate-zones|ja/ru|开发者族共享串19处未接线(output/input chars/output chars/UTF-8 bytes in/Copy output按钮+Nothing to copy/Invalid Base64/Malformed input)+hz静息心率/最大心率2处|IAB DOM探针|已修R16+线上复验(dev.output/inchars/outchars/utf8/copyout/nothing/invalidb64/malformed×8键×19处脚本化接线+hz.rest/maxhr×2键×9语言;curl直连实证服务HTML全接线;复验ru:Пульс в покое/максимальный пульс/Копировать вывод;注意b6-u为嵌套span结构属正常)
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修
