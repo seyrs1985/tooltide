@@ -377,7 +377,17 @@ zh:{
  "cg.peryear":"年复合增长率",
  "cg.totgrowth":"总增长",
  "cg.multiple":"相对本金的倍数",
- "cg.yrsdouble":"按此速率翻倍年数"
+ "cg.yrsdouble":"按此速率翻倍年数",
+ "dev.output":"输出",
+ "dev.inchars":"输入字符",
+ "dev.outchars":"输出字符",
+ "dev.utf8":"UTF-8 字节数(输入)",
+ "dev.copyout":"复制输出",
+ "dev.nothing":"没有可复制的内容",
+ "dev.invalidb64":"无效的 Base64",
+ "dev.malformed":"输入格式错误",
+ "hz.rest":"静息心率",
+ "hz.maxhr":"最大心率"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -735,7 +745,17 @@ es:{
  "cg.peryear":"CAGR anual",
  "cg.totgrowth":"crecimiento total",
  "cg.multiple":"múltiplo del inicio",
- "cg.yrsdouble":"años para duplicarse a esta tasa"
+ "cg.yrsdouble":"años para duplicarse a esta tasa",
+ "dev.output":"salida",
+ "dev.inchars":"caracteres de entrada",
+ "dev.outchars":"caracteres de salida",
+ "dev.utf8":"bytes UTF-8 de entrada",
+ "dev.copyout":"Copiar salida",
+ "dev.nothing":"Nada que copiar",
+ "dev.invalidb64":"Base64 no válido",
+ "dev.malformed":"Entrada mal formada",
+ "hz.rest":"Frecuencia cardíaca en reposo",
+ "hz.maxhr":"frecuencia cardíaca máxima"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1093,7 +1113,17 @@ pt:{
  "cg.peryear":"CAGR anual",
  "cg.totgrowth":"crescimento total",
  "cg.multiple":"múltiplo do inicial",
- "cg.yrsdouble":"anos para dobrar a esta taxa"
+ "cg.yrsdouble":"anos para dobrar a esta taxa",
+ "dev.output":"saída",
+ "dev.inchars":"caracteres de entrada",
+ "dev.outchars":"caracteres de saída",
+ "dev.utf8":"bytes UTF-8 de entrada",
+ "dev.copyout":"Copiar saída",
+ "dev.nothing":"Nada para copiar",
+ "dev.invalidb64":"Base64 inválido",
+ "dev.malformed":"Entrada malformada",
+ "hz.rest":"Frequência cardíaca em repouso",
+ "hz.maxhr":"frequência cardíaca máxima"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1451,7 +1481,17 @@ ru:{
  "cg.peryear":"CAGR в год",
  "cg.totgrowth":"общий рост",
  "cg.multiple":"кратность к начальному",
- "cg.yrsdouble":"лет до удвоения при этом темпе"
+ "cg.yrsdouble":"лет до удвоения при этом темпе",
+ "dev.output":"вывод",
+ "dev.inchars":"символов на входе",
+ "dev.outchars":"символов на выходе",
+ "dev.utf8":"байт UTF-8 на входе",
+ "dev.copyout":"Копировать вывод",
+ "dev.nothing":"Нечего копировать",
+ "dev.invalidb64":"Недопустимый Base64",
+ "dev.malformed":"Некорректный ввод",
+ "hz.rest":"Пульс в покое",
+ "hz.maxhr":"максимальный пульс"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -1809,7 +1849,17 @@ ja:{
  "cg.peryear":"年間CAGR",
  "cg.totgrowth":"累積成長率",
  "cg.multiple":"元本の倍率",
- "cg.yrsdouble":"この利率で倍增する年数"
+ "cg.yrsdouble":"この利率で倍增する年数",
+ "dev.output":"出力",
+ "dev.inchars":"入力文字数",
+ "dev.outchars":"出力文字数",
+ "dev.utf8":"入力のUTF-8バイト数",
+ "dev.copyout":"出力をコピー",
+ "dev.nothing":"コピーするものがありません",
+ "dev.invalidb64":"無効なBase64",
+ "dev.malformed":"入力が不正です",
+ "hz.rest":"安静時心拍数",
+ "hz.maxhr":"最大心拍数"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2167,7 +2217,17 @@ ko:{
  "cg.peryear":"연간 CAGR",
  "cg.totgrowth":"총 성장률",
  "cg.multiple":"원금 대비 배수",
- "cg.yrsdouble":"이 비율로 두 배가 되는 연수"
+ "cg.yrsdouble":"이 비율로 두 배가 되는 연수",
+ "dev.output":"출력",
+ "dev.inchars":"입력 문자",
+ "dev.outchars":"출력 문자",
+ "dev.utf8":"입력 UTF-8 바이트",
+ "dev.copyout":"출력 복사",
+ "dev.nothing":"복사할 내용이 없습니다",
+ "dev.invalidb64":"잘못된 Base64",
+ "dev.malformed":"잘못된 입력",
+ "hz.rest":"안정 시 심박수",
+ "hz.maxhr":"최대 심박수"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -2525,7 +2585,17 @@ de:{
  "cg.peryear":"CAGR pro Jahr",
  "cg.totgrowth":"Gesamtwachstum",
  "cg.multiple":"Vielfaches des Starts",
- "cg.yrsdouble":"Jahre zur Verdoppelung bei dieser Rate"
+ "cg.yrsdouble":"Jahre zur Verdoppelung bei dieser Rate",
+ "dev.output":"Ausgabe",
+ "dev.inchars":"Eingabezeichen",
+ "dev.outchars":"Ausgabezeichen",
+ "dev.utf8":"UTF-8-Bytes Eingabe",
+ "dev.copyout":"Ausgabe kopieren",
+ "dev.nothing":"Nichts zu kopieren",
+ "dev.invalidb64":"Ungültiges Base64",
+ "dev.malformed":"Eingabe fehlerhaft",
+ "hz.rest":"Ruheherzfrequenz",
+ "hz.maxhr":"maximale Herzfrequenz"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -2883,7 +2953,17 @@ fr:{
  "cg.peryear":"TCAC par an",
  "cg.totgrowth":"croissance totale",
  "cg.multiple":"multiple du départ",
- "cg.yrsdouble":"années pour doubler à ce taux"
+ "cg.yrsdouble":"années pour doubler à ce taux",
+ "dev.output":"sortie",
+ "dev.inchars":"caractères d entrée",
+ "dev.outchars":"caractères de sortie",
+ "dev.utf8":"octets UTF-8 en entrée",
+ "dev.copyout":"Copier la sortie",
+ "dev.nothing":"Rien à copier",
+ "dev.invalidb64":"Base64 non valide",
+ "dev.malformed":"Entrée malformée",
+ "hz.rest":"Fréquence cardiaque au repos",
+ "hz.maxhr":"fréquence cardiaque maximale"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3241,7 +3321,17 @@ id:{
  "cg.peryear":"CAGR per tahun",
  "cg.totgrowth":"pertumbuhan total",
  "cg.multiple":"kelipatan dari awal",
- "cg.yrsdouble":"tahun untuk dua kali lipat dengan tarif ini"
+ "cg.yrsdouble":"tahun untuk dua kali lipat dengan tarif ini",
+ "dev.output":"keluaran",
+ "dev.inchars":"karakter masukan",
+ "dev.outchars":"karakter keluaran",
+ "dev.utf8":"byte UTF-8 masukan",
+ "dev.copyout":"Salin keluaran",
+ "dev.nothing":"Tidak ada yang bisa disalin",
+ "dev.invalidb64":"Base64 tidak valid",
+ "dev.malformed":"Input tidak valid",
+ "hz.rest":"Denyut jantung istirahat",
+ "hz.maxhr":"denyut jantung maksimum"
 }
 };
 function detect(){
