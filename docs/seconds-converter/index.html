@@ -61,9 +61,9 @@
   <section class="intro"><p>Type a raw number of seconds — 3725, 86,400, whatever a log file, API response or stopwatch hands you — and see it as readable hours, minutes and seconds. Go the other way too: type 1:02:05 and get the total seconds, which is what video timestamps and countdowns actually expect.</p><p>It is a small tool with an outsized number of uses: run splits (a marathon in seconds), podcast chapters, benchmark timings, game speedruns, and every timestamp that was clearly never meant for human eyes.</p></section>
   <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script>
 <div class="tool" id="tt-sec">
-  <div class="field"><label for="sec-in">Total seconds</label><input type="number" id="sec-in" step="1" min="0" placeholder="3725"></div>
+  <div class="field"><label for="sec-in" data-i18n="secconv.totalseconds">Total seconds</label><input type="number" id="sec-in" step="1" min="0" placeholder="3725"></div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sec-out">-</span></div>
-  <div class="field" style="margin-top:12px"><label for="sec-hms">Duration (h:mm:ss or mm:ss)</label><input type="text" id="sec-hms" placeholder="1:02:05"></div>
+  <div class="field" style="margin-top:12px"><label for="sec-hms" data-i18n="secconv.duration">Duration (h:mm:ss or mm:ss)</label><input type="text" id="sec-hms" placeholder="1:02:05"></div>
 </div>
 <script>(function(){
 var sIn=document.getElementById('sec-in'),hms=document.getElementById('sec-hms');

@@ -402,7 +402,9 @@ zh:{
  "jwt.expiry":"过期时间",
  "jwt.claims":"声明",
  "secconv.seconds":"秒",
- "secconv.usehms":"（请用 h:mm:ss 格式）"
+ "secconv.usehms":"（请用 h:mm:ss 格式）",
+ "secconv.totalseconds":"总秒数",
+ "secconv.duration":"时长（h:mm:ss 或 mm:ss）"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -785,7 +787,9 @@ es:{
  "jwt.expiry":"Caducidad",
  "jwt.claims":"Claims",
  "secconv.seconds":"segundos",
- "secconv.usehms":"(usa h:mm:ss)"
+ "secconv.usehms":"(usa h:mm:ss)",
+ "secconv.totalseconds":"Segundos totales",
+ "secconv.duration":"Duración (h:mm:ss o mm:ss)"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1168,7 +1172,9 @@ pt:{
  "jwt.expiry":"Expiração",
  "jwt.claims":"Claims",
  "secconv.seconds":"segundos",
- "secconv.usehms":"(use h:mm:ss)"
+ "secconv.usehms":"(use h:mm:ss)",
+ "secconv.totalseconds":"Segundos totais",
+ "secconv.duration":"Duração (h:mm:ss ou mm:ss)"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1551,7 +1557,9 @@ ru:{
  "jwt.expiry":"Срок действия",
  "jwt.claims":"Клеймы",
  "secconv.seconds":"секунды",
- "secconv.usehms":"(используйте ч:мм:сс)"
+ "secconv.usehms":"(используйте ч:мм:сс)",
+ "secconv.totalseconds":"Всего секунд",
+ "secconv.duration":"Длительность (ч:мм:сс или мм:сс)"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -1934,7 +1942,9 @@ ja:{
  "jwt.expiry":"有効期限",
  "jwt.claims":"クレーム",
  "secconv.seconds":"秒",
- "secconv.usehms":"（h:mm:ss 形式）"
+ "secconv.usehms":"（h:mm:ss 形式）",
+ "secconv.totalseconds":"合計秒数",
+ "secconv.duration":"再生時間（h:mm:ss または mm:ss）"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2317,7 +2327,9 @@ ko:{
  "jwt.expiry":"만료",
  "jwt.claims":"클레임",
  "secconv.seconds":"초",
- "secconv.usehms":"(h:mm:ss 형식)"
+ "secconv.usehms":"(h:mm:ss 형식)",
+ "secconv.totalseconds":"총 초",
+ "secconv.duration":"지속 시간 (h:mm:ss 또는 mm:ss)"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -2700,7 +2712,9 @@ de:{
  "jwt.expiry":"Ablauf",
  "jwt.claims":"Claims",
  "secconv.seconds":"Sekunden",
- "secconv.usehms":"(Format h:mm:ss)"
+ "secconv.usehms":"(Format h:mm:ss)",
+ "secconv.totalseconds":"Gesamtsekunden",
+ "secconv.duration":"Dauer (h:mm:ss oder mm:ss)"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3083,7 +3097,9 @@ fr:{
  "jwt.expiry":"Expiration",
  "jwt.claims":"Claims",
  "secconv.seconds":"secondes",
- "secconv.usehms":"(format h:mm:ss)"
+ "secconv.usehms":"(format h:mm:ss)",
+ "secconv.totalseconds":"Total secondes",
+ "secconv.duration":"Durée (h:mm:ss ou mm:ss)"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3466,7 +3482,9 @@ id:{
  "jwt.expiry":"Kedaluwarsa",
  "jwt.claims":"Klaim",
  "secconv.seconds":"detik",
- "secconv.usehms":"(format h:mm:ss)"
+ "secconv.usehms":"(format h:mm:ss)",
+ "secconv.totalseconds":"Total detik",
+ "secconv.duration":"Durasi (h:mm:ss atau mm:ss)"
 }
 };
 function detect(){
