@@ -1451,8 +1451,8 @@ d.addEventListener('input',run);run();
 FUEL = """
 <div class="tool" id="tt-fuel">
   <div class="fields two">
-    <div class="field"><label for="fu-l">Liters per 100 km</label><input type="number" id="fu-l" step="any" min="0" placeholder="6.5"></div>
-    <div class="field"><label for="fu-m">Miles per gallon (US)</label><input type="number" id="fu-m" step="any" min="0" placeholder="36.2"></div>
+    <div class="field"><label for="fu-l" data-i18n="fu.l100">Liters per 100 km</label><input type="number" id="fu-l" step="any" min="0" placeholder="6.5"></div>
+    <div class="field"><label for="fu-m" data-i18n="fu.mpgus">Miles per gallon (US)</label><input type="number" id="fu-m" step="any" min="0" placeholder="36.2"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fu-out">–</span><span class="result-unit" id="fu-unit"></span>
     <div class="result-formula" id="fu-note"></div></div>
@@ -1462,16 +1462,16 @@ FUEL = """
 var L=document.getElementById('fu-l'),M=document.getElementById('fu-m');
 var out=document.getElementById('fu-out'),unit=document.getElementById('fu-unit'),hint=document.getElementById('fu-hint');
 var lock=false;
-function good(l){return l<=6?'efficient':l<=9?'typical':'thirsty';}
+function good(l){return l<=6?TT('fu.efficient','efficient'):l<=9?TT('fu.typical','typical'):TT('fu.thirsty','thirsty');}
 function runL(){
   if(lock)return;lock=true;M.value='';
   var v=parseFloat(L.value);
-  if(isNaN(v)||v<=0){out.textContent='-';unit.textContent='';hint.textContent='Lower L/100km is better · higher MPG is better.';lock=false;return;}
+  if(isNaN(v)||v<=0){out.textContent='-';unit.textContent='';hint.textContent=TT('fu.hintbetter','Lower L/100km is better · higher MPG is better.');lock=false;return;}
   var mpg=235.215/v;
   M.value=Math.round(mpg*10)/10;
   out.textContent=Math.round(mpg*10)/10+' mpg';
-  unit.textContent='(US)';
-  hint.textContent=v+' L/100km = '+Math.round(mpg*10)/10+' US mpg — '+good(v)+' for a petrol car.';
+  unit.textContent=TT('fu.us','(US)');
+  hint.textContent=TT('fu.hintl','{l} L/100km = {m} US mpg — {v} for a petrol car.').replace('{l}',v).replace('{m}',Math.round(mpg*10)/10).replace('{v}',good(v));
   lock=false;
 }
 function runM(){
@@ -1482,7 +1482,7 @@ function runM(){
   L.value=Math.round(l*100)/100;
   out.textContent=Math.round(l*100)/100+' L/100km';
   unit.textContent='';
-  hint.textContent=v+' mpg = '+Math.round(l*100)/100+' L/100km - '+good(l)+' for a petrol car.';
+  hint.textContent=TT('fu.hintm','{m} mpg = {l} L/100km - {v} for a petrol car.').replace('{m}',v).replace('{l}',Math.round(l*100)/100).replace('{v}',good(l));
   lock=false;
 }
 L.addEventListener('input',runL);
