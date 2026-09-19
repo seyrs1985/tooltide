@@ -423,7 +423,16 @@ zh:{
  "fu.thirsty":"费油",
  "fu.hintbetter":"L/100km 越低越好 · MPG 越高越好。",
  "fu.hintl":"{l} L/100km = {m} 美制 mpg —— 对汽油车来说{v}。",
- "fu.hintm":"{m} mpg = {l} L/100km —— 对汽油车来说{v}。"
+ "fu.hintm":"{m} mpg = {l} L/100km —— 对汽油车来说{v}。",
+ "fc.distance":"行程距离",
+ "fc.consumption":"油耗",
+ "fc.price":"油价",
+ "fc.optus":"英里 / MPG / 美元每加仑",
+ "fc.opteu":"公里 / 升每百公里 / 美元每升",
+ "fc.fuelneeded":"所需油量",
+ "fc.pp4":"每人（4 人同行）",
+ "fc.roundtrip":"往返",
+ "fc.oneway":"单程油费"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -827,7 +836,16 @@ es:{
  "fu.thirsty":"consumidor",
  "fu.hintbetter":"Menor L/100km es mejor · mayor MPG es mejor.",
  "fu.hintl":"{l} L/100km = {m} mpg (EE. UU.) — {v} para un coche de gasolina.",
- "fu.hintm":"{m} mpg = {l} L/100km - {v} para un coche de gasolina."
+ "fu.hintm":"{m} mpg = {l} L/100km - {v} para un coche de gasolina.",
+ "fc.distance":"Distancia del viaje",
+ "fc.consumption":"Consumo",
+ "fc.price":"Precio del combustible",
+ "fc.optus":"Millas / MPG / $ por galón",
+ "fc.opteu":"Kilómetros / L por 100 km / $ por litro",
+ "fc.fuelneeded":"combustible necesario",
+ "fc.pp4":"por persona, 4 ocupantes",
+ "fc.roundtrip":"ida y vuelta",
+ "fc.oneway":"coste de combustible (solo ida)"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1231,7 +1249,16 @@ pt:{
  "fu.thirsty":"bebedor",
  "fu.hintbetter":"Menor L/100km é melhor · maior MPG é melhor.",
  "fu.hintl":"{l} L/100km = {m} mpg (EUA) — {v} para um carro a gasolina.",
- "fu.hintm":"{m} mpg = {l} L/100km - {v} para um carro a gasolina."
+ "fu.hintm":"{m} mpg = {l} L/100km - {v} para um carro a gasolina.",
+ "fc.distance":"Distância da viagem",
+ "fc.consumption":"Consumo",
+ "fc.price":"Preço do combustível",
+ "fc.optus":"Milhas / MPG / $ por galão",
+ "fc.opteu":"Quilômetros / L por 100 km / $ por litro",
+ "fc.fuelneeded":"combustível necessário",
+ "fc.pp4":"por pessoa, 4 ocupantes",
+ "fc.roundtrip":"ida e volta",
+ "fc.oneway":"custo de combustível (só ida)"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1635,7 +1662,16 @@ ru:{
  "fu.thirsty":"прожорливый",
  "fu.hintbetter":"Ниже L/100km лучше · выше MPG лучше.",
  "fu.hintl":"{l} л/100км = {m} mpg (США) — {v} для бензиновой машины.",
- "fu.hintm":"{m} mpg = {l} л/100км — {v} для бензиновой машины."
+ "fu.hintm":"{m} mpg = {l} л/100км — {v} для бензиновой машины.",
+ "fc.distance":"Дистанция поездки",
+ "fc.consumption":"Расход",
+ "fc.price":"Цена топлива",
+ "fc.optus":"Мили / MPG / $ за галлон",
+ "fc.opteu":"Километры / л на 100 км / $ за литр",
+ "fc.fuelneeded":"необходимо топлива",
+ "fc.pp4":"на человека, 4 пассажира",
+ "fc.roundtrip":"туда и обратно",
+ "fc.oneway":"стоимость топлива (в одну сторону)"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2039,7 +2075,16 @@ ja:{
  "fu.thirsty":"燃費が悪い",
  "fu.hintbetter":"L/100kmは低いほど・MPGは高いほど良い。",
  "fu.hintl":"{l} L/100km = {m} 米国mpg — ガソリン車として{v}。",
- "fu.hintm":"{m} mpg = {l} L/100km — ガソリン車として{v}。"
+ "fu.hintm":"{m} mpg = {l} L/100km — ガソリン車として{v}。",
+ "fc.distance":"走行距離",
+ "fc.consumption":"燃費",
+ "fc.price":"燃料価格",
+ "fc.optus":"マイル / MPG / 1ガロンあたり$",
+ "fc.opteu":"キロ / 100kmあたりL / 1リットルあたり$",
+ "fc.fuelneeded":"必要な燃料",
+ "fc.pp4":"1人あたり（4人乗車）",
+ "fc.roundtrip":"往復",
+ "fc.oneway":"片道の燃料コスト"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2443,7 +2488,16 @@ ko:{
  "fu.thirsty":"연비 나쁨",
  "fu.hintbetter":"L/100km은 낮을수록 · MPG는 높을수록 좋습니다.",
  "fu.hintl":"{l} L/100km = {m} 미국 mpg — 휘발유 차로서 {v}.",
- "fu.hintm":"{m} mpg = {l} L/100km — 휘발유 차로서 {v}."
+ "fu.hintm":"{m} mpg = {l} L/100km — 휘발유 차로서 {v}.",
+ "fc.distance":"주행 거리",
+ "fc.consumption":"연비",
+ "fc.price":"유류 가격",
+ "fc.optus":"마일 / MPG / 갤런당 $",
+ "fc.opteu":"킬로미터 / 100km당 L / 리터당 $",
+ "fc.fuelneeded":"필요 연료",
+ "fc.pp4":"1인당 (4인 동승)",
+ "fc.roundtrip":"왕복",
+ "fc.oneway":"편도 유류비"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -2847,7 +2901,16 @@ de:{
  "fu.thirsty":"durstig",
  "fu.hintbetter":"Weniger L/100km ist besser · mehr MPG ist besser.",
  "fu.hintl":"{l} l/100 km = {m} US-mpg — {v} für einen Benziner.",
- "fu.hintm":"{m} mpg = {l} l/100 km — {v} für einen Benziner."
+ "fu.hintm":"{m} mpg = {l} l/100 km — {v} für einen Benziner.",
+ "fc.distance":"Fahrtstrecke",
+ "fc.consumption":"Verbrauch",
+ "fc.price":"Kraftstoffpreis",
+ "fc.optus":"Meilen / MPG / $ pro Gallone",
+ "fc.opteu":"Kilometer / l auf 100 km / $ pro Liter",
+ "fc.fuelneeded":"benötigter Kraftstoff",
+ "fc.pp4":"pro Person, 4 Insassen",
+ "fc.roundtrip":"Hin- und Rückweg",
+ "fc.oneway":"Kraftstoffkosten (einfach)"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3251,7 +3314,16 @@ fr:{
  "fu.thirsty":"gourmand",
  "fu.hintbetter":"Moins de L/100km est mieux · plus de MPG est mieux.",
  "fu.hintl":"{l} L/100km = {m} mpg (US) — {v} pour une voiture à essence.",
- "fu.hintm":"{m} mpg = {l} L/100km — {v} pour une voiture à essence."
+ "fu.hintm":"{m} mpg = {l} L/100km — {v} pour une voiture à essence.",
+ "fc.distance":"Distance du trajet",
+ "fc.consumption":"Consommation",
+ "fc.price":"Prix du carburant",
+ "fc.optus":"Miles / MPG / $ par gallon",
+ "fc.opteu":"Kilomètres / L aux 100 km / $ par litre",
+ "fc.fuelneeded":"carburant nécessaire",
+ "fc.pp4":"par personne, 4 passagers",
+ "fc.roundtrip":"aller-retour",
+ "fc.oneway":"coût de carburant (aller simple)"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3655,7 +3727,16 @@ id:{
  "fu.thirsty":"boros bahan bakar",
  "fu.hintbetter":"L/100km lebih rendah lebih baik · MPG lebih tinggi lebih baik.",
  "fu.hintl":"{l} L/100km = {m} mpg AS — {v} untuk mobil bensin.",
- "fu.hintm":"{m} mpg = {l} L/100km — {v} untuk mobil bensin."
+ "fu.hintm":"{m} mpg = {l} L/100km — {v} untuk mobil bensin.",
+ "fc.distance":"Jarak perjalanan",
+ "fc.consumption":"Konsumsi",
+ "fc.price":"Harga bahan bakar",
+ "fc.optus":"Mil / MPG / $ per galon",
+ "fc.opteu":"Kilometer / L per 100 km / $ per liter",
+ "fc.fuelneeded":"bahan bakar yang dibutuhkan",
+ "fc.pp4":"per orang, 4 penumpang",
+ "fc.roundtrip":"pulang pergi",
+ "fc.oneway":"biaya bahan bakar (sekali jalan)"
 }
 };
 function detect(){
