@@ -358,7 +358,7 @@ DISCOUNT = """
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dc-final">–</span><span class="result-unit">final price</span>
     <div class="result-formula" id="dc-note"></div></div>
   <div class="stats">
-    <div class="stat"><b id="dc-save">–</b><span>you save</span></div>
+    <div class="stat"><b id="dc-save">–</b><span data-i18n="fin.yousave">you save</span></div>
     <div class="stat"><b id="dc-eff">–</b><span>effective discount</span></div>
     <div class="stat"><b id="dc-taxp">–</b><span>with tax</span></div>
   </div>
@@ -402,7 +402,7 @@ READINGTIME = """
   <div class="stats">
     <div class="stat"><b id="rt-read">–</b><span>to read silently</span></div>
     <div class="stat"><b id="rt-speak">–</b><span>to read aloud</span></div>
-    <div class="stat"><b id="rt-words">–</b><span>words</span></div>
+    <div class="stat"><b id="rt-words">–</b><span data-i18n="wc.words">words</span></div>
     <div class="stat"><b id="rt-chars">–</b><span>characters</span></div>
   </div>
 </div>
@@ -1415,7 +1415,7 @@ DAYOFWEEK = """
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dw-out">-</span>
     <div class="result-formula" id="dw-note"></div></div>
   <div class="stats">
-    <div class="stat"><b id="dw-doy">-</b><span>day of year</span></div>
+    <div class="stat"><b id="dw-doy">-</b><span data-i18n="date.dayofyear">day of year</span></div>
     <div class="stat"><b id="dw-iso">-</b><span>ISO week</span></div>
   </div>
 </div>
@@ -1503,7 +1503,7 @@ SALARY = """
     <div class="field"><label for="sal-wpy">Weeks per year</label><input type="number" id="sal-wpy" value="52" step="any" min="1"></div>
   </div>
   <div class="stats">
-    <div class="stat"><b id="sal-m">-</b><span>per month</span></div>
+    <div class="stat"><b id="sal-m">-</b><span data-i18n="lbl.permonth">per month</span></div>
     <div class="stat"><b id="sal-w">-</b><span>per week</span></div>
     <div class="stat"><b id="sal-d">-</b><span>per day (5-day week)</span></div>
     <div class="stat"><b id="sal-h">-</b><span>per hour</span></div>
@@ -1827,7 +1827,7 @@ CUBICFT = """
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cf-out">-</span><span class="result-unit">cubic feet</span></div>
   <div class="stats">
     <div class="stat"><b id="cf-cuft">-</b><span>cubic feet</span></div>
-    <div class="stat"><b id="cf-cum">-</b><span>cubic meters</span></div>
+    <div class="stat"><b id="cf-cum">-</b><span data-i18n="conv.cubicmeters">cubic meters</span></div>
   </div>
 </div>
 <script>(function(){
@@ -3034,7 +3034,7 @@ DOUBLEDISC = """<div class="tool" id="tt-ddisc">
   <div class="tool-note" id="dd-note"></div>
   <div class="stats">
     <div class="stat"><b id="dd-true">–</b><span>true combined %</span></div>
-    <div class="stat"><b id="dd-save">–</b><span>you save</span></div>
+    <div class="stat"><b id="dd-save">–</b><span data-i18n="fin.yousave">you save</span></div>
     <div class="stat"><b id="dd-verdict">–</b><span>vs flat deal</span></div>
   </div>
   <button type="button" class="tool-btn" id="dd-share" data-i18n="share.share-this-deal-math">Share this deal math</button>
@@ -3094,7 +3094,7 @@ SIMPLEINT = """<div class="tool" id="tt-si">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="si-out">–</span><span class="result-unit" id="si-unit">total at maturity</span></div>
   <div class="stats">
     <div class="stat"><b id="si-int">–</b><span>interest earned</span></div>
-    <div class="stat"><b id="si-permo">–</b><span>per month</span></div>
+    <div class="stat"><b id="si-permo">–</b><span data-i18n="lbl.permonth">per month</span></div>
     <div class="stat"><b id="si-cmp">–</b><span>if compounded monthly</span></div>
   </div>
   <div class="tool-note" id="si-note"></div>
@@ -3771,8 +3771,8 @@ ELECTRIC = """<div class="tool" id="tt-el">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="el-out">–</span><span class="result-unit">per month</span></div>
   <div class="stats">
-    <div class="stat"><b id="el-day">–</b><span>per day</span></div>
-    <div class="stat"><b id="el-year">–</b><span>per year</span></div>
+    <div class="stat"><b id="el-day">–</b><span data-i18n="lbl.perday">per day</span></div>
+    <div class="stat"><b id="el-year">–</b><span data-i18n="lbl.peryear">per year</span></div>
     <div class="stat"><b id="el-kwh">–</b><span>kWh per month</span></div>
   </div>
   <div class="tool-note" id="el-note"></div>
@@ -4518,8 +4518,8 @@ LOANPAY = """<div class="tool" id="tt-ln">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ln-out">–</span><span class="result-unit">per month</span></div>
   <div class="stats">
-    <div class="stat"><b id="ln-int">–</b><span>total interest</span></div>
-    <div class="stat"><b id="ln-tot">–</b><span>total paid</span></div>
+    <div class="stat"><b id="ln-int">–</b><span data-i18n="fin.totalinterest">total interest</span></div>
+    <div class="stat"><b id="ln-tot">–</b><span data-i18n="fin.totalpaid">total paid</span></div>
     <div class="stat"><b id="ln-sharepct">–</b><span>interest share of payments</span></div>
   </div>
   <div class="tool-note" id="ln-note"></div>
@@ -4885,7 +4885,7 @@ WEEKNUM = """<div class="tool" id="tt-wk">
   <div class="stats">
     <div class="stat"><b id="wk-span">–</b><span>Mon – Sun of that week</span></div>
     <div class="stat"><b id="wk-q">–</b><span>quarter</span></div>
-    <div class="stat"><b id="wk-doy">–</b><span>day of year</span></div>
+    <div class="stat"><b id="wk-doy">–</b><span data-i18n="date.dayofyear">day of year</span></div>
   </div>
   <div class="tool-note" id="wk-note"></div>
   <button type="button" class="tool-btn" id="wk-share" data-i18n="share.share-this-week">Share this week</button>
@@ -5373,7 +5373,7 @@ PAINTCALC = """<div class="tool" id="tt-pt">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pt-out">–</span><span class="result-unit" id="pt-u2">to buy</span></div>
   <div class="stats">
-    <div class="stat"><b id="pt-area">–</b><span>paintable area</span></div>
+    <div class="stat"><b id="pt-area">–</b><span data-i18n="paint.paintable">paintable area</span></div>
     <div class="stat"><b id="pt-cov">–</b><span>coverage used</span></div>
     <div class="stat"><b id="pt-waste">–</b><span>with 10% rounding</span></div>
   </div>
@@ -5722,8 +5722,8 @@ DEBTPAYOFF = """<div class="tool" id="tt-dp">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dp-out">–</span><span class="result-unit">until debt-free</span></div>
   <div class="stats">
-    <div class="stat"><b id="dp-int">–</b><span>total interest</span></div>
-    <div class="stat"><b id="dp-tot">–</b><span>total paid</span></div>
+    <div class="stat"><b id="dp-int">–</b><span data-i18n="fin.totalinterest">total interest</span></div>
+    <div class="stat"><b id="dp-tot">–</b><span data-i18n="fin.totalpaid">total paid</span></div>
     <div class="stat"><b id="dp-yr">–</b><span>debt-free in</span></div>
   </div>
   <div class="tool-note" id="dp-note"></div>
@@ -6102,7 +6102,7 @@ AMORTIZE = """<div class="tool" id="tt-am">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="am-out">–</span><span class="result-unit">monthly payment</span></div>
   <div class="stats">
-    <div class="stat"><b id="am-int">–</b><span>total interest</span></div>
+    <div class="stat"><b id="am-int">–</b><span data-i18n="fin.totalinterest">total interest</span></div>
     <div class="stat"><b id="am-mo">–</b><span>months to payoff</span></div>
     <div class="stat"><b id="am-sv">–</b><span>saved by extra</span></div>
   </div>
@@ -6848,7 +6848,7 @@ FLESCH = """<div class="tool" id="tt-fl">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fl-out">–</span><span class="result-unit">reading ease</span></div>
   <div class="stats">
     <div class="stat"><b id="fl-grade">–</b><span>grade level</span></div>
-    <div class="stat"><b id="fl-words">–</b><span>words</span></div>
+    <div class="stat"><b id="fl-words">–</b><span data-i18n="wc.words">words</span></div>
     <div class="stat"><b id="fl-sents">–</b><span>sentences</span></div>
     <div class="stat"><b id="fl-wps">–</b><span>words / sentence</span></div>
   </div>
@@ -7236,7 +7236,7 @@ EVCHARGE = """<div class="tool" id="tt-ev">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ev-out">–</span><span class="result-unit" id="ev-unit2">per mile</span></div>
   <div class="stats">
-    <div class="stat"><b id="ev-full">–</b><span>full charge cost</span></div>
+    <div class="stat"><b id="ev-full">–</b><span data-i18n="ev.fullcharge">full charge cost</span></div>
     <div class="stat"><b id="ev-100">–</b><span>cost per 100 (mi/km)</span></div>
     <div class="stat"><b id="ev-gasc">–</b><span>gas car same distance</span></div>
     <div class="stat"><b id="ev-save">–</b><span>saved vs gas</span></div>
@@ -7810,7 +7810,7 @@ POOL = """<div class="tool" id="tt-pl">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pl-out">–</span><span class="result-unit" id="pl-u2">liters</span></div>
   <div class="stats">
     <div class="stat"><b id="pl-gal">–</b><span>US gallons</span></div>
-    <div class="stat"><b id="pl-m3">–</b><span>cubic meters</span></div>
+    <div class="stat"><b id="pl-m3">–</b><span data-i18n="conv.cubicmeters">cubic meters</span></div>
     <div class="stat"><b id="pl-ton">–</b><span>tonnes of water</span></div>
   </div>
   <div class="tool-note" id="pl-note"></div>
@@ -8084,7 +8084,7 @@ PAINT = """<div class="tool" id="tt-pa">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pa-out">–</span><span class="result-unit">litres of paint</span></div>
   <div class="stats">
-    <div class="stat"><b id="pa-s1">–</b><span>paintable area</span></div>
+    <div class="stat"><b id="pa-s1">–</b><span data-i18n="paint.paintable">paintable area</span></div>
     <div class="stat"><b id="pa-s2">–</b><span>litres per coat</span></div>
     <div class="stat"><b id="pa-s3">–</b><span>buy (10% spare)</span></div>
   </div>
@@ -8291,9 +8291,9 @@ DIAPERS = """<div class="tool" id="tt-dp">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dp-out">–</span><span class="result-unit">total diaper cost</span></div>
   <div class="stats">
-    <div class="stat"><b id="dp-s1">–</b><span>per day</span></div>
-    <div class="stat"><b id="dp-s2">–</b><span>per month</span></div>
-    <div class="stat"><b id="dp-s3">–</b><span>per year</span></div>
+    <div class="stat"><b id="dp-s1">–</b><span data-i18n="lbl.perday">per day</span></div>
+    <div class="stat"><b id="dp-s2">–</b><span data-i18n="lbl.permonth">per month</span></div>
+    <div class="stat"><b id="dp-s3">–</b><span data-i18n="lbl.peryear">per year</span></div>
   </div>
   <div class="tool-note" id="dp-note"></div>
   <button type="button" class="tool-btn" id="dp-share" data-i18n="share.share-this-estimate">Share this estimate</button>
@@ -8627,7 +8627,7 @@ SUBS = """<div class="tool" id="tt-sub">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="su-out">–</span><span class="result-unit">per year, all subscriptions</span></div>
   <div class="stats">
-    <div class="stat"><b id="su-s1">–</b><span>per month</span></div>
+    <div class="stat"><b id="su-s1">–</b><span data-i18n="lbl.permonth">per month</span></div>
     <div class="stat"><b id="su-s2">–</b><span>biggest cost</span></div>
     <div class="stat"><b id="su-s3">–</b><span>cut biggest, save</span></div>
   </div>
@@ -9115,7 +9115,7 @@ EBIKECHARGE = """<div class="tool" id="tt-ec">
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ec-out">–</span><span class="result-unit">per typical charge</span></div>
   <div class="stats">
-    <div class="stat"><b id="ec-s1">–</b><span>full charge cost</span></div>
+    <div class="stat"><b id="ec-s1">–</b><span data-i18n="ev.fullcharge">full charge cost</span></div>
     <div class="stat"><b id="ec-s2">–</b><span>per 100 km</span></div>
     <div class="stat"><b id="ec-s3">–</b><span>per year (3,000 km)</span></div>
   </div>
