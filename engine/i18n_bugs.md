@@ -11,6 +11,7 @@
 - BUG-013续8|开发者族base64/urlencode等+heart-rate-zones|ja/ru|开发者族共享串19处未接线(output/input chars/output chars/UTF-8 bytes in/Copy output按钮+Nothing to copy/Invalid Base64/Malformed input)+hz静息心率/最大心率2处|IAB DOM探针|已修R16+线上复验(dev.output/inchars/outchars/utf8/copyout/nothing/invalidb64/malformed×8键×19处脚本化接线+hz.rest/maxhr×2键×9语言;curl直连实证服务HTML全接线;复验ru:Пульс в покое/максимальный пульс/Копировать вывод;注意b6-u为嵌套span结构属正常)
 - BUG-013续9|tdee/json-formatter/jwt-decoder|全部译文语言|14处标签接线脚本属性插错位(生成<span> data-i18n=...>text</span>可见垃圾文本,审计曾放行因属合法HTML)|用户可见+curl实证|已修R17+线上复验(三页garbage=0;i18n_audit新增永久防错门:> data-i18n=出现即FAIL;教训=脚本接线后必须curl直连抽查渲染结果,审计/check_site都验不出文本级错位)
 - BUG-013续10|seconds-converter|pt|①可见标签Total seconds/Duration (h:mm:ss or mm:ss)未接线;②发现out元素指向不存在元素(历史死代码,seconds后缀实际不可见,secconv.seconds/usehms键已备但为无操作)|IAB DOM探针(box全文无结果元素)|已修R19+线上复验(secconv.totalseconds/duration×2键×9语言;curl实证data-i18n在服务HTML;死代码留档不动)
+- BUG-013续11|全站高频裸span|所有译文语言|高频重复stat标签未接线TOP11(per month×4/total interest×3/you save×2/total paid×2/per year×2/per day×2/paintable area×2/full charge cost×2/day of year×2/cubic meters×2/words×2)|rg存量盘点|已修R20+部署(脚本化25处实例接lbl.permonth/peryear/perday+fin.totalinterest/totalpaid/yousave+paint.paintable+ev.fullcharge+date.dayofyear+conv.cubicmeters×10键×9语言,words复用既有wc.words;并行工作者卷带提交部署;长尾×1约300种留逐家族)
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修
