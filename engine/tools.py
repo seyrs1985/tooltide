@@ -3639,16 +3639,16 @@ document.getElementById('af-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_fuelcost input memory, URL state (?d=&e=&p=&u=), Web Share.
 FUELCOST = """<div class="tool" id="tt-fc">
   <div class="fields">
-    <div class="field"><label for="fc-u"><span data-i18n="lbl.units">Units</span></label><select id="fc-u"><option value="us">Miles / MPG / $ per gallon</option><option value="eu">Kilometers / L per 100 km / $ per liter</option></select></div>
-    <div class="field"><label for="fc-d">Trip distance</label><input type="number" id="fc-d" step="any" min="0" placeholder="480"></div>
-    <div class="field"><label for="fc-e">Consumption</label><input type="number" id="fc-e" step="any" min="0" placeholder="30"></div>
-    <div class="field"><label for="fc-p">Fuel price</label><input type="number" id="fc-p" step="any" min="0" placeholder="3.45"></div>
+    <div class="field"><label for="fc-u"><span data-i18n="lbl.units">Units</span></label><select id="fc-u"><option value="us" data-i18n="fc.optus">Miles / MPG / $ per gallon</option><option value="eu" data-i18n="fc.opteu">Kilometers / L per 100 km / $ per liter</option></select></div>
+    <div class="field"><label for="fc-d" data-i18n="fc.distance">Trip distance</label><input type="number" id="fc-d" step="any" min="0" placeholder="480"></div>
+    <div class="field"><label for="fc-e" data-i18n="fc.consumption">Consumption</label><input type="number" id="fc-e" step="any" min="0" placeholder="30"></div>
+    <div class="field"><label for="fc-p" data-i18n="fc.price">Fuel price</label><input type="number" id="fc-p" step="any" min="0" placeholder="3.45"></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fc-out">–</span><span class="result-unit" id="fc-unit"></span></div>
   <div class="stats">
-    <div class="stat"><b id="fc-fuel">–</b><span>fuel needed</span></div>
-    <div class="stat"><b id="fc-pp">–</b><span>per person, 4 riders</span></div>
-    <div class="stat"><b id="fc-rt">–</b><span>round trip</span></div>
+    <div class="stat"><b id="fc-fuel">–</b><span data-i18n="fc.fuelneeded">fuel needed</span></div>
+    <div class="stat"><b id="fc-pp">–</b><span data-i18n="fc.pp4">per person, 4 riders</span></div>
+    <div class="stat"><b id="fc-rt">–</b><span data-i18n="fc.roundtrip">round trip</span></div>
   </div>
   <div class="tool-note" id="fc-note"></div>
   <button type="button" class="tool-btn" id="fc-share" data-i18n="share.share-the-trip-cost">Share the trip cost</button>
@@ -3667,7 +3667,7 @@ function calc(){
   if(us){fuel=d/e;unit='gallons';}else{fuel=d*e/100;unit='liters';}
   cost=fuel*p;
   OUT.textContent=money(cost);
-  document.getElementById('fc-unit').textContent='one-way fuel cost';
+  document.getElementById('fc-unit').textContent=TT('fc.oneway','one-way fuel cost');
   document.getElementById('fc-fuel').textContent=(Math.round(fuel*100)/100)+' '+unit;
   document.getElementById('fc-pp').textContent=money(cost/4);
   document.getElementById('fc-rt').textContent=money(cost*2);
