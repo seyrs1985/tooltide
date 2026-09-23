@@ -435,7 +435,13 @@ zh:{
  "fc.oneway":"单程油费",
  "sh.paste":"粘贴 HTML",
  "sh.plaintext":"纯文本",
- "sh.tagsstripped":"已去除标签数"
+ "sh.tagsstripped":"已去除标签数",
+ "case.upper":"全大写",
+ "case.lower":"全小写",
+ "case.title":"标题式大小写",
+ "case.sentence":"句首大写",
+ "case.ph":"输入或粘贴文本…",
+ "sh.cleanph":"干净文本显示在这里…"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -851,7 +857,13 @@ es:{
  "fc.oneway":"coste de combustible (solo ida)",
  "sh.paste":"Pegar HTML",
  "sh.plaintext":"Texto plano",
- "sh.tagsstripped":"etiquetas eliminadas"
+ "sh.tagsstripped":"etiquetas eliminadas",
+ "case.upper":"MAYÚSCULAS",
+ "case.lower":"minúsculas",
+ "case.title":"Tipo Título",
+ "case.sentence":"Tipo oración",
+ "case.ph":"Escribe o pega texto…",
+ "sh.cleanph":"aquí aparece el texto limpio…"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1267,7 +1279,13 @@ pt:{
  "fc.oneway":"custo de combustível (só ida)",
  "sh.paste":"Cole HTML",
  "sh.plaintext":"Texto simples",
- "sh.tagsstripped":"tags removidas"
+ "sh.tagsstripped":"tags removidas",
+ "case.upper":"MAIÚSCULAS",
+ "case.lower":"minúsculas",
+ "case.title":"Tipo Título",
+ "case.sentence":"Tipo sentença",
+ "case.ph":"Digite ou cole texto…",
+ "sh.cleanph":"o texto limpo aparece aqui…"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1683,7 +1701,13 @@ ru:{
  "fc.oneway":"стоимость топлива (в одну сторону)",
  "sh.paste":"Вставьте HTML",
  "sh.plaintext":"Обычный текст",
- "sh.tagsstripped":"тегов удалено"
+ "sh.tagsstripped":"тегов удалено",
+ "case.upper":"ВЕРХНИЙ РЕГИСТР",
+ "case.lower":"строчный регистр",
+ "case.title":"Регистр заголовков",
+ "case.sentence":"Как в предложении",
+ "case.ph":"Введите или вставьте текст…",
+ "sh.cleanph":"здесь появится чистый текст…"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2099,7 +2123,13 @@ ja:{
  "fc.oneway":"片道の燃料コスト",
  "sh.paste":"HTMLを貼り付け",
  "sh.plaintext":"プレーンテキスト",
- "sh.tagsstripped":"削除されたタグ数"
+ "sh.tagsstripped":"削除されたタグ数",
+ "case.upper":"大文字",
+ "case.lower":"小文字",
+ "case.title":"タイトルケース",
+ "case.sentence":"センテンスケース",
+ "case.ph":"テキストを入力または貼り付け…",
+ "sh.cleanph":"クリーンなテキストがここに表示…"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2515,7 +2545,13 @@ ko:{
  "fc.oneway":"편도 유류비",
  "sh.paste":"HTML 붙여넣기",
  "sh.plaintext":"일반 텍스트",
- "sh.tagsstripped":"제거된 태그"
+ "sh.tagsstripped":"제거된 태그",
+ "case.upper":"대문자",
+ "case.lower":"소문자",
+ "case.title":"제목 대소문자",
+ "case.sentence":"문장 대소문자",
+ "case.ph":"텍스트를 입력하거나 붙여넣기…",
+ "sh.cleanph":"깨끗한 텍스트가 여기에 표시…"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -2931,7 +2967,13 @@ de:{
  "fc.oneway":"Kraftstoffkosten (einfach)",
  "sh.paste":"HTML einfügen",
  "sh.plaintext":"Klartext",
- "sh.tagsstripped":"entfernte Tags"
+ "sh.tagsstripped":"entfernte Tags",
+ "case.upper":"GROSSBUCHSTABEN",
+ "case.lower":"Kleinbuchstaben",
+ "case.title":"Titelcase",
+ "case.sentence":"Satzanfang",
+ "case.ph":"Text eingeben oder einfügen…",
+ "sh.cleanph":"hier erscheint der Klartext…"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3347,7 +3389,13 @@ fr:{
  "fc.oneway":"coût de carburant (aller simple)",
  "sh.paste":"Coller du HTML",
  "sh.plaintext":"Texte brut",
- "sh.tagsstripped":"balises supprimées"
+ "sh.tagsstripped":"balises supprimées",
+ "case.upper":"MAJUSCULES",
+ "case.lower":"minuscules",
+ "case.title":"Casse titre",
+ "case.sentence":"Casse phrase",
+ "case.ph":"Saisissez ou collez du texte…",
+ "sh.cleanph":"le texte propre apparaît ici…"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3763,7 +3811,13 @@ id:{
  "fc.oneway":"biaya bahan bakar (sekali jalan)",
  "sh.paste":"Tempel HTML",
  "sh.plaintext":"Teks polos",
- "sh.tagsstripped":"tag dihapus"
+ "sh.tagsstripped":"tag dihapus",
+ "case.upper":"HURUF BESAR",
+ "case.lower":"huruf kecil",
+ "case.title":"Kapitalisasi judul",
+ "case.sentence":"Kapitalisasi kalimat",
+ "case.ph":"Ketik atau tempel teks…",
+ "sh.cleanph":"teks bersih muncul di sini…"
 }
 };
 function detect(){
