@@ -1172,11 +1172,11 @@ a.addEventListener('input',run);b.addEventListener('input',run);run();
 # ---------------------------------------------------------------- strip html
 STRIPHTML = """
 <div class="tool" id="tt-sh">
-  <div class="field"><label for="sh-in">Paste HTML</label>
+  <div class="field"><label for="sh-in" data-i18n="sh.paste">Paste HTML</label>
     <textarea id="sh-in" rows="8" placeholder="<div>Hello <b>world</b></div>"></textarea></div>
-  <div class="field" style="margin-top:10px"><label for="sh-out">Plain text <button class="btn btn-sm" id="sh-copy" type="button" data-i18n="ui.copy">Copy</button></label>
+  <div class="field" style="margin-top:10px"><label for="sh-out"><span data-i18n="sh.plaintext">Plain text</span> <button class="btn btn-sm" id="sh-copy" type="button" data-i18n="ui.copy">Copy</button></label>
     <textarea id="sh-out" rows="8" readonly placeholder="clean text appears here…"></textarea></div>
-  <div class="stats"><div class="stat"><b id="sh-tags">0</b><span>tags stripped</span></div></div>
+  <div class="stats"><div class="stat"><b id="sh-tags">0</b><span data-i18n="sh.tagsstripped">tags stripped</span></div></div>
 </div>
 <script>(function(){
 var inp=document.getElementById('sh-in'),out=document.getElementById('sh-out');
