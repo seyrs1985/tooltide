@@ -432,7 +432,10 @@ zh:{
  "fc.fuelneeded":"所需油量",
  "fc.pp4":"每人（4 人同行）",
  "fc.roundtrip":"往返",
- "fc.oneway":"单程油费"
+ "fc.oneway":"单程油费",
+ "sh.paste":"粘贴 HTML",
+ "sh.plaintext":"纯文本",
+ "sh.tagsstripped":"已去除标签数"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -845,7 +848,10 @@ es:{
  "fc.fuelneeded":"combustible necesario",
  "fc.pp4":"por persona, 4 ocupantes",
  "fc.roundtrip":"ida y vuelta",
- "fc.oneway":"coste de combustible (solo ida)"
+ "fc.oneway":"coste de combustible (solo ida)",
+ "sh.paste":"Pegar HTML",
+ "sh.plaintext":"Texto plano",
+ "sh.tagsstripped":"etiquetas eliminadas"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1258,7 +1264,10 @@ pt:{
  "fc.fuelneeded":"combustível necessário",
  "fc.pp4":"por pessoa, 4 ocupantes",
  "fc.roundtrip":"ida e volta",
- "fc.oneway":"custo de combustível (só ida)"
+ "fc.oneway":"custo de combustível (só ida)",
+ "sh.paste":"Cole HTML",
+ "sh.plaintext":"Texto simples",
+ "sh.tagsstripped":"tags removidas"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1671,7 +1680,10 @@ ru:{
  "fc.fuelneeded":"необходимо топлива",
  "fc.pp4":"на человека, 4 пассажира",
  "fc.roundtrip":"туда и обратно",
- "fc.oneway":"стоимость топлива (в одну сторону)"
+ "fc.oneway":"стоимость топлива (в одну сторону)",
+ "sh.paste":"Вставьте HTML",
+ "sh.plaintext":"Обычный текст",
+ "sh.tagsstripped":"тегов удалено"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2084,7 +2096,10 @@ ja:{
  "fc.fuelneeded":"必要な燃料",
  "fc.pp4":"1人あたり（4人乗車）",
  "fc.roundtrip":"往復",
- "fc.oneway":"片道の燃料コスト"
+ "fc.oneway":"片道の燃料コスト",
+ "sh.paste":"HTMLを貼り付け",
+ "sh.plaintext":"プレーンテキスト",
+ "sh.tagsstripped":"削除されたタグ数"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2497,7 +2512,10 @@ ko:{
  "fc.fuelneeded":"필요 연료",
  "fc.pp4":"1인당 (4인 동승)",
  "fc.roundtrip":"왕복",
- "fc.oneway":"편도 유류비"
+ "fc.oneway":"편도 유류비",
+ "sh.paste":"HTML 붙여넣기",
+ "sh.plaintext":"일반 텍스트",
+ "sh.tagsstripped":"제거된 태그"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -2910,7 +2928,10 @@ de:{
  "fc.fuelneeded":"benötigter Kraftstoff",
  "fc.pp4":"pro Person, 4 Insassen",
  "fc.roundtrip":"Hin- und Rückweg",
- "fc.oneway":"Kraftstoffkosten (einfach)"
+ "fc.oneway":"Kraftstoffkosten (einfach)",
+ "sh.paste":"HTML einfügen",
+ "sh.plaintext":"Klartext",
+ "sh.tagsstripped":"entfernte Tags"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3323,7 +3344,10 @@ fr:{
  "fc.fuelneeded":"carburant nécessaire",
  "fc.pp4":"par personne, 4 passagers",
  "fc.roundtrip":"aller-retour",
- "fc.oneway":"coût de carburant (aller simple)"
+ "fc.oneway":"coût de carburant (aller simple)",
+ "sh.paste":"Coller du HTML",
+ "sh.plaintext":"Texte brut",
+ "sh.tagsstripped":"balises supprimées"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3736,7 +3760,10 @@ id:{
  "fc.fuelneeded":"bahan bakar yang dibutuhkan",
  "fc.pp4":"per orang, 4 penumpang",
  "fc.roundtrip":"pulang pergi",
- "fc.oneway":"biaya bahan bakar (sekali jalan)"
+ "fc.oneway":"biaya bahan bakar (sekali jalan)",
+ "sh.paste":"Tempel HTML",
+ "sh.plaintext":"Teks polos",
+ "sh.tagsstripped":"tag dihapus"
 }
 };
 function detect(){

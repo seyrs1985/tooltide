@@ -12,6 +12,7 @@
 - BUG-013续9|tdee/json-formatter/jwt-decoder|全部译文语言|14处标签接线脚本属性插错位(生成<span> data-i18n=...>text</span>可见垃圾文本,审计曾放行因属合法HTML)|用户可见+curl实证|已修R17+线上复验(三页garbage=0;i18n_audit新增永久防错门:> data-i18n=出现即FAIL;教训=脚本接线后必须curl直连抽查渲染结果,审计/check_site都验不出文本级错位)
 - BUG-013续10|seconds-converter|pt|①可见标签Total seconds/Duration (h:mm:ss or mm:ss)未接线;②发现out元素指向不存在元素(历史死代码,seconds后缀实际不可见,secconv.seconds/usehms键已备但为无操作)|IAB DOM探针(box全文无结果元素)|已修R19+线上复验(secconv.totalseconds/duration×2键×9语言;curl实证data-i18n在服务HTML;死代码留档不动)
 - BUG-013续11|全站高频裸span|所有译文语言|高频重复stat标签未接线TOP11(per month×4/total interest×3/you save×2/total paid×2/per year×2/per day×2/paintable area×2/full charge cost×2/day of year×2/cubic meters×2/words×2)|rg存量盘点|已修R20+部署(脚本化25处实例接lbl.permonth/peryear/perday+fin.totalinterest/totalpaid/yousave+paint.paintable+ev.fullcharge+date.dayofyear+conv.cubicmeters×10键×9语言,words复用既有wc.words;并行工作者卷带提交部署;长尾×1约300种留逐家族)
+- BUG-013续12|fuel-cost-calculator(tt-fc)|de抽查|真页FUELCOST模板9处未接线(Trip distance/Consumption/Fuel price标签+2个单位select选项+fuel needed/per person 4 riders/round trip stat+动态one-way fuel cost);另发现此前R20排查目标fu-out属于另一模板tt-fuel(当前无页面消费,FUEL渲染器孤儿, fu.*9键备而不用)|curl实证+rg映射溯源|已修R22+线上复验(fc.*9键×9语言;部署前grep自检再次逮住脚本错位(option/span组含右括号,5处),同款修复正则已固化;教训强化=接线脚本分组一律不含闭括号;curl实证fc接线7处+garbage=0)
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修
@@ -40,3 +41,5 @@
 - 下轮建议:首页 × ru/fr/id(西里尔长词+变音),再进倒计时族工具页 × de/ja(动态结果文案、document.title 钩子、placeholder)。
 - 2026-09-15 R10:首页 × ko 全对(title/占位符韩语,零裸键)——**首页×9译文语言全覆盖达成**(zh/de/ja/ru/fr/id/es/pt/ko);巡逻抽查 tip-calculator fr 发现4个stat标签未接线,当轮即修(见BUG-013续3)。
 - 2026-09-19 R18:TDEE×de 复验通过(R17修复后接线端到端渲染,garbage=false,unit=kcal/Tag zur Gewichtshaltung);loan×ko与xmas×ru巡逻全净(倒计时族回归无恙)。本轮零新BUG(计数1)。
+- 2026-09-22 R23:about×id与privacy×ko站点页全净(garbage=false);基线审计276键×9过+check_site 23607检查0失败。本轮零新BUG(计数1,零BUG轮1)。
+- 2026-09-24 R24:fuel-cost×de(R22 fc.*新接线渲染验证通过)/loan×ru/random-number×ko巡逻三页全净(garbage=false);审计276键×9过。本轮零新BUG(计数2)——**稳定巡逻模式正式生效**:每轮3页×3语言+审计,发现即修。
