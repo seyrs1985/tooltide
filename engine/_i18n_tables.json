@@ -1644,6 +1644,18 @@
    [
     "fc.oneway",
     "单程油费"
+   ],
+   [
+    "sh.paste",
+    "粘贴 HTML"
+   ],
+   [
+    "sh.plaintext",
+    "纯文本"
+   ],
+   [
+    "sh.tagsstripped",
+    "已去除标签数"
    ]
   ],
   "es": [
@@ -3290,6 +3302,18 @@
    [
     "fc.oneway",
     "coste de combustible (solo ida)"
+   ],
+   [
+    "sh.paste",
+    "Pegar HTML"
+   ],
+   [
+    "sh.plaintext",
+    "Texto plano"
+   ],
+   [
+    "sh.tagsstripped",
+    "etiquetas eliminadas"
    ]
   ],
   "pt": [
@@ -4936,6 +4960,18 @@
    [
     "fc.oneway",
     "custo de combustível (só ida)"
+   ],
+   [
+    "sh.paste",
+    "Cole HTML"
+   ],
+   [
+    "sh.plaintext",
+    "Texto simples"
+   ],
+   [
+    "sh.tagsstripped",
+    "tags removidas"
    ]
   ],
   "ru": [
@@ -6582,6 +6618,18 @@
    [
     "fc.oneway",
     "стоимость топлива (в одну сторону)"
+   ],
+   [
+    "sh.paste",
+    "Вставьте HTML"
+   ],
+   [
+    "sh.plaintext",
+    "Обычный текст"
+   ],
+   [
+    "sh.tagsstripped",
+    "тегов удалено"
    ]
   ],
   "ja": [
@@ -8228,6 +8276,18 @@
    [
     "fc.oneway",
     "片道の燃料コスト"
+   ],
+   [
+    "sh.paste",
+    "HTMLを貼り付け"
+   ],
+   [
+    "sh.plaintext",
+    "プレーンテキスト"
+   ],
+   [
+    "sh.tagsstripped",
+    "削除されたタグ数"
    ]
   ],
   "ko": [
@@ -9874,6 +9934,18 @@
    [
     "fc.oneway",
     "편도 유류비"
+   ],
+   [
+    "sh.paste",
+    "HTML 붙여넣기"
+   ],
+   [
+    "sh.plaintext",
+    "일반 텍스트"
+   ],
+   [
+    "sh.tagsstripped",
+    "제거된 태그"
    ]
   ],
   "de": [
@@ -11520,6 +11592,18 @@
    [
     "fc.oneway",
     "Kraftstoffkosten (einfach)"
+   ],
+   [
+    "sh.paste",
+    "HTML einfügen"
+   ],
+   [
+    "sh.plaintext",
+    "Klartext"
+   ],
+   [
+    "sh.tagsstripped",
+    "entfernte Tags"
    ]
   ],
   "fr": [
@@ -13166,6 +13250,18 @@
    [
     "fc.oneway",
     "coût de carburant (aller simple)"
+   ],
+   [
+    "sh.paste",
+    "Coller du HTML"
+   ],
+   [
+    "sh.plaintext",
+    "Texte brut"
+   ],
+   [
+    "sh.tagsstripped",
+    "balises supprimées"
    ]
   ],
   "id": [
@@ -14812,6 +14908,18 @@
    [
     "fc.oneway",
     "biaya bahan bakar (sekali jalan)"
+   ],
+   [
+    "sh.paste",
+    "Tempel HTML"
+   ],
+   [
+    "sh.plaintext",
+    "Teks polos"
+   ],
+   [
+    "sh.tagsstripped",
+    "tag dihapus"
    ]
   ]
  }
