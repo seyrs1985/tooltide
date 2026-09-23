@@ -461,12 +461,12 @@ document.getElementById('wc-txt').addEventListener('input',run);run();
 CASE = """
 <div class="tool" id="tt-case">
   <div class="field"><label for="case-in"><span data-i18n="lbl.yourtext">Your text</span></label>
-    <textarea id="case-in" rows="6" placeholder="Type or paste text…"></textarea></div>
+    <textarea id="case-in" rows="6" placeholder="Type or paste text…" data-i18n-placeholder="case.ph"></textarea></div>
   <div class="chips">
-    <button class="chip" data-c="upper">UPPERCASE</button>
-    <button class="chip" data-c="lower">lowercase</button>
-    <button class="chip" data-c="title">Title Case</button>
-    <button class="chip" data-c="sentence">Sentence case</button>
+    <button class="chip" data-c="upper" data-i18n="case.upper">UPPERCASE</button>
+    <button class="chip" data-c="lower" data-i18n="case.lower">lowercase</button>
+    <button class="chip" data-c="title" data-i18n="case.title">Title Case</button>
+    <button class="chip" data-c="sentence" data-i18n="case.sentence">Sentence case</button>
     <button class="chip" data-c="camel">camelCase</button>
     <button class="chip" data-c="snake">snake_case</button>
     <button class="chip" data-c="kebab">kebab-case</button>
@@ -1175,7 +1175,7 @@ STRIPHTML = """
   <div class="field"><label for="sh-in" data-i18n="sh.paste">Paste HTML</label>
     <textarea id="sh-in" rows="8" placeholder="<div>Hello <b>world</b></div>"></textarea></div>
   <div class="field" style="margin-top:10px"><label for="sh-out"><span data-i18n="sh.plaintext">Plain text</span> <button class="btn btn-sm" id="sh-copy" type="button" data-i18n="ui.copy">Copy</button></label>
-    <textarea id="sh-out" rows="8" readonly placeholder="clean text appears here…"></textarea></div>
+    <textarea id="sh-out" rows="8" readonly placeholder="clean text appears here…" data-i18n-placeholder="sh.cleanph"></textarea></div>
   <div class="stats"><div class="stat"><b id="sh-tags">0</b><span data-i18n="sh.tagsstripped">tags stripped</span></div></div>
 </div>
 <script>(function(){
