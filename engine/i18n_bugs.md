@@ -14,6 +14,7 @@
 - BUG-013续11|case-converter|ru/ja|8个大小写模式chip未接线(UPPERCASE/lowercase/Title Case/Sentence case/camelCase/snake_case/kebab-case/aLtErNaTiNg)+输入框placeholder|IAB DOM探针|已修R26+线上复验(case.upper/lower/title/sentence+case.ph×5键×9语言接线;camelCase/snake_case/kebab-case/aLtErNaTiNg为命名规范专名保留英文属范围外;curl实证case.upper/case.ph上线)
 - BUG-013续11|全站高频裸span|所有译文语言|高频重复stat标签未接线TOP11(per month×4/total interest×3/you save×2/total paid×2/per year×2/per day×2/paintable area×2/full charge cost×2/day of year×2/cubic meters×2/words×2)|rg存量盘点|已修R20+部署(脚本化25处实例接lbl.permonth/peryear/perday+fin.totalinterest/totalpaid/yousave+paint.paintable+ev.fullcharge+date.dayofyear+conv.cubicmeters×10键×9语言,words复用既有wc.words;并行工作者卷带提交部署;长尾×1约300种留逐家族)
 - BUG-013续12|fuel-cost-calculator(tt-fc)|de抽查|真页FUELCOST模板9处未接线(Trip distance/Consumption/Fuel price标签+2个单位select选项+fuel needed/per person 4 riders/round trip stat+动态one-way fuel cost);另发现此前R20排查目标fu-out属于另一模板tt-fuel(当前无页面消费,FUEL渲染器孤儿, fu.*9键备而不用)|curl实证+rg映射溯源|已修R22+线上复验(fc.*9键×9语言;部署前grep自检再次逮住脚本错位(option/span组含右括号,5处),同款修复正则已固化;教训强化=接线脚本分组一律不含闭括号;curl实证fc接线7处+garbage=0)
+- BUG-013续13|url-encoder-decoder|ja|ue-pct动态stat标签(percent sequences)未接线(嵌套span假阳性掩盖)|IAB DOM探针|已修R26+线上复验(ue.pct×9语言;复验ja:%シーケンス等全日文,unwired空;同轮巡逻heart-rate×ko与RW×es全净)
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修
@@ -45,3 +46,4 @@
 - 2026-09-22 R23:about×id与privacy×ko站点页全净(garbage=false);基线审计276键×9过+check_site 23607检查0失败。本轮零新BUG(计数1,零BUG轮1)。
 - 2026-09-24 R24:fuel-cost×de(R22 fc.*新接线渲染验证通过)/loan×ru/random-number×ko巡逻三页全净(garbage=false);审计276键×9过。本轮零新BUG(计数2)——**稳定巡逻模式正式生效**:每轮3页×3语言+审计,发现即修。
 - 2026-09-24 R25(06:01档):tdee×de/fuel-cost×ja/json-formatter×ru巡逻三页全净(garbage=false;R17/R22家族成果线上站得住)。本轮零新BUG。
+- 2026-09-24 R28(10:01档):heart-rate×pt/word-counter×fr/seconds×ko巡逻三页全净(garbage=false)。零新BUG。

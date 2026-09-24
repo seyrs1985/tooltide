@@ -442,7 +442,10 @@ zh:{
  "case.sentence":"句首大写",
  "case.ph":"输入或粘贴文本…",
  "sh.cleanph":"干净文本显示在这里…",
- "ue.pct":"% 序列数"
+ "ue.pct":"% 序列数",
+ "lorem.wordsgen":"已生成词数",
+ "lorem.copybtn":"复制到剪贴板",
+ "lorem.regen":"重新生成"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -865,7 +868,10 @@ es:{
  "case.sentence":"Tipo oración",
  "case.ph":"Escribe o pega texto…",
  "sh.cleanph":"aquí aparece el texto limpio…",
- "ue.pct":"secuencias %"
+ "ue.pct":"secuencias %",
+ "lorem.wordsgen":"palabras generadas",
+ "lorem.copybtn":"Copiar al portapapeles",
+ "lorem.regen":"Regenerar"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1288,7 +1294,10 @@ pt:{
  "case.sentence":"Tipo sentença",
  "case.ph":"Digite ou cole texto…",
  "sh.cleanph":"o texto limpo aparece aqui…",
- "ue.pct":"sequências %"
+ "ue.pct":"sequências %",
+ "lorem.wordsgen":"palavras geradas",
+ "lorem.copybtn":"Copiar para a área de transferência",
+ "lorem.regen":"Regenerar"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1711,7 +1720,10 @@ ru:{
  "case.sentence":"Как в предложении",
  "case.ph":"Введите или вставьте текст…",
  "sh.cleanph":"здесь появится чистый текст…",
- "ue.pct":"процентных последовательностей"
+ "ue.pct":"процентных последовательностей",
+ "lorem.wordsgen":"слов сгенерировано",
+ "lorem.copybtn":"Копировать в буфер",
+ "lorem.regen":"Сгенерировать заново"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2134,7 +2146,10 @@ ja:{
  "case.sentence":"センテンスケース",
  "case.ph":"テキストを入力または貼り付け…",
  "sh.cleanph":"クリーンなテキストがここに表示…",
- "ue.pct":"%シーケンス"
+ "ue.pct":"%シーケンス",
+ "lorem.wordsgen":"生成された単語数",
+ "lorem.copybtn":"クリップボードにコピー",
+ "lorem.regen":"再生成"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2557,7 +2572,10 @@ ko:{
  "case.sentence":"문장 대소문자",
  "case.ph":"텍스트를 입력하거나 붙여넣기…",
  "sh.cleanph":"깨끗한 텍스트가 여기에 표시…",
- "ue.pct":"% 시퀀스"
+ "ue.pct":"% 시퀀스",
+ "lorem.wordsgen":"생성된 단어 수",
+ "lorem.copybtn":"클립보드에 복사",
+ "lorem.regen":"다시 생성"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -2980,7 +2998,10 @@ de:{
  "case.sentence":"Satzanfang",
  "case.ph":"Text eingeben oder einfügen…",
  "sh.cleanph":"hier erscheint der Klartext…",
- "ue.pct":"%-Sequenzen"
+ "ue.pct":"%-Sequenzen",
+ "lorem.wordsgen":"generierte Wörter",
+ "lorem.copybtn":"In die Zwischenablage kopieren",
+ "lorem.regen":"Neu generieren"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3403,7 +3424,10 @@ fr:{
  "case.sentence":"Casse phrase",
  "case.ph":"Saisissez ou collez du texte…",
  "sh.cleanph":"le texte propre apparaît ici…",
- "ue.pct":"séquences %"
+ "ue.pct":"séquences %",
+ "lorem.wordsgen":"mots générés",
+ "lorem.copybtn":"Copier dans le presse-papiers",
+ "lorem.regen":"Régénérer"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3826,7 +3850,10 @@ id:{
  "case.sentence":"Kapitalisasi kalimat",
  "case.ph":"Ketik atau tempel teks…",
  "sh.cleanph":"teks bersih muncul di sini…",
- "ue.pct":"urutan %"
+ "ue.pct":"urutan %",
+ "lorem.wordsgen":"kata dihasilkan",
+ "lorem.copybtn":"Salin ke clipboard",
+ "lorem.regen":"Buat ulang"
 }
 };
 function detect(){
