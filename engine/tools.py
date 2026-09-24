@@ -5944,7 +5944,7 @@ URLCOD = """<div class="tool" id="tt-ue">
   <div class="stats">
     <div class="stat"><b id="ue-in-len">–</b><span><span data-i18n="dev.inchars">input chars</span></span></div>
     <div class="stat"><b id="ue-out-len">–</b><span><span data-i18n="dev.outchars">output chars</span></span></div>
-    <div class="stat"><b id="ue-pct">–</b><span>% sequences</span></div>
+    <div class="stat"><b id="ue-pct">–</b><span data-i18n="ue.pct">% sequences</span></div>
   </div>
   <div class="tool-note" id="ue-note">Component mode encodes everything a query-string value must have encoded (& = ? / and spaces as %20); full-URL mode keeps the structure characters a URL needs. Runs locally.</div>
   <button type="button" class="tool-btn" id="ue-copy" data-i18n="dev.copyout">Copy output</button>
