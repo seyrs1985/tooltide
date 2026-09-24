@@ -1680,6 +1680,10 @@
    [
     "sh.cleanph",
     "干净文本显示在这里…"
+   ],
+   [
+    "ue.pct",
+    "% 序列数"
    ]
   ],
   "es": [
@@ -3362,6 +3366,10 @@
    [
     "sh.cleanph",
     "aquí aparece el texto limpio…"
+   ],
+   [
+    "ue.pct",
+    "secuencias %"
    ]
   ],
   "pt": [
@@ -5044,6 +5052,10 @@
    [
     "sh.cleanph",
     "o texto limpo aparece aqui…"
+   ],
+   [
+    "ue.pct",
+    "sequências %"
    ]
   ],
   "ru": [
@@ -6726,6 +6738,10 @@
    [
     "sh.cleanph",
     "здесь появится чистый текст…"
+   ],
+   [
+    "ue.pct",
+    "процентных последовательностей"
    ]
   ],
   "ja": [
@@ -8408,6 +8424,10 @@
    [
     "sh.cleanph",
     "クリーンなテキストがここに表示…"
+   ],
+   [
+    "ue.pct",
+    "%シーケンス"
    ]
   ],
   "ko": [
@@ -10090,6 +10110,10 @@
    [
     "sh.cleanph",
     "깨끗한 텍스트가 여기에 표시…"
+   ],
+   [
+    "ue.pct",
+    "% 시퀀스"
    ]
   ],
   "de": [
@@ -11772,6 +11796,10 @@
    [
     "sh.cleanph",
     "hier erscheint der Klartext…"
+   ],
+   [
+    "ue.pct",
+    "%-Sequenzen"
    ]
   ],
   "fr": [
@@ -13454,6 +13482,10 @@
    [
     "sh.cleanph",
     "le texte propre apparaît ici…"
+   ],
+   [
+    "ue.pct",
+    "séquences %"
    ]
   ],
   "id": [
@@ -15136,6 +15168,10 @@
    [
     "sh.cleanph",
     "teks bersih muncul di sini…"
+   ],
+   [
+    "ue.pct",
+    "urutan %"
    ]
   ]
  }
