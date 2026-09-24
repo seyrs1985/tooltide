@@ -7703,11 +7703,11 @@ LOREM = """<div class="tool" id="tt-lr">
     <div class="field"><label for="lr-w">Words per paragraph</label><input type="number" id="lr-w" min="20" max="200" value="60"></div>
     <div class="field"><label for="lr-s">Start with \u201cLorem ipsum\u2026\u201d</label><input type="checkbox" id="lr-s" checked></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="lr-out">–</span><span class="result-unit">words generated</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="lr-out">–</span><span class="result-unit" data-i18n="lorem.wordsgen">words generated</span></div>
   <textarea id="lr-tx" rows="9" style="width:100%;box-sizing:border-box;margin-top:10px;font-size:.95em" readonly aria-label="Generated lorem ipsum text"></textarea>
   <div class="tool-note" id="lr-note"></div>
-  <button type="button" class="tool-btn" id="lr-copy">Copy to clipboard</button>
-  <button type="button" class="tool-btn" id="lr-new">Regenerate</button>
+  <button type="button" class="tool-btn" id="lr-copy" data-i18n="lorem.copybtn">Copy to clipboard</button>
+  <button type="button" class="tool-btn" id="lr-new" data-i18n="lorem.regen">Regenerate</button>
 </div>
 <script>(function(){
 var P=document.getElementById('lr-p'),W=document.getElementById('lr-w'),S=document.getElementById('lr-s');
@@ -7740,8 +7740,8 @@ else{try{var mem=JSON.parse(localStorage.getItem('tt_lorem')||'null');if(mem){P.
 gen();
 document.getElementById('lr-copy').addEventListener('click',function(){
   TX.select();
-  if(navigator.clipboard){navigator.clipboard.writeText(TX.value);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent='Copy to clipboard';},1500);}
-  else{document.execCommand('copy');this.textContent=TT('ui.copied','Copied!');var c=this;setTimeout(function(){c.textContent='Copy to clipboard';},1500);}
+  if(navigator.clipboard){navigator.clipboard.writeText(TX.value);this.textContent=TT('ui.copied','Copied!');var b=this;setTimeout(function(){b.textContent=TT('lorem.copybtn','Copy to clipboard');},1500);}
+  else{document.execCommand('copy');this.textContent=TT('ui.copied','Copied!');var c=this;setTimeout(function(){c.textContent=TT('lorem.copybtn','Copy to clipboard');},1500);}
 });
 })();
 </script>
