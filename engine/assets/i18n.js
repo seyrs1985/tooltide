@@ -441,7 +441,8 @@ zh:{
  "case.title":"标题式大小写",
  "case.sentence":"句首大写",
  "case.ph":"输入或粘贴文本…",
- "sh.cleanph":"干净文本显示在这里…"
+ "sh.cleanph":"干净文本显示在这里…",
+ "ue.pct":"% 序列数"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -863,7 +864,8 @@ es:{
  "case.title":"Tipo Título",
  "case.sentence":"Tipo oración",
  "case.ph":"Escribe o pega texto…",
- "sh.cleanph":"aquí aparece el texto limpio…"
+ "sh.cleanph":"aquí aparece el texto limpio…",
+ "ue.pct":"secuencias %"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1285,7 +1287,8 @@ pt:{
  "case.title":"Tipo Título",
  "case.sentence":"Tipo sentença",
  "case.ph":"Digite ou cole texto…",
- "sh.cleanph":"o texto limpo aparece aqui…"
+ "sh.cleanph":"o texto limpo aparece aqui…",
+ "ue.pct":"sequências %"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1707,7 +1710,8 @@ ru:{
  "case.title":"Регистр заголовков",
  "case.sentence":"Как в предложении",
  "case.ph":"Введите или вставьте текст…",
- "sh.cleanph":"здесь появится чистый текст…"
+ "sh.cleanph":"здесь появится чистый текст…",
+ "ue.pct":"процентных последовательностей"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2129,7 +2133,8 @@ ja:{
  "case.title":"タイトルケース",
  "case.sentence":"センテンスケース",
  "case.ph":"テキストを入力または貼り付け…",
- "sh.cleanph":"クリーンなテキストがここに表示…"
+ "sh.cleanph":"クリーンなテキストがここに表示…",
+ "ue.pct":"%シーケンス"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2551,7 +2556,8 @@ ko:{
  "case.title":"제목 대소문자",
  "case.sentence":"문장 대소문자",
  "case.ph":"텍스트를 입력하거나 붙여넣기…",
- "sh.cleanph":"깨끗한 텍스트가 여기에 표시…"
+ "sh.cleanph":"깨끗한 텍스트가 여기에 표시…",
+ "ue.pct":"% 시퀀스"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -2973,7 +2979,8 @@ de:{
  "case.title":"Titelcase",
  "case.sentence":"Satzanfang",
  "case.ph":"Text eingeben oder einfügen…",
- "sh.cleanph":"hier erscheint der Klartext…"
+ "sh.cleanph":"hier erscheint der Klartext…",
+ "ue.pct":"%-Sequenzen"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3395,7 +3402,8 @@ fr:{
  "case.title":"Casse titre",
  "case.sentence":"Casse phrase",
  "case.ph":"Saisissez ou collez du texte…",
- "sh.cleanph":"le texte propre apparaît ici…"
+ "sh.cleanph":"le texte propre apparaît ici…",
+ "ue.pct":"séquences %"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3817,7 +3825,8 @@ id:{
  "case.title":"Kapitalisasi judul",
  "case.sentence":"Kapitalisasi kalimat",
  "case.ph":"Ketik atau tempel teks…",
- "sh.cleanph":"teks bersih muncul di sini…"
+ "sh.cleanph":"teks bersih muncul di sini…",
+ "ue.pct":"urutan %"
 }
 };
 function detect(){
