@@ -11103,6 +11103,156 @@ document.getElementById('fd3-share').addEventListener('click',function(){
 </script>
 """
 
+TURKEYTHAW = """<div class="tool" id="tt-tt2">
+  <div class="fields">
+    <div class="field"><label for="tt2-d">Serving date</label><input type="date" id="tt2-d"></div>
+    <div class="field"><label for="tt2-w">Turkey weight (kg)</label><input type="number" id="tt2-w" min="3" max="15" step="0.5" placeholder="6"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tt2-out">–</span><span class="result-unit">start thawing (date)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tt2-s1">–</b><span>fridge thaw time</span></div>
+    <div class="stat"><b id="tt2-s2">–</b><span>oven time at 175\u00b0C</span></div>
+    <div class="stat"><b id="tt2-s3">–</b><span>rest before carving</span></div>
+  </div>
+  <div class="tool-note" id="tt2-note"></div>
+  <button type="button" class="tool-btn" id="tt2-share">Share this schedule</button>
+</div>
+<script>(function(){
+var F=['tt2-d','tt2-w'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('tt2-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function fmt(n){return n<10?'0'+n:''+n;}
+function calc(){
+  var dv=F[0].value,w=parseFloat(F[1].value);
+  if(!dv||!(w>=3&&w<=15)){OUT.textContent='–';['tt2-s1','tt2-s2','tt2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('tt2-note').textContent='';document.title='Turkey Thaw Calculator - ToolDune';return;}
+  var day=new Date(dv+'T12:00:00');
+  var thawH=w*4.5;
+  var thawD=Math.ceil(thawH/24);
+  var thaw=new Date(day.getTime()-(thawD+1)*86400000);
+  OUT.textContent=fmt(thaw.getDate())+'.'+fmt(thaw.getMonth()+1)+'.';
+  document.getElementById('tt2-s1').textContent=thawD+' days ('+Math.round(thawH)+' h)';
+  var ovenH=w*0.75;
+  document.getElementById('tt2-s2').textContent=Math.floor(ovenH)+' h '+(Math.round(ovenH%1*60)<10?'0'+Math.round(ovenH%1*60):Math.round(ovenH%1*60))+' min';
+  document.getElementById('tt2-s3').textContent=w>=6?'40 min':'30 min';
+  document.getElementById('tt2-note').textContent='The fridge is the only safe thaw: roughly four and a half hours per kilo, on a tray on the bottom shelf (drips are a food-safety event, not a tragedy), breast-side down for even thawing. The cold-water shortcut exists - thirty minutes per kilo in sealed bags, water changed every half hour - but it owns your day and cooks nothing evenly. The oven figure assumes 175\u00b0C uncovered; the only number that matters is 74\u00b0C in the thickest part of the thigh, measured with your own probe - pop-up timers pop early and guess late. And the rest before carving is not ceremony: thirty to forty minutes lets the juices settle back, and it buys exactly the window to finish the roast vegetables and gravy. Buy the bird with this schedule in hand - too big is a thawing crisis, too small is a side-dish crisis.';
+  document.title='Start thawing '+OUT.textContent+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_turkeythaw',JSON.stringify({d:F[0].value,w:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['d',F[0]],['w',F[1]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_turkeythaw')||'null');if(mem){F[0].value=mem.d||'';F[1].value=mem.w||'';}}catch(e){}}
+calc();
+document.getElementById('tt2-share').addEventListener('click',function(){
+  var txt='Start thawing the turkey '+OUT.textContent+' - full schedule: '+location.origin+location.pathname+'?d='+F[0].value+'&w='+F[1].value;
+  if(navigator.share){navigator.share({title:'Turkey schedule',text:txt,url:location.origin+location.pathname+'?d='+F[0].value+'&w='+F[1].value}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this schedule';},1500);}
+});
+})();
+</script>
+"""
+
+SHIPDEAD = """<div class="tool" id="tt-sh2">
+  <div class="fields">
+    <div class="field"><label for="sh2-d">Must arrive by</label><input type="date" id="sh2-d"></div>
+    <div class="field"><label for="sh2-r">Destination</label><select id="sh2-r"><option value="3" selected>Domestic (3 days)</option><option value="7">Nearby country (7 days)</option><option value="14">Far international (14 days)</option><option value="21">Slow international (21 days)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sh2-out">–</span><span class="result-unit">last safe posting date</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sh2-s1">–</b><span>transit allowance</span></div>
+    <div class="stat"><b id="sh2-s2">–</b><span>peak-season buffer</span></div>
+    <div class="stat"><b id="sh2-s3">–</b><span>ordering deadline (online)</span></div>
+  </div>
+  <div class="tool-note" id="sh2-note"></div>
+  <button type="button" class="tool-btn" id="sh2-share">Share this deadline</button>
+</div>
+<script>(function(){
+var F=['sh2-d','sh2-r'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('sh2-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function fmt(n){return n<10?'0'+n:''+n;}
+function calc(){
+  var dv=F[0].value,transit=parseFloat(F[1].value);
+  if(!dv){OUT.textContent='–';['sh2-s1','sh2-s2','sh2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sh2-note').textContent='';document.title='Holiday Shipping Calculator - ToolDune';return;}
+  var arrive=new Date(dv+'T12:00:00');
+  var buffer=transit*0.5;
+  var post=new Date(arrive.getTime()-(transit+buffer)*86400000);
+  OUT.textContent=fmt(post.getDate())+'.'+fmt(post.getMonth()+1)+'.';
+  document.getElementById('sh2-s1').textContent=Math.round(transit)+' days';
+  document.getElementById('sh2-s2').textContent='+'+Math.round(buffer)+' days';
+  var order=new Date(post.getTime()-7*86400000);
+  document.getElementById('sh2-s3').textContent=fmt(order.getDate())+'.'+fmt(order.getMonth()+1)+'.';
+  document.getElementById('sh2-note').textContent='The arithmetic adds a half-transit buffer because December networks run at maximum: sorting hubs overflow, weather compounds, and the courier\u2019s \u201cusually three days\u201d quietly becomes four at exactly the moment it cannot. The online-order row subtracts a further week - warehouse handling and pick-pack time ride on top of transit, and the last safe order date is the one the shop advertises, which everyone else also read. Practical padding: ship earlier than proud, insure anything replaceable, photograph fragile packing, and remember the recipient is not home on the 25th - a safe delivery spot or a pickup point saves the surprise nobody wants. Hand-delivered and digital gifts keep no calendar; every other parcel is a bet against the network, and the buffer is the stake that wins it.';
+  document.title='Post by '+OUT.textContent+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_shipdead',JSON.stringify({d:F[0].value,r:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['d',F[0]],['r',F[1]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_shipdead')||'null');if(mem){F[0].value=mem.d||'';F[1].value=mem.r||'3';}}catch(e){}}
+calc();
+document.getElementById('sh2-share').addEventListener('click',function(){
+  var txt='Post by '+OUT.textContent+' for Christmas delivery. Set your deadline (free, no sign-up):';
+  var url=location.origin+location.pathname+'?d='+F[0].value+'&r='+F[1].value;
+  if(navigator.share){navigator.share({title:'Shipping deadline',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this deadline';},1500);}
+});
+})();
+</script>
+"""
+
+LEFTOVER = """<div class="tool" id="tt-lv">
+  <div class="fields">
+    <div class="field"><label for="lv-d">Cooked on</label><input type="date" id="lv-d"></div>
+    <div class="field"><label for="lv-t">Food type</label><select id="lv-t"><option value="4" selected>Cooked meat / poultry</option><option value="4">Soups &amp; stews</option><option value="4">Cooked rice &amp; grains</option><option value="3">Cooked fish (3 days)</option><option value="4">Gravy / sauces</option></select></div>
+    <div class="field"><label for="lv-f">Storage</label><select id="lv-f"><option value="1" selected>Fridge (\u22644\u00b0C)</option><option value="0">Freezer (-18\u00b0C)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="lv-out">–</span><span class="result-unit">use or freeze by</span></div>
+  <div class="stats">
+    <div class="stat"><b id="lv-s1">–</b><span>days remaining</span></div>
+    <div class="stat"><b id="lv-s2">–</b><span>freezer extends to</span></div>
+    <div class="stat"><b id="lv-s3">–</b><span>reheat rule</span></div>
+  </div>
+  <div class="tool-note" id="lv-note"></div>
+  <button type="button" class="tool-btn" id="lv-share">Share this date</button>
+</div>
+<script>(function(){
+var F=['lv-d','lv-t','lv-f'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('lv-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function fmt(n){return n<10?'0'+n:''+n;}
+function calc(){
+  var dv=F[0].value,days=parseFloat(F[1].value),fz=F[2].value;
+  if(!dv){OUT.textContent='–';['lv-s1','lv-s2','lv-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('lv-note').textContent='';document.title='Leftover Storage Calculator - ToolDune';return;}
+  var cooked=new Date(dv+'T12:00:00');
+  if(fz==='0'){var fe=new Date(cooked.getTime()+90*86400000);OUT.textContent=fmt(fe.getDate())+'.'+fmt(fe.getMonth()+1)+'.'+' (frozen)';
+    document.getElementById('lv-s1').textContent='3 months in freezer';
+    document.getElementById('lv-s2').textContent='thaw in fridge, 24 h';
+    document.getElementById('lv-s3').textContent='one reheat only';}
+  else{var by=new Date(cooked.getTime()+days*86400000);OUT.textContent=fmt(by.getDate())+'.'+fmt(by.getMonth()+1)+'.';
+    var left=Math.ceil((by-new Date())/86400000);
+    document.getElementById('lv-s1').textContent=Math.max(left,0)+' days';
+    document.getElementById('lv-s2').textContent='3 months if frozen now';
+    document.getElementById('lv-s3').textContent='one reheat only';}
+  document.getElementById('lv-note').textContent='The four-day fridge rule is the food-safety consensus for cooked meats, soups, rice and gravies - the danger zone between 4 and 60\u00b0C doubles bacterial generations every few hours, and the fridge only slows the clock, never resets it. Two habits carry the whole system: cool leftovers within two hours (a shallow container, not the stockpot), and label the container with the cook date - the mystery box at the back is always older than memory claims. Freezing pauses the clock entirely for about three months and costs only texture; the thaw happens in the fridge over a day, never on the counter. And reheating is a one-way door: heat thoroughly to steaming once - repeated warm-ups multiply exactly the risk the four-day rule exists to manage. If in doubt, throw it out; the bin is cheaper than the bathroom.';
+  document.title='Eat or freeze by '+OUT.textContent+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_leftover',JSON.stringify({d:F[0].value,t:F[1].value,f:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['d',F[0]],['t',F[1]],['f',F[2]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_leftover')||'null');if(mem){F[0].value=mem.d||'';F[1].value=mem.t||'4';F[2].value=mem.f||'1';}}catch(e){}}
+calc();
+document.getElementById('lv-share').addEventListener('click',function(){
+  var txt='Leftovers: eat or freeze by '+OUT.textContent+'. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?d='+F[0].value+'&t='+F[1].value+'&f='+F[2].value;
+  if(navigator.share){navigator.share({title:'Leftover deadline',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this date';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -11312,6 +11462,9 @@ TOOLS = {
     "plantwater": lambda args: PLANTWATER,
     "repot": lambda args: REPOT,
     "fertdilute": lambda args: FERTDILUTE,
+    "turkeythaw": lambda args: TURKEYTHAW,
+    "shipdead": lambda args: SHIPDEAD,
+    "leftover": lambda args: LEFTOVER,
 }
 
 
