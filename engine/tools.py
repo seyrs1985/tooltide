@@ -9825,6 +9825,156 @@ document.getElementById('cf-share').addEventListener('click',function(){
 </script>
 """
 
+TENT = """<div class="tool" id="tt-tn">
+  <div class="fields">
+    <div class="field"><label for="tn-n">How many sleepers</label><input type="number" id="tn-n" min="1" max="8" step="1" placeholder="2"></div>
+    <div class="field"><label for="tn-t">Trip type</label><select id="tn-t"><option value="bp" selected>Backpacking (carry it)</option><option value="fm">Family / drive-in</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tn-out">–</span><span class="result-unit">person tent to buy</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tn-s1">–</b><span>floor size</span></div>
+    <div class="stat"><b id="tn-s2">–</b><span>typical weight</span></div>
+    <div class="stat"><b id="tn-s3">–</b><span>shoulder room each</span></div>
+  </div>
+  <div class="tool-note" id="tn-note"></div>
+  <button type="button" class="tool-btn" id="tn-share">Share this size</button>
+</div>
+<script>(function(){
+var N=document.getElementById('tn-n'),T=document.getElementById('tn-t');
+var OUT=document.getElementById('tn-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+var BPT=[[2,'120\u00d7210 cm','~2.2 kg'],[3,'180\u00d7210 cm','~3.0 kg'],[4,'240\u00d7220 cm','~4.2 kg'],[6,'305\u00d7245 cm','~9 kg']];
+var FMT=[[2,'140\u00d7220 cm','~7 kg'],[4,'240\u00d7210 cm','~10 kg'],[6,'340\u00d7250 cm','~14 kg']];
+function calc(){
+  var n=parseInt(N.value),t=T.value;
+  if(!(n>=1&&n<=8)){OUT.textContent='–';['tn-s1','tn-s2','tn-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('tn-note').textContent='';document.title='Tent Size Calculator - ToolDune';return;}
+  var cap=Math.min(Math.max(n+1,2),6);
+  var tbl=t==='bp'?BPT:FMT,r=tbl[0];
+  for(var i=0;i<tbl.length;i++){if(cap<=tbl[i][0]){r=tbl[i];break;}r=tbl[tbl.length-1];}
+  OUT.textContent=r[0];
+  document.getElementById('tn-s1').textContent=r[1];
+  document.getElementById('tn-s2').textContent=t==='bp'?r[2]:r[2];
+  document.getElementById('tn-s3').textContent=t==='bp'?('~'+Math.round((parseInt(r[1].split('\u00d7')[0]))/r[0])+' cm'):'roomy';
+  document.getElementById('tn-note').textContent='The +1 rule exists because tent ratings assume sardines: a 2-person tent fits two people, two sleeping bags and zero bags - buy one size up and every camp gets quieter. Backpacking figures assume 3-season designs with modern poles; 4-season adds a kilo or two of cloth and pole for snow loading you only need above the treeline. Weight maths is ruthless on the trail: every kilo of tent is a kilo of the base weight the backpack calculator tracks, which is why family tents never go backpacking. And the eternal campsite rules: never cook inside the vestibule (carbon monoxide, not convenience), pitch away from water lines and dead branches, and guylines out before the weather decides for you.';
+  document.title='Buy a '+r[0]+'-person tent - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_tent',JSON.stringify({n:N.value,t:T.value}));}catch(e){}}
+[N,T].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['n',N],['t',T]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_tent')||'null');if(mem){N.value=mem.n||'';T.value=mem.t||'bp';}}catch(e){}}
+calc();
+document.getElementById('tn-share').addEventListener('click',function(){
+  var txt='For '+N.value+' of us: buy a '+OUT.textContent+'-person tent. Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?n='+N.value+'&t='+T.value;
+  if(navigator.share){navigator.share({title:'Tent size',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this size';},1500);}
+});
+})();
+</script>
+"""
+
+BACKPACK = """<div class="tool" id="tt-bw">
+  <div class="fields">
+    <div class="field"><label for="bw-b">Your body weight (kg)</label><input type="number" id="bw-b" min="35" max="150" step="1" placeholder="70"></div>
+    <div class="field"><label for="bw-g">Base gear weight (kg)</label><input type="number" id="bw-g" min="2" max="30" step="0.1" placeholder="12"></div>
+    <div class="field"><label for="bw-d">Trip length (days)</label><input type="number" id="bw-d" min="1" max="14" step="1" placeholder="2"></div>
+    <div class="field"><label for="bw-l">Luxury items (kg)</label><input type="number" id="bw-l" min="0" max="5" step="0.1" placeholder="1.5"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bw-out">–</span><span class="result-unit">kg total pack weight</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bw-s1">–</b><span>% of body weight</span></div>
+    <div class="stat"><b id="bw-s2">–</b><span>consumables share</span></div>
+    <div class="stat"><b id="bw-s3">–</b><span>verdict</span></div>
+  </div>
+  <div class="tool-note" id="bw-note"></div>
+  <button type="button" class="tool-btn" id="bw-share">Share this load</button>
+</div>
+<script>(function(){
+var F=['bw-b','bw-g','bw-d','bw-l'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('bw-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var b=parseFloat(F[0].value),g=parseFloat(F[1].value),d=parseInt(F[2].value),l=parseFloat(F[3].value);
+  var ok=b>=35&&b<=150&&g>=2&&d>=1&&d<=14&&l>=0;
+  if(!ok){OUT.textContent='–';['bw-s1','bw-s2','bw-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('bw-note').textContent='';document.title='Backpack Weight Calculator - ToolDune';return;}
+  var food=d*0.8,water=2;
+  var total=g+l+food+water;
+  var pct=total/b*100;
+  OUT.textContent=total.toFixed(1);
+  document.getElementById('bw-s1').textContent=pct.toFixed(0)+'%';
+  document.getElementById('bw-s2').textContent=(food+water).toFixed(1)+' kg';
+  document.getElementById('bw-s3').textContent=pct<20?'comfortable':(pct<=25?'fit and manageable':'suffering zone');
+  document.getElementById('bw-note').textContent='The 20% rule: under a fifth of body weight the pack disappears after the first hour; past 25% every kilometre is negotiated. Consumables are the swing - food at 0.8 kg/day and 2 litres of water add 3-6 kg that shrink daily as you eat and refill, so judge the START of the trip, not the average. The base weight is where the real leverage lives: the big three (shelter, sleep system, pack) are usually over half of it, and trading 2 kg there beats agonising over titanium spoons. One luxury item is the morale rule - a book, real coffee, a dry pair of camp socks - chosen once, defended from feature-creep. And water strategy beats water capacity: knowing where the next refill is lets you carry 1 litre instead of 3, which is 2 free kilos.';
+  document.title=total.toFixed(1)+' kg pack ('+pct.toFixed(0)+'%) - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_backpack',JSON.stringify({b:F[0].value,g:F[1].value,d:F[2].value,l:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['b','g','d','l'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_backpack')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('bw-share').addEventListener('click',function(){
+  var txt='My pack: '+OUT.textContent+' kg ('+document.getElementById('bw-s1').textContent+' of body weight). Weigh yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Pack weight',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this load';},1500);}
+});
+})();
+</script>
+"""
+
+HIKETIME = """<div class="tool" id="tt-ht">
+  <div class="fields">
+    <div class="field"><label for="ht-d">Distance (km)</label><input type="number" id="ht-d" min="0.5" max="80" step="0.5" placeholder="12"></div>
+    <div class="field"><label for="ht-a">Total ascent (m)</label><input type="number" id="ht-a" min="0" max="3000" step="50" placeholder="600"></div>
+    <div class="field"><label for="ht-p">Your pace</label><select id="ht-p"><option value="4">Steady (4 km/h)</option><option value="5" selected>Average (5 km/h)</option><option value="6">Brisk (6 km/h)</option></select></div>
+    <div class="field"><label for="ht-r">Breaks (min per hour)</label><input type="number" id="ht-r" min="0" max="20" step="5" placeholder="10"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ht-out">–</span><span class="result-unit">total hiking time</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ht-s1">–</b><span>walking time</span></div>
+    <div class="stat"><b id="ht-s2">–</b><span>climb penalty</span></div>
+    <div class="stat"><b id="ht-s3">–</b><span>turnaround point</span></div>
+  </div>
+  <div class="tool-note" id="ht-note"></div>
+  <button type="button" class="tool-btn" id="ht-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['ht-d','ht-a','ht-p','ht-r'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('ht-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=parseFloat(F[0].value),a=parseFloat(F[1].value),p=parseFloat(F[2].value),br=parseFloat(F[3].value);
+  var ok=d>=0.5&&d<=80&&a>=0&&a<=3000&&br>=0&&br<=20;
+  if(!ok){OUT.textContent='–';['ht-s1','ht-s2','ht-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ht-note').textContent='';document.title='Hiking Time Calculator - ToolDune';return;}
+  var walk=d/p+a/600;
+  var breaks=walk*br/60;
+  var total=walk+breaks;
+  var hh=Math.floor(total),mm=Math.round((total-hh)*60);
+  OUT.textContent=hh+' h '+mm+' min';
+  document.getElementById('ht-s1').textContent=Math.floor(walk)+' h '+Math.round((walk-Math.floor(walk))*60)+' min';
+  document.getElementById('ht-s2').textContent=(a/600).toFixed(1)+' h for '+a+' m';
+  document.getElementById('ht-s3').textContent=Math.floor(total/2)+' h '+Math.round(((total/2)-Math.floor(total/2))*60)+' min out';
+  document.getElementById('ht-note').textContent='This is Naismith\u2019s rule from 1892 - one hour per 5 km plus one hour per 600 m of ascent - and routing apps still build on it because it holds: the climb penalty is the part first-timers forget and the reason \u201cjust 6 km\u201d mountains eat afternoons. Descent is not free either - steep downhills are slower than the flat pace for most knees, so pad rough or rocky ground by a quarter. The turnaround figure is the mountain\u2019s most useful number: whatever happens, you turn around at half the total time, because the summit is optional and the walk back is not. Groups move at the slowest member, water runs about half a litre per hour in heat, and headlamps weigh less than the dark.';
+  document.title=hh+' h '+mm+' min hike - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_hiketime',JSON.stringify({d:F[0].value,a:F[1].value,p:F[2].value,r:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['d','a','p','r'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_hiketime')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('ht-share').addEventListener('click',function(){
+  var txt='That hike takes about '+OUT.textContent+' including breaks. Time yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Hiking time',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -10008,6 +10158,9 @@ TOOLS = {
     "firenum": lambda args: FIRENUM,
     "savingsrate": lambda args: SAVINGSRATE,
     "coastfire": lambda args: COAST,
+    "tent": lambda args: TENT,
+    "backpack": lambda args: BACKPACK,
+    "hiketime": lambda args: HIKETIME,
 }
 
 
