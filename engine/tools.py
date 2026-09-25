@@ -10523,6 +10523,152 @@ document.getElementById('tr-share').addEventListener('click',function(){
 </script>
 """
 
+DRIP = """<div class="tool" id="tt-dr">
+  <div class="fields">
+    <div class="field"><label for="dr-n">Drips per minute</label><input type="number" id="dr-n" min="1" max="300" step="1" placeholder="60"></div>
+    <div class="field"><label for="dr-p">Water price (per m³)</label><input type="number" id="dr-p" min="0.1" step="0.1" placeholder="3.5"></div>
+    <div class="field"><label for="dr-t">Dripping hours per day</label><input type="number" id="dr-t" min="1" max="24" step="1" placeholder="24"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dr-out">–</span><span class="result-unit">litres wasted per year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dr-s1">–</b><span>cost per year</span></div>
+    <div class="stat"><b id="dr-s2">–</b><span>litres per month</span></div>
+    <div class="stat"><b id="dr-s3">–</b><span>at 1 per second</span></div>
+  </div>
+  <div class="tool-note" id="dr-note"></div>
+  <button type="button" class="tool-btn" id="dr-share">Share this waste</button>
+</div>
+<script>(function(){
+var F=['dr-n','dr-p','dr-t'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('dr-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var n=parseFloat(F[0].value),p=parseFloat(F[1].value),t=parseFloat(F[2].value);
+  var ok=n>=1&&n<=300&&p>=0.1&&t>=1&&t<=24;
+  if(!ok){OUT.textContent='–';['dr-s1','dr-s2','dr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('dr-note').textContent='';document.title='Dripping Tap Calculator - ToolDune';return;}
+  var perMin=n*0.00025;
+  var litres=perMin*60*t*365;
+  OUT.textContent=Math.round(litres);
+  document.getElementById('dr-s1').textContent=(litres/1000*p).toFixed(2);
+  document.getElementById('dr-s2').textContent=Math.round(litres/12)+' L';
+  document.getElementById('dr-s3').textContent=(60*0.00025*60*24*365).toLocaleString()+' L';
+  document.getElementById('dr-note').textContent='Each drip is about a quarter millilitre - trivial until the clock multiplies it: sixty a day is nothing, sixty a minute is a bathtub a month down the plughole. The meter row matters more than the money: hot taps drip heated water, so the real cost doubles once the boiler is counted, and a drip loud enough to hear at night is usually 90-120 per minute. Most washer taps are a five-minute fix - isolate the supply, swap the washer or ceramic cartridge, done; the tool cost is less than a month of the drip. And the meter test settles every hidden-leak argument: read the meter last thing at night with everything off, read again before the kettle - any movement means water is escaping somewhere you have not looked yet.';
+  document.title=Math.round(litres)+' litres a year down the drain - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_driptap',JSON.stringify({n:F[0].value,p:F[1].value,t:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['n','p','t'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_driptap')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('dr-share').addEventListener('click',function(){
+  var txt='A dripping tap wastes '+OUT.textContent+' litres a year. Measure yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Dripping tap',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this waste';},1500);}
+});
+})();
+</script>
+"""
+
+SHOWERBATH = """<div class="tool" id="tt-sb">
+  <div class="fields">
+    <div class="field"><label for="sb-m">Shower minutes</label><input type="number" id="sb-m" min="2" max="40" step="1" placeholder="7"></div>
+    <div class="field"><label for="sb-f">Shower flow (litres/min)</label><input type="number" id="sb-f" min="4" max="25" step="0.5" placeholder="8"></div>
+    <div class="field"><label for="sb-w">Washes per week</label><input type="number" id="sb-w" min="1" max="21" step="1" placeholder="7"></div>
+    <div class="field"><label for="sb-p">Energy price (per kWh)</label><input type="number" id="sb-p" min="0.05" step="0.01" placeholder="0.30"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sb-out">–</span><span class="result-unit">shower cost per week</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sb-s1">–</b><span>bath cost per week</span></div>
+    <div class="stat"><b id="sb-s2">–</b><span>litres saved weekly</span></div>
+    <div class="stat"><b id="sb-s3">–</b><span>the crossover point</span></div>
+  </div>
+  <div class="tool-note" id="sb-note"></div>
+  <button type="button" class="tool-btn" id="sb-share">Share this comparison</button>
+</div>
+<script>(function(){
+var F=['sb-m','sb-f','sb-w','sb-p'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('sb-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function heatCost(litres,p){return litres*35*1.163/1000*p+litres/1000*3.0;}
+function calc(){
+  var m=parseFloat(F[0].value),f=parseFloat(F[1].value),w=parseFloat(F[2].value),p=parseFloat(F[3].value);
+  var ok=m>=2&&m<=40&&f>=4&&f<=25&&w>=1&&w<=21&&p>=0.05;
+  if(!ok){OUT.textContent='–';['sb-s1','sb-s2','sb-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sb-note').textContent='';document.title='Shower vs Bath Calculator - ToolDune';return;}
+  var sLit=m*f,sCost=heatCost(sLit,p)*w;
+  var bCost=heatCost(80,p)*w;
+  OUT.textContent=sCost.toFixed(2);
+  document.getElementById('sb-s1').textContent=bCost.toFixed(2);
+  document.getElementById('sb-s2').textContent=Math.round((80-sLit)*w)+' L';
+  document.getElementById('sb-s3').textContent=(80/f).toFixed(1)+' min';
+  document.getElementById('sb-note').textContent='The crossover: a shower beats a bath only while it stays under 80 litres - at 8 litres a minute that is ten minutes of water, and everything after is bathing at shower prices. The energy half of the bill is the part people miss: heating 35 degrees over the incoming mains costs about four times the water itself at typical prices, which is why a power shower and a long soak are cousins. A low-flow head at 6 litres a minute pays for itself in weeks without changing the shower\u2019s feel much; the tap trickle while you wait for hot is the free half of the same win. Cold-ish, short and low-flow is the whole strategy - and the bath keeps its place as the weekly luxury that costs exactly what it says, 80 litres, no surprises.';
+  document.title=sCost.toFixed(2)+' a week of showers vs '+bCost.toFixed(2)+' of baths - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_showerbath',JSON.stringify({m:F[0].value,f:F[1].value,w:F[2].value,p:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['m','f','w','p'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_showerbath')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('sb-share').addEventListener('click',function(){
+  var txt='My showers cost '+OUT.textContent+' a week vs baths at '+document.getElementById('sb-s1').textContent+'. Compare yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Shower vs bath',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this comparison';},1500);}
+});
+})();
+</script>
+"""
+
+STANDBY = """<div class="tool" id="tt-sp">
+  <div class="fields">
+    <div class="field"><label for="sp-w">Always-on standby load (W)</label><input type="number" id="sp-w" min="1" max="500" step="1" placeholder="45"></div>
+    <div class="field"><label for="sp-h">Hours per day</label><input type="number" id="sp-h" min="1" max="24" step="1" placeholder="24"></div>
+    <div class="field"><label for="sp-p">Electricity price (per kWh)</label><input type="number" id="sp-p" min="0.05" step="0.01" placeholder="0.30"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sp-out">–</span><span class="result-unit">per year of standby</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sp-s1">–</b><span>kWh per year</span></div>
+    <div class="stat"><b id="sp-s2">–</b><span>per day</span></div>
+    <div class="stat"><b id="sp-s3">–</b><span>typical household load</span></div>
+  </div>
+  <div class="tool-note" id="sp-note"></div>
+  <button type="button" class="tool-btn" id="sp-share">Share this leak</button>
+</div>
+<script>(function(){
+var F=['sp-w','sp-h','sp-p'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('sp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(F[0].value),h=parseFloat(F[1].value),p=parseFloat(F[2].value);
+  var ok=w>=1&&w<=500&&h>=1&&h<=24&&p>=0.05;
+  if(!ok){OUT.textContent='–';['sp-s1','sp-s2','sp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sp-note').textContent='';document.title='Standby Power Calculator - ToolDune';return;}
+  var kwh=w*h*365/1000;
+  var cost=kwh*p;
+  OUT.textContent=cost.toFixed(2);
+  document.getElementById('sp-s1').textContent=Math.round(kwh)+' kWh';
+  document.getElementById('sp-s2').textContent=(w*h/1000*p).toFixed(2);
+  document.getElementById('sp-s3').textContent='30-60 W';
+  document.getElementById('sp-note').textContent='A typical home idles at 30-60 watts around the clock - the set-top box that never sleeps, the game console in instant-on, the router, the chargers, the microwave clock. At this page\u2019s default that idle costs more than the lightbulbs you replaced with LEDs, and none of it appears on any shopping list. The hunt: a cheap plug-in power meter answers in minutes; anything warm when \u201coff\u201d is confessing. Switchable extension leads kill the entertainment cluster in one gesture; the router and the fridge-freezer are the exceptions that stay plugged. Modern devices idle lower than the 1980s legends - but they multiplied in number, which is how the vampire came back as a fleet.';
+  document.title=cost.toFixed(2)+' a year of standby drain - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_standby',JSON.stringify({w:F[0].value,h:F[1].value,p:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['w','h','p'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_standby')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('sp-share').addEventListener('click',function(){
+  var txt='Standby electronics cost me '+OUT.textContent+' a year. Audit yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Standby power',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this leak';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -10720,6 +10866,9 @@ TOOLS = {
     "dogfood": lambda args: DOGPORT,
     "catfood": lambda args: CATPORT,
     "treats": lambda args: TREATS,
+    "driptap": lambda args: DRIP,
+    "showerbath": lambda args: SHOWERBATH,
+    "standby": lambda args: STANDBY,
 }
 
 
