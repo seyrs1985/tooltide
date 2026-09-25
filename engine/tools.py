@@ -9671,6 +9671,160 @@ document.getElementById('in-share').addEventListener('click',function(){
 </script>
 """
 
+FIRENUM = """<div class="tool" id="tt-fr">
+  <div class="fields">
+    <div class="field"><label for="fr-e">Annual expenses</label><input type="number" id="fr-e" min="5000" step="500" placeholder="40000"></div>
+    <div class="field"><label for="fr-w">Withdrawal rate</label><select id="fr-w"><option value="0.0325">3.25% (early retiree)</option><option value="0.035" selected>3.5% (30+ yr horizon)</option><option value="0.04">4% (classic Trinity)</option><option value="0.045">4.5% (aggressive)</option></select></div>
+    <div class="field"><label for="fr-c">Currently invested</label><input type="number" id="fr-c" min="0" step="500" placeholder="50000"></div>
+    <div class="field"><label for="fr-r">Expected real return (%)</label><input type="number" id="fr-r" min="1" max="10" step="0.5" placeholder="5"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fr-out">–</span><span class="result-unit">your FIRE number</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fr-s1">–</b><span>still to invest</span></div>
+    <div class="stat"><b id="fr-s2">–</b><span>coast years from here</span></div>
+    <div class="stat"><b id="fr-s3">–</b><span>passive income at target</span></div>
+  </div>
+  <div class="tool-note" id="fr-note"></div>
+  <button type="button" class="tool-btn" id="fr-share">Share this number</button>
+</div>
+<script>(function(){
+var F=['fr-e','fr-w','fr-c','fr-r'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('fr-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var e=parseFloat(F[0].value),w=parseFloat(F[1].value),c=parseFloat(F[2].value),r=parseFloat(F[3].value)/100;
+  var ok=e>=5000&&c>=0&&r>0;
+  if(!ok){OUT.textContent='–';['fr-s1','fr-s2','fr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('fr-note').textContent='';document.title='FIRE Number Calculator - ToolTide';return;}
+  var num=e/w;
+  OUT.textContent=Math.round(num/1000)*1000;
+  document.getElementById('fr-s1').textContent=num>c?((num-c)/1000).toFixed(0)+'k':'done - you are there';
+  var coast=num>c?(Math.log(num/c)/Math.log(1+r)):0;
+  document.getElementById('fr-s2').textContent=num>c?(coast.toFixed(0)+' yrs (no new savings)'):'0 - already coasting';
+  document.getElementById('fr-s3').textContent=(num*w/1000).toFixed(1)+'k/yr';
+  document.getElementById('fr-note').textContent='The number is annual spending divided by a safe withdrawal rate - the 4% rule comes from the Trinity study of US 30-year retirements, and people retiring at 35 usually take 3.25-3.5% because their money must survive 50 years, three crashes and whatever medicine does by 2080. Treat the output as a floor, not a promise: sequence-of-returns risk means a crash in the first five retired years hurts ten times more than one at year twenty, which is why flexible spending rules (cut 10% in down years) outperform a bigger number. Expenses are the whole lever - gross income is irrelevant; someone spending 30k needs 250k less than someone spending 50k at the same rate. And the coast figure matters more than most realise: past it, every new coin is optional.';
+  document.title=Math.round(num/1000)*1000+' - your FIRE number - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_firenum',JSON.stringify({e:F[0].value,w:F[1].value,c:F[2].value,r:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['e','w','c','r'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_firenum')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('fr-share').addEventListener('click',function(){
+  var txt='My FIRE number: '+OUT.textContent+'. Find yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'FIRE number',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this number';},1500);}
+});
+})();
+</script>
+"""
+
+SAVINGSRATE = """<div class="tool" id="tt-sr">
+  <div class="fields">
+    <div class="field"><label for="sr-i">Take-home income per year</label><input type="number" id="sr-i" min="5000" step="500" placeholder="60000"></div>
+    <div class="field"><label for="sr-e">Spending per year</label><input type="number" id="sr-e" min="1000" step="500" placeholder="40000"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sr-out">–</span><span class="result-unit">savings rate</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sr-s1">–</b><span>saved per year</span></div>
+    <div class="stat"><b id="sr-s2">–</b><span>years of work left</span></div>
+    <div class="stat"><b id="sr-s3">–</b><span>at +10 pts rate</span></div>
+  </div>
+  <div class="tool-note" id="sr-note"></div>
+  <button type="button" class="tool-btn" id="sr-share">Share my rate</button>
+</div>
+<script>(function(){
+var F=['sr-i','sr-e'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('sr-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+var TBL=[[5,70],[10,51],[15,43],[20,37],[25,32],[30,28],[35,24.5],[40,19],[50,14.5],[60,10.5],[70,7.5],[80,4.5],[90,1.6]];
+function years(r){
+  if(r>=90)return 1.6;if(r<5)return Infinity;
+  for(var i=0;i<TBL.length-1;i++){if(r>=TBL[i][0]&&r<=TBL[i+1][0]){var a=TBL[i],b=TBL[i+1];return a[1]+(r-a[0])/(b[0]-a[0])*(b[1]-a[1]);}}
+  return Infinity;
+}
+function calc(){
+  var inc=parseFloat(F[0].value),e=parseFloat(F[1].value);
+  var ok=inc>=5000&&e>=1000&&e<inc;
+  if(!ok){OUT.textContent='–';['sr-s1','sr-s2','sr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sr-note').textContent='';document.title='Savings Rate Calculator - ToolDune';return;}
+  var rate=(inc-e)/inc*100;
+  OUT.textContent=rate.toFixed(0)+'%';
+  document.getElementById('sr-s1').textContent=((inc-e)/1000).toFixed(1)+'k';
+  var y=years(rate);
+  document.getElementById('sr-s2').textContent=isFinite(y)?y.toFixed(0)+' yrs':'spending >= income';
+  var y10=years(Math.min(rate+10,95));
+  document.getElementById('sr-s3').textContent=isFinite(y10)?(y-y10).toFixed(0)+' yrs sooner':'-';
+  document.getElementById('sr-note').textContent='The table behind this figure (5% real returns, 4% withdrawal) is the most quietly shocking chart in personal finance: saving 10% of take-home means about 51 working years, 30% about 28, 50% about 14, and 70% just 8 - the relationship is wildly nonlinear because savings both build the fund and shrink the target. The basis is take-home pay, not gross; bonuses move the portfolio, not the rate. And the painful symmetry: a point of rate is the same whether you earn it or stop spending it, but the spending cut wins because it also lowers the FIRE number you are funding - lifestyle inflation attacks both ends at once.';
+  document.title=rate.toFixed(0)+'% savings rate - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_savingsrate',JSON.stringify({i:F[0].value,e:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['i','e'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_savingsrate')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('sr-share').addEventListener('click',function(){
+  var txt='My savings rate: '+OUT.textContent+'. Rate yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Savings rate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my rate';},1500);}
+});
+})();
+</script>
+"""
+
+COAST = """<div class="tool" id="tt-cf">
+  <div class="fields">
+    <div class="field"><label for="cf-t">Target at retirement</label><input type="number" id="cf-t" min="100000" step="50000" placeholder="1000000"></div>
+    <div class="field"><label for="cf-a">Current age</label><input type="number" id="cf-a" min="18" max="70" step="1" placeholder="30"></div>
+    <div class="field"><label for="cf-r">Retirement age</label><input type="number" id="cf-r" min="40" max="80" step="1" placeholder="65"></div>
+    <div class="field"><label for="cf-c">Currently invested</label><input type="number" id="cf-c" min="0" step="500" placeholder="10000"></div>
+    <div class="field"><label for="cf-g">Expected real return (%)</label><input type="number" id="cf-g" min="1" max="10" step="0.5" placeholder="5"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cf-out">–</span><span class="result-unit">needed today to coast</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cf-s1">–</b><span>surplus / deficit</span></div>
+    <div class="stat"><b id="cf-s2">–</b><span>growth multiple</span></div>
+    <div class="stat"><b id="cf-s3">–</b><span>at 7% instead</span></div>
+  </div>
+  <div class="tool-note" id="cf-note"></div>
+  <button type="button" class="tool-btn" id="cf-share">Share this figure</button>
+</div>
+<script>(function(){
+var F=['cf-t','cf-a','cf-r','cf-c','cf-g'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('cf-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var t=parseFloat(F[0].value),a=parseInt(F[1].value),ra=parseInt(F[2].value),c=parseFloat(F[3].value),g=parseFloat(F[4].value)/100;
+  var ok=t>=100000&&a>=18&&a<70&&ra>a&&ra<=80&&c>=0&&g>0;
+  if(!ok){OUT.textContent='–';['cf-s1','cf-s2','cf-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cf-note').textContent='';document.title='Coast FIRE Calculator - ToolDune';return;}
+  var n=ra-a;
+  var need=t/Math.pow(1+g,n);
+  OUT.textContent=Math.round(need/1000)*1000;
+  document.getElementById('cf-s1').textContent=c>=need?('surplus '+((c-need)/1000).toFixed(0)+'k'):('deficit '+((need-c)/1000).toFixed(0)+'k');
+  document.getElementById('cf-s2').textContent='×'+Math.pow(1+g,n).toFixed(1);
+  var need7=t/Math.pow(1.07,n);
+  document.getElementById('cf-s3').textContent=Math.round(need7/1000)*1000;
+  document.getElementById('cf-note').textContent='Coast FIRE is the young saver\u2019s quiet superpower: if the amount shown sits invested today, compounding alone reaches your target at retirement age - after that, pension contributions become optional and your salary only has to cover living costs. The sensitivity is the lesson: the same target needs the figure shown at '+g*100+'% real but '+Math.round(need7/1000)*1000+' at 7% - return assumptions dominate the early decades, which is why costs and diversification matter more than stock-picking. Two honesty checks: the target itself should come from the FIRE number calculator at realistic spending, and \u201ccoast\u201d means savings paused, not hardship ended - a market crash at 60 still hits the same portfolio, just with less time to repair.';
+  document.title=Math.round(need/1000)*1000+' to coast to retirement - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_coastfire',JSON.stringify({t:F[0].value,a:F[1].value,r:F[2].value,c:F[3].value,g:F[4].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['t','a','r','c','g'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_coastfire')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('cf-share').addEventListener('click',function(){
+  var txt='Coast FIRE today: '+OUT.textContent+' invested = retired at '+F[2].value+'. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Coast FIRE',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this figure';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -9851,6 +10005,9 @@ TOOLS = {
     "heating": lambda args: HEATING,
     "radiator": lambda args: RADIATOR,
     "insulation": lambda args: INSULATION,
+    "firenum": lambda args: FIRENUM,
+    "savingsrate": lambda args: SAVINGSRATE,
+    "coastfire": lambda args: COAST,
 }
 
 
