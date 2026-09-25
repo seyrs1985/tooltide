@@ -11253,6 +11253,154 @@ document.getElementById('lv-share').addEventListener('click',function(){
 </script>
 """
 
+SKICOST = """<div class="tool" id="tt-skc">
+  <div class="fields">
+    <div class="field"><label for="skc-d">Days on snow</label><input type="number" id="skc-d" min="1" max="30" step="1" placeholder="6"></div>
+    <div class="field"><label for="skc-p">Lift pass per day</label><input type="number" id="skc-p" min="10" step="1" placeholder="60"></div>
+    <div class="field"><label for="skc-r">Rental per day</label><input type="number" id="skc-r" min="0" step="1" placeholder="35"></div>
+    <div class="field"><label for="skc-l">Lesson per day</label><input type="number" id="skc-l" min="0" step="5" placeholder="0"></div>
+    <div class="field"><label for="skc-f">Food + lodge per day</label><input type="number" id="skc-f" min="10" step="5" placeholder="90"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="skc-out">–</span><span class="result-unit">per person, per trip</span></div>
+  <div class="stats">
+    <div class="stat"><b id="skc-s1">–</b><span>per day on snow</span></div>
+    <div class="stat"><b id="skc-s2">–</b><span>lift share of total</span></div>
+    <div class="stat"><b id="skc-s3">–</b><span>season-pass crossover</span></div>
+  </div>
+  <div class="tool-note" id="skc-note"></div>
+  <button type="button" class="tool-btn" id="skc-share">Share this budget</button>
+</div>
+<script>(function(){
+var F=['skc-d','skc-p','skc-r','skc-l','skc-f'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('skc-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=parseFloat(F[0].value),p=parseFloat(F[1].value),r=parseFloat(F[2].value),l=parseFloat(F[3].value),f=parseFloat(F[4].value);
+  var ok=d>=1&&p>=10&&r>=0&&l>=0&&f>=10;
+  if(!ok){OUT.textContent='–';['skc-s1','skc-s2','skc-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('skc-note').textContent='';document.title='Ski Trip Cost Calculator - ToolDune';return;}
+  var total=d*(p+r+l+f);
+  OUT.textContent=total.toFixed(0);
+  document.getElementById('skc-s1').textContent=(p+r+l+f).toFixed(0);
+  document.getElementById('skc-s2').textContent=Math.round(p/(p+r+l+f)*100)+'%';
+  document.getElementById('skc-s3').textContent=Math.ceil(500/p)+' days';
+  document.getElementById('skc-note').textContent='The resort wants you thinking per day; the honest unit is the trip - food and lodge quietly outspend the lift ticket, which is why the mountain restaurant is the most profitable slope on the mountain. Book the arithmetic in reverse: the season pass crosses over at roughly the day count shown, early-bird passes bought in September undercut the window price by a third, and rental delivered to the accommodation beats the shop queue by an hour each morning. Lessons are the line item that repays: two days of instruction save seasons of self-taught habits, for beginners worth more than any equipment upgrade. The hidden fifth column is the drive or flight - fuel, chains, airport parking - which never appears on the resort calculator but always appears on the card statement.';
+  document.title=total.toFixed(0)+' ski trip budget - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_skicost',JSON.stringify({d:F[0].value,p:F[1].value,r:F[2].value,l:F[3].value,f:F[4].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['d','p','r','l','f'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_skicost')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('skc-share').addEventListener('click',function(){
+  var txt='My ski trip: '+OUT.textContent+' per person. Budget yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Ski trip cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this budget';},1500);}
+});
+})();
+</script>
+"""
+
+SKIRENT = """<div class="tool" id="tt-skr">
+  <div class="fields">
+    <div class="field"><label for="skr-d">Days skied per year</label><input type="number" id="skr-d" min="1" max="60" step="1" placeholder="8"></div>
+    <div class="field"><label for="skr-r">Rental cost per day</label><input type="number" id="skr-r" min="5" step="1" placeholder="35"></div>
+    <div class="field"><label for="skr-k">Own kit cost (skis+boots+poles)</label><input type="number" id="skr-k" min="100" step="50" placeholder="800"></div>
+    <div class="field"><label for="skr-s">Servicing per year</label><input type="number" id="skr-s" min="0" step="5" placeholder="60"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="skr-out">–</span><span class="result-unit">years for owning to win</span></div>
+  <div class="stats">
+    <div class="stat"><b id="skr-s1">–</b><span>rental cost per year</span></div>
+    <div class="stat"><b id="skr-s2">–</b><span>owning cost per year</span></div>
+    <div class="stat"><b id="skr-s3">–</b><span>the boot caveat</span></div>
+  </div>
+  <div class="tool-note" id="skr-note"></div>
+  <button type="button" class="tool-btn" id="skr-share">Share this math</button>
+</div>
+<script>(function(){
+var F=['skr-d','skr-r','skr-k','skr-s'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('skr-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=parseFloat(F[0].value),r=parseFloat(F[1].value),k=parseFloat(F[2].value),s=parseFloat(F[3].value);
+  var ok=d>=1&&r>=5&&k>=100&&s>=0;
+  if(!ok){OUT.textContent='–';['skr-s1','skr-s2','skr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('skr-note').textContent='';document.title='Ski Rental vs Own Calculator - ToolDune';return;}
+  var rentY=d*r;
+  var ownY=k/6+s;
+  var be=k/(rentY-s);
+  OUT.textContent=isFinite(be)?Math.max(1,Math.ceil(be)):'rent forever';
+  document.getElementById('skr-s1').textContent=rentY.toFixed(0);
+  document.getElementById('skr-s2').textContent=ownY.toFixed(0);
+  document.getElementById('skr-s3').textContent='rent boots, own skis';
+  document.getElementById('skr-note').textContent='The crossover: owning wins once annual rental would exceed depreciation plus servicing - roughly fifteen to twenty ski days a year at typical prices, which is a committed season. Below that, rental wins on money AND on hassle: modern rental fleets carry this year\u2019s geometry, no roof rack, no airport excess-baggage fee, no servicing. The hybrid is the locals\u2019 answer and the row above hints at it - own the skis, RENT the boots, because rental boots are warm and gone by five, while your own boots matter more than your own skis for comfort and cost half a kit to fit badly. Ski technology turns over gently; a six-year depreciation window in the maths is honest. Buy last season\u2019s stock in the September sales and the crossover moves a season closer.';
+  document.title=Math.max(1,Math.ceil(isFinite(be)?be:99))+' years for owning to pay off - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_skirent',JSON.stringify({d:F[0].value,r:F[1].value,k:F[2].value,s:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['d','r','k','s'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_skirent')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('skr-share').addEventListener('click',function(){
+  var txt='Owning skis pays off in '+OUT.textContent+' years at my days-per-year. Run yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Rent vs own skis',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+});
+})();
+</script>
+"""
+
+SKILEN = """<div class="tool" id="tt-skl">
+  <div class="fields">
+    <div class="field"><label for="skl-h">Your height (cm)</label><input type="number" id="skl-h" min="120" max="210" step="1" placeholder="175"></div>
+    <div class="field"><label for="skl-w">Your weight (kg)</label><input type="number" id="skl-w" min="35" max="130" step="1" placeholder="72"></div>
+    <div class="field"><label for="skl-l">Skill level</label><select id="skl-l"><option value="-10">Beginner (shorter, forgiving)</option><option value="0" selected>Intermediate</option><option value="10">Advanced (longer, stable)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="skl-out">–</span><span class="result-unit">cm ski length</span></div>
+  <div class="stats">
+    <div class="stat"><b id="skl-s1">–</b><span>range to consider</span></div>
+    <div class="stat"><b id="skl-s2">–</b><span>vs your height</span></div>
+    <div class="stat"><b id="skl-s3">–</b><span>weight caveat</span></div>
+  </div>
+  <div class="tool-note" id="skl-note"></div>
+  <button type="button" class="tool-btn" id="skl-share">Share this length</button>
+</div>
+<script>(function(){
+var F=['skl-h','skl-w','skl-l'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('skl-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var h=parseFloat(F[0].value),w=parseFloat(F[1].value),adj=parseFloat(F[2].value);
+  var ok=h>=120&&h<=210&&w>=35&&w<=130;
+  if(!ok){OUT.textContent='–';['skl-s1','skl-s2','skl-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('skl-note').textContent='';document.title='Ski Length Calculator - ToolDune';return;}
+  var base=h+adj;
+  var weightAdj=(w-72)/8;
+  var len=Math.round((base+weightAdj)/5)*5;
+  OUT.textContent=len;
+  document.getElementById('skl-s1').textContent=(len-5)+'-'+(len+5)+' cm';
+  document.getElementById('skl-s2').textContent=(len-h>=0?'+':'')+(len-h)+' cm';
+  document.getElementById('skl-s3').textContent='heavy = longer, skilled = longer';
+  document.getElementById('skl-note').textContent='Modern skis run chin-to-brow - shorter than the head-height planks grandparents rented, because sidecut and rocker do the turning the old length used to. Height sets the frame, weight bends the ski (heavier skiers need length or stiffness to keep the edge engaged), skill adjusts: beginners take the shorter end for easy turns, experts the longer for stability at speed. The chart above is the starting point the rental shop then refines by terrain - short powder floats long, hard-snow carvers stay precise and short. Two honest caveats: kid skis are sized by weight first, height second, because children outgrow strength before length; and comfort beats chart - a ski you can control teaches faster than a ski that impresses the lift line.';
+  document.title=len+' cm skis for you - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_skilength',JSON.stringify({h:F[0].value,w:F[1].value,l:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['h','w','l'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_skilength')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('skl-share').addEventListener('click',function(){
+  var txt='My ski length: '+OUT.textContent+' cm. Find yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Ski length',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this length';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -11465,6 +11613,9 @@ TOOLS = {
     "turkeythaw": lambda args: TURKEYTHAW,
     "shipdead": lambda args: SHIPDEAD,
     "leftover": lambda args: LEFTOVER,
+    "skicost": lambda args: SKICOST,
+    "skirent": lambda args: SKIRENT,
+    "skilength": lambda args: SKILEN,
 }
 
 
