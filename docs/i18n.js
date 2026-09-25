@@ -445,7 +445,8 @@ zh:{
  "ue.pct":"% 序列数",
  "lorem.wordsgen":"已生成词数",
  "lorem.copybtn":"复制到剪贴板",
- "lorem.regen":"重新生成"
+ "lorem.regen":"重新生成",
+ "case.resultlbl":"结果"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -871,7 +872,8 @@ es:{
  "ue.pct":"secuencias %",
  "lorem.wordsgen":"palabras generadas",
  "lorem.copybtn":"Copiar al portapapeles",
- "lorem.regen":"Regenerar"
+ "lorem.regen":"Regenerar",
+ "case.resultlbl":"Resultado"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1297,7 +1299,8 @@ pt:{
  "ue.pct":"sequências %",
  "lorem.wordsgen":"palavras geradas",
  "lorem.copybtn":"Copiar para a área de transferência",
- "lorem.regen":"Regenerar"
+ "lorem.regen":"Regenerar",
+ "case.resultlbl":"Resultado"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1723,7 +1726,8 @@ ru:{
  "ue.pct":"процентных последовательностей",
  "lorem.wordsgen":"слов сгенерировано",
  "lorem.copybtn":"Копировать в буфер",
- "lorem.regen":"Сгенерировать заново"
+ "lorem.regen":"Сгенерировать заново",
+ "case.resultlbl":"Результат"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2149,7 +2153,8 @@ ja:{
  "ue.pct":"%シーケンス",
  "lorem.wordsgen":"生成された単語数",
  "lorem.copybtn":"クリップボードにコピー",
- "lorem.regen":"再生成"
+ "lorem.regen":"再生成",
+ "case.resultlbl":"結果"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2575,7 +2580,8 @@ ko:{
  "ue.pct":"% 시퀀스",
  "lorem.wordsgen":"생성된 단어 수",
  "lorem.copybtn":"클립보드에 복사",
- "lorem.regen":"다시 생성"
+ "lorem.regen":"다시 생성",
+ "case.resultlbl":"결과"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -3001,7 +3007,8 @@ de:{
  "ue.pct":"%-Sequenzen",
  "lorem.wordsgen":"generierte Wörter",
  "lorem.copybtn":"In die Zwischenablage kopieren",
- "lorem.regen":"Neu generieren"
+ "lorem.regen":"Neu generieren",
+ "case.resultlbl":"Ergebnis"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3427,7 +3434,8 @@ fr:{
  "ue.pct":"séquences %",
  "lorem.wordsgen":"mots générés",
  "lorem.copybtn":"Copier dans le presse-papiers",
- "lorem.regen":"Régénérer"
+ "lorem.regen":"Régénérer",
+ "case.resultlbl":"Résultat"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3853,7 +3861,8 @@ id:{
  "ue.pct":"urutan %",
  "lorem.wordsgen":"kata dihasilkan",
  "lorem.copybtn":"Salin ke clipboard",
- "lorem.regen":"Buat ulang"
+ "lorem.regen":"Buat ulang",
+ "case.resultlbl":"Hasil"
 }
 };
 function detect(){
