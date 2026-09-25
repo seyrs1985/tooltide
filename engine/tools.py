@@ -10378,6 +10378,151 @@ document.getElementById('ch-share').addEventListener('click',function(){
 </script>
 """
 
+DOGPORT = """<div class="tool" id="tt-dfp">
+  <div class="fields">
+    <div class="field"><label for="dfp-w">Dog weight (kg)</label><input type="number" id="dfp-w" min="1" max="90" step="0.5" placeholder="20"></div>
+    <div class="field"><label for="dfp-s">Life stage</label><select id="dfp-s"><option value="1.6" selected>Neutered adult</option><option value="1.8">Intact adult</option><option value="2.0">Active / working</option><option value="2.0">Puppy 4-12 months</option><option value="3.0">Puppy under 4 months</option><option value="1.4">Senior (7+)</option><option value="1.0">Weight loss plan</option></select></div>
+    <div class="field"><label for="dfp-e">Food energy (kcal per kg)</label><input type="number" id="dfp-e" min="2500" max="5000" step="50" placeholder="3600"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dfp-out">–</span><span class="result-unit">grams of food per day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dfp-s1">–</b><span>kcal per day</span></div>
+    <div class="stat"><b id="dfp-s2">–</b><span>per meal (×2)</span></div>
+    <div class="stat"><b id="dfp-s3">–</b><span>the cup trap</span></div>
+  </div>
+  <div class="tool-note" id="dfp-note"></div>
+  <button type="button" class="tool-btn" id="dfp-share">Share this ration</button>
+</div>
+<script>(function(){
+var F=['dfp-w','dfp-s','dfp-e'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('dfp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(F[0].value),f=parseFloat(F[1].value),e=parseFloat(F[2].value);
+  var ok=w>=1&&w<=90&&e>=2500&&e<=5000;
+  if(!ok){OUT.textContent='–';['dfp-s1','dfp-s2','dfp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('dfp-note').textContent='';document.title='Dog Food Portion Calculator - ToolDune';return;}
+  var rer=70*Math.pow(w,0.75);
+  var mer=rer*f;
+  var grams=mer*1000/e;
+  OUT.textContent=Math.round(grams/5)*5;
+  document.getElementById('dfp-s1').textContent=Math.round(mer)+' kcal';
+  document.getElementById('dfp-s2').textContent=Math.round(grams/2/5)*5+' g';
+  document.getElementById('dfp-s3').textContent='~'+Math.round(grams*0.2/5)*5+' g error by cup';
+  document.getElementById('dfp-note').textContent='The maths vets use: resting energy is 70 times weight to the power 0.75, multiplied by a life-stage factor - the figure on the bag is a marketing starting point, biased high because food companies sell food. The honest instrument is the body condition score: ribs findable under a thin fat layer, waist visible from above; adjust the ration by 10% a month until the silhouette agrees. The cup row is the quiet scandal - a household measuring cup misses daily rations by up to 20% either way, so a kitchen scale is the cheapest health device a dog owner owns. Feed twice daily, transition foods over a week, and remember treats live inside this budget (see the treat calculator), not on top of it - the ten percent rule is where most dogs\u2019 waistlines actually go wrong.';
+  document.title=Math.round(grams/5)*5+' g of dog food daily - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_dogfood',JSON.stringify({w:F[0].value,s:F[1].value,e:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['w','s','e'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_dogfood')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('dfp-share').addEventListener('click',function(){
+  var txt='My dog eats '+OUT.textContent+' g a day. Ration yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Dog ration',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this ration';},1500);}
+});
+})();
+</script>
+"""
+
+CATPORT = """<div class="tool" id="tt-cfp">
+  <div class="fields">
+    <div class="field"><label for="cfp-w">Cat weight (kg)</label><input type="number" id="cfp-w" min="2" max="12" step="0.1" placeholder="4.5"></div>
+    <div class="field"><label for="cfp-s">Life stage</label><select id="cfp-s"><option value="1.2" selected>Neutered indoor</option><option value="1.4">Intact / outdoor</option><option value="2.5">Kitten (under 12 mo)</option><option value="1.1">Senior (12+)</option><option value="0.8">Weight loss plan</option></select></div>
+    <div class="field"><label for="cfp-e">Food energy (kcal per kg)</label><input type="number" id="cfp-e" min="2500" max="5000" step="50" placeholder="3800"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cfp-out">–</span><span class="result-unit">grams of food per day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cfp-s1">–</b><span>kcal per day</span></div>
+    <div class="stat"><b id="cfp-s2">–</b><span>per meal (÷4)</span></div>
+    <div class="stat"><b id="cfp-s3">–</b><span>10 g error is</span></div>
+  </div>
+  <div class="tool-note" id="cfp-note"></div>
+  <button type="button" class="tool-btn" id="cfp-share">Share this ration</button>
+</div>
+<script>(function(){
+var F=['cfp-w','cfp-s','cfp-e'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('cfp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var w=parseFloat(F[0].value),f=parseFloat(F[1].value),e=parseFloat(F[2].value);
+  var ok=w>=2&&w<=12&&e>=2500&&e<=5000;
+  if(!ok){OUT.textContent='–';['cfp-s1','cfp-s2','cfp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cfp-note').textContent='';document.title='Cat Food Portion Calculator - ToolDune';return;}
+  var rer=70*Math.pow(w,0.75);
+  var mer=rer*f;
+  var grams=mer*1000/e;
+  OUT.textContent=Math.round(grams);
+  document.getElementById('cfp-s1').textContent=Math.round(mer)+' kcal';
+  document.getElementById('cfp-s2').textContent=Math.round(grams/4)+' g';
+  document.getElementById('cfp-s3').textContent=(10/grams*100).toFixed(0)+'% of the day';
+  document.getElementById('cfp-note').textContent='Same feline maths: 70 times weight to the power 0.75, times the stage factor - indoor neutered cats run the lowest multiplier, which surprises owners whose cats nap professionally. Scale matters brutally at cat size: ten grams of overpour is a tenth of the day\u2019s food, so the kitchen scale beats the scoop by an order of magnitude more than for dogs. Feed in four small meals if the schedule allows - cats are built for hunt-eat-sleep cycles, and the 5 a.m. wake-up call is usually a feeding schedule bug, not a character flaw. Wet food helps weight control (water has no calories and plenty of volume); dry is convenient, not wrong. The silhouette test rules everything: ribs findable, waist visible, no belly swing when walking - adjust by 10% monthly until the cat, not the bag, is satisfied.';
+  document.title=Math.round(grams)+' g of cat food daily - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_catfood',JSON.stringify({w:F[0].value,s:F[1].value,e:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['w','s','e'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_catfood')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('cfp-share').addEventListener('click',function(){
+  var txt='My cat eats '+OUT.textContent+' g a day. Ration yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Cat ration',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this ration';},1500);}
+});
+})();
+</script>
+"""
+
+TREATS = """<div class="tool" id="tt-tr">
+  <div class="fields">
+    <div class="field"><label for="tr-d">Daily food energy (kcal)</label><input type="number" id="tr-d" min="100" step="10" placeholder="800"></div>
+    <div class="field"><label for="tr-t">Kcal per treat</label><input type="number" id="tr-t" min="1" step="1" placeholder="25"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tr-out">–</span><span class="result-unit">treats per day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tr-s1">–</b><span>treat kcal budget</span></div>
+    <div class="stat"><b id="tr-s2">–</b><span>a cheese cube is</span></div>
+    <div class="stat"><b id="tr-s3">–</b><span>training-day note</span></div>
+  </div>
+  <div class="tool-note" id="tr-note"></div>
+  <button type="button" class="tool-btn" id="tr-share">Share this budget</button>
+</div>
+<script>(function(){
+var F=['tr-d','tr-t'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('tr-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=parseFloat(F[0].value),t=parseFloat(F[1].value);
+  var ok=d>=100&&t>=1;
+  if(!ok){OUT.textContent='–';['tr-s1','tr-s2','tr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('tr-note').textContent='';document.title='Pet Treat Calculator - ToolDune';return;}
+  var budget=d*0.1;
+  var n=Math.floor(budget/t);
+  OUT.textContent=n;
+  document.getElementById('tr-s1').textContent=Math.round(budget)+' kcal';
+  document.getElementById('tr-s2').textContent='~'+Math.floor(15/t)+' treats';
+  document.getElementById('tr-s3').textContent='shrink meals, not rules';
+  document.getElementById('tr-note').textContent='The veterinary ten-percent rule: treats, chews and table scraps together stay under a tenth of daily calories, because pet food is balanced and everything else is not - past ten percent you are diluting a designed diet with snacks. Get the daily figure from the portion calculator, then count honestly: training sessions and the grandparents both spend from the same budget, and a dental chew can be a third of a small dog\u2019s allowance. Hard safety lines override everything: chocolate, grapes and raisins, xylitol, onions and macadamias for dogs; onions, garlic and lilies for cats - and \u201cbut she looked hungry\u201d is not a nutrient. On heavy training days, take the calories out of meals rather than off the ledger - same dog, same maths, better behaviour.';
+  document.title=n+' treats a day fits the budget - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_treats',JSON.stringify({d:F[0].value,t:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['d','t'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_treats')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('tr-share').addEventListener('click',function(){
+  var txt='The 10% rule allows '+OUT.textContent+' treats a day for my pet. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Treat budget',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this budget';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -10572,6 +10717,9 @@ TOOLS = {
     "rentsplit": lambda args: RENTSPLIT,
     "giftbudget": lambda args: GIFTBUDGET,
     "charcoal": lambda args: CHARCOAL,
+    "dogfood": lambda args: DOGPORT,
+    "catfood": lambda args: CATPORT,
+    "treats": lambda args: TREATS,
 }
 
 
