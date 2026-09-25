@@ -10815,6 +10815,150 @@ document.getElementById('co2-share').addEventListener('click',function(){
 </script>
 """
 
+STOPDIST = """<div class="tool" id="tt-sd">
+  <div class="fields">
+    <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
+    <div class="field"><label for="sd-c">Road condition</label><select id="sd-c"><option value="0.8" selected>Dry asphalt</option><option value="0.45">Wet road</option><option value="0.2">Snow</option><option value="0.1">Ice</option></select></div>
+    <div class="field"><label for="sd-r">Reaction time (s)</label><input type="number" id="sd-r" min="0.5" max="4" step="0.1" placeholder="1.5"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sd-out">–</span><span class="result-unit">metres to stop</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sd-s1">–</b><span>reaction distance</span></div>
+    <div class="stat"><b id="sd-s2">–</b><span>braking distance</span></div>
+    <div class="stat"><b id="sd-s3">–</b><span>in car lengths</span></div>
+  </div>
+  <div class="tool-note" id="sd-note"></div>
+  <button type="button" class="tool-btn" id="sd-share">Share this distance</button>
+</div>
+<script>(function(){
+var F=['sd-v','sd-c','sd-r'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('sd-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var v=parseFloat(F[0].value),mu=parseFloat(F[1].value),rt=parseFloat(F[2].value);
+  var ok=v>=10&&v<=200&&rt>=0.5&&rt<=4;
+  if(!ok){OUT.textContent='–';['sd-s1','sd-s2','sd-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sd-note').textContent='';document.title='Stopping Distance Calculator - ToolDune';return;}
+  var ms=v/3.6;
+  var react=ms*rt;
+  var brake=ms*ms/(2*9.81*mu);
+  OUT.textContent=Math.round(react+brake);
+  document.getElementById('sd-s1').textContent=Math.round(react)+' m';
+  document.getElementById('sd-s2').textContent=Math.round(brake)+' m';
+  document.getElementById('sd-s3').textContent='~'+Math.round((react+brake)/4.5)+' cars';
+  document.getElementById('sd-note').textContent='The physics of the worst surprise in driving: stopping is reaction distance (speed times the second and a half before your foot moves - 40 metres at 100 km/h before the brakes even bite) plus braking distance, which grows with the SQUARE of speed. Double from 50 to 100 km/h and the braking part quadruples; on ice the grip factor of 0.1 versus dry 0.8 multiplies it eightfold again - the same road, the same car, three times the football pitch. Tyres and ABS are engineered around dry friction; water, snow and simply worn tread quietly walk the grip factor down while the speedometer stays honest. The reaction row is the adjustable one: phone, fatigue and one glass of wine all stretch it - and no calculator fixes what happens inside those seconds.';
+  document.title=Math.round(react+brake)+' m to stop from '+v+' km/h - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_stopdist',JSON.stringify({v:F[0].value,c:F[1].value,r:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['v','c','r'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_stopdist')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('sd-share').addEventListener('click',function(){
+  var txt='Stopping from '+F[0].value+' km/h takes '+OUT.textContent+' metres. Run yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Stopping distance',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this distance';},1500);}
+});
+})();
+</script>
+"""
+
+FOLLOWDIST = """<div class="tool" id="tt-fd2">
+  <div class="fields">
+    <div class="field"><label for="fd2-v">Speed (km/h)</label><input type="number" id="fd2-v" min="10" max="200" step="5" placeholder="100"></div>
+    <div class="field"><label for="fd2-s">Seconds of headway</label><select id="fd2-s"><option value="2">2 s (dry minimum)</option><option value="3" selected>3 s (recommended)</option><option value="4">4 s (rain / night)</option><option value="5">5 s (snow / towing)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fd2-out">–</span><span class="result-unit">metres behind the car ahead</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fd2-s1">–</b><span>car lengths</span></div>
+    <div class="stat"><b id="fd2-s2">–</b><span>the marker method</span></div>
+    <div class="stat"><b id="fd2-s3">–</b><span>distance covered in your reaction gap</span></div>
+  </div>
+  <div class="tool-note" id="fd2-note"></div>
+  <button type="button" class="tool-btn" id="fd2-share">Share this gap</button>
+</div>
+<script>(function(){
+var F=['fd2-v','fd2-s'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('fd2-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var v=parseFloat(F[0].value),s=parseFloat(F[1].value);
+  var ok=v>=10&&v<=200&&s>=2&&s<=5;
+  if(!ok){OUT.textContent='–';['fd2-s1','fd2-s2','fd2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('fd2-note').textContent='';document.title='Following Distance Calculator - ToolDune';return;}
+  var m=v/3.6*s;
+  OUT.textContent=Math.round(m);
+  document.getElementById('fd2-s1').textContent='~'+Math.round(m/4.5)+' cars';
+  document.getElementById('fd2-s2').textContent='count "'+(s===4?'one-one-thousand to four':s+' seconds')+'" at a fixed point';
+  document.getElementById('fd2-s3').textContent=Math.round(v/3.6*1.5)+' m';
+  document.getElementById('fd2-note').textContent='The two-second rule exists because tailgating buys nothing and sells everything: your braking distance grows with the square of speed while the gap you keep grows linearly, so close following converts the car ahead\u2019s emergency into your rear bumper. The marker method is how it actually works in the car: pick a bridge or marking, start counting when the car ahead passes it, and you should reach it at your chosen seconds - honest counting, not optimistic counting. Weather adds a second, night adds one, towing or a loaded van adds more; the row above shows what your own reaction time alone consumes at this speed, which is why the gap is measured to the car ahead and not to your own abilities. And the traffic-jam paradox: leaving a proper gap moves you faster overall, because stop-and-go waves dissolve in the space you leave.';
+  document.title='Keep '+Math.round(m)+' m at '+v+' km/h - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_followdist',JSON.stringify({v:F[0].value,s:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['v','s'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_followdist')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('fd2-share').addEventListener('click',function(){
+  var txt='Proper following distance at '+F[0].value+' km/h: '+OUT.textContent+' metres. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Following distance',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this gap';},1500);}
+});
+})();
+</script>
+"""
+
+WINTERTIRE = """<div class="tool" id="tt-wt">
+  <div class="fields">
+    <div class="field"><label for="wt-t">Typical morning temperature (\u00b0C)</label><input type="number" id="wt-t" min="-30" max="20" step="1" placeholder="7"></div>
+    <div class="field"><label for="wt-c">Current setup</label><select id="wt-c"><option value="summer" selected>Summer tyres</option><option value="winter">Winter tyres</option><option value="allseason">All-season tyres</option></select></div>
+    <div class="field"><label for="wt-x">Tyre swap cost (per change)</label><input type="number" id="wt-x" min="0" step="5" placeholder="40"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wt-out">–</span><span class="result-unit">three-year setup cost</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wt-s1">–</b><span>grip verdict at this temp</span></div>
+    <div class="stat"><b id="wt-s2">–</b><span>vs all-season 3-year</span></div>
+    <div class="stat"><b id="wt-s3">–</b><span>swap windows</span></div>
+  </div>
+  <div class="tool-note" id="wt-note"></div>
+  <button type="button" class="tool-btn" id="wt-share">Share this math</button>
+</div>
+<script>(function(){
+var F=['wt-t','wt-c','wt-x'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('wt-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var t=parseFloat(F[0].value),c=F[1].value,x=parseFloat(F[2].value);
+  var ok=t>=-30&&t<=20&&x>=0;
+  if(!ok){OUT.textContent='–';['wt-s1','wt-s2','wt-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('wt-note').textContent='';document.title='Winter Tyre Calculator - ToolDune';return;}
+  var swaps=c==='allseason'?0:6;
+  var cost=swaps*x+400;
+  OUT.textContent=cost.toFixed(0);
+  var verdict=t<=7?(c==='summer'?'unsafe below 7\u00b0C':'correct choice'):(c==='summer'?'correct':'wearing fast in warmth');
+  document.getElementById('wt-s1').textContent=verdict;
+  document.getElementById('wt-s2').textContent=(c==='allseason'?'you are on it':('two sets: '+(400+6*x)));
+  document.getElementById('wt-s3').textContent='Oct / Easter';
+  document.getElementById('wt-note').textContent='The seven-degree rule: summer rubber hardens like a hockey puck below 7 \u00b0C and grips on its tread pattern alone, while winter compounds stay soft and bite cold roads - the difference is chemistry, not tread depth, which is why winter tyres also outbrake summers on a cold DRY road. The three-year arithmetic above prices two tyre sets plus swaps against one all-season set; all-seasons are the honest middle for mild climates and light snow, and the compromised one where winters are proper - they are a 70% tyre at everything instead of a 100% tyre at one season. Rule regions make winters mandatory in ice months; everyone else trades convenience for margin. The swap windows rhyme with the clocks: autumn change when mornings sit under seven degrees, spring change after Easter - and store the off-set cool, dark and off the concrete.';
+  document.title=cost.toFixed(0)+' three-year tyre setup - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_wintertyre',JSON.stringify({t:F[0].value,c:F[1].value,x:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['t','c','x'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_wintertyre')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('wt-share').addEventListener('click',function(){
+  var txt='At '+F[0].value+'\u00b0C: '+document.getElementById('wt-s1').textContent+'. Check your tyres (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Winter tyres',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -11018,6 +11162,9 @@ TOOLS = {
     "foodwaste": lambda args: FOODWASTE,
     "xmastree": lambda args: XMASTREE,
     "carryon": lambda args: CARRYON,
+    "stopdist": lambda args: STOPDIST,
+    "followdist": lambda args: FOLLOWDIST,
+    "wintertire": lambda args: WINTERTIRE,
 }
 
 
