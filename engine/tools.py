@@ -9371,6 +9371,161 @@ def _render_countdown(args):
     return html
 
 
+MOVECOST = """<div class="tool" id="tt-mv">
+  <div class="fields">
+    <div class="field"><label for="mv-b">Home size</label><select id="mv-b"><option value="3:2">Studio</option><option value="4:2" selected>1 bedroom</option><option value="6:2">2 bedrooms</option><option value="8:3">3 bedrooms</option><option value="10:3">4+ bedrooms</option></select></div>
+    <div class="field"><label for="mv-d">Distance (km)</label><input type="number" id="mv-d" min="1" max="3000" step="1" placeholder="30"></div>
+    <div class="field"><label for="mv-r">Movers rate (per hour, per mover)</label><input type="number" id="mv-r" min="10" step="1" placeholder="40"></div>
+    <div class="field"><label for="mv-t">Movers travel/call-out fee</label><input type="number" id="mv-t" min="0" step="5" placeholder="50"></div>
+    <div class="field"><label for="mv-v">Van hire per day (DIY)</label><input type="number" id="mv-v" min="20" step="5" placeholder="90"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="mv-out">–</span><span class="result-unit">professional move</span></div>
+  <div class="stats">
+    <div class="stat"><b id="mv-s1">–</b><span>DIY (van+fuel+pizza)</span></div>
+    <div class="stat"><b id="mv-s2">–</b><span>difference</span></div>
+    <div class="stat"><b id="mv-s3">–</b><span>hours billed</span></div>
+  </div>
+  <div class="tool-note" id="mv-note"></div>
+  <button type="button" class="tool-btn" id="mv-share">Share this comparison</button>
+</div>
+<script>(function(){
+var F=['mv-b','mv-d','mv-r','mv-t','mv-v'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('mv-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var bv=F[0].value.split(':'),hrs=parseFloat(bv[0]),crew=parseInt(bv[1]);
+  var d=parseFloat(F[1].value),r=parseFloat(F[2].value),t=parseFloat(F[3].value),v=parseFloat(F[4].value);
+  var ok=d>=1&&d<=3000&&r>=10&&t>=0&&v>=20;
+  if(!ok){OUT.textContent='–';['mv-s1','mv-s2','mv-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mv-note').textContent='';document.title='Moving Cost Calculator - ToolTide';return;}
+  var pro=hrs*crew*r+ +t;
+  var fuel=d*2*0.13*1.6;
+  var diy=+v+fuel+60+80;
+  OUT.textContent=pro.toFixed(0);
+  document.getElementById('mv-s1').textContent=diy.toFixed(0);
+  document.getElementById('mv-s2').textContent=(pro-diy).toFixed(0);
+  document.getElementById('mv-s3').textContent=hrs+' h × '+crew;
+  document.getElementById('mv-note').textContent='Quotes swing on access, not volume: third-floor walk-ups, narrow stairs, long carries from the van and waiting time are where crews add hours - walk the route with the estimator or the final invoice will. The DIY figure books van, fuel at an honest thirsty 13 L/100 km loaded, pizza wages and 80 of boxes; what it cannot book is the two days of your body, and zero insurance if the sofa meets the banister. Professional cover pays out on dropped boxes; your goodwill does not. Break-even instinct: if the gap is under one workday of your salary, hire the crew - move day with a bad back is a false economy. Get three quotes, weekend rates run 20-30% higher, and end-of-month dates cost most because everyone signs leases that start on the 1st.';
+  document.title=pro.toFixed(0)+' for a professional move - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_movecost',JSON.stringify({b:F[0].value,d:F[1].value,r:F[2].value,t:F[3].value,v:F[4].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['b','d','r','t','v'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_movecost')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('mv-share').addEventListener('click',function(){
+  var txt='My move: '+OUT.textContent+' professional vs '+document.getElementById('mv-s1').textContent+' DIY. Compare yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Moving cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this comparison';},1500);}
+});
+})();
+</script>
+"""
+
+BOXCALC = """<div class="tool" id="tt-bx">
+  <div class="fields">
+    <div class="field"><label for="bx-b">Bedrooms</label><select id="bx-b"><option value="20">Studio</option><option value="35" selected>1</option><option value="55">2</option><option value="75">3</option><option value="100">4+</option></select></div>
+    <div class="field"><label for="bx-p">Packing style</label><select id="bx-p"><option value="0.7">Minimalist</option><option value="1" selected>Normal household</option><option value="1.4">Everything goes</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bx-out">–</span><span class="result-unit">boxes to find</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bx-s1">–</b><span>size mix S/M/L</span></div>
+    <div class="stat"><b id="bx-s2">–</b><span>tape + bubble wrap</span></div>
+    <div class="stat"><b id="bx-s3">–</b><span>solo packing days</span></div>
+  </div>
+  <div class="tool-note" id="bx-note"></div>
+  <button type="button" class="tool-btn" id="bx-share">Share this count</button>
+</div>
+<script>(function(){
+var F=['bx-b','bx-p'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('bx-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var b=parseFloat(F[0].value),p=parseFloat(F[1].value);
+  var ok=b>=15&&p>=0.5;
+  if(!ok){OUT.textContent='–';['bx-s1','bx-s2','bx-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('bx-note').textContent='';document.title='Moving Boxes Calculator - ToolTide';return;}
+  var n=Math.round(b*p);
+  OUT.textContent=n;
+  var s=Math.round(n*0.3),m=Math.round(n*0.45),l=n-s-m;
+  document.getElementById('bx-s1').textContent=s+'/'+m+'/'+l;
+  document.getElementById('bx-s2').textContent=Math.ceil(n/8)+' rolls + '+Math.ceil(n/6);
+  document.getElementById('bx-s3').textContent=(n/20).toFixed(1);
+  document.getElementById('bx-note').textContent='The size mix matters more than the count: small for books (20 kg is the back limit, not the box limit), medium for kitchen and general, large only for light and bulky - bedding, lamps, plastics. Heavy things in big boxes are how handles and backs fail on stairs. Plates travel upright like records with a towel per layer; wardrobe boxes with the hanging rail save a full day of ironing at the other end. Supermarket and liquor-store boxes are free and sturdy - just decline anything damp or from the produce floor (bug eggs). The 20-boxes-a-day pace is realistic for one person alongside work; start with storage rooms and books, leave everyday kitchen for the last two days, and keep ONE box of sheets, kettle, chargers, toilet paper and mugs in the car - the first-night box is the difference between a bed and a campsite.';
+  document.title=n+' boxes for the move - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_boxcalc',JSON.stringify({b:F[0].value,p:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['b','p'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_boxcalc')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('bx-share').addEventListener('click',function(){
+  var txt='Moving math: '+OUT.textContent+' boxes for my place. Count yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Box count',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this count';},1500);}
+});
+})();
+</script>
+"""
+
+MOVETL = """<div class="tool" id="tt-ml2">
+  <div class="fields">
+    <div class="field"><label for="mt-d">Moving day</label><input type="date" id="mt-d"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="mt-out">–</span><span class="result-unit">days to moving day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="mt-s1">–</b><span>weeks remaining</span></div>
+    <div class="stat"><b id="mt-s2">–</b><span>this phase</span></div>
+    <div class="stat"><b id="mt-s3">–</b><span>pace needed</span></div>
+  </div>
+  <div class="tool-note" id="mt-note"></div>
+  <button type="button" class="tool-btn" id="mt-share">Share this plan</button>
+</div>
+<script>(function(){
+var D=document.getElementById('mt-d');
+var OUT=document.getElementById('mt-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+var PLAN=[[8,'Book the mover - get three quotes; end-of-month dates go first.',0],[6,'Declutter hard: sell, donate, dump. Every box not packed is money saved.',0],[4,'Notify utilities, internet, insurance; start address changes and subscriptions.',0],[3,'Pack storage rooms, books and seasonal gear - the stuff you never touch.',0],[2,'Pack most rooms, label by room AND priority; book parking for both ends.',0],[1,'Confirm the crew, pack the first-night box, defrost the freezer, bag the cables.',0],[0,'Move day: beds reassemble first, meters photographed, one box opens tonight.',0]];
+function fmt(n){return n<10?'0'+n:''+n;}
+function iso(d){return d.getFullYear()+'-'+fmt(d.getMonth()+1)+'-'+fmt(d.getDate());}
+function calc(){
+  if(!D.value){OUT.textContent='–';['mt-s1','mt-s2','mt-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mt-note').textContent='Pick your moving date to generate the week-by-week plan.';document.title='Moving Timeline Planner - ToolTide';return;}
+  var day=new Date(D.value+'T12:00:00');
+  var today=new Date();today.setHours(12,0,0,0);
+  var days=Math.round((day-today)/86400000);
+  OUT.textContent=days;
+  document.getElementById('mt-s1').textContent=(days/7).toFixed(1)+' wks';
+  var w=days/7,phase='moving week';
+  if(w>8)phase='too early - plan, do not pack';
+  else if(w>6)phase='8+ weeks: book movers';
+  else if(w>4)phase='4-6 weeks: declutter + utilities';
+  else if(w>2)phase='2-4 weeks: address change + storage rooms';
+  else if(w>1)phase='1-2 weeks: main packing push';
+  else if(w>0)phase='final week: confirm + essentials';
+  document.getElementById('mt-s2').textContent=phase;
+  document.getElementById('mt-s3').textContent=Math.max(1,Math.ceil(60/Math.max(days,1)))+' boxes/day';
+  var tasks='';
+  for(var i=0;i<PLAN.length;i++){if(PLAN[i][0]<=w){tasks=PLAN[i][1];break;}}
+  document.getElementById('mt-note').textContent='Now: '+tasks+' The sequence that saves moves: bookings and paperwork early, decluttering before any box exists, storage rooms first and kitchen last, and the first-night box in your own car - sheets, kettle, chargers, toilet paper, mugs. Photograph every meter on both ends on the day, and photograph the electronics cabling before unplugging - future-you will not remember which cable went where.';
+  document.title=days+' days to moving day - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_movetl',JSON.stringify({d:D.value}));}catch(e){}}
+D.addEventListener('input',function(){calc();save();});
+var v=qs('d');
+if(v!==null){D.value=v;}
+else{try{var mem=JSON.parse(localStorage.getItem('tt_movetl')||'null');if(mem){D.value=mem.d||'';}}catch(e){}}
+calc();
+document.getElementById('mt-share').addEventListener('click',function(){
+  var txt=OUT.textContent+' days to my move - plan: '+location.origin+location.pathname+'?d='+D.value;
+  if(navigator.share){navigator.share({title:'Moving plan',text:txt,url:location.origin+location.pathname+'?d='+D.value}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this plan';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -9545,6 +9700,9 @@ TOOLS = {
     "tvsize": lambda args: TVSIZE,
     "fishtank": lambda args: FISHTANK,
     "laundry": lambda args: LAUNDRY,
+    "movecost": lambda args: MOVECOST,
+    "boxcalc": lambda args: BOXCALC,
+    "movetl": lambda args: MOVETL,
 }
 
 
