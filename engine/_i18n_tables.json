@@ -1696,6 +1696,10 @@
    [
     "lorem.regen",
     "重新生成"
+   ],
+   [
+    "case.resultlbl",
+    "结果"
    ]
   ],
   "es": [
@@ -3394,6 +3398,10 @@
    [
     "lorem.regen",
     "Regenerar"
+   ],
+   [
+    "case.resultlbl",
+    "Resultado"
    ]
   ],
   "pt": [
@@ -5092,6 +5100,10 @@
    [
     "lorem.regen",
     "Regenerar"
+   ],
+   [
+    "case.resultlbl",
+    "Resultado"
    ]
   ],
   "ru": [
@@ -6790,6 +6802,10 @@
    [
     "lorem.regen",
     "Сгенерировать заново"
+   ],
+   [
+    "case.resultlbl",
+    "Результат"
    ]
   ],
   "ja": [
@@ -8488,6 +8504,10 @@
    [
     "lorem.regen",
     "再生成"
+   ],
+   [
+    "case.resultlbl",
+    "結果"
    ]
   ],
   "ko": [
@@ -10186,6 +10206,10 @@
    [
     "lorem.regen",
     "다시 생성"
+   ],
+   [
+    "case.resultlbl",
+    "결과"
    ]
   ],
   "de": [
@@ -11884,6 +11908,10 @@
    [
     "lorem.regen",
     "Neu generieren"
+   ],
+   [
+    "case.resultlbl",
+    "Ergebnis"
    ]
   ],
   "fr": [
@@ -13582,6 +13610,10 @@
    [
     "lorem.regen",
     "Régénérer"
+   ],
+   [
+    "case.resultlbl",
+    "Résultat"
    ]
   ],
   "id": [
@@ -15280,6 +15312,10 @@
    [
     "lorem.regen",
     "Buat ulang"
+   ],
+   [
+    "case.resultlbl",
+    "Hasil"
    ]
   ]
  }
