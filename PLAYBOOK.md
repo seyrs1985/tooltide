@@ -7,7 +7,7 @@
 - 终点:稳定 $10,000/月,阶梯 $1/$50/$500/$2000/$10000(config/goals.json);当前=收录爬坡期,收入 $0.00、AdSense 待用户申请,收入数字不作为策略变动依据。
 - 运行窗口(2026-09-26 起):仅 23:00-08:00(用户计划免费时段,调度器只在窗口内触发);白天不触发属预期,白天发现"停摆"勿做任何补救动作,等当晚窗口自然恢复。
 - 线上 https://tooldune.com/ (2026-09-26 起自定义域名,品牌同步更名 ToolDune;更早的 github.io 与 nuts.fan 均 301;deploy.sh live-check 已跟随)。
-- 基线(2026-09-26 R105 后,[PBAudit]):304 工具页;check_site 315 文件 24076 检查 0 失败;i18n 审计 309 页 289 键×9 语言。**规模口径以当轮 check_site 输出为准**(build 输出的页数与 STATUS 口径不同)。
+- 基线(2026-09-26 R110 后,[PBAudit]):318 工具页;check_site 329 文件 25175 检查 0 失败;i18n 审计 323 页 289 键×9 语言。**规模口径以当轮 check_site 输出为准**(build 输出的页数与 STATUS 口径不同)。
 
 ## 1. 选题策略
 - 来源:Google Trends RSS(https://trends.google.com/trending/rss?geo=US 与 ?geo=GB,存 data/trends/日期-时段.json 不覆盖)+ 站内品类空白;GSC 真实数据到位后以 data/insights.json P1/P2 为最高优先。
