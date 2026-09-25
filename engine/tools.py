@@ -9975,6 +9975,115 @@ document.getElementById('ht-share').addEventListener('click',function(){
 </script>
 """
 
+EXAMPLAN = """<div class="tool" id="tt-xp">
+  <div class="fields">
+    <div class="field"><label for="xp-d">Exam date</label><input type="date" id="xp-d"></div>
+    <div class="field"><label for="xp-s">Subjects / papers</label><input type="number" id="xp-s" min="1" max="12" step="1" placeholder="4"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="xp-out">–</span><span class="result-unit">days to exam</span></div>
+  <div class="stats">
+    <div class="stat"><b id="xp-s1">–</b><span>this phase</span></div>
+    <div class="stat"><b id="xp-s2">–</b><span>study hours/day needed</span></div>
+    <div class="stat"><b id="xp-s3">–</b><span>last new topic</span></div>
+  </div>
+  <div class="tool-note" id="xp-note"></div>
+  <button type="button" class="tool-btn" id="xp-share">Share this plan</button>
+</div>
+<script>(function(){
+var F=['xp-d','xp-s'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('xp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function fmt(n){return n<10?'0'+n:''+n;}
+function calc(){
+  var dv=F[0].value,s=parseInt(F[1].value);
+  if(!dv||!(s>=1&&s<=12)){OUT.textContent='–';['xp-s1','xp-s2','xp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('xp-note').textContent='';document.title='Exam Study Planner - ToolDune';return;}
+  var day=new Date(dv+'T09:00:00'),today=new Date();today.setHours(9,0,0,0);
+  var days=Math.round((day-today)/86400000);
+  OUT.textContent=days;
+  var w=days/7,phase='exam week';
+  if(days<0)phase='past - plan the next one';
+  else if(w>6)phase='6+ wks: syllabus audit + past papers';
+  else if(w>4)phase='4-6 wks: weak topics first pass';
+  else if(w>2)phase='2-4 wks: timed past papers + error log';
+  else if(w>1)phase='final week: recall drills only';
+  else if(w>0)phase='days out: logistics + sleep';
+  document.getElementById('xp-s1').textContent=phase;
+  var hrs=Math.max(1,Math.ceil(s*30/Math.max(days,1)));
+  document.getElementById('xp-s2').textContent='~'+hrs+' h';
+  document.getElementById('xp-s3').textContent='T-'+Math.max(2,Math.min(days,3))+' days';
+  var task='Gather every syllabus point and two years of past papers; mark each red, amber, green by honesty, not hope.';
+  if(days<=42&&days>28)task='First pass on the red topics only - hardest subject at your best hour, green topics never in prime time.';
+  else if(days<=28&&days>14)task='Full past paper under exam clock, then rebuild the error log; the log IS the syllabus now.';
+  else if(days<=14&&days>7)task='Second paper, second error log; drill only what the log says - reading familiar pages is not studying.';
+  else if(days<=7)task='No new topics. Recall drills from the error log, sleep over 7 hours, confirm the room, ID and route.';
+  document.getElementById('xp-note').textContent='This week: '+task+' The arithmetic of the hours figure is deliberate - roughly 30 hours per subject spread over your remaining days - and its real message is what it forbids: starting green topics late, and new material inside the final 48 hours, which trades working memory for the illusion of coverage. Past papers beat notes because exams test retrieval, not recognition; the error log is the personal syllabus the exam will actually draw from. And the boring truth under all of it: sleep consolidates what the day studied - an all-nighter deletes more than it saves.';
+  document.title=days+' days to exam - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_examplan',JSON.stringify({d:F[0].value,s:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['d',F[0]],['s',F[1]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_examplan')||'null');if(mem){F[0].value=mem.d||'';F[1].value=mem.s||'';}}catch(e){}}
+calc();
+document.getElementById('xp-share').addEventListener('click',function(){
+  var txt=OUT.textContent+' days to my exam - plan: '+location.origin+location.pathname+'?d='+F[0].value+'&s='+F[1].value;
+  if(navigator.share){navigator.share({title:'Exam plan',text:txt,url:location.origin+location.pathname+'?d='+F[0].value+'&s='+F[1].value}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this plan';},1500);}
+});
+})();
+</script>
+"""
+
+FLASHCARD = """<div class="tool" id="tt-fx">
+  <div class="fields">
+    <div class="field"><label for="fx-n">Cards in the deck</label><input type="number" id="fx-n" min="10" max="5000" step="10" placeholder="300"></div>
+    <div class="field"><label for="fx-d">Days until exam</label><input type="number" id="fx-d" min="3" max="180" step="1" placeholder="21"></div>
+    <div class="field"><label for="fx-m">Seconds per review</label><input type="number" id="fx-m" min="3" max="30" step="1" placeholder="6"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fx-out">–</span><span class="result-unit">new cards per day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fx-s1">–</b><span>total reviews</span></div>
+    <div class="stat"><b id="fx-s2">–</b><span>peak minutes/day</span></div>
+    <div class="stat"><b id="fx-s3">–</b><span>last day to add cards</span></div>
+  </div>
+  <div class="tool-note" id="fx-note"></div>
+  <button type="button" class="tool-btn" id="fx-share">Share this schedule</button>
+</div>
+<script>(function(){
+var F=['fx-n','fx-d','fx-m'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('fx-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var n=parseFloat(F[0].value),d=parseInt(F[1].value),m=parseFloat(F[2].value);
+  var ok=n>=10&&n<=5000&&d>=3&&d<=180&&m>=3&&m<=30;
+  if(!ok){OUT.textContent='–';['fx-s1','fx-s2','fx-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('fx-note').textContent='';document.title='Flashcard Revision Calculator - ToolDune';return;}
+  var days=Math.max(d-2,1);
+  var newPerDay=Math.ceil(n/days);
+  var reviews=n*3.6;
+  OUT.textContent=newPerDay;
+  document.getElementById('fx-s1').textContent=Math.round(reviews).toLocaleString();
+  var peakMin=(newPerDay*(1+1.6)*m)/60;
+  document.getElementById('fx-s2').textContent='~'+Math.round(peakMin)+' min';
+  document.getElementById('fx-s3').textContent='T-'+Math.min(d,10)+' days';
+  document.getElementById('fx-note').textContent='The 3.6 multiplier is the spaced-repetition bill: every card gets its first pass plus roughly 2.6 scheduled reviews at expanding intervals (1 day, 3 days, a week) before the exam - that is the shape of the forgetting curve being beaten, per Ebbinghaus. The peak-day figure shows the honest cost: new cards plus their fast-arriving reviews stack in the middle week, which is why decks balloon late and goodwill dies. The schedule that survives contact with real life: new cards every day until ten days out, none after - late additions get maybe two reviews, which is recall theatre, not learning. Review minutes beat page minutes because retrieval practice outperforms rereading in every study that compared them; if a card fails three times, it is two cards - split it.';
+  document.title=newPerDay+' new cards per day - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_flashcard',JSON.stringify({n:F[0].value,d:F[1].value,m:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['n','d','m'],pre=false;
+ks.forEach(function(k,i){var v=qs(k);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_flashcard')||'null');if(mem){ks.forEach(function(k,i){if(mem[k]!==undefined&&mem[k]!==''){F[i].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('fx-share').addEventListener('click',function(){
+  var txt='My deck: '+OUT.textContent+' new cards/day until T-'+F[1].value+'. Schedule yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i){return k+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Flashcard schedule',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this schedule';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -10161,6 +10270,8 @@ TOOLS = {
     "tent": lambda args: TENT,
     "backpack": lambda args: BACKPACK,
     "hiketime": lambda args: HIKETIME,
+    "examplan": lambda args: EXAMPLAN,
+    "flashcard": lambda args: FLASHCARD,
 }
 
 
