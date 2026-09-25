@@ -9526,6 +9526,151 @@ document.getElementById('mt-share').addEventListener('click',function(){
 </script>
 """
 
+HEATING = """<div class="tool" id="tt-hc">
+  <div class="fields">
+    <div class="field"><label for="hc-a">Home area (m²)</label><input type="number" id="hc-a" min="20" max="500" step="5" placeholder="80"></div>
+    <div class="field"><label for="hc-i">Insulation level</label><select id="hc-i"><option value="120">Poor (drafty, old windows)</option><option value="90" selected>Average</option><option value="60">Good (modern build)</option></select></div>
+    <div class="field"><label for="hc-s">Heating system</label><select id="hc-s"><option value="1">Gas / oil boiler</option><option value="0.35" selected>Heat pump (COP ~3)</option><option value="1">Electric panels</option></select></div>
+    <div class="field"><label for="hc-p">Energy price (per kWh)</label><input type="number" id="hc-p" min="0.02" step="0.01" placeholder="0.15"></div>
+    <div class="field"><label for="hc-h">Heating hours per day</label><input type="number" id="hc-h" min="2" max="24" step="1" placeholder="8"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hc-out">–</span><span class="result-unit">per heating season</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hc-s1">–</b><span>kWh per season</span></div>
+    <div class="stat"><b id="hc-s2">–</b><span>per month (6-month season)</span></div>
+    <div class="stat"><b id="hc-s3">–</b><span>1 °C lower = save</span></div>
+  </div>
+  <div class="tool-note" id="hc-note"></div>
+  <button type="button" class="tool-btn" id="hc-share">Share this estimate</button>
+</div>
+<script>(function(){
+var F=['hc-a','hc-i','hc-s','hc-p','hc-h'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('hc-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var a=parseFloat(F[0].value),i=parseFloat(F[1].value),s=parseFloat(F[2].value),p=parseFloat(F[3].value),h=parseFloat(F[4].value);
+  var ok=a>=20&&a<=500&&h>=2&&h<=24&&p>0;
+  if(!ok){OUT.textContent='–';['hc-s1','hc-s2','hc-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('hc-note').textContent='';document.title='Heating Cost Calculator - ToolTide';return;}
+  var kw=a*i/1000;
+  var kwh=kw*h*180;
+  var cost=kwh*s*p;
+  OUT.textContent=cost.toFixed(0);
+  document.getElementById('hc-s1').textContent=Math.round(kwh*s)+' kWh';
+  document.getElementById('hc-s2').textContent=(cost/6).toFixed(0);
+  document.getElementById('hc-s3').textContent=(cost*0.06).toFixed(0);
+  document.getElementById('hc-note').textContent='The model: watts per square metre by insulation, running hours times a 180-day season, with the system factor converting fuel to delivered heat - a heat pump\u2019s COP of about 3 is why the same room costs a third on electricity through a pump than through panels. The cheapest kWh stays the one never bought: every degree off the setpoint trims roughly 6% off the bill, a night setback to 17 °C is invisible under a duvet, and heating the occupied room with a closed door beats heating the flat. Behaviour aside, the ranking of fixes is fixed: draft-proofing and loft first (see the insulation payback calculator), heating system second, windows last - they are the priciest lever per degree won.';
+  document.title=cost.toFixed(0)+' heating season - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_heating',JSON.stringify({a:F[0].value,i:F[1].value,s:F[2].value,p:F[3].value,h:F[4].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['a','i','s','p','h'],pre=false;
+ks.forEach(function(k,i2){var v=qs(k);if(v!==null){F[i2].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_heating')||'null');if(mem){ks.forEach(function(k,i2){if(mem[k]!==undefined&&mem[k]!==''){F[i2].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('hc-share').addEventListener('click',function(){
+  var txt='My heating season: about '+OUT.textContent+'. Estimate yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i2){return k+'='+encodeURIComponent(F[i2].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Heating cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this estimate';},1500);}
+});
+})();
+</script>
+"""
+
+RADIATOR = """<div class="tool" id="tt-rd">
+  <div class="fields">
+    <div class="field"><label for="rd-a">Room area (m²)</label><input type="number" id="rd-a" min="3" max="80" step="0.5" placeholder="20"></div>
+    <div class="field"><label for="rd-h">Ceiling height (m)</label><input type="number" id="rd-h" min="2" max="4" step="0.05" placeholder="2.5"></div>
+    <div class="field"><label for="rd-i">Insulation</label><select id="rd-i"><option value="50">Poor</option><option value="40" selected>Average</option><option value="30">Good</option></select></div>
+    <div class="field"><label for="rd-e">Extras</label><select id="rd-e"><option value="1" selected>Standard room</option><option value="1.1">Large window (+10%)</option><option value="1.2">External or north wall (+20%)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rd-out">–</span><span class="result-unit">watts of radiator</span></div>
+  <div class="stats">
+    <div class="stat"><b id="rd-s1">–</b><span>BTU/h</span></div>
+    <div class="stat"><b id="rd-s2">–</b><span>typical radiator length</span></div>
+    <div class="stat"><b id="rd-s3">–</b><span>oversized is fine?</span></div>
+  </div>
+  <div class="tool-note" id="rd-note"></div>
+  <button type="button" class="tool-btn" id="rd-share">Share this size</button>
+</div>
+<script>(function(){
+var F=['rd-a','rd-h','rd-i','rd-e'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('rd-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var a=parseFloat(F[0].value),h=parseFloat(F[1].value),i=parseFloat(F[2].value),e=parseFloat(F[3].value);
+  var ok=a>=3&&a<=80&&h>=2&&h<=4;
+  if(!ok){OUT.textContent='–';['rd-s1','rd-s2','rd-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('rd-note').textContent='';document.title='Radiator Size Calculator - ToolTide';return;}
+  var w=a*h*i*e;
+  OUT.textContent=Math.round(w/50)*50;
+  document.getElementById('rd-s1').textContent=Math.round(w*3.412).toLocaleString()+' BTU/h';
+  document.getElementById('rd-s2').textContent=(w/600).toFixed(1)+' m of double panel';
+  document.getElementById('rd-s3').textContent='yes, with TRV';
+  document.getElementById('rd-note').textContent='The physics: room volume times watts per cubic metre by insulation - not wall length, which is how undersized radiators get bought. A large window or an external wall leaks faster and takes the 10-20% uplift shown. Oversizing is safe and quiet: with a thermostatic valve the radiator simply reaches temperature faster and closes, whereas undersizing means the room never gets warm on the coldest days - the one error that cannot be fixed by behaviour. Modern double-panel radiators deliver roughly 600 W per metre at standard height; check the output chart on the exact model, because heights and fin counts move the figure more than branding does.';
+  document.title=Math.round(w/50)*50+' W radiator for this room - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_radiator',JSON.stringify({a:F[0].value,h:F[1].value,i:F[2].value,e:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['a','h','i','e'],pre=false;
+ks.forEach(function(k,i2){var v=qs(k);if(v!==null){F[i2].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_radiator')||'null');if(mem){ks.forEach(function(k,i2){if(mem[k]!==undefined&&mem[k]!==''){F[i2].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('rd-share').addEventListener('click',function(){
+  var txt='This room needs about '+OUT.textContent+' W of radiator. Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i2){return k+'='+encodeURIComponent(F[i2].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Radiator size',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this size';},1500);}
+});
+})();
+</script>
+"""
+
+INSULATION = """<div class="tool" id="tt-in">
+  <div class="fields">
+    <div class="field"><label for="in-c">Current yearly heating cost</label><input type="number" id="in-c" min="100" step="50" placeholder="1200"></div>
+    <div class="field"><label for="in-u">Upgrade</label><select id="in-u"><option value="0.08:400">Draft-proofing (saves 8%)</option><option value="0.10:2500">Windows upgrade (saves 10%)</option><option value="0.20:4000" selected>Wall insulation (saves 20%)</option><option value="0.25:1200">Loft insulation (saves 25%)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="in-out">–</span><span class="result-unit">saved per year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="in-s1">–</b><span>payback period</span></div>
+    <div class="stat"><b id="in-s2">–</b><span>10-year net</span></div>
+    <div class="stat"><b id="in-s3">–</b><span>CO₂ cut per year</span></div>
+  </div>
+  <div class="tool-note" id="in-note"></div>
+  <button type="button" class="tool-btn" id="in-share">Share this payback</button>
+</div>
+<script>(function(){
+var F=['in-c','in-u'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('in-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var c=parseFloat(F[0].value),uv=F[1].value.split(':'),pct=parseFloat(uv[0]),cost=parseFloat(uv[1]);
+  var ok=c>=100&&c<=10000;
+  if(!ok){OUT.textContent='–';['in-s1','in-s2','in-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('in-note').textContent='';document.title='Insulation Payback Calculator - ToolTide';return;}
+  var save=c*pct;
+  OUT.textContent=save.toFixed(0);
+  document.getElementById('in-s1').textContent=(cost/save).toFixed(1)+' years';
+  document.getElementById('in-s2').textContent=(save*10-cost).toFixed(0);
+  document.getElementById('in-s3').textContent=Math.round(save*2.2)+' kg';
+  document.getElementById('in-note').textContent='The order of operations is the whole message: draft-proofing costs a weekend and pays back in about a year; loft insulation is the best paid-job payback; walls are the big one; windows are the worst investment per degree - people replace windows for comfort and noise, and the savings are the excuse. Every subsidy programme on top of these figures moves payback left, so check national grants before ordering anything. One caution: insulation changes where moisture goes - walls that suddenly stop drying to the inside need breathable materials or ventilation, which is why the cheapest quote is sometimes the expensive one. The 2.2 kg CO₂ per euro saved uses a gas-heated home; heat-pump homes cut a third of that.';
+  document.title=save.toFixed(0)+' a year insulation saving - ToolTide';
+}
+function save(){try{localStorage.setItem('tt_insulation',JSON.stringify({c:F[0].value,u:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['c','u'],pre=false;
+ks.forEach(function(k,i2){var v=qs(k);if(v!==null){F[i2].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_insulation')||'null');if(mem){ks.forEach(function(k,i2){if(mem[k]!==undefined&&mem[k]!==''){F[i2].value=mem[k];}});}}catch(e){}}
+calc();
+document.getElementById('in-share').addEventListener('click',function(){
+  var txt='Insulation upgrade saves '+OUT.textContent+' a year, pays back in '+document.getElementById('in-s1').textContent+'. Run yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(k,i2){return k+'='+encodeURIComponent(F[i2].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Insulation payback',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this payback';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -9703,6 +9848,9 @@ TOOLS = {
     "movecost": lambda args: MOVECOST,
     "boxcalc": lambda args: BOXCALC,
     "movetl": lambda args: MOVETL,
+    "heating": lambda args: HEATING,
+    "radiator": lambda args: RADIATOR,
+    "insulation": lambda args: INSULATION,
 }
 
 
