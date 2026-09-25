@@ -15,6 +15,7 @@
 - BUG-013续11|全站高频裸span|所有译文语言|高频重复stat标签未接线TOP11(per month×4/total interest×3/you save×2/total paid×2/per year×2/per day×2/paintable area×2/full charge cost×2/day of year×2/cubic meters×2/words×2)|rg存量盘点|已修R20+部署(脚本化25处实例接lbl.permonth/peryear/perday+fin.totalinterest/totalpaid/yousave+paint.paintable+ev.fullcharge+date.dayofyear+conv.cubicmeters×10键×9语言,words复用既有wc.words;并行工作者卷带提交部署;长尾×1约300种留逐家族)
 - BUG-013续12|fuel-cost-calculator(tt-fc)|de抽查|真页FUELCOST模板9处未接线(Trip distance/Consumption/Fuel price标签+2个单位select选项+fuel needed/per person 4 riders/round trip stat+动态one-way fuel cost);另发现此前R20排查目标fu-out属于另一模板tt-fuel(当前无页面消费,FUEL渲染器孤儿, fu.*9键备而不用)|curl实证+rg映射溯源|已修R22+线上复验(fc.*9键×9语言;部署前grep自检再次逮住脚本错位(option/span组含右括号,5处),同款修复正则已固化;教训强化=接线脚本分组一律不含闭括号;curl实证fc接线7处+garbage=0)
 - BUG-013续13|url-encoder-decoder|ja|ue-pct动态stat标签(percent sequences)未接线(嵌套span假阳性掩盖)|IAB DOM探针|已修R26+线上复验(ue.pct×9语言;复验ja:%シーケンス等全日文,unwired空;同轮巡逻heart-rate×ko与RW×es全净)
+- BUG-013续14|lorem-ipsum-generator|ru|3处未接线(words generated stat/Copy to clipboard按钮/Regenerate按钮+2处JS恢复)|IAB DOM探针|已修R29+线上复验(lorem.wordsgen/copybtn/regen×3键×9语言+2处JS恢复TT();curl实证data-i18n在服务HTML;同轮巡逻jwt×pt与heart-rate×ja全净)
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修

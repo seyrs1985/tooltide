@@ -3,5 +3,5 @@
   <ShortName>ToolTide</ShortName>
   <Description>Search free online tools on ToolTide</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Url type="text/html" method="get" template="https://seyrs1985.github.io/tooltide/?q={searchTerms}"/>
+  <Url type="text/html" method="get" template="https://nuts.fan/?q={searchTerms}"/>
 </OpenSearchDescription>

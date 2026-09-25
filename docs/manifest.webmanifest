@@ -2,20 +2,20 @@
   "name": "ToolTide \u2014 Free Online Tools",
   "short_name": "ToolTide",
   "description": "Free online tools: countdown timers, calculators, unit converters and generators. Fast, private, no sign-up.",
-  "start_url": "https://seyrs1985.github.io/tooltide/",
-  "scope": "https://seyrs1985.github.io/tooltide/",
+  "start_url": "https://nuts.fan/",
+  "scope": "https://nuts.fan/",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#0e7490",
   "icons": [
     {
-      "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+      "src": "https://nuts.fan/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://seyrs1985.github.io/tooltide/icon-512.png",
+      "src": "https://nuts.fan/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
@@ -25,10 +25,10 @@
     {
       "name": "Christmas countdown",
       "short_name": "Christmas",
-      "url": "https://seyrs1985.github.io/tooltide/days-until-christmas/",
+      "url": "https://nuts.fan/days-until-christmas/",
       "icons": [
         {
-          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "src": "https://nuts.fan/icon-192.png",
           "sizes": "192x192",
           "type": "image/png",
           "purpose": "any"
@@ -38,10 +38,10 @@
     {
       "name": "Percentage calculator",
       "short_name": "Percent",
-      "url": "https://seyrs1985.github.io/tooltide/percentage-calculator/",
+      "url": "https://nuts.fan/percentage-calculator/",
       "icons": [
         {
-          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "src": "https://nuts.fan/icon-192.png",
           "sizes": "192x192",
           "type": "image/png",
           "purpose": "any"
@@ -51,10 +51,10 @@
     {
       "name": "cm to inches",
       "short_name": "cm\u2192in",
-      "url": "https://seyrs1985.github.io/tooltide/cm-to-inches/",
+      "url": "https://nuts.fan/cm-to-inches/",
       "icons": [
         {
-          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "src": "https://nuts.fan/icon-192.png",
           "sizes": "192x192",
           "type": "image/png",
           "purpose": "any"
@@ -64,10 +64,10 @@
     {
       "name": "BMI calculator",
       "short_name": "BMI",
-      "url": "https://seyrs1985.github.io/tooltide/bmi-calculator/",
+      "url": "https://nuts.fan/bmi-calculator/",
       "icons": [
         {
-          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "src": "https://nuts.fan/icon-192.png",
           "sizes": "192x192",
           "type": "image/png",
           "purpose": "any"
@@ -77,10 +77,10 @@
     {
       "name": "Speed distance time",
       "short_name": "SDT",
-      "url": "https://seyrs1985.github.io/tooltide/speed-distance-time/",
+      "url": "https://nuts.fan/speed-distance-time/",
       "icons": [
         {
-          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "src": "https://nuts.fan/icon-192.png",
           "sizes": "192x192",
           "type": "image/png",
           "purpose": "any"
@@ -90,10 +90,10 @@
     {
       "name": "Sales tax calculator",
       "short_name": "Sales tax",
-      "url": "https://seyrs1985.github.io/tooltide/sales-tax-calculator/",
+      "url": "https://nuts.fan/sales-tax-calculator/",
       "icons": [
         {
-          "src": "https://seyrs1985.github.io/tooltide/icon-192.png",
+          "src": "https://nuts.fan/icon-192.png",
           "sizes": "192x192",
           "type": "image/png",
           "purpose": "any"

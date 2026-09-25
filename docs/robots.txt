@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://seyrs1985.github.io/tooltide/sitemap.xml
+Sitemap: https://nuts.fan/sitemap.xml
