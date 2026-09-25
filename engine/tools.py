@@ -10084,6 +10084,155 @@ document.getElementById('fx-share').addEventListener('click',function(){
 </script>
 """
 
+CANDY = """<div class="tool" id="tt-hc2">
+  <div class="fields">
+    <div class="field"><label for="hc2-k">Expected trick-or-treaters</label><input type="number" id="hc2-k" min="0" max="500" step="1" placeholder="60"></div>
+    <div class="field"><label for="hc2-p">Pieces per kid</label><input type="number" id="hc2-p" min="1" max="6" step="1" placeholder="2"></div>
+    <div class="field"><label for="hc2-b">Pieces per bag</label><input type="number" id="hc2-b" min="10" step="5" placeholder="75"></div>
+    <div class="field"><label for="hc2-c">Price per bag</label><input type="number" id="hc2-c" min="1" step="0.5" placeholder="12"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hc2-out">–</span><span class="result-unit">bags to buy</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hc2-s1">–</b><span>total pieces</span></div>
+    <div class="stat"><b id="hc2-s2">–</b><span>total cost</span></div>
+    <div class="stat"><b id="hc2-s3">–</b><span>if only half show</span></div>
+  </div>
+  <div class="tool-note" id="hc2-note"></div>
+  <button type="button" class="tool-btn" id="hc2-share">Share this count</button>
+</div>
+<script>(function(){
+var F=['hc2-k','hc2-p','hc2-b','hc2-c'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('hc2-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var k=parseFloat(F[0].value),p=parseInt(F[1].value),b=parseFloat(F[2].value),c=parseFloat(F[3].value);
+  var ok=k>=0&&k<=500&&p>=1&&p<=6&&b>=10&&c>=1;
+  if(!ok){OUT.textContent='–';['hc2-s1','hc2-s2','hc2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('hc2-note').textContent='';document.title='Halloween Candy Calculator - ToolDune';return;}
+  var pieces=k*p+Math.ceil(k*0.25)*p;
+  var bags=Math.ceil(pieces/b);
+  OUT.textContent=bags;
+  document.getElementById('hc2-s1').textContent=pieces;
+  document.getElementById('hc2-s2').textContent=(bags*c).toFixed(0);
+  document.getElementById('hc2-s3').textContent=Math.ceil(k/2*p/b)+' bags';
+  document.getElementById('hc2-note').textContent='Two pieces per visitor is the unspoken standard - one-piece houses are remembered, and not fondly. The 25% buffer absorbs the 6:30-8:00 rush, when the whole neighbourhood arrives in a convoy and a blown stash by 7:15 is the classic Halloween failure. Weather is the real variable: rain halves the count, warm Friday nights double it - the half-show figure is your panic floor. Leftovers strategy beats willpower: chocolate freezes perfectly for December, and a bowl of non-candy options (stickers, glow sticks) covers the allergy kids whose teal pumpkins signal them - they queue longest for the houses that think of it. And buy full-size for the dozen kids you actually know; the fun-size economics are for the convoy.';
+  document.title=bags+' bags of Halloween candy - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_hallowcandy',JSON.stringify({k:F[0].value,p:F[1].value,b:F[2].value,c:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['k','p','b','c'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_hallowcandy')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('hc2-share').addEventListener('click',function(){
+  var txt='Halloween: '+OUT.textContent+' bags should cover my street. Budget yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Candy budget',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this count';},1500);}
+});
+})();
+</script>
+"""
+
+PARTYBUDGET = """<div class="tool" id="tt-pb">
+  <div class="fields">
+    <div class="field"><label for="pb-g">Expected guests (attending)</label><input type="number" id="pb-g" min="2" max="100" step="1" placeholder="12"></div>
+    <div class="field"><label for="pb-f">Food per guest</label><input type="number" id="pb-f" min="0" step="1" placeholder="15"></div>
+    <div class="field"><label for="pb-dr">Drinks per guest</label><input type="number" id="pb-dr" min="0" step="1" placeholder="10"></div>
+    <div class="field"><label for="pb-d">Decorations + extras</label><input type="number" id="pb-d" min="0" step="5" placeholder="40"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pb-out">–</span><span class="result-unit">total party budget</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pb-s1">–</b><span>per guest</span></div>
+    <div class="stat"><b id="pb-s2">–</b><span>food + drinks share</span></div>
+    <div class="stat"><b id="pb-s3">–</b><span>invite list (1.5× rule)</span></div>
+  </div>
+  <div class="tool-note" id="pb-note"></div>
+  <button type="button" class="tool-btn" id="pb-share">Share this budget</button>
+</div>
+<script>(function(){
+var F=['pb-g','pb-f','pb-dr','pb-d'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('pb-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var g=parseFloat(F[0].value),f=parseFloat(F[1].value),dr=parseFloat(F[2].value),dx=parseFloat(F[3].value);
+  var ok=g>=2&&g<=100&&f>=0&&dr>=0&&dx>=0;
+  if(!ok){OUT.textContent='–';['pb-s1','pb-s2','pb-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('pb-note').textContent='';document.title='Party Budget Calculator - ToolDune';return;}
+  var total=g*(+f+ +dr)+ +dx;
+  OUT.textContent=total.toFixed(0);
+  document.getElementById('pb-s1').textContent=(total/g).toFixed(2);
+  var fd=f+dr;
+  document.getElementById('pb-s2').textContent=total>0?Math.round(g*fd/total*100)+'%':'-';
+  document.getElementById('pb-s3').textContent=Math.ceil(g*1.5)+' invites';
+  document.getElementById('pb-note').textContent='The 1.5 rule: casual parties see about two-thirds of invitees show, so invite half again as many as your space and budget hold - a seated dinner is the exception, where every yes is a chair. Food and drink eat two-thirds of any party budget, and the cheapest quality lift is one made thing plus one signature drink rather than variety across the board. Prep doubles cooking time, so bake-ahead the day before and spend the party hour with guests, not the oven. Potlucks shift the money, not the work - you become the coordinator, and the host still owns the drinks and the main. And the quiet trick: run the fridge full, the lights low, and the playlist longer than the party - nothing stretches an evening like good light and no clock.';
+  document.title=total.toFixed(0)+' party budget - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_partybudget',JSON.stringify({g:F[0].value,f:F[1].value,dr:F[2].value,d:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['g','f','dr','d'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_partybudget')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('pb-share').addEventListener('click',function(){
+  var txt='Party for '+F[0].value+' comes to about '+OUT.textContent+'. Budget yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Party budget',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this budget';},1500);}
+});
+})();
+</script>
+"""
+
+MATCH401K = """<div class="tool" id="tt-mk">
+  <div class="fields">
+    <div class="field"><label for="mk-s">Annual salary</label><input type="number" id="mk-s" min="10000" step="500" placeholder="60000"></div>
+    <div class="field"><label for="mk-c">Your contribution (%)</label><input type="number" id="mk-c" min="0" max="50" step="0.5" placeholder="6"></div>
+    <div class="field"><label for="mk-m">Employer match rate (%)</label><input type="number" id="mk-m" min="0" max="100" step="5" placeholder="50"></div>
+    <div class="field"><label for="mk-x">Matched up to (% of salary)</label><input type="number" id="mk-x" min="0" max="20" step="0.5" placeholder="6"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="mk-out">–</span><span class="result-unit">free match per year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="mk-s1">–</b><span>per month</span></div>
+    <div class="stat"><b id="mk-s2">–</b><span>left on the table</span></div>
+    <div class="stat"><b id="mk-s3">–</b><span>20-yr value of the gap</span></div>
+  </div>
+  <div class="tool-note" id="mk-note"></div>
+  <button type="button" class="tool-btn" id="mk-share">Share this math</button>
+</div>
+<script>(function(){
+var F=['mk-s','mk-c','mk-m','mk-x'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('mk-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var s=parseFloat(F[0].value),c=parseFloat(F[1].value),m=parseFloat(F[2].value),x=parseFloat(F[3].value);
+  var ok=s>=10000&&c>=0&&c<=50&&m>=0&&m<=100&&x>=0&&x<=20;
+  if(!ok){OUT.textContent='–';['mk-s1','mk-s2','mk-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mk-note').textContent='';document.title='401k Employer Match Calculator - ToolDune';return;}
+  var matched=Math.min(c,x);
+  var annual=s*matched*m/100;
+  OUT.textContent=annual.toFixed(0);
+  document.getElementById('mk-s1').textContent=(annual/12).toFixed(0);
+  var gap=s*Math.max(0,x-c)*m/100;
+  document.getElementById('mk-s2').textContent=gap.toFixed(0)+'/yr';
+  var fv=gap*((Math.pow(1.05,20)-1)/0.05);
+  document.getElementById('mk-s3').textContent=Math.round(fv/100)/10+'k (5% real, 20y)';
+  document.getElementById('mk-note').textContent='The match is the only place finance offers an instant 50-100% return with zero risk - no fund, property or side hustle compounds from trade one like an employer doubling your first coins. The arithmetic above is the standard pattern (match half of your first 6%), but plans vary: some match dollar-for-dollar, some cap by dollars not percent - the HR page numbers go in exactly as written. Below the match ceiling, contributing less is declining a raise; above it, extra contributions go to tax-advantaged but unmatched space - still good, a different good. Check the vesting schedule (some plans hand the match over only after 2-3 years), and remember the gap figure compounds: leaving 1,800 a year on the table for a career is not 1,800, it is the six-figure row below.';
+  document.title=annual.toFixed(0)+' a year in free match - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_match401k',JSON.stringify({s:F[0].value,c:F[1].value,m:F[2].value,x:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['s','c','m','x'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_match401k')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('mk-share').addEventListener('click',function(){
+  var txt='My employer match: '+OUT.textContent+' a year, free. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'401k match',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -10272,6 +10421,9 @@ TOOLS = {
     "hiketime": lambda args: HIKETIME,
     "examplan": lambda args: EXAMPLAN,
     "flashcard": lambda args: FLASHCARD,
+    "candy": lambda args: CANDY,
+    "partybudget": lambda args: PARTYBUDGET,
+    "match401k": lambda args: MATCH401K,
 }
 
 
