@@ -10669,6 +10669,152 @@ document.getElementById('sp-share').addEventListener('click',function(){
 </script>
 """
 
+FOODWASTE = """<div class="tool" id="tt-fw">
+  <div class="fields">
+    <div class="field"><label for="fw-k">Food binned per week (kg)</label><input type="number" id="fw-k" min="0.1" step="0.1" placeholder="2"></div>
+    <div class="field"><label for="fw-p">Average price (per kg)</label><input type="number" id="fw-p" min="0.5" step="0.5" placeholder="4"></div>
+    <div class="field"><label for="fw-h">Household size</label><input type="number" id="fw-h" min="1" max="10" step="1" placeholder="3"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fw-out">–</span><span class="result-unit">wasted per year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fw-s1">–</b><span>per month</span></div>
+    <div class="stat"><b id="fw-s2">–</b><span>per person</span></div>
+    <div class="stat"><b id="fw-s3">–</b><span>the shopping-list fix</span></div>
+  </div>
+  <div class="tool-note" id="fw-note"></div>
+  <button type="button" class="tool-btn" id="fw-share">Share this number</button>
+</div>
+<script>(function(){
+var F=['fw-k','fw-p','fw-h'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('fw-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var k=parseFloat(F[0].value),p=parseFloat(F[1].value),h=parseInt(F[2].value);
+  var ok=k>=0.1&&p>=0.5&&h>=1&&h<=10;
+  if(!ok){OUT.textContent='–';['fw-s1','fw-s2','fw-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('fw-note').textContent='';document.title='Food Waste Calculator - ToolDune';return;}
+  var kg=k*52;
+  OUT.textContent=kg.toFixed(0)+' kg';
+  document.getElementById('fw-s1').textContent=(kg*p/12).toFixed(0);
+  document.getElementById('fw-s2').textContent=(kg*p/h).toFixed(0);
+  document.getElementById('fw-s3').textContent='~'+Math.round(kg*p*0.4)+' of it';
+  document.getElementById('fw-note').textContent='The average household bins a fifth to a third of the food it buys, and almost nobody believes they are average - which is why the bin, not the receipt, is the honest auditor. Weigh one honest week: leftovers, wilted salad, the bread that grew a fur coat, the leftovers container that became a science project. Most of the loss is fresh produce and bread, and most of it is fixable by three habits that cost nothing: shop with a list and never hungry, learn the fridge map (salad drawer humid, milk back-shelf cold, tomatoes never refrigerated), and cook the soft things first - the vegetable drawer is a queue, not a museum. The freezer is the reset button for everything except lettuce. Forty percent of the figure is the slice a written list typically removes; the rest is the recipes that cook the tired vegetables on purpose.';
+  document.title=kg.toFixed(0)+' kg of food a year - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_foodwaste',JSON.stringify({k:F[0].value,p:F[1].value,h:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['k','p','h'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_foodwaste')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('fw-share').addEventListener('click',function(){
+  var txt='My household bins '+OUT.textContent+' of food a year. Weigh yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Food waste',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this number';},1500);}
+});
+})();
+</script>
+"""
+
+XMASTREE = """<div class="tool" id="tt-xt">
+  <div class="fields">
+    <div class="field"><label for="xt-r">Real tree price per year</label><input type="number" id="xt-r" min="10" step="5" placeholder="45"></div>
+    <div class="field"><label for="xt-a">Artificial tree price</label><input type="number" id="xt-a" min="20" step="5" placeholder="90"></div>
+    <div class="field"><label for="xt-y">Already owned it for (years)</label><input type="number" id="xt-y" min="0" max="30" step="1" placeholder="0"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="xt-out">–</span><span class="result-unit">years to break even</span></div>
+  <div class="stats">
+    <div class="stat"><b id="xt-s1">–</b><span>artificial cost per use</span></div>
+    <div class="stat"><b id="xt-s2">–</b><span>carbon verdict</span></div>
+    <div class="stat"><b id="xt-s3">–</b><span>verdict at year 10</span></div>
+  </div>
+  <div class="tool-note" id="xt-note"></div>
+  <button type="button" class="tool-btn" id="xt-share">Share this math</button>
+</div>
+<script>(function(){
+var F=['xt-r','xt-a','xt-y'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('xt-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var r=parseFloat(F[0].value),a=parseFloat(F[1].value),y=parseInt(F[2].value);
+  var ok=r>=10&&a>=20&&y>=0&&y<=30;
+  if(!ok){OUT.textContent='–';['xt-s1','xt-s2','xt-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('xt-note').textContent='';document.title='Real vs Artificial Christmas Tree Calculator - ToolDune';return;}
+  var be=Math.ceil(a/r);
+  OUT.textContent=be;
+  document.getElementById('xt-s1').textContent=(a/Math.max(y+be,1)).toFixed(2);
+  document.getElementById('xt-s2').textContent=(y+be)>=10?'artificial wins (10+ uses)':'keep the real one';
+  document.getElementById('xt-s3').textContent=(10*r>a?'artificial by '+(10*r-a):'real by '+(a-10*r));
+  document.getElementById('xt-note').textContent='The money maths is a simple division: artificial price divided by real-tree annual cost is the break-even Christmas - but the verdict the whole argument actually wants is carbon, and there the rule is brutally physical: an artificial tree carries roughly 40 kg of CO2 from its manufacture and shipping, a real tree around 3 kg plus disposal, so the plastic one only wins after its tenth Christmas in your living room. Buying a cheap artificial tree that lasts six years loses both arguments; buying one you keep for fifteen wins both. The real-tree refinements: a locally grown tree is a crop, replanted annually - not deforestation - and a potted tree you keep alive is the greenest option of all, if your thumb cooperates. The worst option is the artificial tree that breaks in year three, which is what the price of the cheap one is secretly pricing in.';
+  document.title=be+' years for the artificial tree to break even - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_xmastree',JSON.stringify({r:F[0].value,a:F[1].value,y:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['r','a','y'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_xmastree')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('xt-share').addEventListener('click',function(){
+  var txt='Artificial tree breaks even in '+OUT.textContent+' Christmases. Run your numbers (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Tree math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this math';},1500);}
+});
+})();
+</script>
+"""
+
+CARRYON = """<div class="tool" id="tt-co2">
+  <div class="fields">
+    <div class="field"><label for="co2-l">Length (cm)</label><input type="number" id="co2-l" min="20" max="80" step="1" placeholder="55"></div>
+    <div class="field"><label for="co2-w">Width (cm)</label><input type="number" id="co2-w" min="10" max="60" step="1" placeholder="40"></div>
+    <div class="field"><label for="co2-h">Depth (cm)</label><input type="number" id="co2-h" min="10" max="50" step="1" placeholder="23"></div>
+    <div class="field"><label for="co2-r">Airline rule</label><select id="co2-r"><option value="55x40x23" selected>US major / 55-40-23</option><option value="55x35x25">EU typical / 55-35-25</option><option value="56x36x23">IATA guide / 56-36-23</option><option value="56x45x25">Larger allowance / 56-45-25</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="co2-out">–</span><span class="result-unit">cabin verdict</span></div>
+  <div class="stats">
+    <div class="stat"><b id="co2-s1">–</b><span>tightest dimension</span></div>
+    <div class="stat"><b id="co2-s2">–</b><span>volume</span></div>
+    <div class="stat"><b id="co2-s3">–</b><span>gate-check risk</span></div>
+  </div>
+  <div class="tool-note" id="co2-note"></div>
+  <button type="button" class="tool-btn" id="co2-share">Share this check</button>
+</div>
+<script>(function(){
+var F=['co2-l','co2-w','co2-h','co2-r'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('co2-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var l=parseFloat(F[0].value),w=parseFloat(F[1].value),h=parseFloat(F[2].value);
+  var rule=F[3].value.split('x').map(function(x){return parseFloat(x);});
+  var ok=l>=20&&l<=80&&w>=10&&w<=60&&h>=10&&h<=50;
+  if(!ok){OUT.textContent='–';['co2-s1','co2-s2','co2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('co2-note').textContent='';document.title='Carry-On Size Calculator - ToolDune';return;}
+  var dims=[l,w,h].sort(function(a,b){return b-a;});
+  var fits=true,margins=[];
+  for(var i=0;i<3;i++){var m=rule[i]-dims[i];margins.push(m);if(m<0)fits=false;}
+  OUT.textContent=fits?'FITS':'TOO BIG';
+  var tight=Math.min.apply(null,margins);
+  document.getElementById('co2-s1').textContent=tight+' cm spare';
+  document.getElementById('co2-s2').textContent=Math.round(l*w*h/1000)+' L';
+  document.getElementById('co2-s3').textContent=tight<=1?'high - measure the wheels':'low';
+  document.getElementById('co2-note').textContent='Measure the bag, not the advert: the label inside says one thing, the wheels and handles add the centimetres that gate agents notice - every dimension includes them. Rules differ by carrier and even by aircraft, and budget airlines enforce with sizers at the gate while legacy carriers enforce with a shrug; check the specific airline page before flying, this tool checks the shape against the four common frames. The sizer has no mercy for one soft centimetre, but canvas that compresses wins where hardshell loses - a crammed soft bag passes a 1 cm margin a full hard case fails. The gate-check risk row is the practical one: a marginal bag boards early or checks for free; a three-centimetre monster pays the fee and teaches the lesson twice.';
+  document.title=(fits?'FITS cabin rules':'TOO BIG for cabin')+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_carryon',JSON.stringify({l:F[0].value,w:F[1].value,h:F[2].value,r:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['l','w','h','r'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_carryon')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('co2-share').addEventListener('click',function(){
+  var txt='My bag: '+OUT.textContent+' for cabin rules. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Carry-on check',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this check';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -10869,6 +11015,9 @@ TOOLS = {
     "driptap": lambda args: DRIP,
     "showerbath": lambda args: SHOWERBATH,
     "standby": lambda args: STANDBY,
+    "foodwaste": lambda args: FOODWASTE,
+    "xmastree": lambda args: XMASTREE,
+    "carryon": lambda args: CARRYON,
 }
 
 
