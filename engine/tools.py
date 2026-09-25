@@ -10959,6 +10959,150 @@ document.getElementById('wt-share').addEventListener('click',function(){
 </script>
 """
 
+PLANTWATER = """<div class="tool" id="tt-pw">
+  <div class="fields">
+    <div class="field"><label for="pw-d">Pot diameter (cm)</label><input type="number" id="pw-d" min="5" max="60" step="1" placeholder="15"></div>
+    <div class="field"><label for="pw-t">Plant type</label><select id="pw-t"><option value="3">Succulent / cactus</option><option value="1" selected>Tropical foliage</option><option value="0.6">Fern / moisture-lover</option></select></div>
+    <div class="field"><label for="pw-s">Season</label><select id="pw-s"><option value="0.5" selected>Winter (resting)</option><option value="1">Spring / summer (growing)</option></select></div>
+    <div class="field"><label for="pw-l">Light level</label><select id="pw-l"><option value="1.2">Low light</option><option value="1" selected>Bright indirect</option><option value="0.8">Direct sun</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pw-out">–</span><span class="result-unit">days between waterings</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pw-s1">–</b><span>litres per watering</span></div>
+    <div class="stat"><b id="pw-s2">–</b><span>the finger test</span></div>
+    <div class="stat"><b id="pw-s3">–</b><span>overwatering signs</span></div>
+  </div>
+  <div class="tool-note" id="pw-note"></div>
+  <button type="button" class="tool-btn" id="pw-share">Share this interval</button>
+</div>
+<script>(function(){
+var F=['pw-d','pw-t','pw-s','pw-l'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('pw-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=parseFloat(F[0].value),t=parseFloat(F[1].value),s=parseFloat(F[2].value),l=parseFloat(F[3].value);
+  var ok=d>=5&&d<=60;
+  if(!ok){OUT.textContent='–';['pw-s1','pw-s2','pw-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('pw-note').textContent='';document.title='Plant Watering Calculator - ToolDune';return;}
+  var base=14*Math.pow(d/15,1.3);
+  var days=Math.max(2,Math.round(base*t*s*l));
+  OUT.textContent=days;
+  var litres=d*d*d*0.0004;
+  document.getElementById('pw-s1').textContent=(litres*1000).toFixed(0)+' ml';
+  document.getElementById('pw-s2').textContent='top 2 cm dry';
+  document.getElementById('pw-s3').textContent='yellow + wet soil';
+  document.getElementById('pw-note').textContent='The honest method behind the arithmetic: pot volume sets how much water the soil holds, plant type sets how fast it drinks, season sets whether it is drinking at all - and the interval is only ever the plan, because the finger test is the law. Two centimetres down, dry means water, damp means wait; no schedule outranks a fingertip. The litres figure is the drain-through target: water until it runs from the bottom, then empty the saucer - roots sitting in a saucer lake are the number-one houseplant killer, ahead of every pest on the shelf. Winter halts most growth, which is why the resting interval stretches and why feeding stops too; overwatering in dim rooms is how the prettiest windowsill plants die. Yellow leaves with wet soil say too much love; crispy edges with dry soil say too little.';
+  document.title=days+' days between waterings - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_plantwater',JSON.stringify({d:F[0].value,t:F[1].value,s:F[2].value,l:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['d','t','s','l'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_plantwater')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('pw-share').addEventListener('click',function(){
+  var txt='My plant drinks every '+OUT.textContent+' days. Schedule yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Watering interval',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this interval';},1500);}
+});
+})();
+</script>
+"""
+
+REPOT = """<div class="tool" id="tt-rp">
+  <div class="fields">
+    <div class="field"><label for="rp-d">Current pot diameter (cm)</label><input type="number" id="rp-d" min="5" max="60" step="1" placeholder="15"></div>
+    <div class="field"><label for="rp-h">Pot height (cm)</label><input type="number" id="rp-h" min="5" max="60" step="1" placeholder="14"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rp-out">–</span><span class="result-unit">cm next pot diameter</span></div>
+  <div class="stats">
+    <div class="stat"><b id="rp-s1">–</b><span>soil needed (litres)</span></div>
+    <div class="stat"><b id="rp-s2">–</b><span>root-bound checklist</span></div>
+    <div class="stat"><b id="rp-s3">–</b><span>best season</span></div>
+  </div>
+  <div class="tool-note" id="rp-note"></div>
+  <button type="button" class="tool-btn" id="rp-share">Share this size</button>
+</div>
+<script>(function(){
+var F=['rp-d','rp-h'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('rp-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var d=parseFloat(F[0].value),h=parseFloat(F[1].value);
+  var ok=d>=5&&d<=60&&h>=5&&h<=60;
+  if(!ok){OUT.textContent='–';['rp-s1','rp-s2','rp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('rp-note').textContent='';document.title='Repot Size Calculator - ToolDune';return;}
+  var nd=Math.round((d+2.5)*2)/2;
+  OUT.textContent=nd;
+  var soil=Math.PI*Math.pow((nd/2)/10,2)*(h/10);
+  document.getElementById('rp-s1').textContent=soil.toFixed(1)+' L';
+  document.getElementById('rp-s2').textContent='roots at drainage hole';
+  document.getElementById('rp-s3').textContent='spring, just before growth';
+  document.getElementById('rp-note').textContent='The +2 to 3 cm rule: a pot two or three centimetres wider gives the roots fresh soil to explore without drowning them in wet emptiness - a pot too big holds more water than the roots can drink, and soggy void is how overwatering happens to careful people. The soil figure is the new cylinder minus rough root ball, so buy one bag larger than the maths if in doubt; leftover potting soil keeps a season in a sealed bag. Repot in spring just as growth resumes - the roots knit into fresh soil at their fastest - and water lightly after, not generously, because wounded roots drink little for a fortnight. The genuinely root-bound signals: roots circling the surface, escaping the drainage hole, or water racing straight through. And refresh the top 5 cm of soil yearly even when no repot is due - it resets nutrition without moving the plant at all.';
+  document.title='Repot into '+nd+' cm - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_repot',JSON.stringify({d:F[0].value,h:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['d','h'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_repot')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('rp-share').addEventListener('click',function(){
+  var txt='Next pot: '+OUT.textContent+' cm, about '+document.getElementById('rp-s1').textContent+' of soil. Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Repot size',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this size';},1500);}
+});
+})();
+</script>
+"""
+
+FERTDILUTE = """<div class="tool" id="tt-fd3">
+  <div class="fields">
+    <div class="field"><label for="fd3-r">Label dose (ml per litre)</label><input type="number" id="fd3-r" min="0.1" step="0.1" placeholder="5"></div>
+    <div class="field"><label for="fd3-c">Watering can size (litres)</label><input type="number" id="fd3-c" min="0.5" max="20" step="0.5" placeholder="5"></div>
+    <div class="field"><label for="fd3-s">Season strength</label><select id="fd3-s"><option value="0.5" selected>Winter / resting (half)</option><option value="1">Growing season (full)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fd3-out">–</span><span class="result-unit">ml of feed per can</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fd3-s1">–</b><span>per plant (1 L each)</span></div>
+    <div class="stat"><b id="fd3-s2">–</b><span>feeding interval</span></div>
+    <div class="stat"><b id="fd3-s3">–</b><span>half-strength rule</span></div>
+  </div>
+  <div class="tool-note" id="fd3-note"></div>
+  <button type="button" class="tool-btn" id="fd3-share">Share this dose</button>
+</div>
+<script>(function(){
+var F=['fd3-r','fd3-c','fd3-s'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('fd3-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var r=parseFloat(F[0].value),c=parseFloat(F[1].value),s=parseFloat(F[2].value);
+  var ok=r>=0.1&&c>=0.5&&c<=20;
+  if(!ok){OUT.textContent='–';['fd3-s1','fd3-s2','fd3-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('fd3-note').textContent='';document.title='Fertilizer Dilution Calculator - ToolDune';return;}
+  var ml=r*c*s;
+  OUT.textContent=ml.toFixed(1);
+  document.getElementById('fd3-s1').textContent=(r*s).toFixed(1)+' ml';
+  document.getElementById('fd3-s2').textContent=s<1?'skip until spring':'every 2-4 waterings';
+  document.getElementById('fd3-s3').textContent='when unsure, weaker';
+  document.getElementById('fd3-note').textContent='Labels print greenhouse doses: full sun, perfect humidity, maximum growth - a windowsill in winter runs at half that metabolism, which is why the season selector halves the dose by default. The overfeeding injury looks like underfeeding at first glance (brown tips, yellowing edges), but the soil proves it: crusty white mineral rings and a fertiliser smell mean salt burn, and the fix is a thorough flush with plain water. Feed only into damp soil - dry roots sip fertiliser like a sponge sip fire. And the calendar is the honest bracket: feed during the growing months, stop when growth stops, resume weakly in spring; a resting plant cannot spend the nutrients, and unused feed simply becomes the salt crust that burns it later.';
+  document.title=ml.toFixed(1)+' ml of feed per can - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_fertdilute',JSON.stringify({r:F[0].value,c:F[1].value,s:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['r','c','s'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_fertdilute')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('fd3-share').addEventListener('click',function(){
+  var txt='Right plant feed dose: '+OUT.textContent+' ml per '+F[1].value+' L can. Dose yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Feed dose',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this dose';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -11165,6 +11309,9 @@ TOOLS = {
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
+    "plantwater": lambda args: PLANTWATER,
+    "repot": lambda args: REPOT,
+    "fertdilute": lambda args: FERTDILUTE,
 }
 
 
