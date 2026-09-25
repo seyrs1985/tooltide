@@ -17,6 +17,7 @@
 - BUG-013续12|fuel-cost-calculator(tt-fc)|de抽查|真页FUELCOST模板9处未接线(Trip distance/Consumption/Fuel price标签+2个单位select选项+fuel needed/per person 4 riders/round trip stat+动态one-way fuel cost);另发现此前R20排查目标fu-out属于另一模板tt-fuel(当前无页面消费,FUEL渲染器孤儿, fu.*9键备而不用)|curl实证+rg映射溯源|已修R22+线上复验(fc.*9键×9语言;部署前grep自检再次逮住脚本错位(option/span组含右括号,5处),同款修复正则已固化;教训强化=接线脚本分组一律不含闭括号;curl实证fc接线7处+garbage=0)
 - BUG-013续13|url-encoder-decoder|ja|ue-pct动态stat标签(percent sequences)未接线(嵌套span假阳性掩盖)|IAB DOM探针|已修R26+线上复验(ue.pct×9语言;复验ja:%シーケンス等全日文,unwired空;同轮巡逻heart-rate×ko与RW×es全净)
 - BUG-013续14|lorem-ipsum-generator|ru|3处未接线(words generated stat/Copy to clipboard按钮/Regenerate按钮+2处JS恢复)|IAB DOM探针|已修R29+线上复验(lorem.wordsgen/copybtn/regen×3键×9语言+2处JS恢复TT();curl实证data-i18n在服务HTML;同轮巡逻jwt×pt与heart-rate×ja全净)
+- BUG-013复核队列|R26待复核|base64×fr(Mode/output英文残留)+case×pt(Result Copiar混排)——嵌套span外层包装会使简易探针假阳性,下轮fresh reload稳定态复核后再修;另flesch-reading-ease同款未接线模式待查|IAB DOM探针|待复核(R30)
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
 ## 已修
@@ -51,3 +52,4 @@
 - 2026-09-24 R28(10:01档):heart-rate×pt/word-counter×fr/seconds×ko巡逻三页全净(garbage=false)。零新BUG。
 - 2026-09-26 R28/R29核验+R30:站点已迁自定义域名 tooldune.com(根路径,i18n.js等全资源走新域名;GH Pages旧URL并存);ru态tooldune端到端验证通过(bmi页Единицы/Высота/Вес/категория ВОЗ全俄,unwired=0;首页title/占位符俄语零裸键)——全部i18n成果在新域名完整生效。
 - 2026-09-26 R32(03:11档,等待旧实例窗口后执行):tdee×de/word-counter×id/christmas×ko巡逻三页全净(garbage=false)。零新BUG(连续2轮零BUG,稳定巡逻确认)。
+- 2026-09-27 R33(04:01档,新标签页恢复):case×pt/b64×fr/winter×ko三页探针——winter全净;case×pt与b64×fr各见少量英文残留疑似项(已记待复核队列,含嵌套span假阳性说明)。零修复(避免对疑似瞬态盲修)。
