@@ -23,7 +23,7 @@ fi
 # Resolution: $GITHUB_OWNER env > tooltide.owner config > git user.name
 OWNER="$(git config --get tooltide.owner || git config --global user.name | tr -d '[:space:]')"
 REPO="tooltide"
-URL="https://${OWNER}.github.io/${REPO}/"
+URL="https://nuts.fan/"   # custom domain since 2026-09-25 (was ${OWNER}.github.io/${REPO})
 API="https://api.github.com"
 
 echo "== 1/6 build =="
