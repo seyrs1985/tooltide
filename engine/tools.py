@@ -10233,6 +10233,151 @@ document.getElementById('mk-share').addEventListener('click',function(){
 </script>
 """
 
+RENTSPLIT = """<div class="tool" id="tt-rs">
+  <div class="fields">
+    <div class="field"><label for="rs-r">Total monthly rent</label><input type="number" id="rs-r" min="100" step="10" placeholder="1200"></div>
+    <div class="field"><label for="rs-a">Room A area (m²)</label><input type="number" id="rs-a" min="5" max="60" step="0.5" placeholder="20"></div>
+    <div class="field"><label for="rs-b">Room B area (m²)</label><input type="number" id="rs-b" min="5" max="60" step="0.5" placeholder="14"></div>
+    <div class="field"><label for="rs-c">Shared space (m²)</label><input type="number" id="rs-c" min="5" max="100" step="0.5" placeholder="25"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rs-out">–</span><span class="result-unit">Room A pays</span></div>
+  <div class="stats">
+    <div class="stat"><b id="rs-s1">–</b><span>Room B pays</span></div>
+    <div class="stat"><b id="rs-s2">–</b><span>difference per month</span></div>
+    <div class="stat"><b id="rs-s3">–</b><span>rate per m²</span></div>
+  </div>
+  <div class="tool-note" id="rs-note"></div>
+  <button type="button" class="tool-btn" id="rs-share">Share this split</button>
+</div>
+<script>(function(){
+var F=['rs-r','rs-a','rs-b','rs-c'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('rs-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var r=parseFloat(F[0].value),a=parseFloat(F[1].value),b=parseFloat(F[2].value),c=parseFloat(F[3].value);
+  var ok=r>=100&&a>=5&&b>=5&&c>=5;
+  if(!ok){OUT.textContent='–';['rs-s1','rs-s2','rs-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('rs-note').textContent='';document.title='Rent Split Calculator - ToolDune';return;}
+  var total=a+b+c,rate=r/total;
+  var shared=r*c/total/2;
+  var payA=shared+a*rate,payB=shared+b*rate;
+  OUT.textContent=payA.toFixed(0);
+  document.getElementById('rs-s1').textContent=payB.toFixed(0);
+  document.getElementById('rs-s2').textContent=(payA-payB).toFixed(0);
+  document.getElementById('rs-s3').textContent=rate.toFixed(2);
+  document.getElementById('rs-note').textContent='The method: shared space is priced per square metre and split equally, private rooms pay their own metres - which is why the bigger room costs more and why the argument ends in arithmetic instead of feelings. Two honest adjustments before signing: a room with an en-suite, double aspect or built-in wardrobe runs a 5-10% premium the raw maths does not see, and the couple-in-one-room question is answered by charging the pair one room price plus a shared-space half-share, not by pretending two people occupy one metre. Bills split equally by default (nobody heats half a flat), streaming by user, and every split gets renegotiated at renewal - the number above is a treaty, not a constitution. Put it in writing the week you move in; the friends who skip that step are the ones who stop speaking by spring.';
+  document.title=payA.toFixed(0)+' / '+payB.toFixed(0)+' rent split - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_rentspl',JSON.stringify({r:F[0].value,a:F[1].value,b:F[2].value,c:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['r','a','b','c'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_rentspl')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('rs-share').addEventListener('click',function(){
+  var txt='Fair rent split: '+document.getElementById('rs-s1').textContent+' vs '+OUT.textContent+' by room size. Run yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Rent split',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this split';},1500);}
+});
+})();
+</script>
+"""
+
+GIFTBUDGET = """<div class="tool" id="tt-gb">
+  <div class="fields">
+    <div class="field"><label for="gb-p">Partner</label><input type="number" id="gb-p" min="0" step="10" placeholder="150"></div>
+    <div class="field"><label for="gb-k">Children (total)</label><input type="number" id="gb-k" min="0" step="10" placeholder="300"></div>
+    <div class="field"><label for="gb-f">Family (total)</label><input type="number" id="gb-f" min="0" step="10" placeholder="200"></div>
+    <div class="field"><label for="gb-fr">Friends</label><input type="number" id="gb-fr" min="0" step="10" placeholder="100"></div>
+    <div class="field"><label for="gb-c">Colleagues + extras</label><input type="number" id="gb-c" min="0" step="10" placeholder="50"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gb-out">–</span><span class="result-unit">total gift budget</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gb-s1">–</b><span>biggest line</span></div>
+    <div class="stat"><b id="gb-s2">–</b><span>save per month (3 months)</span></div>
+    <div class="stat"><b id="gb-s3">–</b><span>wrap + cards</span></div>
+  </div>
+  <div class="tool-note" id="gb-note"></div>
+  <button type="button" class="tool-btn" id="gb-share">Share this budget</button>
+</div>
+<script>(function(){
+var F=['gb-p','gb-k','gb-f','gb-fr','gb-c'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('gb-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var v=F.map(function(el){return parseFloat(el.value)||0;});
+  var total=v.reduce(function(a,b){return a+b;},0);
+  if(total<=0){OUT.textContent='–';['gb-s1','gb-s2','gb-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('gb-note').textContent='';document.title='Gift Budget Calculator - ToolDune';return;}
+  OUT.textContent=total.toFixed(0);
+  var big=v.indexOf(Math.max.apply(null,v)),names=['partner','children','family','friends','colleagues'];
+  document.getElementById('gb-s1').textContent=names[big]+' ('+v[big].toFixed(0)+')';
+  document.getElementById('gb-s2').textContent=(total/3).toFixed(0);
+  document.getElementById('gb-s3').textContent=(total*0.08).toFixed(0);
+  document.getElementById('gb-note').textContent='A sane annual gift budget runs about 1% of take-home pay - the figure people overshoot in December and discover on the January statement. The save-per-month row is the whole strategy: funding the total across October and November converts the festive season from credit-card improv into a line item, and post-holiday sales then stock next year instead of paying this one off. Children count gifts, not prices - separate wrapping multiplies Christmas morning more than price tags - and the wrap row is real money: cards, paper and tape quietly take 8% of any budget. Experiences beat objects for anyone over ten, gift cards beat guesses for anyone who says they want nothing, and the colleague line is a round-number tradition, not a debt - nobody audits it.';
+  document.title=total.toFixed(0)+' gift budget - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_giftbudget',JSON.stringify({p:F[0].value,k:F[1].value,f:F[2].value,fr:F[3].value,c:F[4].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['p','k','f','fr','c'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_giftbudget')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('gb-share').addEventListener('click',function(){
+  var txt='My holiday gift budget: '+OUT.textContent+' total. Plan yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Gift budget',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this budget';},1500);}
+});
+})();
+</script>
+"""
+
+CHARCOAL = """<div class="tool" id="tt-ch">
+  <div class="fields">
+    <div class="field"><label for="ch-g">Guests</label><input type="number" id="ch-g" min="1" max="30" step="1" placeholder="6"></div>
+    <div class="field"><label for="ch-h">Hours at the grill</label><input type="number" id="ch-h" min="0.5" max="8" step="0.5" placeholder="3"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ch-out">–</span><span class="result-unit">briquettes needed</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ch-s1">–</b><span>chimney starters</span></div>
+    <div class="stat"><b id="ch-s2">–</b><span>kg of charcoal</span></div>
+    <div class="stat"><b id="ch-s3">–</b><span>two-zone layout</span></div>
+  </div>
+  <div class="tool-note" id="ch-note"></div>
+  <button type="button" class="tool-btn" id="ch-share">Share this count</button>
+</div>
+<script>(function(){
+var G=document.getElementById('ch-g'),H=document.getElementById('ch-h');
+var OUT=document.getElementById('ch-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var g=parseInt(G.value),h=parseFloat(H.value);
+  var ok=g>=1&&g<=30&&h>=0.5&&h<=8;
+  if(!ok){OUT.textContent='–';['ch-s1','ch-s2','ch-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ch-note').textContent='';document.title='BBQ Charcoal Calculator - ToolDune';return;}
+  var br=25+g*h*8;
+  OUT.textContent=Math.ceil(br/5)*5;
+  document.getElementById('ch-s1').textContent=Math.ceil(br/100)+' chimney';
+  document.getElementById('ch-s2').textContent=(br*0.0095).toFixed(1)+' kg';
+  document.getElementById('ch-s3').textContent='2/3 hot + 1/3 safe';
+  document.getElementById('ch-note').textContent='The arithmetic: about 25 briquettes to establish the fire plus 8 per guest per hour of cooking - running out of coals mid-chicken is the barbecue equivalent of a power cut. Pile two-thirds of the coals on one side (the hot zone for searing) and the rest on the other (the safe zone that finishes without burning); every serious grill cook lives in that two-zone layout, moving food from one side to the other instead of fighting flames. Light it in a chimney starter - lighter fluid is why your burgers taste like a petrol station. Temperature by hand: hold your palm at grate height - 2 seconds is searing hot, 4 is medium-high, 6 is gentle. Lid down, vents open, and never water a flare-up: just move the food to the safe zone and let the fire be embarrassed.';
+  document.title=Math.ceil(br/5)*5+' briquettes for the BBQ - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_charcoal',JSON.stringify({g:G.value,h:H.value}));}catch(e){}}
+[G,H].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['g',G],['h',H]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_charcoal')||'null');if(mem){G.value=mem.g||'';H.value=mem.h||'';}}catch(e){}}
+calc();
+document.getElementById('ch-share').addEventListener('click',function(){
+  var txt='BBQ for '+G.value+': about '+OUT.textContent+' briquettes. Count yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?g='+G.value+'&h='+H.value;
+  if(navigator.share){navigator.share({title:'Charcoal count',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this count';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -10424,6 +10569,9 @@ TOOLS = {
     "candy": lambda args: CANDY,
     "partybudget": lambda args: PARTYBUDGET,
     "match401k": lambda args: MATCH401K,
+    "rentsplit": lambda args: RENTSPLIT,
+    "giftbudget": lambda args: GIFTBUDGET,
+    "charcoal": lambda args: CHARCOAL,
 }
 
 
