@@ -11401,6 +11401,151 @@ document.getElementById('skl-share').addEventListener('click',function(){
 </script>
 """
 
+HOMEWORK = """<div class="tool" id="tt-hw">
+  <div class="fields">
+    <div class="field"><label for="hw-g">School grade (1-12)</label><input type="number" id="hw-g" min="1" max="12" step="1" placeholder="4"></div>
+    <div class="field"><label for="hw-a">Activity days per week</label><input type="number" id="hw-a" min="0" max="7" step="1" placeholder="2"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hw-out">–</span><span class="result-unit">min homework per night</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hw-s1">–</b><span>25-min focus blocks</span></div>
+    <div class="stat"><b id="hw-s2">–</b><span>on activity days</span></div>
+    <div class="stat"><b id="hw-s3">–</b><span>the struggle signal</span></div>
+  </div>
+  <div class="tool-note" id="hw-note"></div>
+  <button type="button" class="tool-btn" id="hw-share">Share this guideline</button>
+</div>
+<script>(function(){
+var F=['hw-g','hw-a'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('hw-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var g=parseInt(F[0].value),a=parseInt(F[1].value);
+  var ok=g>=1&&g<=12&&a>=0&&a<=7;
+  if(!ok){OUT.textContent='–';['hw-s1','hw-s2','hw-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('hw-note').textContent='';document.title='Homework Time Calculator - ToolDune';return;}
+  var min=g<9?g*10:90+ (g-9)*10;
+  min=Math.min(min,120);
+  OUT.textContent=min;
+  document.getElementById('hw-s1').textContent=Math.ceil(min/25)+' blocks';
+  var ad=g<9?g*10*4/7:Math.round(min*4/7);
+  document.getElementById('hw-s2').textContent=Math.min(Math.round(min*0.6),min)+' min (squeezed)';
+  document.getElementById('hw-s3').textContent='>2\u00d7 guideline = talk to teacher';
+  document.getElementById('hw-note').textContent='The ten-minutes-per-grade rule is the education establishment\u2019s own guideline - ten minutes in first grade, an hour in sixth, and a 90-120 minute ceiling across high school - and its most useful feature is what it declares abnormal: a third-grader at ninety nightly minutes is not diligent, the assignment or the support has failed. The block structure matters more than the total: twenty-five minute stretches with real breaks beat one grinding session, because attention is a muscle with a duty cycle, not a reservoir. The teacher conversation is not an accusation - \u201cit consistently takes two hours for twenty minutes of work\u201d is diagnostic information they need, whether the cause is volume, difficulty, or an undiagnosed attention profile. And the phone sleeps in another room during blocks: homework at 40% efficiency is secretly a five-hour evening.';
+  document.title=min+' min of homework a night - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_homework',JSON.stringify({g:F[0].value,a:F[1].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+[['g',F[0]],['a',F[1]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_homework')||'null');if(mem){F[0].value=mem.g||'';F[1].value=mem.a||'';}}catch(e){}}
+calc();
+document.getElementById('hw-share').addEventListener('click',function(){
+  var txt='Grade '+F[0].value+' guideline: about '+OUT.textContent+' minutes of homework a night. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?g='+F[0].value+'&a='+F[1].value;
+  if(navigator.share){navigator.share({title:'Homework guideline',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this guideline';},1500);}
+});
+})();
+</script>
+"""
+
+MATTRESS = """<div class="tool" id="tt-ml3">
+  <div class="fields">
+    <div class="field"><label for="ml3-t">Mattress type</label><select id="ml3-t"><option value="8" selected>Innerspring / hybrid</option><option value="8">Memory foam</option><option value="12">Latex</option><option value="8">Air / budget foam</option></select></div>
+    <div class="field"><label for="ml3-y">Years owned</label><input type="number" id="ml3-y" min="0" max="30" step="1" placeholder="6"></div>
+    <div class="field"><label for="ml3-q">Sleep quality lately</label><select id="ml3-q"><option value="0">Sleeping well</option><option value="5" selected>Waking occasionally sore</option><option value="12">Regularly stiff or tired</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ml3-out">–</span><span class="result-unit">verdict on this mattress</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ml3-s1">–</b><span>age vs expected life</span></div>
+    <div class="stat"><b id="ml3-s2">–</b><span>years remaining</span></div>
+    <div class="stat"><b id="ml3-s3">–</b><span>rotation schedule</span></div>
+  </div>
+  <div class="tool-note" id="ml3-note"></div>
+  <button type="button" class="tool-btn" id="ml3-share">Share this verdict</button>
+</div>
+<script>(function(){
+var F=['ml3-t','ml3-y','ml3-q'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('ml3-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var life=parseFloat(F[0].value),y=parseFloat(F[1].value),q=parseFloat(F[2].value);
+  var ok=y>=0&&y<=30;
+  if(!ok){OUT.textContent='–';['ml3-s1','ml3-s2','ml3-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ml3-note').textContent='';document.title='Mattress Lifespan Calculator - ToolDune';return;}
+  var score=y/life*10+q;
+  var verdict=score>=14?'Replace now':(score>=8?'Start shopping':'Keep sleeping');
+  OUT.textContent=verdict;
+  document.getElementById('ml3-s1').textContent=y+' of '+life+' yrs';
+  document.getElementById('ml3-s2').textContent=Math.max(0,life-y)+' yrs if it sleeps well';
+  document.getElementById('ml3-s3').textContent='rotate every 3-6 mo';
+  document.getElementById('ml3-note').textContent='The mattress industry sells by year count; the body votes by morning. The arithmetic above is the honest merger - age sets the prior (innerspring and foam run about eight years, latex twelve), but a five-year-old mattress that sleeps perfectly owes nobody a replacement, and a two-year-old one that aches every back already failed its warranty of comfort. The physical tells outrank both: a visible body impression deeper than five centimetres, sagging edges, or sleeping better anywhere but your own bed. The furniture math nobody mentions: a good night\u2019s sleep eight hours a night for eight years is 23,000 hours of use for the price of a sofa cushion - per hour, the mattress is the cheapest furniture in the house, which is why buying quality there and mid-range everywhere else is the whole strategy. Rotate head-to-foot every three to six months; flip only if the label says two-sided, which modern ones mostly do not.';
+  document.title=verdict+' - mattress check - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_mattress',JSON.stringify({t:F[0].value,y:F[1].value,q:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['t','y','q'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_mattress')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('ml3-share').addEventListener('click',function(){
+  var txt='Mattress verdict: '+OUT.textContent+'. Check yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Mattress check',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this verdict';},1500);}
+});
+})();
+</script>
+"""
+
+AQUAHEAT = """<div class="tool" id="tt-ah">
+  <div class="fields">
+    <div class="field"><label for="ah-l">Tank volume (litres)</label><input type="number" id="ah-l" min="10" max="800" step="5" placeholder="100"></div>
+    <div class="field"><label for="ah-t">Target water temp (\u00b0C)</label><input type="number" id="ah-t" min="20" max="30" step="0.5" placeholder="26"></div>
+    <div class="field"><label for="ah-r">Coldest room temp (\u00b0C)</label><input type="number" id="ah-r" min="5" max="25" step="1" placeholder="18"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ah-out">–</span><span class="result-unit">W heater needed</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ah-s1">–</b><span>temperature gap</span></div>
+    <div class="stat"><b id="ah-s2">–</b><span>two-heater threshold</span></div>
+    <div class="stat"><b id="ah-s3">–</b><span>the thermometer rule</span></div>
+  </div>
+  <div class="tool-note" id="ah-note"></div>
+  <button type="button" class="tool-btn" id="ah-share">Share this size</button>
+</div>
+<script>(function(){
+var F=['ah-l','ah-t','ah-r'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('ah-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var l=parseFloat(F[0].value),t=parseFloat(F[1].value),r=parseFloat(F[2].value);
+  var ok=l>=10&&l<=800&&t>=20&&t<=30&&r>=5&&r<=25;
+  if(!ok){OUT.textContent='–';['ah-s1','ah-s2','ah-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ah-note').textContent='';document.title='Aquarium Heater Calculator - ToolDune';return;}
+  var dt=Math.max(t-r,2);
+  var w=l*dt*0.09;
+  var nw=Math.ceil(w/25)*25;
+  OUT.textContent=nw;
+  document.getElementById('ah-s1').textContent=dt.toFixed(1)+' \u00b0C';
+  document.getElementById('ah-s2').textContent=l>=200?'two heaters, opposite ends':'one is fine';
+  document.getElementById('ah-s3').textContent='thermometer outranks dial';
+  document.getElementById('ah-note').textContent='The arithmetic: litres times the temperature gap times 0.09 - roughly a watt per litre in a cold room, less in a warm flat. An undersized heater never quite arrives and dies young from running flat out; an oversized one costs nothing extra to run (thermostats govern duty, not wattage) and survives a cold snap with margin. Big tanks want the redundancy of two heaters at opposite ends - one failure becomes a slow drift instead of a fish emergency, and the heat spreads instead of pooling. The dial on the heater is a suggestion; the independent thermometer is the fact - cheap stick-ons drift several degrees, so a small glass thermometer settles arguments. And the eternal caution: unplug the heater before any water change - an exposed heating glass cracks on contact with air, and the crack is always discovered by the smell.';
+  document.title=nw+' W heater for '+l+' L - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_aquaheat',JSON.stringify({l:F[0].value,t:F[1].value,r:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['l','t','r'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_aquaheat')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('ah-share').addEventListener('click',function(){
+  var txt='My tank needs a '+OUT.textContent+' W heater. Size yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Aquarium heater',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this size';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -11616,6 +11761,9 @@ TOOLS = {
     "skicost": lambda args: SKICOST,
     "skirent": lambda args: SKIRENT,
     "skilength": lambda args: SKILEN,
+    "homework": lambda args: HOMEWORK,
+    "mattress": lambda args: MATTRESS,
+    "aquaheat": lambda args: AQUAHEAT,
 }
 
 
