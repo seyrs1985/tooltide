@@ -33,6 +33,7 @@
 - push 被拒等 30s 重试一次;仍败留本地 commit 下轮捎上(该模式连续多轮零丢失);401/403 记"待凭证"。
 - 裸 git 操作需代理 env(HTTP(S)_PROXY=http://127.0.0.1:7890);GitHub 封锁窗判定:站点 200+git 败=等 60s 重试,fetch 128=实锤封锁。
 - 部署后复验:curl https://tooldune.com/ 与本轮新页均 200;SW CACHE 名带构建戳,每次部署访客资产自动刷新。
+- deploy.sh 报 rebase failed/diverged 先分诊(R111 实证清树误报):git status 必须净→token URL fetch→`git rev-list --left-right --count main...FETCH_HEAD`;若远端领先=0 即伪阳性(代理瞬断干扰rebase),直接push即可,切勿重置/强制合并;6/6未跑时补 curl 复验+手动 python engine/ping_indexnow.py。
 
 ## 4. 数据与收入
 - analyze.py:data/metrics.csv 非 DEMO 才有真动作,DEMO 模式跳过;revenue.py 每轮跑,摘要进 STATUS。
