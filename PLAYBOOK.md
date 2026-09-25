@@ -5,7 +5,8 @@
 
 ## 0. 目标与现状(每 5 轮刷新数字)
 - 终点:稳定 $10,000/月,阶梯 $1/$50/$500/$2000/$10000(config/goals.json);当前=收录爬坡期,收入 $0.00、AdSense 待用户申请,收入数字不作为策略变动依据。
-- 线上 https://nuts.fan/ (2026-09-24 起自定义域名,旧 github.io 地址 301;deploy.sh 线上复验已跟随新域)。
+- 运行窗口(2026-09-26 起):仅 23:00-08:00(用户计划免费时段,调度器只在窗口内触发);白天不触发属预期,白天发现"停摆"勿做任何补救动作,等当晚窗口自然恢复。
+- 线上 https://tooldune.com/ (2026-09-26 起自定义域名,品牌同步更名 ToolDune;更早的 github.io 与 nuts.fan 均 301;deploy.sh live-check 已跟随)。
 - 基线(2026-09-19 R103 后):~298 工具页;check_site 309 文件 23607 检查 0 失败;i18n 审计 ~303 页 289 键×9 语言。**规模口径以当轮 check_site 输出为准**(build 输出的页数与 STATUS 口径不同)。
 
 ## 1. 选题策略
@@ -30,7 +31,7 @@
 - deploy.sh 每次运行会重写 .gitignore——自定义忽略项必须写进 deploy.sh 的 heredoc。
 - push 被拒等 30s 重试一次;仍败留本地 commit 下轮捎上(该模式连续多轮零丢失);401/403 记"待凭证"。
 - 裸 git 操作需代理 env(HTTP(S)_PROXY=http://127.0.0.1:7890);GitHub 封锁窗判定:站点 200+git 败=等 60s 重试,fetch 128=实锤封锁。
-- 部署后复验:curl https://nuts.fan/ 与本轮新页均 200;SW CACHE 名带构建戳,每次部署访客资产自动刷新。
+- 部署后复验:curl https://tooldune.com/ 与本轮新页均 200;SW CACHE 名带构建戳,每次部署访客资产自动刷新。
 
 ## 4. 数据与收入
 - analyze.py:data/metrics.csv 非 DEMO 才有真动作,DEMO 模式跳过;revenue.py 每轮跑,摘要进 STATUS。
