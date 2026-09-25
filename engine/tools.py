@@ -11546,6 +11546,151 @@ document.getElementById('ah-share').addEventListener('click',function(){
 </script>
 """
 
+COSTPERUSE = """<div class="tool" id="tt-cpu">
+  <div class="fields">
+    <div class="field"><label for="cpu-p">Price paid</label><input type="number" id="cpu-p" min="1" step="1" placeholder="120"></div>
+    <div class="field"><label for="cpu-u">Expected uses (wears, rides, runs)</label><input type="number" id="cpu-u" min="1" step="1" placeholder="60"></div>
+    <div class="field"><label for="cpu-s">What is it</label><select id="cpu-s"><option value="wear" selected>Clothing / shoes (wears)</option><option value="use">Tool / gadget (uses)</option><option value="hour">Equipment (hours)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cpu-out">–</span><span class="result-unit">per use</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cpu-s1">–</b><span>vs the 1-per-wear bar</span></div>
+    <div class="stat"><b id="cpu-s2">–</b><span>if you use it half as much</span></div>
+    <div class="stat"><b id="cpu-s3">–</b><span>the closet audit</span></div>
+  </div>
+  <div class="tool-note" id="cpu-note"></div>
+  <button type="button" class="tool-btn" id="cpu-share">Share this figure</button>
+</div>
+<script>(function(){
+var F=['cpu-p','cpu-u','cpu-s'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('cpu-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var p=parseFloat(F[0].value),u=parseFloat(F[1].value),t=F[2].value;
+  var ok=p>=1&&u>=1;
+  if(!ok){OUT.textContent='–';['cpu-s1','cpu-s2','cpu-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cpu-note').textContent='';document.title='Cost Per Use Calculator - ToolDune';return;}
+  var cpu=p/u;
+  OUT.textContent=cpu.toFixed(2);
+  document.getElementById('cpu-s1').textContent=cpu<=1?'under the bar':(cpu<=3?'borderline':'over the bar');
+  document.getElementById('cpu-s2').textContent=(p/(u/2)).toFixed(2);
+  document.getElementById('cpu-s3').textContent='count the unworn ones';
+  document.getElementById('cpu-note').textContent='Cost per use is the only price tag that matters for things meant to be used: a 300 coat worn 300 winters costs a coin a wear; a 40 jacket worn twice costs 20 a wear - and the expensive item was the frugal one. The honest unit changes with the thing (wears, rides, runs, brews), the arithmetic does not. The double-edge row is where optimism lives: halve your expected uses and see whether the number still clears the bar - most purchases are priced on the fantasy version of you who uses things weekly. The closet audit closes the loop: count the garments worn fewer than five times in a year, average their price, and let that figure - not the shop\u2019s - set your bar for the next want. Cheap that is never worn is the most expensive category there is.';
+  document.title=cpu.toFixed(2)+' per use - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_costperuse',JSON.stringify({p:F[0].value,u:F[1].value,s:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['p','u','s'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_costperuse')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('cpu-share').addEventListener('click',function(){
+  var txt='That works out to '+OUT.textContent+' per use. Run your numbers (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Cost per use',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this figure';},1500);}
+});
+})();
+</script>
+"""
+
+WISHLIST30 = """<div class="tool" id="tt-wl">
+  <div class="fields">
+    <div class="field"><label for="wl-n">What is it (for your note)</label><input type="text" id="wl-n" maxlength="40" placeholder="fancy headphones"></div>
+    <div class="field"><label for="wl-d">Wanted it since</label><input type="date" id="wl-d"></div>
+    <div class="field"><label for="wl-w">Cooling-off days</label><select id="wl-w"><option value="30" selected>30 days (default)</option><option value="14">14 days</option><option value="7">7 days</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wl-out">–</span><span class="result-unit">buy-on date</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wl-s1">–</b><span>days of waiting left</span></div>
+    <div class="stat"><b id="wl-s2">–</b><span>the three questions</span></div>
+    <div class="stat"><b id="wl-s3">–</b><span>price-drop trick</span></div>
+  </div>
+  <div class="tool-note" id="wl-note"></div>
+  <button type="button" class="tool-btn" id="wl-share">Share this date</button>
+</div>
+<script>(function(){
+var F=['wl-n','wl-d','wl-w'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('wl-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function fmt(n){return n<10?'0'+n:''+n;}
+function calc(){
+  var dv=F[1].value,w=parseFloat(F[2].value);
+  if(!dv){OUT.textContent='–';['wl-s1','wl-s2','wl-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('wl-note').textContent='';document.title='30-Day Wish List Calculator - ToolDune';return;}
+  var since=new Date(dv+'T12:00:00');
+  var buy=new Date(since.getTime()+w*86400000);
+  var today=new Date();today.setHours(12,0,0,0);
+  var left=Math.ceil((buy-today)/86400000);
+  OUT.textContent=fmt(buy.getDate())+'.'+fmt(buy.getMonth()+1)+'.';
+  document.getElementById('wl-s1').textContent=left>0?left+' to go':'waiting over';
+  document.getElementById('wl-s2').textContent='still want it / fit it / afford it';
+  document.getElementById('wl-s3').textContent='set an alert, not a tab';
+  document.getElementById('wl-note').textContent='The cooling-off period exists because wanting is a chemical event with a half-life: the surge that makes the purchase feel inevitable decays measurably within weeks, and most list items simply stop mattering - which is the money saved by doing nothing at all. The buy-on date is a promise with two exits: buy it guilt-free if you still want it AND it fits your life AND the money exists without borrowing; delete it silently if the feeling expired. Put a price alert on it instead of a browser tab - sales come to wish lists, tabs just nag. The rule is not abstinence; it is the difference between desire and decision, and the purchases that survive thirty days of it are almost always the ones worth making.';
+  document.title='Buy on '+OUT.textContent+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_wishlist30',JSON.stringify({n:F[0].value,d:F[1].value,w:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+[['n',F[0]],['d',F[1]],['w',F[2]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_wishlist30')||'null');if(mem){F[0].value=mem.n||'';F[1].value=mem.d||'';F[2].value=mem.w||'30';}}catch(e){}}
+calc();
+document.getElementById('wl-share').addEventListener('click',function(){
+  var txt='Wish list rule: buy on '+OUT.textContent+' or not at all. Set yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?d='+F[1].value+'&w='+F[2].value;
+  if(navigator.share){navigator.share({title:'Wish list date',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this date';},1500);}
+});
+})();
+</script>
+"""
+
+WORKHOURS = """<div class="tool" id="tt-wh">
+  <div class="fields">
+    <div class="field"><label for="wh-p">Price of the thing</label><input type="number" id="wh-p" min="1" step="1" placeholder="600"></div>
+    <div class="field"><label for="wh-i">Monthly take-home pay</label><input type="number" id="wh-i" min="200" step="50" placeholder="2800"></div>
+    <div class="field"><label for="wh-h">Work hours per month</label><input type="number" id="wh-h" min="40" max="300" step="5" placeholder="160"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wh-out">–</span><span class="result-unit">hours of your work</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wh-s1">–</b><span>per hour net</span></div>
+    <div class="stat"><b id="wh-s2">–</b><span>work days (8 h)</span></div>
+    <div class="stat"><b id="wh-s3">–</b><span>your real hourly</span></div>
+  </div>
+  <div class="tool-note" id="wh-note"></div>
+  <button type="button" class="tool-btn" id="wh-share">Share this price tag</button>
+</div>
+<script>(function(){
+var F=['wh-p','wh-i','wh-h'].map(function(id){return document.getElementById(id);});
+var OUT=document.getElementById('wh-out');
+function qs(k){return new URLSearchParams(location.search).get(k);}
+function calc(){
+  var p=parseFloat(F[0].value),i=parseFloat(F[1].value),h=parseFloat(F[2].value);
+  var ok=p>=1&&i>=200&&h>=40&&h<=300;
+  if(!ok){OUT.textContent='–';['wh-s1','wh-s2','wh-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('wh-note').textContent='';document.title='Work Hours Price Tag Calculator - ToolDune';return;}
+  var hourly=i/h;
+  var hours=p/hourly;
+  OUT.textContent=hours.toFixed(1);
+  document.getElementById('wh-s1').textContent=hourly.toFixed(2);
+  document.getElementById('wh-s2').textContent=(hours/8).toFixed(1)+' days';
+  document.getElementById('wh-s3').textContent=hourly.toFixed(2)+' (net)';
+  document.getElementById('wh-note').textContent='Prices are printed in currency so you never have to read them in the only unit that cannot be printed more of: your hours. The exchange rate above is net, not gross - tax already ate its share before the money reached you, which is why the real hourly is lower than the contract suggests and the price tag is higher than the sticker shows. The reframing is not guilt, it is resolution: 600 is also eight workdays, and some things are easily worth eight days of your life while others never survive the translation. Commute, wardrobe and decompression hours are the fine print - the effective hourly of a demanding job is lower still, which is why the high-salary-long-hours trade deserves this arithmetic done twice. The tool does not say do not buy; it says know the price in the currency you actually paid.';
+  document.title=hours.toFixed(0)+' hours of work for this - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_workhours',JSON.stringify({p:F[0].value,i:F[1].value,h:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var ks=['p','i','h'],pre=false;
+ks.forEach(function(kk,i){var v=qs(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_workhours')||'null');if(mem){ks.forEach(function(kk,i){if(mem[kk]!==undefined&&mem[kk]!==''){F[i].value=mem[kk];}});}}catch(e){}}
+calc();
+document.getElementById('wh-share').addEventListener('click',function(){
+  var txt='This costs '+OUT.textContent+' hours of my work. Price yours (free, no sign-up):';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Work-hours price',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this price tag';},1500);}
+});
+})();
+</script>
+"""
+
 TOOLS = {
     "countdown": _render_countdown,
     "datediff": lambda args: DATEDIFF,
@@ -11764,6 +11909,9 @@ TOOLS = {
     "homework": lambda args: HOMEWORK,
     "mattress": lambda args: MATTRESS,
     "aquaheat": lambda args: AQUAHEAT,
+    "costperuse": lambda args: COSTPERUSE,
+    "wishlist30": lambda args: WISHLIST30,
+    "workhours": lambda args: WORKHOURS,
 }
 
 
