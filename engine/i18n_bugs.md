@@ -50,3 +50,4 @@
 - 2026-09-24 R25(06:01档):tdee×de/fuel-cost×ja/json-formatter×ru巡逻三页全净(garbage=false;R17/R22家族成果线上站得住)。本轮零新BUG。
 - 2026-09-24 R28(10:01档):heart-rate×pt/word-counter×fr/seconds×ko巡逻三页全净(garbage=false)。零新BUG。
 - 2026-09-26 R28/R29核验+R30:站点已迁自定义域名 tooldune.com(根路径,i18n.js等全资源走新域名;GH Pages旧URL并存);ru态tooldune端到端验证通过(bmi页Единицы/Высота/Вес/категория ВОЗ全俄,unwired=0;首页title/占位符俄语零裸键)——全部i18n成果在新域名完整生效。
+- 2026-09-26 R32(03:11档,等待旧实例窗口后执行):tdee×de/word-counter×id/christmas×ko巡逻三页全净(garbage=false)。零新BUG(连续2轮零BUG,稳定巡逻确认)。
