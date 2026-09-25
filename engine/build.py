@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""ToolTide static site builder.
+"""ToolDune static site builder.
 
 Usage:  python engine/build.py
 Reads config/site.json + engine/pages.py, writes the full static site to site/.
@@ -147,7 +147,7 @@ def ensure_og_image():
         ov.polygon(pts + [(W, H), (0, H)], fill=(255, 255, 255, alpha))
     img = Image.alpha_composite(img.convert("RGBA"), overlay).convert("RGB")
     d = ImageDraw.Draw(img)
-    d.text((80, 185), "ToolTide", font=ImageFont.truetype(bold, 128), fill=(255, 255, 255))
+    d.text((80, 185), "ToolDune", font=ImageFont.truetype(bold, 128), fill=(255, 255, 255))
     d.text((84, 375), "Free online tools — fast, private, no sign-up",
            font=ImageFont.truetype(reg, 44), fill=(165, 243, 252))
     os.makedirs(SITE_DIR, exist_ok=True)
@@ -214,8 +214,8 @@ def ensure_manifest(cfg):
         icons.append({"src": cfg["base_url"] + name, "sizes": f"{size}x{size}",
                       "type": "image/png", "purpose": "any"})
     manifest = {
-        "name": "ToolTide — Free Online Tools",
-        "short_name": "ToolTide",
+        "name": "ToolDune — Free Online Tools",
+        "short_name": "ToolDune",
         "description": "Free online tools: countdown timers, calculators, unit "
                        "converters and generators. Fast, private, no sign-up.",
         "start_url": cfg["base_url"],
@@ -270,7 +270,7 @@ def ensure_favicon():
 # offline visits. Immutable-ish assets (i18n.js, icons, manifest, opensearch)
 # use stale-while-revalidate: instant cache answer, refreshed in the background.
 # Third-party traffic (GA4/AdSense) and non-GET requests pass through untouched.
-SW_JS = """/* ToolTide service worker — offline fallback + fast repeat visits. */
+SW_JS = """/* ToolDune service worker — offline fallback + fast repeat visits. */
 var BASE = "{base}";
 var CACHE = "tooltide-{v}";
 var PRECACHE = [BASE, BASE + "i18n.js", BASE + "manifest.webmanifest",
@@ -378,7 +378,7 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="",
     og_img = f'<meta property="og:image" content="{esc(og_abs)}">\n' \
              f'<meta property="og:image:width" content="1200">\n' \
              f'<meta property="og:image:height" content="630">\n' \
-             f'<meta property="og:image:alt" content="ToolTide — free online tools">\n' \
+             f'<meta property="og:image:alt" content="ToolDune — free online tools">\n' \
              f'<meta name="twitter:card" content="summary_large_image">\n' \
              f'<meta name="twitter:title" content="{esc(title)}">\n' \
              f'<meta name="twitter:description" content="{esc(desc)}">\n' \
@@ -407,14 +407,14 @@ def head_tags(cfg, title, desc, canonical, extra_ld=(), root=False, body_cls="",
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{esc(canonical)}">
-<meta property="og:site_name" content="ToolTide">
+<meta property="og:site_name" content="ToolDune">
 <meta property="og:locale" content="en_US">
 {og_img}<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#0e7490" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)">
 {fav_ico}<link rel="icon" href="{fav}">
-{touch}{pwa}<link rel="search" type="application/opensearchdescription+xml" title="ToolTide" href="{esc(cfg['base_url'])}opensearch.xml">
-<link rel="alternate" type="application/rss+xml" title="ToolTide RSS" href="{esc(cfg['base_url'])}feed.xml">
+{touch}{pwa}<link rel="search" type="application/opensearchdescription+xml" title="ToolDune" href="{esc(cfg['base_url'])}opensearch.xml">
+<link rel="alternate" type="application/rss+xml" title="ToolDune RSS" href="{esc(cfg['base_url'])}feed.xml">
 {hints}{f'<meta name="google-site-verification" content="{esc(gsc)}">' if gsc else ''}
 <script type="application/ld+json">{ld}</script>
 <script defer src="{esc(cfg['base_url'])}i18n.js"></script>
@@ -438,7 +438,7 @@ def header_nav(cfg, base):
     # with zero JS; hidden via CSS where a search box is already on screen.
     return f"""<header class="site-head">
   <div class="wrap nav-row">
-    <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolTide</a>
+    <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolDune</a>
     <form class="head-search" role="search" action="{base}" method="get">
       <input type="search" name="q" placeholder="Search tools…" aria-label="Search tools" autocomplete="off" spellcheck="false" autocapitalize="off" enterkeyhint="search" data-i18n-placeholder="search.ph" data-i18n-aria="search.aria">
       <button type="submit" aria-label="Search" data-i18n-aria="search.btn"><span aria-hidden="true">🔍</span></button>
@@ -502,14 +502,14 @@ def footer(cfg, base, all_pages=(), cat_info=None):
     return f"""<footer class="site-foot">
   <div class="wrap">
     <div class="foot-brand">
-      <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolTide</a>
+      <a class="logo" href="{base}"><span aria-hidden="true">🌊</span> ToolDune</a>
       <p data-i18n="foot.brand">Free online tools that run in your browser. No sign-up, no installs, no tracking of your inputs.</p>
       <nav class="foot-site" aria-label="Site">{site_links}</nav>
     </div>
     <div class="foot-matrix">{cols}</div>
     <div class="foot-legal">
       {aff}
-      <p data-i18n="foot.legal">© {year} ToolTide · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
+      <p data-i18n="foot.legal">© {year} ToolDune · Free online tools that run in your browser. No sign-up, no tracking of your inputs.</p>
     </div>
   </div>
 </footer>"""
@@ -725,7 +725,7 @@ var list=JSON.parse(localStorage.getItem(K)||'[]');
 if(!Array.isArray(list))list=[];
 var here=location.pathname;
 var h1=document.querySelector('article h1,main h1');
-var t=(h1?h1.textContent:document.title).replace(/\\s+/g,' ').replace(' - ToolTide','').trim();
+var t=(h1?h1.textContent:document.title).replace(/\\s+/g,' ').replace(' - ToolDune','').trim();
 if(t){list=list.filter(function(x){return x.u!==here;});list.unshift({u:here,t:t.slice(0,42)});list=list.slice(0,MAX);}
 try{localStorage.setItem(K,JSON.stringify(list));}catch(e){}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -767,14 +767,14 @@ def build_page(cfg, p, all_pages, cat_info):
         {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
         for q, a in p["faqs"]]}
     cat_label = (cat_info or {}).get(p["category"], ("",))[0]
-    crumb_items = [("🌊 ToolTide", base)]
+    crumb_items = [("🌊 ToolDune", base)]
     if cat_label:
         crumb_items.append((cat_label, base + "#" + p["category"], "cat." + p["category"]))
     crumb_items.append((p["h1"], None))
     crumb_ld = {"@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": i + 1,
          # the 🌊 is decorative chrome for humans; structured data wants the name
-         "name": ("ToolTide" if i == 0 else item[0]),
+         "name": ("ToolDune" if i == 0 else item[0]),
          "item": (item[1] or canonical)}
         for i, item in enumerate(crumb_items)]}
 
@@ -841,7 +841,7 @@ def build_page(cfg, p, all_pages, cat_info):
     doc += BACKTOP
     doc += THEME_JS
     doc += """<div id='a2hs-bar' hidden style='position:fixed;left:12px;right:12px;bottom:12px;z-index:50;background:var(--brand,#0e7490);color:#fff;border-radius:12px;padding:10px 14px;font-size:.9rem;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 6px 20px rgba(0,0,0,.25)'>
-<span id='a2hs-tip' data-i18n='a2hs.tip'>Add ToolTide to your home screen</span>
+<span id='a2hs-tip' data-i18n='a2hs.tip'>Add ToolDune to your home screen</span>
 <span style='display:flex;gap:8px'><button id='a2hs-yes' type='button' style='border:0;border-radius:8px;padding:6px 12px;font:inherit;font-weight:700;cursor:pointer;background:#fff;color:#0e7490' data-i18n='a2hs.btn'>Install</button>
 <button id='a2hs-no' type='button' aria-label='Close' style='border:0;background:transparent;color:#fff;font-size:1.1rem;cursor:pointer'>x</button></span>
 </div>
@@ -863,7 +863,7 @@ if(iOS){
 }else if(window.beforeinstallprompt){
   window.beforeinstallprompt.then(function(e){
     deferred=e;tip.removeAttribute('data-i18n');
-    tip.textContent='Add ToolTide to your home screen';
+    tip.textContent='Add ToolDune to your home screen';
     setTimeout(show,4000);
   }).catch(function(){});
 }
@@ -910,7 +910,7 @@ def values_html():
 def build_index(cfg, all_pages, cat_info):
     base = cfg["base_url"]
     canonical = base
-    desc = "ToolTide — free online tools: countdown timers, calculators, unit converters, word counter, password generator and more. Fast, private, no sign-up."
+    desc = "ToolDune — free online tools: countdown timers, calculators, unit converters, word counter, password generator and more. Fast, private, no sign-up."
     sections = []
     search_cards = []
     counts = {c: sum(1 for x in all_pages if x["category"] == c) for c in cat_info}
@@ -936,7 +936,7 @@ def build_index(cfg, all_pages, cat_info):
     chips = "".join(
         f'<a href="#{cat}">{cat_emoji_html(cat)}<span data-i18n="cat.{cat}">{esc(label)}</span> <span class="chip-n">{counts[cat]}</span></a>'
         for cat, (label, _blurb) in cat_info.items())
-    # "New on ToolTide" — the most recently added pages, one row above the
+    # "New on ToolDune" — the most recently added pages, one row above the
     # categories. Carries .cat so the live search hides/restores it with the
     # rest, and so content-visibility/print rules apply unchanged.
     new_section = ""
@@ -944,16 +944,16 @@ def build_index(cfg, all_pages, cat_info):
         new_cards = "".join(tool_card(x, base, cat_label=cat_info[x["category"]][0])
                             for x in all_pages[-NEW_COUNT:])
         new_section = (f'<section class="cat" id="new">'
-                       f'<h2 data-i18n="home.new.h2">New on ToolTide</h2>'
+                       f'<h2 data-i18n="home.new.h2">New on ToolDune</h2>'
                        f'<p class="cat-blurb" data-i18n="home.new.blurb">The latest additions to the toolbox.</p>'
                        f'<div class="grid">{new_cards}</div></section>')
-    website_ld = {"@type": "WebSite", "name": "ToolTide", "url": base,
+    website_ld = {"@type": "WebSite", "name": "ToolDune", "url": base,
                   "description": desc, "potentialAction": {
                       "@type": "SearchAction",
                       "target": base + "?q={search_term_string}",
                       "query-input": "required name=search_term_string"}}
 
-    doc = head_tags(cfg, "ToolTide — Free Online Tools: Calculators, Converters & Countdowns",
+    doc = head_tags(cfg, "ToolDune — Free Online Tools: Calculators, Converters & Countdowns",
                     desc, canonical, [website_ld], root=True, body_cls="home", title_key="meta.title")
     doc += header_nav(cfg, base)
     doc += f"""<main class="wrap" id="main" tabindex="-1">
@@ -968,8 +968,8 @@ def build_index(cfg, all_pages, cat_info):
 {ad_slot(cfg, cfg.get('ad_slot_top', '1111111111'), 'top')}
 {new_section}
 {chr(10).join(sections)}
-<section class="cat" id="all"><h2 data-i18n="home.about.h2">About ToolTide</h2>
-<p class="cat-blurb" data-i18n="home.about.blurb">ToolTide is a collection of small, fast, honest web tools. No accounts, no paywalls, no selling your data — each tool does one job and gets out of your way. Bookmark us and the tide of small annoyances goes out.</p>
+<section class="cat" id="all"><h2 data-i18n="home.about.h2">About ToolDune</h2>
+<p class="cat-blurb" data-i18n="home.about.blurb">ToolDune is a collection of small, fast, honest web tools. No accounts, no paywalls, no selling your data — each tool does one job and gets out of your way. Bookmark us and the tide of small annoyances goes out.</p>
 {values_html()}</section>
 </main>"""
     doc += footer(cfg, base, all_pages, cat_info)
@@ -1057,7 +1057,7 @@ if(qs){{inp.value=qs;
 
 PRIVACY = """<h1 data-i18n="pv.h1">Privacy Policy</h1>
 <p><em data-i18n="pv.upd">Last updated:</em> {date}</p>
-<p data-i18n="pv.p1">ToolTide is built to need as little of your data as possible. This policy explains what that means in practice.</p>
+<p data-i18n="pv.p1">ToolDune is built to need as little of your data as possible. This policy explains what that means in practice.</p>
 <h2 data-i18n="pv.h2a">Tool inputs never leave your browser</h2>
 <p data-i18n-html="pv.p2">Every tool on this site — calculators, converters, counters, generators — runs entirely in your browser with JavaScript. The text, numbers and files you enter into a tool are processed on your device and are <strong>never transmitted to us, logged, or stored</strong>.</p>
 <h2 data-i18n="pv.h2b">Cookies and advertising</h2>
@@ -1071,8 +1071,8 @@ PRIVACY = """<h1 data-i18n="pv.h1">Privacy Policy</h1>
 <h2 data-i18n="pv.h2f">Contact</h2>
 <p><span data-i18n="pv.p6a">Questions about privacy? Use the</span> <a href="{base}contact/"><span data-i18n="pv.contact_link">contact page</span></a><span data-i18n="pv.p6b">.</span></p>"""
 
-ABOUT = """<h1 data-i18n="ab.h1">About ToolTide</h1>
-<p data-i18n="ab.p1">ToolTide is a collection of small, fast, honest web tools. Each tool does exactly one job — count down to a date, split a dinner bill, convert kilometers to miles — and does it without asking you for an account, a download, or your personal data.</p>
+ABOUT = """<h1 data-i18n="ab.h1">About ToolDune</h1>
+<p data-i18n="ab.p1">ToolDune is a collection of small, fast, honest web tools. Each tool does exactly one job — count down to a date, split a dinner bill, convert kilometers to miles — and does it without asking you for an account, a download, or your personal data.</p>
 <h2 data-i18n="ab.h2">Our principles</h2>
 <ul>
 <li data-i18n-html="ab.li1"><strong>Private by architecture.</strong> Tools run in your browser. We couldn't see your inputs even if we wanted to.</li>
@@ -1100,7 +1100,7 @@ def build_static(cfg, path, inner, title, desc, all_pages=(), cat_info=None, bod
     canonical = base + path.strip("/") + ("/" if path.strip("/") and not path.endswith(".html") else "")
     doc = head_tags(cfg, title, desc, canonical, root=True, body_cls=body_cls)
     doc += header_nav(cfg, base)
-    doc += crumb(base, [("🌊 ToolTide", base), (title.split("—")[0].strip(), None)])
+    doc += crumb(base, [("🌊 ToolDune", base), (title.split("—")[0].strip(), None)])
     inner2 = (inner.replace("{date}", TODAY.isoformat())
                    .replace("{base}", base)
                    .replace("{email}", cfg.get("contact_email", "hello@example.com")))
@@ -1188,16 +1188,16 @@ def main():
                "We run no analytics on individual visitors. Aggregate, anonymous page counts may be collected by our host.")
     write("privacy/index.html", build_static(
         cfg, "privacy/", PRIVACY.replace("{ads_line}", ads_line).replace("{ga_line}", ga_line),
-        "Privacy Policy — ToolTide", "ToolTide privacy policy: your tool inputs never leave your browser. Details on cookies, ads and analytics.",
+        "Privacy Policy — ToolDune", "ToolDune privacy policy: your tool inputs never leave your browser. Details on cookies, ads and analytics.",
         all_pages, cat_info))
     write("about/index.html", build_static(
-        cfg, "about/", ABOUT, "About ToolTide — Free Online Tools",
-        "About ToolTide: small, fast, honest web tools. Private by architecture, free forever.", all_pages, cat_info))
+        cfg, "about/", ABOUT, "About ToolDune — Free Online Tools",
+        "About ToolDune: small, fast, honest web tools. Private by architecture, free forever.", all_pages, cat_info))
     write("contact/index.html", build_static(
-        cfg, "contact/", CONTACT, "Contact — ToolTide",
-        "Contact the ToolTide team: bug reports, tool ideas and business questions.", all_pages, cat_info))
+        cfg, "contact/", CONTACT, "Contact — ToolDune",
+        "Contact the ToolDune team: bug reports, tool ideas and business questions.", all_pages, cat_info))
     write("404.html", build_static(
-        cfg, "404.html", ERROR404, "Page not found — ToolTide", "Page not found on ToolTide.",
+        cfg, "404.html", ERROR404, "Page not found — ToolDune", "Page not found on ToolDune.",
         all_pages, cat_info, body_cls="fourohfour"))
 
     # ads.txt (AdSense anti-spoofing) — emitted only once adsense_client is set
@@ -1246,7 +1246,7 @@ def main():
             "    </item>")
     write("feed.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
           "<rss version=\"2.0\"><channel>\n"
-          f"  <title>{esc(cfg.get('site_name', 'ToolTide'))}</title>\n"
+          f"  <title>{esc(cfg.get('site_name', 'ToolDune'))}</title>\n"
           f"  <link>{esc(base)}</link>\n"
           "  <description>Free online tools: countdown timers, calculators, unit converters, text tools and generators.</description>\n"
           f"  <lastBuildDate>{now_rfc}</lastBuildDate>\n"
@@ -1255,12 +1255,12 @@ def main():
     # robots
     write("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {cfg['base_url']}sitemap.xml\n")
 
-    # OpenSearch description — lets browsers register ToolTide as a site search
+    # OpenSearch description — lets browsers register ToolDune as a site search
     # engine; template reuses the homepage ?q= deep-link contract.
     write("opensearch.xml", f"""<?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-  <ShortName>ToolTide</ShortName>
-  <Description>Search free online tools on ToolTide</Description>
+  <ShortName>ToolDune</ShortName>
+  <Description>Search free online tools on ToolDune</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <Url type="text/html" method="get" template="{cfg['base_url']}?q={{searchTerms}}"/>
 </OpenSearchDescription>

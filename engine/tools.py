@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Interactive tool renderers for ToolTide.
+"""Interactive tool renderers for ToolDune.
 
 Each renderer returns HTML + inline vanilla JS. Arguments are injected via the
 __ARGS__ placeholder (replaced by build.py with a JSON object), which keeps the
@@ -118,7 +118,7 @@ function tick(){
   el('cd-hours').textContent=Math.floor(diff/3600000).toLocaleString(LC);
   el('cd-date').textContent=r.cand.toLocaleDateString(LC,{weekday:'short',month:'short',day:'numeric',year:'numeric'});
   el('cd-today-box').style.display=r.today?'block':'none';
-  document.title=(real>0?T('cd.title','{d}d to {ev}').replace('{d}',real).replace('{ev}',EV):EV)+' - ToolTide';
+  document.title=(real>0?T('cd.title','{d}d to {ev}').replace('{d}',real).replace('{ev}',EV):EV)+' - ToolDune';
 }
 tick();setInterval(tick,1000);
 var DIN=el('cd-date-in');
@@ -136,7 +136,7 @@ el('cd-ics').addEventListener('click',function(){
   function ds(x){var mo=x.getMonth()+1,da=x.getDate();return ''+x.getFullYear()+(mo<10?'0':'')+mo+(da<10?'0':'')+da;}
   var stamp=new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
   var CRLF=String.fromCharCode(13,10);
-  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ToolTide//EN','BEGIN:VEVENT','UID:tt-'+Date.now()+'@tooltide','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+ds(d),'DTEND;VALUE=DATE:'+ds(new Date(d.getTime()+86400000)),'SUMMARY:'+ev,'DESCRIPTION:Countdown via ToolTide','END:VEVENT','END:VCALENDAR'].join(CRLF);
+  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ToolDune//EN','BEGIN:VEVENT','UID:tt-'+Date.now()+'@tooltide','DTSTAMP:'+stamp,'DTSTART;VALUE=DATE:'+ds(d),'DTEND;VALUE=DATE:'+ds(new Date(d.getTime()+86400000)),'SUMMARY:'+ev,'DESCRIPTION:Countdown via ToolDune','END:VEVENT','END:VCALENDAR'].join(CRLF);
   var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
   a.download=ev.replace(/[^a-z0-9]+/gi,'-').toLowerCase().replace(/^-|-$/g,'')+'.ics';
   document.body.appendChild(a);a.click();a.remove();
@@ -579,8 +579,8 @@ function conv(v){
 function run(){
   var v=parseFloat(a.value);
   var out=isNaN(v)?null:conv(v);
-  if(out!==null&&out!==undefined){document.title=fmt(v)+' '+A.a+' = '+fmt(out)+' '+(swapped?A.a:A.b)+' - ToolTide';}
-  else{document.title='Converter - ToolTide';}
+  if(out!==null&&out!==undefined){document.title=fmt(v)+' '+A.a+' = '+fmt(out)+' '+(swapped?A.a:A.b)+' - ToolDune';}
+  else{document.title='Converter - ToolDune';}
   b.value=out===null?'':out;
   r.textContent=out===null?'–':fmt(out)+' '+(swapped?A.a:A.b);
   f.textContent=isNaN(v)?'':(swapped
@@ -2852,17 +2852,17 @@ function run(){
     T.value=hmsStr(sec);
     document.getElementById('sdt-out').textContent=fmtHMS(sec);
     document.getElementById('sdt-unit').textContent='total time';
-    document.title=fmtHMS(sec)+' - ToolTide';
+    document.title=fmtHMS(sec)+' - ToolDune';
   } else if(d>0&&tSec>0){var sp=d/(tSec/3600);
     S.value=Math.round(sp*100)/100;
     document.getElementById('sdt-out').textContent=Math.round(sp*100)/100+' /hour';
     document.getElementById('sdt-unit').textContent='average speed';
-    document.title=Math.round(sp*100)/100+'/hour - ToolTide';
+    document.title=Math.round(sp*100)/100+'/hour - ToolDune';
   } else if(s>0&&tSec>0){var dist=s*(tSec/3600);
     D.value=Math.round(dist*100)/100;
     document.getElementById('sdt-out').textContent=Math.round(dist*100)/100;
     document.getElementById('sdt-unit').textContent='total distance';
-    document.title=Math.round(dist*100)/100+' - ToolTide';
+    document.title=Math.round(dist*100)/100+' - ToolDune';
   }
   lock=false;
 }
@@ -2895,7 +2895,7 @@ document.querySelectorAll('#tt-rv .chip').forEach(function(c){c.addEventListener
 function run(){
   var v=inp.value;
   out.value=mode==='chars'?v.split('').reverse().join(''):v.split(/\s+/).filter(Boolean).reverse().join(' ');
-  document.title=(out.value||'Reverse Text')+' - ToolTide';
+  document.title=(out.value||'Reverse Text')+' - ToolDune';
 }
 inp.addEventListener('input',run);
 document.getElementById('rv-copy').addEventListener('click',function(){
@@ -2926,7 +2926,7 @@ function run(){
     var v=Math.round(w*p[1]*100)/100;
     return '<tr><td>'+p[0]+(p[0]==='Earth'?' (reference)':'')+'</td><td>x'+p[1]+'</td><td><b>'+v+'</b></td></tr>';
   }).join('');
-  document.title='Moon weight: '+Math.round(w*0.165*10)/10+' - ToolTide';
+  document.title='Moon weight: '+Math.round(w*0.165*10)/10+' - ToolDune';
 }
 inp.addEventListener('input',run);run();
 })();</script>
@@ -2998,7 +2998,7 @@ function set(k,c,f,noteTxt){
   K.value=k===null?'':r(k);C.value=c===null?'':r(c);F.value=f===null?'':r(f);
   out.textContent=(k===null?'-':r(k)+' K')+'  =  '+(c===null?'-':r(c)+' C')+'  =  '+(f===null?'-':r(f)+' F');
   note.textContent=noteTxt||'';
-  document.title=r(c)+' C - ToolTide';
+  document.title=r(c)+' C - ToolDune';
 }
 function fromK(k){
   if(isNaN(k)){set(null,null,null,'');return;}
@@ -3049,7 +3049,7 @@ function calc(){
   var p=num('dd-price'),d1=num('dd-d1')||0,d2=num('dd-d2')||0,flat=num('dd-flat');
   if(!p){OUT.textContent='–';NOTE.textContent='';document.getElementById('dd-true').textContent='–';
     document.getElementById('dd-save').textContent='–';document.getElementById('dd-verdict').textContent='–';
-    document.title='Double Discount Calculator - ToolTide';return;}
+    document.title='Double Discount Calculator - ToolDune';return;}
   var eff=(1-d1/100)*(1-d2/100),fin=p*eff,truePct=(1-eff)*100;
   OUT.textContent=money(fin);
   document.getElementById('dd-true').textContent=truePct.toFixed(2)+'%';
@@ -3063,7 +3063,7 @@ function calc(){
   }
   NOTE.textContent=note;
   document.getElementById('dd-verdict').textContent=vd;
-  document.title=truePct.toFixed(0)+'% true discount - ToolTide';
+  document.title=truePct.toFixed(0)+'% true discount - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_doubledisc',JSON.stringify({p:E['dd-price'].value,d1:E['dd-d1'].value,d2:E['dd-d2'].value,f:E['dd-flat'].value}));}catch(e){}}
 Object.keys(E).forEach(function(k){E[k].addEventListener('input',function(){calc();save();});});
@@ -3109,7 +3109,7 @@ function calc(){
   var p=parseFloat(P.value)||0,r=(parseFloat(R.value)||0)/100,t=parseFloat(T.value)||0;
   if(!p||!t){OUT.textContent='–';document.getElementById('si-int').textContent='–';
     document.getElementById('si-permo').textContent='–';document.getElementById('si-cmp').textContent='–';
-    document.getElementById('si-note').textContent='';document.title='Simple Interest Calculator - ToolTide';return;}
+    document.getElementById('si-note').textContent='';document.title='Simple Interest Calculator - ToolDune';return;}
   var si=p*r*t,total=p+si,rm=r/12,n=Math.round(t*12);
   var cmp=total;
   if(rm>0&&n>0){var bal=p;for(var k=0;k<n;k++){bal=bal*(1+rm);}cmp=bal;}
@@ -3119,7 +3119,7 @@ function calc(){
   document.getElementById('si-cmp').textContent=money(cmp);
   document.getElementById('si-note').textContent='SI = P × r × t = '+p.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' × '+(r*100).toFixed(2).replace('.00','')+'% × '+t+' = '+money(si)+
     '. Simple interest is flat on the original principal - compounding the same rate would add '+money(cmp-total)+' more over '+t+' years.';
-  document.title=money(si)+' interest - ToolTide';
+  document.title=money(si)+' interest - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_simpleint',JSON.stringify({p:P.value,r:R.value,t:T.value}));}catch(e){}}
 [P,R,T].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3166,7 +3166,7 @@ function calc(){
   var p=parseFloat(P.value),r=parseFloat(R.value)||0,incl=M.value==='in';
   if(isNaN(p)||!p){OUT.textContent='–';document.getElementById('gs-net').textContent='–';
     document.getElementById('gs-tax').textContent='–';document.getElementById('sg-cgst').textContent='–';
-    document.getElementById('gs-note').textContent='';document.title='GST Calculator - ToolTide';return;}
+    document.getElementById('gs-note').textContent='';document.title='GST Calculator - ToolDune';return;}
   var net,tax;
   if(incl){net=p/(1+r/100);tax=p-net;}else{net=p;tax=p*r/100;}
   var gross=net+tax;
@@ -3177,7 +3177,7 @@ function calc(){
   document.getElementById('sg-cgst').textContent=money(tax/2);
   document.getElementById('gs-note').textContent=(incl?'GST extracted from an inclusive price: ':'GST added on an exclusive price: ')+money(tax)+
     ' at '+r+'%. Intra-state sales split it as CGST + SGST of '+money(tax/2)+' each; inter-state is IGST of '+money(tax)+'.';
-  document.title='GST '+money(tax)+' - ToolTide';
+  document.title='GST '+money(tax)+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_gst',JSON.stringify({p:P.value,r:R.value,m:M.value}));}catch(e){}}
 [P,R,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3224,7 +3224,7 @@ function calc(){
   var r=parseFloat(R.value)||0,h=parseFloat(H.value)||0,t=parseFloat(T.value)||40,m=parseFloat(M.value)||1.5;
   if(!r||!h){OUT.textContent='–';document.getElementById('ot-reg').textContent='–';
     document.getElementById('ot-ot').textContent='–';document.getElementById('ot-rate').textContent='–';
-    document.getElementById('ot-note').textContent='';document.title='Overtime Pay Calculator - ToolTide';return;}
+    document.getElementById('ot-note').textContent='';document.title='Overtime Pay Calculator - ToolDune';return;}
   var oth=Math.max(0,h-t),reg=Math.min(h,t)*r,ot=oth*r*m,total=reg+ot;
   OUT.textContent=money(total);
   document.getElementById('ot-reg').textContent=money(reg);
@@ -3233,7 +3233,7 @@ function calc(){
   document.getElementById('ot-note').textContent='US FLSA baseline: 1.5× past 40 hours in a workweek. '+
     (oth?('This week includes '+oth+' OT hours - worth '+money(oth*r*(m-1))+' extra versus plain time.'):'No overtime hours this week - every hour is plain time.')+
     ' Some states and contracts double time past 12-hour days; adjust the multiplier for those rules.';
-  document.title=money(total)+' this week - ToolTide';
+  document.title=money(total)+' this week - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_overtime',JSON.stringify({r:R.value,h:H.value,t:T.value,m:M.value}));}catch(e){}}
 [R,H,T,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3279,7 +3279,7 @@ function calc(){
   var inc=parseFloat(I.value)||0,debt=parseFloat(D.value)||0,rule=parseFloat(RU.value)||30;
   if(!inc){OUT.textContent='–';document.getElementById('rt-30').textContent='–';
     document.getElementById('rt-dti').textContent='–';document.getElementById('rt-left').textContent='–';
-    document.getElementById('rt-note').textContent='';document.title='Rent Affordability Calculator - ToolTide';return;}
+    document.getElementById('rt-note').textContent='';document.title='Rent Affordability Calculator - ToolDune';return;}
   var cap=inc*rule/100,dti=inc*0.36-debt,left=inc-cap-debt;
   var best=Math.min(cap,dti>0?dti:0);
   OUT.textContent=money(best);
@@ -3289,7 +3289,7 @@ function calc(){
   document.getElementById('rt-note').textContent='Landlords typically want rent under 30% of gross income; lenders cap all debt (rent included) near 36%. '+
     (debt>0?('Your '+money(debt)+' in monthly payments is why the DTI line is lower - it is the honest ceiling for this budget.'):'No debts entered - the DTI line matches a 36% total ceiling.')+
     ' Remember utilities, deposits and commuter costs on top of the number.';
-  document.title=money(best)+'/mo rent budget - ToolTide';
+  document.title=money(best)+'/mo rent budget - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_rent',JSON.stringify({i:I.value,d:D.value,r:RU.value}));}catch(e){}}
 [I,D,RU].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3330,7 +3330,7 @@ var OUT=document.getElementById('cg-out'),UNIT=document.getElementById('cg-unit'
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var v=parseFloat(V.value),d=D.value;
-  if(isNaN(v)){OUT.textContent='–';UNIT.textContent=d==='c2p'?'percentage':'CGPA (10-point)';document.getElementById('cg-class').textContent='–';document.getElementById('cg-other').textContent='–';document.getElementById('cg-note').textContent='';document.title='CGPA to Percentage - ToolTide';return;}
+  if(isNaN(v)){OUT.textContent='–';UNIT.textContent=d==='c2p'?'percentage':'CGPA (10-point)';document.getElementById('cg-class').textContent='–';document.getElementById('cg-other').textContent='–';document.getElementById('cg-note').textContent='';document.title='CGPA to Percentage - ToolDune';return;}
   var pct,cg;
   if(d==='c2p'){cg=v;pct=v*9.5;}else{pct=v;cg=v/9.5;}
   OUT.textContent=d==='c2p'?Math.round(pct*100)/100+'%':Math.round(cg*100)/100;
@@ -3342,7 +3342,7 @@ function calc(){
   document.getElementById('cg-class').textContent=cls;
   document.getElementById('cg-other').textContent=d==='c2p'?Math.round(v/9.5*100)/100:Math.round(v*9.5*100)/100+'%';
   document.getElementById('cg-note').textContent='CBSE formula: percentage = CGPA × 9.5. Some universities use different factors (9.0-10.0) or letter tables - always check your institution\\'s certificate before quoting a converted number on a form.';
-  document.title=d==='c2p'?Math.round(pct*100)/100+'% from CGPA - ToolTide':'CGPA '+Math.round(cg*100)/100+' - ToolTide';
+  document.title=d==='c2p'?Math.round(pct*100)/100+'% from CGPA - ToolDune':'CGPA '+Math.round(cg*100)/100+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_cgpa',JSON.stringify({d:D.value,v:V.value}));}catch(e){}}
 [D,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3394,7 +3394,7 @@ function calc(){
   var last=new Date(bed.getTime()-6*3600*1000);
   var hh=last.getHours(),mm=last.getMinutes(),ap=hh<12?'AM':'PM',h12=hh%12;if(h12===0)h12=12;
   document.getElementById('caf-cutoff').textContent=h12+':'+(mm<10?'0':'')+mm+' '+ap+' (for an 11 PM bedtime)';
-  document.title=mg+' mg caffeine - ToolTide';
+  document.title=mg+' mg caffeine - ToolDune';
 }
 function save(){var s=sel(),a=[];for(var i=0;i<s.length;i++)a.push(s[i].value);
   try{localStorage.setItem('tt_caffeine',JSON.stringify(a));}catch(e){}}
@@ -3443,7 +3443,7 @@ function calc(){
   var sex=S.value,h=parseFloat(H.value)||0,n=parseFloat(N.value)||0,w=parseFloat(W.value)||0;
   if(!h||!n||!w||(sex==='f'&&!parseFloat(HP.value))){OUT.textContent='–';document.getElementById('bf-cat').textContent='–';
     document.getElementById('bf-fatkg').textContent='–';document.getElementById('bf-leankg').textContent='–';
-    document.getElementById('bf-note').textContent='';document.title='Body Fat Calculator - ToolTide';return;}
+    document.getElementById('bf-note').textContent='';document.title='Body Fat Calculator - ToolDune';return;}
   var bf;
   if(sex==='m'){bf=495/(1.0324-0.19077*Math.log10(w-n)+0.15456*Math.log10(h))-450;}
   else{bf=495/(1.29579-0.35004*Math.log10(w+parseFloat(HP.value)-n)+0.221*Math.log10(h))-450;}
@@ -3455,7 +3455,7 @@ function calc(){
   document.getElementById('bf-fatkg').textContent=kg?Math.round(kg*bf/100)+' kg':'–';
   document.getElementById('bf-leankg').textContent=kg?Math.round(kg*(1-bf/100))+' kg':'–';
   document.getElementById('bf-note').textContent='US Navy circumference method - accurate to roughly ±3% versus DEXA for most people. Track the trend on the same tape, same time of day, rather than treating one reading as truth.';
-  document.title=Math.round(bf*10)/10+'% body fat - ToolTide';
+  document.title=Math.round(bf*10)/10+'% body fat - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_bodyfat',JSON.stringify({s:S.value,h:H.value,n:N.value,w:W.value,hp:HP.value,k:document.getElementById('bf-kg').value}));}catch(e){}}
 S.addEventListener('change',function(){HW.style.display=S.value==='f'?'':'none';calc();save();});
@@ -3496,7 +3496,7 @@ function toGas(c){var marks=[[125,1],[140,2],[150,2],[160,3],[170,3],[180,4],[19
   var best=marks[0][1],d=1e9;marks.forEach(function(m){var dd=Math.abs(m[0]-c);if(dd<d){d=dd;best=m[1];}});return best;}
 function calc(){
   var v=parseFloat(V.value),u=U.value;
-  if(isNaN(v)){OUT.textContent='–';UNIT.textContent='';TB.innerHTML='';document.title='Oven Temperature Converter - ToolTide';return;}
+  if(isNaN(v)){OUT.textContent='–';UNIT.textContent='';TB.innerHTML='';document.title='Oven Temperature Converter - ToolDune';return;}
   var f=u==='f'?v:(u==='c'?v*9/5+32:0);
   if(u==='g'){f=250+25*v;}
   var c=(f-32)*5/9,g=Math.max(1,Math.min(10,toGas(c)));
@@ -3507,7 +3507,7 @@ function calc(){
   var uses=['Very low - meringues','Low - slow roasting','Low - drying','Moderate - casseroles','Moderate - cakes & cookies','Moderate hot - roasting veg','Hot - bread & scones','Hot - roasting meat','Very hot - pizza & pastry','Very hot - fast browning'];
   rows.forEach(function(r){h+='<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+uses[r[2]-1]+'</td></tr>';});
   TB.innerHTML=h+'</tbody></table>';
-  document.title=Math.round(c)+'C oven - ToolTide';
+  document.title=Math.round(c)+'C oven - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_oven',JSON.stringify({u:U.value,v:V.value}));}catch(e){}}
 [U,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3553,7 +3553,7 @@ function calc(){
   var b=parseFloat(B.value)||0,r=(parseFloat(R.value)||0)/100,v=parseFloat(V.value)||0;
   if(!b&&!v){OUT.textContent='–';document.getElementById('cm-comm').textContent='–';
     document.getElementById('cm-att').textContent='–';document.getElementById('cm-mix').textContent='–';
-    document.getElementById('cm-note').textContent='';document.title='Commission Calculator - ToolTide';return;}
+    document.getElementById('cm-note').textContent='';document.title='Commission Calculator - ToolDune';return;}
   var comm=v*r,total=b+comm;
   OUT.textContent=money(total);
   document.getElementById('cm-comm').textContent=money(comm);
@@ -3566,7 +3566,7 @@ function calc(){
     else{note+=' '+money(q-v)+' short of quota - each extra 10% of revenue adds '+money(q*0.1*r)+' at this rate.';}
   }
   document.getElementById('cm-note').textContent=note;
-  document.title=money(total)+' paycheck - ToolTide';
+  document.title=money(total)+' paycheck - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_commission',JSON.stringify({b:B.value,r:R.value,v:V.value,q:Q.value}));}catch(e){}}
 [B,R,V,Q].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3609,14 +3609,14 @@ function calc(){
   var t=parseFloat(T.value),m=parseFloat(MI.value),f=U.value==='f';
   if(isNaN(t)||!m||m<1){OUT.textContent='–';UNIT.textContent='';
     document.getElementById('af-tset').textContent='–';document.getElementById('af-time').textContent='–';
-    document.getElementById('af-save').textContent='–';document.title='Air Fryer Converter - ToolTide';return;}
+    document.getElementById('af-save').textContent='–';document.title='Air Fryer Converter - ToolDune';return;}
   var ft=f?t-25:(t-15),fm=Math.max(1,Math.round(m*0.8));
   OUT.textContent=Math.round(ft)+'°'+(f?'F':'C')+' · '+fm+' min';
   UNIT.textContent='air fryer setting';
   document.getElementById('af-tset').textContent=Math.round(ft)+'°'+(f?'F':'C');
   document.getElementById('af-time').textContent=fm+' min';
   document.getElementById('af-save').textContent=(m-fm)+' min';
-  document.title='Air fryer '+Math.round(ft)+'°'+(f?'F':'C')+' '+fm+' min - ToolTide';
+  document.title='Air fryer '+Math.round(ft)+'°'+(f?'F':'C')+' '+fm+' min - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_airfryer',JSON.stringify({u:U.value,t:T.value,m:MI.value}));}catch(e){}}
 [U,T,MI].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3662,7 +3662,7 @@ function calc(){
   var d=parseFloat(D.value)||0,e=parseFloat(E.value)||0,p=parseFloat(P.value)||0,us=U.value==='us';
   if(!d||!e||!p){OUT.textContent='–';document.getElementById('fc-fuel').textContent='–';
     document.getElementById('fc-pp').textContent='–';document.getElementById('fc-rt').textContent='–';
-    document.getElementById('fc-note').textContent='';document.title='Fuel Cost Calculator - ToolTide';return;}
+    document.getElementById('fc-note').textContent='';document.title='Fuel Cost Calculator - ToolDune';return;}
   var fuel,cost,unit;
   if(us){fuel=d/e;unit='gallons';}else{fuel=d*e/100;unit='liters';}
   cost=fuel*p;
@@ -3674,7 +3674,7 @@ function calc(){
   document.getElementById('fc-note').textContent='Math: '+d+' '+(us?'miles ÷ ':'km ÷ ')+(us?e+' MPG':e+' L/100km')+' = '+
     (Math.round(fuel*100)/100)+' '+unit+' × '+money(p)+' = '+money(cost).slice(1)+
     '. Real-world driving (AC, hills, luggage) can add 10-15% - the round-trip line already doubles it for planning.';
-  document.title=money(cost)+' fuel - ToolTide';
+  document.title=money(cost)+' fuel - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_fuelcost',JSON.stringify({u:U.value,d:D.value,e:E.value,p:P.value}));}catch(e){}}
 [U,D,E,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3728,13 +3728,13 @@ var PGOAL=document.getElementById('mc-pg'),CGOAL=document.getElementById('mc-cg'
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var cal=parseFloat(CAL.value)||0;
-  if(!cal){OUT.textContent='–';PGOAL.textContent=CGOAL.textContent=FGOAL.textContent='–';document.getElementById('mc-note').textContent='';document.title='Macro Calculator - ToolTide';return;}
+  if(!cal){OUT.textContent='–';PGOAL.textContent=CGOAL.textContent=FGOAL.textContent='–';document.getElementById('mc-note').textContent='';document.title='Macro Calculator - ToolDune';return;}
   var pp=parseFloat(P.value)||0,cp=parseFloat(C.value)||0,fp=parseFloat(F.value)||0,sum=pp+cp+fp;
   document.getElementById('mc-note').textContent=sum===100?'Splits to 100% - good.':'Splits total '+sum+'% (should be 100%) - grams shown are still proportional.';
   var pg=cal*(pp/100)/4,cg=cal*(cp/100)/4,fg=cal*(fp/100)/9;
   OUT.textContent=Math.round(pg)+' / '+Math.round(cg)+' / '+Math.round(fg);
   PGOAL.textContent=Math.round(pg)+' g';CGOAL.textContent=Math.round(cg)+' g';FGOAL.textContent=Math.round(fg)+' g';
-  document.title=Math.round(pg)+'P/'+Math.round(cg)+'C/'+Math.round(fg)+'F - ToolTide';
+  document.title=Math.round(pg)+'P/'+Math.round(cg)+'C/'+Math.round(fg)+'F - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_macros',JSON.stringify({c:CAL.value,g:GOAL.value,p:P.value,ca:C.value,f:F.value}));}catch(e){}}
 GOAL.addEventListener('change',function(){
@@ -3787,14 +3787,14 @@ function calc(){
   var w=parseFloat(W.value)||0,h=parseFloat(H.value)||0,r=parseFloat(R.value)||0;
   if(!w||!h||!r){OUT.textContent='–';document.getElementById('el-day').textContent='–';
     document.getElementById('el-year').textContent='–';document.getElementById('el-kwh').textContent='–';
-    document.getElementById('el-note').textContent='';document.title='Electricity Cost Calculator - ToolTide';return;}
+    document.getElementById('el-note').textContent='';document.title='Electricity Cost Calculator - ToolDune';return;}
   var kwhDay=w*h/1000,day=kwhDay*r,mon=day*30.4,year=day*365;
   OUT.textContent=money(mon);
   document.getElementById('el-day').textContent=money(day);
   document.getElementById('el-year').textContent=money(year);
   document.getElementById('el-kwh').textContent=Math.round(kwhDay*30.4).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('el-note').textContent='Math: '+w+' W × '+h+' h = '+(Math.round(kwhDay*100)/100)+' kWh/day, × your $'+r.toFixed(2)+'/kWh. Standby power typically adds 1-2 W around the clock - devices left plugged in cost a few dollars a year each.';
-  document.title=money(mon)+'/mo to run - ToolTide';
+  document.title=money(mon)+'/mo to run - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_electricity',JSON.stringify({w:W.value,h:H.value,r:R.value}));}catch(e){}}
 [W,H,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3837,7 +3837,7 @@ function calc(){
   var tv=parseFloat(T.value),v=parseFloat(V.value)||0,imp=U.value==='f';
   if(isNaN(tv)){OUT.textContent='–';document.getElementById('wc-frost').textContent='–';
     document.getElementById('wc-delta').textContent='–';document.getElementById('wc-note').textContent='';
-    document.title='Wind Chill Calculator - ToolTide';return;}
+    document.title='Wind Chill Calculator - ToolDune';return;}
   var tf=imp?tv:fc(tv),vmp=imp?v:v*0.621371;
   var wc,note='';
   if(tf>50||vmp<3){wc=tf;
@@ -3859,7 +3859,7 @@ function calc(){
   OUT.textContent=out+'°'+(imp?'F':'C');
   document.getElementById('wc-note').textContent=note;
   UNIT.textContent='feels like on exposed skin';
-  document.title='Feels like '+out+'°'+(imp?'F':'C')+' - ToolTide';
+  document.title='Feels like '+out+'°'+(imp?'F':'C')+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_windchill',JSON.stringify({t:T.value,v:V.value,u:U.value}));}catch(e){}}
 [U,T,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3908,7 +3908,7 @@ function calc(){
   var d=parseFloat(D.value)||0,sec=(parseFloat(H.value)||0)*3600+(parseFloat(M.value)||0)*60+(parseFloat(S.value)||0);
   if(!d||!sec){OUT.textContent='–';document.getElementById('pa-mpm').textContent='–';
     document.getElementById('pa-kmh').textContent='–';document.getElementById('pa-mph').textContent='–';
-    document.getElementById('pa-note').textContent='';document.title='Running Pace Calculator - ToolTide';return;}
+    document.getElementById('pa-note').textContent='';document.title='Running Pace Calculator - ToolDune';return;}
   var dkm=U.value==='km'?d:d*1.609344;
   var perKm=sec/dkm,perMi=perKm*1.609344;
   OUT.textContent=pfmt(U.value==='km'?perKm:perMi);
@@ -3919,7 +3919,7 @@ function calc(){
   var races=[['5K',5],['10K',10],['Half',21.0975],['Marathon',42.195]],h='<div class="stats">';
   races.forEach(function(r){h+='<div class="stat"><b>'+pfmt(perKm*r[1])+'</b><span>'+r[0]+' at this pace</span></div>';});
   document.getElementById('pa-note').innerHTML=h+'</div>';
-  document.title='Pace '+pfmt(U.value==='km'?perKm:perMi)+' '+UNIT.textContent+' - ToolTide';
+  document.title='Pace '+pfmt(U.value==='km'?perKm:perMi)+' '+UNIT.textContent+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_pace',JSON.stringify({u:U.value,d:D.value,h:H.value,m:M.value,s:S.value}));}catch(e){}}
 [U,D,H,M,S].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -3964,7 +3964,7 @@ function calc(){
   var tv=parseFloat(T.value),rh=parseFloat(RH.value)||0,f=U.value==='f';
   if(isNaN(tv)){OUT.textContent='–';document.getElementById('hi-band').textContent='–';
     document.getElementById('hi-delta').textContent='–';document.getElementById('hi-note').textContent='';
-    document.title='Heat Index Calculator - ToolTide';return;}
+    document.title='Heat Index Calculator - ToolDune';return;}
   var tf=f?tv:tv*9/5+32;
   if(tf<80){var d=0;OUT.textContent=(f?tv:tv)+'°'+U.value.toUpperCase();
     UNIT.textContent='feels like (humidity effect negligible below 80°F)';document.getElementById('hi-band').textContent='—';
@@ -3982,7 +3982,7 @@ function calc(){
   document.getElementById('hi-delta').textContent='+'+(f?Math.round((hi-tf)*10)/10:cf(hi-tf))+'°';
   document.getElementById('hi-note').textContent='NOAA Rothfusz regression in shade with light wind. Direct sun can add up to 15°F (8°C) - and the band guidance means hydration, shade and midday effort cuts.';
   UNIT.textContent='feels like (in shade)';
-  document.title='Feels like '+(f?Math.round(hi):cf(hi))+'°'+U.value.toUpperCase()+' - ToolTide';
+  document.title='Feels like '+(f?Math.round(hi):cf(hi))+'°'+U.value.toUpperCase()+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_heatindex',JSON.stringify({t:T.value,r:RH.value,u:U.value}));}catch(e){}}
 [U,T,RH].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4026,7 +4026,7 @@ function calc(){
   var h=parseFloat(H.value),w=parseFloat(W.value),imp=U.value==='i';
   if(!h||!w){OUT.textContent='–';document.getElementById('bmi-cat').textContent='–';
     document.getElementById('bmi-lo').textContent='–';document.getElementById('bmi-hi').textContent='–';
-    document.title='BMI Calculator - ToolTide';return;}
+    document.title='BMI Calculator - ToolDune';return;}
   var bmi=imp?703*w/(h*h):w/((h/100)*(h/100)),u2=imp?'lb':'kg';
   var cat=TT('bmi.v.o1','Obese (Class I) - BMI 30-34.9');
   if(bmi<18.5)cat=TT('bmi.v.uw','Underweight - BMI below 18.5');
@@ -4039,7 +4039,7 @@ function calc(){
   OUT.textContent=Math.round(bmi*10)/10;
   document.getElementById('bmi-lo').textContent=Math.round(18.5*(imp?(h/39.37)*(h/39.37):(h/100)*(h/100)))+' '+u2;
   document.getElementById('bmi-hi').textContent=Math.round(24.9*(imp?(h/39.37)*(h/39.37):(h/100)*(h/100)))+' '+u2;
-  document.title='BMI '+Math.round(bmi*10)/10+' - ToolTide';
+  document.title='BMI '+Math.round(bmi*10)/10+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_bmi',JSON.stringify({u:U.value,h:H.value,w:W.value}));}catch(e){}}
 [U,H,W].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4095,13 +4095,13 @@ function calc(){
   var a=parseFloat(A.value),h=parseFloat(H.value),w=parseFloat(W.value),m=parseFloat(ACT.value);
   if(!a||!h||!w){OUT.textContent='–';document.getElementById('td-bmr').textContent='–';
     document.getElementById('td-loss').textContent='–';document.getElementById('td-gain').textContent='–';
-    document.title='TDEE Calculator - ToolTide';return;}
+    document.title='TDEE Calculator - ToolDune';return;}
   var bmr=10*w+6.25*h-5*a+(S.value==='m'?5:-161),tdee=bmr*m;
   OUT.textContent=Math.round(tdee).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('td-bmr').textContent=Math.round(bmr).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('td-loss').textContent=Math.round(tdee-500).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('td-gain').textContent=Math.round(tdee+300).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
-  document.title=Math.round(tdee).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' kcal TDEE - ToolTide';
+  document.title=Math.round(tdee).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' kcal TDEE - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_tdee',JSON.stringify({s:S.value,a:A.value,h:H.value,w:W.value,act:ACT.value}));}catch(e){}}
 [S,A,H,W,ACT].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4145,7 +4145,7 @@ function calc(){
   var b=parseFloat(B.value)||0,p=parseFloat(P.value)||0,n=Math.max(1,Math.round(parseFloat(N.value)||1));
   if(!b){OUT.textContent='–';document.getElementById('ts-tipamt').textContent='–';
     document.getElementById('ts-grand').textContent='–';document.getElementById('ts-round').textContent='–';
-    document.getElementById('ts-note').textContent='';document.title='Tip Split Calculator - ToolTide';return;}
+    document.getElementById('ts-note').textContent='';document.title='Tip Split Calculator - ToolDune';return;}
   var tip=b*p/100,grand=b+tip,per=grand/n;
   OUT.textContent=money(per);
   document.getElementById('ts-tipamt').textContent=money(tip);
@@ -4153,7 +4153,7 @@ function calc(){
   var ru=Math.ceil(per);
   document.getElementById('ts-round').textContent=money(ru);
   document.getElementById('ts-note').textContent=n+' people × '+money(ru)+' = '+money(ru*n)+' collected - the extra '+(ru*n>=grand?money(ru*n-grand):'$0.00')+' becomes a fatter tip. One person paying? The grand total is '+money(grand)+'.';
-  document.title=money(per)+' each - ToolTide';
+  document.title=money(per)+' each - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_tipsplit',JSON.stringify({b:B.value,p:P.value,n:N.value}));}catch(e){}}
 [B,P,N].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4196,7 +4196,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var c=parseFloat(C.value),w=(parseFloat(W.value)||0)/100,t=parseFloat(G.value);
   var s100=document.getElementById('fg-s100'),s80=document.getElementById('fg-s80'),s60=document.getElementById('fg-s60');
-  if(isNaN(c)||isNaN(t)||w<=0||w>1){OUT.textContent='–';UNIT.textContent='needed on the final';NOTE.textContent='';s100.textContent=s80.textContent=s60.textContent='–';document.title='Final Grade Calculator - ToolTide';return;}
+  if(isNaN(c)||isNaN(t)||w<=0||w>1){OUT.textContent='–';UNIT.textContent='needed on the final';NOTE.textContent='';s100.textContent=s80.textContent=s60.textContent='–';document.title='Final Grade Calculator - ToolDune';return;}
   var need=(t-c*(1-w))/w,fin=function(x){return (c*(1-w)+x*w).toFixed(1)+'%';};
   OUT.textContent=Math.ceil(need*10)/10+'%';
   NOTE.textContent='Formula: need = (target − current × (1 − '+Math.round(w*100)+'%)) ÷ '+Math.round(w*100)+'% = ( '+t+' − '+c+' × '+(1-w).toFixed(2)+' ) ÷ '+w.toFixed(2)+'.';
@@ -4204,7 +4204,7 @@ function calc(){
   else if(need<=0){UNIT.textContent='already secured even at 0% on the final:';OUT.textContent=fin(0);}
   else{UNIT.textContent='needed on the final';}
   s100.textContent=fin(100);s80.textContent=fin(80);s60.textContent=fin(60);
-  document.title='Need '+OUT.textContent+' on final - ToolTide';
+  document.title='Need '+OUT.textContent+' on final - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_finalgrade',JSON.stringify({c:C.value,w:W.value,t:G.value}));}catch(e){}}
 [C,W,G].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4250,7 +4250,7 @@ function calc(){
   if(kg<=0){OUT.textContent='–';document.getElementById('wt-base').textContent='–';
     document.getElementById('wt-exadd').textContent='–';document.getElementById('wt-bottles').textContent='–';
     document.getElementById('wt-cups').textContent='–';document.getElementById('wt-note').textContent='';
-    document.title='Water Intake Calculator - ToolTide';return;}
+    document.title='Water Intake Calculator - ToolDune';return;}
   var base=kg*33/1000,exadd=Math.round(ex/30*400)/1000,hotadd=hot?0.5:0,total=base+exadd+hotadd;
   OUT.textContent=(Math.round(total*10)/10).toFixed(1);
   document.getElementById('wt-base').textContent=(Math.round(base*10)/10).toFixed(1)+' L';
@@ -4258,7 +4258,7 @@ function calc(){
   document.getElementById('wt-bottles').textContent='~'+Math.ceil(total/0.5);
   document.getElementById('wt-cups').textContent='~'+Math.ceil(total/0.237);
   document.getElementById('wt-note').textContent='Baseline ≈ 33 ml per kg. Exercise adds ~400 ml per 30 minutes; heat adds 0.5 L. Spread it across the day - a glass when you wake, one with each meal, and sip around workouts beats drinking it all at once. All food and drink counts toward the total.';
-  document.title=(Math.round(total*10)/10).toFixed(1)+' L water a day - ToolTide';
+  document.title=(Math.round(total*10)/10).toFixed(1)+' L water a day - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_water',JSON.stringify({k:KG.value,e:EX.value,h:HOT.value}));}catch(e){}}
 [KG,EX,HOT].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4319,7 +4319,7 @@ function calc(){
   document.getElementById('gpa-unit').textContent=unit;
   document.getElementById('gpa-sem').textContent=sem===null?'–':sem.toFixed(2);
   document.getElementById('gpa-cr').textContent=tot;
-  document.title=(out===null?'GPA Calculator':(unit==='cumulative GPA'?'Cumulative GPA ':'GPA ')+out.toFixed(2))+' - ToolTide';
+  document.title=(out===null?'GPA Calculator':(unit==='cumulative GPA'?'Cumulative GPA ':'GPA ')+out.toFixed(2))+' - ToolDune';
 }
 function save(){var p=parts(),o={n:[],c:[],g:[],pg:document.getElementById('gpa-pg').value,pc:document.getElementById('gpa-pc').value};
   for(var i=0;i<ROWS;i++){o.n.push(p[0][i].value);o.c.push(p[1][i].value);o.g.push(p[2][i].value);}
@@ -4369,7 +4369,7 @@ function calc(){
     for(var k=6;k>=3;k--){rows.push([k,base+90*k]);}
     OUT.textContent=fmt(rows[0][1]);UNIT.textContent='best wake-up (6 cycles ≈ 9 h in bed)';
   }else{
-    var v=T.value;if(!v){OUT.textContent='–';UNIT.textContent='';LIST.innerHTML='';document.title='Sleep Cycle Calculator - ToolTide';return;}
+    var v=T.value;if(!v){OUT.textContent='–';UNIT.textContent='';LIST.innerHTML='';document.title='Sleep Cycle Calculator - ToolDune';return;}
     var p=v.split(':');base=parseInt(p[0],10)*60+parseInt(p[1],10)-15;
     for(var j=6;j>=3;j--){rows.push([j,base-90*j]);}
     OUT.textContent=fmt(rows[0][1]);UNIT.textContent='bedtime for a '+v+' wake-up (6 cycles)';
@@ -4377,7 +4377,7 @@ function calc(){
   var h='<div class="stats">';
   rows.forEach(function(r){h+='<div class="stat"><b>'+fmt(r[1])+'</b><span>'+r[0]+' cycles · '+(r[0]*1.5).toFixed(1).replace('.0','')+' h sleep</span></div>';});
   LIST.innerHTML=h+'</div>';
-  document.title=(mode==='wake'?'Sleep now, wake ':'Bedtime ')+(mode==='wake'?fmt(rows[0][1]):T.value)+' - ToolTide';
+  document.title=(mode==='wake'?'Sleep now, wake ':'Bedtime ')+(mode==='wake'?fmt(rows[0][1]):T.value)+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_sleep',JSON.stringify({m:MODE.value,t:T.value}));}catch(e){}}
 MODE.addEventListener('change',function(){TW.style.display=MODE.value==='bed'?'':'none';calc();save();});
@@ -4420,17 +4420,17 @@ function money(v){return '$'+Math.round(v).toLocaleString((typeof window!=='unde
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var g=parseFloat(G.value),s=parseFloat(S.value)||0,d=parseFloat(D.value)||0,apy=parseFloat(R.value)||0;
-  if(isNaN(g)||g<=0){OUT.textContent='-';UNIT.textContent='';DET.textContent='';FILL.style.width='0';document.title='Savings Goal Calculator - ToolTide';return;}
+  if(isNaN(g)||g<=0){OUT.textContent='-';UNIT.textContent='';DET.textContent='';FILL.style.width='0';document.title='Savings Goal Calculator - ToolDune';return;}
   FILL.style.width=Math.min(100,s/g*100)+'%';
-  if(s>=g){OUT.textContent='🎉';UNIT.textContent='goal reached';DET.textContent='You are at '+money(s)+' of '+money(g)+' - any deposit now is extra cushion.';document.title='Savings goal reached - ToolTide';return;}
+  if(s>=g){OUT.textContent='🎉';UNIT.textContent='goal reached';DET.textContent='You are at '+money(s)+' of '+money(g)+' - any deposit now is extra cushion.';document.title='Savings goal reached - ToolDune';return;}
   var bal=s,rm=apy/100/12,m=0,dep=s;
   while(bal<g&&m<1200){bal=bal*(1+rm)+d;dep+=d;m++;}
-  if(bal<g){OUT.textContent='100+';UNIT.textContent='years - increase deposit';DET.textContent='At this pace the goal is effectively out of reach. Even a small monthly deposit changes the date dramatically.';document.title='Savings goal - ToolTide';return;}
+  if(bal<g){OUT.textContent='100+';UNIT.textContent='years - increase deposit';DET.textContent='At this pace the goal is effectively out of reach. Even a small monthly deposit changes the date dramatically.';document.title='Savings goal - ToolDune';return;}
   var now=new Date(),end=new Date(now.getFullYear(),now.getMonth()+m,now.getDate());
   OUT.textContent=MON[end.getMonth()]+' '+end.getFullYear();UNIT.textContent='goal reached';
   var interest=bal-dep;
   DET.textContent=m+' months · '+money(dep-s)+' deposited'+(interest>=1?' · '+money(interest)+' interest earned':'');
-  document.title=m+' months to goal - ToolTide';
+  document.title=m+' months to goal - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_savings',JSON.stringify({g:G.value,s:S.value,d:D.value,r:R.value}));}catch(e){}}
 [G,S,D,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4474,7 +4474,7 @@ function money(v){return '$'+Math.round(v).toLocaleString((typeof window!=='unde
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var p=parseFloat(P.value)||0,m=parseFloat(M.value)||0,r=(parseFloat(R.value)||0)/100,y=parseFloat(Y.value);
-  if(!y||y<1||(p<=0&&m<=0)){OUT.textContent='-';UNIT.textContent='';DET.textContent='';TB.innerHTML='';document.title='Compound Interest Calculator - ToolTide';return;}
+  if(!y||y<1||(p<=0&&m<=0)){OUT.textContent='-';UNIT.textContent='';DET.textContent='';TB.innerHTML='';document.title='Compound Interest Calculator - ToolDune';return;}
   var bal=p,dep=p,rows=[];
   for(var t=1;t<=Math.min(Math.round(y),50);t++){
     for(var k=0;k<12;k++){bal=bal*(1+r/12)+m;dep+=m;}
@@ -4487,7 +4487,7 @@ function calc(){
   var h='<table class="cp-t"><thead><tr><th>Year</th><th>Balance</th><th>Interest so far</th></tr></thead><tbody>';
   rows.forEach(function(row){h+='<tr><td>'+row[0]+'</td><td>'+money(row[1])+'</td><td>'+money(row[2])+'</td></tr>';});
   TB.innerHTML=h+'</tbody></table>';
-  document.title=money(bal)+' in '+Math.round(y)+' years - ToolTide';
+  document.title=money(bal)+' in '+Math.round(y)+' years - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_compound',JSON.stringify({p:P.value,m:M.value,r:R.value,y:Y.value}));}catch(e){}}
 [P,M,R,Y].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4535,7 +4535,7 @@ function calc(){
   if(!(p>0)||!(y>0)||isNaN(ar)||ar<0){OUT.textContent='–';
     document.getElementById('ln-int').textContent='–';document.getElementById('ln-tot').textContent='–';
     document.getElementById('ln-sharepct').textContent='–';document.getElementById('ln-note').textContent='';
-    document.title='Loan Payment Calculator - ToolTide';return;}
+    document.title='Loan Payment Calculator - ToolDune';return;}
   var r=ar/100/12,n=Math.round(y*12),m;
   if(r===0){m=p/n;}
   else{var f=Math.pow(1+r,n);m=p*r*f/(f-1);}
@@ -4545,7 +4545,7 @@ function calc(){
   document.getElementById('ln-tot').textContent=money(tot);
   document.getElementById('ln-sharepct').textContent=Math.round(int/tot*100)+'%';
   document.getElementById('ln-note').textContent=money(p)+' at '+ar+'% for '+y+' years costs '+money(int)+' in interest - '+Math.round(int/tot*100)+' cents of every payment. Extra principal each month shortens the term and skips the interest those months would have carried.';
-  document.title=money(m)+'/mo loan payment - ToolTide';
+  document.title=money(m)+'/mo loan payment - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_loan',JSON.stringify({p:P.value,r:R.value,y:Y.value}));}catch(e){}}
 [P,R,Y].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4591,7 +4591,7 @@ function calc(){
   if(!(a>0)||r<0){OUT.textContent='–';U.textContent='';
     document.getElementById('vat-net').textContent='–';document.getElementById('vat-amt').textContent='–';
     document.getElementById('vat-gr').textContent='–';document.getElementById('vat-note').textContent='';
-    document.title='VAT Calculator - ToolTide';return;}
+    document.title='VAT Calculator - ToolDune';return;}
   var net,gross;
   if(M.value==='add'){net=a;gross=a*(1+r);}else{gross=a;net=a/(1+r);}
   var amt=gross-net;
@@ -4604,7 +4604,7 @@ function calc(){
   document.getElementById('vat-note').textContent=M.value==='add'
     ?'Adding '+rt+'% VAT: '+money(net)+' x '+(1+r).toFixed(r>0?4:0)+' = '+money(gross)+'.'
     :'Removing '+rt+'% VAT: '+money(gross)+' / '+(1+r).toFixed(r>0?4:0)+' = '+money(net)+'. Divide - never subtract '+rt+'%, because the gross already carries the tax.';
-  document.title=money(M.value==='add'?gross:net)+(M.value==='add'?' incl. VAT':' ex VAT')+' - ToolTide';
+  document.title=money(M.value==='add'?gross:net)+(M.value==='add'?' incl. VAT':' ex VAT')+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_vat',JSON.stringify({m:M.value,a:A.value,r:R.value}));}catch(e){}}
 [M,A,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -4658,7 +4658,7 @@ function calc(){
   if([a,b,c,d].some(isNaN)||!b||!d||(op==='/'&&!c)){OUT.textContent='–';
     document.getElementById('fr-mix').textContent='–';document.getElementById('fr-dec').textContent='–';
     document.getElementById('fr-lcd').textContent='–';document.getElementById('fr-note').textContent='Enter whole numbers - a denominator (or the fraction you divide by) cannot be zero.';
-    document.title='Fraction Calculator - ToolTide';return;}
+    document.title='Fraction Calculator - ToolDune';return;}
   var n,dd,lcdUsed=null;
   if(op==='+'||op==='-'){
     var l=b*d/gcd(b,d);
@@ -4679,7 +4679,7 @@ function calc(){
   if(op==='/'){note+='flip and multiply: '+a+'/'+b+' × '+d+'/'+c+' = ';}
   note+=OUT.textContent+(g>1?' (divided by '+g+')':'');
   document.getElementById('fr-note').textContent=note;
-  document.title=OUT.textContent+' = '+document.getElementById('fr-dec').textContent+' - ToolTide';
+  document.title=OUT.textContent+' = '+document.getElementById('fr-dec').textContent+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_frac',JSON.stringify({a:A.value,b:B.value,c:C.value,d:D.value,op:OP.value}));}catch(e){}}
 [A,B,C,D].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -4731,7 +4731,7 @@ function calc(){
   if(!dv){OUT.textContent='–';U.textContent='estimated due date';
     document.getElementById('pg-ga').textContent='–';document.getElementById('pg-left').textContent='–';
     document.getElementById('pg-tri').textContent='–';document.getElementById('pg-note').textContent='';
-    document.title='Pregnancy Due Date Calculator - ToolTide';return;}
+    document.title='Pregnancy Due Date Calculator - ToolDune';return;}
   var dt=new Date(dv+'T00:00:00Z').getTime();
   if(isNaN(dt)){OUT.textContent='–';return;}
   var edd;
@@ -4755,7 +4755,7 @@ function calc(){
   var pct=Math.max(0,Math.min(100,Math.round(days/280*100)));
   document.getElementById('pg-tri').textContent=days<98?'1st':(days<196?'2nd':'3rd');
   document.getElementById('pg-note').textContent=pct+'% of the way (day '+days+' of 280) - only 5% of babies arrive exactly on the due date, most land within two weeks of it.';
-  document.title=w3+'w'+d3+'d · due '+OUT.textContent.slice(0,-6)+' - ToolTide';
+  document.title=w3+'w'+d3+'d · due '+OUT.textContent.slice(0,-6)+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_preg',JSON.stringify({m:M.value,d:D.value,w:W.value,g:G.value}));}catch(e){}}
 [M,D,W,G].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -4831,7 +4831,7 @@ function calc(){
   if(!v){OUT.textContent='–';U.textContent='local time there';
     document.getElementById('tz-diff').textContent='–';document.getElementById('tz-fd').textContent='–';
     document.getElementById('tz-day').textContent='–';document.getElementById('tz-note').textContent='';
-    document.title='Time Zone Converter - ToolTide';return;}
+    document.title='Time Zone Converter - ToolDune';return;}
   var m=v.match(/^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})/);
   if(!m){OUT.textContent='–';return;}
   var utc=wallToUTC(F.value,+m[1],+m[2],+m[3],+m[4],+m[5]);
@@ -4851,7 +4851,7 @@ function calc(){
   var nh=((np.h+11)%12)+1;
   document.getElementById('tz-day').textContent=nh+':'+String(np.mi).padStart(2,'0')+' '+(np.h<12?'am':'pm');
   document.getElementById('tz-note').textContent='DST handled automatically - zones shift with their own daylight rules, so the same meeting in July and January can differ by an hour.';
-  document.title=OUT.textContent+' - ToolTide';
+  document.title=OUT.textContent+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_tz',JSON.stringify({f:F.value,t:T.value,dt:DT.value}));}catch(e){}}
 [F,T].forEach(function(el){el.addEventListener('change',function(){calc();save();});});
@@ -4909,7 +4909,7 @@ function calc(){
   if(!v){OUT.textContent='–';
     document.getElementById('wk-span').textContent='–';document.getElementById('wk-q').textContent='–';
     document.getElementById('wk-doy').textContent='–';document.getElementById('wk-note').textContent='';
-    document.title='Week Number Calculator - ToolTide';return;}
+    document.title='Week Number Calculator - ToolDune';return;}
   var t=new Date(v+'T00:00:00Z').getTime();
   if(isNaN(t)){OUT.textContent='–';return;}
   var c=isoCal(t);
@@ -4924,7 +4924,7 @@ function calc(){
   var jan1=Date.UTC(y,0,1);
   document.getElementById('wk-doy').textContent=(Math.floor((t-jan1)/MS)+1)+' / '+(leap?366:365);
   document.getElementById('wk-note').textContent='ISO-8601 weeks run Monday to Sunday, and week 1 always holds the first Thursday - which is why early-January dates can still belong to week 52 or 53 of the year before.';
-  document.title='Week '+c.week+' ('+fmt(mon)+'-'+fmt(sun)+') - ToolTide';
+  document.title='Week '+c.week+' ('+fmt(mon)+'-'+fmt(sun)+') - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_week',JSON.stringify({d:D.value}));}catch(e){}}
 D.addEventListener('input',function(){calc();save();});
@@ -4984,7 +4984,7 @@ function calc(){
   if(!dw){OUT.textContent='–';
     document.getElementById('tc-dec').textContent='–';document.getElementById('tc-ot').textContent='–';
     document.getElementById('tc-days-w').textContent='–';document.getElementById('tc-note').textContent='';
-    document.title='Time Card Calculator - ToolTide';return;}
+    document.title='Time Card Calculator - ToolDune';return;}
   OUT.textContent=fmtHM(total);
   document.getElementById('tc-dec').textContent=(Math.round(total/60*100)/100).toString();
   var ot=Math.max(0,total-2400);
@@ -4992,7 +4992,7 @@ function calc(){
   document.getElementById('tc-days-w').textContent=dw;
   var av=total/dw;
   document.getElementById('tc-note').textContent='Average '+fmtHM(Math.round(av))+' per worked day, lunch of '+lunch+' min already deducted. Overnight shifts (out before in) roll to the next day automatically.';
-  document.title=fmtHM(total)+' this week - ToolTide';
+  document.title=fmtHM(total)+' this week - ToolDune';
 }
 function pack(){
   var s=[];
@@ -5059,7 +5059,7 @@ function calc(){
   if(!(w>0)||!(r>=1)){OUT.textContent='–';
     document.getElementById('orm-e').textContent='–';document.getElementById('orm-b').textContent='–';
     document.getElementById('orm-w5').textContent='–';document.getElementById('orm-note').textContent='';
-    document.title='One Rep Max Calculator - ToolTide';return;}
+    document.title='One Rep Max Calculator - ToolDune';return;}
   var ep=w*(1+r/30),br=r<37?w*36/(37-r):0,ld=w*100/(101.3-2.67123*r);
   var avg=(ep+br+ld)/3;
   OUT.textContent=rnd(avg)+' '+u;
@@ -5068,7 +5068,7 @@ function calc(){
   document.getElementById('orm-b').textContent=rnd(br)+' '+u;
   document.getElementById('orm-w5').textContent=rnd(avg*0.8)+' '+u;
   document.getElementById('orm-note').textContent='Three formulas, one answer: '+rnd(avg)+' '+u+' average. Programs speak percentages of 1RM - 80% for 5x5 strength blocks, 70% for volume work, 90%+ only for singles. Estimates tighten under 10 reps; beyond that they drift.';
-  document.title=rnd(avg)+' '+u+' one rep max - ToolTide';
+  document.title=rnd(avg)+' '+u+' one rep max - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_orm',JSON.stringify({w:W.value,r:R.value,u:U.value}));}catch(e){}}
 [W,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -5112,7 +5112,7 @@ function calc(){
   if(nums.length<2){OUT.textContent='–';
     document.getElementById('sd-pop').textContent='–';document.getElementById('sd-mean').textContent='–';
     document.getElementById('sd-n').textContent='–';document.getElementById('sd-note').textContent='Paste at least two numbers.';
-    document.title='Standard Deviation Calculator - ToolTide';return;}
+    document.title='Standard Deviation Calculator - ToolDune';return;}
   var n=nums.length,sum=0,i;
   for(i=0;i<n;i++)sum+=nums[i];
   var mean=sum/n,ss=0;
@@ -5125,7 +5125,7 @@ function calc(){
   document.getElementById('sd-mean').textContent=fx(mean);
   document.getElementById('sd-n').textContent=n+' · '+fx(mn)+'-'+fx(mx);
   document.getElementById('sd-note').textContent='Sample SD divides by n-1 ('+fx(sv)+' variance) and estimates from a sample; population SD divides by n ('+fx(pv)+' variance) when the data IS the whole population. When in doubt with a sample, report the n-1 number.';
-  document.title='SD '+fx(sd)+' (n='+n+') - ToolTide';
+  document.title='SD '+fx(sd)+' (n='+n+') - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_sd',IN.value);}catch(e){}}
 IN.addEventListener('input',function(){calc();save();});
@@ -5172,7 +5172,7 @@ function calc(){
   if(!(l>0)||!(w>0)||!(th>0)){OUT.textContent='–';
     document.getElementById('cc-ft3').textContent='–';document.getElementById('cc-b80').textContent='–';
     document.getElementById('cc-b60').textContent='–';document.getElementById('cc-note').textContent='';
-    document.title='Concrete Calculator - ToolTide';return;}
+    document.title='Concrete Calculator - ToolDune';return;}
   var vol=metric?l*w*th:l*w*th;
   var yd3,volLabel;
   if(metric){yd3=vol*1.30795;volLabel=vol.toFixed(2)+' m³';}
@@ -5185,7 +5185,7 @@ function calc(){
   document.getElementById('cc-note').textContent=metric
     ?(vol.toFixed(2)+' m³ = '+y+' yd³ for the pour. Order 5-10% extra for spillage and uneven subgrade; ready-mix suppliers sell by the partial truck, bags only make sense below ~0.5 m³.')
     :(Math.round(vol*100)/100+' ft³ = '+y+' yd³ ('+volLabel.split(' ')[0]+' / 27). Bag counts assume 0.60 ft³ yield per 80 lb and 0.45 ft³ per 60 lb bag, no waste - add 10% for real jobs. Below about 1 yd³, bags beat ready-mix; above it, order the truck.');
-  document.title=y+' yd³ concrete - ToolTide';
+  document.title=y+' yd³ concrete - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_conc',JSON.stringify({l:L.value,w:W.value,t:T.value,u:U.value}));}catch(e){}}
 [L,W].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -5232,14 +5232,14 @@ function calc(){
   if([x1,y1,x2,y2].some(isNaN)){OUT.textContent='–';
     document.getElementById('sl-frac').textContent='–';document.getElementById('sl-ang').textContent='–';
     document.getElementById('sl-b').textContent='–';document.getElementById('sl-note').textContent='';
-    document.title='Slope Calculator - ToolTide';return;}
+    document.title='Slope Calculator - ToolDune';return;}
   var dx=x2-x1,dy=y2-y1;
   if(dx===0){OUT.textContent='undefined';
     document.getElementById('sl-frac').textContent='vertical';
     document.getElementById('sl-ang').textContent='90°';
     document.getElementById('sl-b').textContent='x = '+x1;
     document.getElementById('sl-note').textContent='Both points share x = '+x1+', so the line is vertical: slope is division by zero, the angle is 90°, and there is no y-intercept (unless the line IS the y-axis).';
-    document.title='Vertical line x='+x1+' - ToolTide';return;}
+    document.title='Vertical line x='+x1+' - ToolDune';return;}
   var m=dy/dx;
   var g=gcd(dy,dx),fn=dy/g,fd=dx/g;
   if(fd<0){fn=-fn;fd=-fd;}
@@ -5253,7 +5253,7 @@ function calc(){
   document.getElementById('sl-b').textContent=fx(b);
   var dir=dy===0?'horizontal':(m>0?'rising left to right':'falling left to right');
   document.getElementById('sl-note').textContent='m = ('+fx(dy)+') / ('+fx(dx)+') = '+fx(m)+' ('+frac+'), a '+dir+' line at '+(Math.round(ang*100)/100)+'° from the horizontal. y = '+fx(m)+'x + '+fx(b)+' is the full equation; any perpendicular line has slope '+(m===0?'undefined':fx(-1/m))+'.';
-  document.title='Slope '+fx(m)+' ('+frac+') - ToolTide';
+  document.title='Slope '+fx(m)+' ('+frac+') - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_slope',JSON.stringify({x1:X1.value,y1:Y1.value,x2:X2.value,y2:Y2.value}));}catch(e){}}
 [X1,Y1,X2,Y2].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -5312,14 +5312,14 @@ function calc(){
   var cnt=ns.length;
   if(!cnt||!(n>=2)){OUT.textContent='–';document.getElementById('tg-u').textContent='people per team';
     document.getElementById('tg-p').textContent='–';document.getElementById('tg-t').textContent='–';
-    document.getElementById('tg-bal').textContent='–';document.title='Random Team Generator - ToolTide';return;}
+    document.getElementById('tg-bal').textContent='–';document.title='Random Team Generator - ToolDune';return;}
   var base=Math.floor(cnt/n),rem=cnt%n;
   document.getElementById('tg-p').textContent=cnt;
   document.getElementById('tg-t').textContent=n;
   document.getElementById('tg-bal').textContent=rem===0?base+' each':rem+' of '+(base+1)+' + '+(n-rem)+' of '+base;
   OUT.textContent=base+(rem?'-'+(base+1):'');
   document.getElementById('tg-u').textContent='people per team';
-  document.title=cnt+' people into '+n+' teams - ToolTide';
+  document.title=cnt+' people into '+n+' teams - ToolDune';
 }
 function run(){
   var ns=names(),n=parseInt(N.value,10);
@@ -5391,7 +5391,7 @@ function calc(){
   if(!(l>0)||!(w>0)||!(h>0)){OUT.textContent='–';
     document.getElementById('pt-area').textContent='–';document.getElementById('pt-cov').textContent='–';
     document.getElementById('pt-waste').textContent='–';document.getElementById('pt-note').textContent='';
-    document.title='Paint Calculator - ToolTide';return;}
+    document.title='Paint Calculator - ToolDune';return;}
   var per,door,win,covTxt,area,paint,unit;
   if(m){
     per=2*(l+w);door=1.9;win=1.1;
@@ -5413,7 +5413,7 @@ function calc(){
   document.getElementById('pt-waste').textContent=(m?up+' L':up+' gal');
   document.getElementById('pt-u2').textContent='to buy ('+(m?'liters':'gallons')+')';
   document.getElementById('pt-note').textContent='Wall area '+document.getElementById('pt-area').textContent+' after '+d+' door(s) and '+n+' window(s), '+co+' coat'+(co>1?'s':'')+' - about '+Math.round(paint*10)/10+' '+unit+' of paint. Buy the rounded-up figure (or +10%) for cut-ins and touch-ups: paint is batch-matched, so running out mid-wall is the expensive mistake.';
-  document.title=OUT.textContent+' paint needed - ToolTide';
+  document.title=OUT.textContent+' paint needed - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_paint',JSON.stringify({l:L.value,w:W.value,h:H.value,d:DD.value,n:NN.value,c:C.value,u:U.value}));}catch(e){}}
 [L,W,H,DD,NN].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -5462,7 +5462,7 @@ function calc(){
   if(!(l>0)||!(w>0)||!(tw>0)||!(th>0)){OUT.textContent='–';
     document.getElementById('ti-area').textContent='–';document.getElementById('ti-box').textContent='–';
     document.getElementById('ti-wst').textContent='–';document.getElementById('ti-note').textContent='';
-    document.title='Tile Calculator - ToolTide';return;}
+    document.title='Tile Calculator - ToolDune';return;}
   var area,perTile,areaTxt;
   if(metric){
     area=(l*w);
@@ -5480,7 +5480,7 @@ function calc(){
   document.getElementById('ti-box').textContent=boxes+' boxes';
   document.getElementById('ti-wst').textContent='+'+(need-Math.ceil(area/perTile))+' spare';
   document.getElementById('ti-note').textContent='A '+areaTxt+' floor at '+tw+'x'+th+' '+(metric?'cm':'in')+' tiles takes '+Math.ceil(area/perTile)+' tiles; with the standard 10% cutting and breakage allowance that is '+need+' - buy '+boxes+' box'+(boxes>1?'es':'')+' of '+bx+'. Keep spare boxes for future repairs: dye lots change.';
-  document.title=need+' tiles ('+boxes+' boxes) - ToolTide';
+  document.title=need+' tiles ('+boxes+' boxes) - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_tile',JSON.stringify({l:L.value,w:W.value,tw:TW.value,th:TH.value,b:B.value,u:U.value}));}catch(e){}}
 [L,W,TW,TH,B].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -5540,7 +5540,7 @@ function calc(){
   if(!v){OUT.textContent='–';
     document.getElementById('hb-date').textContent='–';document.getElementById('hb-age').textContent='–';
     document.getElementById('hb-next').textContent='–';document.getElementById('hb-note').textContent='';
-    document.title='Half Birthday Calculator - ToolTide';return;}
+    document.title='Half Birthday Calculator - ToolDune';return;}
   var m2=v.match(/^(\\d{4})-(\\d{2})-(\\d{2})$/);
   if(!m2){OUT.textContent='–';return;}
   var by=+m2[1],bmo=+m2[2]-1,bd=+m2[3];
@@ -5561,7 +5561,7 @@ function calc(){
   document.getElementById('hb-note').textContent=isToday
     ?('Happy half birthday! You are exactly '+a.y+' and a half years old today - the 6-month mirror of '+MO[bd.getMonth()]+' '+bd.getDate()+'.')
     :('Six months after '+MO[bd.getMonth()]+' '+bd.getDate()+' is '+MO[hb.getMonth()]+' '+hb.getDate()+' - when you turn '+Math.floor(turning)+' and a half. End-of-month birthdays clamp to the last day of the shorter month.');
-  document.title=(isToday?'Half birthday today!':days+' days to half birthday')+' - ToolTide';
+  document.title=(isToday?'Half birthday today!':days+' days to half birthday')+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_half',B.value);}catch(e){}}
 B.addEventListener('input',function(){calc();save();});
@@ -5606,7 +5606,7 @@ function calc(){
   if(!isFinite(a)||!isFinite(b)||a===0||b===0){OUT.textContent='–';
     document.getElementById('ra-simp').textContent='–';document.getElementById('ra-dec').textContent='–';
     document.getElementById('ra-pct').textContent='–';document.getElementById('ra-note').textContent='';
-    document.title='Ratio Calculator - ToolTide';return;}
+    document.title='Ratio Calculator - ToolDune';return;}
   var dec=a/b;
   document.getElementById('ra-dec').textContent=Math.round(dec*10000)/10000;
   document.getElementById('ra-pct').textContent=Math.round(dec*10000)/100+'%';
@@ -5614,12 +5614,12 @@ function calc(){
   if(sb<0){sa=-sa;sb=-sb;}
   document.getElementById('ra-simp').textContent=sa+':'+sb;
   if(!isFinite(c)){OUT.textContent='–';document.getElementById('ra-note').textContent='';
-    document.title='Ratio Calculator - ToolTide';return;}
+    document.title='Ratio Calculator - ToolDune';return;}
   var x=c*b/a;
   OUT.textContent=Math.round(x*1e6)/1e6;
   document.getElementById('ra-u').textContent='= C-companion (A:B = C:x)';
   document.getElementById('ra-note').textContent='A:B = C:x means x = C x B / A: '+a+':'+b+' = '+c+':'+Math.round(x*1e6)/1e6+'. Cross-multiply to check: '+a+' x '+Math.round(x*1e6)/1e6+' = '+Math.round(a*x*1000)/1000+' and '+b+' x '+c+' = '+Math.round(b*c*1000)/1000+'.';
-  document.title=a+':'+b+' = '+c+':'+Math.round(x*100)/100+' - ToolTide';
+  document.title=a+':'+b+' = '+c+':'+Math.round(x*100)/100+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_ratio',JSON.stringify({a:A.value,b:B.value,c:C.value}));}catch(e){}}
 [A,B,C].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -5680,7 +5680,7 @@ function calc(){
   if(!(met>0)||!(w>0)||!(min>0)){OUT.textContent='–';
     document.getElementById('cb-rate').textContent='–';document.getElementById('cb-met').textContent='–';
     document.getElementById('cb-equiv').textContent='–';document.getElementById('cb-note').textContent='';
-    document.title='Calories Burned Calculator - ToolTide';return;}
+    document.title='Calories Burned Calculator - ToolDune';return;}
   var kg=U.value==='lb'?w/2.2046:w;
   var kcal=met*kg*(min/60);
   OUT.textContent=Math.round(kcal);
@@ -5689,7 +5689,7 @@ function calc(){
   var eq=Math.round(kcal/95);
   document.getElementById('cb-equiv').textContent=kcal<95?'—':eq+' banana'+(eq>1?'s':'');
   document.getElementById('cb-note').textContent='MET x kg x hours: '+Math.round(met*10)/10+' x '+Math.round(kg*10)/10+'kg x '+(Math.round(min/60*100)/100)+'h = '+Math.round(kcal)+' kcal. MET figures are population averages - intensity, fitness and terrain move your real number by 10-20%.';
-  document.title=Math.round(kcal)+' kcal burned - ToolTide';
+  document.title=Math.round(kcal)+' kcal burned - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_cal',JSON.stringify({a:ACT.value,m:M.value,w:W.value,u:U.value,min:MI.value}));}catch(e){}}
 [W,M,MI].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -5739,7 +5739,7 @@ function calc(){
   if(!(b>0)||isNaN(apr)||apr<0||!(pay>0)){OUT.textContent='–';
     document.getElementById('dp-int').textContent='–';document.getElementById('dp-tot').textContent='–';
     document.getElementById('dp-yr').textContent='–';document.getElementById('dp-note').textContent='';
-    document.title='Debt Payoff Calculator - ToolTide';return;}
+    document.title='Debt Payoff Calculator - ToolDune';return;}
   var r=apr/100/12,interest=0,months=0;
   while(b>0&&months<600){
     var add=b*r;
@@ -5749,12 +5749,12 @@ function calc(){
       document.getElementById('dp-tot').textContent='—';
       document.getElementById('dp-yr').textContent='—';
       document.getElementById('dp-note').textContent='At '+money(pay)+'/mo the payment does not cover the '+money(add)+' of interest accruing each month - the balance grows. Minimum payments are engineered exactly this way. You need at least '+money(Math.ceil(add*1.05))+'/mo to make progress, and realistically more.';
-      document.title='Payment below interest - ToolTide';return;}
+      document.title='Payment below interest - ToolDune';return;}
     interest+=add;b=b+add-pay;
     if(b<0){interest+=b;b=0;}
     months++;
   }
-  if(months>=600){OUT.textContent='600+ mo';document.title='Debt Payoff Calculator - ToolTide';return;}
+  if(months>=600){OUT.textContent='600+ mo';document.title='Debt Payoff Calculator - ToolDune';return;}
   var yrs=Math.floor(months/12),mos=months%12;
   OUT.textContent=months+' mo';
   document.getElementById('dp-int').textContent=money(interest);
@@ -5765,7 +5765,7 @@ function calc(){
   while(eb>0&&em<600){var a2=eb*r;ei+=a2;eb=eb+a2-extra;if(eb<0){ei+=eb;eb=0;}em++;}
   var saved=Math.round(interest-ei);
   document.getElementById('dp-note').textContent=money(start)+' at '+apr+'% APR with '+money(pay)+'/mo: '+months+' payments, '+money(interest)+' of interest ('+Math.round(interest/(interest+start)*100)+'% on top of the balance).'+(saved>0?' Paying just '+money(Math.round(pay*0.1))+' more per month clears it '+(months-em)+' months sooner and saves '+money(saved)+'.':' Snowball (smallest balance first) or avalanche (highest APR first) both work - consistency is the variable that pays.');
-  document.title='Debt-free in '+months+' months - ToolTide';
+  document.title='Debt-free in '+months+' months - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_debt',JSON.stringify({b:B.value,r:R.value,m:M.value}));}catch(e){}}
 [B,R,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -5787,7 +5787,7 @@ document.getElementById('dp-share').addEventListener('click',function(){
 # Retention hooks: title result hook, tt_json memory, URL state for short payloads (?d=), Web Share.
 JSONTOOL = """<div class="tool" id="tt-js">
   <div class="fields">
-    <div class="field"><label for="js-in">JSON input</label><textarea id="js-in" rows="7" placeholder='{"name":"ToolTide","tools":237,"free":true}'></textarea></div>
+    <div class="field"><label for="js-in">JSON input</label><textarea id="js-in" rows="7" placeholder='{"name":"ToolDune","tools":237,"free":true}'></textarea></div>
     <div class="field"><label for="js-ind">Indent</label><select id="js-ind"><option value="2" selected>2 spaces</option><option value="4">4 spaces</option><option value="tab">Tabs</option></select></div>
   </div>
   <div style="display:flex;gap:8px;margin:8px 0"><button type="button" class="tool-btn" id="js-fmt" data-i18n="json.fmt">Format</button><button type="button" class="tool-btn" id="js-min" data-i18n="json.minify">Minify</button></div>
@@ -5819,7 +5819,7 @@ function render(minify){
   if(!v.trim()){OUT.textContent='–';document.getElementById('js-u').textContent='status';
     document.getElementById('js-size').textContent='–';document.getElementById('js-nodes').textContent='–';
     document.getElementById('js-depth').textContent='–';PRE.textContent='';
-    document.title='JSON Formatter - ToolTide';return;}
+    document.title='JSON Formatter - ToolDune';return;}
   try{
     var o=JSON.parse(v);
     var ind=IND.value==='tab'?'\\t':parseInt(IND.value,10);
@@ -5832,7 +5832,7 @@ function render(minify){
     document.getElementById('js-nodes').textContent=c.n;
     document.getElementById('js-depth').textContent=c.d;
     PRE.innerHTML=esc(out);
-    document.title='Valid JSON · '+fmt(bytes)+' - ToolTide';
+    document.title='Valid JSON · '+fmt(bytes)+' - ToolDune';
   }catch(e){
     OUT.textContent='Invalid';
     document.getElementById('js-u').textContent='parse error';
@@ -5871,7 +5871,7 @@ document.getElementById('js-share').addEventListener('click',function(){
 BASE64 = """<div class="tool" id="tt-b6">
   <div class="fields">
     <div class="field"><label for="b6-m"><span data-i18n="lbl.mode">Mode</span></label><select id="b6-m"><option value="enc">Encode text → Base64</option><option value="dec">Decode Base64 → text</option></select></div>
-    <div class="field"><label for="b6-in"><span data-i18n="lbl.input">Input</span></label><textarea id="b6-in" rows="5" placeholder="Hello, ToolTide!"></textarea></div>
+    <div class="field"><label for="b6-in"><span data-i18n="lbl.input">Input</span></label><textarea id="b6-in" rows="5" placeholder="Hello, ToolDune!"></textarea></div>
   </div>
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="b6-out" style="font-size:.95rem;word-break:break-all">–</span><span class="result-unit" id="b6-u"><span data-i18n="dev.output">output</span></span></div>
   <div class="stats">
@@ -5893,7 +5893,7 @@ function calc(){
   if(!v){OUT.textContent='–';document.getElementById('b6-u').textContent='output';
     document.getElementById('b6-in-len').textContent='–';document.getElementById('b6-out-len').textContent='–';
     document.getElementById('b6-bytes').textContent='–';
-    document.title='Base64 Encode & Decode - ToolTide';return;}
+    document.title='Base64 Encode & Decode - ToolDune';return;}
   var enc=M.value==='enc';
   try{
     var out=enc?utf8ToB64(v):b64ToUtf8(v);
@@ -5906,12 +5906,12 @@ function calc(){
     document.getElementById('b6-note').textContent=enc
       ?(v.length+' chars = '+bytes+' UTF-8 bytes → '+out.length+' Base64 chars (every 3 bytes become 4). Padding = signs make the length a multiple of 4.')
       :('Decoded '+v.length+' Base64 chars back to '+out.length+' chars ('+bytes+'→'+new Blob([out]).size+' bytes). Invalid characters or wrong length would have thrown here.');
-    document.title=(enc?'Encoded ':'Decoded ')+out.length+' chars - ToolTide';
+    document.title=(enc?'Encoded ':'Decoded ')+out.length+' chars - ToolDune';
   }catch(e){
     OUT.textContent=TT('dev.invalidb64','Invalid Base64');
     document.getElementById('b6-u').textContent='cannot decode';
     document.getElementById('b6-note').textContent='Not valid Base64: the alphabet is A-Z a-z 0-9 + / with = padding, and length must be a multiple of 4. Whitespace is usually the culprit - paste the bare string.';
-    document.title='Invalid Base64 - ToolTide';
+    document.title='Invalid Base64 - ToolDune';
   }
 }
 function save(){try{localStorage.setItem('tt_b64',JSON.stringify({m:M.value,i:IN.value.slice(0,10000)}));}catch(e){}}
@@ -5958,7 +5958,7 @@ function calc(){
   if(!v){OUT.textContent='–';document.getElementById('ue-u').textContent='output';
     document.getElementById('ue-in-len').textContent='–';document.getElementById('ue-out-len').textContent='–';
     document.getElementById('ue-pct').textContent='–';
-    document.title='URL Encoder & Decoder - ToolTide';return;}
+    document.title='URL Encoder & Decoder - ToolDune';return;}
   var enc=M.value==='enc',comp=K.value==='component';
   try{
     var out=enc?(comp?encodeURIComponent(v):encodeURI(v)):(comp?decodeURIComponent(v):decodeURI(v));
@@ -5970,12 +5970,12 @@ function calc(){
     document.getElementById('ue-note').textContent=enc
       ?('Encoded '+v.length+' → '+out.length+' chars. Component mode is the right choice for query values (spaces become %20, & and = get escaped so they cannot be read as separators); spaces never become + here - that is the legacy form-encoding style.')
       :('Decoded '+v.length+' → '+out.length+' chars. Malformed sequences like a lone % or a truncated %E2 would throw - the error note explains when that happens.');
-    document.title=(enc?'Encoded ':'Decoded ')+out.length+' chars - ToolTide';
+    document.title=(enc?'Encoded ':'Decoded ')+out.length+' chars - ToolDune';
   }catch(e){
     OUT.textContent=TT('dev.malformed','Malformed input');
     document.getElementById('ue-u').textContent='cannot decode';
     document.getElementById('ue-note').textContent='A % sequence is incomplete or not followed by two hex digits - every % must introduce exactly two hex characters (like %20). Fix or remove the stray percent sign and decode again.';
-    document.title='URL Decoder error - ToolTide';
+    document.title='URL Decoder error - ToolDune';
   }
 }
 function save(){try{localStorage.setItem('tt_url',JSON.stringify({m:M.value,k:K.value,i:IN.value.slice(0,10000)}));}catch(e){}}
@@ -6042,11 +6042,11 @@ function calc(){
     document.getElementById('jw-alg').textContent='–';document.getElementById('jw-exp').textContent='–';
     document.getElementById('jw-claims').textContent='–';
     document.getElementById('jw-h').textContent='';document.getElementById('jw-p').textContent='';
-    document.title='JWT Decoder - ToolTide';return;}
+    document.title='JWT Decoder - ToolDune';return;}
   var parts=v.split('.');
   if(parts.length<2||!parts[0]||!parts[1]){OUT.textContent='Invalid';document.getElementById('jw-u').textContent='needs 2+ dot-separated parts';
     document.getElementById('jw-note').textContent='A JWT looks like header.payload.signature - three base64url parts separated by dots. Check you pasted the whole token.';
-    document.title='JWT Decoder - ToolTide';return;}
+    document.title='JWT Decoder - ToolDune';return;}
   try{
     var h=JSON.parse(b64u(parts[0])),p=JSON.parse(b64u(parts[1]));
     document.getElementById('jw-h').textContent=JSON.stringify(h,null,2);
@@ -6070,11 +6070,11 @@ function calc(){
     }
     OUT.textContent=status;
     document.getElementById('jw-u').textContent=alg+' · '+keys+' claims';
-    document.title='JWT '+alg+' · '+status+' - ToolTide';
+    document.title='JWT '+alg+' · '+status+' - ToolDune';
   }catch(e){
     OUT.textContent='Invalid';document.getElementById('jw-u').textContent='decode failed';
     document.getElementById('jw-note').textContent='The parts are not valid base64url JSON - check for truncated paste or surrounding quotes.';
-    document.title='JWT Decoder - ToolTide';
+    document.title='JWT Decoder - ToolDune';
   }
 }
 function save(){try{localStorage.setItem('tt_jwt',IN.value.slice(0,20000));}catch(e){}}
@@ -6120,7 +6120,7 @@ function calc(){
   if(!(p>0)||!(y>0)||isNaN(ar)||ar<0){OUT.textContent='–';
     document.getElementById('am-int').textContent='–';document.getElementById('am-mo').textContent='–';
     document.getElementById('am-sv').textContent='–';document.getElementById('am-t').innerHTML='';
-    document.getElementById('am-note').textContent='';document.title='Amortization Schedule - ToolTide';return;}
+    document.getElementById('am-note').textContent='';document.title='Amortization Schedule - ToolDune';return;}
   var r=ar/100/12,n0=Math.round(y*12),f=Math.pow(1+r,n0);
   var m=r===0?p/n0:p*r*f/(f-1);
   function run(extra){
@@ -6147,7 +6147,7 @@ function calc(){
     html+='<tr style="border-bottom:1px solid rgba(127,127,127,.2)"><td>'+rw[0]+'</td><td>'+money(rw[1])+'</td><td>'+money(rw[2])+'</td><td>'+money(rw[3])+'</td><td>'+money(rw[4])+'</td></tr>';
   });
   document.getElementById('am-t').innerHTML=html;
-  document.title=money(m)+'/mo · '+base.mo+' months - ToolTide';
+  document.title=money(m)+'/mo · '+base.mo+' months - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_amort',JSON.stringify({p:P.value,r:R.value,y:Y.value,x:X.value}));}catch(e){}}
 [P,R,Y,X].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -6208,10 +6208,10 @@ function calc(){
   if(!v.trim()){OUT.textContent='–';document.getElementById('cj-u').textContent='records';
     document.getElementById('cj-cols').textContent='–';document.getElementById('cj-delim').textContent='–';
     document.getElementById('cj-num').textContent='–';document.getElementById('cj-pre').textContent='';
-    document.title='CSV to JSON - ToolTide';return;}
+    document.title='CSV to JSON - ToolDune';return;}
   var lines=v.split(/[\\r\\n]+/).filter(function(x){return x.trim().length;});
   if(lines.length<2){OUT.textContent='–';document.getElementById('cj-u').textContent='need a header row plus data';
-    document.getElementById('cj-pre').textContent='';document.title='CSV to JSON - ToolTide';return;}
+    document.getElementById('cj-pre').textContent='';document.title='CSV to JSON - ToolDune';return;}
   var d=sniff(lines[0]);
   var head=splitLine(lines[0],d);
   var recs=[],nums=0;
@@ -6231,7 +6231,7 @@ function calc(){
   document.getElementById('cj-num').textContent=nums;
   document.getElementById('cj-pre').innerHTML=esc(JSON.stringify(recs,null,2));
   document.getElementById('cj-note').textContent=head.length+' columns × '+recs.length+' rows converted'+(d!==','?' (delimiter '+d+' auto-detected)':'')+'. Header row became object keys; '+nums+' numeric cells were typed as JSON numbers - quote them in the CSV to force strings.';
-  document.title=recs.length+' records → JSON - ToolTide';
+  document.title=recs.length+' records → JSON - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_csv',IN.value.slice(0,20000));}catch(e){}}
 IN.addEventListener('input',function(){calc();save();});
@@ -6276,13 +6276,13 @@ function tick(){
   var left=endAt-Date.now();
   if(left<=0){
     OUT.textContent='0:00';U.textContent='done';
-    document.title='⏰ Time is up! - ToolTide';
+    document.title='⏰ Time is up! - ToolDune';
     beep(0,0);beep(0,350);beep(0,700);
     stop();endAt=null;GO.textContent='Start';
     return;
   }
   OUT.textContent=fmt(left);U.textContent='running';
-  document.title=fmt(left)+' - Online Timer - ToolTide';
+  document.title=fmt(left)+' - Online Timer - ToolDune';
 }
 function total(){return (Math.max(0,parseInt(M.value,10)||0))*60+(Math.max(0,parseInt(S.value,10)||0));}
 GO.addEventListener('click',function(){
@@ -6298,7 +6298,7 @@ document.getElementById('tm-rst').addEventListener('click',function(){
   stop();endAt=null;GO.textContent='Start';
   var t=total();
   OUT.textContent=t?fmt(t*1000):'0:00';U.textContent='ready';
-  document.title='Online Timer - ToolTide';
+  document.title='Online Timer - ToolDune';
 });
 [M,S].forEach(function(el){el.addEventListener('input',function(){
   if(!endAt){var t=total();OUT.textContent=t?fmt(t*1000):'0:00';}
@@ -6348,8 +6348,8 @@ function render(){
   var t=state.acc+(state.start?Date.now()-state.start:0);
   OUT.textContent=fmt(t);
   U.textContent=state.start?'running':(state.acc?'stopped':'stopped');
-  if(state.start)document.title=fmt(t)+' - Stopwatch - ToolTide';
-  else document.title='Stopwatch - ToolTide';
+  if(state.start)document.title=fmt(t)+' - Stopwatch - ToolDune';
+  else document.title='Stopwatch - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_stopwatch',JSON.stringify(state));}catch(e){}}
 function renderLaps(){
@@ -6415,7 +6415,7 @@ function calc(){
   var e=parseFloat(E.value),ep=parseFloat(EP.value),n=parseFloat(N.value),np=parseFloat(NP.value);
   if(!(e>0)||!(ep>0)||!(n>0)||!(np>0)){OUT.textContent='–';
     ['sa-sh','sa-inv','sa-dr'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('sa-note').textContent='';document.title='Stock Average Calculator - ToolTide';return;}
+    document.getElementById('sa-note').textContent='';document.title='Stock Average Calculator - ToolDune';return;}
   var tc=e+n,inv=e*ep+n*np,avg=inv/tc;
   OUT.textContent=money(avg);
   document.getElementById('sa-sh').textContent=tc.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
@@ -6424,7 +6424,7 @@ function calc(){
   var br=ep>avg?'Break-even is now '+money(avg)+' - the stock no longer has to recover to '+money(ep)+' for you to be whole.':
     'The new buy is above your existing average, so the blend moved up to '+money(avg)+'.';
   document.getElementById('sa-note').textContent=tc.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares at '+money(avg)+' average = '+money(inv)+' invested. '+br+' Averaging down only pays if the thesis holds - it lowers the bar, it does not remove it.';
-  document.title=money(avg)+' avg cost - ToolTide';
+  document.title=money(avg)+' avg cost - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_stockavg',JSON.stringify({e:E.value,ep:EP.value,n:N.value,np:NP.value}));}catch(e){}}
 [E,EP,N,NP].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -6471,7 +6471,7 @@ function calc(){
   var a=parseFloat(A.value),r=parseFloat(R.value),en=parseFloat(EN.value),sl=parseFloat(SL.value),tg=parseFloat(TG.value);
   if(!(a>0)||!(r>0)||!(en>0)||!(sl>0)||sl===en){OUT.textContent='–';
     ['ps-risk','ps-dist','ps-val','ps-rr'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('ps-note').textContent='';document.title='Position Size Calculator - ToolTide';return;}
+    document.getElementById('ps-note').textContent='';document.title='Position Size Calculator - ToolDune';return;}
   var risk=a*r/100,d=Math.abs(en-sl),units=Math.floor(risk/d),val=units*en;
   OUT.textContent=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('ps-risk').textContent=money(risk);
@@ -6481,7 +6481,7 @@ function calc(){
   if(tg>0){var rw=Math.abs(tg-en);rr=(rw/d).toFixed(2)+':1';}
   document.getElementById('ps-rr').textContent=rr;
   document.getElementById('ps-note').textContent='Risking '+money(risk)+' ('+r+'% of '+money(a)+') with a '+(d/en*100).toFixed(2)+'% stop allows '+units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares ('+money(val)+'). Shares are rounded down so real risk stays at or under '+r+'%. '+(tg>0?'At target '+money(tg)+' that is '+rr+' reward vs risk.':'Add a target price to see reward:risk.');
-  document.title=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares - ToolTide';
+  document.title=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' shares - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_possize',JSON.stringify({a:A.value,r:R.value,en:EN.value,sl:SL.value,tg:TG.value}));}catch(e){}}
 [A,R,EN,SL,TG].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -6538,7 +6538,7 @@ function calc(){
   var c=cfg(),pr=price(),j=parseFloat(J.value);
   if(!(c.a>=5)||!(c.b>=1)||!(pr>0)){OUT.textContent='–';
     ['lo-ev','lo-be','lo-any'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('lo-note').textContent='';document.title='Lottery Odds Calculator - ToolTide';return;}
+    document.getElementById('lo-note').textContent='';document.title='Lottery Odds Calculator - ToolDune';return;}
   var bonus=c.bd===2?C(c.b,2):c.b;
   var odds=C(c.a,5)*bonus;
   OUT.textContent=Math.round(odds).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
@@ -6547,7 +6547,7 @@ function calc(){
   document.getElementById('lo-be').textContent=money(pr*odds);
   document.getElementById('lo-any').textContent=c.any;
   document.getElementById('lo-note').textContent='Jackpot-only expected value is '+money(ev)+' on a '+money(pr)+' ticket - the jackpot would need to hit '+money(pr*odds)+' just to break even on that line. Lower prize tiers add roughly $0.20-0.35 of EV, but taxes (lump sum is about half the headline) and split jackpots cut the rest. Every combination is equally likely - the machine has no memory of your lucky numbers.';
-  document.title='1 in '+Math.round(odds).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' - ToolTide';
+  document.title='1 in '+Math.round(odds).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' - ToolDune';
 }
 function cuMode(){var cu=G.value==='cu';
   document.querySelectorAll('.cu-hide').forEach(function(el){el.style.display=cu?'':'none';});}
@@ -6608,7 +6608,7 @@ function render(){var s=st.run?(st.end-Date.now())/1000:st.left;
   OUT.textContent=fmt(s);
   var label=(st.mode==='work'?TT('pomo.focus','focus'):TT('pomo.break','break'))+(st.run?'':' '+TT('pomo.paused','- paused'));
   PH.textContent=label;
-  document.title=(st.run?'🍅 ':'⏸ ')+fmt(s)+' '+(st.mode==='work'?TT('pomo.titlefocus','Focus'):TT('pomo.titlebreak','Break'))+' - ToolTide';
+  document.title=(st.run?'🍅 ':'⏸ ')+fmt(s)+' '+(st.mode==='work'?TT('pomo.titlefocus','Focus'):TT('pomo.titlebreak','Break'))+' - ToolDune';
   document.getElementById('po-today').textContent=st.done;
   document.getElementById('po-cycle').textContent=(st.cyc%4+1)+'/4';
   document.getElementById('po-total').textContent=st.mins;}
@@ -6623,7 +6623,7 @@ function arm(){if(iv)clearInterval(iv);iv=null;
   if(!st.run)return;iv=setInterval(function(){
     var s=(st.end-Date.now())/1000;
     if(s<=0){next();}else{OUT.textContent=fmt(s);
-      document.title='🍅 '+fmt(s)+' '+(st.mode==='work'?TT('pomo.titlefocus','Focus'):TT('pomo.titlebreak','Break'))+' - ToolTide';}},250);}
+      document.title='🍅 '+fmt(s)+' '+(st.mode==='work'?TT('pomo.titlefocus','Focus'):TT('pomo.titlebreak','Break'))+' - ToolDune';}},250);}
 window.addEventListener('load',render);
 GO.addEventListener('click',function(){
   if(st.run){st.run=false;st.left=(st.end-Date.now())/1000;GO.textContent=TT('pomo.start','Start');}
@@ -6677,7 +6677,7 @@ function calc(){
   var pw=IN.value||'';
   if(!pw){OUT.textContent='–';document.getElementById('pw-verdict').textContent='–';
     document.getElementById('pw-on').textContent='–';document.getElementById('pw-gpu').textContent='–';
-    document.getElementById('pw-note').textContent='';document.title='Password Strength Checker - ToolTide';return;}
+    document.getElementById('pw-note').textContent='';document.title='Password Strength Checker - ToolDune';return;}
   var cs=0;if(/[a-z]/.test(pw))cs+=26;if(/[A-Z]/.test(pw))cs+=26;if(/[0-9]/.test(pw))cs+=10;
   if(/[^a-zA-Z0-9 ]/.test(pw))cs+=33;if(/ /.test(pw))cs+=1;
   var bits=pw.length*(cs>1?Math.log2(cs):0);
@@ -6695,7 +6695,7 @@ function calc(){
   document.getElementById('pw-gpu').textContent=bits2(bits-33.2>0?bits-33.2:1);
   document.getElementById('pw-note').textContent=(notes.length?'Deductions: '+notes.join('; ')+'. ':'')+
     'Entropy is length × log2(character pool) - length beats complexity: "correct-horse-battery" style passphrases outrun symbol soup. The real killer is reuse: one breached site hands attackers every account that shares the password. Nothing you type here is stored, sent or remembered - check and close.';
-  document.title=Math.round(bits)+' bits - '+verdict+' - ToolTide';
+  document.title=Math.round(bits)+' bits - '+verdict+' - ToolDune';
 }
 IN.addEventListener('input',calc);
 document.getElementById('pw-show').addEventListener('change',function(){IN.type=this.checked?'text':'password';});
@@ -6741,7 +6741,7 @@ function calc(){
   if(isNaN(f)||f<0)f=0;
   if(!(b>0)||!(q>0)){OUT.textContent='–';
     ['cp-inv','cp-ret','cp-roi','cp-be'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('cp-note').textContent='';document.title='Crypto Profit Calculator - ToolTide';return;}
+    document.getElementById('cp-note').textContent='';document.title='Crypto Profit Calculator - ToolDune';return;}
   var inv=b*q*(1+f/100),ret=(s>0?s*q*(1-f/100):0),pl=ret-inv;
   var roi=pl/inv*100,be=b*(1+f/100)/(1-f/100);
   OUT.textContent=(pl>=0?'+':'−')+money(Math.abs(pl)).replace('$','$');
@@ -6750,7 +6750,7 @@ function calc(){
   document.getElementById('cp-roi').textContent=(pl>=0?'+':'')+roi.toFixed(2)+'%';
   document.getElementById('cp-be').textContent='$'+(Math.round(be*100)/100);
   document.getElementById('cp-note').textContent='Fees hit both sides: '+money(b*q)+' in at '+f+'% costs '+money(inv)+' all-in, so break-even is not your buy price - it is $'+(Math.round(be*100)/100)+', '+(f>0?((be/b-1)*100).toFixed(2)+'% above it. ':'')+ 'Round-trip fees on frequent trades are the silent position-sizer: 0.1% twice on 50 trades a year is ~10% gone.';
-  document.title=(pl>=0?'+':'')+roi.toFixed(1)+'% ROI - ToolTide';
+  document.title=(pl>=0?'+':'')+roi.toFixed(1)+'% ROI - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_cryptoprofit',JSON.stringify({b:B.value,s:S.value,q:Q.value,f:F.value}));}catch(e){}}
 [B,S,Q,F].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -6800,7 +6800,7 @@ function calc(){
   if(SP==='cat'){document.getElementById('pa-zw').style.display='none';}
   if(isNaN(y)||y<0||y>35){OUT.textContent='–';
     ['pa-stage','pa-lifes','pa-pct'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('pa-note').textContent='';document.title=(SP==='dog'?'Dog':'Cat')+' Age Calculator - ToolTide';return;}
+    document.getElementById('pa-note').textContent='';document.title=(SP==='dog'?'Dog':'Cat')+' Age Calculator - ToolDune';return;}
   var a=y+m/12,h=0;
   if(SP==='dog'){var t=TABLE_DOG[Z.value]||TABLE_DOG.m;
     if(a<=0.5)h=Math.max(1,Math.round(a*30));
@@ -6821,7 +6821,7 @@ function calc(){
     document.getElementById('pa-note').textContent='Human-equivalent age: '+h+' years (veterinary association table). Cats race through year one (~15 human years), hit their mid-twenties by age two, then age ~4 human years per calendar year. Indoor cats typically outlive outdoor cats by years - and from about age 10 (human late-50s), twice-yearly vet visits pay for themselves.';}
   OUT.textContent=h;
   document.getElementById('pa-stage').textContent=stage(h);
-  document.title=OUT.textContent+' human yrs - ToolTide';
+  document.title=OUT.textContent+' human yrs - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_petage',JSON.stringify({sp:SP,y:Y.value,m:M.value,z:Z.value}));}catch(e){}}
 [Y,M,Z].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -6865,7 +6865,7 @@ function calc(){
   var t=IN.value||'';
   if(!t.trim()){OUT.textContent='–';
     ['fl-grade','fl-words','fl-sents','fl-wps'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('fl-note').textContent='';document.title='Flesch Reading Ease Calculator - ToolTide';return;}
+    document.getElementById('fl-note').textContent='';document.title='Flesch Reading Ease Calculator - ToolDune';return;}
   var words=t.trim().split(/\\s+/).filter(function(w){return /[a-z0-9]/i.test(w);});
   var sents=t.split(/[.!?]+(?:\\s|$)/).filter(function(s){return s.trim().length>0;});
   var W=words.length,S=Math.max(1,sents.length),SY=0;
@@ -6879,7 +6879,7 @@ function calc(){
   document.getElementById('fl-wps').textContent=Math.round(W/S*10)/10;
   var band=re>=90?'very easy (5th grade)':re>=80?'easy (6th grade)':re>=70?'fairly easy (7th grade)':re>=60?'plain English (8-9th grade)':re>=50?'fairly difficult (10-12th)':re>=30?'difficult (college)':'very difficult (graduate)';
   document.getElementById('fl-note').textContent='Reading ease '+Math.round(re)+'/100 = '+band+'. Most web content aims for 60-70: shorter sentences move the score more than shorter words, because 1.015×(words per sentence) outweighs the syllable term. The score is a compass, not a rule - legal text and children\\'s books rightly live at opposite ends.';
-  document.title='Reading ease '+Math.round(re)+'/100 - ToolTide';
+  document.title='Reading ease '+Math.round(re)+'/100 - ToolDune';
   try{if(t.length<20000)localStorage.setItem('tt_flesch',t);}catch(e){}
 }
 IN.addEventListener('input',calc);
@@ -6923,7 +6923,7 @@ function calc(){
   document.getElementById('dp-u2').textContent='°'+u+' dew point';
   if(isNaN(t)||!(h>0)){OUT.textContent='–';
     ['dp-band','dp-ah','dp-gap'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('dp-note').textContent='';document.title='Dew Point Calculator - ToolTide';return;}
+    document.getElementById('dp-note').textContent='';document.title='Dew Point Calculator - ToolDune';return;}
   var tc=cv(t,u);
   var g=Math.log(h/100)+17.62*tc/(243.12+tc);
   var td=243.12*g/(17.62-g),tv=back(td,u);
@@ -6934,7 +6934,7 @@ function calc(){
   document.getElementById('dp-ah').textContent=(2.1674*Math.pow(6.112,1)*Math.exp(17.62*td/(243.12+td))*100/(273.15+td)).toFixed(1)+' g/m³';
   document.getElementById('dp-gap').textContent=Math.round((t-tv)*10)/10+'°';
   document.getElementById('dp-note').textContent='Dew point '+Math.round(tv*10)/10+'°'+u+' = '+band+'. The dew point - not relative humidity - is the honest mugginess meter: 70% RH at 15°C feels fine, 70% RH at 30°C is a swamp, because dew point states the actual water in the air. Sweat stops evaporating once dew point nears skin temperature (about 33°C), which is why the mid-20s feels like a wall. Fog or dew forms overnight once air cools to this number.';
-  document.title=Math.round(tv*10)/10+'°'+u+' dew point - ToolTide';
+  document.title=Math.round(tv*10)/10+'°'+u+' dew point - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_dewpoint',JSON.stringify({u:U.value,t:T.value,h:H.value}));}catch(e){}}
 [U,T,H].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -6980,7 +6980,7 @@ function calc(){
   var a=parseFloat(A.value),h=parseFloat(H.value)||2.7,p=parseInt(P.value)||2;
   if(!(a>0)){OUT.textContent='–';
     ['bt-kw','bt-ton','bt-base'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('bt-note').textContent='';document.title='BTU Calculator - ToolTide';return;}
+    document.getElementById('bt-note').textContent='';document.title='BTU Calculator - ToolDune';return;}
   var sqft=a*10.7639,base=sqft*20*(h/2.7);
   var f=1;
   if(I.value==='g')f-=0.05;if(I.value==='p')f+=0.15;
@@ -6992,7 +6992,7 @@ function calc(){
   document.getElementById('bt-ton').textContent=(btu/12000).toFixed(1);
   document.getElementById('bt-base').textContent=Math.round(base/500)*500>=1000?((Math.round(base/500)*500).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')):Math.round(base);
   document.getElementById('bt-note').textContent='Roughly a '+(Math.round(btu/9000*10)/10)+' kW split unit. Undersized units run forever and never dehumidify; oversized ones short-cycle - cold but clammy, and they wear out faster. The 20 BTU/sqft rule of thumb is temperate-climate: in Phoenix or Dubai add 10-20%, and ducted losses can eat another 10%. Heat pumps list cooling and heating BTU separately - size for the dominant season.';
-  document.title=btu.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' BTU - ToolTide';
+  document.title=btu.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' BTU - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_btu',JSON.stringify({a:A.value,h:H.value,i:I.value,s:S.value,p:P.value,k:K.value}));}catch(e){}}
 [A,H,I,S,P,K].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7042,7 +7042,7 @@ function calc(){
       w2=parseFloat(W2.value),a2=parseFloat(A2.value),r2=parseFloat(R2.value);
   if(!(w>0)||!(a>0)||!(r>0)||!(w2>0)||!(a2>0)||!(r2>0)){OUT.textContent='–';
     ['ts-dia','ts-speed','ts-rev','ts-fit'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('ts-note').textContent='';document.title='Tire Size Comparison - ToolTide';return;}
+    document.getElementById('ts-note').textContent='';document.title='Tire Size Comparison - ToolDune';return;}
   var d1=dia(w,a,r),d2=dia(w2,a2,r2),pct=(d2/d1-1)*100;
   OUT.textContent=(pct>=0?'+':'')+pct.toFixed(1);
   document.getElementById('ts-dia').textContent=Math.round(d1)+' → '+Math.round(d2)+' mm';
@@ -7053,7 +7053,7 @@ function calc(){
   var ok=Math.abs(pct)<=3;
   document.getElementById('ts-fit').textContent=ok?'within ±3% - generally safe':'outside ±3% - rub risk';
   document.getElementById('ts-note').textContent='Diameter = rim + 2 × sidewall (width × aspect). Your speedometer and odometer are calibrated to the original rolling diameter, so '+pct.toFixed(1)+'% means the speedo reads '+Math.round(sp)+' when the truth is 100 - and the odometer drifts the same way. Stay within ±3% to avoid rubbing, gearing and ABS/ESP complaints. The sidewall math is exactly why plus-sizing goes: bigger rim, smaller aspect, similar total height.';
-  document.title=(pct>=0?'+':'')+pct.toFixed(1)+'% tire size - ToolTide';
+  document.title=(pct>=0?'+':'')+pct.toFixed(1)+'% tire size - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_tire',JSON.stringify({w:W.value,a:A.value,r:R.value,w2:W2.value,a2:A2.value,r2:R2.value}));}catch(e){}}
 [W,A,R,W2,A2,R2].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7092,7 +7092,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var a=parseFloat(A.value),r=parseFloat(R.value)||60,m=M.value;
   if(!(a>=10&&a<=100)){OUT.textContent='–';ROWS.innerHTML='';document.getElementById('hz-note').textContent='';
-    document.title='Heart Rate Zones Calculator - ToolTide';return;}
+    document.title='Heart Rate Zones Calculator - ToolDune';return;}
   var max=220-a;
   OUT.textContent=max;
   var html='';
@@ -7103,7 +7103,7 @@ function calc(){
     html+='<div class="stat"><b>'+(lo?lo+'–'+hi:'set resting HR')+'</b><span>'+z[0]+' ('+Math.round(z[1]*100)+'-'+Math.round(z[2]*100)+'%)</span></div>';});
   ROWS.innerHTML=html;
   document.getElementById('hz-note').textContent=(m==='k'?'Karvonen scales intensity by your heart rate reserve (max − resting), so zones shift up for trained hearts with low resting rates - it is the fairer map if you know your resting HR. ':'The % of max method is the classic wall-chart formula - simpler, but it ignores fitness: a rested athlete and a beginner get identical zones. Switch to Karvonen for reserve-based bands. ')+'220 − age is a population average with ±10+ bpm of scatter; if you have a measured lactate-threshold or lab number, trust it over any formula.';
-  document.title=max+' bpm max - ToolTide';
+  document.title=max+' bpm max - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_hrzone',JSON.stringify({a:A.value,r:R.value,m:M.value}));}catch(e){}}
 [A,R,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7148,7 +7148,7 @@ function calc(){
   var s=parseFloat(S.value),c=parseFloat(C.value),sl=parseFloat(SL.value),hi=parseFloat(HI.value),par=parseFloat(P.value);
   if(!(s>0)||!(c>0)||!(sl>0)){OUT.textContent='–';
     ['gf-ch','gf-target','gf-vs'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('gf-note').textContent='';document.title='Golf Handicap Calculator - ToolTide';return;}
+    document.getElementById('gf-note').textContent='';document.title='Golf Handicap Calculator - ToolDune';return;}
   var d=(113/sl)*(s-c);
   OUT.textContent=Math.round(d*10)/10;
   var ch=(hi>0||hi===0)?Math.round(hi*(sl/113)+(c-(par||72))):-1;
@@ -7156,7 +7156,7 @@ function calc(){
   document.getElementById('gf-target').textContent=(ch>=0&&par)?(s-ch<par?par:par+ch):'–';
   document.getElementById('gf-vs').textContent=(ch>=0)?((d<hi?'✓ better than':'worse than')+' your '+hi+' index'):'–';
   document.getElementById('gf-note').textContent='Differential = (113 ÷ slope) × (score − course rating) = '+OUT.textContent+' - the one number the World Handicap System compares across courses. Your index is the average of your best 8 differentials from the last 20 rounds, so one blow-up hole (capped by net double bogey) cannot wreck it. Course handicap '+ (ch>=0?'means you get '+ch+' strokes here - play to par + '+ch+' for a \"handicap round\".':'needs your index above.') ;
-  document.title='Differential '+OUT.textContent+' - ToolTide';
+  document.title='Differential '+OUT.textContent+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_golf',JSON.stringify({s:S.value,c:C.value,sl:SL.value,h:HI.value,p:P.value}));}catch(e){}}
 [S,C,SL,HI,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7198,7 +7198,7 @@ function calc(){
   var b=parseFloat(B.value);
   if(!(b>=20&&b<=400)){OUT.textContent='–';
     ['bp-d8','bp-8t','bp-hz','bp-bar'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('bp-note').textContent='';document.title='BPM Delay Calculator - ToolTide';return;}
+    document.getElementById('bp-note').textContent='';document.title='BPM Delay Calculator - ToolDune';return;}
   var q=60000/b;
   OUT.textContent=Math.round(q);
   document.getElementById('bp-d8').textContent=Math.round(q*1.5)+' ms';
@@ -7206,7 +7206,7 @@ function calc(){
   document.getElementById('bp-hz').textContent=(b/60/4).toFixed(3)+' Hz';
   document.getElementById('bp-bar').textContent=Math.round(q*4).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' ms';
   document.getElementById('bp-note').textContent='Set a delay\\'s time in ms (not tap-tempo) to these values and echoes land exactly between the notes: dotted 1/8 is the classic ambient/edge-of-chaos choice, 1/4 keeps echoes on the beat, triplets swing. For reverb predelay, 10-30 ms keeps vocals in front of the wash. Many plugins accept Hz for modulation instead - one LFO cycle per bar is '+ (b/60/4).toFixed(3)+' Hz here.';
-  document.title=Math.round(q)+' ms 1/4 delay - ToolTide';
+  document.title=Math.round(q)+' ms 1/4 delay - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_bpm',B.value);}catch(e){}}
 B.addEventListener('input',function(){calc();save();});
@@ -7255,7 +7255,7 @@ function calc(){
   document.getElementById('ev-e').previousElementSibling.textContent=u==='mi'?'Efficiency (mi/kWh)':'Efficiency (kWh/100km)';
   if(!(k>0)||!(e>0)||!(r>0)){OUT.textContent='–';
     ['ev-full','ev-100','ev-gasc','ev-save'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('ev-note').textContent='';document.title='EV Charging Cost Calculator - ToolTide';return;}
+    document.getElementById('ev-note').textContent='';document.title='EV Charging Cost Calculator - ToolDune';return;}
   var cpm=u==='mi'?r/e:r*e/100;
   OUT.textContent=money(cpm);
   document.getElementById('ev-full').textContent=money(k*r);
@@ -7265,7 +7265,7 @@ function calc(){
   document.getElementById('ev-gasc').textContent=gc!==null?money(gc):'–';
   document.getElementById('ev-save').textContent=gc!==null?money(gc-cpm)+' ('+Math.max(0,Math.round((1-cpm/gc)*100))+'%)':'–';
   document.getElementById('ev-note').textContent='Full charge = battery × your rate, but real wall-to-battery losses add ~10% on Level 2 (more on fast chargers) - mentally add a tenth. Off-peak tariffs often cut the rate by half, which is the difference between charging for pocket change and a utility bill surprise. '+(gc!==null?'At these prices the EV runs for '+money(cpm)+' where the gas car burns '+money(gc)+' - over 12,000 '+(u==='mi'?'miles':'km')+' that is '+money(Math.abs(gc-cpm)*12000)+' a year.':'Add a gas price and consumption to see the comparison.');
-  document.title=money(cpm)+' '+(u==='mi'?'per mile':'per km')+' - ToolTide';
+  document.title=money(cpm)+' '+(u==='mi'?'per mile':'per km')+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_evcharge',JSON.stringify({u:U.value,k:K.value,e:E.value,r:R.value,g:G.value,m:M.value}));}catch(e){}}
 [U,K,E,R,G,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7332,7 +7332,7 @@ function calc(){
   var dv=D.value?new Date(D.value+'T12:00:00'):null,la=parseFloat(LA.value),lo=parseFloat(LO.value);
   if(!dv||isNaN(la)||isNaN(lo)){OUT.textContent='–';
     ['gh-sr','gh-am','gh-ss','gh-len'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('gh-note').textContent='';document.title='Golden Hour Calculator - ToolTide';return;}
+    document.getElementById('gh-note').textContent='';document.title='Golden Hour Calculator - ToolDune';return;}
   var sr=solar(dv,la,lo,-0.833),am6=solar(dv,la,lo,6),pm4=solar(dv,la,lo,-4);
   if(sr.polar||am6.polar){OUT.textContent=am6.polar==='day'?'all day':'–';
     document.getElementById('gh-note').textContent=am6.polar==='day'?'Sun never sets here on this date - golden light lasts for hours near the horizon at high latitudes in summer.':'Sun never rises here on this date.';
@@ -7346,7 +7346,7 @@ function calc(){
   document.getElementById('gh-ss').textContent=ssT;
   document.getElementById('gh-len').textContent=ghpmMins+' min';
   document.getElementById('gh-note').textContent='Golden hour = sun within roughly 6° above the horizon; here that is about '+ghpmMins+' minutes. The light is warm and directional because the sun\\'s path through the atmosphere is long - UV is filtered out, shadows stretch, and contrast drops. Arrive 20 minutes early: the best light is often the first half. Times are in your device\\'s timezone; blue hour follows right after sunset for cityscapes.';
-  document.title='Golden hour '+pmStart+'–'+ssT+' - ToolTide';
+  document.title='Golden hour '+pmStart+'–'+ssT+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_golden',JSON.stringify({d:D.value,la:LA.value,lo:LO.value}));}catch(e){}}
 [D,LA,LO].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7393,7 +7393,7 @@ function calc(){
   var y=Y.value==='f'?1.0:Y.value==='c'?0.25:0.4, s=2.8;
   if(!(n>0)||!(w>0)||!(h>0)){OUT.textContent='–';
     ['pz-wat','pz-salt','pz-yeast','pz-tot'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('pz-note').textContent='';document.title='Pizza Dough Calculator - ToolTide';return;}
+    document.getElementById('pz-note').textContent='';document.title='Pizza Dough Calculator - ToolDune';return;}
   var factor=1+h/100+s/100+y/100;
   var flour=n*w/factor;
   function g(x){return Math.round(x);}
@@ -7403,7 +7403,7 @@ function calc(){
   document.getElementById('pz-yeast').textContent=g(flour*y/100*10)/10;
   document.getElementById('pz-tot').textContent=g(n*w);
   document.getElementById('pz-note').textContent='Baker\\'s percentages keep the recipe scale-proof: water at '+h+'% of flour weight ('+(h<60?'a stiff, NY-style dough - easier for beginners':h<70?'the Neapolitan sweet spot':'a wet, airy dough - needs well-floured hands')+'), salt ~3% for flavor without slowing yeast, and just enough yeast for the time you give it. Cold fermentation (24-48h in the fridge) trades a pinch of yeast for noticeably better flavor and easier stretching - the single biggest upgrade in home pizza.';
-  document.title=g(flour)+'g flour - ToolTide';
+  document.title=g(flour)+'g flour - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_pizza',JSON.stringify({n:N.value,w:W.value,h:H.value,y:Y.value}));}catch(e){}}
 [N,W,H,Y].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7447,7 +7447,7 @@ function calc(){
   var a=parseFloat(A.value),f=parseInt(F.value),t=parseInt(T.value);
   if(!(a>0)||!(f>=1913&&f<=2025)||!(t>=1913&&t<=2025)){OUT.textContent='–';
     ['inf-cum','inf-avg','inf-half'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('inf-note').textContent='';document.title='Inflation Calculator - ToolTide';return;}
+    document.getElementById('inf-note').textContent='';document.title='Inflation Calculator - ToolDune';return;}
   var ci=CPI[f-1913],ct=CPI[t-1913];
   var adj=a*ct/ci;
   OUT.textContent='$'+(Math.round(adj*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
@@ -7458,7 +7458,7 @@ function calc(){
   var halve=yrs>0&&ct>ci?Math.log(.5)/Math.log(ci/ct):0;
   document.getElementById('inf-half').textContent=halve>0?Math.round(halve)+' yrs':'–';
   document.getElementById('inf-note').textContent=a.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' dollars from '+f+' bought what $'+(Math.round(adj*100)/100).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' buys in '+t+' - prices '+(cum>=0?'rose ':'fell ')+Math.abs(cum).toFixed(1)+'% over '+yrs+' years. Based on BLS CPI-U annual averages (1982-84=100; latest year approximate). CPI measures an average basket, not your basket: housing, health and education have outrun it while electronics defied it - treat the number as the honest map of the dollar, not of your receipt.';
-  document.title='$'+(Math.round(adj*100)/100)+' in '+t+' money - ToolTide';
+  document.title='$'+(Math.round(adj*100)/100)+' in '+t+' money - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_inflation',JSON.stringify({a:A.value,f:F.value,t:T.value}));}catch(e){}}
 [A,F,T].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7501,7 +7501,7 @@ function calc(){
   var a=parseFloat(A.value),t=parseFloat(T.value),n=parseInt(N.value);
   if(!(a>=0)||!(t>0)||!(n>0)){OUT.textContent='–';
     ['sd-wk','sd-cat','sd-pay'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('sd-note').textContent='';document.title='Sleep Debt Calculator - ToolTide';return;}
+    document.getElementById('sd-note').textContent='';document.title='Sleep Debt Calculator - ToolDune';return;}
   var debt=Math.max(0,(t-a)*n);
   OUT.textContent=Math.round(debt*10)/10;
   document.getElementById('sd-wk').textContent=Math.max(0,Math.round((t-a)*7*10)/10)+' h';
@@ -7510,7 +7510,7 @@ function calc(){
   var surplus=1;
   document.getElementById('sd-pay').textContent=debt>0?Math.ceil(debt/surplus):'0';
   document.getElementById('sd-note').textContent='Sleeping '+(t-a>=0?(t-a):0)+' hours short of your target each night adds up to '+OUT.textContent+' hours of debt - at the '+lvl+' level. The honest science: weekend catch-up restores alertness but not the metabolic and memory costs, and \u201crepayment\u201d works best as extra hours nightly plus an early night or two, not one 14-hour coma. If debt is chronic, the fix is the target itself: shift bedtime 15 minutes earlier each week rather than trying to win it back on Sunday.';
-  document.title=Math.round(debt*10)/10+' h sleep debt - ToolTide';
+  document.title=Math.round(debt*10)/10+' h sleep debt - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_sleepdebt',JSON.stringify({a:A.value,t:T.value,n:N.value}));}catch(e){}}
 [A,T,N].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7558,7 +7558,7 @@ function calc(){
   var x=d==='w2b'?w:b;
   if(!(r>0)||!(x>0)){OUT.textContent='–';
     ['cf-strength','cf-cups','cf-scoop'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('cf-note').textContent='';document.title='Coffee Ratio Calculator - ToolTide';return;}
+    document.getElementById('cf-note').textContent='';document.title='Coffee Ratio Calculator - ToolDune';return;}
   var grams=d==='w2b'?x/r:x*r;
   OUT.textContent=Math.round(grams*10)/10;
   var water=d==='w2b'?x:grams;
@@ -7566,7 +7566,7 @@ function calc(){
   document.getElementById('cf-cups').textContent=Math.round(water/250*10)/10;
   document.getElementById('cf-scoop').textContent=Math.round((d==='w2b'?grams:x)/5*10)/10+' tbsp';
   document.getElementById('cf-note').textContent='The golden ratio: grams of coffee × '+r+' = grams (≈ml) of water - weigh both once and your coffee stops being a lottery. Grind matters as much as ratio: too bitter, grind coarser or use less coffee; too sour and weak, grind finer or use more. Start at 1:16 for pour-over, 1:15 for French press, and adjust by taste one notch at a time - a 5% change is noticeable, a 20% change is a different cup.';
-  document.title=Math.round(grams*10)/10+'g coffee - ToolTide';
+  document.title=Math.round(grams*10)/10+'g coffee - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_coffee',JSON.stringify({d:D.value,w:W.value,b:B.value,r:R.value}));}catch(e){}}
 [D,W,B,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7609,18 +7609,18 @@ function calc(){
   var f=parseFloat(F.value),p=parseFloat(P.value),v=parseFloat(V.value);
   if(!(f>=0)||!(p>0)||!(v>=0)){OUT.textContent='–';
     ['be-rev','be-margin','be-cm'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('be-note').textContent='';document.title='Break-Even Calculator - ToolTide';return;}
+    document.getElementById('be-note').textContent='';document.title='Break-Even Calculator - ToolDune';return;}
   if(p<=v){OUT.textContent='–';
     document.getElementById('be-note').textContent='Price is at or below variable cost - every sale loses money, so no volume can break even. Fix the price, the cost, or the business.';
     ['be-rev','be-margin','be-cm'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.title='Break-Even Calculator - ToolTide';return;}
+    document.title='Break-Even Calculator - ToolDune';return;}
   var units=Math.ceil(f/(p-v));
   OUT.textContent=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('be-rev').textContent='$'+Math.round(units*p).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('be-margin').textContent='$'+(Math.round((p-v)*100)/100);
   document.getElementById('be-cm').textContent=Math.round((p-v)/p*100)+'%';
   document.getElementById('be-note').textContent='Each sale contributes '+(Math.round((p-v)*100)/100)+' ('+Math.round((p-v)/p*100)+'% of price) toward the $'+f.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' of monthly fixed costs - unit #'+units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' is the one that clears the rent. Two levers move this number faster than hustle: a +$5 price usually beats a +5% volume push, and trimming variable cost compounds across every future unit. Anything above break-even drops to profit at nearly 100% margin - that is why startups celebrate it.';
-  document.title=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' units to break even - ToolTide';
+  document.title=units.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' units to break even - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_breakeven',JSON.stringify({f:F.value,p:P.value,v:V.value}));}catch(e){}}
 [F,P,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7665,7 +7665,7 @@ function calc(){
   document.getElementById('iw-un').textContent=u==='m'?'kg':'lb';
   if(!(h>0)){OUT.textContent='–';
     ['iw-bmi','iw-dev','iw-lo'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('iw-note').textContent='';document.title='Ideal Weight Calculator - ToolTide';return;}
+    document.getElementById('iw-note').textContent='';document.title='Ideal Weight Calculator - ToolDune';return;}
   var cm=u==='m'?h:h*2.54,m=cm/100,kgPerIn=u==='m'?null:2.54;
   var inches=u==='m'?cm/2.54:h;
   var dev=(s==='m'?50:45.5)+2.3*Math.max(0,inches-60);
@@ -7677,7 +7677,7 @@ function calc(){
   document.getElementById('iw-dev').textContent=fmt(dev)+' '+document.getElementById('iw-un').textContent;
   document.getElementById('iw-lo').textContent=fmt(loB)+' / '+fmt(hiB);
   document.getElementById('iw-note').textContent='Two honest answers: the Devine formula ('+fmt(dev)+' - a 1974 drug-dosing rule, still the classic \u201cideal weight\u201d) and the healthy-BMI band ('+fmt(loB)+'-'+fmt(hiB)+'), which is wider because bodies are. Neither knows your frame, muscle or history - an athletic '+fmt(hiB+5)+' can be healthier than a sedentary '+fmt(loB)+'. Use the band as a range, judge by trend and how you move, and let a clinician argue with the scale.';
-  document.title=fmt(dev)+' '+document.getElementById('iw-un').textContent+' ideal - ToolTide';
+  document.title=fmt(dev)+' '+document.getElementById('iw-un').textContent+' ideal - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_idealweight',JSON.stringify({u:U.value,s:S.value,h:H.value}));}catch(e){}}
 [U,S,H].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7728,7 +7728,7 @@ function gen(){
   TX.value=out.join('\\n\\n');
   OUT.textContent=total;
   document.getElementById('lr-note').textContent='Count-exact: '+p+' paragraphs × '+w+' words. Every regenerate draws fresh random sentences - paste straight into your mockup, CSS or CMS.';
-  document.title=total+' placeholder words - ToolTide';
+  document.title=total+' placeholder words - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_lorem',JSON.stringify({p:P.value,w:W.value,s:S.checked}));}catch(e){}}
 [P,W].forEach(function(el){el.addEventListener('input',function(){gen();save();});});
@@ -7772,14 +7772,14 @@ function calc(){
   var b=parseFloat(B.value),e=parseFloat(E.value),y=parseFloat(Y.value);
   if(!(b>0)||!(e>0)||!(y>0)){OUT.textContent='–';
     ['cg-tot','cg-mul','cg-dbl'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('cg-note').textContent='';document.title='CAGR Calculator - ToolTide';return;}
+    document.getElementById('cg-note').textContent='';document.title='CAGR Calculator - ToolDune';return;}
   var c=Math.pow(e/b,1/y)-1;
   OUT.textContent=(c*100>=0?'+':'')+(c*100).toFixed(2)+'%';
   document.getElementById('cg-tot').textContent=((e/b-1)*100>=0?'+':'')+((e/b-1)*100).toFixed(1)+'%';
   document.getElementById('cg-mul').textContent=(e/b).toFixed(2)+'×';
   document.getElementById('cg-dbl').textContent=c>0?Math.round(Math.log(2)/Math.log(1+c)*10)/10+' yrs':'–';
   document.getElementById('cg-note').textContent='CAGR smooths a jagged journey into one honest number: +26% a year for '+(Math.round(y*10)/10)+' years turns '+(b.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'))+' into '+(e.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US'))+' - even if year two was -40% and year three +80%, the compound rate is what compounds. Rule of 72 for sanity: at this rate money doubles every '+(c>0?Math.round(72/(c*100)):'–')+' years. Watch the trap: a big loss needs a bigger gain to recover - -50% needs +100% just to get back to zero, which is why steady beats spectacular.';
-  document.title=(c*100>=0?'+':'')+(c*100).toFixed(1)+'% CAGR - ToolTide';
+  document.title=(c*100>=0?'+':'')+(c*100).toFixed(1)+'% CAGR - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_cagr',JSON.stringify({b:B.value,e:E.value,y:Y.value}));}catch(e){}}
 [B,E,Y].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7829,7 +7829,7 @@ function calc(){
   document.getElementById('pl-u2').textContent=u==='m'?'liters':'US gallons';
   if(!(a>0)||!(c>0)||(!circ&&!(b>0))){OUT.textContent='–';
     ['pl-gal','pl-m3','pl-ton'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('pl-note').textContent='';document.title='Pool Volume Calculator - ToolTide';return;}
+    document.getElementById('pl-note').textContent='';document.title='Pool Volume Calculator - ToolDune';return;}
   var m3;
   if(circ){m3=Math.PI*(a/2)*(a/2)*c;}
   else if(s==='o'){m3=Math.PI*(a/2)*(b/2)*c;}
@@ -7842,7 +7842,7 @@ function calc(){
   document.getElementById('pl-ton').textContent=(Math.round(m3*10)/10)+' t';
   var deep=c*1.4>2.2;
   document.getElementById('pl-note').textContent='Average depth is the honest input: (shallow end + deep end) ÷ 2 - most owners overestimate, and every chemical dose, pump runtime and heating bill scales with this number. Fill to about 90% of the coping, so subtract ~10% for the actual refill. '+(deep?'Deep enough for a diving-type slide check with local rules.':'This is a pool for swimming, not for diving - the deep end is shallower than diving guidelines.')+' Refilling '+(Math.round(lit/100)/10)+'k liters costs real money; a cover pays for itself in evaporation alone.';
-  document.title=Math.round(lit).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' L pool - ToolTide';
+  document.title=Math.round(lit).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' L pool - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_pool',JSON.stringify({s:S.value,a:A.value,b:B.value,c:C.value,u:U.value}));}catch(e){}}
 [S,A,B,C,U].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7886,7 +7886,7 @@ function calc(){
   var h=parseFloat(H.value),d=parseFloat(D.value)||7,a=parseFloat(A.value),t=parseFloat(T.value);
   if(!(h>0)||!(a>0)||!(t>a)){OUT.textContent='–';
     ['ts2-months','ts2-wake','ts2-work'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('ts2-note').textContent='';document.title='Time Spent Calculator - ToolTide';return;}
+    document.getElementById('ts2-note').textContent='';document.title='Time Spent Calculator - ToolDune';return;}
   var years=h*(d*52.14)*(t-a)/24/365.25;
   OUT.textContent=Math.round(years*10)/10;
   document.getElementById('ts2-months').textContent=Math.round(years*12);
@@ -7894,7 +7894,7 @@ function calc(){
   document.getElementById('ts2-wake').textContent=Math.round(wakePct)+'%';
   document.getElementById('ts2-work').textContent=Math.round(years*365.25*h/40).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('ts2-note').textContent=years+' years of '+(t-a)+' is '+Math.round(years/(t-a)*100)+'% of that whole stretch - spent at '+h+' hours a day. Read it however you need: if this is the habit you love, that is a life well invested; if it is the app you open without noticing, the same math says what an hour back a day is worth over a decade. The calculator does not judge - it just refuses to let the number stay invisible.';
-  document.title=Math.round(years*10)/10+' years - ToolTide';
+  document.title=Math.round(years*10)/10+' years - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_timespent',JSON.stringify({h:H.value,d:D.value,a:A.value,t:T.value}));}catch(e){}}
 [H,D,A,T].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7945,7 +7945,7 @@ function calc(){
   var t=T[M.value],w=parseFloat(W.value),u=U.value;
   if(!(w>0)){OUT.textContent='–';
     ['mt-core','mt-rest','mt-total'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('mt-note').textContent='';document.title='Meat Cooking Time Calculator - ToolTide';return;}
+    document.getElementById('mt-note').textContent='';document.title='Meat Cooking Time Calculator - ToolDune';return;}
   var kg=u==='k'?w:w*0.4536;
   var lo=Math.round(kg*t[0]/5)*5,hi=Math.round(kg*t[1]/5)*5;
   OUT.textContent=lo+'–'+hi+' min';
@@ -7954,7 +7954,7 @@ function calc(){
   document.getElementById('mt-rest').textContent=t[2]+' min';
   document.getElementById('mt-total').textContent=lo+t[2]+'–'+(hi+t[2])+' min';
   document.getElementById('mt-note').textContent='Times are for '+(kg.toFixed(1))+' kg at 180°C (350°F) conventional - remove the meat when a probe reads a few degrees BELOW the target core and let the resting finish the job (carryover heat adds 3-5°C while juices redistribute; carving early floods the board). The thermometer is the boss and the minutes are just the plan: ovens lie by ±15°C, and core temperature is the only thing that is both safe and juicy. Chicken and turkey: no pink, 74°C core, always. Pork loin is done at 63°C + rest - dry gray pork is a choice, not a rule.';
-  document.title=lo+'–'+hi+' min roast - ToolTide';
+  document.title=lo+'–'+hi+' min roast - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_meat',JSON.stringify({m:M.value,w:W.value,u:U.value}));}catch(e){}}
 [M,W,U].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -7998,14 +7998,14 @@ function calc(){
   var p=parseFloat(P.value),y=parseInt(Y.value),r=parseFloat(R.value);
   if(!(p>0)||y===undefined||isNaN(y)||!(r>0)){OUT.textContent='–';
     ['cd-lost','cd-pct','cd-yr'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('cd-note').textContent='';document.title='Car Depreciation Calculator - ToolTide';return;}
+    document.getElementById('cd-note').textContent='';document.title='Car Depreciation Calculator - ToolDune';return;}
   var v=p*Math.pow(1-r/100,y);
   OUT.textContent='$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('cd-lost').textContent='$'+Math.round(p-v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('cd-pct').textContent=Math.round((1-v/p)*100)+'%';
   document.getElementById('cd-yr').textContent='$'+Math.round((p-v)/Math.max(1,y)).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('cd-note').textContent='Depreciation is front-loaded: a typical car sheds 40-50% of its value in the first three years, then the curve flattens - which is why a 3-year-old car is the classic value pick: the steepest part of the curve is someone else\u2019s receipt. Run the rate at 15-18% for average sedans, more for luxury marques, less for rare hold-the-value models. The per-year figure is the honest cost of ownership that fuel calculators forget - often bigger than the fuel bill itself.';
-  document.title='$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' car value - ToolTide';
+  document.title='$'+Math.round(v).toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US')+' car value - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_cardep',JSON.stringify({p:P.value,y:Y.value,r:R.value}));}catch(e){}}
 [P,Y,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8047,7 +8047,7 @@ function calc(){
   var z=parseInt(Z.value),d=D.value;
   if(!(z>=1&&z<=12)){OUT.textContent='–';
     ['jl-shift','jl-light','jl-back'].forEach(function(id){document.getElementById(id).textContent='–';});
-    document.getElementById('jl-note').textContent='';document.title='Jet Lag Calculator - ToolTide';return;}
+    document.getElementById('jl-note').textContent='';document.title='Jet Lag Calculator - ToolDune';return;}
   var days=d==='e'?z*1.0:z*0.6;
   days=Math.max(1,Math.round(days));
   OUT.textContent=days;
@@ -8055,7 +8055,7 @@ function calc(){
   document.getElementById('jl-light').textContent=d==='e'?'morning light, avoid evening':'evening light, avoid dawn';
   document.getElementById('jl-back').textContent=d==='e'?Math.max(1,Math.round(z*0.6)):Math.max(1,z);
   document.getElementById('jl-note').textContent='Eastward is harder: your clock must advance, and the body resists sleeping early more than staying up late - hence roughly a day per zone east versus about half a day per zone west. The pre-shift is the pro move: move bedtime and meals 1 hour per day toward destination time before you fly, and most of the work is done on the ground. On arrival, light is the drug - '+ (d==='e'?'get bright morning light locally and wear sunglasses in the evening to hold the advance.':'seek evening light and stay up to local evening, letting dawn come late.')+' Caffeine before local noon; no alcohol on the plane - it costs more sleep than it buys.';
-  document.title=days+' days to adapt - ToolTide';
+  document.title=days+' days to adapt - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_jetlag',JSON.stringify({z:Z.value,d:D.value}));}catch(e){}}
 [Z,D].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8098,7 +8098,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var w=parseFloat(F[0].value),h=parseFloat(F[1].value),n=parseInt(F[2].value),c=parseInt(F[3].value),x=parseFloat(F[4].value),cv=parseFloat(F[5].value);
   var ok=w>0&&h>0&&n>=1&&c>=1&&cv>0;
-  if(!ok){OUT.textContent='–';['pa-s1','pa-s2','pa-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('pa-note').textContent='';document.title='Paint Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['pa-s1','pa-s2','pa-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('pa-note').textContent='';document.title='Paint Calculator - ToolDune';return;}
   var area=Math.max(w*h*n-(isNaN(x)?0:x),0);
   var litres=area*c/cv;
   var buy=litres*1.1;
@@ -8107,7 +8107,7 @@ function calc(){
   document.getElementById('pa-s2').textContent=(area/cv).toFixed(2)+' L';
   document.getElementById('pa-s3').textContent=buy.toFixed(2)+' L';
   document.getElementById('pa-note').textContent='The tin wins over any calculator: check its stated coverage, because matte and deep-base paints spread differently. Two coats is the honest default - one-coat claims usually assume a flat colour over a primed surface. Painting dark over light (or the reverse)? Budget for a primer coat or a third coat, because pigment hiding is the real constraint, not wall area. The 10% spare absorbs roller waste, edges, and the patch-up you will want in six months.';
-  document.title=litres.toFixed(1)+' L of paint needed - ToolTide';
+  document.title=litres.toFixed(1)+' L of paint needed - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_paint',JSON.stringify({w:F[0].value,h:F[1].value,n:F[2].value,c:F[3].value,x:F[4].value,cv:F[5].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8149,7 +8149,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var l=parseFloat(F[0].value),w=parseFloat(F[1].value),d=parseFloat(F[2].value),b=parseInt(F[3].value),p=parseFloat(F[4].value);
   var ok=l>0&&w>0&&d>0&&b>0;
-  if(!ok){OUT.textContent='–';['mu-s1','mu-s2','mu-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mu-note').textContent='';document.title='Mulch Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['mu-s1','mu-s2','mu-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mu-note').textContent='';document.title='Mulch Calculator - ToolDune';return;}
   var area=l*w;
   var vol=area*d/100;
   var bags=Math.ceil(vol*1000/b);
@@ -8158,7 +8158,7 @@ function calc(){
   document.getElementById('mu-s2').textContent=vol.toFixed(2)+' m³';
   document.getElementById('mu-s3').textContent=(p>0&&!isNaN(p))?(bags*p).toFixed(2):'set price';
   document.getElementById('mu-note').textContent='5 cm is the weed-suppressing sweet spot; 7-8 cm for bare soil or a refresh on old mulch. Past 10 cm you start starving tree and shrub roots of air, and mulch volcanoes piled against trunks invite rot - keep a hand-width clear. Bulk tip: 1 m³ of bulk mulch replaces about '+Math.ceil(1000/b)+' bags, so past a few cubic metres the delivered skip is usually cheaper and lighter on plastic.';
-  document.title=bags+' bags of mulch - ToolTide';
+  document.title=bags+' bags of mulch - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_mulch',JSON.stringify({l:F[0].value,w:F[1].value,d:F[2].value,b:F[3].value,p:F[4].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8199,7 +8199,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var l=parseFloat(F[0].value),w=parseFloat(F[1].value),p=parseFloat(F[2].value),s=parseFloat(F[3].value);
   var ok=l>0&&w>0&&p>0&&!isNaN(s)&&s>=0;
-  if(!ok){OUT.textContent='–';['lm-s1','lm-s2','lm-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('lm-note').textContent='';document.title='Laminate Flooring Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['lm-s1','lm-s2','lm-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('lm-note').textContent='';document.title='Laminate Flooring Calculator - ToolDune';return;}
   var area=l*w;
   var need=area*(1+s/100);
   var packs=Math.ceil(need/p);
@@ -8208,7 +8208,7 @@ function calc(){
   document.getElementById('lm-s2').textContent=need.toFixed(2)+' m²';
   document.getElementById('lm-s3').textContent=(packs*p-area).toFixed(2)+' m²';
   document.getElementById('lm-note').textContent='8% waste covers a straight-lay rectangular room; use 10-12% for L-shaped rooms, lots of doorways, or herringbone, and 15%+ for a 45° diagonal lay. The real pro habit: buy the full packs now and keep receipts - unopened packs usually go back, but a half-pack shortfall mid-job means hunting a matching batch number, because shade lots differ between production runs. Let the boxes sit in the room 48h before fitting so the boards acclimatise.';
-  document.title=packs+' packs of laminate - ToolTide';
+  document.title=packs+' packs of laminate - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_laminate',JSON.stringify({l:F[0].value,w:F[1].value,p:F[2].value,s:F[3].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8250,14 +8250,14 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var p=parseFloat(F[0].value),h=parseFloat(F[1].value),rw=parseFloat(F[2].value),rl=parseFloat(F[3].value),r=parseFloat(F[4].value);
   var ok=p>0&&h>0&&rw>0&&rl>0&&!isNaN(r)&&r>=0;
-  if(!ok){OUT.textContent='–';['wp-s1','wp-s2','wp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('wp-note').textContent='';document.title='Wallpaper Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['wp-s1','wp-s2','wp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('wp-note').textContent='';document.title='Wallpaper Calculator - ToolDune';return;}
   var cut=h+0.1;
   if(r>0){var rm=r/100;cut=Math.ceil((h+0.1)/rm)*rm;}
   var spr=Math.floor(rl/cut);
   if(spr<1){OUT.textContent='0';
     ['wp-s1','wp-s2','wp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});
     document.getElementById('wp-note').textContent='This roll is shorter than one cut length - check the roll dimensions, because no strip can be cut from it.';
-    document.title='Roll too short - ToolTide';return;}
+    document.title='Roll too short - ToolDune';return;}
   var sn=Math.ceil(p/rw);
   var rolls=Math.ceil(sn/spr);
   OUT.textContent=rolls;
@@ -8265,7 +8265,7 @@ function calc(){
   document.getElementById('wp-s2').textContent=spr;
   document.getElementById('wp-s3').textContent=cut.toFixed(2)+' m';
   document.getElementById('wp-note').textContent=(r>0?'A '+r+' cm pattern repeat is the silent budget killer: every strip must start on the same point of the pattern, so the cut length rounds up to the next multiple of the repeat and the offcuts are not reusable. ':'Plain paper uses nearly the whole roll, which is why offcuts still cover above doors and windows. ')+'The 10 cm trim allowance per strip absorbs ceiling and skirting unevenness - walls are rarely square. Buy every roll from the same batch number (shade lots differ), and order one spare roll beyond this figure if the pattern is bold: future repairs need the same dye lot, and discontinued lines never come back.';
-  document.title=rolls+' rolls of wallpaper - ToolTide';
+  document.title=rolls+' rolls of wallpaper - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_wallpaper',JSON.stringify({p:F[0].value,h:F[1].value,rw:F[2].value,rl:F[3].value,r:F[4].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8306,14 +8306,14 @@ function fmt(v){return v.toFixed(2);}
 function calc(){
   var n=parseInt(F[0].value),p=parseFloat(F[1].value),m=parseInt(F[2].value);
   var ok=n>=1&&p>0&&m>=1;
-  if(!ok){OUT.textContent='–';['dp-s1','dp-s2','dp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('dp-note').textContent='';document.title='Diaper Cost Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['dp-s1','dp-s2','dp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('dp-note').textContent='';document.title='Diaper Cost Calculator - ToolDune';return;}
   var day=n*p,mon=day*30.44,tot=mon*m;
   OUT.textContent=fmt(tot);
   document.getElementById('dp-s1').textContent=fmt(day);
   document.getElementById('dp-s2').textContent=fmt(mon);
   document.getElementById('dp-s3').textContent=fmt(mon*12);
   document.getElementById('dp-note').textContent='Count drift is the line nobody prices in: newborns burn 10-12 a day, toddlers are down to 4-6, so a flat per-day figure overstates the later months. Wipes, cream and bags typically add 15-20% on top. Cloth crossover: a full cloth stash costs roughly one to three months of disposables, so past month two or three it is paid off - if you actually run the washes at 60°C.';
-  document.title=fmt(tot)+' total diaper cost - ToolTide';
+  document.title=fmt(tot)+' total diaper cost - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_diaper',JSON.stringify({n:F[0].value,p:F[1].value,m:F[2].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8351,7 +8351,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 var RANGES=[[0,45,60,'4-5','15-17 h'],[1,60,90,'4-5','14-16 h'],[3,75,105,'3-4','14-16 h'],[4,90,120,'3-4','12-15 h'],[5,120,150,'2-3','12-15 h'],[6,150,180,'2-3','12-14 h'],[9,150,210,'2','12-14 h'],[12,180,240,'1-2','11-14 h'],[18,240,360,'1','11-12 h']];
 function calc(){
   var a=parseInt(A.value);
-  if(!(a>=0&&a<=24)){OUT.textContent='–';['ww-s1','ww-s2','ww-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ww-note').textContent='';document.title='Wake Window Calculator - ToolTide';return;}
+  if(!(a>=0&&a<=24)){OUT.textContent='–';['ww-s1','ww-s2','ww-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ww-note').textContent='';document.title='Wake Window Calculator - ToolDune';return;}
   var r=RANGES[0];
   for(var i=0;i<RANGES.length;i++){if(a>=RANGES[i][0]){r=RANGES[i];}}
   OUT.textContent=r[1]+'-'+r[2];
@@ -8359,7 +8359,7 @@ function calc(){
   document.getElementById('ww-s2').textContent=r[3];
   document.getElementById('ww-s3').textContent=r[4];
   document.getElementById('ww-note').textContent='A wake window is how long a baby can comfortably stay up before sleep pressure wins - stretch it and you get cortisol instead of a longer nap, which is why overtired babies fight sleep hardest. Read the ranges as centre of gravity, not law: eye-rubbing, staring and fussing outrank the clock. The classic rhythm around 4-6 months is wake-feed-play, down at the first yawn, and the 2-3-4 pattern (2 h before nap one, 3 before nap two, 4 before bed) once naps consolidate to two.';
-  document.title='Wake window '+r[1]+'-'+r[2]+' min at '+a+' months - ToolTide';
+  document.title='Wake window '+r[1]+'-'+r[2]+' min at '+a+' months - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_wake',JSON.stringify({a:A.value}));}catch(e){}}
 A.addEventListener('input',function(){calc();save();});
@@ -8398,14 +8398,14 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var w=parseFloat(F[0].value),f=parseInt(F[1].value);
   var ok=w>=2&&w<=15&&f>=4&&f<=12;
-  if(!ok){OUT.textContent='–';['ff-s1','ff-s2','ff-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ff-note').textContent='';document.title='Formula Feeding Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['ff-s1','ff-s2','ff-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ff-note').textContent='';document.title='Formula Feeding Calculator - ToolDune';return;}
   var per=w*150/f;
   OUT.textContent=Math.round(per);
   document.getElementById('ff-s1').textContent=Math.round(w*120/f)+'-'+Math.round(w*200/f)+' ml';
   document.getElementById('ff-s2').textContent=Math.round(w*150)+' ml';
   document.getElementById('ff-s3').textContent=(per/29.574).toFixed(1)+' oz';
   document.getElementById('ff-note').textContent='The 150 ml per kg per day rule is the standard mid-point; normal runs 120-200 ml/kg/day depending on age, growth spurts and prematurity. Feed the baby, not the spreadsheet: finishing the bottle is not a goal, and hungry cues before the next feed matter more than the arithmetic. Never dilute or concentrate formula to stretch it, and check any feeding concern with your pediatrician first.';
-  document.title=Math.round(per)+' ml per formula feed - ToolTide';
+  document.title=Math.round(per)+' ml per formula feed - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_formula',JSON.stringify({w:F[0].value,f:F[1].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8444,14 +8444,14 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 var RG={sed:[0.8,1.0],act:[1.2,1.6],bld:[1.6,2.2],cut:[1.8,2.4],old:[1.2,1.5]};
 function calc(){
   var w=parseFloat(W.value),g=G.value;
-  if(!(w>=30&&w<=200)){OUT.textContent='–';['pr-s1','pr-s2','pr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('pr-note').textContent='';document.title='Protein Intake Calculator - ToolTide';return;}
+  if(!(w>=30&&w<=200)){OUT.textContent='–';['pr-s1','pr-s2','pr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('pr-note').textContent='';document.title='Protein Intake Calculator - ToolDune';return;}
   var r=RG[g],lo=w*r[0],hi=w*r[1],mid=(lo+hi)/2;
   OUT.textContent=Math.round(mid);
   document.getElementById('pr-s1').textContent=Math.round(lo)+'-'+Math.round(hi)+' g';
   document.getElementById('pr-s2').textContent=Math.round(mid/4)+' g';
   document.getElementById('pr-s3').textContent=Math.round(mid/31*100)+' g';
   document.getElementById('pr-note').textContent='Ranges per kg of bodyweight, not per kg of magic: sedentary adults hold at 0.8, training pushes needs to 1.2-1.6, muscle building tops out near 2.2 - beyond that extra protein is just expensive energy. Cutting raises the target because protein protects muscle in a deficit. The chicken figure uses 31 g per 100 g cooked breast; eggs run about 6.5 g each, greek yogurt 10 g per 100 g, lentils 9 g per 100 g cooked. Spread it over 3-4 meals: muscle protein synthesis responds to per-meal doses near 0.4 g/kg, not one giant dinner.';
-  document.title=Math.round(mid)+' g protein per day - ToolTide';
+  document.title=Math.round(mid)+' g protein per day - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_protein',JSON.stringify({w:W.value,g:G.value}));}catch(e){}}
 [W,G].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -8489,14 +8489,14 @@ var OUT=document.getElementById('cr-out');
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var w=parseFloat(W.value),m=M.value;
-  if(!(w>=30&&w<=200)){OUT.textContent='–';['cr-s1','cr-s2','cr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cr-note').textContent='';document.title='Creatine Calculator - ToolTide';return;}
+  if(!(w>=30&&w<=200)){OUT.textContent='–';['cr-s1','cr-s2','cr-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cr-note').textContent='';document.title='Creatine Calculator - ToolDune';return;}
   var lo=w*0.03,hi=w*0.05,mid=Math.max(3,(lo+hi)/2);
   OUT.textContent=mid.toFixed(1);
   document.getElementById('cr-s1').textContent=Math.max(3,lo).toFixed(1)+'-'+Math.min(5,hi).toFixed(1)+' g';
   document.getElementById('cr-s2').textContent=m==='load'?(w*0.3).toFixed(0)+' g/day × 5-7 days':'skipped';
   document.getElementById('cr-s3').textContent=Math.round(500/mid);
   document.getElementById('cr-note').textContent=(m==='load'?'Loading saturates muscles in about a week: '+(w*0.3).toFixed(0)+' g/day split into 4 doses, then drop to maintenance. ':'Skipping loading is fine - 3-5 g a day reaches the same saturation in 3-4 weeks. ')+'Do not cycle creatine: it is not a stimulant, and stopping just drains the stores you paid to fill. Expect 1-2 kg of water weight in the first weeks - that is the mechanism, not fat. Monohydrate is the cheapest and most-studied form; fancy versions buy marketing, not results. Healthy kidneys handle it fine; anyone with kidney disease should ask a doctor first.';
-  document.title=mid.toFixed(1)+' g creatine a day - ToolTide';
+  document.title=mid.toFixed(1)+' g creatine a day - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_creatine',JSON.stringify({w:W.value,m:M.value}));}catch(e){}}
 [W,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -8538,7 +8538,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var st=parseFloat(F[0].value),sh=parseFloat(F[1].value),mu=parseFloat(F[2].value),vc=parseFloat(F[3].value),we=parseFloat(F[4].value);
   var ok=st>0&&sh>=0&&mu>=0&&vc>=0&&we>=0;
-  if(!ok){OUT.textContent='–';['du-s1','du-s2','du-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('du-note').textContent='';document.title='Data Usage Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['du-s1','du-s2','du-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('du-note').textContent='';document.title='Data Usage Calculator - ToolDune';return;}
   var streamGB=st*sh,day=streamGB+mu*0.1+vc*1.2+we*0.35;
   var mon=day*30.44;
   OUT.textContent=Math.round(mon);
@@ -8546,7 +8546,7 @@ function calc(){
   document.getElementById('du-s2').textContent=day>0?Math.round(streamGB/day*100)+'%':'0%';
   document.getElementById('du-s3').textContent=Math.round(mon)+' GB';
   document.getElementById('du-note').textContent='Quality is the lever that moves everything: one hour of 4K eats as much as 10 hours of SD, so dropping one notch on a capped plan saves more than any other tweak. Music at high streaming quality runs about 0.1 GB/h, HD video calls 1.2 GB/h, social feeds with autoplay video 0.3-0.5 GB/h. Downloads and OS updates arrive in spikes - add about 5-10 GB a month of background noise before comparing against a mobile plan cap. Home broadband caps are usually 1 TB+: if this figure clears 800 GB, check for stray cloud backups, not Netflix.';
-  document.title=Math.round(mon)+' GB per month - ToolTide';
+  document.title=Math.round(mon)+' GB per month - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_data',JSON.stringify({s:F[0].value,sh:F[1].value,mu:F[2].value,vc:F[3].value,we:F[4].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -8584,7 +8584,7 @@ var OUT=document.getElementById('fd-out');
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var k=parseFloat(K.value),h=parseFloat(H.value);
-  if(!(k>=0&&k<=20000&&h>=0&&h<=72)){OUT.textContent='–';['fd-s1','fd-s2','fd-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('fd-note').textContent='';document.title='Flight Delay Compensation Calculator - ToolTide';return;}
+  if(!(k>=0&&k<=20000&&h>=0&&h<=72)){OUT.textContent='–';['fd-s1','fd-s2','fd-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('fd-note').textContent='';document.title='Flight Delay Compensation Calculator - ToolDune';return;}
   var band=k<=1500?'short':(k<=3500?'medium':'long');
   var amt=0,why='';
   if(h<3){amt=0;why='Under 3 hours of arrival delay there is no fixed compensation - but the airline still owes care: meals, and a hotel if the delay runs overnight.';}
@@ -8596,7 +8596,7 @@ function calc(){
   document.getElementById('fd-s2').textContent=h<3?'no fixed claim':(h<4?'3-4 h band':'4 h+ band');
   document.getElementById('fd-s3').textContent='receipts + reroute';
   document.getElementById('fd-note').textContent=why+' Two fine points: the clock is arrival delay at the final destination, not departure - a 2-hour late takeoff that lands 3:15 late still qualifies. And extraordinary circumstances (severe weather, air-traffic control strikes) can excuse the airline from the fixed sum, but never from the duty of care. Keep boarding passes and receipts: meals, hotels, taxis and rebooking costs are claimable on top regardless. Claims stay open for years - six in England and Wales - and no-woo legal firms typically take a cut you can keep by claiming direct with the airline first.';
-  document.title=(amt>0?amt+' fixed compensation':'No fixed claim')+' - ToolTide';
+  document.title=(amt>0?amt+' fixed compensation':'No fixed claim')+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_flightdelay',JSON.stringify({k:K.value,h:H.value}));}catch(e){}}
 [K,H].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8647,7 +8647,7 @@ function calc(){
   document.getElementById('su-s2').textContent=big>0?big.toFixed(2)+'/mo':(bigIdx+1);
   document.getElementById('su-s3').textContent=(big*12).toFixed(0)+'/yr';
   document.getElementById('su-note').textContent='The yearly figure is the honest one: monthly pricing hides that 12.99 a month is 155.88 a year. Annual billing on anything you kept all last year typically cuts 15-20%, and pausing beats cancelling for seasonal services - many streaming plans now hold your list for 1-3 months. The audit rule: if you cannot remember opening it last month, that line is the cut.';
-  document.title=(t*12).toFixed(0)+' a year on subscriptions - ToolTide';
+  document.title=(t*12).toFixed(0)+' a year on subscriptions - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_subs',JSON.stringify({p1:F[0].value,f1:F[1].value,p2:F[2].value,f2:F[3].value,p3:F[4].value,f3:F[5].value,p4:F[6].value,f4:F[7].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -8687,7 +8687,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var w=parseFloat(F[0].value),p=parseFloat(F[1].value),s=parseFloat(F[2].value);
   var ok=w>0&&p>0&&s>0;
-  if(!ok){OUT.textContent='–';['sv-s1','sv-s2','sv-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sv-note').textContent='';document.title='Silver Value Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['sv-s1','sv-s2','sv-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sv-note').textContent='';document.title='Silver Value Calculator - ToolDune';return;}
   var fine=w*p;
   var val=fine*s/31.1035;
   OUT.textContent=val.toFixed(2);
@@ -8695,7 +8695,7 @@ function calc(){
   document.getElementById('sv-s2').textContent=(p*s/31.1035).toFixed(2);
   document.getElementById('sv-s3').textContent=(val*0.88).toFixed(2);
   document.getElementById('sv-note').textContent='Melt value is the floor, not the quote: dealers pay 85-95% of spot for scrap, so weigh offers against the 88% mid-figure shown. hallmarks first - 925 stamped sterling and 999 bullion price cleanly, while unmarked plate and silver-plated ware are worth roughly nothing by weight. A troy ounce is 31.1035 g, the unit every spot price quotes. Coins and antique pieces can carry collector value above melt: check sold listings on two marketplaces before melting anything with a date, portrait or maker mark.';
-  document.title=val.toFixed(0)+' silver melt value - ToolTide';
+  document.title=val.toFixed(0)+' silver melt value - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_silver',JSON.stringify({w:F[0].value,p:F[1].value,s:F[2].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -8738,7 +8738,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var sw=parseFloat(F[0].value),sh=parseFloat(F[1].value),sy=parseFloat(F[2].value),pw=parseFloat(F[3].value),ph=parseFloat(F[4].value),sk=parseFloat(F[5].value);
   var ok=sw>0&&sh>0&&sy>0&&pw>0&&ph>0&&sk>0;
-  if(!ok){OUT.textContent='–';['yn-s1','yn-s2','yn-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('yn-note').textContent='';document.title='Yarn Yardage Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['yn-s1','yn-s2','yn-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('yn-note').textContent='';document.title='Yarn Yardage Calculator - ToolDune';return;}
   var ratio=(pw*ph)/(sw*sh);
   var need=sy*ratio;
   OUT.textContent=Math.round(need);
@@ -8746,7 +8746,7 @@ function calc(){
   document.getElementById('yn-s2').textContent=Math.ceil(need*1.15/sk);
   document.getElementById('yn-s3').textContent=ratio.toFixed(1)+'×';
   document.getElementById('yn-note').textContent='The swatch is the only honest yardstick: knit it in the project stitch, measure it relaxed after blocking, and weigh or measure the yarn it ate (a kitchen scale and grams-per-metre from the ball band works if unravelling is not). The 15% buffer covers tension drift, sampling and the sleeves you reknit. Dye lots are the trap the maths cannot fix: however many skeins you buy, buy them from one lot number, because replacement skeins a month later rarely match. Leftover yarn is not waste - it is the repair stash for the decade after.';
-  document.title=Math.round(need)+' m of yarn needed - ToolTide';
+  document.title=Math.round(need)+' m of yarn needed - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_yarn',JSON.stringify({sw:F[0].value,sh:F[1].value,sy:F[2].value,pw:F[3].value,ph:F[4].value,sk:F[5].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8787,7 +8787,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var h=parseFloat(F[0].value),g=parseFloat(F[1].value),n=parseFloat(F[2].value),m=parseInt(F[3].value);
   var ok=h>=30&&h<=70&&g>=8&&g<=40&&n>=0&&n<=6&&m>=1;
-  if(!ok){OUT.textContent='–';['co-s1','co-s2','co-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('co-note').textContent='';document.title='Knitting Cast-On Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['co-s1','co-s2','co-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('co-note').textContent='';document.title='Knitting Cast-On Calculator - ToolDune';return;}
   var raw=(h-n)*g/10;
   var adj=m>1?Math.round(raw/m)*m:Math.round(raw);
   OUT.textContent=adj;
@@ -8795,7 +8795,7 @@ function calc(){
   document.getElementById('co-s2').textContent=m>1?('nearest multiple of '+m):'no multiple needed';
   document.getElementById('co-s3').textContent=(adj/(g/10)).toFixed(1)+' cm';
   document.getElementById('co-note').textContent='Negative ease is the reason knitted hats stay on: 2-3 cm smaller than the head, because ribbing and stockinette stretch to fit and relax back. The gauge must come from your own blocked swatch in the project stitch - not the ball band, which quotes a generic figure. If the pattern multiple knocks you more than 2-3 stitches off raw, go one needle size up or down rather than stretching the multiple, or the brim puckers or bags. Cast on, knit the brim, try it on: the number is a starting point, the head is the boss.';
-  document.title='Cast on '+adj+' stitches - ToolTide';
+  document.title='Cast on '+adj+' stitches - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_caston',JSON.stringify({h:F[0].value,g:F[1].value,n:F[2].value,m:F[3].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -8836,7 +8836,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var w=parseFloat(F[0].value),d=parseFloat(F[1].value),f=parseFloat(F[2].value),r=parseFloat(F[3].value);
   var ok=w>=40&&w<=600&&d>=30&&d<=350&&r>=90&&r<=300;
-  if(!ok){OUT.textContent='–';['cu-s1','cu-s2','cu-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cu-note').textContent='';document.title='Curtain Fabric Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['cu-s1','cu-s2','cu-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cu-note').textContent='';document.title='Curtain Fabric Calculator - ToolDune';return;}
   var gather=w*f;
   var panels=Math.ceil(gather/r);
   var cut=d+30;
@@ -8846,7 +8846,7 @@ function calc(){
   document.getElementById('cu-s2').textContent=cut.toFixed(0)+' cm';
   document.getElementById('cu-s3').textContent=gather.toFixed(0)+' cm';
   document.getElementById('cu-note').textContent='The 30 cm added per panel covers a double-turned 15 cm hem plus heading allowance - the difference between curtains that hang and curtains that flap. Fullness is the look: pencil pleat wants double the track width, pinch pleat two and a half, eyelet rings manage with less. Fabric with a visible pattern repeat needs extra per drop so the design matches across panels - add one repeat per panel beyond the first, and buy it all from one dye lot. Always buy a spare 10% over the figure: curtain fabric goes out of print faster than any yarn.';
-  document.title=meters.toFixed(1)+' m of curtain fabric - ToolTide';
+  document.title=meters.toFixed(1)+' m of curtain fabric - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_curtain',JSON.stringify({w:F[0].value,d:F[1].value,f:F[2].value,r:F[3].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -8888,7 +8888,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var d=parseFloat(F[0].value),y=parseInt(F[1].value),c=parseFloat(F[2].value),p=parseFloat(F[3].value),t=parseFloat(F[4].value);
   var ok=d>0&&y>=50&&c>0&&!isNaN(p)&&p>=0&&!isNaN(t)&&t>=0;
-  if(!ok){OUT.textContent='–';['cm-s1','cm-s2','cm-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cm-note').textContent='';document.title='Commute Cost Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['cm-s1','cm-s2','cm-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cm-note').textContent='';document.title='Commute Cost Calculator - ToolDune';return;}
   var km=2*d*y;
   var car=km*c+ +p;
   var transit=t*12;
@@ -8897,7 +8897,7 @@ function calc(){
   document.getElementById('cm-s2').textContent=(car-transit).toFixed(0);
   document.getElementById('cm-s3').textContent=(car/y).toFixed(2);
   document.getElementById('cm-note').textContent='Fuel is the visible third of driving costs; depreciation, maintenance, tyres and insurance are the invisible two-thirds, which is why the all-in figure of 0.35-0.55 per km is the honest one to use - not the pump price. The comparison that matters is marginal versus average: if the car sits there anyway, transit saves you the marginal km cost plus parking; if the commute is the reason you own the car, the full figure is fair to charge against it. Missing from the ledger: 20-40 minutes of reading or sleeping on a train, and the 8,000-19,000 km of annual wear a 15 km commute quietly books against the car. Hybrid splits - drive to a transit hub, ride the rest - cut parking to zero and the km bill by two-thirds in most metro areas.';
-  document.title=car.toFixed(0)+' a year to commute by car - ToolTide';
+  document.title=car.toFixed(0)+' a year to commute by car - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_commute',JSON.stringify({d:F[0].value,y:F[1].value,c:F[2].value,p:F[3].value,t:F[4].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -8938,14 +8938,14 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var u=F[0].value,d=parseFloat(F[1].value),r=parseFloat(F[2].value),c=parseFloat(F[3].value);
   var ok=d>0&&r>0;
-  if(!ok){OUT.textContent='–';['ml-s1','ml-s2','ml-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ml-note').textContent='';document.title='Mileage Reimbursement Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['ml-s1','ml-s2','ml-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ml-note').textContent='';document.title='Mileage Reimbursement Calculator - ToolDune';return;}
   var tot=d*r;
   OUT.textContent=tot.toFixed(2);
   document.getElementById('ml-s1').textContent=(r*100).toFixed(2);
   document.getElementById('ml-s2').textContent=(c>0&&!isNaN(c))?((d*(r-c)).toFixed(2)):'set your cost';
   document.getElementById('ml-s3').textContent=(c>0&&!isNaN(c))?(d*c*0.35).toFixed(2):'~35% of total';
   document.getElementById('ml-note').textContent='Standard rates exist because fuel is roughly a third of what a kilometre truly costs - the rest is maintenance, tyres, insurance and above all depreciation. Accepting a fuel-only rate silently donates about two-thirds of the real expense to your employer or client. The rate field: national tax authorities publish yearly figures (0.67 per mile is a recent US-style benchmark; 0.45 per km a UK-style one) - use your authority\u2019s current number for tax-free claims. Log trips the day they happen with start, end and purpose: reconstructed logs are the first thing rejected in an audit, and a standing calendar entry per recurring trip makes the log write itself.';
-  document.title=tot.toFixed(0)+' reimbursement for '+d+' '+u+' - ToolTide';
+  document.title=tot.toFixed(0)+' reimbursement for '+d+' '+u+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_mileage',JSON.stringify({u:F[0].value,d:F[1].value,r:F[2].value,c:F[3].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -8986,7 +8986,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var d=parseFloat(F[0].value),w=parseInt(F[1].value),c=parseFloat(F[2].value),n=parseInt(F[3].value);
   var ok=d>0&&w>=1&&w<=7&&c>0&&n>=2&&n<=4;
-  if(!ok){OUT.textContent='–';['cp-s1','cp-s2','cp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cp-note').textContent='';document.title='Carpool Savings Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['cp-s1','cp-s2','cp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('cp-note').textContent='';document.title='Carpool Savings Calculator - ToolDune';return;}
   var km=2*d*w*46;
   var solo=km*c;
   var share=solo/n;
@@ -8995,7 +8995,7 @@ function calc(){
   document.getElementById('cp-s2').textContent=share.toFixed(0);
   document.getElementById('cp-s3').textContent=Math.round(km*0.17*(1-1/n))+' kg';
   document.getElementById('cp-note').textContent='Cost-sharing between colleagues is what makes carpooling work: split the running cost evenly and the driver stops subsidising everyone\u2019s commute. The CO\u2082 figure uses 170 g per km, a typical petrol car - each removed car is the whole point, and three sharers take two cars off the road, which is why high-occupancy lanes exist. The practical failure mode is schedule rigidity, not maths: agree in writing what happens when someone\u2019s evening runs late (flexible departure window, or a pre-agreed solo-day allowance), and the pool survives the first missed train. Insurance almost never blocks cost-sharing pools - it is sharing, not hire - but a genuine taxi-style operation is a different policy.';
-  document.title=(solo-share).toFixed(0)+' a year saved by carpooling - ToolTide';
+  document.title=(solo-share).toFixed(0)+' a year saved by carpooling - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_carpool',JSON.stringify({d:F[0].value,w:F[1].value,c:F[2].value,n:F[3].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -9035,7 +9035,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var wh=parseFloat(F[0].value),st=parseFloat(F[1].value),rs=parseFloat(F[2].value);
   var ok=wh>=100&&wh<=1500&&st>0&&rs>=0&&rs<=30;
-  if(!ok){OUT.textContent='–';['er-s1','er-s2','er-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('er-note').textContent='';document.title='E-Bike Range Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['er-s1','er-s2','er-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('er-note').textContent='';document.title='E-Bike Range Calculator - ToolDune';return;}
   var usable=wh*(1-rs/100);
   var mid=usable/st;
   OUT.textContent=Math.round(mid);
@@ -9043,7 +9043,7 @@ function calc(){
   document.getElementById('er-s2').textContent=Math.round(usable/22)+' km';
   document.getElementById('er-s3').textContent=(usable*0.2/st).toFixed(0)+' km';
   document.getElementById('er-note').textContent='Manufacturer ranges assume the lightest rider, flattest route and eco mode - real riding lands 25-40% below the sticker, which is why this starts from your usable Wh, not the brochure. What moves Wh/km: rider plus cargo weight, hills, headwind, tyre pressure, temperature (below 10 °C cuts 15-25%), and above all assist level - the throttle habit can halve range. The 10% reserve is not pessimism: lithium batteries age faster at empty, and the reserve is what gets you home when winter arrives early. Charge to 80-90% for daily use and store around half-charge; full-and-empty cycling is what quietly eats capacity year two.';
-  document.title=Math.round(mid)+' km real e-bike range - ToolTide';
+  document.title=Math.round(mid)+' km real e-bike range - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_ebikerange',JSON.stringify({wh:F[0].value,st:F[1].value,rs:F[2].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -9082,14 +9082,14 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var i=parseFloat(F[0].value),t=parseFloat(F[1].value);
   var ok=i>=50&&i<=110;
-  if(!ok){OUT.textContent='–';['sh-s1','sh-s2','sh-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sh-note').textContent='';document.title='Bike Saddle Height Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['sh-s1','sh-s2','sh-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sh-note').textContent='';document.title='Bike Saddle Height Calculator - ToolDune';return;}
   var h=i*t;
   OUT.textContent=h.toFixed(1);
   document.getElementById('sh-s1').textContent=Math.round(h*10)+' mm';
   document.getElementById('sh-s2').textContent='2-3 mm steps';
   document.getElementById('sh-s3').textContent=(i*0.885).toFixed(1)+' cm';
   document.getElementById('sh-note').textContent='Measure the inseam honestly: barefoot, back against a wall, a hard book or spirit level pressed firm into the crotch, measured floor to book top - soft trousers add a centimetre of fiction. The LeMond factor 0.883 sets saddle top to bottom-bracket distance and lands most riders in a 25-35 degree knee extension at the bottom of the stroke. Pain is the diagnostic: front-of-knee ache usually means the saddle is too low, back-of-knee or rocking hips means too high - adjust 2-3 mm at a time and ride a week before judging. The heel check cross-verifies: heel on the pedal at bottom dead centre, leg should be straight without hitching your hip.';
-  document.title=h.toFixed(1)+' cm saddle height - ToolTide';
+  document.title=h.toFixed(1)+' cm saddle height - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_saddle',JSON.stringify({i:F[0].value,t:F[1].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -9129,7 +9129,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var wh=parseFloat(F[0].value),p=parseFloat(F[1].value),c=parseFloat(F[2].value);
   var ok=wh>=100&&wh<=1500&&p>0&&c>=10&&c<=100;
-  if(!ok){OUT.textContent='–';['ec-s1','ec-s2','ec-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ec-note').textContent='';document.title='E-Bike Charging Cost Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['ec-s1','ec-s2','ec-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ec-note').textContent='';document.title='E-Bike Charging Cost Calculator - ToolDune';return;}
   var loss=1.12;
   var kwhFull=wh/1000*loss;
   var perCharge=kwhFull*c/100*p;
@@ -9138,7 +9138,7 @@ function calc(){
   document.getElementById('ec-s2').textContent=(kwhFull*p/ (wh/15) *100).toFixed(3);
   document.getElementById('ec-s3').textContent=(kwhFull*p/(wh/15)*30).toFixed(2);
   document.getElementById('ec-note').textContent='The 12% uplift covers charger and battery losses - wall energy is always more than the label Wh. At 15 Wh/km, 100 km costs well under a loaf of bread: the money case for e-biking is not the electricity, it is the fuel, parking and second-car depreciation you never spend. The battery itself is the real cost centre: 500-900 cycles to 80% capacity means the pack is a per-km cost of a few cents if you use it, or pure waste if the bike rusts in the shed. Charge from partial states without guilt - lithium prefers shallow cycles; only depth-of-discharge myth says otherwise.';
-  document.title=perCharge.toFixed(2)+' to charge the e-bike - ToolTide';
+  document.title=perCharge.toFixed(2)+' to charge the e-bike - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_ebikecharge',JSON.stringify({wh:F[0].value,p:F[1].value,c:F[2].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -9177,7 +9177,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var d=parseFloat(F[0].value),r=parseFloat(F[1].value);
   var ok=d>=0.5&&d<=10;
-  if(!ok){OUT.textContent='–';['ts-s1','ts-s2','ts-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ts-note').textContent='';document.title='TV Size Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['ts-s1','ts-s2','ts-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ts-note').textContent='';document.title='TV Size Calculator - ToolDune';return;}
   var inch=d*39.37/r;
   var nice=Math.round(inch/2)*2;
   OUT.textContent=nice;
@@ -9186,7 +9186,7 @@ function calc(){
   document.getElementById('ts-s2').textContent=r===1.5?'that is the 4K figure':Math.round(d*39.37/1.5/2)*2+' inch';
   document.getElementById('ts-s3').textContent=(nice*2.54/100*0.8).toFixed(1)+' m for this size';
   document.getElementById('ts-note').textContent='Screen size is the upgrade people actually notice - resolution differences at sofa distance are subtle, size is not, which is why showrooms feel bigger than living rooms. The maths: divide seat distance by 1.5 for 4K (close enough that pixels vanish) or 2.2 for 1080p, where closer seating starts resolving individual pixels. Two reality checks: measure the stand or wall width against the screen width shown - a 65-inch panel is about 145 cm wide, stands included; and low-quality upscaling, not the panel, is what makes 1080p broadcast look soft on a big 4K set, so the source matters as much as the diagonal.';
-  document.title=nice+' inch TV for your sofa - ToolTide';
+  document.title=nice+' inch TV for your sofa - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_tvsize',JSON.stringify({d:F[0].value,r:F[1].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -9226,7 +9226,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var l=parseFloat(F[0].value),s=parseFloat(F[1].value),t=parseFloat(F[2].value);
   var ok=l>=10&&l<=2000&&s>=1&&s<=40;
-  if(!ok){OUT.textContent='–';['ft-s1','ft-s2','ft-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ft-note').textContent='';document.title='Fish Tank Stocking Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['ft-s1','ft-s2','ft-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ft-note').textContent='';document.title='Fish Tank Stocking Calculator - ToolDune';return;}
   var cmTotal=l/t;
   var n=Math.floor(cmTotal/s);
   OUT.textContent=n;
@@ -9234,7 +9234,7 @@ function calc(){
   document.getElementById('ft-s2').textContent=(l/Math.max(n,1)).toFixed(1)+' L';
   document.getElementById('ft-s3').textContent=(l*0.25).toFixed(0)+' L';
   document.getElementById('ft-note').textContent='The one-centimetre-per-litre rule works on ADULT size, and forgetting that is the classic beginner failure: the cute 5 cm juveniles grow into 25 cm adults in a tank that cannot filter their waste. Goldfish need their own multiple because they are ammonia factories, not because of size. Before any fish goes in: the tank must cycle 4-6 weeks (the nitrogen colony grows on the filter, not in the water), and stock in small batches over weeks so the biology keeps pace. The weekly change shown - a quarter of the tank, dechlorinated and temperature-matched - does more for fish health than any gadget; test strips lie less than opinions, so keep nitrates under about 40 and let the water tell you when the plan is wrong.';
-  document.title=n+' fish for a '+l+' L tank - ToolTide';
+  document.title=n+' fish for a '+l+' L tank - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_fishtank',JSON.stringify({l:F[0].value,s:F[1].value,t:F[2].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -9275,14 +9275,14 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var k=parseFloat(F[0].value),s=parseFloat(F[1].value),h=parseFloat(F[2].value),p=parseFloat(F[3].value);
   var ok=k>=3&&k<=12;
-  if(!ok){OUT.textContent='–';['ld-s1','ld-s2','ld-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ld-note').textContent='';document.title='Laundry Detergent Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['ld-s1','ld-s2','ld-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('ld-note').textContent='';document.title='Laundry Detergent Calculator - ToolDune';return;}
   var ml=50*s*h*Math.sqrt(k/8);
   OUT.textContent=Math.round(ml);
   document.getElementById('ld-s1').textContent=Math.round(ml*0.55)+' g';
   document.getElementById('ld-s2').textContent=(ml*220/1000).toFixed(1)+' L';
   document.getElementById('ld-s3').textContent=(p>0&&!isNaN(p))?(ml*220/1000*p).toFixed(0):'set price';
   document.getElementById('ld-note').textContent='More detergent does not clean more: excess surfactant has nowhere to go, deposits on fibres as the grey stiff film that makes towels crunchy and feeds the mould that smells. The dose scales with soil and hardness, and only weakly with drum size - a bigger drum is mostly air. Brands print generous tables because they sell detergent by the litre; halving a heavy-handed habit is free laundry. Pods are the exception: pre-measured for an average load, they cannot flex down for a half drum, so run them only on full loads. And the biggest lever is not chemistry - a 30 °C wash with a decent dose beats a 40 °C wash you overloaded the machine for.';
-  document.title=Math.round(ml)+' ml detergent per wash - ToolTide';
+  document.title=Math.round(ml)+' ml detergent per wash - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_laundry',JSON.stringify({k:F[0].value,s:F[1].value,h:F[2].value,p:F[3].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -9396,7 +9396,7 @@ function calc(){
   var bv=F[0].value.split(':'),hrs=parseFloat(bv[0]),crew=parseInt(bv[1]);
   var d=parseFloat(F[1].value),r=parseFloat(F[2].value),t=parseFloat(F[3].value),v=parseFloat(F[4].value);
   var ok=d>=1&&d<=3000&&r>=10&&t>=0&&v>=20;
-  if(!ok){OUT.textContent='–';['mv-s1','mv-s2','mv-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mv-note').textContent='';document.title='Moving Cost Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['mv-s1','mv-s2','mv-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mv-note').textContent='';document.title='Moving Cost Calculator - ToolDune';return;}
   var pro=hrs*crew*r+ +t;
   var fuel=d*2*0.13*1.6;
   var diy=+v+fuel+60+80;
@@ -9405,7 +9405,7 @@ function calc(){
   document.getElementById('mv-s2').textContent=(pro-diy).toFixed(0);
   document.getElementById('mv-s3').textContent=hrs+' h × '+crew;
   document.getElementById('mv-note').textContent='Quotes swing on access, not volume: third-floor walk-ups, narrow stairs, long carries from the van and waiting time are where crews add hours - walk the route with the estimator or the final invoice will. The DIY figure books van, fuel at an honest thirsty 13 L/100 km loaded, pizza wages and 80 of boxes; what it cannot book is the two days of your body, and zero insurance if the sofa meets the banister. Professional cover pays out on dropped boxes; your goodwill does not. Break-even instinct: if the gap is under one workday of your salary, hire the crew - move day with a bad back is a false economy. Get three quotes, weekend rates run 20-30% higher, and end-of-month dates cost most because everyone signs leases that start on the 1st.';
-  document.title=pro.toFixed(0)+' for a professional move - ToolTide';
+  document.title=pro.toFixed(0)+' for a professional move - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_movecost',JSON.stringify({b:F[0].value,d:F[1].value,r:F[2].value,t:F[3].value,v:F[4].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -9444,7 +9444,7 @@ function qs(k){return new URLSearchParams(location.search).get(k);}
 function calc(){
   var b=parseFloat(F[0].value),p=parseFloat(F[1].value);
   var ok=b>=15&&p>=0.5;
-  if(!ok){OUT.textContent='–';['bx-s1','bx-s2','bx-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('bx-note').textContent='';document.title='Moving Boxes Calculator - ToolTide';return;}
+  if(!ok){OUT.textContent='–';['bx-s1','bx-s2','bx-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('bx-note').textContent='';document.title='Moving Boxes Calculator - ToolDune';return;}
   var n=Math.round(b*p);
   OUT.textContent=n;
   var s=Math.round(n*0.3),m=Math.round(n*0.45),l=n-s-m;
@@ -9452,7 +9452,7 @@ function calc(){
   document.getElementById('bx-s2').textContent=Math.ceil(n/8)+' rolls + '+Math.ceil(n/6);
   document.getElementById('bx-s3').textContent=(n/20).toFixed(1);
   document.getElementById('bx-note').textContent='The size mix matters more than the count: small for books (20 kg is the back limit, not the box limit), medium for kitchen and general, large only for light and bulky - bedding, lamps, plastics. Heavy things in big boxes are how handles and backs fail on stairs. Plates travel upright like records with a towel per layer; wardrobe boxes with the hanging rail save a full day of ironing at the other end. Supermarket and liquor-store boxes are free and sturdy - just decline anything damp or from the produce floor (bug eggs). The 20-boxes-a-day pace is realistic for one person alongside work; start with storage rooms and books, leave everyday kitchen for the last two days, and keep ONE box of sheets, kettle, chargers, toilet paper and mugs in the car - the first-night box is the difference between a bed and a campsite.';
-  document.title=n+' boxes for the move - ToolTide';
+  document.title=n+' boxes for the move - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_boxcalc',JSON.stringify({b:F[0].value,p:F[1].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -9491,7 +9491,7 @@ var PLAN=[[8,'Book the mover - get three quotes; end-of-month dates go first.',0
 function fmt(n){return n<10?'0'+n:''+n;}
 function iso(d){return d.getFullYear()+'-'+fmt(d.getMonth()+1)+'-'+fmt(d.getDate());}
 function calc(){
-  if(!D.value){OUT.textContent='–';['mt-s1','mt-s2','mt-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mt-note').textContent='Pick your moving date to generate the week-by-week plan.';document.title='Moving Timeline Planner - ToolTide';return;}
+  if(!D.value){OUT.textContent='–';['mt-s1','mt-s2','mt-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mt-note').textContent='Pick your moving date to generate the week-by-week plan.';document.title='Moving Timeline Planner - ToolDune';return;}
   var day=new Date(D.value+'T12:00:00');
   var today=new Date();today.setHours(12,0,0,0);
   var days=Math.round((day-today)/86400000);
@@ -9509,7 +9509,7 @@ function calc(){
   var tasks='';
   for(var i=0;i<PLAN.length;i++){if(PLAN[i][0]<=w){tasks=PLAN[i][1];break;}}
   document.getElementById('mt-note').textContent='Now: '+tasks+' The sequence that saves moves: bookings and paperwork early, decluttering before any box exists, storage rooms first and kitchen last, and the first-night box in your own car - sheets, kettle, chargers, toilet paper, mugs. Photograph every meter on both ends on the day, and photograph the electronics cabling before unplugging - future-you will not remember which cable went where.';
-  document.title=days+' days to moving day - ToolTide';
+  document.title=days+' days to moving day - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_movetl',JSON.stringify({d:D.value}));}catch(e){}}
 D.addEventListener('input',function(){calc();save();});

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""ToolTide page definitions.
+"""ToolDune page definitions.
 
 Every page = one long-tail keyword + one real working tool + original content
 (intro paragraphs, how-to steps, FAQ). Built by build.py into static HTML.
@@ -1753,7 +1753,7 @@ def PAGES():
         "args": {},
         "intro": [
             "Paste any list — names, keywords, URLs, tasks — and sort the lines alphabetically in one pass. A-Z or Z-A, with case-insensitive comparison so 'apple' and 'Apple' sort together instead of by capital letter. Blank lines can be dropped, duplicates collapsed, and the line count updates live.",
-            "It pairs naturally with the duplicate remover for list cleaning: dedupe first, sort second, copy the result. Like every ToolTide text tool, it runs entirely in your browser — private by architecture.",
+            "It pairs naturally with the duplicate remover for list cleaning: dedupe first, sort second, copy the result. Like every ToolDune text tool, it runs entirely in your browser — private by architecture.",
         ],
         "howto": [
             "Paste your list into the input box.",

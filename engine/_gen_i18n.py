@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Emit engine/assets/i18n.js for ToolTide from _i18n_tables.json.
+"""Emit engine/assets/i18n.js for ToolDune from _i18n_tables.json.
 Same architecture as the NeonPlay generator: single file, full dictionaries,
 English baked into the HTML as the en fallback."""
 import json
@@ -11,7 +11,7 @@ ORDER = ["zh", "es", "pt", "ru", "ja", "ko", "de", "fr", "id"]
 with open(os.path.join(HERE, "_i18n_tables.json"), encoding="utf-8") as f:
     TABS = json.load(f)
 
-HEADER = '''/* ToolTide i18n — site-wide runtime language switcher.
+HEADER = '''/* ToolDune i18n — site-wide runtime language switcher.
    Priority: ?lang= > localStorage(tt_lang) > navigator.language > en
    Wired regions: skip link, header search + nav, footer (brand/site links/
    category matrix/legal), homepage hero + search + category sections + value
