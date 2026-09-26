@@ -498,7 +498,14 @@ zh:{
  "slowcook.othersetting":"另一档位时间",
  "slowcook.liquid":"食谱中的液体量",
  "slowcook.dairy":"乳制品与海鲜后放",
- "share.share-my-conversion":"分享我的换算结果"
+ "share.share-my-conversion":"分享我的换算结果",
+ "pt.daysperyear":"年假天数",
+ "pt.breakswant":"想要的假期段数",
+ "pt.chained":"连休日历天数",
+ "pt.vsnaive":"对比单块 naive 方案",
+ "pt.weekendsharv":"免费收获的周末",
+ "pt.wedtrick":"周三技巧",
+ "share.share-my-ptomath":"分享我的假期计算"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -977,7 +984,14 @@ es:{
  "slowcook.othersetting":"el otro ajuste",
  "slowcook.liquid":"líquido en la receta",
  "slowcook.dairy":"lácteos y mariscos van al final",
- "share.share-my-conversion":"Compartir mi conversión"
+ "share.share-my-conversion":"Compartir mi conversión",
+ "pt.daysperyear":"Días de PTO al año",
+ "pt.breakswant":"Descansos que quieres",
+ "pt.chained":"días naturales consecutivos",
+ "pt.vsnaive":"vs un bloque ingenuo",
+ "pt.weekendsharv":"fines de semana gratis",
+ "pt.wedtrick":"el truco del miércoles",
+ "share.share-my-ptomath":"Compartir mi cálculo de PTO"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1456,7 +1470,14 @@ pt:{
  "slowcook.othersetting":"a outra configuração",
  "slowcook.liquid":"líquido na receita",
  "slowcook.dairy":"laticínios e frutos do mar vão por último",
- "share.share-my-conversion":"Compartir minha conversão"
+ "share.share-my-conversion":"Compartir minha conversão",
+ "pt.daysperyear":"Dias de PTO por ano",
+ "pt.breakswant":"Intervalos que deseja",
+ "pt.chained":"dias corridos consecutivos",
+ "pt.vsnaive":"vs um bloco ingênuo",
+ "pt.weekendsharv":"fins de semana grátis",
+ "pt.wedtrick":"o truque de quarta",
+ "share.share-my-ptomath":"Compartir meu cálculo de PTO"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1935,7 +1956,14 @@ ru:{
  "slowcook.othersetting":"другой режим",
  "slowcook.liquid":"жидкость в рецепте",
  "slowcook.dairy":"молочное и морепродукты в конце",
- "share.share-my-conversion":"Поделиться моим пересчётом"
+ "share.share-my-conversion":"Поделиться моим пересчётом",
+ "pt.daysperyear":"Дней отпуска в год",
+ "pt.breakswant":"Количество перерывов",
+ "pt.chained":"календарных дней подряд",
+ "pt.vsnaive":"vs один наивный блок",
+ "pt.weekendsharv":"бесплатные выходные",
+ "pt.wedtrick":"трюк со средой",
+ "share.share-my-ptomath":"Поделиться моим расчётом отпуска"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2414,7 +2442,14 @@ ja:{
  "slowcook.othersetting":"もう一方の設定",
  "slowcook.liquid":"レシピの液体",
  "slowcook.dairy":"乳製品と魚介は後から",
- "share.share-my-conversion":"自分の換算を共有"
+ "share.share-my-conversion":"自分の換算を共有",
+ "pt.daysperyear":"年間の有給日数",
+ "pt.breakswant":"欲しい休みの回数",
+ "pt.chained":"連続する暦日数",
+ "pt.vsnaive":"単純な1ブロック比較",
+ "pt.weekendsharv":"ただで手に入る週末",
+ "pt.wedtrick":"水曜日のテクニック",
+ "share.share-my-ptomath":"自分のPTO計算を共有"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2893,7 +2928,14 @@ ko:{
  "slowcook.othersetting":"다른 설정",
  "slowcook.liquid":"레시피의 액체",
  "slowcook.dairy":"유제품과 해산물은 마지막에",
- "share.share-my-conversion":"내 변환 공유"
+ "share.share-my-conversion":"내 변환 공유",
+ "pt.daysperyear":"연간 PTO 일수",
+ "pt.breakswant":"원하는 휴식 횟수",
+ "pt.chained":"연속 달력 일수",
+ "pt.vsnaive":"단순 한 블록 비교",
+ "pt.weekendsharv":"공짜로 얻는 주말",
+ "pt.wedtrick":"수요일 트릭",
+ "share.share-my-ptomath":"내 PTO 계산 공유"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -3372,7 +3414,14 @@ de:{
  "slowcook.othersetting":"die andere Einstellung",
  "slowcook.liquid":"Flüssigkeit im Rezept",
  "slowcook.dairy":"Milchprodukte und Meeresfrüchte zuletzt",
- "share.share-my-conversion":"Meine Umrechnung teilen"
+ "share.share-my-conversion":"Meine Umrechnung teilen",
+ "pt.daysperyear":"PTO-Tage pro Jahr",
+ "pt.breakswant":"Gewünschte Pausen",
+ "pt.chained":"Kalendertage am Stück",
+ "pt.vsnaive":"vs ein naiver Block",
+ "pt.weekendsharv":"geschenkte Wochenenden",
+ "pt.wedtrick":"Der Mittwoch-Trick",
+ "share.share-my-ptomath":"Meine PTO-Rechnung teilen"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3851,7 +3900,14 @@ fr:{
  "slowcook.othersetting":"l autre réglage",
  "slowcook.liquid":"liquide dans la recette",
  "slowcook.dairy":"produits laitiers et fruits de mer à la fin",
- "share.share-my-conversion":"Partager ma conversion"
+ "share.share-my-conversion":"Partager ma conversion",
+ "pt.daysperyear":"jours de congés par an",
+ "pt.breakswant":"pauses souhaitées",
+ "pt.chained":"jours civils d affilée",
+ "pt.vsnaive":"vs un bloc naïf",
+ "pt.weekendsharv":"week-ends offerts",
+ "pt.wedtrick":"l astuce du mercredi",
+ "share.share-my-ptomath":"Partager mon calcul de congés"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -4330,7 +4386,14 @@ id:{
  "slowcook.othersetting":"pengaturan lainnya",
  "slowcook.liquid":"cairan dalam resep",
  "slowcook.dairy":"susu dan seafood dimasukkan terakhir",
- "share.share-my-conversion":"Bagikan konversi saya"
+ "share.share-my-conversion":"Bagikan konversi saya",
+ "pt.daysperyear":"hari cuti PTO per tahun",
+ "pt.breakswant":"jumlah istirahat yang diinginkan",
+ "pt.chained":"hari kalender beruntun",
+ "pt.vsnaive":"vs satu blok naif",
+ "pt.weekendsharv":"akhir pekan gratis",
+ "pt.wedtrick":"trik hari Rabu",
+ "share.share-my-ptomath":"Bagikan hitungan cuti saya"
 }
 };
 function detect(){
