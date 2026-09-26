@@ -12592,6 +12592,165 @@ document.getElementById('hs-share').addEventListener('click',function(){
 </script>
 """
 
+DAYLIGHT = """<div class="tool" id="tt-dh">
+  <div class="fields">
+    <div class="field"><label for="dh-d">Date</label><input type="date" id="dh-d"></div>
+    <div class="field"><label for="dh-l">Latitude (40 = US average)</label><input id="dh-l" type="number" min="-66" max="66" step="0.5" value="40"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dh-out">&#8211;</span><span class="result-unit">of daylight</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dh-s1">&#8211;</b><span>longest day here</span></div>
+    <div class="stat"><b id="dh-s2">&#8211;</b><span>shortest day here</span></div>
+    <div class="stat"><b id="dh-s3">&#8211;</b><span>change per day now</span></div>
+  </div>
+  <div class="tool-note" id="dh-note"></div>
+  <button type="button" class="tool-btn" id="dh-share">Share my daylight math</button>
+</div>
+<script>(function(){
+var DI=document.getElementById('dh-d'),LA=document.getElementById('dh-l');
+function dayLen(dateObj,lat){
+  var start=new Date(dateObj.getFullYear(),0,0);
+  var N=Math.floor((dateObj-start)/86400000);
+  var dec=-23.44*Math.cos(2*Math.PI/365*(N+10));
+  var rad=Math.PI/180;
+  var x=-Math.tan(lat*rad)*Math.tan(dec*rad);
+  if(x>1)return 0;
+  if(x<-1)return 24;
+  var H=Math.acos(x)/rad*2/15;
+  return H;
+}
+function fmtHM(h){var m=Math.round(h*60);return Math.floor(m/60)+' h '+(m%60)+' min';}
+function calc(){
+  var dv=DI.value,lat=parseFloat(LA.value);
+  if(!dv||!isFinite(lat)){document.getElementById('dh-out').textContent='\u2013';document.title='Daylight Hours Calculator - ToolDune';return;}
+  var day=new Date(dv+'T12:00:00');
+  var len=dayLen(day,lat);
+  var next=dayLen(new Date(day.getTime()+86400000),lat);
+  var perDay=Math.round((next-len)*60);
+  var longest=dayLen(new Date(day.getFullYear(),5,21),lat), shortest=dayLen(new Date(day.getFullYear(),11,21),lat);
+  var txt=len>=1?fmtHM(len):'0 h';
+  document.getElementById('dh-out').textContent=txt;
+  document.getElementById('dh-s1').textContent=fmtHM(longest);
+  document.getElementById('dh-s2').textContent=fmtHM(shortest);
+  document.getElementById('dh-s3').textContent=(perDay>=0?'+':'')+perDay+' min';
+  var msg='The clock answer comes from the sun geometry - day length depends only on your latitude and the date, give or take a few minutes for the atmosphere bending light at the horizon. ';
+  if(len<10&&lat>0){msg+='Under ten hours of daylight is where the winter blues start for most people: the fix with the best evidence is not the sunrise lamp, it is getting outside in the first hour after waking - even overcast sky beats indoor light by a wide margin. The clocks changing barely moves this; the season does (see the sleep-shift planner). ';}
+  else{msg+='Heading into fall the losses run a few minutes a day - invisible daily, obvious monthly. ';}
+  msg+='Between the longest and shortest day at your latitude sits '+fmtHM(longest-shortest)+' of light - the whole drama of the season in one number.';
+  document.getElementById('dh-note').textContent=msg;
+  document.title=fmtHM(len)+' of daylight - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_daylight',JSON.stringify({d:DI.value,l:LA.value}));}catch(e){}}
+[DI,LA].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('lat')){LA.value=qs.get('lat');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_daylight')||'null');if(m){if(m.d){DI.value=m.d;}if(m.l){LA.value=m.l;}}}catch(e){}}
+if(!DI.value){var td=new Date();DI.value=td.getFullYear()+'-'+('0'+(td.getMonth()+1)).slice(-2)+'-'+('0'+td.getDate()).slice(-2);}
+calc();
+document.getElementById('dh-share').addEventListener('click',function(){
+  var txt=DI.value+' gets '+document.getElementById('dh-out').textContent+' of daylight at latitude '+LA.value+'. Check yours:';
+  var url=location.origin+location.pathname+'?lat='+encodeURIComponent(LA.value);
+  if(navigator.share){navigator.share({title:'Daylight hours',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my daylight math';},1500);}
+});
+})();
+</script>
+"""
+
+HOLIDAYTIP = """<div class="tool" id="tt-ht">
+  <div class="fields">
+    <div class="field"><label for="ht-b">Total holiday tipping budget</label><input id="ht-b" type="number" min="0" value="300"></div>
+    <div class="field"><label for="ht-w">Weekly regulars (cleaner, dog walker...)</label><input id="ht-w" type="number" min="0" max="20" value="1"></div>
+    <div class="field"><label for="ht-o">Occasional helpers (hairdresser, babysitter...)</label><input id="ht-o" type="number" min="0" max="20" value="3"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ht-out">&#8211;</span><span class="result-unit">per weekly regular</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ht-s1">&#8211;</b><span>per occasional helper</span></div>
+    <div class="stat"><b id="ht-s2">&#8211;</b><span>to weekly regulars total</span></div>
+    <div class="stat"><b id="ht-s3">&#8211;</b><span>left for the card people</span></div>
+  </div>
+  <div class="tool-note" id="ht-note"></div>
+  <button type="button" class="tool-btn" id="ht-share">Share my tipping plan</button>
+</div>
+<script>(function(){
+var B=document.getElementById('ht-b'),W=document.getElementById('ht-w'),O=document.getElementById('ht-o');
+function calc(){
+  var b=parseFloat(B.value)||0,nw=Math.max(0,Math.round(parseFloat(W.value)||0)),no=Math.max(0,Math.round(parseFloat(O.value)||0));
+  var bw=no>=0?b*0.6:b, bo=b-bw;
+  var perW=nw>0?bw/nw:0, perO=no>0?bo/no:0;
+  var d1=Math.round(perW), d2=Math.round(perO), d3=Math.round(bw);
+  document.getElementById('ht-out').textContent=nw>0?('$'+d1):'\u2013';
+  document.getElementById('ht-s1').textContent=no>0?('$'+d2):'\u2013';
+  document.getElementById('ht-s2').textContent='$'+d3;
+  document.getElementById('ht-s3').textContent='$'+Math.round(bo);
+  document.getElementById('ht-note').textContent='The split rule: the people who touch your life weekly get about 60 percent of the budget - one visit fee is the classic for a cleaner or dog walker - and occasional helpers split the rest. Three honest caps the greeting-card industry will not print: USPS carriers may not accept cash beyond 20 dollars (a gift card or consumables work), many school districts bar teachers from cash so aim at classroom supplies or a small gift card, and the super who fixed nothing all year still gets something small if you may need him in January. When the budget is tight, frequency beats warmth: the person who was there every week outranks everyone you met twice.';
+  document.title='Tipping plan: $'+d1+' per regular - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_holidaytip',JSON.stringify({b:B.value,w:W.value,o:O.value}));}catch(e){}}
+[B,W,O].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('b')){B.value=qs.get('b');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_holidaytip')||'null');if(m){if(m.b){B.value=m.b;}if(m.w){W.value=m.w;}if(m.o){O.value=m.o;}}}catch(e){}}
+calc();
+document.getElementById('ht-share').addEventListener('click',function(){
+  var txt='My holiday tipping plan: '+W.value+' regulars at about $'+document.getElementById('ht-out').textContent+' each. Plan yours:';
+  var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value);
+  if(navigator.share){navigator.share({title:'Holiday tipping plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my tipping plan';},1500);}
+});
+})();
+</script>
+"""
+
+DONATE = """<div class="tool" id="tt-dn">
+  <div class="fields">
+    <div class="field"><label for="dn-a">Amount you plan to give</label><input id="dn-a" type="number" min="0" value="500"></div>
+    <div class="field"><label for="dn-r">Marginal tax rate (%)</label><select id="dn-r"><option value="12">12%</option><option value="22" selected>22%</option><option value="24">24%</option><option value="32">32%</option><option value="35">35%</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dn-out">&#8211;</span><span class="result-unit">real cost after tax break</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dn-s1">&#8211;</b><span>tax saved if you itemize</span></div>
+    <div class="stat"><b id="dn-s2">&#8211;</b><span>days left this year</span></div>
+    <div class="stat"><b id="dn-s3">&#8211;</b><span>receipt rule at your amount</span></div>
+  </div>
+  <div class="tool-note" id="dn-note"></div>
+  <button type="button" class="tool-btn" id="dn-share">Share my giving math</button>
+</div>
+<script>(function(){
+var A=document.getElementById('dn-a'),R=document.getElementById('dn-r');
+function calc(){
+  var a=parseFloat(A.value)||0,r=parseFloat(R.value)||0;
+  var saved=a*r/100, cost=a-saved;
+  var now=new Date();
+  var eoy=new Date(now.getFullYear(),11,31);
+  var days=Math.ceil((eoy-now)/86400000);
+  var d1=Math.round(saved*10)/10, d2=Math.round(cost*10)/10;
+  document.getElementById('dn-out').textContent='$'+d2;
+  document.getElementById('dn-s1').textContent='$'+d1;
+  document.getElementById('dn-s2').textContent=days;
+  document.getElementById('dn-s3').textContent=a>=250?'acknowledgment letter required':'bank or card record is enough';
+  document.getElementById('dn-note').textContent='The honest headline first: since the standard deduction roughly doubled, about 90 percent of filers no longer itemize - and if you take the standard deduction, charitable giving saves no tax at all. The workaround is bunching: give two years worth in one December, itemize that year, take the standard deduction the next. Two more levers people miss: an online card gift counts on the day you swipe it, so December 31 at 11 pm is still this year, and donating appreciated stock you have held over a year avoids the capital gains entirely - a move that works at 500 dollars, not just at foundation scale. Give to the charity, not to the deadline panic: a smaller gift you actually planned beats a rushed one you regret.';
+  document.title='Giving: $'+d2+' real cost, '+days+' days left - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_donate',JSON.stringify({a:A.value,r:R.value}));}catch(e){}}
+[A,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_donate')||'null');if(m){if(m.a){A.value=m.a;}if(m.r){R.value=m.r;}}}catch(e){}}
+calc();
+document.getElementById('dn-share').addEventListener('click',function(){
+  var txt='A $'+A.value+' gift really costs $'+document.getElementById('dn-out').textContent+' after the tax break - if you itemize. Run yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'Charitable giving math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my giving math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -13718,6 +13877,9 @@ TOOLS = {
     "lightcost": lambda args: LIGHTCOST,
     "furnfilter": lambda args: FURNFILTER,
     "humidsize": lambda args: HUMIDSIZE,
+    "daylight": lambda args: DAYLIGHT,
+    "holidaytip": lambda args: HOLIDAYTIP,
+    "donate": lambda args: DONATE,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
