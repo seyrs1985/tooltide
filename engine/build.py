@@ -40,6 +40,7 @@ TOOL_EMOJI = {
     "tiretemp": "🚗", "antifreezemix": "⛄", "batterycold": "🚨",
     "lightcost": "💡", "furnfilter": "📏", "humidsize": "💧",
     "daylight": "☀", "holidaytip": "🎁", "donate": "💝",
+    "shipfree": "📦", "warranty": "💳", "bogo": "🎯",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

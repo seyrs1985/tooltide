@@ -12765,6 +12765,159 @@ document.getElementById('dn-share').addEventListener('click',function(){
 </script>
 """
 
+SHIPFREE = """<div class="tool" id="tt-sf">
+  <div class="fields">
+    <div class="field"><label for="sf-c">Your cart total</label><input id="sf-c" type="number" min="0" value="60"></div>
+    <div class="field"><label for="sf-t">Free shipping threshold</label><input id="sf-t" type="number" min="0" value="75"></div>
+    <div class="field"><label for="sf-f">Shipping fee if you skip it</label><input id="sf-f" type="number" min="0" step="0.5" value="8.90"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sf-out">&#8211;</span><span class="result-unit">verdict on the filler</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sf-s1">&#8211;</b><span>minimum filler to qualify</span></div>
+    <div class="stat"><b id="sf-s2">&#8211;</b><span>total if you just pay shipping</span></div>
+    <div class="stat"><b id="sf-s3">&#8211;</b><span>total with the minimum filler</span></div>
+  </div>
+  <div class="tool-note" id="sf-note"></div>
+  <button type="button" class="tool-btn" id="sf-share">Share my checkout math</button>
+</div>
+<script>(function(){
+var C=document.getElementById('sf-c'),T=document.getElementById('sf-t'),F=document.getElementById('sf-f');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function calc(){
+  var c=num(C),t=num(T),f=num(F);
+  var need=Math.max(0,t-c);
+  var totalShip=c+(c>=t?0:f),totalFill=c+need;
+  var d1=Math.round(need*100)/100,d2=Math.round(totalShip*100)/100,d3=Math.round(totalFill*100)/100;
+  var verdict;
+  if(need<=0){verdict='Already free';}
+  else if(need<f){verdict='Filler pays';}
+  else{verdict='Pay shipping';}
+  document.getElementById('sf-out').textContent=verdict;
+  document.getElementById('sf-s1').textContent='$'+d1;
+  document.getElementById('sf-s2').textContent='$'+d2;
+  document.getElementById('sf-s3').textContent='$'+d3;
+  document.getElementById('sf-note').textContent='The math is simple and the stores know you skip it: the threshold is usually set just above the average cart. If the minimum filler costs less than the shipping fee, the filler wins - but only if it is something your household genuinely finishes, like batteries or the pantry staple. Grabbing a 25 dollar nobody-item to dodge an 8 dollar fee is the most common way free shipping stops being free. And remember the fee was priced into the product page either way - paying it is not losing, it is declining to buy junk on cue.';
+  document.title='Filler verdict: '+verdict+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_shipfree',JSON.stringify({c:C.value,t:T.value,f:F.value}));}catch(e){}}
+[C,T,F].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('c')){C.value=qs.get('c');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_shipfree')||'null');if(m){if(m.c){C.value=m.c;}if(m.t){T.value=m.t;}if(m.f){F.value=m.f;}}}catch(e){}}
+calc();
+document.getElementById('sf-share').addEventListener('click',function(){
+  var txt='Checkout verdict: '+document.getElementById('sf-out').textContent+' on my '+C.value+' dollar cart. Run yours:';
+  var url=location.origin+location.pathname+'?c='+encodeURIComponent(C.value);
+  if(navigator.share){navigator.share({title:'Free shipping threshold',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my checkout math';},1500);}
+});
+})();
+</script>
+"""
+
+WARRANTY = """<div class="tool" id="tt-wy">
+  <div class="fields">
+    <div class="field"><label for="wy-p">Product price</label><input id="wy-p" type="number" min="10" value="800"></div>
+    <div class="field"><label for="wy-w">Extended warranty cost</label><input id="wy-w" type="number" min="0" value="120"></div>
+    <div class="field"><label for="wy-r">Out-of-warranty repair cost</label><input id="wy-r" type="number" min="0" value="300"></div>
+    <div class="field"><label for="wy-k">Failure odds in years 2-4</label><select id="wy-k"><option value="0.2">Fragile - about 20%</option><option value="0.1" selected>Typical - about 10%</option><option value="0.05">Sturdy - about 5%</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wy-out">&#8211;</span><span class="result-unit">verdict on the warranty</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wy-s1">&#8211;</b><span>expected repair cost</span></div>
+    <div class="stat"><b id="wy-s2">&#8211;</b><span>break-even failure odds</span></div>
+    <div class="stat"><b id="wy-s3">&#8211;</b><span>warranty as % of price</span></div>
+  </div>
+  <div class="tool-note" id="wy-note"></div>
+  <button type="button" class="tool-btn" id="wy-share">Share my warranty math</button>
+</div>
+<script>(function(){
+var P=document.getElementById('wy-p'),W=document.getElementById('wy-w'),Rr=document.getElementById('wy-r'),K=document.getElementById('wy-k');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function calc(){
+  var p=num(P),w=num(W),r=num(Rr),k=parseFloat(K.value)||0.1;
+  var exp=r*k, be=r>0?Math.round(w/r*100):0, pct=p>0?Math.round(w/p*100):0;
+  var d1=Math.round(exp*10)/10;
+  var verdict=w<exp?'Take it - rare':(w>exp*1.5?'Decline':'Coin flip');
+  document.getElementById('wy-out').textContent=verdict;
+  document.getElementById('wy-s1').textContent='$'+d1;
+  document.getElementById('wy-s2').textContent=be+'%';
+  document.getElementById('wy-s3').textContent=pct+'%';
+  document.getElementById('wy-note').textContent='The expected-value math: a warranty pays only when failure odds exceed the warranty-to-repair ratio - and most retail plans need failure rates of 30 percent and up, several times reality. Three honest facts before you say yes at the register: many credit cards double the manufacturer warranty for free, which is the first call to make; the margin on the plan is the reason the desk exists; and the self-insurance drawer works - skip the plan, drop its price in a jar, and after a few gadgets the jar pays for the one failure you actually have. A verdict of coin flip means convenience is the only thing left to buy, which is legitimate if you name it honestly.';
+  document.title='Warranty verdict: '+verdict+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_warranty',JSON.stringify({p:P.value,w:W.value,r:Rr.value,k:K.value}));}catch(e){}}
+[P,W,Rr].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+K.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_warranty')||'null');if(m){if(m.p){P.value=m.p;}if(m.w){W.value=m.w;}if(m.r){Rr.value=m.r;}if(m.k){K.value=m.k;}}}catch(e){}}
+calc();
+document.getElementById('wy-share').addEventListener('click',function(){
+  var txt='Verdict on my extended warranty: '+document.getElementById('wy-out').textContent+'. Run yours:';
+  var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value);
+  if(navigator.share){navigator.share({title:'Extended warranty math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my warranty math';},1500);}
+});
+})();
+</script>
+"""
+
+BOGO = """<div class="tool" id="tt-bg">
+  <div class="fields">
+    <div class="field"><label for="bg-a">Item 1 price (cheaper)</label><input id="bg-a" type="number" min="0" value="40"></div>
+    <div class="field"><label for="bg-b">Item 2 price (pricier)</label><input id="bg-b" type="number" min="0" value="60"></div>
+    <div class="field"><label for="bg-d">The deal on offer</label><select id="bg-d"><option value="bogo50" selected>Buy one, second 50% off</option><option value="bogofree">Buy one, second free</option><option value="off30">30% off entire purchase</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bg-out">&#8211;</span><span class="result-unit">you pay for both</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bg-s1">&#8211;</b><span>effective discount</span></div>
+    <div class="stat"><b id="bg-s2">&#8211;</b><span>basket at full price</span></div>
+    <div class="stat"><b id="bg-s3">&#8211;</b><span>vs 30% off everything</span></div>
+  </div>
+  <div class="tool-note" id="bg-note"></div>
+  <button type="button" class="tool-btn" id="bg-share">Share my BOGO math</button>
+</div>
+<script>(function(){
+var A=document.getElementById('bg-a'),B2=document.getElementById('bg-b'),D=document.getElementById('bg-d');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function money(n){return '$'+(Math.round(n*100)/100);}
+function calc(){
+  var lo=Math.min(num(A),num(B2)),hi=Math.max(num(A),num(B2));
+  var deal=D.value,paid,alt;
+  if(deal==='bogo50'){paid=lo+hi*0.5;alt=(lo+hi)*0.7;}
+  else if(deal==='bogofree'){paid=hi;alt=(lo+hi)*0.7;}
+  else{paid=(lo+hi)*0.7;alt=lo+hi*0.5;}
+  var full=lo+hi,eff=full>0?Math.round((1-paid/full)*100):0;
+  var d1=money(paid),diff=Math.round((paid-alt)*100)/100;
+  var cmp=diff<0?money(-diff)+' better than 30% off':(diff>0?money(diff)+' worse than 30% off':'same as 30% off');
+  document.getElementById('bg-out').textContent=d1;
+  document.getElementById('bg-s1').textContent=eff+'%';
+  document.getElementById('bg-s2').textContent=money(full);
+  document.getElementById('bg-s3').textContent=cmp;
+  document.getElementById('bg-note').textContent='Buy-one-get-one math quietly assumes the two items cost the same: at equal prices the second-half-off deal is a clean 25 percent off, but drag a cheaper second item in and the discount slides toward 12 percent. The flat-percent comparison in the stats is the honest benchmark stores hope you skip. And the deeper catch: BOGO only saves money if the second item was already on your list - buy two to save is spending 150 percent to feel like you saved.';
+  document.title='BOGO: pay '+d1+' at '+eff+'% off - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_bogo',JSON.stringify({a:A.value,b:B2.value,d:D.value}));}catch(e){}}
+[A,B2].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+D.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_bogo')||'null');if(m){if(m.a){A.value=m.a;}if(m.b){B2.value=m.b;}if(m.d){D.value=m.d;}}}catch(e){}}
+calc();
+document.getElementById('bg-share').addEventListener('click',function(){
+  var txt='My BOGO deal works out to '+document.getElementById('bg-out').textContent+' for both - '+document.getElementById('bg-s1').textContent+' off. Run yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'BOGO deal math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my BOGO math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -13894,6 +14047,9 @@ TOOLS = {
     "daylight": lambda args: DAYLIGHT,
     "holidaytip": lambda args: HOLIDAYTIP,
     "donate": lambda args: DONATE,
+    "shipfree": lambda args: SHIPFREE,
+    "warranty": lambda args: WARRANTY,
+    "bogo": lambda args: BOGO,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
