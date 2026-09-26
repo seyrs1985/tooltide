@@ -61,17 +61,17 @@
   <section class="intro"><p>Enter what you plan to give and your tax bracket. The calculator shows the tax saved if you itemize, the real after-tax cost of the gift, the days left before the December 31 deadline, and the receipt rule that applies at your amount.</p><p>Year-end giving posts push urgency and skip the fine print. This one leads with the honest headline - since the standard deduction doubled, most filers get no deduction at all - then prices the real levers: bunching two years of giving into one December, swiping the card before midnight, and donating appreciated stock even at modest amounts.</p></section>
   <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-dn">
   <div class="fields">
-    <div class="field"><label for="dn-a">Amount you plan to give</label><input id="dn-a" type="number" min="0" value="500"></div>
-    <div class="field"><label for="dn-r">Marginal tax rate (%)</label><select id="dn-r"><option value="12">12%</option><option value="22" selected>22%</option><option value="24">24%</option><option value="32">32%</option><option value="35">35%</option></select></div>
+    <div class="field"><label for="dn-a" data-i18n="dn.amount">Amount you plan to give</label><input id="dn-a" type="number" min="0" value="500"></div>
+    <div class="field"><label for="dn-r" data-i18n="dn.rate">Marginal tax rate (%)</label><select id="dn-r"><option value="12">12%</option><option value="22" selected>22%</option><option value="24">24%</option><option value="32">32%</option><option value="35">35%</option></select></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dn-out">&#8211;</span><span class="result-unit">real cost after tax break</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dn-out">&#8211;</span><span class="result-unit" data-i18n="dn.realcost">real cost after tax break</span></div>
   <div class="stats">
-    <div class="stat"><b id="dn-s1">&#8211;</b><span>tax saved if you itemize</span></div>
-    <div class="stat"><b id="dn-s2">&#8211;</b><span>days left this year</span></div>
-    <div class="stat"><b id="dn-s3">&#8211;</b><span>receipt rule at your amount</span></div>
+    <div class="stat"><b id="dn-s1">&#8211;</b><span data-i18n="dn.taxsaved">tax saved if you itemize</span></div>
+    <div class="stat"><b id="dn-s2">&#8211;</b><span data-i18n="dn.daysleft">days left this year</span></div>
+    <div class="stat"><b id="dn-s3">&#8211;</b><span data-i18n="dn.receiptrule">receipt rule at your amount</span></div>
   </div>
   <div class="tool-note" id="dn-note"></div>
-  <button type="button" class="tool-btn" id="dn-share">Share my giving math</button>
+  <button type="button" class="tool-btn" id="dn-share" data-i18n="share.share-my-givingmath">Share my giving math</button>
 </div>
 <script>(function(){
 var A=document.getElementById('dn-a'),R=document.getElementById('dn-r');

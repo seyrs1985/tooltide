@@ -61,17 +61,17 @@
   <section class="intro"><p>Pick a date and set your latitude - 40 is about the US average. The calculator runs the sun geometry and returns the day length, the longest and shortest days at your latitude, and how many minutes a day you are gaining or losing right now.</p><p>Sunrise-sunset tables bury the number people actually want: how much light the day holds, and how fast it is leaving. This one answers that - and says the quiet part about under-ten-hour days: the best-evidenced fix for the winter blues is morning outdoor light, not the desk lamp.</p></section>
   <script>window.TT=function(k,f){try{var v=window.npT?window.npT(k):null;}catch(e){}return v||f};document.addEventListener("wheel",function(e){var t=e.target;if(t&&t.type==="number"&&document.activeElement===t)e.preventDefault();},{passive:false});</script><div class="tool" id="tt-dh">
   <div class="fields">
-    <div class="field"><label for="dh-d">Date</label><input type="date" id="dh-d"></div>
-    <div class="field"><label for="dh-l">Latitude (40 = US average)</label><input id="dh-l" type="number" min="-66" max="66" step="0.5" value="40"></div>
+    <div class="field"><label for="dh-d" data-i18n="dh.date">Date</label><input type="date" id="dh-d"></div>
+    <div class="field"><label for="dh-l" data-i18n="dh.lat">Latitude (40 = US average)</label><input id="dh-l" type="number" min="-66" max="66" step="0.5" value="40"></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dh-out">&#8211;</span><span class="result-unit">of daylight</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dh-out">&#8211;</span><span class="result-unit" data-i18n="dh.ofdaylight">of daylight</span></div>
   <div class="stats">
-    <div class="stat"><b id="dh-s1">&#8211;</b><span>longest day here</span></div>
-    <div class="stat"><b id="dh-s2">&#8211;</b><span>shortest day here</span></div>
-    <div class="stat"><b id="dh-s3">&#8211;</b><span>change per day now</span></div>
+    <div class="stat"><b id="dh-s1">&#8211;</b><span data-i18n="dh.longest">longest day here</span></div>
+    <div class="stat"><b id="dh-s2">&#8211;</b><span data-i18n="dh.shortest">shortest day here</span></div>
+    <div class="stat"><b id="dh-s3">&#8211;</b><span data-i18n="dh.changeperday">change per day now</span></div>
   </div>
   <div class="tool-note" id="dh-note"></div>
-  <button type="button" class="tool-btn" id="dh-share">Share my daylight math</button>
+  <button type="button" class="tool-btn" id="dh-share" data-i18n="share.share-my-daylightmath">Share my daylight math</button>
 </div>
 <script>(function(){
 var DI=document.getElementById('dh-d'),LA=document.getElementById('dh-l');
