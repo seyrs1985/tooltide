@@ -36,6 +36,7 @@ TOOL_EMOJI = {
     "heatcost": "♨", "gensize": "⚡", "outagefood": "🍔",
     "upsruntime": "🔋", "genfuel": "⛽", "heatcmp": "🔥",
     "hdhp": "🏥", "fsa": "💵", "hsa": "💰",
+    "ssclaim": "👴", "thankcost": "🍗", "rothtra": "⚖",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

@@ -12127,6 +12127,172 @@ document.getElementById('hs-share').addEventListener('click',function(){
 </script>
 """
 
+SSCLAIM = """<div class="tool" id="tt-ssc">
+  <div class="fields">
+    <div class="field"><label for="ss-b">Birth year</label><input id="ss-b" type="number" min="1930" max="2010" value="1965"></div>
+    <div class="field"><label for="ss-p">Monthly benefit at full retirement age</label><input id="ss-p" type="number" min="100" step="10" value="2000"></div>
+    <div class="field"><label for="ss-a">Claiming age</label><select id="ss-a"><option value="62">62 - earliest</option><option value="65">65</option><option value="67" selected>67</option><option value="70">70 - max delay</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ss-out">&#8211;</span><span class="result-unit">monthly at your claiming age</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ss-s1">&#8211;</b><span>vs full retirement age</span></div>
+    <div class="stat"><b id="ss-s2">&#8211;</b><span>annual at claim age</span></div>
+    <div class="stat"><b id="ss-s3">&#8211;</b><span>62 vs 70 break-even</span></div>
+  </div>
+  <div class="tool-note" id="ss-note"></div>
+  <button type="button" class="tool-btn" id="ss-share">Share my claiming math</button>
+</div>
+<script>(function(){
+var BY=document.getElementById('ss-b'),PIA=document.getElementById('ss-p'),AG=document.getElementById('ss-a');
+function fraMonths(y){
+  if(y<=1937)return 65*12;
+  if(y<=1942)return (65*12)+(y-1937)*2;
+  if(y<=1954)return 66*12;
+  if(y<=1959)return (66*12)+(y-1954)*2;
+  return 67*12;
+}
+function calc(){
+  var y=parseInt(BY.value,10)||1965,p=parseFloat(PIA.value)||0,a=parseInt(AG.value,10)||67;
+  var fm=fraMonths(y),am=a*12,d=Math.round(am-fm);
+  var f=1;
+  if(d<0){var e=Math.min(36,-d),e2=Math.max(0,(-d)-36);f=1-(e*5/9+e2*5/12)/100;}
+  else if(d>0){f=1+(d*2/3)/100;}
+  var f62=1,m62=62*12,d62=Math.round(m62-fm),e1=Math.min(36,d62),e2=Math.max(0,d62-36);
+  f62=1-(e1*5/9+e2*5/12)/100;
+  var f70=1+(8*12*2/3)/100;
+  var m=p*f,ann=m*12,base=p*f62,mx=p*f70;
+  var be=62+(mx*8)/(mx-base);
+  var d1=Math.round(m),d2=Math.round((m-p)*10)/10,d3=Math.round(ann);
+  document.getElementById('ss-out').textContent='$'+d1.toLocaleString();
+  document.getElementById('ss-s1').textContent=(d2>=0?'+':'-')+'$'+Math.abs(d2);
+  document.getElementById('ss-s2').textContent='$'+d3.toLocaleString();
+  document.getElementById('ss-s3').textContent='about '+Math.floor(be);
+  var msg='Claiming at '+a+' locks a monthly check of $'+d1.toLocaleString();
+  if(d<0){msg+=' - a cut of about '+Math.round((1-f)*100)+'% for starting early, and the smaller base also means every future cost-of-living raise is smaller.';}
+  else if(d>0){msg+=' - delayed credits add about '+Math.round((f-1)*100)+'% for life, and the bigger base compounds every COLA after it.';}
+  else{msg+=' - your full retirement age, no cut and no credit.';}
+  msg+=' The break-even for 62-versus-70 sits near age '+Math.floor(be)+': live past it and waiting wins on raw totals. The honest tiebreakers are health, cash need, and the earnings test that claws back $1 per $2 earned above the limit before full retirement age - optimization macho is not on the list.';
+  document.getElementById('ss-note').textContent=msg;
+  document.title='Claim at '+a+': $'+d1.toLocaleString()+'/mo - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_ssclaim',JSON.stringify({b:BY.value,p:PIA.value,a:AG.value}));}catch(e){}}
+[BY,PIA,AG].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('p')){PIA.value=qs.get('p');pre=true;}
+if(qs.get('a')){AG.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_ssclaim')||'null');if(m){if(m.b){BY.value=m.b;}if(m.p){PIA.value=m.p;}if(m.a){AG.value=m.a;}}}catch(e){}}
+calc();
+document.getElementById('ss-share').addEventListener('click',function(){
+  var txt='Claiming at '+AG.value+' pays $'+document.getElementById('ss-out').textContent+' a month. Run your own numbers:';
+  var url=location.origin+location.pathname+'?p='+encodeURIComponent(PIA.value)+'&a='+encodeURIComponent(AG.value);
+  if(navigator.share){navigator.share({title:'Social Security claiming math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my claiming math';},1500);}
+});
+})();
+</script>
+"""
+
+THANKCOST = """<div class="tool" id="tt-tkc">
+  <div class="fields">
+    <div class="field"><label for="tk-g">Guests</label><input id="tk-g" type="number" min="1" max="60" value="10"></div>
+    <div class="field"><label for="tk-p">Turkey price per pound</label><input id="tk-p" type="number" min="0.5" step="0.05" value="1.90"></div>
+    <div class="field"><label for="tk-s">Sides style</label><select id="tk-s"><option value="4">Simple - $4/guest</option><option value="7" selected>Classic - $7/guest</option><option value="10">Full spread - $10/guest</option></select></div>
+    <div class="field"><label for="tk-d">Drinks and extras per guest</label><input id="tk-d" type="number" min="0" step="0.5" value="3"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tk-out">&#8211;</span><span class="result-unit">total dinner bill</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tk-s1">&#8211;</b><span>per guest</span></div>
+    <div class="stat"><b id="tk-s2">&#8211;</b><span>turkey pounds to buy</span></div>
+    <div class="stat"><b id="tk-s3">&#8211;</b><span>turkey share of bill</span></div>
+  </div>
+  <div class="tool-note" id="tk-note"></div>
+  <button type="button" class="tool-btn" id="tk-share">Share my dinner budget</button>
+</div>
+<script>(function(){
+var G=document.getElementById('tk-g'),PR=document.getElementById('tk-p'),S=document.getElementById('tk-s'),DR=document.getElementById('tk-d');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function calc(){
+  var g=Math.max(1,Math.round(num(G))),pr=num(PR),side=num(S),dr=num(DR);
+  var lbs=g*1.5, bird=lbs*pr, sides=g*side, drinks=g*dr, total=bird+sides+drinks;
+  var d1=Math.round(total*10)/10, d2=Math.round(total/g*100)/100, d3=Math.round(bird*10)/10;
+  var share=total?Math.round(bird/total*100):0;
+  document.getElementById('tk-out').textContent='$'+d1;
+  document.getElementById('tk-s1').textContent='$'+d2;
+  document.getElementById('tk-s2').textContent=Math.round(lbs)+' lb';
+  document.getElementById('tk-s3').textContent=share+'%';
+  document.getElementById('tk-note').textContent='The 1.5 pounds per guest rule is what guarantees leftovers - a 15-pound bird for 10 people means sandwiches all weekend, and the thaw math starts days earlier (see the turkey thaw planner). The bird looks like the headline, but sides quietly match it and drinks pad the tail. Two honest moves: frozen turkeys drop in price the week after the holiday panic, and the potluck move - assigning two sides to guests - cuts the bill by a fifth without anyone noticing.';
+  document.title='Thanksgiving for '+g+': $'+d1+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_tkcost',JSON.stringify({g:G.value,p:PR.value,s:S.value,d:DR.value}));}catch(e){}}
+[G,PR,S,DR].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('g')){G.value=qs.get('g');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_tkcost')||'null');if(m){if(m.g){G.value=m.g;}if(m.p){PR.value=m.p;}if(m.s){S.value=m.s;}if(m.d){DR.value=m.d;}}}catch(e){}}
+calc();
+document.getElementById('tk-share').addEventListener('click',function(){
+  var txt='Thanksgiving for '+G.value+' comes to about $'+document.getElementById('tk-out').textContent+'. Budget yours:';
+  var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value);
+  if(navigator.share){navigator.share({title:'Thanksgiving dinner budget',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my dinner budget';},1500);}
+});
+})();
+</script>
+"""
+
+ROTHTRA = """<div class="tool" id="tt-rvt">
+  <div class="fields">
+    <div class="field"><label for="rv-c">Annual contribution</label><input id="rv-c" type="number" min="100" step="100" value="6000"></div>
+    <div class="field"><label for="rv-n">Your tax rate now (%)</label><select id="rv-n"><option value="12">12%</option><option value="22" selected>22%</option><option value="24">24%</option><option value="32">32%</option><option value="35">35%</option></select></div>
+    <div class="field"><label for="rv-r">Expected rate in retirement (%)</label><select id="rv-r"><option value="12" selected>12% - lower</option><option value="22">22% - same</option><option value="24">24% - higher</option><option value="32">32% - much higher</option></select></div>
+    <div class="field"><label for="rv-y">Years to grow</label><input id="rv-y" type="number" min="1" max="45" value="25"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rv-out">&#8211;</span><span class="result-unit">wins after all taxes</span></div>
+  <div class="stats">
+    <div class="stat"><b id="rv-s1">&#8211;</b><span>Roth final, tax free</span></div>
+    <div class="stat"><b id="rv-s2">&#8211;</b><span>Traditional final, after tax</span></div>
+    <div class="stat"><b id="rv-s3">&#8211;</b><span>gap over the years</span></div>
+  </div>
+  <div class="tool-note" id="rv-note"></div>
+  <button type="button" class="tool-btn" id="rv-share">Share my verdict</button>
+</div>
+<script>(function(){
+var C=document.getElementById('rv-c'),TN=document.getElementById('rv-n'),TR=document.getElementById('rv-r'),Y=document.getElementById('rv-y');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function calc(){
+  var c=num(C),tn=num(TN)/100,tr=num(TR)/100,y=Math.min(45,Math.max(1,num(Y))),r=0.07;
+  var fv=c*((Math.pow(1+r,y)-1)/r);
+  var roth=fv*(1-tn),trad=fv*(1-tr);
+  var gap=Math.abs(roth-trad);
+  var d1=Math.round(roth).toLocaleString(),d2=Math.round(trad).toLocaleString(),d3=Math.round(gap).toLocaleString();
+  var winner=roth>=trad?'Roth':'Traditional';
+  document.getElementById('rv-out').textContent=winner;
+  document.getElementById('rv-s1').textContent='$'+d1;
+  document.getElementById('rv-s2').textContent='$'+d2;
+  document.getElementById('rv-s3').textContent='$'+d3;
+  var msg='Same growth, same market - the only question is which year the government takes its cut. If your rate in retirement is lower than today, the traditional deduction wins; if it is higher, the Roth lock-in wins; if identical, they tie exactly. ';
+  msg+='Nobody actually knows their retirement rate, which is why the honest default is split contributions - Roth while your bracket is low, traditional in peak earning years. Employer match rides on top of either choice and is always worth taking first.';
+  document.getElementById('rv-note').textContent=msg;
+  document.title=winner+' wins by $'+d3+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_rothtra',JSON.stringify({c:C.value,n:TN.value,r:TR.value,y:Y.value}));}catch(e){}}
+[C,TN,TR,Y].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('c')){C.value=qs.get('c');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_rothtra')||'null');if(m){if(m.c){C.value=m.c;}if(m.n){TN.value=m.n;}if(m.r){TR.value=m.r;}if(m.y){Y.value=m.y;}}}catch(e){}}
+calc();
+document.getElementById('rv-share').addEventListener('click',function(){
+  var txt='My verdict: '+document.getElementById('rv-out').textContent+' wins by $'+document.getElementById('rv-s3').textContent+'. Run yours:';
+  var url=location.origin+location.pathname+'?c='+encodeURIComponent(C.value);
+  if(navigator.share){navigator.share({title:'Roth vs Traditional',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my verdict';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -13230,6 +13396,9 @@ TOOLS = {
     "hdhp": lambda args: HDHP,
     "fsa": lambda args: FSAP,
     "hsa": lambda args: HSAC,
+    "ssclaim": lambda args: SSCLAIM,
+    "thankcost": lambda args: THANKCOST,
+    "rothtra": lambda args: ROTHTRA,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
