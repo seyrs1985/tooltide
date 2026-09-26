@@ -11017,19 +11017,19 @@ document.getElementById('bmoon-share').addEventListener('click',function(){
 
 FIREWOOD = """<div class="tool" id="tt-fw">
   <div class="fields">
-    <div class="field"><label for="fw-a">Heated area (sq ft)</label><input type="number" id="fw-a" min="100" max="10000" step="50" placeholder="1000"></div>
-    <div class="field"><label for="fw-c">Climate</label><select id="fw-c"><option value="2">Mild winters</option><option value="3" selected>Moderate winters</option><option value="4.5">Cold winters</option></select></div>
-    <div class="field"><label for="fw-s">Species</label><select id="fw-s"><option value="26" selected>Seasoned hardwood (oak, maple)</option><option value="15">Seasoned softwood (pine, fir)</option></select></div>
-    <div class="field"><label for="fw-p">Price per cord ($)</label><input type="number" id="fw-p" min="50" max="900" step="10" placeholder="280"></div>
+    <div class="field"><label for="fw-a" data-i18n="fw.area">Heated area (sq ft)</label><input type="number" id="fw-a" min="100" max="10000" step="50" placeholder="1000"></div>
+    <div class="field"><label for="fw-c" data-i18n="fw.climate">Climate</label><select id="fw-c"><option value="2">Mild winters</option><option value="3" selected>Moderate winters</option><option value="4.5">Cold winters</option></select></div>
+    <div class="field"><label for="fw-s" data-i18n="fw.species">Species</label><select id="fw-s"><option value="26" selected>Seasoned hardwood (oak, maple)</option><option value="15">Seasoned softwood (pine, fir)</option></select></div>
+    <div class="field"><label for="fw-p" data-i18n="fw.price">Price per cord ($)</label><input type="number" id="fw-p" min="50" max="900" step="10" placeholder="280"></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fw-out">&#8211;</span><span class="result-unit">cords for the winter</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fw-out">&#8211;</span><span class="result-unit" data-i18n="fw.cords">cords for the winter</span></div>
   <div class="stats">
-    <div class="stat"><b id="fw-s1">&#8211;</b><span>total wood cost</span></div>
-    <div class="stat"><b id="fw-s2">&#8211;</b><span>$ per million Btu</span></div>
-    <div class="stat"><b id="fw-s3">&#8211;</b><span>same heat, electric</span></div>
+    <div class="stat"><b id="fw-s1">&#8211;</b><span data-i18n="fw.cost">total wood cost</span></div>
+    <div class="stat"><b id="fw-s2">&#8211;</b><span data-i18n="fw.pmbtu">$ per million Btu</span></div>
+    <div class="stat"><b id="fw-s3">&#8211;</b><span data-i18n="fw.electric">same heat, electric</span></div>
   </div>
   <div class="tool-note" id="fw-note"></div>
-  <button type="button" class="tool-btn" id="fw-share">Share my winter wood estimate</button>
+  <button type="button" class="tool-btn" id="fw-share" data-i18n="share.share-my-winterwood">Share my winter wood estimate</button>
 </div>
 <script>(function(){
 var F=['fw-a','fw-c','fw-s','fw-p'].map(function(id){return document.getElementById(id);});
@@ -11160,17 +11160,17 @@ document.getElementById('fs-share').addEventListener('click',function(){
 
 PUMPKINPIE = """<div class="tool" id="tt-ppie">
   <div class="fields">
-    <div class="field"><label for="ppie-g">Guests</label><input type="number" id="ppie-g" min="1" max="200" step="1" placeholder="10"></div>
-    <div class="field"><label for="ppie-s">Slices per guest</label><select id="ppie-s"><option value="1" selected>1 slice (polite)</option><option value="1.5">1.5 slices (holiday)</option><option value="2">2 slices (seconds expected)</option></select></div>
+    <div class="field"><label for="ppie-g" data-i18n="ppie.guests">Guests</label><input type="number" id="ppie-g" min="1" max="200" step="1" placeholder="10"></div>
+    <div class="field"><label for="ppie-s" data-i18n="ppie.slices">Slices per guest</label><select id="ppie-s"><option value="1" selected>1 slice (polite)</option><option value="1.5">1.5 slices (holiday)</option><option value="2">2 slices (seconds expected)</option></select></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ppie-out">&#8211;</span><span class="result-unit">9-inch pies</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ppie-out">&#8211;</span><span class="result-unit" data-i18n="ppie.pies">9-inch pies</span></div>
   <div class="stats">
-    <div class="stat"><b id="ppie-s1">&#8211;</b><span>cups of puree</span></div>
-    <div class="stat"><b id="ppie-s2">&#8211;</b><span>15-oz cans</span></div>
-    <div class="stat"><b id="ppie-s3">&#8211;</b><span>eggs + sugar (cups)</span></div>
+    <div class="stat"><b id="ppie-s1">&#8211;</b><span data-i18n="ppie.cups">cups of puree</span></div>
+    <div class="stat"><b id="ppie-s2">&#8211;</b><span data-i18n="ppie.cans">15-oz cans</span></div>
+    <div class="stat"><b id="ppie-s3">&#8211;</b><span data-i18n="ppie.eggssugar">eggs + sugar (cups)</span></div>
   </div>
   <div class="tool-note" id="ppie-note"></div>
-  <button type="button" class="tool-btn" id="ppie-share">Share the pie math</button>
+  <button type="button" class="tool-btn" id="ppie-share" data-i18n="share.share-piemath">Share the pie math</button>
 </div>
 <script>(function(){
 var G=document.getElementById('ppie-g'),S=document.getElementById('ppie-s');
@@ -11916,6 +11916,168 @@ document.getElementById('hc-share').addEventListener('click',function(){
   var url=location.origin+location.pathname+'?e='+encodeURIComponent(E.value)+'&g='+encodeURIComponent(Gp.value)+'&f='+encodeURIComponent(F.value)+'&c='+encodeURIComponent(C.value);
   if(navigator.share){navigator.share({title:'Electric vs gas heating',text:txt,url:url}).catch(function(){});}
   else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my heat verdict';},1500);}
+});
+})();
+</script>
+"""
+
+HDHP = """<div class="tool" id="tt-hdhp">
+  <div class="fields">
+    <div class="field"><label for="hp-ph">HDHP premium (your share per year)</label><input id="hp-ph" type="number" min="0" value="1800"></div>
+    <div class="field"><label for="hp-pp">PPO premium (your share per year)</label><input id="hp-pp" type="number" min="0" value="4800"></div>
+    <div class="field"><label for="hp-dh">HDHP deductible</label><input id="hp-dh" type="number" min="0" value="3200"></div>
+    <div class="field"><label for="hp-dp">PPO deductible</label><input id="hp-dp" type="number" min="0" value="1500"></div>
+    <div class="field"><label for="hp-cost">Expected medical costs this year</label><input id="hp-cost" type="number" min="0" value="1200"></div>
+    <div class="field"><label for="hp-seed">Employer HSA seed</label><input id="hp-seed" type="number" min="0" value="500"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hp-out">&#8211;</span><span class="result-unit">cheaper plan this year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hp-s1">&#8211;</b><span>HDHP all-in</span></div>
+    <div class="stat"><b id="hp-s2">&#8211;</b><span>PPO all-in</span></div>
+    <div class="stat"><b id="hp-s3">&#8211;</b><span>PPO wins above</span></div>
+  </div>
+  <div class="tool-note" id="hp-note"></div>
+  <button type="button" class="tool-btn" id="hp-share">Share my plan verdict</button>
+</div>
+<script>(function(){
+var PH=document.getElementById('hp-ph'),PP=document.getElementById('hp-pp'),DH=document.getElementById('hp-dh'),DP=document.getElementById('hp-dp'),C=document.getElementById('hp-cost'),SEED=document.getElementById('hp-seed');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function calc(){
+  var ph=num(PH),pp=num(PP),dh=num(DH),dp=num(DP),cost=num(C),seed=num(SEED);
+  var th=ph+Math.min(cost,dh),tp=pp+Math.min(cost,dp)-seed;
+  var d1=Math.round(th*10)/10,d2=Math.round(tp*10)/10,diff=Math.round(Math.abs(th-tp)*10)/10;
+  var x=pp-ph+dh-dp+seed;
+  var xr=Math.round(x*10)/10;
+  var inRange=x>Math.max(dh,dp);
+  if(th<=tp){
+    document.getElementById('hp-out').textContent='HDHP by $'+diff;
+  }else{
+    document.getElementById('hp-out').textContent='PPO by $'+diff;
+  }
+  document.getElementById('hp-s1').textContent='$'+d1;
+  document.getElementById('hp-s2').textContent='$'+d2;
+  document.getElementById('hp-s3').textContent=inRange?('about $'+xr+' of care'):'no crossover this year';
+  var msg='The model compares premiums plus costs up to each deductible, minus the employer seed - coinsurance and copays past the deductible are deliberately out, so plug a bigger expected-cost number to feel out a bad year. ';
+  if(inRange){msg+='Below about $'+xr+' of expected care the HDHP comes out ahead; above it the PPO takes over. Healthy year, the HDHP wins; a surgery or a baby on the calendar tips the math hard.';}
+  else{msg+='With your premiums and deductibles the same plan wins across the realistic range - the crossover point sits outside it, so the decision rides on the premiums alone.';}
+  msg+=' The seed is free money either way: whatever the employer contributes, take it.';
+  document.getElementById('hp-note').textContent=msg;
+  document.title=(th<=tp?'HDHP':'PPO')+' saves $'+diff+' this year - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_hdhp',JSON.stringify({ph:PH.value,pp:PP.value,dh:DH.value,dp:DP.value,c:C.value,s:SEED.value}));}catch(e){}}
+[PH,PP,DH,DP,C,SEED].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('c')){C.value=qs.get('c');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_hdhp')||'null');if(m){if(m.ph){PH.value=m.ph;}if(m.pp){PP.value=m.pp;}if(m.dh){DH.value=m.dh;}if(m.dp){DP.value=m.dp;}if(m.c){C.value=m.c;}if(m.s){SEED.value=m.s;}}}catch(e){}}
+calc();
+document.getElementById('hp-share').addEventListener('click',function(){
+  var txt='Running my numbers, '+document.getElementById('hp-out').textContent+' this year. Compare your plans:';
+  var url=location.origin+location.pathname+'?c='+encodeURIComponent(C.value);
+  if(navigator.share){navigator.share({title:'HDHP vs PPO verdict',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my plan verdict';},1500);}
+});
+})();
+</script>
+"""
+
+FSAP = """<div class="tool" id="tt-fsa">
+  <div class="fields">
+    <div class="field"><label for="fs-c">Annual contribution</label><input id="fs-c" type="number" min="0" max="3400" value="2600"></div>
+    <div class="field"><label for="fs-r">Marginal tax rate (%)</label><select id="fs-r"><option value="12">12%</option><option value="22" selected>22%</option><option value="24">24%</option><option value="32">32%</option><option value="35">35%</option></select></div>
+    <div class="field"><label for="fs-n">Paychecks per year</label><select id="fs-n"><option value="12">12 - monthly</option><option value="24" selected>24 - twice a month</option><option value="26">26 - every two weeks</option></select></div>
+    <div class="field"><label for="fs-e">Planned eligible expenses</label><input id="fs-e" type="number" min="0" value="2400"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fs-out">&#8211;</span><span class="result-unit">real tax saved</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fs-s1">&#8211;</b><span>per paycheck</span></div>
+    <div class="stat"><b id="fs-s2">&#8211;</b><span>use-or-lose risk</span></div>
+    <div class="stat"><b id="fs-s3">&#8211;</b><span>tax rate that applies</span></div>
+  </div>
+  <div class="tool-note" id="fs-note"></div>
+  <button type="button" class="tool-btn" id="fs-share">Share my FSA math</button>
+</div>
+<script>(function(){
+var CI=document.getElementById('fs-c'),R=document.getElementById('fs-r'),N=document.getElementById('fs-n'),E=document.getElementById('fs-e');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function calc(){
+  var c=num(CI),r=num(R)/100,n=parseInt(N.value,10)||24,e=num(E);
+  var eff=r+0.0765, saved=c*eff, per=c/n, risk=Math.max(0,c-e);
+  var d1=Math.round(saved*10)/10,d2=Math.round(per*100)/100,d3=Math.round(risk*10)/10;
+  document.getElementById('fs-out').textContent='$'+d1;
+  document.getElementById('fs-s1').textContent='$'+d2;
+  document.getElementById('fs-s2').textContent='$'+d3;
+  document.getElementById('fs-s3').textContent=Math.round(eff*1000)/10+'%';
+  var msg='The saving stacks your income-tax bracket with the 7.65% payroll tax, because FSA money never touches either. Use-or-lose is the catch: money left over forfeits at year end, softened by a 2.5 month grace period or a carryover up to about $660 - your plan allows one or the other, rarely both. ';
+  if(risk>0){msg+='At your numbers about $'+d3+' is at risk. Cover the predictable stuff - glasses, dentist, prescriptions, therapy copays - and hold back the rest; an FSA underfunded by a few hundred is a better deal than one forfeiting a few hundred.';}
+  else{msg+='You are planning to spend it all - this is the FSA done right. Keep receipts anyway; debit-card audits do happen.';}
+  msg+=' The 2026 contribution ceiling is $3,400, but your employer may cap lower.';
+  document.getElementById('fs-note').textContent=msg;
+  document.title='FSA saves $'+d1+' in taxes - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_fsa',JSON.stringify({c:CI.value,r:R.value,n:N.value,e:E.value}));}catch(e){}}
+[CI,R,N,E].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('c')){CI.value=qs.get('c');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_fsa')||'null');if(m){if(m.c){CI.value=m.c;}if(m.r){R.value=m.r;}if(m.n){N.value=m.n;}if(m.e){E.value=m.e;}}}catch(e){}}
+calc();
+document.getElementById('fs-share').addEventListener('click',function(){
+  var txt='My FSA election saves $'+document.getElementById('fs-out').textContent+' in real taxes. Run yours:';
+  var url=location.origin+location.pathname+'?c='+encodeURIComponent(CI.value);
+  if(navigator.share){navigator.share({title:'FSA math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my FSA math';},1500);}
+});
+})();
+</script>
+"""
+
+HSAC = """<div class="tool" id="tt-hsa">
+  <div class="fields">
+    <div class="field"><label for="hs-cov">Coverage</label><select id="hs-cov"><option value="4400" selected>Self only - $4,400</option><option value="8750">Family - $8,750</option></select></div>
+    <div class="field"><label for="hs-age">Age</label><input id="hs-age" type="number" min="0" max="100" value="40"></div>
+    <div class="field"><label for="hs-mine">Your contribution</label><input id="hs-mine" type="number" min="0" value="3000"></div>
+    <div class="field"><label for="hs-r">Marginal tax rate (%)</label><select id="hs-r"><option value="12">12%</option><option value="22" selected>22%</option><option value="24">24%</option><option value="32">32%</option><option value="35">35%</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hs-out">&#8211;</span><span class="result-unit">tax saved this year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hs-s1">&#8211;</b><span>contribution room</span></div>
+    <div class="stat"><b id="hs-s2">&#8211;</b><span>over the cap by</span></div>
+    <div class="stat"><b id="hs-s3">&#8211;</b><span>with payroll tax skipped</span></div>
+  </div>
+  <div class="tool-note" id="hs-note"></div>
+  <button type="button" class="tool-btn" id="hs-share">Share my HSA math</button>
+</div>
+<script>(function(){
+var COV=document.getElementById('hs-cov'),AGE=document.getElementById('hs-age'),MINE=document.getElementById('hs-mine'),R=document.getElementById('hs-r');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function calc(){
+  var base=parseFloat(COV.value)||4400,age=num(AGE),mine=num(MINE),r=num(R)/100;
+  var cap=base+(age>=55?1000:0),over=Math.max(0,mine-cap),saved=mine*r,saved2=mine*(r+0.0765);
+  var d1=Math.round(saved*10)/10,d2=Math.round(saved2*10)/10,ov=Math.round(over*10)/10;
+  document.getElementById('hs-out').textContent='$'+d2;
+  document.getElementById('hs-s1').textContent='$'+cap;
+  document.getElementById('hs-s2').textContent=over>0?('$'+ov):'$0';
+  document.getElementById('hs-s3').textContent='$'+d2;
+  var msg='The HSA is the only triple-tax-free account in the code: money goes in untaxed, grows untaxed, and comes out untaxed for medical care at any age - after 65 it behaves like a traditional IRA for anything else. ';
+  if(over>0){msg+='You are $'+ov+' over the 2026 cap - over-contributions earn a 6% excise tax every year they sit there; pull the excess or spread it. ';}
+  else{msg+='You have room left: the cap is $'+cap+' with your age and coverage, and every dollar you do not use rolls over forever - it is yours, not the plans. ';}
+  msg+='Contribute through payroll if you can: it also skips the 7.65% payroll tax, which is the figure shown. Invest the balance once the cash cushion covers a deductible - that is where the compounding lives.';
+  document.getElementById('hs-note').textContent=msg;
+  document.title='HSA: $'+d2+' tax saved this year - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_hsa',JSON.stringify({v:COV.value,a:AGE.value,m:MINE.value,r:R.value}));}catch(e){}}
+[COV,AGE,MINE,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('m')){MINE.value=qs.get('m');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_hsa')||'null');if(m){if(m.v){COV.value=m.v;}if(m.a){AGE.value=m.a;}if(m.m){MINE.value=m.m;}if(m.r){R.value=m.r;}}}catch(e){}}
+calc();
+document.getElementById('hs-share').addEventListener('click',function(){
+  var txt='My HSA contribution saves $'+document.getElementById('hs-out').textContent+' this year. Run yours:';
+  var url=location.origin+location.pathname+'?m='+encodeURIComponent(MINE.value);
+  if(navigator.share){navigator.share({title:'HSA math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my HSA math';},1500);}
 });
 })();
 </script>
@@ -13021,6 +13183,9 @@ TOOLS = {
     "upsruntime": lambda args: UPSRUN,
     "genfuel": lambda args: GENFUEL,
     "heatcmp": lambda args: HEATCMP,
+    "hdhp": lambda args: HDHP,
+    "fsa": lambda args: FSAP,
+    "hsa": lambda args: HSAC,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,

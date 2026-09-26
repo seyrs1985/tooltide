@@ -1728,6 +1728,70 @@
    [
     "share.share-my-shiftplan",
     "分享我的调整计划"
+   ],
+   [
+    "fw.area",
+    "供暖面积（平方英尺）"
+   ],
+   [
+    "fw.climate",
+    "气候"
+   ],
+   [
+    "fw.species",
+    "木种"
+   ],
+   [
+    "fw.price",
+    "每考得价格（$）"
+   ],
+   [
+    "fw.cords",
+    "越冬所需木材量（考得）"
+   ],
+   [
+    "fw.cost",
+    "木材总费用"
+   ],
+   [
+    "fw.pmbtu",
+    "每百万 BTU 成本"
+   ],
+   [
+    "fw.electric",
+    "同等热量的电暖费用"
+   ],
+   [
+    "share.share-my-winterwood",
+    "分享我的越冬木材估算"
+   ],
+   [
+    "ppie.guests",
+    "宾客人数"
+   ],
+   [
+    "ppie.slices",
+    "每人块数"
+   ],
+   [
+    "ppie.pies",
+    "9 英寸派（个）"
+   ],
+   [
+    "ppie.cups",
+    "南瓜泥（杯）"
+   ],
+   [
+    "ppie.cans",
+    "15 盎司罐头"
+   ],
+   [
+    "ppie.eggssugar",
+    "蛋 + 糖（杯）"
+   ],
+   [
+    "share.share-piemath",
+    "分享派计算"
    ]
   ],
   "es": [
@@ -3458,6 +3522,70 @@
    [
     "share.share-my-shiftplan",
     "Compartir mi plan de ajuste"
+   ],
+   [
+    "fw.area",
+    "Área a calentar (pies cuadrados)"
+   ],
+   [
+    "fw.climate",
+    "Clima"
+   ],
+   [
+    "fw.species",
+    "Especie"
+   ],
+   [
+    "fw.price",
+    "Precio por cuerda ($)"
+   ],
+   [
+    "fw.cords",
+    "cuerdas para el invierno"
+   ],
+   [
+    "fw.cost",
+    "coste total de la leña"
+   ],
+   [
+    "fw.pmbtu",
+    "$ por millón de Btu"
+   ],
+   [
+    "fw.electric",
+    "mismo calor, eléctrico"
+   ],
+   [
+    "share.share-my-winterwood",
+    "Compartir mi estimación de leña"
+   ],
+   [
+    "ppie.guests",
+    "Invitados"
+   ],
+   [
+    "ppie.slices",
+    "Porciones por invitado"
+   ],
+   [
+    "ppie.pies",
+    "pies de 9 pulgadas"
+   ],
+   [
+    "ppie.cups",
+    "tazas de puré"
+   ],
+   [
+    "ppie.cans",
+    "latas de 15 oz"
+   ],
+   [
+    "ppie.eggssugar",
+    "huevos + azúcar (tazas)"
+   ],
+   [
+    "share.share-piemath",
+    "Compartir el cálculo del pastel"
    ]
   ],
   "pt": [
@@ -5188,6 +5316,70 @@
    [
     "share.share-my-shiftplan",
     "Compartir meu plano de ajuste"
+   ],
+   [
+    "fw.area",
+    "Área aquecida (pés quadrados)"
+   ],
+   [
+    "fw.climate",
+    "Clima"
+   ],
+   [
+    "fw.species",
+    "Espécie"
+   ],
+   [
+    "fw.price",
+    "Preço por corda ($)"
+   ],
+   [
+    "fw.cords",
+    "cordas para o inverno"
+   ],
+   [
+    "fw.cost",
+    "custo total da lenha"
+   ],
+   [
+    "fw.pmbtu",
+    "$ por milhão de Btu"
+   ],
+   [
+    "fw.electric",
+    "mesmo calor, elétrico"
+   ],
+   [
+    "share.share-my-winterwood",
+    "Compartir minha estimativa de lenha"
+   ],
+   [
+    "ppie.guests",
+    "Convidados"
+   ],
+   [
+    "ppie.slices",
+    "Fatias por convidado"
+   ],
+   [
+    "ppie.pies",
+    "tortas de 23 cm"
+   ],
+   [
+    "ppie.cups",
+    "xícaras de purê"
+   ],
+   [
+    "ppie.cans",
+    "latas de 425 g"
+   ],
+   [
+    "ppie.eggssugar",
+    "ovos + açúcar (xícaras)"
+   ],
+   [
+    "share.share-piemath",
+    "Compartir o cálculo da torta"
    ]
   ],
   "ru": [
@@ -6918,6 +7110,70 @@
    [
     "share.share-my-shiftplan",
     "Поделиться планом перестройки"
+   ],
+   [
+    "fw.area",
+    "Отапливаемая площадь (кв. футов)"
+   ],
+   [
+    "fw.climate",
+    "Климат"
+   ],
+   [
+    "fw.species",
+    "Порода"
+   ],
+   [
+    "fw.price",
+    "Цена за корд ($)"
+   ],
+   [
+    "fw.cords",
+    "кордов на зиму"
+   ],
+   [
+    "fw.cost",
+    "общая стоимость дров"
+   ],
+   [
+    "fw.pmbtu",
+    "$ за миллион БТЕ"
+   ],
+   [
+    "fw.electric",
+    "то же тепло, электроотопление"
+   ],
+   [
+    "share.share-my-winterwood",
+    "Поделиться моей оценкой дров"
+   ],
+   [
+    "ppie.guests",
+    "Гости"
+   ],
+   [
+    "ppie.slices",
+    "кусков на человека"
+   ],
+   [
+    "ppie.pies",
+    "пирогов 9 дюймов"
+   ],
+   [
+    "ppie.cups",
+    "стаканов пюре"
+   ],
+   [
+    "ppie.cans",
+    "банки 425 г"
+   ],
+   [
+    "ppie.eggssugar",
+    "яйца + сахар (стаканы)"
+   ],
+   [
+    "share.share-piemath",
+    "Поделиться расчётом пирога"
    ]
   ],
   "ja": [
@@ -8648,6 +8904,70 @@
    [
     "share.share-my-shiftplan",
     "自分の調整プランを共有"
+   ],
+   [
+    "fw.area",
+    "暖房面積（平方フィート）"
+   ],
+   [
+    "fw.climate",
+    "気候"
+   ],
+   [
+    "fw.species",
+    "樹種"
+   ],
+   [
+    "fw.price",
+    "1コードの価格（$）"
+   ],
+   [
+    "fw.cords",
+    "冬に必要なコード数"
+   ],
+   [
+    "fw.cost",
+    "薪の合計コスト"
+   ],
+   [
+    "fw.pmbtu",
+    "100万Btuあたりのコスト"
+   ],
+   [
+    "fw.electric",
+    "同じ熱量の電気"
+   ],
+   [
+    "share.share-my-winterwood",
+    "自分の薪の見積りを共有"
+   ],
+   [
+    "ppie.guests",
+    "ゲスト数"
+   ],
+   [
+    "ppie.slices",
+    "1人あたりの切れ端"
+   ],
+   [
+    "ppie.pies",
+    "9インチパイの数"
+   ],
+   [
+    "ppie.cups",
+    "カップのピューレ"
+   ],
+   [
+    "ppie.cans",
+    "15オンス缶"
+   ],
+   [
+    "ppie.eggssugar",
+    "卵+砂糖（カップ）"
+   ],
+   [
+    "share.share-piemath",
+    "パイ計算を共有"
    ]
   ],
   "ko": [
@@ -10378,6 +10698,70 @@
    [
     "share.share-my-shiftplan",
     "내 조정 계획 공유"
+   ],
+   [
+    "fw.area",
+    "난방 면적 (제곱피트)"
+   ],
+   [
+    "fw.climate",
+    "기후"
+   ],
+   [
+    "fw.species",
+    "나무 종류"
+   ],
+   [
+    "fw.price",
+    "1코르드당 가격 ($)"
+   ],
+   [
+    "fw.cords",
+    "겨울용 코드 수"
+   ],
+   [
+    "fw.cost",
+    "총 장작 비용"
+   ],
+   [
+    "fw.pmbtu",
+    "백만 BTU당 비용"
+   ],
+   [
+    "fw.electric",
+    "동일 열량의 전기"
+   ],
+   [
+    "share.share-my-winterwood",
+    "내 겨울 장작 추정 공유"
+   ],
+   [
+    "ppie.guests",
+    "손님 수"
+   ],
+   [
+    "ppie.slices",
+    "1인당 조각 수"
+   ],
+   [
+    "ppie.pies",
+    "9인치 파이 수"
+   ],
+   [
+    "ppie.cups",
+    "퓌레 컵"
+   ],
+   [
+    "ppie.cans",
+    "15온스 캔"
+   ],
+   [
+    "ppie.eggssugar",
+    "계란 + 설탕 (컵)"
+   ],
+   [
+    "share.share-piemath",
+    "파이 계산 공유"
    ]
   ],
   "de": [
@@ -12108,6 +12492,70 @@
    [
     "share.share-my-shiftplan",
     "Meinen Umstellungsplan teilen"
+   ],
+   [
+    "fw.area",
+    "Zu beheizende Fläche (Quadratfuß)"
+   ],
+   [
+    "fw.climate",
+    "Klima"
+   ],
+   [
+    "fw.species",
+    "Holzart"
+   ],
+   [
+    "fw.price",
+    "Preis pro Raummeter ($)"
+   ],
+   [
+    "fw.cords",
+    "Raummeter für den Winter"
+   ],
+   [
+    "fw.cost",
+    "Gesamtkosten für Holz"
+   ],
+   [
+    "fw.pmbtu",
+    "Kosten pro Million Btu"
+   ],
+   [
+    "fw.electric",
+    "gleiche Wärme, elektrisch"
+   ],
+   [
+    "share.share-my-winterwood",
+    "Meine Brennholzschätzung teilen"
+   ],
+   [
+    "ppie.guests",
+    "Gäste"
+   ],
+   [
+    "ppie.slices",
+    "Stücke pro Gast"
+   ],
+   [
+    "ppie.pies",
+    "9-Zoll-Kuchen"
+   ],
+   [
+    "ppie.cups",
+    "Tassen Püree"
+   ],
+   [
+    "ppie.cans",
+    "425-g-Dosen"
+   ],
+   [
+    "ppie.eggssugar",
+    "Eier + Zucker (Tassen)"
+   ],
+   [
+    "share.share-piemath",
+    "Die Kuchenrechnung teilen"
    ]
   ],
   "fr": [
@@ -13838,6 +14286,70 @@
    [
     "share.share-my-shiftplan",
     "Partager mon plan de décalage"
+   ],
+   [
+    "fw.area",
+    "Surface à chauffer (pieds carrés)"
+   ],
+   [
+    "fw.climate",
+    "Climat"
+   ],
+   [
+    "fw.species",
+    "Essence"
+   ],
+   [
+    "fw.price",
+    "Prix par corde ($)"
+   ],
+   [
+    "fw.cords",
+    "cordes pour l hiver"
+   ],
+   [
+    "fw.cost",
+    "coût total du bois"
+   ],
+   [
+    "fw.pmbtu",
+    "coût par million de BTU"
+   ],
+   [
+    "fw.electric",
+    "même chaleur, électrique"
+   ],
+   [
+    "share.share-my-winterwood",
+    "Partager mon estimation de bois"
+   ],
+   [
+    "ppie.guests",
+    "Invités"
+   ],
+   [
+    "ppie.slices",
+    "parts par invité"
+   ],
+   [
+    "ppie.pies",
+    "tourtes de 9 pouces"
+   ],
+   [
+    "ppie.cups",
+    "tasses de purée"
+   ],
+   [
+    "ppie.cans",
+    "boîtes de 425 g"
+   ],
+   [
+    "ppie.eggssugar",
+    "œufs + sucre (tasses)"
+   ],
+   [
+    "share.share-piemath",
+    "Partager le calcul de la tarte"
    ]
   ],
   "id": [
@@ -15568,6 +16080,70 @@
    [
     "share.share-my-shiftplan",
     "Bagikan rencana pergeseran saya"
+   ],
+   [
+    "fw.area",
+    "Area yang dipanaskan (kaki persegi)"
+   ],
+   [
+    "fw.climate",
+    "Iklim"
+   ],
+   [
+    "fw.species",
+    "Jenis kayu"
+   ],
+   [
+    "fw.price",
+    "Harga per kord ($)"
+   ],
+   [
+    "fw.cords",
+    "kord untuk musim dingin"
+   ],
+   [
+    "fw.cost",
+    "total biaya kayu"
+   ],
+   [
+    "fw.pmbtu",
+    "biaya per juta Btu"
+   ],
+   [
+    "fw.electric",
+    "panas yang sama, listrik"
+   ],
+   [
+    "share.share-my-winterwood",
+    "Bagikan perkiraan kayu musim dingin saya"
+   ],
+   [
+    "ppie.guests",
+    "Jumlah tamu"
+   ],
+   [
+    "ppie.slices",
+    "irisan per tamu"
+   ],
+   [
+    "ppie.pies",
+    "pai 9 inci"
+   ],
+   [
+    "ppie.cups",
+    "cangkir pure"
+   ],
+   [
+    "ppie.cans",
+    "kaleng 15 ons"
+   ],
+   [
+    "ppie.eggssugar",
+    "telur + gula (cangkir)"
+   ],
+   [
+    "share.share-piemath",
+    "Bagikan hitungan pai"
    ]
   ]
  }
