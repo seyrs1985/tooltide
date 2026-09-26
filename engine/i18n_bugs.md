@@ -20,6 +20,7 @@
 - BUG-013续13|url-encoder-decoder|ja|ue-pct动态stat标签(percent sequences)未接线(嵌套span假阳性掩盖)|IAB DOM探针|已修R26+线上复验(ue.pct×9语言;复验ja:%シーケンス等全日文,unwired空;同轮巡逻heart-rate×ko与RW×es全净)
 - BUG-013续14|lorem-ipsum-generator|ru|3处未接线(words generated stat/Copy to clipboard按钮/Regenerate按钮+2处JS恢复)|IAB DOM探针|已修R29+线上复验(lorem.wordsgen/copybtn/regen×3键×9语言+2处JS恢复TT();curl实证data-i18n在服务HTML;同轮巡逻jwt×pt与heart-rate×ja全净)
 - BUG-013续15|dst-sleep-shift-planner+firewood-calculator+pumpkin-pie-calculator(增长R121-123三新页簇)|ru/ja/pt|三新页工具UI整体未接线(dst 7处/firewood 9处/pumpkin 7处,含Region/pace标签、stat、result-unit、share按钮与动态title)|IAB DOM探针|已修R32(dst页)+R33登记+R40	dst7键×9接线修复上线(garbage门首次实战逮住自家脚本错位3处,修复正则固化);firewood与pumpkin两页下轮接线
+- BUG-013续16|holiday-tipping-calculator|ja/ko|8处未接线(Total budget/Weekly regulars/Occasional helpers标签+per weekly regular/per occasional helper/to weekly regulars total/left for card people stat+Share my tipping plan按钮;tip.budget等8键×9语言)|IAB DOM探针|已修R42+线上复验(holiday-tipping页tip.*接线3处在服务HTML+garbage=0;脚本裸span型错位3处当轮修复——v1教训变种入册:带属性分组与裸span分组的替换公式不同)
 - BUG-013复核队列|R26待复核|base64×fr(Mode/output英文残留)+case×pt(Result Copiar混排)——嵌套span外层包装会使简易探针假阳性,下轮fresh reload稳定态复核后再修;另flesch-reading-ease同款未接线模式待查|IAB DOM探针|待复核(R30)
 - 范围外低优|unitconv|全部|公式行 factor 未格式化(×0.39370078740157477 长小数)与结果行英文单位词("0.39 inches")——前者渲染器打磨归UX轮,后者单位名=内容按设计不翻
 
