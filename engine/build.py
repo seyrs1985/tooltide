@@ -44,6 +44,7 @@ TOOL_EMOJI = {
     "treewater": "🌲", "treelights": "✨", "wrapcalc": "✂",
     "roadfuel": "🚙", "flydrive": "✈",
     "blanket": "🌙", "sourdough": "🍞",
+    "gymvalue": "💪", "dryjan": "🎉", "booksyear": "📚",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

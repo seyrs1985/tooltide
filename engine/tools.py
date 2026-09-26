@@ -13330,6 +13330,142 @@ document.getElementById('sd-share').addEventListener('click',function(){
 </script>
 """
 
+GYMVALUE = """<div class="tool" id="tt-gv">
+  <div class="fields">
+    <div class="field"><label for="gv-m">Monthly fee</label><input id="gv-m" type="number" min="5" value="45"></div>
+    <div class="field"><label for="gv-v">Visits per month, honest average</label><input id="gv-v" type="number" min="0" max="60" value="4"></div>
+    <div class="field"><label for="gv-d">Drop-in price nearby</label><input id="gv-d" type="number" min="1" value="15"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gv-out">&#8211;</span><span class="result-unit">cost per visit</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gv-s1">&#8211;</b><span>break-even visits a month</span></div>
+    <div class="stat"><b id="gv-s2">&#8211;</b><span>year cost at your attendance</span></div>
+    <div class="stat"><b id="gv-s3">&#8211;</b><span>verdict</span></div>
+  </div>
+  <div class="tool-note" id="gv-note"></div>
+  <button type="button" class="tool-btn" id="gv-share">Share my gym math</button>
+</div>
+<script>(function(){
+var M=document.getElementById('gv-m'),V=document.getElementById('gv-v'),D=document.getElementById('gv-d');
+function calc(){
+  var m=parseFloat(M.value)||0,v=Math.max(0,parseFloat(V.value)||0),d=parseFloat(D.value)||15;
+  var per=v>0?m/v:m, be=d>0?m/d:0, year=m*12;
+  var d1=Math.round(per*100)/100, d2=Math.round(be*10)/10, d3=Math.round(year);
+  var verdict=v<=0?'Cancel or pause':(per<=d?'Keep it':(per<=d*2?'Borderline - go more or leave':'The treadmill is winning'));
+  document.getElementById('gv-out').textContent='$'+d1;
+  document.getElementById('gv-s1').textContent=d2;
+  document.getElementById('gv-s2').textContent='$'+d3;
+  document.getElementById('gv-s3').textContent=verdict;
+  document.getElementById('gv-note').textContent='Gyms price memberships on no-shows - the business model is selling visits that never happen, which is why January is packed and mid-February is not. The honest numbers: your break-even is the monthly fee over the drop-in price, and anything under three visits a month usually loses to paying per visit. Two outs before cancelling: a cheaper plan tier, or a pause clause - most contracts have one and nobody asks. The calculator prices attendance, not aspirations; the best gym on earth is the one you actually walk into, and the second best is the one you stop paying for when you do not.';
+  document.title='Gym: $'+d1+' per visit - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_gymvalue',JSON.stringify({m:M.value,v:V.value,d:D.value}));}catch(e){}}
+[M,V,D].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('v')){V.value=qs.get('v');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_gymvalue')||'null');if(m){if(m.m){M.value=m.m;}if(m.v){V.value=m.v;}if(m.d){D.value=m.d;}}}catch(e){}}
+calc();
+document.getElementById('gv-share').addEventListener('click',function(){
+  var txt='My gym visits cost $'+document.getElementById('gv-out').textContent+' each - verdict: '+document.getElementById('gv-s3').textContent+'. Run yours:';
+  var url=location.origin+location.pathname+'?v='+encodeURIComponent(V.value);
+  if(navigator.share){navigator.share({title:'Gym membership value',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my gym math';},1500);}
+});
+})();
+</script>
+"""
+
+DRYJAN = """<div class="tool" id="tt-dj">
+  <div class="fields">
+    <div class="field"><label for="dj-w">Drinks per week, honest average</label><input id="dj-w" type="number" min="0" max="70" value="6"></div>
+    <div class="field"><label for="dj-p">Typical price per drink</label><input id="dj-p" type="number" min="0.5" step="0.5" value="7"></div>
+    <div class="field"><label for="dj-l">Length of the break</label><select id="dj-l"><option value="4" selected>One month - Dry January</option><option value="13">Three months</option><option value="52">A full year</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dj-out">&#8211;</span><span class="result-unit">saved over the break</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dj-s1">&#8211;</b><span>per week</span></div>
+    <div class="stat"><b id="dj-s2">&#8211;</b><span>if kept a full year</span></div>
+    <div class="stat"><b id="dj-s3">&#8211;</b><span>bar markup honesty</span></div>
+  </div>
+  <div class="tool-note" id="dj-note"></div>
+  <button type="button" class="tool-btn" id="dj-share">Share my dry math</button>
+</div>
+<script>(function(){
+var W=document.getElementById('dj-w'),P=document.getElementById('dj-p'),L=document.getElementById('dj-l');
+function calc(){
+  var w=Math.max(0,parseFloat(W.value)||0),p=parseFloat(P.value)||0,l=parseFloat(L.value)||4;
+  var perWeek=w*p, saved=perWeek*l, year=perWeek*52;
+  var d1=Math.round(saved*10)/10, d2=Math.round(perWeek*100)/100, d3=Math.round(year);
+  document.getElementById('dj-out').textContent='$'+d1;
+  document.getElementById('dj-s1').textContent='$'+d2;
+  document.getElementById('dj-s2').textContent='$'+d3;
+  document.getElementById('dj-s3').textContent='3-5x at bars';
+  document.getElementById('dj-note').textContent='This counts money only - sleep, liver markers and mood are real but unpriced here, and they are the part people report noticing first. The math that motivates: bar drinks carry a three-to-five-times markup over the same bottle at home, so the savings figure assumes your honest average venue. The practical move is visibility - a jar or a labeled account where the not-spent money lands weekly turns an invisible non-purchase into a number that grows, which is the entire psychological trick behind every successful savings habit. February you can spend it on something loud.';
+  document.title='Dry month saves $'+d1+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_dryjan',JSON.stringify({w:W.value,p:P.value,l:L.value}));}catch(e){}}
+[W,P,L].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_dryjan')||'null');if(m){if(m.w){W.value=m.w;}if(m.p){P.value=m.p;}if(m.l){L.value=m.l;}}}catch(e){}}
+calc();
+document.getElementById('dj-share').addEventListener('click',function(){
+  var txt='My dry month saves $'+document.getElementById('dj-out').textContent+' - $'+document.getElementById('dj-s2').textContent+' a week. Run yours:';
+  var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value);
+  if(navigator.share){navigator.share({title:'Dry January savings',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my dry math';},1500);}
+});
+})();
+</script>
+"""
+
+BOOKSYEAR = """<div class="tool" id="tt-by">
+  <div class="fields">
+    <div class="field"><label for="by-p">Pages on an average day</label><input id="by-p" type="number" min="1" max="500" value="20"></div>
+    <div class="field"><label for="by-l">Average book length (pages)</label><input id="by-l" type="number" min="50" max="1500" value="300"></div>
+    <div class="field"><label for="by-s">Reading speed (wpm)</label><select id="by-s"><option value="150">150 - slow</option><option value="225" selected>225 - average</option><option value="300">300 - fast</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="by-out">&#8211;</span><span class="result-unit">books a year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="by-s1">&#8211;</b><span>days per book</span></div>
+    <div class="stat"><b id="by-s2">&#8211;</b><span>minutes a day</span></div>
+    <div class="stat"><b id="by-s3">&#8211;</b><span>hours a year</span></div>
+  </div>
+  <div class="tool-note" id="by-note"></div>
+  <button type="button" class="tool-btn" id="by-share">Share my reading math</button>
+</div>
+<script>(function(){
+var P=document.getElementById('by-p'),L=document.getElementById('by-l'),S=document.getElementById('by-s');
+function calc(){
+  var p=Math.max(1,parseFloat(P.value)||20),len=Math.max(50,parseFloat(L.value)||300),wpm=parseFloat(S.value)||225;
+  var books=Math.floor(365*p/len), days=len/p, mins=p*300/wpm, hours=mins*365/60;
+  var d1=Math.round(days*10)/10, d2=Math.round(mins), d3=Math.round(hours);
+  document.getElementById('by-out').textContent=books;
+  document.getElementById('by-s1').textContent=d1;
+  document.getElementById('by-s2').textContent=d2;
+  document.getElementById('by-s3').textContent=d3;
+  document.getElementById('by-note').textContent='Twenty pages a day sounds small and lands around thirty books a year - the entire gap between wish-I-read-more and a reading life is a page count, not a resolution. The minutes figure is the reality check: 20 pages at average pace is about half an hour, which is one scrolled-in-bed session redirected. Two honest notes: audiobook minutes count - 225 wpm is also the standard narration pace, and the commute hour converts cleanly; and the book length field is where self-deception lives, because doorstop fantasy and essay collections do not cost the same pages. Set a pages number you can hit on your worst day, not your best.';
+  document.title=books+' books a year at '+Math.round(p)+' pages/day - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_booksyear',JSON.stringify({p:P.value,l:L.value,s:S.value}));}catch(e){}}
+[P,L,S].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('p')){P.value=qs.get('p');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_booksyear')||'null');if(m){if(m.p){P.value=m.p;}if(m.l){L.value=m.l;}if(m.s){S.value=m.s;}}}catch(e){}}
+calc();
+document.getElementById('by-share').addEventListener('click',function(){
+  var txt='Reading '+P.value+' pages a day is '+document.getElementById('by-out').textContent+' books a year. Run yours:';
+  var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value);
+  if(navigator.share){navigator.share({title:'Books per year',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my reading math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -14483,6 +14619,9 @@ TOOLS = {
     "flydrive": lambda args: FLYDRIVE,
     "blanket": lambda args: BLANKET,
     "sourdough": lambda args: SOURDOUGH,
+    "gymvalue": lambda args: GYMVALUE,
+    "dryjan": lambda args: DRYJAN,
+    "booksyear": lambda args: BOOKSYEAR,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
