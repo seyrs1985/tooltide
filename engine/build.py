@@ -35,6 +35,7 @@ TOOL_EMOJI = {
     "frostplan": "❄", "bulbspace": "🌷", "cactusbloom": "🌵",
     "heatcost": "♨", "gensize": "⚡", "outagefood": "🍔",
     "upsruntime": "🔋", "genfuel": "⛽", "heatcmp": "🔥",
+    "hdhp": "🏥", "fsa": "💵", "hsa": "💰",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
