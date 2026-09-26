@@ -69,6 +69,8 @@
 <script>(function(){
 var txt=document.getElementById('bin-txt'),code=document.getElementById('bin-code');
 var lock=false;
+try{var S=JSON.parse(localStorage.getItem('tt_bin')||'null');if(S&&S.t){txt.value=S.t.length>2000?S.t.slice(0,2000):S.t;code.value=txt.value?toBin(txt.value):'';}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('t')){txt.value=qs.get('t');code.value=txt.value?toBin(txt.value):'';}
 function toBin(s){
   var bytes=new TextEncoder().encode(s);
   return Array.from(bytes).map(function(b){return b.toString(2).padStart(8,'0');}).join(' ');
@@ -84,6 +86,8 @@ function fromBin(v){
 txt.addEventListener('input',function(){
   if(lock)return;lock=true;
   code.value=this.value?toBin(this.value):'';
+  document.title=this.value?('Binary: '+new TextEncoder().encode(this.value).length+' bytes - ToolDune'):'Text to Binary - ToolDune';
+  try{localStorage.setItem('tt_bin',JSON.stringify({t:this.value.slice(0,2000)}));}catch(e){}
   lock=false;
 });
 code.addEventListener('input',function(){

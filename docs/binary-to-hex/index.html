@@ -70,6 +70,8 @@
 <script>(function(){
 var bin=document.getElementById('bh-bin'),hex=document.getElementById('bh-hex');
 var lock=false;
+try{var S=JSON.parse(localStorage.getItem('tt_binhex')||'null');if(S&&S.b){bin.value=S.b.length>1000?S.b.slice(0,1000):S.b;try{hex.value=binToHex(bin.value);}catch(e){hex.value='';}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('b')){bin.value=qs.get('b');try{hex.value=binToHex(bin.value);}catch(e){hex.value='';}}
 function binToHex(v){
   return v.trim().split(/\s+/).filter(Boolean).map(function(g){
     if(!/^[01]{1,8}$/.test(g))throw 'bad';
@@ -88,6 +90,8 @@ bin.addEventListener('input',function(){
   if(lock)return;lock=true;
   try{hex.value=this.value.trim()?binToHex(this.value):'';}
   catch(e){hex.value='(invalid binary groups)';}
+  document.title=this.value.trim()&&hex.value.indexOf('(')!==0?('Hex: '+hex.value.slice(0,40)+' - ToolDune'):'Binary to Hex - ToolDune';
+  try{localStorage.setItem('tt_binhex',JSON.stringify({b:this.value.slice(0,1000)}));}catch(e){}
   lock=false;
 });
 hex.addEventListener('input',function(){

@@ -79,6 +79,9 @@
 var SENT=['The quick brown fox jumps over the lazy dog while the farmer watches from his porch.','Practice makes perfect when learning to type faster every single day with focus.','A journey of a thousand miles begins with a single step and careful typing.','Typing speed matters less than accuracy because errors cost double the time to fix.','The best time to plant a tree was twenty years ago; the second best time is now.','Simple things should be simple and complex things should be possible for everyone.'];
 var PASS=SENT.join(' ');
 var dur=30,start=null,timer=null,ended=false;
+try{var S=JSON.parse(localStorage.getItem('tt_type')||'null');if(S&&S.s){dur=+S.s;}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('s')){dur=parseInt(qs.get('s'),10)||30;}
+var chipHit=document.querySelector('#tt-type .chip[data-s="'+dur+'"]');if(chipHit){document.querySelectorAll('#tt-type .chip[data-s]').forEach(function(x){x.classList.toggle('active',x===chipHit);});}
 var inp=document.getElementById('type-in'),pas=document.getElementById('type-passage');
 function newPassage(){var i=Math.floor(Math.random()*SENT.length);PASS='';for(var k=0;k<3;k++){PASS+=SENT[(i+k)%SENT.length]+' ';}}
 function fmtT(s){return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
@@ -101,6 +104,8 @@ function finish(){
   document.getElementById('type-wpm').textContent=net;
   document.getElementById('type-acc').textContent=acc+'%';
   highlight(typed.length);
+  document.title=net+' WPM, '+acc+'% accuracy - ToolDune';
+  try{localStorage.setItem('tt_type',JSON.stringify({s:dur}));}catch(e){}
 }
 function highlight(pos){
   var html='';

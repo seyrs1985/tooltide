@@ -73,6 +73,8 @@
 <script>(function(){
 var h=0,tt=0;
 var face=document.getElementById('cf-face');
+try{var S=JSON.parse(localStorage.getItem('tt_coin')||'null');if(S){h=S.h|0;tt=S.t|0;}}catch(e){}
+document.getElementById('cf-h').textContent=h;document.getElementById('cf-t').textContent=tt;document.getElementById('cf-n').textContent=h+tt;
 function secureInt(max){var b=new Uint32Array(1),lim=Math.floor(4294967296/max)*max,x;
   do{crypto.getRandomValues(b);x=b[0];}while(x>=lim);return x%max;}
 document.getElementById('cf-go').addEventListener('click',function(){
@@ -81,6 +83,8 @@ document.getElementById('cf-go').addEventListener('click',function(){
   document.getElementById('cf-h').textContent=h;
   document.getElementById('cf-t').textContent=tt;
   document.getElementById('cf-n').textContent=h+tt;
+  document.title='Coin: '+(r?'HEADS':'TAILS')+' - '+h+'H '+tt+'T - ToolDune';
+  try{localStorage.setItem('tt_coin',JSON.stringify({h:h,t:tt}));}catch(e){}
 });
 document.getElementById('cf-reset').addEventListener('click',function(){
   h=0;tt=0;face.textContent='?';

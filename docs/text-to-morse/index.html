@@ -85,6 +85,8 @@ function fromMorse(m){
 txt.addEventListener('input',function(){
   if(lock)return;lock=true;
   code.value=this.value.trim()?toMorse(this.value):'';
+  document.title=this.value.trim()?('Morse: '+code.value.slice(0,30)+' - ToolDune'):'Text to Morse - ToolDune';
+  if(this.value.trim()&&this.value!=='SOS'){try{localStorage.setItem('tt_morse',JSON.stringify({t:this.value.slice(0,1000)}));}catch(e){}}
   lock=false;
 });
 code.addEventListener('input',function(){
@@ -93,7 +95,10 @@ code.addEventListener('input',function(){
   txt.value=v?fromMorse(v):'';
   lock=false;
 });
-txt.value='SOS';
+var restored=false;
+try{var S=JSON.parse(localStorage.getItem('tt_morse')||'null');if(S&&S.t){txt.value=S.t.length>1000?S.t.slice(0,1000):S.t;restored=true;}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('t')){txt.value=qs.get('t').slice(0,1000);restored=true;}
+if(!restored){txt.value='SOS';}
 txt.dispatchEvent(new Event('input'));
 })();</script>
 

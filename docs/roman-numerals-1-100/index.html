@@ -88,7 +88,18 @@
 <tr><td>24 = <b>XXIV</b></td><td>49 = <b>XLIX</b></td><td>74 = <b>LXXIV</b></td><td>99 = <b>XCIX</b></td></tr>
 <tr><td>25 = <b>XXV</b></td><td>50 = <b>L</b></td><td>75 = <b>LXXV</b></td><td>100 = <b>C</b></td></tr></tbody>
 </table></div>
-<div class="tool-note">Seven symbols, one rule: smaller numeral before a larger one subtracts (IV = 4, XC = 90). Everything else adds.</div>
+  <div class="tool-note">Seven symbols, one rule: smaller numeral before a larger one subtracts (IV = 4, XC = 90). Everything else adds. Click any cell to copy.</div>
+<script>(function(){
+var tb=document.querySelector('#tt-rt100 tbody');if(!tb)return;
+tb.addEventListener('click',function(ev){
+  var td=ev.target.closest('td');if(!td)return;
+  var parts=td.textContent.split('=');if(parts.length<2)return;
+  var s=parts[0].trim()+' = '+parts[1].trim();
+  try{navigator.clipboard.writeText(s);}catch(e){}
+  var old=document.title;document.title='Copied '+s+' - ToolDune';
+  setTimeout(function(){document.title=old;},1200);
+});
+})();</script>
 
   <section class="seo-block"><h2 data-i18n="tool.howto">How to use</h2><ol class="howto"><li>Scan the table for your number — rows run 1–25, 26–50, 51–75 and 76–100.</li><li>Check the symbols box below to learn the seven letters and their values.</li><li>Need a number outside 1–100? Use the full Roman numeral converter linked below the chart.</li></ol></section>
   

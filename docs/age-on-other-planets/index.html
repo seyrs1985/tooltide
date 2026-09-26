@@ -76,7 +76,11 @@ function run(){
   }).join('');
   tb.innerHTML=html;
 }
-inp.addEventListener('input',run);run();
+function pTitle(){var age=parseFloat(inp.value);if(!isNaN(age)&&age>=0){var m=Math.round(age/0.2408467*100)/100;document.title='Age '+age+': '+m+' Mercury years - ToolDune';}else{document.title='Age on Other Planets - ToolDune';}}
+try{var S=JSON.parse(localStorage.getItem('tt_planets')||'null');if(S&&S.a){inp.value=S.a;}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('a')){inp.value=qs.get('a');}
+inp.addEventListener('input',function(){run();pTitle();try{localStorage.setItem('tt_planets',JSON.stringify({a:inp.value}));}catch(e){}});
+run();pTitle();
 })();</script>
 
   <section class="seo-block"><h2 data-i18n="tool.howto">How to use</h2><ol class="howto"><li>Enter your age in Earth years.</li><li>Read your age on all eight planets — each converted by that planet&#x27;s orbital period.</li><li>Note Mercury: you would celebrate a birthday roughly every 88 Earth days.</li></ol></section>

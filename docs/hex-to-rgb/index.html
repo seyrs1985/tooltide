@@ -78,6 +78,8 @@
 var HEX=document.getElementById('hr-hex'),R=document.getElementById('hr-r'),G=document.getElementById('hr-g'),B=document.getElementById('hr-b');
 var prev=document.getElementById('hr-preview');
 var lock=false;
+try{var S=JSON.parse(localStorage.getItem('tt_hexrgb')||'null');if(S&&S.x){HEX.value=S.x;var c0=hex2rgb(S.x);if(c0){R.value=c0.r;G.value=c0.g;B.value=c0.b;upd(c0.r,c0.g,c0.b);}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('h')){HEX.value=qs.get('h');var c1=hex2rgb(qs.get('h'));if(c1){R.value=c1.r;G.value=c1.g;B.value=c1.b;upd(c1.r,c1.g,c1.b);}}
 function clamp(v){return Math.max(0,Math.min(255,Math.round(v)||0));}
 function hex2rgb(v){
   v=v.trim().replace('#','');
@@ -90,6 +92,8 @@ function upd(r,g,b){
   var hx='#'+[r,g,b].map(function(x){return x.toString(16).padStart(2,'0').toUpperCase();}).join('');
   document.getElementById('hr-hexout').textContent=hx;
   document.getElementById('hr-rgbout').textContent='rgb('+r+', '+g+', '+b+')';
+  document.title=hx+' = rgb('+r+', '+g+', '+b+') - ToolDune';
+  try{localStorage.setItem('tt_hexrgb',JSON.stringify({x:hx}));}catch(e){}
 }
 HEX.addEventListener('input',function(){
   if(lock)return;lock=true;

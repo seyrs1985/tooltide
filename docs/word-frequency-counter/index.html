@@ -71,6 +71,7 @@ var STOP={the:1,a:1,an:1,and:1,or:1,but:1,of:1,to:1,in:1,on:1,at:1,for:1,with:1,
 var inp=document.getElementById('wf-in'),tb=document.getElementById('wf-tb');
 var stop=document.getElementById('wf-stop');
 var hideStop=true;
+try{var S=JSON.parse(localStorage.getItem('tt_wf')||'null');if(S){if(typeof S.h==='boolean'){hideStop=S.h;stop.classList.toggle('active',hideStop);}if(S.t){inp.value=S.t.length>20000?S.t.slice(0,20000):S.t;}}}catch(e){}
 stop.addEventListener('click',function(){hideStop=!hideStop;this.classList.toggle('active',hideStop);run();});
 function run(){
   var words=(inp.value.toLowerCase().match(/[a-z0-9À-ɏ']+/gi)||[]);
@@ -87,6 +88,8 @@ function run(){
   tb.innerHTML=html||'<tr><td colspan="4" style="color:#94a3b8">Paste text to see word frequencies…</td></tr>';
 }
 inp.addEventListener('input',run);run();
+inp.addEventListener('input',function(){try{localStorage.setItem('tt_wf',JSON.stringify({t:inp.value.slice(0,20000),h:hideStop}));}catch(e){}var n=(inp.value.match(/[a-z0-9]+/gi)||[]).length;document.title=n?(n+' words analyzed - ToolDune'):'Word Frequency Counter - ToolDune';});
+stop.addEventListener('click',function(){try{localStorage.setItem('tt_wf',JSON.stringify({t:inp.value.slice(0,20000),h:hideStop}));}catch(e){}});
 })();</script>
 
   <section class="seo-block"><h2 data-i18n="tool.howto">How to use</h2><ol class="howto"><li>Paste your text into the box — the frequency table builds instantly.</li><li>Toggle &#x27;ignore common words&#x27; to hide the/a/of-style fillers and see content words.</li><li>Scan the top of the table for accidental repetition, then copy or re-edit your text.</li></ol></section>
