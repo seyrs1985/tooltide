@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:ht="https://trends.google.com/trending/rss" version="2.0">
+	<channel>
+		<title>Daily Search Trends</title>
+		<description>Recent searches</description>
+		<link>https://trends.google.com/trending/rss?geo=US</link>
+		<atom:link href="https://trends.google.com/trending/rss?geo=US" rel="self" type="application/rss+xml"/>
+		<item>
+			<title>activity</title>
+			<ht:approx_traffic>500+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:40:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTRZeaRzOr3G0tUf-BdHZq0AxxYI-RMAz5lCEhd_u6GQ7q1Dt4ifGwf1j6UQes</ht:picture>
+			<ht:picture_source>The Guardian</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>OpenAI says agents leaked 53 images from ChatGPT users in latest example of rogue activity</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.theguardian.com/technology/2026/sep/25/openai-agents-leaked-53-images-chatgpt</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTRZeaRzOr3G0tUf-BdHZq0AxxYI-RMAz5lCEhd_u6GQ7q1Dt4ifGwf1j6UQes</ht:news_item_picture>
+				<ht:news_item_source>The Guardian</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>OpenAI reveals its agents accessed some U.S. government website data after going rogue</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.cbsnews.com/news/openai-ai-agent-bot-rogue-hack-government-website/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSNeJ2iyjQihAAshOAcsoz-52kaeLhvVeyxkrwhERt6HfSoNqt4mvrkcwd5Y7I</ht:news_item_picture>
+				<ht:news_item_source>CBS News</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>How OpenAI’s Rogue A.I. Agents Tried to Trick a Robot Detector</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.nytimes.com/2026/09/25/technology/openai-hugging-face-hack.html</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQOZxm01QZVJEj0yzWXP9JL2duKzeLwV4F38aG94czsQonqcI_RmJSiObObDaE</ht:news_item_picture>
+				<ht:news_item_source>The New York Times</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>trump administration rescinds congressional spending</title>
+			<ht:approx_traffic>2000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:30:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSBjMLlE_ura_CMM3YZZLKvoB9kITRFdklG6UUv1DTgf5PhVEqD-O4PLKJ58-Q</ht:picture>
+			<ht:picture_source>The Guardian</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Trump cancels nearly $1bn in funding approved by Congress</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.theguardian.com/us-news/2026/sep/25/trump-cancels-congress-funding</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSBjMLlE_ura_CMM3YZZLKvoB9kITRFdklG6UUv1DTgf5PhVEqD-O4PLKJ58-Q</ht:news_item_picture>
+				<ht:news_item_source>The Guardian</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Trump administration uses rare authority to claw back nearly $1B in spending approved by Congress</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.post-gazette.com/news/nation/2026/09/26/trump-billion-spending-congress-services-initiatives/stories/202609260042</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFEeIRRkYJ83Jrrb8sknWSHvrU7IIFiROpDi2MoAWFFCeKHdJUTX5p-y9GTTY</ht:news_item_picture>
+				<ht:news_item_source>Pittsburgh Post-Gazette</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>White House orders over $800M in funds rescinded; Collins calls it &apos;clear violation&apos; of law</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://abcnews.com/Politics/white-house-orders-800m-funds-rescinded-collins-calls/story?id=136772703</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTQdWEOG3c-oiA2Kt-4wrW3SDe9U4jAoK1D_QAiProY3KJEyDsPtpPdmOtfEhs</ht:news_item_picture>
+				<ht:news_item_source>ABC News - Breaking News, Latest News and Videos</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>american</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:30:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTixqqwW7TNW-6imN7PNEhiTprNa6JwTHYgEpSvdRrYVbaN43u1Q_oeujbE84w</ht:picture>
+			<ht:picture_source>CNN</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Caleb Flynn’s former mistress took the stand at his murder trial. Here’s what we learned</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.cnn.com/2026/09/24/us/caleb-flynn-murder-trial</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTixqqwW7TNW-6imN7PNEhiTprNa6JwTHYgEpSvdRrYVbaN43u1Q_oeujbE84w</ht:news_item_picture>
+				<ht:news_item_source>CNN</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>2 Kids of American Idol Alum Had Heartbreaking Question When They Learned of Affair After Mom’s Murder</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://people.com/2-kids-of-american-idol-alum-had-heartbreaking-question-of-affair-after-moms-murder-12140372</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRsOH7NlP10uPmoIOjtb59iNmUhwyXNNvnS7taaQYtuqTTSlxozR4ijTpAQ04I</ht:news_item_picture>
+				<ht:news_item_source>People.com</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Mistress testifies in trial of former &quot;American Idol&quot; contestant charged with his wife&apos;s murder</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.cbsnews.com/news/caleb-flynn-murder-trial-wife-american-idol-mistress-testimony/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSH3dc0khF-JVreGDpd9qHw8uWExfbj7h1UfHGktiwdcURWOfcxjwM7wZnBmTc</ht:news_item_picture>
+				<ht:news_item_source>CBS News</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>concerts</title>
+			<ht:approx_traffic>2000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:20:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQMvBIiDwn_u_cGVQziXDM91LRsRx6Q9Pp-zMc_1RALf5vMueMrFMFzj4k9Eh8</ht:picture>
+			<ht:picture_source>CNN</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Ed Sheeran’s Gillette Stadium concerts canceled over weather, Macklemore drama</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.cnn.com/2026/09/25/entertainment/ed-sheeran-concerts-gillette-canceled</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQMvBIiDwn_u_cGVQziXDM91LRsRx6Q9Pp-zMc_1RALf5vMueMrFMFzj4k9Eh8</ht:news_item_picture>
+				<ht:news_item_source>CNN</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Ed Sheeran concertgoers warn artists about sharing political views: &apos;You&apos;re going to alienate&apos; fans</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.foxnews.com/entertainment/ed-sheeran-concertgoers-warn-artists-sharing-political-views-alienate-fans</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQlAtkScXtxZMIs009WGzF2FPDmqLP5HojRE70HD34fWGKxW0uXOkiy2-B1Sm8</ht:news_item_picture>
+				<ht:news_item_source>Fox News</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Ed Sheeran concerts cancelled becuase of bad weather</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.bbc.com/news/articles/ck7900wl7nxyo</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTW-d8xxdy2X1UpWy6J39MJyOvHulgeaN1c3nqKqwaMg1bFDyxC6eOjxMpen-0</ht:news_item_picture>
+				<ht:news_item_source>BBC</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>time</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:20:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD9OEbpHxt4FgFjqvcm5O4WNuACiHVJ7_bPgnWiV02_I0B0L30C-UB6bX1C-E</ht:picture>
+			<ht:picture_source>The Providence Journal</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Does daylight saving time end this weekend? Time change fall 2026</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.providencejournal.com/story/news/local/2026/09/25/when-does-daylight-saving-time-end-in-fall-2026-what-to-know-november-standard-time/91934146007/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD9OEbpHxt4FgFjqvcm5O4WNuACiHVJ7_bPgnWiV02_I0B0L30C-UB6bX1C-E</ht:news_item_picture>
+				<ht:news_item_source>The Providence Journal</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Sunshine Protection Act in danger</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.kolotv.com/2026/09/26/sunshine-protection-act-danger/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRbu47zsyjSjbU8eASyIwiyixOGXiUuIwGyVeLnTqzztFegr_GtQP5jrCFhbpY</ht:news_item_picture>
+				<ht:news_item_source>KOLO | 8 News Now</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Daylight saving, Sunshine Protection: Why Florida still falls back, for now</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.floridatoday.com/story/news/2026/09/21/daylight-savings-when-florida-fall-back-sunshine-protection/91825235007/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR-AdbXSuh25esGyhCWvHbOURjqj_uHEfV6q5jMNeSJsece3BlMGRllXEY-y94</ht:news_item_picture>
+				<ht:news_item_source>Florida Today</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>kamil majchrzak</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:20:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSl2MwdBveq2tnTcwUOl2z_CrMt8BQJweBytSXf0F2otvYbRKbQE4rGxbDIuv4</ht:picture>
+			<ht:picture_source>Dimers</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Mattia Bellucci vs. Kamil Majchrzak prediction, odds, picks for ATP Hangzhou Open 2026</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.dimers.com/tennis/news/mattia-bellucci-vs-kamil-majchrzak-tennis-prediction-atp-hangzhou-open-2026-ac</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSl2MwdBveq2tnTcwUOl2z_CrMt8BQJweBytSXf0F2otvYbRKbQE4rGxbDIuv4</ht:news_item_picture>
+				<ht:news_item_source>Dimers</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>ATP Hangzhou Day 2 Predictions Including Kamil Majchrzak vs Mattia Bellucci</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://lastwordonsports.com/tennis/2026/09/23/atp-hangzhou-predictions-majchrzak-bellucci/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQLc8snrY78LvKv-ZTnEvFC9Z2jXK1ty0gDI3FyF0ISwFmOEPSkE4XOmIVpKR8</ht:news_item_picture>
+				<ht:news_item_source>Last Word On Sports</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Mattia Bellucci vs Kamil Majchrzak Prediction - ATP Hangzhou 2026</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.statsinsider.com.au/news/mattia-bellucci-vs-kamil-majchrzak-prediction-atp-hangzhou-2026</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQX4u-J_41awhkVRRdnTdk_8V3xeTWW9eMw9jDxQGAYzQjV0dM5M5H_ZcUSbYw</ht:news_item_picture>
+				<ht:news_item_source>Stats Insider</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>heather matarazzo</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:20:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTo4dlZlktpkLuGpv6Uirao5K1qWs5Xr-T3uT-OhEHvl7CRSOsBPiecDFTF238</ht:picture>
+			<ht:picture_source>Them</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Jack Haven Needs Work ASAP to Qualify for Health Insurance: “I Will Do Pretty Much Any Job”</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.them.us/entertainment/celebrity/jack-haven-work-insurance</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTo4dlZlktpkLuGpv6Uirao5K1qWs5Xr-T3uT-OhEHvl7CRSOsBPiecDFTF238</ht:news_item_picture>
+				<ht:news_item_source>Them</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Trans Actor&apos;s Desperate Plea Triggers Heated Debate About Hollywood Days After Elliot Page&apos;s Confession</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.boredpanda.com/jack-haven-desperate-plea-debate-about-hollywood-after-elliot-page-confession/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR1pCZXtT6IIx5-UTu9gWuauLDVJKpphCGN66hwR5wxlX2tC0ScLfoLOvMelZw</ht:news_item_picture>
+				<ht:news_item_source>Bored Panda</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Jack Haven&apos;s Plea for Work Reminds Us That The Majority of Actors Are Struggling</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.pajiba.com/film_reviews/jack-havens-plea-for-work-reminds-us-that-the-majority-of-actors-are-struggling.php</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTl5WiMNG9op5O9qrf6vMhv-GvZbu9pJcD3nKBxkZCmT8z5izgZHXx-Vclx_3k</ht:news_item_picture>
+				<ht:news_item_source>Pajiba</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>amazon prime ftc settlement refunds</title>
+			<ht:approx_traffic>200+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSds0x6uYw01hh9IIQcvcuMCh19HMcaaLNcARuzVLWiDIM68D_AzAFx0Lv6CN4</ht:picture>
+			<ht:picture_source>Federal Trade Commission (.gov)</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>FTC Announces Additional Payments to Consumers Stemming from FTC’s Amazon Prime Settlement</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-announces-additional-payments-consumers-stemming-ftcs-amazon-prime-settlement</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSds0x6uYw01hh9IIQcvcuMCh19HMcaaLNcARuzVLWiDIM68D_AzAFx0Lv6CN4</ht:news_item_picture>
+				<ht:news_item_source>Federal Trade Commission (.gov)</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Millions more Amazon Prime customers could get automatic refunds starting next week</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.wafb.com/2026/09/25/millions-more-amazon-prime-customers-could-get-automatic-refunds-starting-next-week/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSVhOprc4R1VR4CH0h2Ao5OjN4iLbF20SWkQjMq8e5lAP0lfCsE1882pJdrmWI</ht:news_item_picture>
+				<ht:news_item_source>WAFB</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Amazon Prime Customers May Be Entitled to $200 Compensation — Here’s How</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://people.com/amazon-prime-customers-may-be-entitled-to-usd200-compensation-heres-how-12128542</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS_4TWZnBhoiQRuC2PwkMpkD6fjjjdBk_eyZHudixNt8AP3XtugH2mEi4AowJI</ht:news_item_picture>
+				<ht:news_item_source>People.com</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>schools</title>
+			<ht:approx_traffic>1000+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRsu6rtuRnltXpyZ4xUEH1gl5tktGu0-9nAn-OqWxieYgTpLf5uTlGjZIeaerU</ht:picture>
+			<ht:picture_source>NBC4 WCMH-TV</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>Columbus-area high school football scores and highlights, Sept. 25, 2026</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.nbc4i.com/sports/ffn/columbus-area-high-school-football-scores-and-highlights-sept-25-2026/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRsu6rtuRnltXpyZ4xUEH1gl5tktGu0-9nAn-OqWxieYgTpLf5uTlGjZIeaerU</ht:news_item_picture>
+				<ht:news_item_source>NBC4 WCMH-TV</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>First &amp; 10: Central Ohio high school football scores | Week 6</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.10tv.com/article/sports/high-school/hs-football/central-ohio-high-school-football-scores-week-6-2026/530-12b91673-d23d-46ff-8c8d-4cf5efe3a4bb</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTfBUHYDbTrDiT87Sy-TP9onlg-vfFHhNRK73_k0de8Bc13jzvOoRfueJh8GGs</ht:news_item_picture>
+				<ht:news_item_source>10TV</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Ohio high school football scores, Columbus-area live updates from Week 6</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://www.dispatch.com/story/sports/high-school/football/2026/09/25/ohio-high-school-football-scores-ohsaa-schedule-week-6-games--live/91927586007/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQRb9Q6s6iGdLBpbWT2A0PZGLsDW_Ad0Kqn8c17P26UKsxZszaVYMq-frnv0Nc</ht:news_item_picture>
+				<ht:news_item_source>The Columbus Dispatch</ht:news_item_source>
+			</ht:news_item>
+		</item>
+		<item>
+			<title>swimming</title>
+			<ht:approx_traffic>100+</ht:approx_traffic>
+			<description/>
+			<link>https://trends.google.com/trending/rss?geo=US</link>
+			<pubDate>Sat, 26 Sep 2026 02:00:00 -0700</pubDate>
+			<ht:picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRVyUBdfbXmwr3xgE8yzR1jWtFMjTW44aMQexv71dpSJarCaJ5oc16UcrHlxyU</ht:picture>
+			<ht:picture_source>SwimSwam</ht:picture_source>
+			<ht:news_item>
+				<ht:news_item_title>2026 CSL Match 2 (VIRGINIA, NC STATE, GEORGIA, ALABAMA): Live Recap</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://swimswam.com/2026-csl-match-2-virginia-nc-state-georgia-alabama-live-recap/</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRVyUBdfbXmwr3xgE8yzR1jWtFMjTW44aMQexv71dpSJarCaJ5oc16UcrHlxyU</ht:news_item_picture>
+				<ht:news_item_source>SwimSwam</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>Pack Power to Second Place Finish, Sets Multiple CSL Records</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://gopack.com/news/2026/9/25/swimming-pack-power-to-second-place-finish-sets-multiple-csl-records</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS7NzlEn32MBStGddtYDn2QXhJi3zxA8IfV88Zs1oLoi2MlYJIMwq-wTlLyaUw</ht:news_item_picture>
+				<ht:news_item_source>NC State University Athletics</ht:news_item_source>
+			</ht:news_item>
+			<ht:news_item>
+				<ht:news_item_title>No. 15/12 Georgia Places Fourth in CSL Opener</ht:news_item_title>
+				<ht:news_item_snippet/>
+				<ht:news_item_url>https://georgiadogs.com/news/2026/9/25/swimming-diving-no-15-12-georgia-places-fourth-in-csl-opener</ht:news_item_url>
+				<ht:news_item_picture>https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRDg8NsyJ3v02trJDQYlCtAHADcn528EQu1NEPi9-iAXbUH2pJl5nXYpW0iT80</ht:news_item_picture>
+				<ht:news_item_source>University of Georgia Athletics</ht:news_item_source>
+			</ht:news_item>
+		</item>
+	</channel>
+</rss>

@@ -13236,6 +13236,98 @@ document.getElementById('fd-share').addEventListener('click',function(){
 </script>
 """
 
+BLANKET = """<div class="tool" id="tt-blk">
+  <div class="fields">
+    <div class="field"><label for="bk-w">Blanket wattage</label><select id="bk-w"><option value="60">60 W - throw</option><option value="100" selected>100 W - double</option><option value="180">180 W - king</option></select></div>
+    <div class="field"><label for="bk-h">Hours per night</label><input id="bk-h" type="number" min="1" max="12" value="8"></div>
+    <div class="field"><label for="bk-r">Price per kWh</label><input id="bk-r" type="number" min="0.03" step="0.01" value="0.17"></div>
+    <div class="field"><label for="bk-n">Nights per season</label><input id="bk-n" type="number" min="10" max="240" value="120"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bk-out">&#8211;</span><span class="result-unit">per night of warmth</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bk-s1">&#8211;</b><span>full season cost</span></div>
+    <div class="stat"><b id="bk-s2">&#8211;</b><span>a 1500 W heater for the same hours</span></div>
+    <div class="stat"><b id="bk-s3">&#8211;</b><span>ratio vs space heater</span></div>
+  </div>
+  <div class="tool-note" id="bk-note"></div>
+  <button type="button" class="tool-btn" id="bk-share">Share my blanket math</button>
+</div>
+<script>(function(){
+var W=document.getElementById('bk-w'),H=document.getElementById('bk-h'),R=document.getElementById('bk-r'),N=document.getElementById('bk-n');
+function calc(){
+  var w=parseFloat(W.value)||100,h=parseFloat(H.value)||8,r=parseFloat(R.value)||0.17,n=parseFloat(N.value)||120;
+  var night=w*h/1000*r, season=night*n, heater=1500*h/1000*r;
+  var d1=Math.round(night*100)/100, d2=Math.round(season*100)/100, d3=Math.round(heater*100)/100;
+  var ratio=night>0?Math.round(heater/night):0;
+  document.getElementById('bk-out').textContent='$'+d1;
+  document.getElementById('bk-s1').textContent='$'+d2;
+  document.getElementById('bk-s2').textContent='$'+d3;
+  document.getElementById('bk-s3').textContent=ratio+'x cheaper';
+  document.getElementById('bk-note').textContent='The verdict is not close: warming the bed costs a fraction of warming the room, because the blanket heats about two square metres and the heater fights the whole house. The honest pairing is both on a timer - heater for the evening wind-down in the living room, blanket for sleeping, thermostat down a few degrees overnight where the real savings live. Two safety notes that come free with the math: never leave a very old blanket switched on unattended, and fold it, never crease the wires when storing in spring.';
+  document.title='Blanket: $'+d1+' per night - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_blanket',JSON.stringify({w:W.value,h:H.value,r:R.value,n:N.value}));}catch(e){}}
+[W,H,R,N].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_blanket')||'null');if(m){if(m.w){W.value=m.w;}if(m.h){H.value=m.h;}if(m.r){R.value=m.r;}if(m.n){N.value=m.n;}}}catch(e){}}
+calc();
+document.getElementById('bk-share').addEventListener('click',function(){
+  var txt='My heated blanket costs $'+document.getElementById('bk-out').textContent+' a night - '+document.getElementById('bk-s3').textContent+' than a space heater. Run yours:';
+  var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value);
+  if(navigator.share){navigator.share({title:'Heated blanket cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my blanket math';},1500);}
+});
+})();
+</script>
+"""
+
+
+SOURDOUGH = """<div class="tool" id="tt-sd2">
+  <div class="fields">
+    <div class="field"><label for="sd-s">Starter you have (g)</label><input id="sd-s" type="number" min="10" max="1000" value="100"></div>
+    <div class="field"><label for="sd-r">Feeding ratio (starter : flour : water)</label><select id="sd-r"><option value="1" selected>1:1:1 - daily maintenance</option><option value="2">1:2:2 - building up</option><option value="5">1:5:5 - slow, fridge-friendly</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sd-out">&#8211;</span><span class="result-unit">flour to add (g)</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sd-s1">&#8211;</b><span>water to add (g)</span></div>
+    <div class="stat"><b id="sd-s2">&#8211;</b><span>total after feeding</span></div>
+    <div class="stat"><b id="sd-s3">&#8211;</b><span>discard it creates</span></div>
+  </div>
+  <div class="tool-note" id="sd-note"></div>
+  <button type="button" class="tool-btn" id="sd-share">Share my feeding math</button>
+</div>
+<script>(function(){
+var S=document.getElementById('sd-s'),R=document.getElementById('sd-r');
+function calc(){
+  var st=parseFloat(S.value)||100, f=parseFloat(R.value)||1;
+  var flour=st*f, water=st*f, total=st+flour+water;
+  var d1=Math.round(flour), d2=Math.round(water), d3=Math.round(total);
+  document.getElementById('sd-out').textContent=d1;
+  document.getElementById('sd-s1').textContent=d2;
+  document.getElementById('sd-s2').textContent=d3+' g';
+  document.getElementById('sd-s3').textContent='keep '+Math.round(st)+' g only';
+  document.getElementById('sd-note').textContent='Equal parts by weight is the whole grammar: keep some starter, feed it its own weight in flour and water, and it doubles in a warm kitchen in four to six hours. The 1:5:5 ratio is the fridge-lovers trick - a small spoon of starter swallows a big feed, buys you two or three quiet days, and keeps the jar from becoming a pumpkin. A starving starter smells of nail polish remover and splits into liquid on top; that is hunger, not death - feed it. And the discard jar is not waste: pancakes, crackers and focaccia all take it happily, which is the difference between a hobby and a flour bill.';
+  document.title='Feed: '+d1+' g flour + '+d2+' g water - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_sourdough',JSON.stringify({s:S.value,r:R.value}));}catch(e){}}
+[S,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('s')){S.value=qs.get('s');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_sourdough')||'null');if(m){if(m.s){S.value=m.s;}if(m.r){R.value=m.r;}}}catch(e){}}
+calc();
+document.getElementById('sd-share').addEventListener('click',function(){
+  var txt='Feeding my starter: '+document.getElementById('sd-out').textContent+' g flour + '+document.getElementById('sd-s1').textContent+' g water. Do yours:';
+  var url=location.origin+location.pathname+'?s='+encodeURIComponent(S.value);
+  if(navigator.share){navigator.share({title:'Sourdough feeding',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my feeding math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -14387,6 +14479,8 @@ TOOLS = {
     "wrapcalc": lambda args: WRAPCALC,
     "roadfuel": lambda args: ROADFUEL,
     "flydrive": lambda args: FLYDRIVE,
+    "blanket": lambda args: BLANKET,
+    "sourdough": lambda args: SOURDOUGH,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,

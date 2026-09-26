@@ -43,6 +43,7 @@ TOOL_EMOJI = {
     "shipfree": "📦", "warranty": "💳", "bogo": "🎯",
     "treewater": "🌲", "treelights": "✨", "wrapcalc": "✂",
     "roadfuel": "🚙", "flydrive": "✈",
+    "blanket": "🌙", "sourdough": "🍞",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
