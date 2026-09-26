@@ -12893,15 +12893,17 @@ TURKEYTHAW = """<div class="tool" id="tt-tt2">
   </div>
   <div class="tool-note" id="tt2-note"></div>
   <button type="button" class="tool-btn" id="tt2-share">Share this schedule</button>
+  <button type="button" class="tool-btn" id="tt2-ics">Add to calendar (.ics)</button>
 </div>
 <script>(function(){
 var F=['tt2-d','tt2-w'].map(function(id){return document.getElementById(id);});
+var lastThaw=null,lastServe=null;
 var OUT=document.getElementById('tt2-out');
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function fmt(n){return n<10?'0'+n:''+n;}
 function calc(){
   var dv=F[0].value,w=parseFloat(F[1].value);
-  if(!dv||!(w>=3&&w<=15)){OUT.textContent='–';['tt2-s1','tt2-s2','tt2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('tt2-note').textContent='';document.title='Turkey Thaw Calculator - ToolDune';return;}
+  if(!dv||!(w>=3&&w<=15)){OUT.textContent='–';['tt2-s1','tt2-s2','tt2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('tt2-note').textContent='';document.title='Turkey Thaw Calculator - ToolDune';lastThaw=null;return;}
   var day=new Date(dv+'T12:00:00');
   var thawH=w*4.5;
   var thawD=Math.ceil(thawH/24);
@@ -12913,6 +12915,7 @@ function calc(){
   document.getElementById('tt2-s3').textContent=w>=6?'40 min':'30 min';
   document.getElementById('tt2-note').textContent='The fridge is the only safe thaw: roughly four and a half hours per kilo, on a tray on the bottom shelf (drips are a food-safety event, not a tragedy), breast-side down for even thawing. The cold-water shortcut exists - thirty minutes per kilo in sealed bags, water changed every half hour - but it owns your day and cooks nothing evenly. The oven figure assumes 175\u00b0C uncovered; the only number that matters is 74\u00b0C in the thickest part of the thigh, measured with your own probe - pop-up timers pop early and guess late. And the rest before carving is not ceremony: thirty to forty minutes lets the juices settle back, and it buys exactly the window to finish the roast vegetables and gravy. Buy the bird with this schedule in hand - too big is a thawing crisis, too small is a side-dish crisis.';
   document.title='Start thawing '+OUT.textContent+' - ToolDune';
+  lastThaw=thaw;lastServe=day;
 }
 function save(){try{localStorage.setItem('tt_turkeythaw',JSON.stringify({d:F[0].value,w:F[1].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -12920,6 +12923,17 @@ var pre=false;
 [['d',F[0]],['w',F[1]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
 if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_turkeythaw')||'null');if(mem){F[0].value=mem.d||'';F[1].value=mem.w||'';}}catch(e){}}
 calc();
+function ymd(dt){return ''+dt.getFullYear()+fmt(dt.getMonth()+1)+fmt(dt.getDate());}
+document.getElementById('tt2-ics').addEventListener('click',function(){
+  if(!lastThaw){return;}
+  var end=new Date(lastThaw.getTime()+86400000);
+  var NL=String.fromCharCode(13,10);
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN'+NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'@tooldune.com'+NL+'DTSTAMP:'+ymd(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymd(lastThaw)+NL+'DTEND;VALUE=DATE:'+ymd(end)+NL+'SUMMARY:Start thawing the turkey'+NL+'DESCRIPTION:Fridge thaw starts - bottom shelf on a tray and breast-side down. Schedule by tooldune.com'+NL+'END:VEVENT'+NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='turkey-thaw-schedule.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add to calendar (.ics)';},1500);
+});
 document.getElementById('tt2-share').addEventListener('click',function(){
   var txt='Start thawing the turkey '+OUT.textContent+' - full schedule: '+location.origin+location.pathname+'?d='+F[0].value+'&w='+F[1].value;
   if(navigator.share){navigator.share({title:'Turkey schedule',text:txt,url:location.origin+location.pathname+'?d='+F[0].value+'&w='+F[1].value}).catch(function(){});}
