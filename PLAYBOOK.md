@@ -55,7 +55,7 @@
 
 ## 7. 待挖掘候选(做完划掉;审计轮负责补充与清理)
 - GSC 真实数据接入后的 Search Console 长尾词扩页(等 metrics.csv 出真数)
-- 留存 R1 遗留:17 文本类页(word-counter/tip 等无 result-num,站级兜底够不着)渲染器级钩子补课、manifest.shortcuts 热门深链、倒计时 .ics 导出;旧候选「换算页最近使用复用条」已由站级 RECENT_STRIP_JS 落地移除(R129 审计)
+- 留存 R1 遗留:倒计时 .ics 导出(R136 审计清账:17 文本页钩子补课已于 R131/R134 全闭环,manifest.shortcuts 六条早已上线——两项候选 §7 过期未销,本轮移除;R138 体检=PWA 全绿);旧候选「换算页最近使用复用条」已由站级 RECENT_STRIP_JS 落地移除(R129 审计)
 - 每日内容钩子("每天答案不同"的日期种子页,按品类逐簇铺)
 - 渲染器动态字符串 i18n 长尾(与 i18n 流水线协同,勿改其台账 engine/i18n_bugs.md)
 
