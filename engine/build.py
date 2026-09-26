@@ -51,6 +51,7 @@ TOOL_EMOJI = {
     "minpay": "♾", "mealprep": "🍱", "oiltank": "⛽",
     "homeded": "📎", "setaside": "💼", "charmile": "🚶",
     "datenight": "💘", "seedstart": "🌱", "bedsoil": "🌾",
+    "squares": "🏈", "springbreak": "🌴", "refundplan": "💸",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

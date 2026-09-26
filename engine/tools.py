@@ -14270,6 +14270,143 @@ document.getElementById('bs-share').addEventListener('click',function(){
 </script>
 """
 
+SQUARES = """<div class="tool" id="tt-sq2">
+  <div class="fields">
+    <div class="field"><label for="sq2-p">Price per square</label><input id="sq2-p" type="number" min="1" value="25"></div>
+    <div class="field"><label for="sq2-x">Payout split by quarter (Q1/Q2/Q3/final %)</label><select id="sq2-x"><option value="10,30,40,20" selected>10 / 30 / 40 / 20 - final weighs most</option><option value="25,25,25,25">25 / 25 / 25 / 25 - even</option><option value="20,20,20,40">20 / 20 / 20 / 40 - finale heavy</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sq2-out">&#8211;</span><span class="result-unit">total pool</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sq2-s1">&#8211;</b><span>Q1 winner gets</span></div>
+    <div class="stat"><b id="sq2-s2">&#8211;</b><span>final score winner gets</span></div>
+    <div class="stat"><b id="sq2-s3">&#8211;</b><span>house keeps (should be 0)</span></div>
+  </div>
+  <div class="tool-note" id="sq2-note"></div>
+  <button type="button" class="tool-btn" id="sq2-share">Share my pool math</button>
+</div>
+<script>(function(){
+var P=document.getElementById('sq2-p'),X=document.getElementById('sq2-x');
+function calc(){
+  var p=parseFloat(P.value)||25,parts=X.value.split(','),pool=p*100;
+  var q1=pool*parseFloat(parts[0])/100,q2=pool*parseFloat(parts[1])/100,q3=pool*parseFloat(parts[2])/100,q4=pool*parseFloat(parts[3])/100;
+  var d1=Math.round(q1), d4=Math.round(q4);
+  document.getElementById('sq2-out').textContent='$'+Math.round(pool);
+  document.getElementById('sq2-s1').textContent='$'+d1;
+  document.getElementById('sq2-s2').textContent='$'+d4;
+  document.getElementById('sq2-s3').textContent='$0';
+  document.getElementById('sq2-note').textContent='The format that keeps friendships: draw the numbers only after every square is sold, and the pool pays out everything - the house cut is what turns a game into a grudge. Your squares inherit two random digits, one per team, and the good ones are the boring endings: 0, 3, 4 and 7 win quarters far more than the lucky 2 or 5, because football scoring does arithmetic in field goals and touchdowns. Payout across the quarters means every score change re-lotteries the room, which is the entire entertainment value for people who do not care about the game.';
+  document.title='Squares pool: $'+Math.round(pool)+', final pays $'+d4+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_squares',JSON.stringify({p:P.value,x:X.value}));}catch(e){}}
+[P,X].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('p')){P.value=qs.get('p');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_squares')||'null');if(m){if(m.p){P.value=m.p;}if(m.x){X.value=m.x;}}}catch(e){}}
+calc();
+document.getElementById('sq2-share').addEventListener('click',function(){
+  var txt='Our squares pool: $'+P.value+' a square, $'+Math.round(pool)+' total, final quarter pays $'+document.getElementById('sq2-s2').textContent+'. Set yours up:';
+  var url=location.origin+location.pathname+'?p='+encodeURIComponent(P.value);
+  if(navigator.share){navigator.share({title:'Squares pool math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my pool math';},1500);}
+});
+})();
+</script>
+"""
+
+SPRINGBREAK = """<div class="tool" id="tt-sbk">
+  <div class="fields">
+    <div class="field"><label for="sbk-n">Travelers</label><input id="sbk-n" type="number" min="1" max="12" value="4"></div>
+    <div class="field"><label for="sbk-f">Flight per person</label><input id="sbk-f" type="number" min="20" value="350"></div>
+    <div class="field"><label for="sbk-l">Lodging total for the stay</label><input id="sbk-l" type="number" min="0" value="1200"></div>
+    <div class="field"><label for="sbk-d">Days on the ground</label><input id="sbk-d" type="number" min="1" max="21" value="5"></div>
+    <div class="field"><label for="sbk-f2">Food and fun per person per day</label><input id="sbk-f2" type="number" min="10" value="60"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sbk-out">&#8211;</span><span class="result-unit">per person, all in</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sbk-s1">&#8211;</b><span>whole group total</span></div>
+    <div class="stat"><b id="sbk-s2">&#8211;</b><span>daily burn per person</span></div>
+    <div class="stat"><b id="sbk-s3">&#8211;</b><span>the room-share lever</span></div>
+  </div>
+  <div class="tool-note" id="sbk-note"></div>
+  <button type="button" class="tool-btn" id="sbk-share">Share my break budget</button>
+</div>
+<script>(function(){
+var N=document.getElementById('sbk-n'),F=document.getElementById('sbk-f'),L=document.getElementById('sbk-l'),D=document.getElementById('sbk-d'),F2=document.getElementById('sbk-f2');
+function calc(){
+  var n=Math.max(1,Math.round(parseFloat(N.value)||4)),fl=parseFloat(F.value)||0,lo=parseFloat(L.value)||0,d=Math.max(1,parseFloat(D.value)||5),ff=parseFloat(F2.value)||0;
+  var per=fl+lo/n+ff*d, total=per*n, daily=fl/365+lo/n/d+ff;
+  var d1=Math.round(total), d2=Math.round(per/d*100)/100;
+  document.getElementById('sbk-out').textContent='$'+Math.round(per);
+  document.getElementById('sbk-s1').textContent='$'+d1;
+  document.getElementById('sbk-s2').textContent='$'+d2;
+  document.getElementById('sbk-s3').textContent='n splits it';
+  document.getElementById('sbk-note').textContent='The booking window is the money lever: spring break flights priced in January run visibly cheaper than the February panic, and lodging splits are where the group math lives - the fourth traveler is the one who makes the rental work. Groceries for breakfasts and a cooler for lunches cut the food line roughly in half without touching the fun. And the deposit conversation before booking beats the spreadsheet after: one person floats the rental, everyone transfers their share within the week, and the friendship survives the group chat.';
+  document.title='Spring break: $'+Math.round(per)+' per person - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_springbreak',JSON.stringify({n:N.value,f:F.value,l:L.value,d:D.value,f2:F2.value}));}catch(e){}}
+[N,F,L,D,F2].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('n')){N.value=qs.get('n');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_springbreak')||'null');if(m){if(m.n){N.value=m.n;}if(m.f){F.value=m.f;}if(m.l){L.value=m.l;}if(m.d){D.value=m.d;}if(m.f2){F2.value=m.f2;}}}catch(e){}}
+calc();
+document.getElementById('sbk-share').addEventListener('click',function(){
+  var txt='Spring break runs $'+document.getElementById('sbk-out').textContent+' per person all in. Budget yours:';
+  var url=location.origin+location.pathname+'?n='+encodeURIComponent(N.value);
+  if(navigator.share){navigator.share({title:'Spring break budget',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my break budget';},1500);}
+});
+})();
+</script>
+"""
+
+REFUNDPLAN = """<div class="tool" id="tt-rp">
+  <div class="fields">
+    <div class="field"><label for="rp-r">Expected refund</label><input id="rp-r" type="number" min="100" value="3000"></div>
+    <div class="field"><label for="rp-a">APR on your highest card (%)</label><input id="rp-a" type="number" min="0" max="40" step="0.5" value="22"></div>
+    <div class="field"><label for="rp-f">Fun share (%)</label><input id="rp-f" type="number" min="0" max="50" value="20"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rp-out">&#8211;</span><span class="result-unit">saved in interest this year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="rp-s1">&#8211;</b><span>to the card</span></div>
+    <div class="stat"><b id="rp-s2">&#8211;</b><span>to the emergency fund</span></div>
+    <div class="stat"><b id="rp-s3">&#8211;</b><span>guilt-free fun</span></div>
+  </div>
+  <div class="tool-note" id="rp-note"></div>
+  <button type="button" class="tool-btn" id="rp-share">Share my split</button>
+</div>
+<script>(function(){
+var Rr=document.getElementById('rp-r'),A=document.getElementById('rp-a'),F=document.getElementById('rp-f');
+function calc(){
+  var ref=parseFloat(Rr.value)||0,apr=(parseFloat(A.value)||0)/100,fun=parseFloat(F.value)||0;
+  var funAmt=ref*fun/100, rest=ref-funAmt, toCard=rest*0.7, toEm=rest*0.3;
+  var interest=toCard*apr;
+  var d1=Math.round(toCard), d2=Math.round(toEm), d3=Math.round(funAmt);
+  document.getElementById('rp-out').textContent='$'+Math.round(interest);
+  document.getElementById('rp-s1').textContent='$'+d1;
+  document.getElementById('rp-s2').textContent='$'+d2;
+  document.getElementById('rp-s3').textContent='$'+d3;
+  document.getElementById('rp-note').textContent='The split here is 70/30 between card and emergency fund after the fun share - debt first because the interest saving is a guaranteed return, emergency second because that fund is what keeps the next refund from also going to a card. The pro move nobody loves: a refund is an interest-free loan you gave the government all year, and adjusting your withholding turns next year refund into monthly take-home. And the seasonal warning that saves real money - refund season is phishing season, and the IRS does not call, text or email first, ever.';
+  document.title='Refund split saves $'+Math.round(interest)+' in interest - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_refundplan',JSON.stringify({r:Rr.value,a:A.value,f:F.value}));}catch(e){}}
+[Rr,A,F].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('r')){Rr.value=qs.get('r');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_refundplan')||'null');if(m){if(m.r){Rr.value=m.r;}if(m.a){A.value=m.a;}if(m.f){F.value=m.f;}}}catch(e){}}
+calc();
+document.getElementById('rp-share').addEventListener('click',function(){
+  var txt='My refund split saves $'+document.getElementById('rp-out').textContent+' in card interest this year. Run yours:';
+  var url=location.origin+location.pathname+'?r='+encodeURIComponent(Rr.value);
+  if(navigator.share){navigator.share({title:'Tax refund split',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my split';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -15443,6 +15580,9 @@ TOOLS = {
     "datenight": lambda args: DATENIGHT,
     "seedstart": lambda args: SEEDSTART,
     "bedsoil": lambda args: BEDSOIL,
+    "squares": lambda args: SQUARES,
+    "springbreak": lambda args: SPRINGBREAK,
+    "refundplan": lambda args: REFUNDPLAN,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
