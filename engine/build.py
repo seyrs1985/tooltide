@@ -53,6 +53,7 @@ TOOL_EMOJI = {
     "datenight": "💘", "seedstart": "🌱", "bedsoil": "🌾",
     "squares": "🏈", "springbreak": "🌴", "refundplan": "💸",
     "wedding": "💍",
+    "gutter": "🍂", "airpur": "🍃", "lawnfert": "🌿",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

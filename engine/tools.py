@@ -14453,6 +14453,141 @@ document.getElementById('wd-share').addEventListener('click',function(){
 </script>
 """
 
+GUTTER = """<div class="tool" id="tt-gu">
+  <div class="fields">
+    <div class="field"><label for="gu-f">Gutter linear feet</label><input id="gu-f" type="number" min="40" max="800" value="180"></div>
+    <div class="field"><label for="gu-s">Stories</label><select id="gu-s"><option value="1" selected>Single story</option><option value="1.3">Two stories</option><option value="1.6">Three stories</option></select></div>
+    <div class="field"><label for="gu-c">Debris load</label><select id="gu-c"><option value="1">Light - no trees near</option><option value="1.5" selected>Heavy - trees over the roof</option></select></div>
+    <div class="field"><label for="gu-n">Cleanings per year</label><select id="gu-n"><option value="1">Once a year</option><option value="2" selected>Twice - spring and fall</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gu-out">&#8211;</span><span class="result-unit">per cleaning</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gu-s1">&#8211;</b><span>year cost</span></div>
+    <div class="stat"><b id="gu-s2">&#8211;</b><span>guard install, if you went there</span></div>
+    <div class="stat"><b id="gu-s3">&#8211;</b><span>years until guards pay off</span></div>
+  </div>
+  <div class="tool-note" id="gu-note"></div>
+  <button type="button" class="tool-btn" id="gu-share">Share my gutter math</button>
+</div>
+<script>(function(){
+var F=document.getElementById('gu-f'),S=document.getElementById('gu-s'),C=document.getElementById('gu-c'),N=document.getElementById('gu-n');
+function calc(){
+  var ft=parseFloat(F.value)||180,st=parseFloat(S.value)||1,cd=parseFloat(C.value)||1.5,n=parseFloat(N.value)||2;
+  var clean=ft*1*st*cd, year=clean*n, guards=Math.round(ft*9), payoff=guards>0?Math.ceil(guards/Math.max(1,year)):0;
+  var d1=Math.round(clean*10)/10, d2=Math.round(year);
+  document.getElementById('gu-out').textContent='$'+d1;
+  document.getElementById('gu-s1').textContent='$'+d2;
+  document.getElementById('gu-s2').textContent='$'+guards;
+  document.getElementById('gu-s3').textContent=payoff+'+ years';
+  document.getElementById('gu-note').textContent='The cleaning is cheap; the skip is what costs - a clogged downspout is the actual villain, dumping water at the foundation and rotting the fascia quietly for a season. Spring and fall are the two fixed appointments, and heavy tree cover is why the second one exists. The guard question answered honestly: guards reduce the cleaning to an inspection rather than eliminating it, they cost 7 to 12 dollars a foot installed, and the payoff line shows how many years of cleanings buy that back - worth it for two-story homes, marginal for single-story. And the ladder rule: most gutter injuries are ladder injuries, which is why two stories is where hiring stops being optional.';
+  document.title='Gutter cleaning: $'+d1+' per visit - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_gutter',JSON.stringify({f:F.value,s:S.value,c:C.value,n:N.value}));}catch(e){}}
+[F,S,C,N].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('f')){F.value=qs.get('f');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_gutter')||'null');if(m){if(m.f){F.value=m.f;}if(m.s){S.value=m.s;}if(m.c){C.value=m.c;}if(m.n){N.value=m.n;}}}catch(e){}}
+calc();
+document.getElementById('gu-share').addEventListener('click',function(){
+  var txt='My gutters cost $'+document.getElementById('gu-out').textContent+' a cleaning - guards pay off in '+document.getElementById('gu-s3').textContent+'. Run yours:';
+  var url=location.origin+location.pathname+'?f='+encodeURIComponent(F.value);
+  if(navigator.share){navigator.share({title:'Gutter cleaning cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my gutter math';},1500);}
+});
+})();
+</script>
+"""
+
+AIRPUR = """<div class="tool" id="tt-ap">
+  <div class="fields">
+    <div class="field"><label for="ap-a">Room area (sq ft)</label><input id="ap-a" type="number" min="50" max="2000" value="300"></div>
+    <div class="field"><label for="ap-p">Why you are buying it</label><select id="ap-p"><option value="1">Dust and general air</option><option value="1.5" selected>Allergies - pollen season</option><option value="2">Smoke or wildfire haze</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ap-out">&#8211;</span><span class="result-unit">CADR to look for</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ap-s1">&#8211;</b><span>filter budget a year</span></div>
+    <div class="stat"><b id="ap-s2">&#8211;</b><span>run it in this room first</span></div>
+    <div class="stat"><b id="ap-s3">&#8211;</b><span>marketing number to ignore</span></div>
+  </div>
+  <div class="tool-note" id="ap-note"></div>
+  <button type="button" class="tool-btn" id="ap-share">Share my CADR math</button>
+</div>
+<script>(function(){
+var A=document.getElementById('ap-a'),P=document.getElementById('ap-p');
+function calc(){
+  var a=parseFloat(A.value)||300,f=parseFloat(P.value)||1.5;
+  var cadr=Math.ceil(a*0.65*f/10)*10, filter=60, market=Math.ceil(a*1.55);
+  document.getElementById('ap-out').textContent=cadr;
+  document.getElementById('ap-s1').textContent='$'+filter+'ish';
+  document.getElementById('ap-s2').textContent='the bedroom';
+  document.getElementById('ap-s3').textContent=Math.round(a*4)+' sq ft claims';
+  document.getElementById('ap-note').textContent='CADR is the certified clean-air delivery number on the seal - it is the only spec that survives contact with physics, and the marketing square footage assumes one lazy air change an hour. Allergies want four or five, which is why the allergy multiplier doubles the machine. The room that matters most is the bedroom: eight hours of breathing is the longest exposure anyone gets, door closed so the sizing holds. Run it low at night for noise, high when you come home, and change the filter when it says - a clogged filter moves less air than no purifier at all.';
+  document.title='Air purifier: CADR '+cadr+' for '+Math.round(a)+' sq ft - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_airpur',JSON.stringify({a:A.value,p:P.value}));}catch(e){}}
+[A,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_airpur')||'null');if(m){if(m.a){A.value=m.a;}if(m.p){P.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('ap-share').addEventListener('click',function(){
+  var txt='My room needs a purifier with CADR '+document.getElementById('ap-out').textContent+'. Size yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'Air purifier sizing',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my CADR math';},1500);}
+});
+})();
+</script>
+"""
+
+LAWNFERT = """<div class="tool" id="tt-lf">
+  <div class="fields">
+    <div class="field"><label for="lf-a">Lawn area (sq ft)</label><input id="lf-a" type="number" min="200" max="50000" value="5000"></div>
+    <div class="field"><label for="lf-r">Bag label rate (lb per 1000 sq ft)</label><input id="lf-r" type="number" min="1" max="10" step="0.5" value="3.5"></div>
+    <div class="field"><label for="lf-n">Feedings per year</label><select id="lf-n"><option value="2">2 - minimal</option><option value="4" selected>4 - the holiday rhythm</option><option value="5">5 - irrigation-fed</option></select></div>
+    <div class="field"><label for="lf-p">Price per bag</label><input id="lf-p" type="number" min="5" value="30"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="lf-out">&#8211;</span><span class="result-unit">pounds per feeding</span></div>
+  <div class="stats">
+    <div class="stat"><b id="lf-s1">&#8211;</b><span>bags for the year</span></div>
+    <div class="stat"><b id="lf-s2">&#8211;</b><span>year cost</span></div>
+    <div class="stat"><b id="lf-s3">&#8211;</b><span>the holiday rhythm</span></div>
+  </div>
+  <div class="tool-note" id="lf-note"></div>
+  <button type="button" class="tool-btn" id="lf-share">Share my fertilizer math</button>
+</div>
+<script>(function(){
+var A=document.getElementById('lf-a'),R=document.getElementById('lf-r'),N=document.getElementById('lf-n'),P=document.getElementById('lf-p');
+function calc(){
+  var a=parseFloat(A.value)||5000,rate=parseFloat(R.value)||3.5,n=parseFloat(N.value)||4,p=parseFloat(P.value)||30;
+  var perApp=a/1000*rate, year=perApp*n, bags=Math.ceil(year/40), cost=bags*p;
+  var d1=Math.round(perApp*10)/10, d2=Math.round(cost);
+  document.getElementById('lf-out').textContent=d1;
+  document.getElementById('lf-s1').textContent=bags;
+  document.getElementById('lf-s2').textContent='$'+d2;
+  document.getElementById('lf-s3').textContent='Memorial, July 4, Labor Day, Halloween';
+  document.getElementById('lf-note').textContent='The rate comes off the bag label - it is calibrated to the nitrogen number, and nitrogen is the one that burns: more product does not mean greener, it means stripes. The holiday rhythm is the memorization trick for cool-season lawns - Memorial Day, July 4, Labor Day, Halloween - spaced so each feeding lands when the grass is actually growing. The soil test from the county extension costs about fifteen dollars and often deletes a feeding entirely, which pays for itself the first season. And spread on a dry morning before rain - the rain waters it in for free.';
+  document.title='Fertilizer: '+d1+' lb per feeding - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_lawnfert',JSON.stringify({a:A.value,r:R.value,n:N.value,p:P.value}));}catch(e){}}
+[A,R,N,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_lawnfert')||'null');if(m){if(m.a){A.value=m.a;}if(m.r){R.value=m.r;}if(m.n){N.value=m.n;}if(m.p){P.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('lf-share').addEventListener('click',function(){
+  var txt='My lawn takes '+document.getElementById('lf-out').textContent+' lb of fertilizer per feeding - '+document.getElementById('lf-s1').textContent+' bags a year. Run yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'Lawn fertilizer math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my fertilizer math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -15630,6 +15765,9 @@ TOOLS = {
     "springbreak": lambda args: SPRINGBREAK,
     "refundplan": lambda args: REFUNDPLAN,
     "wedding": lambda args: WEDDING,
+    "gutter": lambda args: GUTTER,
+    "airpur": lambda args: AIRPUR,
+    "lawnfert": lambda args: LAWNFERT,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
