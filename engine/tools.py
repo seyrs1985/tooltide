@@ -12439,6 +12439,159 @@ document.getElementById('bc-share').addEventListener('click',function(){
 </script>
 """
 
+LIGHTCOST = """<div class="tool" id="tt-lc">
+  <div class="fields">
+    <div class="field"><label for="lc-n">Strings on display</label><input id="lc-n" type="number" min="1" max="200" value="6"></div>
+    <div class="field"><label for="lc-t">String type</label><select id="lc-t"><option value="40">Mini incandescent - 40 W</option><option value="5" selected>Mini LED - 5 W</option><option value="175">C9 incandescent - 175 W</option><option value="25">C9 LED - 25 W</option></select></div>
+    <div class="field"><label for="lc-h">Hours lit per day</label><input id="lc-h" type="number" min="1" max="24" value="6"></div>
+    <div class="field"><label for="lc-d">Days this season</label><input id="lc-d" type="number" min="1" max="120" value="45"></div>
+    <div class="field"><label for="lc-r">Electricity per kWh</label><input id="lc-r" type="number" min="0.05" step="0.01" value="0.17"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="lc-out">&#8211;</span><span class="result-unit">electricity for the season</span></div>
+  <div class="stats">
+    <div class="stat"><b id="lc-s1">&#8211;</b><span>per day lit</span></div>
+    <div class="stat"><b id="lc-s2">&#8211;</b><span>LED swap would save</span></div>
+    <div class="stat"><b id="lc-s3">&#8211;</b><span>watts when all lit</span></div>
+  </div>
+  <div class="tool-note" id="lc-note"></div>
+  <button type="button" class="tool-btn" id="lc-share">Share my light bill</button>
+</div>
+<script>(function(){
+var N=document.getElementById('lc-n'),T=document.getElementById('lc-t'),H=document.getElementById('lc-h'),D=document.getElementById('lc-d'),R=document.getElementById('lc-r');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function calc(){
+  var n=Math.max(1,Math.round(num(N))),w=num(T),h=num(H),d=num(D),r=num(R);
+  var kwh=n*w*h*d/1000, cost=kwh*r;
+  var ledW=(w>100)?25:5, ledKwh=n*ledW*h*d/1000, save=Math.max(0,(kwh-ledKwh))*r;
+  var d1=Math.round(cost*100)/100, d2=Math.round(cost/d*100)/100, d3=Math.round(save*100)/100;
+  document.getElementById('lc-out').textContent='$'+d1;
+  document.getElementById('lc-s1').textContent='$'+d2;
+  document.getElementById('lc-s2').textContent='$'+d3;
+  document.getElementById('lc-s3').textContent=(n*w)+' W';
+  var msg='That is the whole season of light for the price of one fancy coffee - or not, if you are running old C9 incandescents, which pull as much as a refrigerator per string. The LED swap pays for itself in one to two seasons at six hours a night, and the bulbs stop burning out mid-December. ';
+  if(w>100){msg+='Two hard rules for the big old bulbs: three strings maximum end-to-end on one plug, and check the fuse in the plug every time a whole string goes dark at once. ';}
+  else{msg+='LED strings can run longer runs end-to-end because they barely warm up - but read the box, the limit is printed on it. ';}
+  msg+='The timer plug costs ten dollars and answers the question nobody wants to climb the ladder to ask.';
+  document.getElementById('lc-note').textContent=msg;
+  document.title='Holiday lights: $'+d1+' this season - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_lightcost',JSON.stringify({n:N.value,t:T.value,h:H.value,d:D.value,r:R.value}));}catch(e){}}
+[N,T,H,D,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('n')){N.value=qs.get('n');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_lightcost')||'null');if(m){if(m.n){N.value=m.n;}if(m.t){T.value=m.t;}if(m.h){H.value=m.h;}if(m.d){D.value=m.d;}if(m.r){R.value=m.r;}}}catch(e){}}
+calc();
+document.getElementById('lc-share').addEventListener('click',function(){
+  var txt='My holiday lights cost $'+document.getElementById('lc-out').textContent+' in electricity this season. Price yours:';
+  var url=location.origin+location.pathname+'?n='+encodeURIComponent(N.value);
+  if(navigator.share){navigator.share({title:'Holiday lights cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my light bill';},1500);}
+});
+})();
+</script>
+"""
+
+FURNFILTER = """<div class="tool" id="tt-ff">
+  <div class="fields">
+    <div class="field"><label for="ff-s">Filter size on the frame (e.g. 16x25x1)</label><input id="ff-s" type="text" value="16x25x1" autocomplete="off"></div>
+    <div class="field"><label for="ff-f">Change every</label><select id="ff-f"><option value="30">30 days - peak season</option><option value="60" selected>60 days</option><option value="90">90 days - light use</option></select></div>
+    <div class="field"><label for="ff-c">Cost per filter</label><input id="ff-c" type="number" min="1" step="0.5" value="12"></div>
+    <div class="field"><label for="ff-m">MERV rating</label><select id="ff-m"><option value="8" selected>MERV 8 - standard</option><option value="11">MERV 11 - pets, allergies</option><option value="13">MERV 13 - maximum</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ff-out">&#8211;</span><span class="result-unit">filter cost per year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ff-s1">&#8211;</b><span>filters a year</span></div>
+    <div class="stat"><b id="ff-s2">&#8211;</b><span>next change</span></div>
+    <div class="stat"><b id="ff-s3">&#8211;</b><span>airflow honesty</span></div>
+  </div>
+  <div class="tool-note" id="ff-note"></div>
+  <button type="button" class="tool-btn" id="ff-share">Share my filter plan</button>
+</div>
+<script>(function(){
+var S=document.getElementById('ff-s'),FQ=document.getElementById('ff-f'),C=document.getElementById('ff-c'),M=document.getElementById('ff-m');
+function calc(){
+  var parts=S.value.toLowerCase().split(/[^0-9.]+/).filter(Boolean);
+  var dims=parts.length>=3?(parts[0]+' x '+parts[1]+' x '+parts[2]):S.value;
+  var freq=parseInt(FQ.value,10)||60,cost=parseFloat(C.value)||12,merv=parseInt(M.value,10)||8;
+  var perYear=365/freq, total=perYear*cost;
+  var next=new Date(Date.now()+freq*86400000);
+  var names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var d1=Math.round(total*10)/10, d2=Math.round(perYear*10)/10;
+  var airflow=merv===13?'drag rises - system pays':(merv===11?'mild drag':'free flowing');
+  document.getElementById('ff-out').textContent='$'+d1;
+  document.getElementById('ff-s1').textContent=d2;
+  document.getElementById('ff-s2').textContent=names[next.getMonth()]+' '+next.getDate();
+  document.getElementById('ff-s3').textContent=airflow;
+  document.getElementById('ff-note').textContent='Size '+dims+' is the nominal print - the actual frame runs about a half inch smaller on each side, so buy by the nominal number and let the frame compress its cardboard edge. MERV honesty: 8 handles dust for most homes, 11 earns its price with pets or allergies, but 13 fights the blower unless your system is rated for it - the aisle sells filtration fear, and the bill arrives as longer runtimes. The schedule is a floor, not a law: hold a filter up to a lamp, and if no light comes through, change it today regardless of the calendar.';
+  document.title='Filters: $'+d1+'/year, next '+names[next.getMonth()]+' '+next.getDate()+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_furnfilter',JSON.stringify({s:S.value,f:FQ.value,c:C.value,m:M.value}));}catch(e){}}
+[S,C].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+[FQ,M].forEach(function(el){el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('f')){FQ.value=qs.get('f');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_furnfilter')||'null');if(m){if(m.s){S.value=m.s;}if(m.f){FQ.value=m.f;}if(m.c){C.value=m.c;}if(m.m){M.value=m.m;}}}catch(e){}}
+calc();
+document.getElementById('ff-share').addEventListener('click',function(){
+  var txt='My furnace filters run $'+document.getElementById('ff-out').textContent+' a year at MERV '+M.value+'. Plan yours:';
+  var url=location.origin+location.pathname+'?f='+encodeURIComponent(FQ.value);
+  if(navigator.share){navigator.share({title:'Furnace filter plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my filter plan';},1500);}
+});
+})();
+</script>
+"""
+
+HUMIDSIZE = """<div class="tool" id="tt-hs">
+  <div class="fields">
+    <div class="field"><label for="hs-a">Room area (sq ft)</label><input id="hs-a" type="number" min="50" max="5000" value="300"></div>
+    <div class="field"><label for="hs-h">Ceiling height (ft)</label><input id="hs-h" type="number" min="7" max="14" step="0.5" value="8"></div>
+    <div class="field"><label for="hs-t">How leaky is the room</label><select id="hs-t"><option value="1.3">Leaky - old windows</option><option value="1" selected>Normal</option><option value="0.75">Tight - newer build</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hs-out">&#8211;</span><span class="result-unit">gallons per day needed</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hs-s1">&#8211;</b><span>tank size to shop for</span></div>
+    <div class="stat"><b id="hs-s2">&#8211;</b><span>electricity per winter</span></div>
+    <div class="stat"><b id="hs-s3">&#8211;</b><span>refill times per day</span></div>
+  </div>
+  <div class="tool-note" id="hs-note"></div>
+  <button type="button" class="tool-btn" id="hs-share">Share my humidifier size</button>
+</div>
+<script>(function(){
+var A=document.getElementById('hs-a'),H=document.getElementById('hs-h'),T=document.getElementById('hs-t');
+function calc(){
+  var a=parseFloat(A.value)||300,h=parseFloat(H.value)||8,tk=parseFloat(T.value)||1;
+  var gpd=a*0.0033*(h/8)*tk;
+  var cls=gpd<=1.1?'1 gallon':(gpd<=1.6?'1.5 gallon':(gpd<=2.2?'2 gallon':'3 gallon plus'));
+  var season=120*0.03*12*0.17;
+  var refills=gpd/1;
+  var d1=Math.round(gpd*100)/100, d2=Math.round(season*10)/10, d3=Math.round(refills*10)/10;
+  document.getElementById('hs-out').textContent=d1;
+  document.getElementById('hs-s1').textContent=cls;
+  document.getElementById('hs-s2').textContent='$'+d2;
+  document.getElementById('hs-s3').textContent='about '+d3;
+  document.getElementById('hs-note').textContent='The rating on the box assumes a sealed room at 8-foot ceilings for the full rating period - real rooms leak, which is why the multiplier matters more than the marketing. Two honesty notes from the aisle: ultrasonic units spray fine mineral dust on everything unless you run distilled water, and the target in winter is 30-40 percent humidity, because past that the windows sweat and the window frames grow things. A built-in humidistat beats a timer - it stops when the room is done instead of when the clock says so.';
+  document.title='Humidifier: '+cls+' for '+Math.round(a)+' sq ft - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_humidsize',JSON.stringify({a:A.value,h:H.value,t:T.value}));}catch(e){}}
+[A,H,T].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_humidsize')||'null');if(m){if(m.a){A.value=m.a;}if(m.h){H.value=m.h;}if(m.t){T.value=m.t;}}}catch(e){}}
+calc();
+document.getElementById('hs-share').addEventListener('click',function(){
+  var txt='My room needs a '+document.getElementById('hs-s1').textContent+' humidifier. Size yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'Humidifier sizing',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my humidifier size';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -13548,6 +13701,9 @@ TOOLS = {
     "tiretemp": lambda args: TIRETEMP,
     "antifreezemix": lambda args: ANTIFREEZEMIX,
     "batterycold": lambda args: BATTERYCOLD,
+    "lightcost": lambda args: LIGHTCOST,
+    "furnfilter": lambda args: FURNFILTER,
+    "humidsize": lambda args: HUMIDSIZE,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,

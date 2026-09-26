@@ -38,6 +38,7 @@ TOOL_EMOJI = {
     "hdhp": "🏥", "fsa": "💵", "hsa": "💰",
     "ssclaim": "👴", "thankcost": "🍗", "rothtra": "⚖",
     "tiretemp": "🚗", "antifreezemix": "⛄", "batterycold": "🚨",
+    "lightcost": "💡", "furnfilter": "📏", "humidsize": "💧",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
