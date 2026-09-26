@@ -14125,6 +14125,151 @@ document.getElementById('chm-share').addEventListener('click',function(){
 </script>
 """
 
+DATENIGHT = """<div class="tool" id="tt-dn">
+  <div class="fields">
+    <div class="field"><label for="dn-d">Dinner for two</label><input id="dn-d" type="number" min="0" value="80"></div>
+    <div class="field"><label for="dn-a">Activity or tickets</label><input id="dn-a" type="number" min="0" value="40"></div>
+    <div class="field"><label for="dn-s">Sitter rate per hour</label><input id="dn-s" type="number" min="0" value="20"></div>
+    <div class="field"><label for="dn-h">Sitter hours</label><input id="dn-h" type="number" min="0" max="12" value="3"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dn-out">&#8211;</span><span class="result-unit">per date night</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dn-s1">&#8211;</b><span>monthly at twice a month</span></div>
+    <div class="stat"><b id="dn-s2">&#8211;</b><span>the sitter share</span></div>
+    <div class="stat"><b id="dn-s3">&#8211;</b><span>year cost</span></div>
+  </div>
+  <div class="tool-note" id="dn-note"></div>
+  <button type="button" class="tool-btn" id="dn-share">Share my date math</button>
+</div>
+<script>(function(){
+var D=document.getElementById('dn-d'),A=document.getElementById('dn-a'),S=document.getElementById('dn-s'),H=document.getElementById('dn-h');
+function calc(){
+  var d=parseFloat(D.value)||0,a=parseFloat(A.value)||0,s=parseFloat(S.value)||0,h=parseFloat(H.value)||0;
+  var sitter=s*h, total=d+a+sitter, month=total*2, year=total*24;
+  var d1=Math.round(total*100)/100, d2=Math.round(month), d3=Math.round(year);
+  var share=total>0?Math.round(sitter/total*100):0;
+  document.getElementById('dn-out').textContent='$'+d1;
+  document.getElementById('dn-s1').textContent='$'+d2;
+  document.getElementById('dn-s2').textContent=share+'%';
+  document.getElementById('dn-s3').textContent='$'+d3;
+  document.getElementById('dn-note').textContent='The sitter is the hidden headline: for parents the childcare line dwarfs dinner, which is why the swap circle with trusted friends - you take their Tuesday, they take yours - is the single biggest cost fix in this whole budget. The research note worth the money: novelty beats grandeur - a new cuisine on a random Tuesday does more for a relationship than the annual reservation at the famous place. Budget the dates, keep them frequent, and let the big nights be a bonus instead of the whole story.';
+  document.title='Date night: $'+d1+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_datenight',JSON.stringify({d:D.value,a:A.value,s:S.value,h:H.value}));}catch(e){}}
+[D,A,S,H].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('d')){D.value=qs.get('d');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_datenight')||'null');if(m){if(m.d){D.value=m.d;}if(m.a){A.value=m.a;}if(m.s){S.value=m.s;}if(m.h){H.value=m.h;}}}catch(e){}}
+calc();
+document.getElementById('dn-share').addEventListener('click',function(){
+  var txt='Our date nights run $'+document.getElementById('dn-out').textContent+' - the sitter is '+document.getElementById('dn-s2').textContent+' of it. Price yours:';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
+  if(navigator.share){navigator.share({title:'Date night cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my date math';},1500);}
+});
+})();
+</script>
+"""
+
+SEEDSTART = """<div class="tool" id="tt-ssd">
+  <div class="fields">
+    <div class="field"><label for="ssd-d">Your last frost date</label><input type="date" id="ssd-d"></div>
+    <div class="field"><label for="ssd-v">Crop</label><select id="ssd-v"><option value="9">Peppers - 9 weeks</option><option value="7" selected>Tomatoes - 7 weeks</option><option value="6">Brassicas - 6 weeks</option><option value="5">Zinnias - 5 weeks</option><option value="4">Lettuce - 4 weeks</option><option value="3">Cucumbers - 3 weeks</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ssd-out">&#8211;</span><span class="result-unit">sow seeds indoors</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ssd-s1">&#8211;</b><span>transplant week</span></div>
+    <div class="stat"><b id="ssd-s2">&#8211;</b><span>days from today</span></div>
+    <div class="stat"><b id="ssd-s3">&#8211;</b><span>the hardening-off week</span></div>
+  </div>
+  <div class="tool-note" id="ssd-note"></div>
+  <button type="button" class="tool-btn" id="ssd-share">Share my sow date</button>
+</div>
+<script>(function(){
+var D=document.getElementById('ssd-d'),V=document.getElementById('ssd-v');
+function calc(){
+  var dv=D.value,wk=parseFloat(V.value)||7;
+  if(!dv){document.getElementById('ssd-out').textContent='\u2013';return;}
+  var p=dv.split('-');
+  var frost=new Date(parseInt(p[0],10),parseInt(p[1],10)-1,parseInt(p[2],10));
+  var now=new Date();var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  if(frost.getTime()<today.getTime()){frost=new Date(frost.getFullYear()+1,frost.getMonth(),frost.getDate());}
+  var sow=new Date(frost.getTime()-wk*7*86400000);
+  var tp=new Date(frost.getTime()+7*86400000);
+  var left=Math.round((sow-today)/86400000);
+  var names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('ssd-out').textContent=names[sow.getMonth()]+' '+sow.getDate();
+  document.getElementById('ssd-s1').textContent=names[tp.getMonth()]+' '+tp.getDate();
+  document.getElementById('ssd-s2').textContent=left>0?left:'this week';
+  document.getElementById('ssd-s3').textContent='go gradual';
+  document.getElementById('ssd-note').textContent='The seed packet is the boss - this table is the consensus window, your variety and zone nudge it. Two rules separate thriving starts from leggy disappointments: light beats warmth once sprouted - a sunny window is not enough, a cheap shop light an inch above the seedlings is - and transplant week is earned outdoors, an hour the first day, doubling daily, or the sun burns a month of care in one afternoon. Leggy seedlings are reaching for light you are not giving them, not asking for fertilizer.';
+  document.title='Sow '+names[sow.getMonth()]+' '+sow.getDate()+' indoors - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_seedstart',JSON.stringify({d:D.value,v:V.value}));}catch(e){}}
+[D,V].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('d')){D.value=qs.get('d');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_seedstart')||'null');if(m){if(m.d){D.value=m.d;}if(m.v){V.value=m.v;}}}catch(e){}}
+if(!D.value){var td=new Date();D.value=(td.getMonth()>5?td.getFullYear()+1:td.getFullYear())+'-04-15';}
+calc();
+document.getElementById('ssd-share').addEventListener('click',function(){
+  var txt='Sow '+V.value+' seeds indoors on '+document.getElementById('ssd-out').textContent+'. Plan yours:';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
+  if(navigator.share){navigator.share({title:'Seed starting schedule',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my sow date';},1500);}
+});
+})();
+</script>
+"""
+
+BEDSOIL = """<div class="tool" id="tt-bs">
+  <div class="fields">
+    <div class="field"><label for="bs-l">Bed length (ft)</label><input id="bs-l" type="number" min="1" max="100" step="0.5" value="8"></div>
+    <div class="field"><label for="bs-w">Bed width (ft)</label><input id="bs-w" type="number" min="0.5" max="50" step="0.5" value="4"></div>
+    <div class="field"><label for="bs-d">Soil depth (inches)</label><select id="bs-d"><option value="6">6 in - herbs, lettuce</option><option value="12" selected>12 in - tomatoes, roots</option><option value="18">18 in - deep beds</option></select></div>
+    <div class="field"><label for="bs-p">Price per 1.5 cu ft bag</label><input id="bs-p" type="number" min="1" step="0.5" value="6"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bs-out">&#8211;</span><span class="result-unit">cubic feet of soil</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bs-s1">&#8211;</b><span>1.5 cu ft bags</span></div>
+    <div class="stat"><b id="bs-s2">&#8211;</b><span>soil cost</span></div>
+    <div class="stat"><b id="bs-s3">&#8211;</b><span>established bed top-up</span></div>
+  </div>
+  <div class="tool-note" id="bs-note"></div>
+  <button type="button" class="tool-btn" id="bs-share">Share my soil order</button>
+</div>
+<script>(function(){
+var L=document.getElementById('bs-l'),W=document.getElementById('bs-w'),D2=document.getElementById('bs-d'),P=document.getElementById('bs-p');
+function calc(){
+  var l=parseFloat(L.value)||8,w=parseFloat(W.value)||4,din=parseFloat(D2.value)||12,p=parseFloat(P.value)||6;
+  var cf=l*w*din/12, bags=Math.ceil(cf/1.5), cost=bags*p, topup=Math.ceil(l*w*2/12/1.5);
+  var d1=Math.round(cf*10)/10, d2=Math.round(cost);
+  document.getElementById('bs-out').textContent=d1;
+  document.getElementById('bs-s1').textContent=bags;
+  document.getElementById('bs-s2').textContent='$'+d2;
+  document.getElementById('bs-s3').textContent=topup+' bags';
+  document.getElementById('bs-note').textContent='Volume math for a new bed is length times width times depth - the soil settles maybe ten percent, so round up the last bag. The honest alternatives at volume: landscape yards sell by the cubic yard at a fraction of bagged pricing, and one yard covers about eighteen of these bags - worth the phone call past six bags. For an established bed, skip the reset entirely: a two-inch compost top-up each spring feeds the soil web better than replacement, and the top-up figure in the stats is that number.';
+  document.title='Soil: '+d1+' cu ft ('+bags+' bags) - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_bedsoil',JSON.stringify({l:L.value,w:W.value,d:D2.value,p:P.value}));}catch(e){}}
+[L,W,D2,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('l')){L.value=qs.get('l');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_bedsoil')||'null');if(m){if(m.l){L.value=m.l;}if(m.w){W.value=m.w;}if(m.d){D2.value=m.d;}if(m.p){P.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('bs-share').addEventListener('click',function(){
+  var txt='My bed takes '+document.getElementById('bs-out').textContent+' cubic feet of soil - '+document.getElementById('bs-s1').textContent+' bags. Size yours:';
+  var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value);
+  if(navigator.share){navigator.share({title:'Raised bed soil',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my soil order';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -15295,6 +15440,9 @@ TOOLS = {
     "homeded": lambda args: HOMEDED,
     "setaside": lambda args: SETASIDE,
     "charmile": lambda args: CHARMILE,
+    "datenight": lambda args: DATENIGHT,
+    "seedstart": lambda args: SEEDSTART,
+    "bedsoil": lambda args: BEDSOIL,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,

@@ -50,6 +50,7 @@ TOOL_EMOJI = {
     "slowcook": "🍲", "ptoopt": "📅",
     "minpay": "♾", "mealprep": "🍱", "oiltank": "⛽",
     "homeded": "📎", "setaside": "💼", "charmile": "🚶",
+    "datenight": "💘", "seedstart": "🌱", "bedsoil": "🌾",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
