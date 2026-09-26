@@ -52,6 +52,7 @@ TOOL_EMOJI = {
     "homeded": "📎", "setaside": "💼", "charmile": "🚶",
     "datenight": "💘", "seedstart": "🌱", "bedsoil": "🌾",
     "squares": "🏈", "springbreak": "🌴", "refundplan": "💸",
+    "wedding": "💍",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

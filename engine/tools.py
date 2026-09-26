@@ -14407,6 +14407,52 @@ document.getElementById('rp-share').addEventListener('click',function(){
 </script>
 """
 
+WEDDING = """<div class="tool" id="tt-wd">
+  <div class="fields">
+    <div class="field"><label for="wd-g">Guests</label><input id="wd-g" type="number" min="10" max="500" value="100"></div>
+    <div class="field"><label for="wd-c">Catering per head</label><input id="wd-c" type="number" min="20" value="85"></div>
+    <div class="field"><label for="wd-b">Bar package per head</label><select id="wd-b"><option value="0">Beer and wine only</option><option value="25" selected>Full bar - +25/head</option><option value="45">Premium - +45/head</option></select></div>
+    <div class="field"><label for="wd-f">Venue, photo, attire, flowers - flat total</label><input id="wd-f" type="number" min="0" value="11500"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wd-out">&#8211;</span><span class="result-unit">total with 10% buffer</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wd-s1">&#8211;</b><span>per guest, all in</span></div>
+    <div class="stat"><b id="wd-s2">&#8211;</b><span>each guest adds</span></div>
+    <div class="stat"><b id="wd-s3">&#8211;</b><span>cutting 10 guests saves</span></div>
+  </div>
+  <div class="tool-note" id="wd-note"></div>
+  <button type="button" class="tool-btn" id="wd-share">Share my wedding math</button>
+</div>
+<script>(function(){
+var G=document.getElementById('wd-g'),C=document.getElementById('wd-c'),B=document.getElementById('wd-b'),F=document.getElementById('wd-f');
+function calc(){
+  var g=Math.max(10,Math.round(parseFloat(G.value)||100)),c=parseFloat(C.value)||85,b=parseFloat(B.value)||0,f=parseFloat(F.value)||0;
+  var perHead=c+b, base=g*perHead+f, total=base*1.1;
+  var d1=Math.round(total), d2=Math.round(total/g), d3=Math.round(perHead*1.1*10);
+  document.getElementById('wd-out').textContent='$'+d1;
+  document.getElementById('wd-s1').textContent='$'+d2;
+  document.getElementById('wd-s2').textContent='$'+Math.round(perHead*1.1);
+  document.getElementById('wd-s3').textContent='$'+d3;
+  document.getElementById('wd-note').textContent='The lever is the guest list, full stop: every guest costs their plate plus bar plus the share of everything flat, and cutting ten people saves more than any negotiation with a vendor. The buffer line is not padding - it is the day-of costs every wedding forgets: overtime hours, the extra table, the vendor meal count. Two honest levers beyond the list: off-season Saturdays and any Sunday run a discount tier below peak dates, and the bar package is where polite choices cost five figures - beer and wine with a signature cocktail reads generous and prices like a used car less. The national average lands past thirty thousand, which is a fact to see early, not a target to chase.';
+  document.title='Wedding: $'+d1+' for '+g+' guests - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_wedding',JSON.stringify({g:G.value,c:C.value,b:B.value,f:F.value}));}catch(e){}}
+[G,C,B,F].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('g')){G.value=qs.get('g');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_wedding')||'null');if(m){if(m.g){G.value=m.g;}if(m.c){C.value=m.c;}if(m.b){B.value=m.b;}if(m.f){F.value=m.f;}}}catch(e){}}
+calc();
+document.getElementById('wd-share').addEventListener('click',function(){
+  var txt='Our wedding plan: $'+document.getElementById('wd-out').textContent+' for '+G.value+' guests. Price yours:';
+  var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value);
+  if(navigator.share){navigator.share({title:'Wedding budget',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my wedding math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -15583,6 +15629,7 @@ TOOLS = {
     "squares": lambda args: SQUARES,
     "springbreak": lambda args: SPRINGBREAK,
     "refundplan": lambda args: REFUNDPLAN,
+    "wedding": lambda args: WEDDING,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
