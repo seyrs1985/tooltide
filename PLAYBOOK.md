@@ -27,6 +27,7 @@
 - 渲染器 JS 写完**必跑 check_site**(R93 LOREM `\n` 转义、R99 jetlag 三元优先级、R100 meattime 闭包变量三次实证);build 后 grep 抽查新页文案防草稿残留混入。
 - **渲染器 JS 禁用 `\uXXXX` 转义写 emoji(R120 实证)**:tools.py 是 Python 源码,字符串里的 `\uD83C` 会在 Python 编译期解析成孤立代理对,炸 build 的 UTF-8 写盘(UnicodeEncodeError: surrogates not allowed,check_site 与 ast 都拦不住)——直接写真实 emoji 字符,tools.py 是 UTF-8;HTML 占位符用 `&#x...;` 实体。
 - 注入脚本三引号模板同理(R121):`\'` 的反斜杠会被 Python 吃掉,JS 拿到裸撇号炸语法(check_site 按设计拦截)——含撇号的 SEO 文案一律走 repr 生成的 pages.py 区,JS 字符串内避免撇号或改措辞;R120 禁 u 转义规则 R121 全程验证有效。**脚本自身的文档字符串/注释里字面反斜杠u 同罪**(R125 SyntaxError 实证),注释措辞写"反斜杠u"即可。
+- 可复用审计资产的质量即流水线质量(R136 实证 v1 三缺陷:绝对内链接网未验/JS拼接过滤只记STATUS没落码/sitemap名单过期):已知缺陷当轮修进代码,STATUS 记录不算落地;资产每次复用先核对输出口径与当轮实际是否匹配再采信结果。
 - i18n 管线:_i18n_tables.json 补键(9 译文语言 zh/es/pt/ru/ja/ko/de/fr/id 全有;en 基准靠代码 fallback,以 i18n_audit.py 通过为准)→`python engine/_gen_i18n.py`→i18n_audit.py;**i18n.js 是生成物绝不手编**;脚本批量接线后必须 curl 直连抽查渲染结果(i18n R17 教训:属性错位成合法但可见的垃圾串,check_site 与审计都拦不住)。
 - **旧页钩子补课用站级兜底,勿逐页改渲染器(R127)**:build.py `TITLE_FALLBACK_JS`(输入后 250ms 取 `.result-num` 写 title,守卫=标题仍等于载入值才接管,专属钩子永不被覆盖)一次补齐 53 缺口页中 36 个;**站点级脚本会让静态钩子审计假阴性**——审计器必须先剥离站级注入片段(签名 `var T0=document.title`)再统计;无 result-num 的文本类页(word-counter/tip 等 17 个)兜底够不着,只能渲染器级补,记 R1。
 - 老页钩子补课的注入锚点必须取渲染器内变量声明组合,通用语句(var lock=false; 等同款出现 5 次)跨渲染器撞车,assert 拦下零事故(R131); 同理,单行 try{...} 后跟独立行 catch(e){...} 的处理块,锚点选 try 行会把配对拆散成语法错(check_site 按设计拦截,R134)——此类锚点必须连 catch 行整体替换;文本页文本记忆上限 2 万字符防 localStorage 膨胀;share 按钮需改 HTML,JS 级补课先给 title/localStorage/URL 三钩子即可达标。
