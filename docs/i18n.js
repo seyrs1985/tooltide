@@ -469,7 +469,15 @@ zh:{
  "ppie.cups":"南瓜泥（杯）",
  "ppie.cans":"15 盎司罐头",
  "ppie.eggssugar":"蛋 + 糖（杯）",
- "share.share-piemath":"分享派计算"
+ "share.share-piemath":"分享派计算",
+ "tip.budget":"节日小费总预算",
+ "tip.weekly":"每周固定服务者（保洁、遛狗员等）",
+ "tip.occasional":"偶发服务者（理发师、临时保姆等）",
+ "tip.perweekly":"每位每周固定服务者",
+ "tip.peroccasional":"每位偶发服务者",
+ "tip.weeklytotal":"每周固定服务者小计",
+ "tip.cardleft":"剩余给卡片致谢对象",
+ "share.share-my-tippingplan":"分享我的小费计划"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -919,7 +927,15 @@ es:{
  "ppie.cups":"tazas de puré",
  "ppie.cans":"latas de 15 oz",
  "ppie.eggssugar":"huevos + azúcar (tazas)",
- "share.share-piemath":"Compartir el cálculo del pastel"
+ "share.share-piemath":"Compartir el cálculo del pastel",
+ "tip.budget":"Presupuesto total de propinas",
+ "tip.weekly":"Habituales semanales (limpiador, paseador de perros...)",
+ "tip.occasional":"Ayudantes ocasionales (peluquero, niñera...)",
+ "tip.perweekly":"por habitual semanal",
+ "tip.peroccasional":"por ayudante ocasional",
+ "tip.weeklytotal":"total a habituales semanales",
+ "tip.cardleft":"resto para las tarjetas",
+ "share.share-my-tippingplan":"Compartir mi plan de propinas"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1369,7 +1385,15 @@ pt:{
  "ppie.cups":"xícaras de purê",
  "ppie.cans":"latas de 425 g",
  "ppie.eggssugar":"ovos + açúcar (xícaras)",
- "share.share-piemath":"Compartir o cálculo da torta"
+ "share.share-piemath":"Compartir o cálculo da torta",
+ "tip.budget":"Orçamento total de gorjetas",
+ "tip.weekly":"Regulares semanais (diarista, passeador...)",
+ "tip.occasional":"Ajudantes ocasionais (cabeleireiro, babá...)",
+ "tip.perweekly":"por regular semanal",
+ "tip.peroccasional":"por ajudante ocasional",
+ "tip.weeklytotal":"total para regulares semanais",
+ "tip.cardleft":"resta para os cartões",
+ "share.share-my-tippingplan":"Compartir meu plano de gorjetas"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1819,7 +1843,15 @@ ru:{
  "ppie.cups":"стаканов пюре",
  "ppie.cans":"банки 425 г",
  "ppie.eggssugar":"яйца + сахар (стаканы)",
- "share.share-piemath":"Поделиться расчётом пирога"
+ "share.share-piemath":"Поделиться расчётом пирога",
+ "tip.budget":"Общий бюджет на чаевые",
+ "tip.weekly":"Постоянные еженедельные (уборщик, выгульщик...)",
+ "tip.occasional":"Разовые помощники (парикмахер, няня...)",
+ "tip.perweekly":"каждому постоянному",
+ "tip.peroccasional":"каждому разовому помощнику",
+ "tip.weeklytotal":"всего постоянным",
+ "tip.cardleft":"осталось на открытки",
+ "share.share-my-tippingplan":"Поделиться моим планом чаевых"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2269,7 +2301,15 @@ ja:{
  "ppie.cups":"カップのピューレ",
  "ppie.cans":"15オンス缶",
  "ppie.eggssugar":"卵+砂糖（カップ）",
- "share.share-piemath":"パイ計算を共有"
+ "share.share-piemath":"パイ計算を共有",
+ "tip.budget":"ホリデーチップ予算の合計",
+ "tip.weekly":"毎週来る人（清掃、ドッグウォーカー等）",
+ "tip.occasional":"たまに来る人（美容師、ベビーシッター等）",
+ "tip.perweekly":"1人あたり（毎週）",
+ "tip.peroccasional":"1人あたり（たまに来る人）",
+ "tip.weeklytotal":"毎週来る人への合計",
+ "tip.cardleft":"カードを贈る人向けに残り",
+ "share.share-my-tippingplan":"自分のチップ計画を共有"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2719,7 +2759,15 @@ ko:{
  "ppie.cups":"퓌레 컵",
  "ppie.cans":"15온스 캔",
  "ppie.eggssugar":"계란 + 설탕 (컵)",
- "share.share-piemath":"파이 계산 공유"
+ "share.share-piemath":"파이 계산 공유",
+ "tip.budget":"연휴 팁 총예산",
+ "tip.weekly":"주간 정기 서비스 (청소부, 산책도우미 등)",
+ "tip.occasional":"가끔 이용하는 서비스 (미용사, 베이비시터 등)",
+ "tip.perweekly":"주간 정기 1인당",
+ "tip.peroccasional":"가끔 이용 1인당",
+ "tip.weeklytotal":"주간 정기 합계",
+ "tip.cardleft":"카드 받을 사람 몫",
+ "share.share-my-tippingplan":"내 팁 계획 공유"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -3169,7 +3217,15 @@ de:{
  "ppie.cups":"Tassen Püree",
  "ppie.cans":"425-g-Dosen",
  "ppie.eggssugar":"Eier + Zucker (Tassen)",
- "share.share-piemath":"Die Kuchenrechnung teilen"
+ "share.share-piemath":"Die Kuchenrechnung teilen",
+ "tip.budget":"Gesamtes Trinkgeldbudget",
+ "tip.weekly":"Wöchentliche Stammkräfte (Reinigungskraft, Gassi-Service...)",
+ "tip.occasional":"Gelegentliche Helfer (Friseur, Babysitter...)",
+ "tip.perweekly":"pro Stammkraft",
+ "tip.peroccasional":"pro gelegentlichen Helfer",
+ "tip.weeklytotal":"Total an Stammkräfte",
+ "tip.cardleft":"Rest für Karten",
+ "share.share-my-tippingplan":"Mein Trinkgeldplan teilen"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3619,7 +3675,15 @@ fr:{
  "ppie.cups":"tasses de purée",
  "ppie.cans":"boîtes de 425 g",
  "ppie.eggssugar":"œufs + sucre (tasses)",
- "share.share-piemath":"Partager le calcul de la tarte"
+ "share.share-piemath":"Partager le calcul de la tarte",
+ "tip.budget":"Budget total de pourboires",
+ "tip.weekly":"Habituales semanales (limpiador, paseador...)",
+ "tip.occasional":"Aides occasionnels (coiffeur, baby-sitter...)",
+ "tip.perweekly":"par habituel",
+ "tip.peroccasional":"par aide occasionnel",
+ "tip.weeklytotal":"total aux habituels",
+ "tip.cardleft":"reste pour les cartes",
+ "share.share-my-tippingplan":"Partager mon plan de pourboires"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -4069,7 +4133,15 @@ id:{
  "ppie.cups":"cangkir pure",
  "ppie.cans":"kaleng 15 ons",
  "ppie.eggssugar":"telur + gula (cangkir)",
- "share.share-piemath":"Bagikan hitungan pai"
+ "share.share-piemath":"Bagikan hitungan pai",
+ "tip.budget":"Total anggaran tip liburan",
+ "tip.weekly":"Langganan mingguan (cleaning service, dog walker dll.)",
+ "tip.occasional":"Pembantu sesekali (penata rambut, babysitter dll.)",
+ "tip.perweekly":"per langganan mingguan",
+ "tip.peroccasional":"per pembantu sesekali",
+ "tip.weeklytotal":"total untuk langganan mingguan",
+ "tip.cardleft":"sisa untuk penerima kartu",
+ "share.share-my-tippingplan":"Bagikan rencana tip saya"
 }
 };
 function detect(){
