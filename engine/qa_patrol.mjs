@@ -6,12 +6,22 @@
  */
 import { spawn } from "node:child_process";
 import { existsSync, appendFileSync } from "node:fs";
+import { TESTS as EXPECTS, verify } from "./qa_expectations.mjs";
 
 const args = process.argv.slice(2);
 const argOf = (n, d) => { const i = args.indexOf(n); return i >= 0 && args[i + 1] ? args[i + 1] : d; };
 const BASE = argOf("--base", "https://tooldune.com/");
 const slugs = (argOf("--slugs", "") || "").split(",").map(s => s.trim()).filter(Boolean);
+const strictAll = args.includes("--strict"); // run expectation asserts whenever batch hits a known rule
 if (!slugs.length) { console.error("no slugs"); process.exit(2); }
+
+const STRICT_DRV = (expr) => `(function(){
+  const $=id=>document.getElementById(id);
+  const set=(id,v)=>{const el=$(id);if(!el)return 'MISSING:'+id;el.value=v;
+    el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));return null;};
+  const get=id=>{const el=$(id);return el?el.textContent:'MISSING:'+id;};
+  try{${expr}}catch(e){return 'ERR:'+e.message}
+})()`;
 
 const browserBin = [
   "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
@@ -82,7 +92,7 @@ const results = [];
 for (const slug of slugs) {
   const url = BASE.replace(/\/?$/, "/") + slug + "/";
   const status = await httpStatus(url);
-  const rec = { time: new Date().toISOString(), slug, status, consoleErrors: [], title: "", overflow: false, hasInput: false, interacted: false, btnOk: false, ok: false };
+  const rec = { time: new Date().toISOString(), slug, status, consoleErrors: [], title: "", overflow: false, hasInput: false, interacted: false, btnOk: false, strict: null, ok: false };
   if (status === 200) {
     consoleErrs.length = 0;
     try {
@@ -91,13 +101,19 @@ for (const slug of slugs) {
       await sleep(900);
       const r = await send("Runtime.evaluate", { expression: PROBE, returnByValue: true });
       Object.assign(rec, JSON.parse(r.result?.value ?? "{}"));
+      const rule = strictAll ? EXPECTS.find(t => t.slug === slug) : null;
+      if (rule) {
+        const sr = await send("Runtime.evaluate", { expression: STRICT_DRV(rule.js), returnByValue: true });
+        rec.strict = verify(rule, sr.result?.value);
+      }
     } catch (e) { rec.consoleErrors.push("PATROL-ERR:" + e.message.slice(0, 200)); }
     rec.consoleErrors = consoleErrs.slice(0, 5);
-    rec.ok = rec.consoleErrors.length === 0 && rec.title && !rec.overflow && rec.interacted !== false && rec.btnOk !== false;
+    rec.ok = rec.consoleErrors.length === 0 && rec.title && !rec.overflow && rec.interacted !== false && rec.btnOk !== false
+      && (!rec.strict || rec.strict.ok);
   }
   results.push(rec);
   appendFileSync(new URL("../data/qa_log.jsonl", import.meta.url), JSON.stringify(rec) + "\n");
-  console.log(`${rec.ok ? "OK " : "BUG"} ${slug} status=${status} errs=${rec.consoleErrors.length} title=${rec.title ? "y" : "N"} overflow=${rec.overflow} interact=${rec.interacted} btn=${rec.btnOk}`);
+  console.log(`${rec.ok ? "OK " : "BUG"} ${slug} status=${status} errs=${rec.consoleErrors.length} title=${rec.title ? "y" : "N"} overflow=${rec.overflow} interact=${rec.interacted} btn=${rec.btnOk}${rec.strict ? " strict=" + (rec.strict.ok ? "PASS" : "FAIL:" + rec.strict.why) : ""}`);
 }
 await send("Page.navigate", { url: "about:blank" }).catch(() => {});
 proc.kill();
