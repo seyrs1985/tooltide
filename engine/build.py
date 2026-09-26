@@ -33,6 +33,7 @@ TOOL_EMOJI = {
     "dstsleep": "⏰",
     "coolice": "🍹", "tailgatefood": "🍖",
     "frostplan": "❄", "bulbspace": "🌷", "cactusbloom": "🌵",
+    "heatcost": "♨", "gensize": "⚡", "outagefood": "🍔",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

@@ -11579,6 +11579,153 @@ document.getElementById('cb-share').addEventListener('click',function(){
 </script>
 """
 
+HEATCOST = """<div class="tool" id="tt-sh">
+  <div class="fields">
+    <div class="field"><label for="sh-w">Heater wattage</label><select id="sh-w"><option value="750">750 W - low</option><option value="1500" selected>1500 W - standard</option><option value="2000">2000 W - large</option></select></div>
+    <div class="field"><label for="sh-h">Hours per day</label><input type="number" id="sh-h" min="0.5" max="24" step="0.5" placeholder="8"></div>
+    <div class="field"><label for="sh-r">Your price per kWh</label><input type="number" id="sh-r" min="0.03" max="1" step="0.01" placeholder="0.17"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sh-out">&#8211;</span><span class="result-unit">per day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sh-s1">&#8211;</b><span>per 30-day month</span></div>
+    <div class="stat"><b id="sh-s2">&#8211;</b><span>kWh burned per day</span></div>
+    <div class="stat"><b id="sh-s3">&#8211;</b><span>per hour of running</span></div>
+  </div>
+  <div class="tool-note" id="sh-note"></div>
+  <button type="button" class="tool-btn" id="sh-share">Share my heater cost</button>
+</div>
+<script>(function(){
+var W=document.getElementById('sh-w'),HR=document.getElementById('sh-h'),R=document.getElementById('sh-r');
+function calc(){
+  var w=parseFloat(W.value)||1500,h=parseFloat(HR.value)||0,r=parseFloat(R.value)||0.17;
+  if(h<0.5){h=0.5;}if(r<0.03){r=0.03;}
+  var kwh=w/1000*h;
+  var day=kwh*r;
+  document.getElementById('sh-out').textContent='$'+day.toFixed(2);
+  document.getElementById('sh-s1').textContent='$'+(day*30).toFixed(0);
+  document.getElementById('sh-s2').textContent=kwh.toFixed(1);
+  document.getElementById('sh-s3').textContent='$'+(w/1000*r).toFixed(2);
+  document.getElementById('sh-note').textContent='The arithmetic: watts divided by 1000 times hours is kWh, times your tariff is money - a standard 1500 W heater burns 1.5 kWh every hour it runs. The uncomfortable truth is that electric resistance heat is the most expensive kind, so the trick is heating the person and the room, not the house: close the door, run it where you sit, and let the thermostat keep the rest of the home cooler. Safety is not optional: three feet of clearance, never an extension cord or power strip, and buy one with a tip-over switch - space heaters lead the home-fire list every winter.';
+  document.title='$'+day.toFixed(2)+' a day to run - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_heatcost',JSON.stringify({w:W.value,h:HR.value,r:R.value}));}catch(e){}}
+W.addEventListener('change',function(){calc();save();});HR.addEventListener('input',function(){calc();save();});R.addEventListener('input',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(qs.get('h')){HR.value=qs.get('h');pre=true;}
+if(qs.get('r')){R.value=qs.get('r');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_heatcost')||'null');if(m){if(m.w){W.value=m.w;}if(m.h){HR.value=m.h;}if(m.r){R.value=m.r;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('sh-share').addEventListener('click',function(){
+  var txt='Running the space heater '+HR.value+' hours a day costs $'+document.getElementById('sh-out').textContent.replace('$','')+'/day - see yours:';
+  var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value)+'&h='+encodeURIComponent(HR.value)+'&r='+encodeURIComponent(R.value);
+  if(navigator.share){navigator.share({title:'Space heater running cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my heater cost';},1500);}
+});
+})();
+</script>
+"""
+
+GENSIZE = """<div class="tool" id="tt-gs">
+  <div class="fields">
+    <div class="field"><label for="gs-r">Running watts you need</label><input type="number" id="gs-r" min="100" max="20000" step="100" placeholder="1200"></div>
+    <div class="field"><label for="gs-m">Biggest motor load</label><select id="gs-m"><option value="0">None - lights and electronics only</option><option value="1200" selected>Refrigerator</option><option value="1300">Sump pump</option><option value="1000">Furnace fan</option><option value="2000">Well pump</option><option value="3000">Window AC</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gs-out">&#8211;</span><span class="result-unit">generator size</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gs-s1">&#8211;</b><span>starting surge added</span></div>
+    <div class="stat"><b id="gs-s2">&#8211;</b><span>with 25 percent headroom</span></div>
+    <div class="stat"><b id="gs-s3">&#8211;</b><span>running watts entered</span></div>
+  </div>
+  <div class="tool-note" id="gs-note"></div>
+  <button type="button" class="tool-btn" id="gs-share">Share my size</button>
+</div>
+<script>(function(){
+var R=document.getElementById('gs-r'),M=document.getElementById('gs-m');
+function calc(){
+  var r=parseFloat(R.value)||0,m=parseFloat(M.value)||0;
+  if(r<100){r=100;}
+  var total=r+m;
+  var rec=Math.ceil(total/500)*500;
+  document.getElementById('gs-out').textContent=rec+' W';
+  document.getElementById('gs-s1').textContent=m+' W';
+  document.getElementById('gs-s2').textContent=(Math.ceil(rec*1.25/500)*500)+' W';
+  document.getElementById('gs-s3').textContent=r+' W';
+  document.getElementById('gs-note').textContent='Motors do not start politely: a fridge rated at 200 running watts can ask for three times that for a second, which is why the surge line exists and why undersized generators groan and stall. Size for running watts plus the single biggest motor, then buy the headroom figure if the budget allows - engines last longer at 80 percent load. Two rules outrank every watt: run it outdoors at least 20 feet from windows because the exhaust kills quietly, and connect through a transfer switch or outdoor-rated cords - never backfeed the wall socket, which can injure the line worker restoring your street.';
+  document.title='A '+rec+' W generator - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_gensize',JSON.stringify({r:R.value,m:M.value}));}catch(e){}}
+R.addEventListener('input',function(){calc();save();});M.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('r')){R.value=qs.get('r');pre=true;}
+if(qs.get('m')){M.value=qs.get('m');pre=true;}
+if(!pre){try{var mm=JSON.parse(localStorage.getItem('tt_gensize')||'null');if(mm){if(mm.r){R.value=mm.r;}if(mm.m){M.value=mm.m;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('gs-share').addEventListener('click',function(){
+  var txt='I need a '+document.getElementById('gs-out').textContent+' generator for the essentials. Size yours:';
+  var url=location.origin+location.pathname+'?r='+encodeURIComponent(R.value)+'&m='+encodeURIComponent(M.value);
+  if(navigator.share){navigator.share({title:'Generator sizing',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my size';},1500);}
+});
+})();
+</script>
+"""
+
+OUTAGEFOOD = """<div class="tool" id="tt-po">
+  <div class="fields">
+    <div class="field"><label for="po-h">Power out for (hours)</label><input type="number" id="po-h" min="0.5" max="240" step="0.5" placeholder="6"></div>
+    <div class="field"><label for="po-f">Freezer was</label><select id="po-f"><option value="full" selected>Full - 48 h keeps</option><option value="half">Half full - 24 h keeps</option></select></div>
+    <div class="field"><label for="po-o">Fridge door stayed</label><select id="po-o"><option value="closed" selected>Closed</option><option value="opened">Opened</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="po-out">&#8211;</span><span class="result-unit">verdict</span></div>
+  <div class="stats">
+    <div class="stat"><b id="po-s1">&#8211;</b><span>fridge holds</span></div>
+    <div class="stat"><b id="po-s2">&#8211;</b><span>freezer holds</span></div>
+    <div class="stat"><b id="po-s3">&#8211;</b><span>margin remaining</span></div>
+  </div>
+  <div class="tool-note" id="po-note"></div>
+  <button type="button" class="tool-btn" id="po-share">Share the verdict</button>
+</div>
+<script>(function(){
+var HR=document.getElementById('po-h'),F=document.getElementById('po-f'),OP=document.getElementById('po-o');
+function calc(){
+  var h=parseFloat(HR.value)||0,f=F.value,o=OP.value;
+  var fl=(f==='full')?48:24;
+  var fridgeOk=h<4&&o==='closed';
+  var freeOk=h<fl;
+  var margin=Math.max(0,Math.round(Math.min(4,fl)-h));
+  var v;
+  if(fridgeOk&&freeOk){v='Keep it all';}
+  else if(freeOk){v='Fridge: toss perishables';}
+  else{v='Toss thawed food';}
+  document.getElementById('po-out').textContent=v;
+  document.getElementById('po-s1').textContent='4 h';
+  document.getElementById('po-s2').textContent=fl+' h';
+  document.getElementById('po-s3').textContent=margin+' h';
+  document.getElementById('po-note').textContent='The federal lines: an unopened fridge keeps food safe about 4 hours, a full freezer 48, a half freezer 24 - a freezer packed with jugs of water is cheap insurance. After the limit, refrigerated perishables - meat, dairy, leftovers, cut fruit - go to the bin, no sniff test, because the bacteria that matter leave no smell. Thawed food still holding ice crystals can be refrozen safely; anything slimy, warm or ballooning the packaging cannot. When in doubt, throw it out - the groceries are cheaper than the hospital.';
+  document.title='Power out '+h+' h: '+v+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_outagefood',JSON.stringify({h:HR.value,f:F.value,o:OP.value}));}catch(e){}}
+HR.addEventListener('input',function(){calc();save();});F.addEventListener('change',function(){calc();save();});OP.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('h')){HR.value=qs.get('h');pre=true;}
+if(qs.get('f')){F.value=qs.get('f');pre=true;}
+if(qs.get('o')){OP.value=qs.get('o');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_outagefood')||'null');if(m){if(m.h){HR.value=m.h;}if(m.f){F.value=m.f;}if(m.o){OP.value=m.o;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('po-share').addEventListener('click',function(){
+  var txt='Power was out '+HR.value+' hours - verdict: '+document.getElementById('po-out').textContent+'. Check yours:';
+  var url=location.origin+location.pathname+'?h='+encodeURIComponent(HR.value)+'&f='+encodeURIComponent(F.value)+'&o='+encodeURIComponent(OP.value);
+  if(navigator.share){navigator.share({title:'Power outage food check',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the verdict';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -12673,6 +12820,9 @@ TOOLS = {
     "frostplan": lambda args: FROSTPLAN,
     "bulbspace": lambda args: BULBSPACE,
     "cactusbloom": lambda args: CACTUSBLOOM,
+    "heatcost": lambda args: HEATCOST,
+    "gensize": lambda args: GENSIZE,
+    "outagefood": lambda args: OUTAGEFOOD,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
