@@ -505,7 +505,16 @@ zh:{
  "pt.vsnaive":"对比单块 naive 方案",
  "pt.weekendsharv":"免费收获的周末",
  "pt.wedtrick":"周三技巧",
- "share.share-my-ptomath":"分享我的假期计算"
+ "share.share-my-ptomath":"分享我的假期计算",
+ "deck.area":"露台地板面积（平方英尺）",
+ "deck.railing":"栏杆线性英尺",
+ "deck.coats":"涂刷层数",
+ "deck.price":"每加仑价格（$）",
+ "deck.gallons":"所需着色剂加仑数",
+ "deck.totalcost":"总费用",
+ "deck.brushing":"刷涂小时数",
+ "deck.redocycle":"重涂周期",
+ "share.share-my-stainmath":"分享我的着色计算"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -991,7 +1000,16 @@ es:{
  "pt.vsnaive":"vs un bloque ingenuo",
  "pt.weekendsharv":"fines de semana gratis",
  "pt.wedtrick":"el truco del miércoles",
- "share.share-my-ptomath":"Compartir mi cálculo de PTO"
+ "share.share-my-ptomath":"Compartir mi cálculo de PTO",
+ "deck.area":"Área del piso (pies cuadrados)",
+ "deck.railing":"Pies lineales de barandilla",
+ "deck.coats":"Capas",
+ "deck.price":"Precio por galón ($)",
+ "deck.gallons":"galones de tinta",
+ "deck.totalcost":"Coste total",
+ "deck.brushing":"Horas de brocha",
+ "deck.redocycle":"Ciclo de renovación",
+ "share.share-my-stainmath":"Compartir mi cálculo de tinta"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1477,7 +1495,16 @@ pt:{
  "pt.vsnaive":"vs um bloco ingênuo",
  "pt.weekendsharv":"fins de semana grátis",
  "pt.wedtrick":"o truque de quarta",
- "share.share-my-ptomath":"Compartir meu cálculo de PTO"
+ "share.share-my-ptomath":"Compartir meu cálculo de PTO",
+ "deck.area":"Área do piso (pés quadrados)",
+ "deck.railing":"Metros lineares de corrimão",
+ "deck.coats":"Demãos",
+ "deck.price":"Preço por galão ($)",
+ "deck.gallons":"galões de mancha",
+ "deck.totalcost":"Custo total",
+ "deck.brushing":"Horas de pincel",
+ "deck.redocycle":"Ciclo de renovação",
+ "share.share-my-stainmath":"Compartir meu cálculo de mancha"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1963,7 +1990,16 @@ ru:{
  "pt.vsnaive":"vs один наивный блок",
  "pt.weekendsharv":"бесплатные выходные",
  "pt.wedtrick":"трюк со средой",
- "share.share-my-ptomath":"Поделиться моим расчётом отпуска"
+ "share.share-my-ptomath":"Поделиться моим расчётом отпуска",
+ "deck.area":"Площадь пола (кв. футов)",
+ "deck.railing":"Погонные футы перил",
+ "deck.coats":"Слои",
+ "deck.price":"Цена за галлон ($)",
+ "deck.gallons":"галлонов морилки",
+ "deck.totalcost":"Общая стоимость",
+ "deck.brushing":"Часов покраски",
+ "deck.redocycle":"Цикл обновления",
+ "share.share-my-stainmath":"Поделиться моим расчётом морилки"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2449,7 +2485,16 @@ ja:{
  "pt.vsnaive":"単純な1ブロック比較",
  "pt.weekendsharv":"ただで手に入る週末",
  "pt.wedtrick":"水曜日のテクニック",
- "share.share-my-ptomath":"自分のPTO計算を共有"
+ "share.share-my-ptomath":"自分のPTO計算を共有",
+ "deck.area":"デッキ面積（平方フィート）",
+ "deck.railing":"手すりのフィート数",
+ "deck.coats":"塗り回数",
+ "deck.price":"1ガロンの価格（$）",
+ "deck.gallons":"必要なステインのガロン数",
+ "deck.totalcost":"合計コスト",
+ "deck.brushing":"刷塗時間",
+ "deck.redocycle":"塗り直しサイクル",
+ "share.share-my-stainmath":"自分のステイン計算を共有"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2935,7 +2980,16 @@ ko:{
  "pt.vsnaive":"단순 한 블록 비교",
  "pt.weekendsharv":"공짜로 얻는 주말",
  "pt.wedtrick":"수요일 트릭",
- "share.share-my-ptomath":"내 PTO 계산 공유"
+ "share.share-my-ptomath":"내 PTO 계산 공유",
+ "deck.area":"데크 바닥 면적 (제곱피트)",
+ "deck.railing":"난간 선형 피트",
+ "deck.coats":"도장 횟수",
+ "deck.price":"갤런당 가격 ($)",
+ "deck.gallons":"필요한 스테인 갤런",
+ "deck.totalcost":"총 비용",
+ "deck.brushing":"브러싱 시간",
+ "deck.redocycle":"재도장 주기",
+ "share.share-my-stainmath":"내 스테인 계산 공유"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -3421,7 +3475,16 @@ de:{
  "pt.vsnaive":"vs ein naiver Block",
  "pt.weekendsharv":"geschenkte Wochenenden",
  "pt.wedtrick":"Der Mittwoch-Trick",
- "share.share-my-ptomath":"Meine PTO-Rechnung teilen"
+ "share.share-my-ptomath":"Meine PTO-Rechnung teilen",
+ "deck.area":"Fläche des Bodens (Quadratfuß)",
+ "deck.railing":"Laufmeter Geländer",
+ "deck.coats":"Anstriche",
+ "deck.price":"Preis pro Gallone ($)",
+ "deck.gallons":"Gallonen Lasur",
+ "deck.totalcost":"Gesamtkosten",
+ "deck.brushing":"Streichstunden",
+ "deck.redocycle":"Erneuerungszyklus",
+ "share.share-my-stainmath":"Meine Lasur-Rechnung teilen"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3907,7 +3970,16 @@ fr:{
  "pt.vsnaive":"vs un bloc naïf",
  "pt.weekendsharv":"week-ends offerts",
  "pt.wedtrick":"l astuce du mercredi",
- "share.share-my-ptomath":"Partager mon calcul de congés"
+ "share.share-my-ptomath":"Partager mon calcul de congés",
+ "deck.area":"Surface du plancher (pieds carrés)",
+ "deck.railing":"pieds linéaires de rambarde",
+ "deck.coats":"Couches",
+ "deck.price":"Prix par gallon ($)",
+ "deck.gallons":"gallons de teinture",
+ "deck.totalcost":"Coût total",
+ "deck.brushing":"heures de brossage",
+ "deck.redocycle":"Cycle de réfection",
+ "share.share-my-stainmath":"Partager mon calcul de teinture"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -4393,7 +4465,16 @@ id:{
  "pt.vsnaive":"vs satu blok naif",
  "pt.weekendsharv":"akhir pekan gratis",
  "pt.wedtrick":"trik hari Rabu",
- "share.share-my-ptomath":"Bagikan hitungan cuti saya"
+ "share.share-my-ptomath":"Bagikan hitungan cuti saya",
+ "deck.area":"Area lantai (kaki persegi)",
+ "deck.railing":"kaki linear pagar",
+ "deck.coats":"Lapisan",
+ "deck.price":"Harga per galon ($)",
+ "deck.gallons":"galon pernis kayu",
+ "deck.totalcost":"Total biaya",
+ "deck.brushing":"jam mengecat",
+ "deck.redocycle":"Siklus pengecatan ulang",
+ "share.share-my-stainmath":"Bagikan hitungan pewarna saya"
 }
 };
 function detect(){
