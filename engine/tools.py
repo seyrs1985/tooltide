@@ -12911,6 +12911,7 @@ WARRANTY = """<div class="tool" id="tt-wy">
     <div class="stat"><b id="wy-s3">&#8211;</b><span>warranty as % of price</span></div>
   </div>
   <div class="tool-note" id="wy-note"></div>
+  <div class="tool-note"><a href="https://tooldune.com/free-shipping-threshold-calculator/">Free-shipping threshold math</a> is the checkout companion to this.</div>
   <button type="button" class="tool-btn" id="wy-share">Share my warranty math</button>
 </div>
 <script>(function(){
@@ -12959,6 +12960,7 @@ BOGO = """<div class="tool" id="tt-bg">
     <div class="stat"><b id="bg-s3">&#8211;</b><span>vs 30% off everything</span></div>
   </div>
   <div class="tool-note" id="bg-note"></div>
+  <div class="tool-note"><a href="https://tooldune.com/free-shipping-threshold-calculator/">Free-shipping threshold verdict</a> pairs with this at checkout.</div>
   <button type="button" class="tool-btn" id="bg-share">Share my BOGO math</button>
 </div>
 <script>(function(){
