@@ -13599,6 +13599,165 @@ document.getElementById('cp-share').addEventListener('click',function(){
 </script>
 """
 
+GIFTRETURN = """<div class="tool" id="tt-gr">
+  <div class="fields">
+    <div class="field"><label for="gr-d">Purchase (or gift) date</label><input type="date" id="gr-d"></div>
+    <div class="field"><label for="gr-w">Return window</label><select id="gr-w"><option value="14">14 days</option><option value="30" selected>30 days - most stores</option><option value="60">60 days</option><option value="90">90 days - generous</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gr-out">&#8211;</span><span class="result-unit">last day to return</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gr-s1">&#8211;</b><span>days from today</span></div>
+    <div class="stat"><b id="gr-s2">&#8211;</b><span>receipt rule of thumb</span></div>
+    <div class="stat"><b id="gr-s3">&#8211;</b><span>holiday extension</span></div>
+  </div>
+  <div class="tool-note" id="gr-note"></div>
+  <button type="button" class="tool-btn" id="gr-share">Share my return window</button>
+  <button type="button" class="tool-btn" id="gr-ics">Add to calendar (.ics)</button>
+</div>
+<script>(function(){
+var D=document.getElementById('gr-d'),W=document.getElementById('gr-w');
+var lastRet=null;
+function calc(){
+  var dv=D.value,win=parseFloat(W.value)||30;
+  if(!dv){document.getElementById('gr-out').textContent='\u2013';lastRet=null;return;}
+  var day=new Date(dv+'T12:00:00');
+  var ret=new Date(day.getTime()+win*86400000);
+  var now=new Date();var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  var left=Math.round((ret-today)/86400000);
+  var names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var rs=names[ret.getMonth()]+' '+ret.getDate();
+  document.getElementById('gr-out').textContent=rs;
+  document.getElementById('gr-s1').textContent=left;
+  document.getElementById('gr-s2').textContent='no receipt = store credit';
+  document.getElementById('gr-s3').textContent='Dec gifts often run to Jan 31';
+  document.getElementById('gr-note').textContent='Two things trip people up every year. First, the clock starts on the purchase date, not the gift date - a present bought in November on a 30-day window is already expired by Boxing Day, which is why stores quietly extend holiday purchases to the end of January; check the receipt page for the words extended holiday returns. Second, no receipt usually means store credit at the current lower price, not refund. Keep the gift receipt with the box, do not open packaging you might return, and start the return the week after the holiday when the queue is shortest.';
+  document.title='Return by '+rs+' - ToolDune';
+  lastRet=ret;
+}
+function save(){try{localStorage.setItem('tt_giftreturn',JSON.stringify({d:D.value,w:W.value}));}catch(e){}}
+[D,W].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('d')){D.value=qs.get('d');pre=true;}
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_giftreturn')||'null');if(m){if(m.d){D.value=m.d;}if(m.w){W.value=m.w;}}}catch(e){}}
+if(!D.value){var td=new Date();D.value=td.getFullYear()+'-'+('0'+(td.getMonth()+1)).slice(-2)+'-'+('0'+td.getDate()).slice(-2);}
+calc();
+function ymdGR(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('gr-ics').addEventListener('click',function(){
+  if(!lastRet){return;}
+  var end=new Date(lastRet.getTime()+86400000);
+  var NL=String.fromCharCode(13,10);
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN'+NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'@tooldune.com'+NL+'DTSTAMP:'+ymdGR(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymdGR(lastRet)+NL+'DTEND;VALUE=DATE:'+ymdGR(end)+NL+'SUMMARY:Last day to return'+NL+'DESCRIPTION:Bring the receipt and the box. Window by tooldune.com'+NL+'END:VEVENT'+NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='return-deadline.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add to calendar (.ics)';},1500);
+});
+document.getElementById('gr-share').addEventListener('click',function(){
+  var txt='Return by '+document.getElementById('gr-out').textContent+' - set the date free:';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value)+'&w='+encodeURIComponent(W.value);
+  if(navigator.share){navigator.share({title:'Return deadline',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my return window';},1500);}
+});
+})();
+</script>
+"""
+
+ICEMELT = """<div class="tool" id="tt-im">
+  <div class="fields">
+    <div class="field"><label for="im-a">Driveway and walkway area (sq ft)</label><input id="im-a" type="number" min="100" max="10000" value="600"></div>
+    <div class="field"><label for="im-t">Product</label><select id="im-t"><option value="4">Rock salt - 4 lb/1000 sq ft</option><option value="6" selected>Ice melt blend - 6 lb/1000</option><option value="3">Calcium chloride - 3 lb/1000</option></select></div>
+    <div class="field"><label for="im-n">Applications per winter</label><input id="im-n" type="number" min="1" max="40" value="8"></div>
+    <div class="field"><label for="im-p">Price per 50 lb bag</label><input id="im-p" type="number" min="5" value="25"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="im-out">&#8211;</span><span class="result-unit">pounds per application</span></div>
+  <div class="stats">
+    <div class="stat"><b id="im-s1">&#8211;</b><span>50 lb bags for the winter</span></div>
+    <div class="stat"><b id="im-s2">&#8211;</b><span>season cost</span></div>
+    <div class="stat"><b id="im-s3">&#8211;</b><span>lowest working temp</span></div>
+  </div>
+  <div class="tool-note" id="im-note"></div>
+  <button type="button" class="tool-btn" id="im-share">Share my salt math</button>
+</div>
+<script>(function(){
+var A=document.getElementById('im-a'),T=document.getElementById('im-t'),N=document.getElementById('im-n'),P=document.getElementById('im-p');
+function calc(){
+  var a=parseFloat(A.value)||600,rate=parseFloat(T.value)||6,n=Math.max(1,parseFloat(N.value)||8),p=parseFloat(P.value)||25;
+  var perApp=a/1000*rate, winter=perApp*n, bags=Math.ceil(winter/50), cost=bags*p;
+  var temps={4:'+5 F',6:'-10 F',3:'-25 F'};
+  var temp=temps[rate]||'-10 F';
+  var d1=Math.round(perApp*10)/10, d2=Math.round(cost*100)/100;
+  document.getElementById('im-out').textContent=d1;
+  document.getElementById('im-s1').textContent=bags;
+  document.getElementById('im-s2').textContent='$'+d2;
+  document.getElementById('im-s3').textContent=temp;
+  document.getElementById('im-note').textContent='More salt does not melt faster - the right dose melts once and the rest just wrecks concrete and paws. Rock salt stops working near 5 F, blends reach about -10, calcium chloride keeps going to -25 and is the one for the deep-cold week. Two honest warnings the bag prints too small: salt damages new concrete for its first winter and burns pet paws - pet-safe blends cost more and earn it. Spread before the snow sticks if you can; pre-treating is the difference between a shovel job and an ice pick job.';
+  document.title='Ice melt: '+d1+' lb per storm - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_icemelt',JSON.stringify({a:A.value,t:T.value,n:N.value,p:P.value}));}catch(e){}}
+[A,T,N,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_icemelt')||'null');if(m){if(m.a){A.value=m.a;}if(m.t){T.value=m.t;}if(m.n){N.value=m.n;}if(m.p){P.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('im-share').addEventListener('click',function(){
+  var txt='My driveway takes '+document.getElementById('im-out').textContent+' lb of ice melt per storm - '+document.getElementById('im-s1').textContent+' bags a winter. Run yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'Ice melt math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my salt math';},1500);}
+});
+})();
+</script>
+"""
+
+HOMEGYM = """<div class="tool" id="tt-hg">
+  <div class="fields">
+    <div class="field"><label for="hg-c">Equipment cost</label><input id="hg-c" type="number" min="50" value="600"></div>
+    <div class="field"><label for="hg-m">Gym fee it replaces (monthly)</label><input id="hg-m" type="number" min="5" value="45"></div>
+    <div class="field"><label for="hg-r">Resale value if you quit (%)</label><select id="hg-r"><option value="30">30% - dusty gear</option><option value="50" selected>50% - cared for</option><option value="70">70% - barely used, hot market</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hg-out">&#8211;</span><span class="result-unit">months to pay back</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hg-s1">&#8211;</b><span>gym cost in that time</span></div>
+    <div class="stat"><b id="hg-s2">&#8211;</b><span>net if you quit after a year</span></div>
+    <div class="stat"><b id="hg-s3">&#8211;</b><span>the starter kit costs</span></div>
+  </div>
+  <div class="tool-note" id="hg-note"></div>
+  <button type="button" class="tool-btn" id="hg-share">Share my payback math</button>
+</div>
+<script>(function(){
+var C=document.getElementById('hg-c'),M=document.getElementById('hg-m'),Rr=document.getElementById('hg-r');
+function calc(){
+  var c=parseFloat(C.value)||0,m=Math.max(1,parseFloat(M.value)||45),r=parseFloat(Rr.value)||0.5;
+  var months=Math.ceil(c/m), gymYear=m*12, quitNet=c*(1-r)-m*12, starter=300;
+  var d1=Math.round(gymYear), d2=Math.round(quitNet);
+  document.getElementById('hg-out').textContent=months;
+  document.getElementById('hg-s1').textContent='$'+d1;
+  document.getElementById('hg-s2').textContent=(quitNet>=0?'+':'')+'$'+Math.abs(d2);
+  document.getElementById('hg-s3').textContent='$'+starter;
+  document.getElementById('hg-note').textContent='The payback math is simple division; the honesty lives in the quit case. Home gear pays back only while you train, and the resale column is what separates a reasonable experiment from a regret - adjustable dumbbells and a bench, about 300 dollars of starter kit, cover most routines and resell near half price. The mirror-class machines cost a gym decade and resell for transport money. Two more truths: the membership you replace includes showers and a change of scene, which is worth real money to some people, and home training trades variety for zero commute - the workout you actually do is the cheap one.';
+  document.title='Home gym pays back in '+months+' months - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_homegym',JSON.stringify({c:C.value,m:M.value,r:Rr.value}));}catch(e){}}
+[C,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+Rr.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('c')){C.value=qs.get('c');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_homegym')||'null');if(m){if(m.c){C.value=m.c;}if(m.m){M.value=m.m;}if(m.r){Rr.value=m.r;}}}catch(e){}}
+calc();
+document.getElementById('hg-share').addEventListener('click',function(){
+  var txt='A home gym pays back in '+document.getElementById('hg-out').textContent+' months at my gym fee. Run yours:';
+  var url=location.origin+location.pathname+'?c='+encodeURIComponent(C.value);
+  if(navigator.share){navigator.share({title:'Home gym payback',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my payback math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -14758,6 +14917,9 @@ TOOLS = {
     "dehumid": lambda args: DEHUMID,
     "santamath": lambda args: SANTAMATH,
     "champagne": lambda args: CHAMP,
+    "giftreturn": lambda args: GIFTRETURN,
+    "icemelt": lambda args: ICEMELT,
+    "homegym": lambda args: HOMEGYM,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,

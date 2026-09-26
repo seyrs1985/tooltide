@@ -46,6 +46,7 @@ TOOL_EMOJI = {
     "blanket": "🌙", "sourdough": "🍞",
     "gymvalue": "💪", "dryjan": "🎉", "booksyear": "📚",
     "dehumid": "💨", "santamath": "🎅", "champagne": "🍷",
+    "giftreturn": "🔁", "icemelt": "❄", "homegym": "🏠",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
