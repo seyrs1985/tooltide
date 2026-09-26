@@ -446,7 +446,14 @@ zh:{
  "lorem.wordsgen":"已生成词数",
  "lorem.copybtn":"复制到剪贴板",
  "lorem.regen":"重新生成",
- "case.resultlbl":"结果"
+ "case.resultlbl":"结果",
+ "dst.region":"地区",
+ "dst.pace":"每日调整幅度",
+ "dst.fallback":"时钟回拨",
+ "dst.starton":"开始调整日",
+ "dst.daysfrom":"距今天数",
+ "dst.bedtime":"每日就寝调整",
+ "share.share-my-shiftplan":"分享我的调整计划"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -873,7 +880,14 @@ es:{
  "lorem.wordsgen":"palabras generadas",
  "lorem.copybtn":"Copiar al portapapeles",
  "lorem.regen":"Regenerar",
- "case.resultlbl":"Resultado"
+ "case.resultlbl":"Resultado",
+ "dst.region":"Región",
+ "dst.pace":"Ajuste por día",
+ "dst.fallback":"Atraso horario",
+ "dst.starton":"empezar a ajustar desde",
+ "dst.daysfrom":"días desde hoy",
+ "dst.bedtime":"cambio de hora de acostarse",
+ "share.share-my-shiftplan":"Compartir mi plan de ajuste"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1300,7 +1314,14 @@ pt:{
  "lorem.wordsgen":"palavras geradas",
  "lorem.copybtn":"Copiar para a área de transferência",
  "lorem.regen":"Regenerar",
- "case.resultlbl":"Resultado"
+ "case.resultlbl":"Resultado",
+ "dst.region":"Região",
+ "dst.pace":"Ajuste por dia",
+ "dst.fallback":"Atraso horário",
+ "dst.starton":"começar a ajustar em",
+ "dst.daysfrom":"dias a partir de hoje",
+ "dst.bedtime":"ajuste diário de horário",
+ "share.share-my-shiftplan":"Compartir meu plano de ajuste"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1727,7 +1748,14 @@ ru:{
  "lorem.wordsgen":"слов сгенерировано",
  "lorem.copybtn":"Копировать в буфер",
  "lorem.regen":"Сгенерировать заново",
- "case.resultlbl":"Результат"
+ "case.resultlbl":"Результат",
+ "dst.region":"Регион",
+ "dst.pace":"Сдвиг в день",
+ "dst.fallback":"Перевод часов",
+ "dst.starton":"начать сдвигать с",
+ "dst.daysfrom":"дней с сегодняшнего дня",
+ "dst.bedtime":"сдвиг отхода ко сну daily",
+ "share.share-my-shiftplan":"Поделиться планом перестройки"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2154,7 +2182,14 @@ ja:{
  "lorem.wordsgen":"生成された単語数",
  "lorem.copybtn":"クリップボードにコピー",
  "lorem.regen":"再生成",
- "case.resultlbl":"結果"
+ "case.resultlbl":"結果",
+ "dst.region":"地域",
+ "dst.pace":"1日のずらし幅",
+ "dst.fallback":"時計が戻る",
+ "dst.starton":"調整開始日",
+ "dst.daysfrom":"今日からの日数",
+ "dst.bedtime":"就寝時刻の毎日のずらし",
+ "share.share-my-shiftplan":"自分の調整プランを共有"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2581,7 +2616,14 @@ ko:{
  "lorem.wordsgen":"생성된 단어 수",
  "lorem.copybtn":"클립보드에 복사",
  "lorem.regen":"다시 생성",
- "case.resultlbl":"결과"
+ "case.resultlbl":"결과",
+ "dst.region":"지역",
+ "dst.pace":"하루 조정 폭",
+ "dst.fallback":"시계 백워드",
+ "dst.starton":"조정 시작일",
+ "dst.daysfrom":"오늘부터 일수",
+ "dst.bedtime":"매일 취침 조정",
+ "share.share-my-shiftplan":"내 조정 계획 공유"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -3008,7 +3050,14 @@ de:{
  "lorem.wordsgen":"generierte Wörter",
  "lorem.copybtn":"In die Zwischenablage kopieren",
  "lorem.regen":"Neu generieren",
- "case.resultlbl":"Ergebnis"
+ "case.resultlbl":"Ergebnis",
+ "dst.region":"Region",
+ "dst.pace":"Anpassung pro Tag",
+ "dst.fallback":"Uhren zurückstellen",
+ "dst.starton":"Beginn der Umstellung",
+ "dst.daysfrom":"Tage ab heute",
+ "dst.bedtime":"tägliche Bettzeit-Verschiebung",
+ "share.share-my-shiftplan":"Meinen Umstellungsplan teilen"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3435,7 +3484,14 @@ fr:{
  "lorem.wordsgen":"mots générés",
  "lorem.copybtn":"Copier dans le presse-papiers",
  "lorem.regen":"Régénérer",
- "case.resultlbl":"Résultat"
+ "case.resultlbl":"Résultat",
+ "dst.region":"Région",
+ "dst.pace":"Décalage par jour",
+ "dst.fallback":"Recul des horloges",
+ "dst.starton":"commencer le décalage le",
+ "dst.daysfrom":"jours à partir d aujourd hui",
+ "dst.bedtime":"décalage du coucher daily",
+ "share.share-my-shiftplan":"Partager mon plan de décalage"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -3862,7 +3918,14 @@ id:{
  "lorem.wordsgen":"kata dihasilkan",
  "lorem.copybtn":"Salin ke clipboard",
  "lorem.regen":"Buat ulang",
- "case.resultlbl":"Hasil"
+ "case.resultlbl":"Hasil",
+ "dst.region":"Wilayah",
+ "dst.pace":"Pergeseran per hari",
+ "dst.fallback":"Jam dimundurkan",
+ "dst.starton":"mulai geser pada",
+ "dst.daysfrom":"hari dari hari ini",
+ "dst.bedtime":"pergeseran jam tidur harian",
+ "share.share-my-shiftplan":"Bagikan rencana pergeseran saya"
 }
 };
 function detect(){
