@@ -260,5 +260,20 @@ function render(){
 }
 if(window.npT)render();else if(document.addEventListener)document.addEventListener('DOMContentLoaded',render);else render();
 }catch(e){}
-})();</script>
+})();</script><script>(function(){
+var T0=document.title;
+function upd(){
+  setTimeout(function(){
+    if(document.title!==T0){return;}
+    var n=document.querySelector('.tool .result-num');
+    if(!n){return;}
+    var t=(n.textContent||'').replace(/\s+/g,' ').trim();
+    if(!t||t==='-'||t==='–'||t.length>60){return;}
+    document.title=t+' - ToolDune';
+  },250);
+}
+var box=document.querySelector('.tool');
+if(box){box.addEventListener('input',upd);box.addEventListener('change',upd);}
+})();
+</script>
 </body></html>

@@ -724,6 +724,26 @@ def tool_card(p, base, extra=False, cat_label=""):
 # Site-wide "Recently used" strip (retention R1): tracks visited pages in
 # localStorage (tt_recent, max 6) and renders a chip row above the footer on
 # return visits. Label rides the i18n system (recent.title); English fallback.
+# Site-wide title fallback (retention, R127): tool pages whose renderer lacks
+# its own document.title hook get one derived from .result-num on first input.
+# Guard: only fires when the title still equals the load-time value, so pages
+# with a real hook are never clobbered.
+TITLE_FALLBACK_JS = """<script>(function(){
+var T0=document.title;
+function upd(){
+  setTimeout(function(){
+    if(document.title!==T0){return;}
+    var n=document.querySelector('.tool .result-num');
+    if(!n){return;}
+    var t=(n.textContent||'').replace(/\\s+/g,' ').trim();
+    if(!t||t==='-'||t==='–'||t.length>60){return;}
+    document.title=t+' - ToolDune';
+  },250);
+}
+var box=document.querySelector('.tool');
+if(box){box.addEventListener('input',upd);box.addEventListener('change',upd);}
+})();
+</script>"""
 RECENT_STRIP_JS = """<script>(function(){
 try{
 var K='tt_recent',MAX=6;
@@ -884,7 +904,7 @@ document.getElementById('a2hs-no').addEventListener('click',function(){
 });
 }catch(e){}
 })();</script>
-""" + RECENT_STRIP_JS + """
+""" + RECENT_STRIP_JS + TITLE_FALLBACK_JS + """
 </body></html>"""
     return doc
 
@@ -1057,7 +1077,7 @@ if(qs){{inp.value=qs;
   var go=function(){{inp.dispatchEvent(new Event('input'));}};
   if(typeof window!=='undefined'&&window.npT)go();else if(document.addEventListener)document.addEventListener('DOMContentLoaded',go);else go();
 }}
-}})();</script>""" + RECENT_STRIP_JS + """</body></html>"""
+}})();</script>""" + RECENT_STRIP_JS + TITLE_FALLBACK_JS + """</body></html>"""
     return doc
 
 
