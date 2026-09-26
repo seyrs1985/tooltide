@@ -31,6 +31,7 @@ TOOL_EMOJI = {
     "firewood": "🔥", "firepitvs": "♨️", "seasoning": "🌲",
     "pumpkinpie": "🎃", "carvetiming": "🍂", "seedroast": "🌰",
     "dstsleep": "⏰",
+    "coolice": "🍹", "tailgatefood": "🍖",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

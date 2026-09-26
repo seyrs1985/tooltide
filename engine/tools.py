@@ -11322,6 +11322,116 @@ document.getElementById('dst-share').addEventListener('click',function(){
 </script>
 """
 
+COOLICE = """<div class="tool" id="tt-ci">
+  <div class="fields">
+    <div class="field"><label for="ci-g">Guests</label><input type="number" id="ci-g" min="1" max="200" step="1" placeholder="8"></div>
+    <div class="field"><label for="ci-h">Hours on ice</label><input type="number" id="ci-h" min="1" max="24" step="0.5" placeholder="4"></div>
+    <div class="field"><label for="ci-w">Weather</label><select id="ci-w"><option value="cool" selected>Under 21 C - mild</option><option value="warm">21 to 29 C - warm</option><option value="hot">Over 29 C - hot</option></select></div>
+    <div class="field"><label for="ci-f">Packing food too</label><select id="ci-f"><option value="no" selected>Drinks only</option><option value="yes">Drinks plus food</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ci-out">&#8211;</span><span class="result-unit">of ice</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ci-s1">&#8211;</b><span>10 lb bags to buy</span></div>
+    <div class="stat"><b id="ci-s2">&#8211;</b><span>cooler size</span></div>
+    <div class="stat"><b id="ci-s3">&#8211;</b><span>of it as blocks</span></div>
+  </div>
+  <div class="tool-note" id="ci-note"></div>
+  <button type="button" class="tool-btn" id="ci-share">Share my ice plan</button>
+</div>
+<script>(function(){
+var G=document.getElementById('ci-g'),H=document.getElementById('ci-h'),W=document.getElementById('ci-w'),F=document.getElementById('ci-f');
+function calc(){
+  var g=parseFloat(G.value)||0,h=parseFloat(H.value)||0;
+  if(g<1){g=1;}if(h<1){h=1;}
+  var w=W.value,f=F.value==='yes';
+  var wm=(w==='hot')?1.3:((w==='warm')?1.15:1);
+  var lb=g*(h/4)*wm;
+  if(f){lb*=1.5;}
+  lb=Math.ceil(lb/5)*5;
+  var qt=Math.min(150,Math.max(5,Math.ceil(lb*2/5)*5));
+  document.getElementById('ci-out').textContent=lb+' lb';
+  document.getElementById('ci-s1').textContent=Math.ceil(lb/10);
+  document.getElementById('ci-s2').textContent=qt+' qt';
+  document.getElementById('ci-s3').textContent=Math.ceil(lb/2)+' lb';
+  document.getElementById('ci-note').textContent='The arithmetic: one pound of ice per guest per four hours keeps drinks cold, and packing food adds half again at a two-to-one ice-to-food ratio. Days over 29 C melt a quarter more. Pre-chill the box with ice water for 30 minutes before packing and the same ice lasts hours longer; blocks melt slower than cubes, so frozen water bottles are free block ice that becomes drinking water. Party-store bags run 7 to 10 pounds - round your buy up, never down, because warm drinks end tailgates early.';
+  document.title=lb+' lb of ice - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_coolice',JSON.stringify({g:G.value,h:H.value,w:W.value,f:F.value}));}catch(e){}}
+G.addEventListener('input',function(){calc();save();});H.addEventListener('input',function(){calc();save();});
+W.addEventListener('change',function(){calc();save();});F.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('g')){G.value=qs.get('g');pre=true;}
+if(qs.get('h')){H.value=qs.get('h');pre=true;}
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(qs.get('f')){F.value=qs.get('f');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_coolice')||'null');if(m){if(m.g){G.value=m.g;}if(m.h){H.value=m.h;}if(m.w){W.value=m.w;}if(m.f){F.value=m.f;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('ci-share').addEventListener('click',function(){
+  var txt='We need '+document.getElementById('ci-out').textContent+' of ice and a '+document.getElementById('ci-s2').textContent+' cooler for the tailgate. Plan yours:';
+  var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value)+'&h='+encodeURIComponent(H.value)+'&w='+encodeURIComponent(W.value)+'&f='+encodeURIComponent(F.value);
+  if(navigator.share){navigator.share({title:'Cooler ice plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my ice plan';},1500);}
+});
+})();
+</script>
+"""
+
+TGFOOD = """<div class="tool" id="tt-tf">
+  <div class="fields">
+    <div class="field"><label for="tf-a">Adults</label><input type="number" id="tf-a" min="1" max="100" step="1" placeholder="6"></div>
+    <div class="field"><label for="tf-k">Kids</label><input type="number" id="tf-k" min="0" max="50" step="1" placeholder="2"></div>
+    <div class="field"><label for="tf-m">Meal style</label><select id="tf-m"><option value="snack">Snacks only</option><option value="meal" selected>Full meal</option><option value="seconds">Full meal plus seconds</option></select></div>
+    <div class="field"><label for="tf-h">Hours out</label><input type="number" id="tf-h" min="1" max="12" step="1" placeholder="3"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tf-out">&#8211;</span><span class="result-unit">of raw meat</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tf-s1">&#8211;</b><span>cups of sides</span></div>
+    <div class="stat"><b id="tf-s2">&#8211;</b><span>cans of drinks</span></div>
+    <div class="stat"><b id="tf-s3">&#8211;</b><span>people fed</span></div>
+  </div>
+  <div class="tool-note" id="tf-note"></div>
+  <button type="button" class="tool-btn" id="tf-share">Share my shopping list</button>
+</div>
+<script>(function(){
+var A=document.getElementById('tf-a'),K=document.getElementById('tf-k'),M=document.getElementById('tf-m'),H=document.getElementById('tf-h');
+function calc(){
+  var a=parseFloat(A.value)||0,k=parseFloat(K.value)||0,h=parseFloat(H.value)||1;
+  if(a<1){a=1;}if(k<0){k=0;}if(h<1){h=1;}
+  var mf=(M.value==='snack')?0.5:((M.value==='seconds')?1.25:1);
+  var meat=(a*0.5+k*0.25)*mf;
+  meat=Math.ceil(meat*2)/2;
+  var cups=Math.ceil((a+k)*0.5*2);
+  var canRaw=a*(h+1)+k*(h+1)*0.5;
+  cans=Math.ceil(canRaw/6)*6;
+  document.getElementById('tf-out').textContent=meat+' lb';
+  document.getElementById('tf-s1').textContent=cups;
+  document.getElementById('tf-s2').textContent=cans;
+  document.getElementById('tf-s3').textContent=Math.round(a+k);
+  document.getElementById('tf-note').textContent='The arithmetic: half a pound of raw meat per adult and a quarter per child, scaled for snack-only or second-helping crowds; bone-in cuts need a third more weight. Sides run half a cup per person each and you want two of them, which is the cups shown. Drinks follow the first-hour rule - two per person in hour one, one each hour after, kids at half rate on juice and water. This list is the food; the cooler calculator sizes the ice and the BBQ charcoal page sizes the fuel.';
+  document.title=meat+' lb of meat for '+Math.round(a+k)+' guests - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_tgfood',JSON.stringify({a:A.value,k:K.value,m:M.value,h:H.value}));}catch(e){}}
+A.addEventListener('input',function(){calc();save();});K.addEventListener('input',function(){calc();save();});
+M.addEventListener('change',function(){calc();save();});H.addEventListener('input',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(qs.get('k')){K.value=qs.get('k');pre=true;}
+if(qs.get('m')){M.value=qs.get('m');pre=true;}
+if(qs.get('h')){H.value=qs.get('h');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_tgfood')||'null');if(m){if(m.a){A.value=m.a;}if(m.k){K.value=m.k;}if(m.m){M.value=m.m;}if(m.h){H.value=m.h;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('tf-share').addEventListener('click',function(){
+  var txt='Shopping list for the tailgate: '+document.getElementById('tf-out').textContent+' of meat, '+document.getElementById('tf-s1').textContent+' cups of sides, '+document.getElementById('tf-s2').textContent+' drinks. Build yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value)+'&k='+encodeURIComponent(K.value)+'&m='+encodeURIComponent(M.value)+'&h='+encodeURIComponent(H.value);
+  if(navigator.share){navigator.share({title:'Tailgate shopping list',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my shopping list';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -12411,6 +12521,8 @@ TOOLS = {
     "carvetiming": lambda args: CARVETIMING,
     "seedroast": lambda args: SEEDSROAST,
     "dstsleep": lambda args: DSTPLAN,
+    "coolice": lambda args: COOLICE,
+    "tailgatefood": lambda args: TGFOOD,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
