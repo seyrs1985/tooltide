@@ -1824,6 +1824,62 @@
    [
     "share.share-my-tippingplan",
     "分享我的小费计划"
+   ],
+   [
+    "dh.date",
+    "日期"
+   ],
+   [
+    "dh.lat",
+    "纬度（40 = 美国均值）"
+   ],
+   [
+    "dh.ofdaylight",
+    "的日照时数"
+   ],
+   [
+    "dh.longest",
+    "此处最长白昼"
+   ],
+   [
+    "dh.shortest",
+    "此处最短白昼"
+   ],
+   [
+    "dh.changeperday",
+    "当前每日变化"
+   ],
+   [
+    "share.share-my-daylightmath",
+    "分享我的日照计算"
+   ],
+   [
+    "dn.amount",
+    "计划捐赠金额"
+   ],
+   [
+    "dn.rate",
+    "边际税率（%）"
+   ],
+   [
+    "dn.realcost",
+    "税后实际成本"
+   ],
+   [
+    "dn.taxsaved",
+    "分项扣减时的省税额"
+   ],
+   [
+    "dn.daysleft",
+    "距年底天数"
+   ],
+   [
+    "dn.receiptrule",
+    "该金额的收据规则"
+   ],
+   [
+    "share.share-my-givingmath",
+    "分享我的捐赠计算"
    ]
   ],
   "es": [
@@ -3650,6 +3706,62 @@
    [
     "share.share-my-tippingplan",
     "Compartir mi plan de propinas"
+   ],
+   [
+    "dh.date",
+    "Fecha"
+   ],
+   [
+    "dh.lat",
+    "Latitud (40 = media de EE. UU.)"
+   ],
+   [
+    "dh.ofdaylight",
+    "de luz diurna"
+   ],
+   [
+    "dh.longest",
+    "día más largo aquí"
+   ],
+   [
+    "dh.shortest",
+    "día más corto aquí"
+   ],
+   [
+    "dh.changeperday",
+    "cambio por día ahora"
+   ],
+   [
+    "share.share-my-daylightmath",
+    "Compartir mi cálculo de luz"
+   ],
+   [
+    "dn.amount",
+    "Monto que planeas donar"
+   ],
+   [
+    "dn.rate",
+    "Tasa marginal (%)"
+   ],
+   [
+    "dn.realcost",
+    "coste real tras deducción"
+   ],
+   [
+    "dn.taxsaved",
+    "ahorro si detalla"
+   ],
+   [
+    "dn.daysleft",
+    "días restantes del año"
+   ],
+   [
+    "dn.receiptrule",
+    "regla de recibo en tu monto"
+   ],
+   [
+    "share.share-my-givingmath",
+    "Compartir mi cálculo de donación"
    ]
   ],
   "pt": [
@@ -5476,6 +5588,62 @@
    [
     "share.share-my-tippingplan",
     "Compartir meu plano de gorjetas"
+   ],
+   [
+    "dh.date",
+    "Data"
+   ],
+   [
+    "dh.lat",
+    "Latitude (40 = média dos EUA)"
+   ],
+   [
+    "dh.ofdaylight",
+    "de luz diurna"
+   ],
+   [
+    "dh.longest",
+    "dia mais longo aqui"
+   ],
+   [
+    "dh.shortest",
+    "dia mais curto aqui"
+   ],
+   [
+    "dh.changeperday",
+    "mudança por dia agora"
+   ],
+   [
+    "share.share-my-daylightmath",
+    "Compartir meu cálculo de luz"
+   ],
+   [
+    "dn.amount",
+    "Valor que você planeja doar"
+   ],
+   [
+    "dn.rate",
+    "Alíquota marginal (%)"
+   ],
+   [
+    "dn.realcost",
+    "custo real após dedução"
+   ],
+   [
+    "dn.taxsaved",
+    "economia se detalhar"
+   ],
+   [
+    "dn.daysleft",
+    "dias restantes do ano"
+   ],
+   [
+    "dn.receiptrule",
+    "regra de recibo no seu valor"
+   ],
+   [
+    "share.share-my-givingmath",
+    "Compartir meu cálculo de doação"
    ]
   ],
   "ru": [
@@ -7302,6 +7470,62 @@
    [
     "share.share-my-tippingplan",
     "Поделиться моим планом чаевых"
+   ],
+   [
+    "dh.date",
+    "Дата"
+   ],
+   [
+    "dh.lat",
+    "Широта (40 = среднее по США)"
+   ],
+   [
+    "dh.ofdaylight",
+    "часов дневного света"
+   ],
+   [
+    "dh.longest",
+    "самый длинный день здесь"
+   ],
+   [
+    "dh.shortest",
+    "самый короткий день здесь"
+   ],
+   [
+    "dh.changeperday",
+    "изменение в день сейчас"
+   ],
+   [
+    "share.share-my-daylightmath",
+    "Поделиться моим расчётом света"
+   ],
+   [
+    "dn.amount",
+    "Сумма пожертвования"
+   ],
+   [
+    "dn.rate",
+    "Предельная ставка (%)"
+   ],
+   [
+    "dn.realcost",
+    "реальная стоимость после вычета"
+   ],
+   [
+    "dn.taxsaved",
+    "экономия при детализации"
+   ],
+   [
+    "dn.daysleft",
+    "дней до конца года"
+   ],
+   [
+    "dn.receiptrule",
+    "правило квитанции для вашей суммы"
+   ],
+   [
+    "share.share-my-givingmath",
+    "Поделиться моим расчётом пожертвования"
    ]
   ],
   "ja": [
@@ -9128,6 +9352,62 @@
    [
     "share.share-my-tippingplan",
     "自分のチップ計画を共有"
+   ],
+   [
+    "dh.date",
+    "日付"
+   ],
+   [
+    "dh.lat",
+    "緯度（40 = 米平均）"
+   ],
+   [
+    "dh.ofdaylight",
+    "の日照時間"
+   ],
+   [
+    "dh.longest",
+    "ここで最長の昼"
+   ],
+   [
+    "dh.shortest",
+    "ここで最短の昼"
+   ],
+   [
+    "dh.changeperday",
+    "現在の1日あたりの変化"
+   ],
+   [
+    "share.share-my-daylightmath",
+    "自分の日照計算を共有"
+   ],
+   [
+    "dn.amount",
+    "寄付予定額"
+   ],
+   [
+    "dn.rate",
+    "限界税率（%）"
+   ],
+   [
+    "dn.realcost",
+    "控除後の実質負担"
+   ],
+   [
+    "dn.taxsaved",
+    "明細採用時の節税額"
+   ],
+   [
+    "dn.daysleft",
+    "今年の残り日数"
+   ],
+   [
+    "dn.receiptrule",
+    "その金額の領収書ルール"
+   ],
+   [
+    "share.share-my-givingmath",
+    "自分の寄付計算を共有"
    ]
   ],
   "ko": [
@@ -10954,6 +11234,62 @@
    [
     "share.share-my-tippingplan",
     "내 팁 계획 공유"
+   ],
+   [
+    "dh.date",
+    "날짜"
+   ],
+   [
+    "dh.lat",
+    "위도 (40 = 미국 평균)"
+   ],
+   [
+    "dh.ofdaylight",
+    "일조 시간"
+   ],
+   [
+    "dh.longest",
+    "이곳의 최장일"
+   ],
+   [
+    "dh.shortest",
+    "이곳의 최단일"
+   ],
+   [
+    "dh.changeperday",
+    "현재 일일 변화"
+   ],
+   [
+    "share.share-my-daylightmath",
+    "내 일조 계산 공유"
+   ],
+   [
+    "dn.amount",
+    "기부할 금액"
+   ],
+   [
+    "dn.rate",
+    "한계 세율 (%)"
+   ],
+   [
+    "dn.realcost",
+    "공제 후 실부담"
+   ],
+   [
+    "dn.taxsaved",
+    "항목 공제 시 절세액"
+   ],
+   [
+    "dn.daysleft",
+    "올해 남은 일수"
+   ],
+   [
+    "dn.receiptrule",
+    "금액별 영수증 규칙"
+   ],
+   [
+    "share.share-my-givingmath",
+    "내 기부 계산 공유"
    ]
   ],
   "de": [
@@ -12780,6 +13116,62 @@
    [
     "share.share-my-tippingplan",
     "Mein Trinkgeldplan teilen"
+   ],
+   [
+    "dh.date",
+    "Datum"
+   ],
+   [
+    "dh.lat",
+    "Breitengrad (40 = US-Durchschnitt)"
+   ],
+   [
+    "dh.ofdaylight",
+    "an Tageslicht"
+   ],
+   [
+    "dh.longest",
+    "längster Tag hier"
+   ],
+   [
+    "dh.shortest",
+    "kürzester Tag hier"
+   ],
+   [
+    "dh.changeperday",
+    "Änderung pro Tag jetzt"
+   ],
+   [
+    "share.share-my-daylightmath",
+    "Meine Tageslichtrechnung teilen"
+   ],
+   [
+    "dn.amount",
+    "Geplanter Spendenbetrag"
+   ],
+   [
+    "dn.rate",
+    "Grenzsteuersatz (%)"
+   ],
+   [
+    "dn.realcost",
+    "tatsächliche Kosten nach Abzug"
+   ],
+   [
+    "dn.taxsaved",
+    "Ersparnis bei Einzelaufstellung"
+   ],
+   [
+    "dn.daysleft",
+    "Tage bis Jahresende"
+   ],
+   [
+    "dn.receiptrule",
+    "Quittungsregel für Ihren Betrag"
+   ],
+   [
+    "share.share-my-givingmath",
+    "Meine Spendenrechnung teilen"
    ]
   ],
   "fr": [
@@ -14606,6 +14998,62 @@
    [
     "share.share-my-tippingplan",
     "Partager mon plan de pourboires"
+   ],
+   [
+    "dh.date",
+    "Date"
+   ],
+   [
+    "dh.lat",
+    "Latitude (40 = moyenne US)"
+   ],
+   [
+    "dh.ofdaylight",
+    "de lumière du jour"
+   ],
+   [
+    "dh.longest",
+    "jour le plus long ici"
+   ],
+   [
+    "dh.shortest",
+    "jour le plus court ici"
+   ],
+   [
+    "dh.changeperday",
+    "changement par jour maintenant"
+   ],
+   [
+    "share.share-my-daylightmath",
+    "Partager mon calcul de lumière"
+   ],
+   [
+    "dn.amount",
+    "Montant que vous donnez"
+   ],
+   [
+    "dn.rate",
+    "Taux marginal (%)"
+   ],
+   [
+    "dn.realcost",
+    "coût réel après déduction"
+   ],
+   [
+    "dn.taxsaved",
+    "économie si vous détaillez"
+   ],
+   [
+    "dn.daysleft",
+    "jours restants cette année"
+   ],
+   [
+    "dn.receiptrule",
+    "règle de reçu à votre montant"
+   ],
+   [
+    "share.share-my-givingmath",
+    "Partager mon calcul de don"
    ]
   ],
   "id": [
@@ -16432,6 +16880,62 @@
    [
     "share.share-my-tippingplan",
     "Bagikan rencana tip saya"
+   ],
+   [
+    "dh.date",
+    "Tanggal"
+   ],
+   [
+    "dh.lat",
+    "Lintang (40 = rata-rata AS)"
+   ],
+   [
+    "dh.ofdaylight",
+    "jam siang"
+   ],
+   [
+    "dh.longest",
+    "hari terpanjang di sini"
+   ],
+   [
+    "dh.shortest",
+    "hari terpendek di sini"
+   ],
+   [
+    "dh.changeperday",
+    "perubahan per hari sekarang"
+   ],
+   [
+    "share.share-my-daylightmath",
+    "Bagikan hitungan siang saya"
+   ],
+   [
+    "dn.amount",
+    "Jumlah yang akan diberikan"
+   ],
+   [
+    "dn.rate",
+    "Tarif pajak marginal (%)"
+   ],
+   [
+    "dn.realcost",
+    "biaya nyata setelah potongan pajak"
+   ],
+   [
+    "dn.taxsaved",
+    "penghematan jika merinci"
+   ],
+   [
+    "dn.daysleft",
+    "hari tersisa tahun ini"
+   ],
+   [
+    "dn.receiptrule",
+    "aturan kwitansi sesuai jumlah Anda"
+   ],
+   [
+    "share.share-my-givingmath",
+    "Bagikan hitungan donasi saya"
    ]
   ]
  }

@@ -12689,17 +12689,17 @@ document.getElementById('hs-share').addEventListener('click',function(){
 
 DAYLIGHT = """<div class="tool" id="tt-dh">
   <div class="fields">
-    <div class="field"><label for="dh-d">Date</label><input type="date" id="dh-d"></div>
-    <div class="field"><label for="dh-l">Latitude (40 = US average)</label><input id="dh-l" type="number" min="-66" max="66" step="0.5" value="40"></div>
+    <div class="field"><label for="dh-d" data-i18n="dh.date">Date</label><input type="date" id="dh-d"></div>
+    <div class="field"><label for="dh-l" data-i18n="dh.lat">Latitude (40 = US average)</label><input id="dh-l" type="number" min="-66" max="66" step="0.5" value="40"></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dh-out">&#8211;</span><span class="result-unit">of daylight</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dh-out">&#8211;</span><span class="result-unit" data-i18n="dh.ofdaylight">of daylight</span></div>
   <div class="stats">
-    <div class="stat"><b id="dh-s1">&#8211;</b><span>longest day here</span></div>
-    <div class="stat"><b id="dh-s2">&#8211;</b><span>shortest day here</span></div>
-    <div class="stat"><b id="dh-s3">&#8211;</b><span>change per day now</span></div>
+    <div class="stat"><b id="dh-s1">&#8211;</b><span data-i18n="dh.longest">longest day here</span></div>
+    <div class="stat"><b id="dh-s2">&#8211;</b><span data-i18n="dh.shortest">shortest day here</span></div>
+    <div class="stat"><b id="dh-s3">&#8211;</b><span data-i18n="dh.changeperday">change per day now</span></div>
   </div>
   <div class="tool-note" id="dh-note"></div>
-  <button type="button" class="tool-btn" id="dh-share">Share my daylight math</button>
+  <button type="button" class="tool-btn" id="dh-share" data-i18n="share.share-my-daylightmath">Share my daylight math</button>
 </div>
 <script>(function(){
 var DI=document.getElementById('dh-d'),LA=document.getElementById('dh-l');
@@ -12801,17 +12801,17 @@ document.getElementById('ht-share').addEventListener('click',function(){
 
 DONATE = """<div class="tool" id="tt-dn">
   <div class="fields">
-    <div class="field"><label for="dn-a">Amount you plan to give</label><input id="dn-a" type="number" min="0" value="500"></div>
-    <div class="field"><label for="dn-r">Marginal tax rate (%)</label><select id="dn-r"><option value="12">12%</option><option value="22" selected>22%</option><option value="24">24%</option><option value="32">32%</option><option value="35">35%</option></select></div>
+    <div class="field"><label for="dn-a" data-i18n="dn.amount">Amount you plan to give</label><input id="dn-a" type="number" min="0" value="500"></div>
+    <div class="field"><label for="dn-r" data-i18n="dn.rate">Marginal tax rate (%)</label><select id="dn-r"><option value="12">12%</option><option value="22" selected>22%</option><option value="24">24%</option><option value="32">32%</option><option value="35">35%</option></select></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dn-out">&#8211;</span><span class="result-unit">real cost after tax break</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dn-out">&#8211;</span><span class="result-unit" data-i18n="dn.realcost">real cost after tax break</span></div>
   <div class="stats">
-    <div class="stat"><b id="dn-s1">&#8211;</b><span>tax saved if you itemize</span></div>
-    <div class="stat"><b id="dn-s2">&#8211;</b><span>days left this year</span></div>
-    <div class="stat"><b id="dn-s3">&#8211;</b><span>receipt rule at your amount</span></div>
+    <div class="stat"><b id="dn-s1">&#8211;</b><span data-i18n="dn.taxsaved">tax saved if you itemize</span></div>
+    <div class="stat"><b id="dn-s2">&#8211;</b><span data-i18n="dn.daysleft">days left this year</span></div>
+    <div class="stat"><b id="dn-s3">&#8211;</b><span data-i18n="dn.receiptrule">receipt rule at your amount</span></div>
   </div>
   <div class="tool-note" id="dn-note"></div>
-  <button type="button" class="tool-btn" id="dn-share">Share my giving math</button>
+  <button type="button" class="tool-btn" id="dn-share" data-i18n="share.share-my-givingmath">Share my giving math</button>
 </div>
 <script>(function(){
 var A=document.getElementById('dn-a'),R=document.getElementById('dn-r');
