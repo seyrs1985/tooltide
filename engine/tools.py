@@ -8207,7 +8207,7 @@ MULCH = """<div class="tool" id="tt-mu">
   <div class="stats">
     <div class="stat"><b id="mu-s1">–</b><span>bed area</span></div>
     <div class="stat"><b id="mu-s2">–</b><span>volume</span></div>
-    <div class="stat"><b id="mu-s3">–</b><span>total cost</span></div>
+    <div class="stat"><b id="mu-s3">–</b><span data-i18n="deck.totalcost">total cost</span></div>
   </div>
   <div class="tool-note" id="mu-note"></div>
   <button type="button" class="tool-btn" id="mu-share" data-i18n="share.share-this-estimate">Share this estimate</button>
@@ -10202,7 +10202,7 @@ CANDY = """<div class="tool" id="tt-hc2">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hc2-out">–</span><span class="result-unit">bags to buy</span></div>
   <div class="stats">
     <div class="stat"><b id="hc2-s1">–</b><span>total pieces</span></div>
-    <div class="stat"><b id="hc2-s2">–</b><span>total cost</span></div>
+    <div class="stat"><b id="hc2-s2">–</b><span data-i18n="deck.totalcost">total cost</span></div>
     <div class="stat"><b id="hc2-s3">–</b><span>if only half show</span></div>
   </div>
   <div class="tool-note" id="hc2-note"></div>
@@ -13563,7 +13563,7 @@ CHAMP = """<div class="tool" id="tt-cp">
   <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cp-out">&#8211;</span><span class="result-unit">bottles to chill</span></div>
   <div class="stats">
     <div class="stat"><b id="cp-s1">&#8211;</b><span>total glasses</span></div>
-    <div class="stat"><b id="cp-s2">&#8211;</b><span>total cost</span></div>
+    <div class="stat"><b id="cp-s2">&#8211;</b><span data-i18n="deck.totalcost">total cost</span></div>
     <div class="stat"><b id="cp-s3">&#8211;</b><span>mimosa mix, if brunch</span></div>
   </div>
   <div class="tool-note" id="cp-note"></div>
@@ -14722,19 +14722,19 @@ document.getElementById('gs-share').addEventListener('click',function(){
 
 DECKSTAIN = """<div class="tool" id="tt-dst">
   <div class="fields">
-    <div class="field"><label for="dst-a">Deck floor area (sq ft)</label><input id="dst-a" type="number" min="20" max="5000" value="300"></div>
-    <div class="field"><label for="dst-r">Railing linear feet</label><input id="dst-r" type="number" min="0" max="500" value="40"></div>
-    <div class="field"><label for="dst-c">Coats</label><select id="dst-c"><option value="1">1 coat - refresh</option><option value="2" selected>2 coats - bare wood</option></select></div>
-    <div class="field"><label for="dst-p">Price per gallon</label><input id="dst-p" type="number" min="10" value="35"></div>
+    <div class="field"><label for="dst-a" data-i18n="deck.area">Deck floor area (sq ft)</label><input id="dst-a" type="number" min="20" max="5000" value="300"></div>
+    <div class="field"><label for="dst-r" data-i18n="deck.railing">Railing linear feet</label><input id="dst-r" type="number" min="0" max="500" value="40"></div>
+    <div class="field"><label for="dst-c" data-i18n="deck.coats">Coats</label><select id="dst-c"><option value="1">1 coat - refresh</option><option value="2" selected>2 coats - bare wood</option></select></div>
+    <div class="field"><label for="dst-p" data-i18n="deck.price">Price per gallon</label><input id="dst-p" type="number" min="10" value="35"></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dst-out">&#8211;</span><span class="result-unit">gallons of stain</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dst-out">&#8211;</span><span class="result-unit" data-i18n="deck.gallons">gallons of stain</span></div>
   <div class="stats">
-    <div class="stat"><b id="dst-s1">&#8211;</b><span>total cost</span></div>
-    <div class="stat"><b id="dst-s2">&#8211;</b><span>brushing hours</span></div>
-    <div class="stat"><b id="dst-s3">&#8211;</b><span>redo cycle</span></div>
+    <div class="stat"><b id="dst-s1">&#8211;</b><span data-i18n="deck.totalcost">total cost</span></div>
+    <div class="stat"><b id="dst-s2">&#8211;</b><span data-i18n="deck.brushing">brushing hours</span></div>
+    <div class="stat"><b id="dst-s3">&#8211;</b><span data-i18n="deck.redocycle">redo cycle</span></div>
   </div>
   <div class="tool-note" id="dst-note"></div>
-  <button type="button" class="tool-btn" id="dst-share">Share my stain math</button>
+  <button type="button" class="tool-btn" id="dst-share" data-i18n="share.share-my-stainmath">Share my stain math</button>
 </div>
 <script>(function(){
 var A=document.getElementById('dst-a'),R=document.getElementById('dst-r'),C=document.getElementById('dst-c'),P=document.getElementById('dst-p');
