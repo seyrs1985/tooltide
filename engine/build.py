@@ -42,6 +42,7 @@ TOOL_EMOJI = {
     "daylight": "☀", "holidaytip": "🎁", "donate": "💝",
     "shipfree": "📦", "warranty": "💳", "bogo": "🎯",
     "treewater": "🌲", "treelights": "✨", "wrapcalc": "✂",
+    "roadfuel": "🚙", "flydrive": "✈",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

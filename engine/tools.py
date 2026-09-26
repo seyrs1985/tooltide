@@ -13123,6 +13123,105 @@ document.getElementById('wp-share').addEventListener('click',function(){
 </script>
 """
 
+ROADFUEL = """<div class="tool" id="tt-rf">
+  <div class="fields">
+    <div class="field"><label for="rf-m">One-way miles</label><input id="rf-m" type="number" min="5" value="250"></div>
+    <div class="field"><label for="rf-g">Highway mpg</label><input id="rf-g" type="number" min="5" max="120" value="28"></div>
+    <div class="field"><label for="rf-p">Gas price per gallon</label><input id="rf-p" type="number" min="1" step="0.05" value="3.20"></div>
+    <div class="field"><label for="rf-n">People in the car</label><select id="rf-n"><option value="1">1 - solo</option><option value="2">2</option><option value="3">3</option><option value="4" selected>4</option><option value="5">5</option><option value="6">6</option></select></div>
+    <div class="field"><label for="rf-r">Trip type</label><select id="rf-r"><option value="2" selected>Round trip</option><option value="1">One way</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rf-out">&#8211;</span><span class="result-unit">total fuel cost</span></div>
+  <div class="stats">
+    <div class="stat"><b id="rf-s1">&#8211;</b><span>gallons burned</span></div>
+    <div class="stat"><b id="rf-s2">&#8211;</b><span>per person</span></div>
+    <div class="stat"><b id="rf-s3">&#8211;</b><span>driving hours, no stops</span></div>
+  </div>
+  <div class="tool-note" id="rf-note"></div>
+  <button type="button" class="tool-btn" id="rf-share">Share my fuel math</button>
+</div>
+<script>(function(){
+var M=document.getElementById('rf-m'),G=document.getElementById('rf-g'),P=document.getElementById('rf-p'),N=document.getElementById('rf-n'),Rr=document.getElementById('rf-r');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>0?v:0;}
+function calc(){
+  var m=num(M),g=num(G),p=num(P),n=parseInt(N.value,10)||1,rt=parseFloat(Rr.value)||2;
+  var miles=m*rt, gal=miles/g, cost=gal*p, hrs=miles/65;
+  var d1=Math.round(gal*10)/10, d2=Math.round(cost*100)/100, d3=Math.round(cost/n*100)/100;
+  var h=Math.floor(hrs), min=Math.round((hrs-h)*60);
+  document.getElementById('rf-out').textContent='$'+d2;
+  document.getElementById('rf-s1').textContent=d1;
+  document.getElementById('rf-s2').textContent='$'+d3;
+  document.getElementById('rf-s3').textContent=h+' h '+min+' min';
+  document.getElementById('rf-note').textContent='This is the fuel-only number - the cash that actually leaves your account at the pump. The full cost per mile of driving runs several times higher once tires, oil and depreciation join, which is fine to ignore for a family visit and worth remembering when someone offers to pay half the gas. Holiday traffic adds time, not many gallons, so leave early: the 6 am Thanksgiving-morning road is famously the empty one. And per-person only works if the passengers chip in without being asked twice - set the figure before departure, not at the pump.';
+  document.title='Drive: $'+d2+' in fuel - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_roadfuel',JSON.stringify({m:M.value,g:G.value,p:P.value,n:N.value,r:Rr.value}));}catch(e){}}
+[M,G,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+[N,Rr].forEach(function(el){el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('m')){M.value=qs.get('m');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_roadfuel')||'null');if(m){if(m.m){M.value=m.m;}if(m.g){G.value=m.g;}if(m.p){P.value=m.p;}if(m.n){N.value=m.n;}if(m.r){Rr.value=m.r;}}}catch(e){}}
+calc();
+document.getElementById('rf-share').addEventListener('click',function(){
+  var txt='Our trip burns about '+document.getElementById('rf-out').textContent+' in fuel - '+document.getElementById('rf-s2').textContent+' each. Run yours:';
+  var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value);
+  if(navigator.share){navigator.share({title:'Road trip fuel cost',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my fuel math';},1500);}
+});
+})();
+</script>
+"""
+
+FLYDRIVE = """<div class="tool" id="tt-fd">
+  <div class="fields">
+    <div class="field"><label for="fd-m">Trip miles, door to door</label><input id="fd-m" type="number" min="50" value="500"></div>
+    <div class="field"><label for="fd-g">Car mpg</label><input id="fd-g" type="number" min="5" max="120" value="28"></div>
+    <div class="field"><label for="fd-p">Gas price per gallon</label><input id="fd-p" type="number" min="1" step="0.05" value="3.20"></div>
+    <div class="field"><label for="fd-t">Cheapest round-trip flight</label><input id="fd-t" type="number" min="20" value="180"></div>
+    <div class="field"><label for="fd-b">Flight bag + ground fees</label><input id="fd-b" type="number" min="0" value="60"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fd-out">&#8211;</span><span class="result-unit">cheaper way</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fd-s1">&#8211;</b><span>drive, fuel only</span></div>
+    <div class="stat"><b id="fd-s2">&#8211;</b><span>fly, all-in</span></div>
+    <div class="stat"><b id="fd-s3">&#8211;</b><span>gap</span></div>
+  </div>
+  <div class="tool-note" id="fd-note"></div>
+  <button type="button" class="tool-btn" id="fd-share">Share my verdict</button>
+</div>
+<script>(function(){
+var M=document.getElementById('fd-m'),G=document.getElementById('fd-g'),P=document.getElementById('fd-p'),T=document.getElementById('fd-t'),B=document.getElementById('fd-b');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>=0?v:0;}
+function calc(){
+  var m=num(M),g=Math.max(5,num(G)),p=num(P),t=num(T),b=num(B);
+  var drive=m/g*p, fly=t+b, gap=Math.abs(drive-fly);
+  var d1=Math.round(drive*100)/100, d2=Math.round(fly*100)/100, d3=Math.round(gap*100)/100;
+  var win=drive<=fly?'Drive':'Fly';
+  document.getElementById('fd-out').textContent=win;
+  document.getElementById('fd-s1').textContent='$'+d1;
+  document.getElementById('fd-s2').textContent='$'+d2;
+  document.getElementById('fd-s3').textContent='$'+d3;
+  document.getElementById('fd-note').textContent='The money verdict is mechanical: fuel against ticket plus bags plus the ride to the airport. The time verdict needs the honest overhead rule - door to door, flying almost never beats driving under 400 miles, because airport buffers, security and boarding eat roughly four hours before the plane even moves. Past 800 miles the plane usually wins outright. The two sides measure different things though: the drive is fuel today and wear later, the flight is cash now and flexibility - and a solo traveler can split nothing, while a car load of four makes the per-seat math brutal for the airline.';
+  document.title=win+' - saving $'+d3+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_flydrive',JSON.stringify({m:M.value,g:G.value,p:P.value,t:T.value,b:B.value}));}catch(e){}}
+[M,G,P,T,B].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('m')){M.value=qs.get('m');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_flydrive')||'null');if(m){if(m.m){M.value=m.m;}if(m.g){G.value=m.g;}if(m.p){P.value=m.p;}if(m.t){T.value=m.t;}if(m.b){B.value=m.b;}}}catch(e){}}
+calc();
+document.getElementById('fd-share').addEventListener('click',function(){
+  var txt='For this trip, '+document.getElementById('fd-out').textContent+' wins by $'+document.getElementById('fd-s3').textContent+'. Run yours:';
+  var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value);
+  if(navigator.share){navigator.share({title:'Fly or drive',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my verdict';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -14258,6 +14357,8 @@ TOOLS = {
     "treewater": lambda args: TREEWATER,
     "treelights": lambda args: TREELIGHTS,
     "wrapcalc": lambda args: WRAPCALC,
+    "roadfuel": lambda args: ROADFUEL,
+    "flydrive": lambda args: FLYDRIVE,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
