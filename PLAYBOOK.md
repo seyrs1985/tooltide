@@ -29,6 +29,7 @@
 - 注入脚本三引号模板同理(R121):`\'` 的反斜杠会被 Python 吃掉,JS 拿到裸撇号炸语法(check_site 按设计拦截)——含撇号的 SEO 文案一律走 repr 生成的 pages.py 区,JS 字符串内避免撇号或改措辞;R120 禁 u 转义规则 R121 全程验证有效。**脚本自身的文档字符串/注释里字面反斜杠u 同罪**(R125 SyntaxError 实证),注释措辞写"反斜杠u"即可。
 - i18n 管线:_i18n_tables.json 补键(9 译文语言 zh/es/pt/ru/ja/ko/de/fr/id 全有;en 基准靠代码 fallback,以 i18n_audit.py 通过为准)→`python engine/_gen_i18n.py`→i18n_audit.py;**i18n.js 是生成物绝不手编**;脚本批量接线后必须 curl 直连抽查渲染结果(i18n R17 教训:属性错位成合法但可见的垃圾串,check_site 与审计都拦不住)。
 - **旧页钩子补课用站级兜底,勿逐页改渲染器(R127)**:build.py `TITLE_FALLBACK_JS`(输入后 250ms 取 `.result-num` 写 title,守卫=标题仍等于载入值才接管,专属钩子永不被覆盖)一次补齐 53 缺口页中 36 个;**站点级脚本会让静态钩子审计假阴性**——审计器必须先剥离站级注入片段(签名 `var T0=document.title`)再统计;无 result-num 的文本类页(word-counter/tip 等 17 个)兜底够不着,只能渲染器级补,记 R1。
+- 老页钩子补课的注入锚点必须取渲染器内变量声明组合,通用语句(var lock=false; 等同款出现 5 次)跨渲染器撞车,assert 拦下零事故(R131);文本页文本记忆上限 2 万字符防 localStorage 膨胀;share 按钮需改 HTML,JS 级补课先给 title/localStorage/URL 三钩子即可达标。
 
 ## 3. 构建、部署与排障
 - 全内联 CSS 架构:线上**没有** /assets/style.css(验证 CSS 改动抓页面内联 `<style>`);i18n.js 在站点根 /i18n.js。
