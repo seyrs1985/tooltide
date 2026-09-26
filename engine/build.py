@@ -32,6 +32,7 @@ TOOL_EMOJI = {
     "pumpkinpie": "🎃", "carvetiming": "🍂", "seedroast": "🌰",
     "dstsleep": "⏰",
     "coolice": "🍹", "tailgatefood": "🍖",
+    "frostplan": "❄", "bulbspace": "🌷", "cactusbloom": "🌵",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

@@ -11432,6 +11432,153 @@ document.getElementById('tf-share').addEventListener('click',function(){
 </script>
 """
 
+FROSTPLAN = """<div class="tool" id="tt-ff">
+  <div class="fields">
+    <div class="field"><label for="ff-d">Your average first frost date</label><input type="date" id="ff-d" value="2026-10-15"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ff-out">&#8211;</span><span class="result-unit">until first frost</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ff-s1">&#8211;</b><span>last feeding - 6 wk before</span></div>
+    <div class="stat"><b id="ff-s2">&#8211;</b><span>tender pots inside - 4 wk</span></div>
+    <div class="stat"><b id="ff-s3">&#8211;</b><span>final harvest - 2 wk</span></div>
+  </div>
+  <div class="tool-note" id="ff-note"></div>
+  <button type="button" class="tool-btn" id="ff-share">Share my frost plan</button>
+</div>
+<script>(function(){
+var D=document.getElementById('ff-d');
+function calc(){
+  var v=D.value;if(!v){return;}
+  var p=v.split('-');
+  var f=new Date(parseInt(p[0],10),parseInt(p[1],10)-1,parseInt(p[2],10));
+  var now=new Date();var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  if(f.getTime()<today.getTime()){f=new Date(f.getFullYear()+1,f.getMonth(),f.getDate());}
+  var days=Math.round((f.getTime()-today.getTime())/86400000);
+  var names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function back(w){var t=new Date(f.getTime()-w*7*86400000);return names[t.getMonth()]+' '+t.getDate();}
+  document.getElementById('ff-out').textContent=days+' days';
+  document.getElementById('ff-s1').textContent=back(6);
+  document.getElementById('ff-s2').textContent=back(4);
+  document.getElementById('ff-s3').textContent=back(2);
+  document.getElementById('ff-note').textContent='Six weeks out, stop fertilizing so new growth hardens instead of staying soft. Four weeks, bring tender pots inside after a pest check - a firm jet of water knocks aphids off the leaves. Two weeks, harvest the last tender vegetables and the basil. The final week, drain hoses, curl up the drip lines, and keep old sheets ready to throw over tender beds on frost nights. Your average first frost date comes from the weather service or a university extension table for your town; it is an average, so treat it as a drumbeat, not a cliff - the first frost often lands two weeks on either side.';
+  document.title='First frost in '+days+' days - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_frostplan',JSON.stringify({d:D.value}));}catch(e){}}
+D.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('d')){D.value=qs.get('d');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_frostplan')||'null');if(m&&m.d){D.value=m.d;pre=true;}}catch(e){}}
+calc();
+document.getElementById('ff-share').addEventListener('click',function(){
+  var txt='First frost: '+D.value+', '+document.getElementById('ff-out').textContent+' out. Pots come in on '+document.getElementById('ff-s2').textContent+'. Plan your winterizing:';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
+  if(navigator.share){navigator.share({title:'First frost plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my frost plan';},1500);}
+});
+})();
+</script>
+"""
+
+BULBSPACE = """<div class="tool" id="tt-bl">
+  <div class="fields">
+    <div class="field"><label for="bl-l">Bed length (ft)</label><input type="number" id="bl-l" min="1" max="100" step="0.5" placeholder="8"></div>
+    <div class="field"><label for="bl-w">Bed width (ft)</label><input type="number" id="bl-w" min="0.5" max="50" step="0.5" placeholder="4"></div>
+    <div class="field"><label for="bl-t">Bulb type</label><select id="bl-t"><option value="tulip" selected>Tulip</option><option value="daffodil">Daffodil</option><option value="crocus">Crocus</option><option value="allium">Allium</option><option value="hyacinth">Hyacinth</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bl-out">&#8211;</span><span class="result-unit">bulbs to buy</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bl-s1">&#8211;</b><span>packs of 25</span></div>
+    <div class="stat"><b id="bl-s2">&#8211;</b><span>planting depth</span></div>
+    <div class="stat"><b id="bl-s3">&#8211;</b><span>spacing apart</span></div>
+  </div>
+  <div class="tool-note" id="bl-note"></div>
+  <button type="button" class="tool-btn" id="bl-share">Share my bulb order</button>
+</div>
+<script>(function(){
+var L=document.getElementById('bl-l'),W=document.getElementById('bl-w'),T=document.getElementById('bl-t');
+var SP={tulip:[4,6],daffodil:[4,6],crocus:[3,3],allium:[8,6],hyacinth:[4,6]};
+function calc(){
+  var l=parseFloat(L.value)||0,w=parseFloat(W.value)||0;
+  if(l<1){l=1;}if(w<0.5){w=0.5;}
+  var s=SP[T.value];
+  var per=144/(s[0]*s[0]);
+  var count=Math.ceil(l*w*per);
+  document.getElementById('bl-out').textContent=count;
+  document.getElementById('bl-s1').textContent=Math.ceil(count/25);
+  document.getElementById('bl-s2').textContent=s[1]+' in';
+  document.getElementById('bl-s3').textContent=s[0]+' in';
+  document.getElementById('bl-note').textContent='The arithmetic: bulbs per square foot from the spacing squared, bed area times that, rounded up because bulbs sell in packs. Plant at the depth shown - the classic rule is two to three times the bulb height - pointy end up. In warm climates tulips need 12 to 16 weeks in the refrigerator before planting; daffodils are the one bulb squirrels leave alone. October is prime time while the soil is still workable - bulbs want about six weeks of root growth before the ground freezes solid.';
+  document.title=count+' bulbs for your bed - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_bulbspace',JSON.stringify({l:L.value,w:W.value,t:T.value}));}catch(e){}}
+L.addEventListener('input',function(){calc();save();});W.addEventListener('input',function(){calc();save();});T.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('l')){L.value=qs.get('l');pre=true;}
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(qs.get('t')){T.value=qs.get('t');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_bulbspace')||'null');if(m){if(m.l){L.value=m.l;}if(m.w){W.value=m.w;}if(m.t){T.value=m.t;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('bl-share').addEventListener('click',function(){
+  var txt='The '+L.value+' by '+W.value+' ft bed takes '+document.getElementById('bl-out').textContent+' '+T.value+' bulbs. Plan yours:';
+  var url=location.origin+location.pathname+'?l='+encodeURIComponent(L.value)+'&w='+encodeURIComponent(W.value)+'&t='+encodeURIComponent(T.value);
+  if(navigator.share){navigator.share({title:'Bulb planting plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my bulb order';},1500);}
+});
+})();
+</script>
+"""
+
+CACTUSBLOOM = """<div class="tool" id="tt-cb">
+  <div class="fields">
+    <div class="field"><label for="cb-d">Want blooms by</label><input type="date" id="cb-d" value="2026-12-25"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cb-out">&#8211;</span><span class="result-unit">start long nights</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cb-s1">&#8211;</b><span>days from today</span></div>
+    <div class="stat"><b id="cb-s2">&#8211;</b><span>weeks of the treatment</span></div>
+    <div class="stat"><b id="cb-s3">&#8211;</b><span>total darkness per night</span></div>
+  </div>
+  <div class="tool-note" id="cb-note"></div>
+  <button type="button" class="tool-btn" id="cb-share">Share my bloom plan</button>
+</div>
+<script>(function(){
+var D=document.getElementById('cb-d');
+function calc(){
+  var v=D.value;if(!v){return;}
+  var p=v.split('-');
+  var t=new Date(parseInt(p[0],10),parseInt(p[1],10)-1,parseInt(p[2],10));
+  var now=new Date();var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  if(t.getTime()<today.getTime()+56*86400000){t=new Date(t.getFullYear()+1,t.getMonth(),t.getDate());}
+  var st=new Date(t.getTime()-56*86400000);
+  var days=Math.round((st.getTime()-today.getTime())/86400000);
+  var names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var sd=names[st.getMonth()]+' '+st.getDate();
+  document.getElementById('cb-out').textContent=sd;
+  document.getElementById('cb-s1').textContent=days;
+  document.getElementById('cb-s2').textContent='8';
+  document.getElementById('cb-s3').textContent='13 h';
+  document.getElementById('cb-note').textContent='Count back eight weeks from your target and run long nights from that date: 13 hours of total darkness every night - a closet, a spare room, or a cardboard box over the plant - with bright days, cool nights between 13 and 18 C, and water only when the top inch of soil dries. Buds appear around week four, tiny beads at the branch tips. Once buds are pea size, move the plant to a bright window and stop moving it altogether: a turned pot drops buds, and a kitchen with evening lights is the classic bloom killer.';
+  document.title='Start dark nights on '+sd+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_cactusbloom',JSON.stringify({d:D.value}));}catch(e){}}
+D.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('d')){D.value=qs.get('d');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_cactusbloom')||'null');if(m&&m.d){D.value=m.d;pre=true;}}catch(e){}}
+calc();
+document.getElementById('cb-share').addEventListener('click',function(){
+  var txt='For blooms by '+D.value+', the long-night treatment starts '+document.getElementById('cb-out').textContent+' - 13 h of darkness a night for 8 weeks. Plan yours:';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
+  if(navigator.share){navigator.share({title:'Christmas cactus bloom plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my bloom plan';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -12523,6 +12670,9 @@ TOOLS = {
     "dstsleep": lambda args: DSTPLAN,
     "coolice": lambda args: COOLICE,
     "tailgatefood": lambda args: TGFOOD,
+    "frostplan": lambda args: FROSTPLAN,
+    "bulbspace": lambda args: BULBSPACE,
+    "cactusbloom": lambda args: CACTUSBLOOM,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
