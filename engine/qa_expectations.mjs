@@ -79,6 +79,16 @@ export const TESTS = [
     js: `let m=set('inf-a','100'); if(m)return m; m=set('inf-f','1990'); if(m)return m; m=set('inf-t','2025'); return m||get('inf-out');` },
   { slug: "break-even-calculator", want: 100,
     js: `let m=set('be-f','1000'); if(m)return m; m=set('be-p','25'); if(m)return m; m=set('be-v','15'); return m||get('be-out');` },
+  // ---- patrol-added (round 3, 2026-09-27) ----
+  // percentage-increase p2 pane: pct change = (new-old)/old*100; (100-80)/80 = 25
+  { slug: "percentage-increase", want: 25,
+    js: `let m=set('p2-a','80'); if(m)return m; m=set('p2-b','100'); return m||get('p2-r');` },
+  // average: mean = sum/n; (4+8+15+16+23+42)/6 = 108/6 = 18
+  { slug: "average-calculator", want: 18,
+    js: `const m=set('avg-in','4, 8, 15, 16, 23, 42'); return m||get('avg-mean');` },
+  // inch-fraction: mixed fraction "1-3/4" = 1 + 3/4 = 1.75 inches
+  { slug: "inch-fraction-calculator", want: 1.75,
+    js: `const m=set('if-frac','1-3/4'); return m||get('if-out');` },
 ];
 
 export function verify(t, raw) {
