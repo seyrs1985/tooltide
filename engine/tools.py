@@ -12660,18 +12660,18 @@ document.getElementById('dh-share').addEventListener('click',function(){
 
 HOLIDAYTIP = """<div class="tool" id="tt-ht">
   <div class="fields">
-    <div class="field"><label for="ht-b">Total holiday tipping budget</label><input id="ht-b" type="number" min="0" value="300"></div>
-    <div class="field"><label for="ht-w">Weekly regulars (cleaner, dog walker...)</label><input id="ht-w" type="number" min="0" max="20" value="1"></div>
-    <div class="field"><label for="ht-o">Occasional helpers (hairdresser, babysitter...)</label><input id="ht-o" type="number" min="0" max="20" value="3"></div>
+    <div class="field"><label for="ht-b" data-i18n="tip.budget">Total holiday tipping budget</label><input id="ht-b" type="number" min="0" value="300"></div>
+    <div class="field"><label for="ht-w" data-i18n="tip.weekly">Weekly regulars (cleaner, dog walker...)</label><input id="ht-w" type="number" min="0" max="20" value="1"></div>
+    <div class="field"><label for="ht-o" data-i18n="tip.occasional">Occasional helpers (hairdresser, babysitter...)</label><input id="ht-o" type="number" min="0" max="20" value="3"></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ht-out">&#8211;</span><span class="result-unit">per weekly regular</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ht-out">&#8211;</span><span class="result-unit" data-i18n="tip.perweekly">per weekly regular</span></div>
   <div class="stats">
-    <div class="stat"><b id="ht-s1">&#8211;</b><span>per occasional helper</span></div>
-    <div class="stat"><b id="ht-s2">&#8211;</b><span>to weekly regulars total</span></div>
-    <div class="stat"><b id="ht-s3">&#8211;</b><span>left for the card people</span></div>
+    <div class="stat"><b id="ht-s1">&#8211;</b><span data-i18n="tip.peroccasional">per occasional helper</span></div>
+    <div class="stat"><b id="ht-s2">&#8211;</b><span data-i18n="tip.weeklytotal">to weekly regulars total</span></div>
+    <div class="stat"><b id="ht-s3">&#8211;</b><span data-i18n="tip.cardleft">left for the card people</span></div>
   </div>
   <div class="tool-note" id="ht-note"></div>
-  <button type="button" class="tool-btn" id="ht-share">Share my tipping plan</button>
+  <button type="button" class="tool-btn" id="ht-share" data-i18n="share.share-my-tippingplan">Share my tipping plan</button>
 </div>
 <script>(function(){
 var B=document.getElementById('ht-b'),W=document.getElementById('ht-w'),O=document.getElementById('ht-o');
