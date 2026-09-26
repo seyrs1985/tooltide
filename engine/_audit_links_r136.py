@@ -66,8 +66,7 @@ for path in pages:
 
 # 4) sitemap 覆盖:R130-R135 九新页
 sm = io.open(os.path.join(DOCS, "sitemap.xml"), encoding="utf-8").read()
-new_pages = ["gym-membership-value-calculator", "dry-january-savings-calculator", "books-per-year-calculator",
-             "electric-blanket-cost-calculator", "sourdough-starter-calculator"]
+new_pages = ["dehumidifier-size-calculator", "secret-santa-calculator", "champagne-calculator"]
 sm_miss = [p for p in new_pages if ("/" + p + "/") not in sm]
 
 print("pages scanned:", len(pages))
