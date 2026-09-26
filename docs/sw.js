@@ -1,6 +1,6 @@
 /* ToolDune service worker — offline fallback + fast repeat visits. */
 var BASE = "/";
-var CACHE = "tooltide-v1-202609260728";
+var CACHE = "tooltide-v1-202609260744";
 var PRECACHE = [BASE, BASE + "i18n.js", BASE + "manifest.webmanifest",
   BASE + "favicon.ico", BASE + "apple-touch-icon.png",
   BASE + "icon-192.png", BASE + "icon-512.png", BASE + "opensearch.xml"];

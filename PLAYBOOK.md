@@ -7,7 +7,7 @@
 - 终点:稳定 $10,000/月,阶梯 $1/$50/$500/$2000/$10000(config/goals.json);当前=收录爬坡期,收入 $0.00、AdSense 待用户申请,收入数字不作为策略变动依据。
 - 运行节奏(2026-09-26 起,用户指令):**全天候执行**,触发间隔 20 分钟(单轮实测 15-55 分钟、均值~30,间隔密于单轮耗时只排队不增产,吞吐=24h÷单轮耗时);i18n 流水线全天每 3 小时(:10 触发)错峰,锁竞争时轮询等锁(上限20分钟)勿立即让行。选题饱和时自动转存量深化轮,消耗配额但不硬凑页数。
 - 线上 https://tooldune.com/ (2026-09-26 起自定义域名,品牌同步更名 ToolDune;更早的 github.io 与 nuts.fan 均 301;deploy.sh live-check 已跟随)。
-- 基线(2026-09-26 R128 后,[PBAudit]):363 工具页;check_site 374 文件 29037 检查 0 失败;i18n 审计 368 页 297 键×9 语言;收入 $0.00(DEMO)。**规模口径以当轮 check_site 输出为准**(build 输出的页数与 STATUS 口径不同)。
+- 基线(2026-09-26 R143 审计,R141 后):386 工具页(i18n 口径);check_site 392 文件 30470 检查 0 失败;i18n 审计 386 页 313 键×9 语言;收入 $0.00(DEMO)。**规模口径以当轮 check_site 输出为准**(build 输出的页数与 STATUS 口径不同)。
 
 ## 1. 选题策略
 - 来源:Google Trends RSS(https://trends.google.com/trending/rss?geo=US 与 ?geo=GB,存 data/trends/日期-时段.json 不覆盖)+ 站内品类空白;GSC 真实数据到位后以 data/insights.json P1/P2 为最高优先。
@@ -55,7 +55,7 @@
 
 ## 7. 待挖掘候选(做完划掉;审计轮负责补充与清理)
 - GSC 真实数据接入后的 Search Console 长尾词扩页(等 metrics.csv 出真数)
-- 留存 R1 遗留:.ics 导出已落地试点(R140 turkey-thaw,模式=date对象存作用域+String.fromCharCode造CRLF+data:URI下载;验证后按 date规划器族逐页推广);每日内容钩子、GSC 长尾(等真数)仍开;旧候选「换算页最近使用复用条」已由站级 RECENT_STRIP_JS 落地移除(R129 审计)
+- 留存 R1 遗留:.ics 导出推广中(R140 turkey-thaw 试点+R143 dst-sleep,模式=date对象存作用域+String.fromCharCode造CRLF+data:URI下载;余 frostplan/carvetiming/movetl 等 date规划器);每日内容钩子、GSC 长尾(等真数)仍开;旧候选「换算页最近使用复用条」已由站级 RECENT_STRIP_JS 落地移除(R129 审计)
 - 每日内容钩子("每天答案不同"的日期种子页,按品类逐簇铺)
 - 渲染器动态字符串 i18n 长尾(与 i18n 流水线协同,勿改其台账 engine/i18n_bugs.md)
 

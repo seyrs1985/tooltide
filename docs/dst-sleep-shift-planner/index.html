@@ -72,9 +72,11 @@
   </div>
   <div class="tool-note" id="dst-note"></div>
   <button type="button" class="tool-btn" id="dst-share" data-i18n="share.share-my-shiftplan">Share my shift plan</button>
+  <button type="button" class="tool-btn" id="dst-ics">Add to calendar (.ics)</button>
 </div>
 <script>(function(){
 var R=document.getElementById('dst-r'),P=document.getElementById('dst-p');
+var lastSt=null;
 function changeDate(y,region){var d;
   if(region==='US'){d=new Date(Date.UTC(y,10,1));d=new Date(d.getTime()+((7-d.getUTCDay())%7)*86400000);}
   else{d=new Date(Date.UTC(y,9,31));d=new Date(d.getTime()-d.getUTCDay()*86400000);}
@@ -95,6 +97,7 @@ function calc(){
   document.getElementById('dst-s3').textContent='+'+pace+' min';
   document.getElementById('dst-note').textContent='Falling back gives the hour back, but bodies still drift: the plan is to move bedtime and wake time '+pace+' minutes later each day for '+shiftDays+' days, so Sunday morning lands on schedule instead of in the dark. Phones update themselves; the microwave, the car clock and the toaster do not. The week hurts most for small kids, pets on a feeding clock and anyone commuting at dawn - start them on the plan, and take the spare hour Sunday morning as a gift, not a mandate.';
   document.title=TT('dst.fallback','Fall back ')+cs+' - ToolDune';
+  lastSt=st;
 }
 function save(){try{localStorage.setItem('tt_dst',JSON.stringify({r:R.value,p:P.value}));}catch(e){}}
 R.addEventListener('change',function(){calc();save();});P.addEventListener('change',function(){calc();save();});
@@ -104,6 +107,17 @@ if(qs.get('r')){R.value=qs.get('r');pre=true;}
 if(qs.get('p')){P.value=qs.get('p');pre=true;}
 if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_dst')||'null');if(m){if(m.r){R.value=m.r;}if(m.p){P.value=m.p;}pre=true;}}catch(e){}}
 calc();
+function ymd2(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('dst-ics').addEventListener('click',function(){
+  if(!lastSt){return;}
+  var end=new Date(lastSt.getTime()+86400000);
+  var NL=String.fromCharCode(13,10);
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN'+NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'@tooldune.com'+NL+'DTSTAMP:'+ymd2(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymd2(lastSt)+NL+'DTEND;VALUE=DATE:'+ymd2(end)+NL+'SUMMARY:Begin bedtime shift for the clock change'+NL+'DESCRIPTION:Move bedtime '+P.value+' minutes later daily until the fall-back date. Plan by tooldune.com'+NL+'END:VEVENT'+NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='clock-change-shift-plan.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add to calendar (.ics)';},1500);
+});
 document.getElementById('dst-share').addEventListener('click',function(){
   var txt='Clocks fall back '+document.getElementById('dst-out').textContent+' - start shifting bedtime '+P.value+' min later on '+document.getElementById('dst-s1').textContent+'. Plan yours:';
   var url=location.origin+location.pathname+'?r='+encodeURIComponent(R.value)+'&p='+encodeURIComponent(P.value);
