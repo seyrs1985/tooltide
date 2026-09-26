@@ -13760,17 +13760,17 @@ document.getElementById('hg-share').addEventListener('click',function(){
 
 SLOWCOOK = """<div class="tool" id="tt-sc2">
   <div class="fields">
-    <div class="field"><label for="sc2-m">Oven time in the recipe (minutes)</label><input id="sc2-m" type="number" min="10" max="240" value="60"></div>
-    <div class="field"><label for="sc2-s">Slow cooker setting</label><select id="sc2-s"><option value="low" selected>Low</option><option value="high">High</option></select></div>
+    <div class="field"><label for="sc2-m" data-i18n="slowcook.ovenmin">Oven time in the recipe (minutes)</label><input id="sc2-m" type="number" min="10" max="240" value="60"></div>
+    <div class="field"><label for="sc2-s" data-i18n="slowcook.setting">Slow cooker setting</label><select id="sc2-s"><option value="low" selected>Low</option><option value="high">High</option></select></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sc2-out">&#8211;</span><span class="result-unit">in the slow cooker</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sc2-out">&#8211;</span><span class="result-unit" data-i18n="slowcook.incooker">in the slow cooker</span></div>
   <div class="stats">
-    <div class="stat"><b id="sc2-s1">&#8211;</b><span>the other setting</span></div>
-    <div class="stat"><b id="sc2-s2">&#8211;</b><span>liquid in the recipe</span></div>
-    <div class="stat"><b id="sc2-s3">&#8211;</b><span>dairy and seafood go in</span></div>
+    <div class="stat"><b id="sc2-s1">&#8211;</b><span> data-i18n="slowcook.othersetting">the other setting</span></div>
+    <div class="stat"><b id="sc2-s2">&#8211;</b><span> data-i18n="slowcook.liquid">liquid in the recipe</span></div>
+    <div class="stat"><b id="sc2-s3">&#8211;</b><span> data-i18n="slowcook.dairy">dairy and seafood go in</span></div>
   </div>
   <div class="tool-note" id="sc2-note"></div>
-  <button type="button" class="tool-btn" id="sc2-share">Share my conversion</button>
+  <button type="button" class="tool-btn" id="sc2-share" data-i18n="share.share-my-conversion">Share my conversion</button>
 </div>
 <script>(function(){
 var M=document.getElementById('sc2-m'),S=document.getElementById('sc2-s');
