@@ -12947,6 +12947,144 @@ document.getElementById('bg-share').addEventListener('click',function(){
 </script>
 """
 
+TREEWATER = """<div class="tool" id="tt-twt">
+  <div class="fields">
+    <div class="field"><label for="tw-d">Trunk diameter (inches)</label><input id="tw-d" type="number" min="1" max="8" step="0.25" value="3"></div>
+    <div class="field"><label for="tw-c">Stand reservoir (quarts)</label><input id="tw-c" type="number" min="8" max="100" value="24"></div>
+    <div class="field"><label for="tw-r">Room warmth</label><select id="tw-r"><option value="1">Cool room</option><option value="1.3" selected>Normal heating</option><option value="1.6">Hot - fireplace or sunny window</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tw-out">&#8211;</span><span class="result-unit">quarts per day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tw-s1">&#8211;</b><span>refill every</span></div>
+    <div class="stat"><b id="tw-s2">&#8211;</b><span>season total, 30 days</span></div>
+    <div class="stat"><b id="tw-s3">&#8211;</b><span>first-day thirst</span></div>
+  </div>
+  <div class="tool-note" id="tw-note"></div>
+  <button type="button" class="tool-btn" id="tw-share">Share my tree water math</button>
+</div>
+<script>(function(){
+var D=document.getElementById('tw-d'),C=document.getElementById('tw-c'),R=document.getElementById('tw-r');
+function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>0?v:0;}
+function calc(){
+  var d=num(D),cap=num(C),warm=parseFloat(R.value)||1.3;
+  var daily=d*warm, refill=cap/daily, season=daily*30, first=d*2;
+  var d1=Math.round(daily*10)/10, d2=Math.round(refill*10)/10, d3=Math.round(season);
+  document.getElementById('tw-out').textContent=d1;
+  document.getElementById('tw-s1').textContent=d2+' days';
+  document.getElementById('tw-s2').textContent=d3+' qt';
+  document.getElementById('tw-s3').textContent=Math.round(first*10)/10+' qt';
+  document.getElementById('tw-note').textContent='The rule is one quart per inch of trunk per day, doubled the first day because the tree is thirsty after the trip. The non-negotiable is under this note: if the cut end goes dry even once, sap seals it and the tree stops drinking forever - so check daily the first week, and make the fresh half-inch cut at planting the moment you get home. Hot rooms drink a third again more. A tree that runs dry is not just sad, it is the fire-hazard version of itself, so lights on only when someone is home until New Year takes the tree out.';
+  document.title='Tree water: '+d1+' qt a day - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_treewater',JSON.stringify({d:D.value,c:C.value,r:R.value}));}catch(e){}}
+[D,C,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('d')){D.value=qs.get('d');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_treewater')||'null');if(m){if(m.d){D.value=m.d;}if(m.c){C.value=m.c;}if(m.r){R.value=m.r;}}}catch(e){}}
+calc();
+document.getElementById('tw-share').addEventListener('click',function(){
+  var txt='My tree drinks '+document.getElementById('tw-out').textContent+' quarts a day - refill every '+document.getElementById('tw-s1').textContent+'. Size yours:';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
+  if(navigator.share){navigator.share({title:'Christmas tree watering',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my tree water math';},1500);}
+});
+})();
+</script>
+"""
+
+TREELIGHTS = """<div class="tool" id="tt-tlt">
+  <div class="fields">
+    <div class="field"><label for="tl-h">Tree height (feet)</label><input id="tl-h" type="number" min="2" max="15" step="0.5" value="6"></div>
+    <div class="field"><label for="tl-f">Coverage style</label><select id="tl-f"><option value="50">Sparse - 50 bulbs per foot</option><option value="100" selected>Classic - 100 per foot</option><option value="150">Lush - 150 per foot</option></select></div>
+    <div class="field"><label for="tl-t">Bulb type</label><select id="tl-t"><option value="0.05" selected>Mini LED</option><option value="0.4">Mini incandescent</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tl-out">&#8211;</span><span class="result-unit">bulbs on the tree</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tl-s1">&#8211;</b><span>100-count strings to buy</span></div>
+    <div class="stat"><b id="tl-s2">&#8211;</b><span>watts when lit</span></div>
+    <div class="stat"><b id="tl-s3">&#8211;</b><span>season electricity, 6 h/day</span></div>
+  </div>
+  <div class="tool-note" id="tl-note"></div>
+  <button type="button" class="tool-btn" id="tl-share">Share my light count</button>
+</div>
+<script>(function(){
+var H=document.getElementById('tl-h'),F=document.getElementById('tl-f'),T2=document.getElementById('tl-t');
+function calc(){
+  var h=parseFloat(H.value)||6,per=parseFloat(F.value)||100,watt=parseFloat(T2.value)||0.05;
+  var bulbs=h*per, strings=Math.ceil(bulbs/100), watts=bulbs*watt;
+  var season=watts*6*45/1000*0.17;
+  var d1=Math.round(bulbs), d2=Math.round(watts*10)/10, d3=Math.round(season*100)/100;
+  document.getElementById('tl-out').textContent=d1;
+  document.getElementById('tl-s1').textContent=strings;
+  document.getElementById('tl-s2').textContent=d2+' W';
+  document.getElementById('tl-s3').textContent='$'+d3;
+  document.getElementById('tl-note').textContent='The classic rule is 100 mini lights per foot of tree; sparse or lush adjusts it. The technique that beats circling: wrap each major branch in a triangle from trunk to tip and back, working in sections - lights end up deep in the tree instead of skimming the surface, and a dropped section does not unwind the whole spiral. Test every string before it goes up, keep the heaviest strands near the bottom where the cord runs, and plug everything into one switched power strip so the whole tree goes dark with a single stomp-worthy dash.';
+  document.title='Tree lights: '+strings+' strings for '+h+' ft - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_treelights',JSON.stringify({h:H.value,f:F.value,t:T2.value}));}catch(e){}}
+[H,F,T2].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('h')){H.value=qs.get('h');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_treelights')||'null');if(m){if(m.h){H.value=m.h;}if(m.f){F.value=m.f;}if(m.t){T2.value=m.t;}}}catch(e){}}
+calc();
+document.getElementById('tl-share').addEventListener('click',function(){
+  var txt='A '+H.value+' foot tree takes about '+document.getElementById('tl-out').textContent+' lights ('+document.getElementById('tl-s1').textContent+' strings). Size yours:';
+  var url=location.origin+location.pathname+'?h='+encodeURIComponent(H.value);
+  if(navigator.share){navigator.share({title:'Christmas tree lights',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my light count';},1500);}
+});
+})();
+</script>
+"""
+
+WRAPCALC = """<div class="tool" id="tt-wp">
+  <div class="fields">
+    <div class="field"><label for="wp-n">Gifts to wrap</label><input id="wp-n" type="number" min="1" max="200" value="12"></div>
+    <div class="field"><label for="wp-s">Average gift size</label><select id="wp-s"><option value="1">Book-sized - 1 sq ft</option><option value="3" selected>Sweater box - 3 sq ft</option><option value="6">Large toy - 6 sq ft</option><option value="10">Awkward giant - 10 sq ft</option></select></div>
+    <div class="field"><label for="wp-w">Wrapping style</label><select id="wp-w"><option value="1.2" selected>Neat folds</option><option value="1.5">Enthusiastic tape-and-hope</option></select></div>
+    <div class="field"><label for="wp-p">Price per 30 sq ft roll</label><input id="wp-p" type="number" min="1" step="0.5" value="4"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="wp-out">&#8211;</span><span class="result-unit">sq ft of paper</span></div>
+  <div class="stats">
+    <div class="stat"><b id="wp-s1">&#8211;</b><span>rolls to buy</span></div>
+    <div class="stat"><b id="wp-s2">&#8211;</b><span>paper cost</span></div>
+    <div class="stat"><b id="wp-s3">&#8211;</b><span>per gift</span></div>
+  </div>
+  <div class="tool-note" id="wp-note"></div>
+  <button type="button" class="tool-btn" id="wp-share">Share my paper math</button>
+</div>
+<script>(function(){
+var N=document.getElementById('wp-n'),S=document.getElementById('wp-s'),W2=document.getElementById('wp-w'),P=document.getElementById('wp-p');
+function calc(){
+  var n=Math.max(1,Math.round(parseFloat(N.value)||0)),s=parseFloat(S.value)||3,w=parseFloat(W2.value)||1.2,p=parseFloat(P.value)||4;
+  var sqft=n*s*w, rolls=Math.ceil(sqft/30), cost=rolls*p, per=cost/n;
+  var d1=Math.round(sqft), d2=Math.round(cost*100)/100, d3=Math.round(per*100)/100;
+  document.getElementById('wp-out').textContent=d1;
+  document.getElementById('wp-s1').textContent=rolls;
+  document.getElementById('wp-s2').textContent='$'+d2;
+  document.getElementById('wp-s3').textContent='$'+d3;
+  document.getElementById('wp-note').textContent='The waste factor is the honest part - real wrapping loses a fifth to a third of the roll to off-cuts and the piece you measured wrong. Two upgrades that actually save: a roll of kraft butcher paper plus a rubber stamp kit beats character paper at triple the price per square foot, and gift bags are the reusable endgame - buy plain ones once, use them for a decade, skip the tape and the folding entirely. Measure the biggest gift first and buy for it, not for the average; one awkward giant always hides in the pile until Christmas Eve.';
+  document.title='Wrapping: '+rolls+' rolls for '+n+' gifts - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_wrapcalc',JSON.stringify({n:N.value,s:S.value,w:W2.value,p:P.value}));}catch(e){}}
+[N,S,W2,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('n')){N.value=qs.get('n');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_wrapcalc')||'null');if(m){if(m.n){N.value=m.n;}if(m.s){S.value=m.s;}if(m.w){W2.value=m.w;}if(m.p){P.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('wp-share').addEventListener('click',function(){
+  var txt='Wrapping '+N.value+' gifts takes '+document.getElementById('wp-out').textContent+' sq ft of paper - '+document.getElementById('wp-s1').textContent+' rolls. Plan yours:';
+  var url=location.origin+location.pathname+'?n='+encodeURIComponent(N.value);
+  if(navigator.share){navigator.share({title:'Wrapping paper math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my paper math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -14079,6 +14217,9 @@ TOOLS = {
     "shipfree": lambda args: SHIPFREE,
     "warranty": lambda args: WARRANTY,
     "bogo": lambda args: BOGO,
+    "treewater": lambda args: TREEWATER,
+    "treelights": lambda args: TREELIGHTS,
+    "wrapcalc": lambda args: WRAPCALC,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
