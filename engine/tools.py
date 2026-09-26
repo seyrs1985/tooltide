@@ -12293,6 +12293,152 @@ document.getElementById('rv-share').addEventListener('click',function(){
 </script>
 """
 
+TIRETEMP = """<div class="tool" id="tt-tpc">
+  <div class="fields">
+    <div class="field"><label for="tp-pl">Placard pressure (door sticker, PSI)</label><input id="tp-pl" type="number" min="20" max="60" value="33"></div>
+    <div class="field"><label for="tp-tn">Temperature now (F)</label><input id="tp-tn" type="number" min="-40" max="120" value="60"></div>
+    <div class="field"><label for="tp-tl">Cold night coming (F)</label><input id="tp-tl" type="number" min="-40" max="100" value="25"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="tp-out">&#8211;</span><span class="result-unit">PSI to add today</span></div>
+  <div class="stats">
+    <div class="stat"><b id="tp-s1">&#8211;</b><span>loss from the cold snap</span></div>
+    <div class="stat"><b id="tp-s2">&#8211;</b><span>gauge should read now</span></div>
+    <div class="stat"><b id="tp-s3">&#8211;</b><span>if you do nothing</span></div>
+  </div>
+  <div class="tool-note" id="tp-note"></div>
+  <button type="button" class="tool-btn" id="tp-share">Share my tire math</button>
+</div>
+<script>(function(){
+var PL=document.getElementById('tp-pl'),TN=document.getElementById('tp-tn'),TL=document.getElementById('tp-tl');
+function calc(){
+  var pl=parseFloat(PL.value)||33,tn=parseFloat(TN.value)||60,tl=parseFloat(TL.value)||25;
+  var ratio=(tn+459.67)/(tl+459.67);
+  var loss=pl-pl/ratio;
+  var lowAfter=pl/ratio;
+  var d1=Math.round(loss*10)/10,d2=Math.round((pl+loss)*10)/10,d3=Math.round(lowAfter*10)/10;
+  document.getElementById('tp-out').textContent=Math.max(0,Math.round(loss*10)/10);
+  document.getElementById('tp-s1').textContent=d1+' PSI';
+  document.getElementById('tp-s2').textContent=d2+' PSI';
+  document.getElementById('tp-s3').textContent=d3+' PSI';
+  document.getElementById('tp-note').textContent='The gas law in your tires: pressure falls about 1 PSI per 10 degrees F of temperature drop, which is why the TPMS light loves the first cold morning of the season. The math is exact for the pressure change - what it cannot know is that your gauge or the gas station hose may read half a pound off, so aim near the number, not for it. Check pressure monthly through winter, cold tires in the morning, and never bleed a hot tire down to the placard number - it will be genuinely low when it cools.';
+  document.title='Add '+Math.max(0,Math.round(loss*10)/10)+' PSI before the cold - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_tiretemp',JSON.stringify({p:PL.value,n:TN.value,l:TL.value}));}catch(e){}}
+[PL,TN,TL].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('l')){TL.value=qs.get('l');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_tiretemp')||'null');if(m){if(m.p){PL.value=m.p;}if(m.n){TN.value=m.n;}if(m.l){TL.value=m.l;}}}catch(e){}}
+calc();
+document.getElementById('tp-share').addEventListener('click',function(){
+  var txt='The cold snap tonight costs my tires '+document.getElementById('tp-s1').textContent+' - adding it now. Check yours:';
+  var url=location.origin+location.pathname+'?l='+encodeURIComponent(TL.value);
+  if(navigator.share){navigator.share({title:'Tire pressure vs temperature',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my tire math';},1500);}
+});
+})();
+</script>
+"""
+
+ANTIFREEZEMIX = """<div class="tool" id="tt-afm">
+  <div class="fields">
+    <div class="field"><label for="af-c">Cooling system capacity (quarts)</label><input id="af-c" type="number" min="4" max="40" value="12"></div>
+    <div class="field"><label for="af-m">Target mix (ethylene glycol)</label><select id="af-m"><option value="30">30% - protects to +4 F</option><option value="40">40% - protects to -12 F</option><option value="50" selected>50% - protects to -34 F</option><option value="60">60% - protects to -62 F</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="af-out">&#8211;</span><span class="result-unit">quarts of concentrate</span></div>
+  <div class="stats">
+    <div class="stat"><b id="af-s1">&#8211;</b><span>quarts distilled water</span></div>
+    <div class="stat"><b id="af-s2">&#8211;</b><span>freeze protection</span></div>
+    <div class="stat"><b id="af-s3">&#8211;</b><span>gal of 50/50 pre-mix equivalent</span></div>
+  </div>
+  <div class="tool-note" id="af-note"></div>
+  <button type="button" class="tool-btn" id="af-share">Share my mix math</button>
+</div>
+<script>(function(){
+var C=document.getElementById('af-c'),M=document.getElementById('af-m');
+function calc(){
+  var cap=parseFloat(C.value)||12,pct=parseInt(M.value,10)||50;
+  var conc=cap*pct/100, water=cap-conc, premix=cap/4;
+  var freeze={30:'+4 F',40:'-12 F',50:'-34 F',60:'-62 F'}[pct]||'-34 F';
+  var d1=Math.round(conc*10)/10,d2=Math.round(water*10)/10,d3=Math.round(premix*10)/10;
+  document.getElementById('af-out').textContent=d1;
+  document.getElementById('af-s1').textContent=d2+' qt';
+  document.getElementById('af-s2').textContent=freeze;
+  document.getElementById('af-s3').textContent=d3+' gal';
+  document.getElementById('af-note').textContent='For a fresh fill or a full drain-and-refill: that much concentrate plus distilled water hits your target mix. Never use plain tap water long-term - minerals scale up the passages. Two traps the parts-store shelf will not warn you about: above 70% concentrate the mix actually protects WORSE and moves heat worse, so more is not more; and never mix chemistry families (the old green IAT with orange/pink OAT) - they gel. If the color is unknown, a 5 dollar test strip or a full flush costs less than a cracked block.';
+  document.title='Mix '+pct+'%: '+d1+' qt concentrate - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_afm',JSON.stringify({c:C.value,m:M.value}));}catch(e){}}
+[C,M].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('m')){M.value=qs.get('m');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_afm')||'null');if(m){if(m.c){C.value=m.c;}if(m.m){M.value=m.m;}}}catch(e){}}
+calc();
+document.getElementById('af-share').addEventListener('click',function(){
+  var txt='My cooling system takes '+document.getElementById('af-out').textContent+' quarts of concentrate for winter. Do yours:';
+  var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value);
+  if(navigator.share){navigator.share({title:'Antifreeze mix math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my mix math';},1500);}
+});
+})();
+</script>
+"""
+
+BATTERYCOLD = """<div class="tool" id="tt-bcw">
+  <div class="fields">
+    <div class="field"><label for="bc-a">Battery age (years)</label><input id="bc-a" type="number" min="0" max="12" step="0.5" value="3"></div>
+    <div class="field"><label for="bc-t">Overnight low coming (F)</label><input id="bc-t" type="number" min="-40" max="60" value="20"></div>
+    <div class="field"><label for="bc-h">Climate history</label><select id="bc-h"><option value="1">Mostly mild</option><option value="0.9" selected>Mixed seasons</option><option value="0.8">Mostly hot summers</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bc-out">&#8211;</span><span class="result-unit">starting power available</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bc-s1">&#8211;</b><span>cold cuts capacity to</span></div>
+    <div class="stat"><b id="bc-s2">&#8211;</b><span>age and heat have left</span></div>
+    <div class="stat"><b id="bc-s3">&#8211;</b><span>verdict</span></div>
+  </div>
+  <div class="tool-note" id="bc-note"></div>
+  <button type="button" class="tool-btn" id="bc-share">Share my battery verdict</button>
+</div>
+<script>(function(){
+var A=document.getElementById('bc-a'),T=document.getElementById('bc-t'),H=document.getElementById('bc-h');
+function capAt(t){
+  if(t>=80)return 1;
+  if(t>=32)return 0.65+0.35*(t-32)/48;
+  if(t>=0)return 0.40+0.25*(t)/32;
+  return Math.max(0.20,0.40+0.25*(t)/32-(0-t)*0.001);
+}
+function calc(){
+  var age=parseFloat(A.value)||0,low=parseFloat(T.value)||20,heat=parseFloat(H.value)||1;
+  var cc=capAt(low);
+  var ageF=Math.max(0.35,1-0.09*age)*heat;
+  var avail=cc*ageF;
+  var d1=Math.round(cc*100),d2=Math.round(ageF*100),d3=Math.round(avail*100);
+  var verdict=avail>=0.55?'Should start':(avail>=0.40?'Marginal - test it':'Get it tested or replaced');
+  document.getElementById('bc-out').textContent=d3+'%';
+  document.getElementById('bc-s1').textContent=d1+'%';
+  document.getElementById('bc-s2').textContent=d2+'%';
+  document.getElementById('bc-s3').textContent=verdict;
+  document.getElementById('bc-note').textContent='Batteries die on the first cold snap, not in summer: heat ages the plates all season, then cold exposes what is left - at 0 F a battery holds roughly 40% of its rated cranking power while a cold engine needs twice the torque to spin. The estimate stacks the temperature curve with age wear, and 4 years is the honest decision point in hot climates, 6 in cold ones. Any parts store will load-test it free in five minutes - cheaper than a tow, and the tow is the plan B you get when the verdict was marginal and you drove past the test.';
+  document.title='Battery: '+d3+'% power at '+Math.round(low)+'F - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_bcw',JSON.stringify({a:A.value,t:T.value,h:H.value}));}catch(e){}}
+[A,T,H].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('t')){T.value=qs.get('t');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_bcw')||'null');if(m){if(m.a){A.value=m.a;}if(m.t){T.value=m.t;}if(m.h){H.value=m.h;}}}catch(e){}}
+calc();
+document.getElementById('bc-share').addEventListener('click',function(){
+  var txt='At '+T.value+' F my battery has '+document.getElementById('bc-out').textContent+' of its power - verdict: '+document.getElementById('bc-s3').textContent+'. Check yours:';
+  var url=location.origin+location.pathname+'?t='+encodeURIComponent(T.value);
+  if(navigator.share){navigator.share({title:'Car battery cold check',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my battery verdict';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -13399,6 +13545,9 @@ TOOLS = {
     "ssclaim": lambda args: SSCLAIM,
     "thankcost": lambda args: THANKCOST,
     "rothtra": lambda args: ROTHTRA,
+    "tiretemp": lambda args: TIRETEMP,
+    "antifreezemix": lambda args: ANTIFREEZEMIX,
+    "batterycold": lambda args: BATTERYCOLD,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
