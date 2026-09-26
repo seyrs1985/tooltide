@@ -55,7 +55,7 @@
 
 ## 7. 待挖掘候选(做完划掉;审计轮负责补充与清理)
 - GSC 真实数据接入后的 Search Console 长尾词扩页(等 metrics.csv 出真数)
-- 留存 R1 遗留:.ics 导出推广中(R140 turkey-thaw 试点+R143 dst-sleep,模式=date对象存作用域+String.fromCharCode造CRLF+data:URI下载;余 frostplan/carvetiming/movetl 等 date规划器);每日内容钩子、GSC 长尾(等真数)仍开;旧候选「换算页最近使用复用条」已由站级 RECENT_STRIP_JS 落地移除(R129 审计)
+- 留存 R1 遗留:.ics 导出推广中(R140 turkey-thaw 试点+R143 dst-sleep,模式=date对象存作用域+String.fromCharCode造CRLF+data:URI下载;已落地 turkey-thaw/dst-sleep/carvetiming/frostplan 四页,余 movetl 等 date规划器);每日内容钩子、GSC 长尾(等真数)仍开;旧候选「换算页最近使用复用条」已由站级 RECENT_STRIP_JS 落地移除(R129 审计)
 - 每日内容钩子("每天答案不同"的日期种子页,按品类逐簇铺)
 - 渲染器动态字符串 i18n 长尾(与 i18n 流水线协同,勿改其台账 engine/i18n_bugs.md)
 
