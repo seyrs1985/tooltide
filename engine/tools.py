@@ -11258,9 +11258,11 @@ CARVETIMING = """<div class="tool" id="tt-carve">
   </div>
   <div class="tool-note" id="carve-note"></div>
   <button type="button" class="tool-btn" id="carve-share">Share my carving date</button>
+  <button type="button" class="tool-btn" id="carve-ics">Add to calendar (.ics)</button>
 </div>
 <script>(function(){
 var M=document.getElementById('carve-m');
+var lastCarve=null;
 function calc(){
   var fresh=parseFloat(M.value),now=new Date(),y=now.getUTCFullYear();
   var hall=new Date(Date.UTC(y,9,31));
@@ -11275,6 +11277,7 @@ function calc(){
   document.getElementById('carve-s3').textContent=days>fresh?'too early':'go tonight';
   document.getElementById('carve-note').textContent='A carved pumpkin is produce, not a prop: cut faces dry, sag and grow fuzz within days, and every method here stretches rather than immortalizes - the fridge-night rhythm is the strongest, petroleum jelly seals moisture into the cuts, bleach spray slows the fuzz but washes off in rain. Whole uncarved pumpkins hold for weeks on a cool porch, so the honest strategy is buy late, carve on the date above, and keep the lid on when the Jack-o-lantern is not on duty.';
   document.title='Carve on '+cs+' - ToolDune';
+  lastCarve=carve;
 }
 function save(){try{localStorage.setItem('tt_carve',M.value);}catch(e){}}
 M.addEventListener('change',function(){calc();save();});
@@ -11283,6 +11286,17 @@ var q=new URLSearchParams(location.search).get('m');
 if(q){M.value=q;pre=true;}
 if(!pre){try{var m=localStorage.getItem('tt_carve');if(m){M.value=m;pre=true;}}catch(e){}}
 calc();
+function ymdC(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('carve-ics').addEventListener('click',function(){
+  if(!lastCarve){return;}
+  var end=new Date(lastCarve.getTime()+86400000);
+  var NL=String.fromCharCode(13,10);
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN'+NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'@tooldune.com'+NL+'DTSTAMP:'+ymdC(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymdC(lastCarve)+NL+'DTEND;VALUE=DATE:'+ymdC(end)+NL+'SUMMARY:Carve the Jack-o-lantern'+NL+'DESCRIPTION:Carving-day by preservation method so it is fresh for Halloween. Plan by tooldune.com'+NL+'END:VEVENT'+NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='pumpkin-carving-day.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add to calendar (.ics)';},1500);
+});
 document.getElementById('carve-share').addEventListener('click',function(){
   var txt='Carve the Jack-o-lantern on '+document.getElementById('carve-out').textContent+' so it is fresh for Halloween. Plan yours:';
   var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value);
@@ -11528,9 +11542,11 @@ FROSTPLAN = """<div class="tool" id="tt-ff">
   </div>
   <div class="tool-note" id="ff-note"></div>
   <button type="button" class="tool-btn" id="ff-share">Share my frost plan</button>
+  <button type="button" class="tool-btn" id="ff-ics">Add to calendar (.ics)</button>
 </div>
 <script>(function(){
 var D=document.getElementById('ff-d');
+var lastFrost=null;
 function calc(){
   var v=D.value;if(!v){return;}
   var p=v.split('-');
@@ -11546,6 +11562,7 @@ function calc(){
   document.getElementById('ff-s3').textContent=back(2);
   document.getElementById('ff-note').textContent='Six weeks out, stop fertilizing so new growth hardens instead of staying soft. Four weeks, bring tender pots inside after a pest check - a firm jet of water knocks aphids off the leaves. Two weeks, harvest the last tender vegetables and the basil. The final week, drain hoses, curl up the drip lines, and keep old sheets ready to throw over tender beds on frost nights. Your average first frost date comes from the weather service or a university extension table for your town; it is an average, so treat it as a drumbeat, not a cliff - the first frost often lands two weeks on either side.';
   document.title='First frost in '+days+' days - ToolDune';
+  lastFrost=f;
 }
 function save(){try{localStorage.setItem('tt_frostplan',JSON.stringify({d:D.value}));}catch(e){}}
 D.addEventListener('change',function(){calc();save();});
@@ -11554,6 +11571,18 @@ var qs=new URLSearchParams(location.search);
 if(qs.get('d')){D.value=qs.get('d');pre=true;}
 if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_frostplan')||'null');if(m&&m.d){D.value=m.d;pre=true;}}catch(e){}}
 calc();
+function ymdF(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('ff-ics').addEventListener('click',function(){
+  if(!lastFrost){return;}
+  var prep=new Date(lastFrost.getTime()-42*86400000);
+  var end=new Date(prep.getTime()+86400000);
+  var NL=String.fromCharCode(13,10);
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN'+NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'@tooldune.com'+NL+'DTSTAMP:'+ymdF(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymdF(prep)+NL+'DTEND;VALUE=DATE:'+ymdF(end)+NL+'SUMMARY:Start winterizing before first frost'+NL+'DESCRIPTION:Stop feeding and pest-check the pots coming inside - six weeks before your average first frost. Plan by tooldune.com'+NL+'END:VEVENT'+NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='winter-prep-start.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add to calendar (.ics)';},1500);
+});
 document.getElementById('ff-share').addEventListener('click',function(){
   var txt='First frost: '+D.value+', '+document.getElementById('ff-out').textContent+' out. Pots come in on '+document.getElementById('ff-s2').textContent+'. Plan your winterizing:';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
