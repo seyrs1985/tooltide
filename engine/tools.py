@@ -13466,6 +13466,139 @@ document.getElementById('by-share').addEventListener('click',function(){
 </script>
 """
 
+DEHUMID = """<div class="tool" id="tt-dhm">
+  <div class="fields">
+    <div class="field"><label for="dh2-a">Room area (sq ft)</label><input id="dh2-a" type="number" min="50" max="3000" value="400"></div>
+    <div class="field"><label for="dh2-c">How damp is it</label><select id="dh2-c"><option value="8">Slightly damp - musty smell</option><option value="12" selected>Damp - condensation on windows</option><option value="16">Very damp - mold spots</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dh2-out">&#8211;</span><span class="result-unit">pints per day rating</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dh2-s1">&#8211;</b><span>running watts, typical</span></div>
+    <div class="stat"><b id="dh2-s2">&#8211;</b><span>cost per month at 10 h/day</span></div>
+    <div class="stat"><b id="dh2-s3">&#8211;</b><span>target humidity</span></div>
+  </div>
+  <div class="tool-note" id="dh2-note"></div>
+  <button type="button" class="tool-btn" id="dh2-share">Share my dehumidifier size</button>
+</div>
+<script>(function(){
+var A=document.getElementById('dh2-a'),C=document.getElementById('dh2-c');
+function calc(){
+  var a=parseFloat(A.value)||400,f=parseFloat(C.value)||12;
+  var pints=Math.ceil(a/500*f), watts=Math.round(pints*10), month=watts*10*30/1000*0.17;
+  var d1=Math.round(month*100)/100;
+  document.getElementById('dh2-out').textContent=pints;
+  document.getElementById('dh2-s1').textContent=watts+' W';
+  document.getElementById('dh2-s2').textContent='$'+d1;
+  document.getElementById('dh2-s3').textContent='40-50% RH';
+  document.getElementById('dh2-note').textContent='Winter condensation on the windows is the classic sign: warm indoor air hits cold glass and dumps its water. The dehumidifier rating on the box assumes a damp 500-square-foot room at 80 F - scale by area and dampness, and buy one size up if the room is a basement, which sits below the water table and fights its own physics. The target is 40 to 50 percent relative humidity: lower dries your sinuses, higher feeds the mold. And place it with airflow around it - a unit pushed into a corner dehumidifies the corner.';
+  document.title='Dehumidifier: '+pints+' pints/day for '+Math.round(a)+' sq ft - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_dehumid',JSON.stringify({a:A.value,c:C.value}));}catch(e){}}
+[A,C].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_dehumid')||'null');if(m){if(m.a){A.value=m.a;}if(m.c){C.value=m.c;}}}catch(e){}}
+calc();
+document.getElementById('dh2-share').addEventListener('click',function(){
+  var txt='My room needs a '+document.getElementById('dh2-out').textContent+' pint dehumidifier. Size yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'Dehumidifier sizing',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my dehumidifier size';},1500);}
+});
+})();
+</script>
+"""
+
+SANTAMATH = """<div class="tool" id="tt-ss">
+  <div class="fields">
+    <div class="field"><label for="ss2-n">People in the draw</label><input id="ss2-n" type="number" min="3" max="100" value="8"></div>
+    <div class="field"><label for="ss2-b">Budget cap per gift</label><input id="ss2-b" type="number" min="1" value="25"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ss2-out">&#8211;</span><span class="result-unit">gifts in the exchange</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ss2-s1">&#8211;</b><span>total spend, whole group</span></div>
+    <div class="stat"><b id="ss2-s2">&#8211;</b><span>vs everyone buying for all</span></div>
+    <div class="stat"><b id="ss2-s3">&#8211;</b><span>saved per person</span></div>
+  </div>
+  <div class="tool-note" id="ss2-note"></div>
+  <button type="button" class="tool-btn" id="ss2-share">Share my draw math</button>
+</div>
+<script>(function(){
+var N=document.getElementById('ss2-n'),B=document.getElementById('ss2-b');
+function calc(){
+  var n=Math.max(3,Math.round(parseFloat(N.value)||8)),b=Math.max(1,parseFloat(B.value)||25);
+  var gifts=n, full=n*(n-1)*b, saved=(n-1-1)*b;
+  var d1=Math.round(full), d2=Math.round(saved);
+  document.getElementById('ss2-out').textContent=gifts;
+  document.getElementById('ss2-s1').textContent='$'+d1;
+  document.getElementById('ss2-s2').textContent='$'+d1+' vs $'+Math.round(n*(n-1)*b);
+  document.getElementById('ss2-s3').textContent='$'+d2;
+  document.getElementById('ss2-note').textContent='The draw has exactly three rules that matter: nobody draws themselves, agreed couples or plus-ones can be excluded as a pair, and the cap is a contract - the person who spends 60 on a 25 gift is not generous, they are breaking the game for whoever receives and cannot match it. Paper names in a hat beats every app for the aunts, and wishlists are the actual luxury: one link per person turns a guessing game into a good gift. The savings line is the honest pitch to the family skeptic - same number of gifts received, a fraction of the shopping, and considerably fewer polite smiles.';
+  document.title='Secret Santa: '+gifts+' gifts at $'+Math.round(b)+' cap - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_santamath',JSON.stringify({n:N.value,b:B.value}));}catch(e){}}
+[N,B].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('n')){N.value=qs.get('n');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_santamath')||'null');if(m){if(m.n){N.value=m.n;}if(m.b){B.value=m.b;}}}catch(e){}}
+calc();
+document.getElementById('ss2-share').addEventListener('click',function(){
+  var txt='Our Secret Santa: '+N.value+' people, $'+B.value+' cap, everyone gives and receives exactly once. Plan yours:';
+  var url=location.origin+location.pathname+'?n='+encodeURIComponent(N.value);
+  if(navigator.share){navigator.share({title:'Secret Santa math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my draw math';},1500);}
+});
+})();
+</script>
+"""
+
+CHAMP = """<div class="tool" id="tt-cp">
+  <div class="fields">
+    <div class="field"><label for="cp-g">Guests</label><input id="cp-g" type="number" min="2" max="200" value="10"></div>
+    <div class="field"><label for="cp-g2">Glasses each through the evening</label><select id="cp-g2"><option value="1">1 - toast only</option><option value="2">2 - toast and top-up</option><option value="3" selected>3 - a proper evening</option></select></div>
+    <div class="field"><label for="cp-p">Price per bottle</label><input id="cp-p" type="number" min="5" value="15"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cp-out">&#8211;</span><span class="result-unit">bottles to chill</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cp-s1">&#8211;</b><span>total glasses</span></div>
+    <div class="stat"><b id="cp-s2">&#8211;</b><span>total cost</span></div>
+    <div class="stat"><b id="cp-s3">&#8211;</b><span>mimosa mix, if brunch</span></div>
+  </div>
+  <div class="tool-note" id="cp-note"></div>
+  <button type="button" class="tool-btn" id="cp-share">Share my bottle math</button>
+</div>
+<script>(function(){
+var G=document.getElementById('cp-g'),G2=document.getElementById('cp-g2'),P=document.getElementById('cp-p');
+function calc(){
+  var g=Math.max(2,Math.round(parseFloat(G.value)||10)),ge=parseFloat(G2.value)||3,p=parseFloat(P.value)||15;
+  var glasses=g*ge, bottles=Math.ceil(glasses/6), cost=bottles*p;
+  var d1=Math.round(cost*100)/100, oj=Math.round(glasses*125*2/1000*10)/10;
+  document.getElementById('cp-out').textContent=bottles;
+  document.getElementById('cp-s1').textContent=glasses;
+  document.getElementById('cp-s2').textContent='$'+d1;
+  document.getElementById('cp-s3').textContent=oj+' L of juice';
+  document.getElementById('cp-note').textContent='A 750 ml bottle pours six honest 125 ml glasses - the math most hosts get wrong by being generous early and empty by ten. The honest label talk: blind tastings keep finding that mid-shelf cava and cremant beat famous-name champagne at three times the price, and for mimosas nobody can tell anything at all - the juice is louder than the bubbles. Chill bottles for at least three hours, open pointing at nobody, and the leftover bottles keep their fizz for a day with a spoon-handle stopper and a prayer.';
+  document.title='Bubbles: '+bottles+' bottles for '+g+' guests - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_champagne',JSON.stringify({g:G.value,g2:G2.value,p:P.value}));}catch(e){}}
+[G,G2,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('g')){G.value=qs.get('g');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_champagne')||'null');if(m){if(m.g){G.value=m.g;}if(m.g2){G2.value=m.g2;}if(m.p){P.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('cp-share').addEventListener('click',function(){
+  var txt='For '+G.value+' guests I need '+document.getElementById('cp-out').textContent+' bottles of bubbles. Run your party:';
+  var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value);
+  if(navigator.share){navigator.share({title:'Bottle math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my bottle math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -14622,6 +14755,9 @@ TOOLS = {
     "gymvalue": lambda args: GYMVALUE,
     "dryjan": lambda args: DRYJAN,
     "booksyear": lambda args: BOOKSYEAR,
+    "dehumid": lambda args: DEHUMID,
+    "santamath": lambda args: SANTAMATH,
+    "champagne": lambda args: CHAMP,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,

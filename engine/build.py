@@ -45,6 +45,7 @@ TOOL_EMOJI = {
     "roadfuel": "🚙", "flydrive": "✈",
     "blanket": "🌙", "sourdough": "🍞",
     "gymvalue": "💪", "dryjan": "🎉", "booksyear": "📚",
+    "dehumid": "💨", "santamath": "🎅", "champagne": "🍷",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
