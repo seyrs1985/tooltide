@@ -71,16 +71,18 @@
   </div>
   <div class="tool-note" id="mt-note"></div>
   <button type="button" class="tool-btn" id="mt-share">Share this plan</button>
+  <button type="button" class="tool-btn" id="mt-ics">Add plan to calendar (.ics)</button>
 </div>
 <script>(function(){
 var D=document.getElementById('mt-d');
 var OUT=document.getElementById('mt-out');
+var lastDay=null;
 function qs(k){return new URLSearchParams(location.search).get(k);}
 var PLAN=[[8,'Book the mover - get three quotes; end-of-month dates go first.',0],[6,'Declutter hard: sell, donate, dump. Every box not packed is money saved.',0],[4,'Notify utilities, internet, insurance; start address changes and subscriptions.',0],[3,'Pack storage rooms, books and seasonal gear - the stuff you never touch.',0],[2,'Pack most rooms, label by room AND priority; book parking for both ends.',0],[1,'Confirm the crew, pack the first-night box, defrost the freezer, bag the cables.',0],[0,'Move day: beds reassemble first, meters photographed, one box opens tonight.',0]];
 function fmt(n){return n<10?'0'+n:''+n;}
 function iso(d){return d.getFullYear()+'-'+fmt(d.getMonth()+1)+'-'+fmt(d.getDate());}
 function calc(){
-  if(!D.value){OUT.textContent='–';['mt-s1','mt-s2','mt-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mt-note').textContent='Pick your moving date to generate the week-by-week plan.';document.title='Moving Timeline Planner - ToolDune';return;}
+  if(!D.value){OUT.textContent='–';['mt-s1','mt-s2','mt-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mt-note').textContent='Pick your moving date to generate the week-by-week plan.';document.title='Moving Timeline Planner - ToolDune';lastDay=null;return;}
   var day=new Date(D.value+'T12:00:00');
   var today=new Date();today.setHours(12,0,0,0);
   var days=Math.round((day-today)/86400000);
@@ -99,6 +101,7 @@ function calc(){
   for(var i=0;i<PLAN.length;i++){if(PLAN[i][0]<=w){tasks=PLAN[i][1];break;}}
   document.getElementById('mt-note').textContent='Now: '+tasks+' The sequence that saves moves: bookings and paperwork early, decluttering before any box exists, storage rooms first and kitchen last, and the first-night box in your own car - sheets, kettle, chargers, toilet paper, mugs. Photograph every meter on both ends on the day, and photograph the electronics cabling before unplugging - future-you will not remember which cable went where.';
   document.title=days+' days to moving day - ToolDune';
+  lastDay=day;
 }
 function save(){try{localStorage.setItem('tt_movetl',JSON.stringify({d:D.value}));}catch(e){}}
 D.addEventListener('input',function(){calc();save();});
@@ -106,6 +109,22 @@ var v=qs('d');
 if(v!==null){D.value=v;}
 else{try{var mem=JSON.parse(localStorage.getItem('tt_movetl')||'null');if(mem){D.value=mem.d||'';}}catch(e){}}
 calc();
+function ymdM(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('mt-ics').addEventListener('click',function(){
+  if(!lastDay){return;}
+  var NL=String.fromCharCode(13,10);
+  var EV=[[56,'Book the mover - get three quotes'],[42,'Declutter before any box exists'],[7,'Final week - confirm crew and first-night box'],[0,'Moving day']];
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN';
+  for(var i=0;i<EV.length;i++){
+    var dt=new Date(lastDay.getTime()-EV[i][0]*86400000);
+    ics+=NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'-'+i+'@tooldune.com'+NL+'DTSTAMP:'+ymdM(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymdM(dt)+NL+'DTEND;VALUE=DATE:'+ymdM(new Date(dt.getTime()+86400000))+NL+'SUMMARY:'+EV[i][1]+NL+'END:VEVENT';
+  }
+  ics+=NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='moving-plan.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add plan to calendar (.ics)';},1500);
+});
 document.getElementById('mt-share').addEventListener('click',function(){
   var txt=OUT.textContent+' days to my move - plan: '+location.origin+location.pathname+'?d='+D.value;
   if(navigator.share){navigator.share({title:'Moving plan',text:txt,url:location.origin+location.pathname+'?d='+D.value}).catch(function(){});}

@@ -9552,16 +9552,18 @@ MOVETL = """<div class="tool" id="tt-ml2">
   </div>
   <div class="tool-note" id="mt-note"></div>
   <button type="button" class="tool-btn" id="mt-share">Share this plan</button>
+  <button type="button" class="tool-btn" id="mt-ics">Add plan to calendar (.ics)</button>
 </div>
 <script>(function(){
 var D=document.getElementById('mt-d');
 var OUT=document.getElementById('mt-out');
+var lastDay=null;
 function qs(k){return new URLSearchParams(location.search).get(k);}
 var PLAN=[[8,'Book the mover - get three quotes; end-of-month dates go first.',0],[6,'Declutter hard: sell, donate, dump. Every box not packed is money saved.',0],[4,'Notify utilities, internet, insurance; start address changes and subscriptions.',0],[3,'Pack storage rooms, books and seasonal gear - the stuff you never touch.',0],[2,'Pack most rooms, label by room AND priority; book parking for both ends.',0],[1,'Confirm the crew, pack the first-night box, defrost the freezer, bag the cables.',0],[0,'Move day: beds reassemble first, meters photographed, one box opens tonight.',0]];
 function fmt(n){return n<10?'0'+n:''+n;}
 function iso(d){return d.getFullYear()+'-'+fmt(d.getMonth()+1)+'-'+fmt(d.getDate());}
 function calc(){
-  if(!D.value){OUT.textContent='–';['mt-s1','mt-s2','mt-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mt-note').textContent='Pick your moving date to generate the week-by-week plan.';document.title='Moving Timeline Planner - ToolDune';return;}
+  if(!D.value){OUT.textContent='–';['mt-s1','mt-s2','mt-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('mt-note').textContent='Pick your moving date to generate the week-by-week plan.';document.title='Moving Timeline Planner - ToolDune';lastDay=null;return;}
   var day=new Date(D.value+'T12:00:00');
   var today=new Date();today.setHours(12,0,0,0);
   var days=Math.round((day-today)/86400000);
@@ -9580,6 +9582,7 @@ function calc(){
   for(var i=0;i<PLAN.length;i++){if(PLAN[i][0]<=w){tasks=PLAN[i][1];break;}}
   document.getElementById('mt-note').textContent='Now: '+tasks+' The sequence that saves moves: bookings and paperwork early, decluttering before any box exists, storage rooms first and kitchen last, and the first-night box in your own car - sheets, kettle, chargers, toilet paper, mugs. Photograph every meter on both ends on the day, and photograph the electronics cabling before unplugging - future-you will not remember which cable went where.';
   document.title=days+' days to moving day - ToolDune';
+  lastDay=day;
 }
 function save(){try{localStorage.setItem('tt_movetl',JSON.stringify({d:D.value}));}catch(e){}}
 D.addEventListener('input',function(){calc();save();});
@@ -9587,6 +9590,22 @@ var v=qs('d');
 if(v!==null){D.value=v;}
 else{try{var mem=JSON.parse(localStorage.getItem('tt_movetl')||'null');if(mem){D.value=mem.d||'';}}catch(e){}}
 calc();
+function ymdM(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('mt-ics').addEventListener('click',function(){
+  if(!lastDay){return;}
+  var NL=String.fromCharCode(13,10);
+  var EV=[[56,'Book the mover - get three quotes'],[42,'Declutter before any box exists'],[7,'Final week - confirm crew and first-night box'],[0,'Moving day']];
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN';
+  for(var i=0;i<EV.length;i++){
+    var dt=new Date(lastDay.getTime()-EV[i][0]*86400000);
+    ics+=NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'-'+i+'@tooldune.com'+NL+'DTSTAMP:'+ymdM(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymdM(dt)+NL+'DTEND;VALUE=DATE:'+ymdM(new Date(dt.getTime()+86400000))+NL+'SUMMARY:'+EV[i][1]+NL+'END:VEVENT';
+  }
+  ics+=NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='moving-plan.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add plan to calendar (.ics)';},1500);
+});
 document.getElementById('mt-share').addEventListener('click',function(){
   var txt=OUT.textContent+' days to my move - plan: '+location.origin+location.pathname+'?d='+D.value;
   if(navigator.share){navigator.share({title:'Moving plan',text:txt,url:location.origin+location.pathname+'?d='+D.value}).catch(function(){});}
@@ -10058,15 +10077,17 @@ EXAMPLAN = """<div class="tool" id="tt-xp">
   </div>
   <div class="tool-note" id="xp-note"></div>
   <button type="button" class="tool-btn" id="xp-share">Share this plan</button>
+  <button type="button" class="tool-btn" id="xp-ics">Add to calendar (.ics)</button>
 </div>
 <script>(function(){
 var F=['xp-d','xp-s'].map(function(id){return document.getElementById(id);});
+var lastExam=null;
 var OUT=document.getElementById('xp-out');
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function fmt(n){return n<10?'0'+n:''+n;}
 function calc(){
   var dv=F[0].value,s=parseInt(F[1].value);
-  if(!dv||!(s>=1&&s<=12)){OUT.textContent='–';['xp-s1','xp-s2','xp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('xp-note').textContent='';document.title='Exam Study Planner - ToolDune';return;}
+  if(!dv||!(s>=1&&s<=12)){OUT.textContent='–';['xp-s1','xp-s2','xp-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('xp-note').textContent='';document.title='Exam Study Planner - ToolDune';lastExam=null;return;}
   var day=new Date(dv+'T09:00:00'),today=new Date();today.setHours(9,0,0,0);
   var days=Math.round((day-today)/86400000);
   OUT.textContent=days;
@@ -10088,6 +10109,7 @@ function calc(){
   else if(days<=7)task='No new topics. Recall drills from the error log, sleep over 7 hours, confirm the room, ID and route.';
   document.getElementById('xp-note').textContent='This week: '+task+' The arithmetic of the hours figure is deliberate - roughly 30 hours per subject spread over your remaining days - and its real message is what it forbids: starting green topics late, and new material inside the final 48 hours, which trades working memory for the illusion of coverage. Past papers beat notes because exams test retrieval, not recognition; the error log is the personal syllabus the exam will actually draw from. And the boring truth under all of it: sleep consolidates what the day studied - an all-nighter deletes more than it saves.';
   document.title=days+' days to exam - ToolDune';
+  lastExam=day;
 }
 function save(){try{localStorage.setItem('tt_examplan',JSON.stringify({d:F[0].value,s:F[1].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});});
@@ -10095,6 +10117,22 @@ var pre=false;
 [['d',F[0]],['s',F[1]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
 if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_examplan')||'null');if(mem){F[0].value=mem.d||'';F[1].value=mem.s||'';}}catch(e){}}
 calc();
+function ymdX(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('xp-ics').addEventListener('click',function(){
+  if(!lastExam){return;}
+  var NL=String.fromCharCode(13,10);
+  var EV=[[7,'Final week - recall drills only, no new topics'],[0,'Exam day']];
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN';
+  for(var i=0;i<EV.length;i++){
+    var dt=new Date(lastExam.getTime()-EV[i][0]*86400000);
+    ics+=NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'-'+i+'@tooldune.com'+NL+'DTSTAMP:'+ymdX(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymdX(dt)+NL+'DTEND;VALUE=DATE:'+ymdX(new Date(dt.getTime()+86400000))+NL+'SUMMARY:'+EV[i][1]+NL+'END:VEVENT';
+  }
+  ics+=NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='exam-plan.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add to calendar (.ics)';},1500);
+});
 document.getElementById('xp-share').addEventListener('click',function(){
   var txt=OUT.textContent+' days to my exam - plan: '+location.origin+location.pathname+'?d='+F[0].value+'&s='+F[1].value;
   if(navigator.share){navigator.share({title:'Exam plan',text:txt,url:location.origin+location.pathname+'?d='+F[0].value+'&s='+F[1].value}).catch(function(){});}
