@@ -13758,6 +13758,98 @@ document.getElementById('hg-share').addEventListener('click',function(){
 </script>
 """
 
+SLOWCOOK = """<div class="tool" id="tt-sc2">
+  <div class="fields">
+    <div class="field"><label for="sc2-m">Oven time in the recipe (minutes)</label><input id="sc2-m" type="number" min="10" max="240" value="60"></div>
+    <div class="field"><label for="sc2-s">Slow cooker setting</label><select id="sc2-s"><option value="low" selected>Low</option><option value="high">High</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sc2-out">&#8211;</span><span class="result-unit">in the slow cooker</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sc2-s1">&#8211;</b><span>the other setting</span></div>
+    <div class="stat"><b id="sc2-s2">&#8211;</b><span>liquid in the recipe</span></div>
+    <div class="stat"><b id="sc2-s3">&#8211;</b><span>dairy and seafood go in</span></div>
+  </div>
+  <div class="tool-note" id="sc2-note"></div>
+  <button type="button" class="tool-btn" id="sc2-share">Share my conversion</button>
+</div>
+<script>(function(){
+var M=document.getElementById('sc2-m'),S=document.getElementById('sc2-s');
+function calc(){
+  var m=parseFloat(M.value)||60,set=S.value;
+  var low,set2;
+  if(m<=30){low=5;high=1.75;}
+  else if(m<=45){low=7;high=3.5;}
+  else{low=9;high=5;}
+  var hrs=set==='low'?low:high, other=set==='low'?high:low;
+  var d1=Math.round(hrs*10)/10, d2=Math.round(other*10)/10;
+  document.getElementById('sc2-out').textContent=d1+' hours';
+  document.getElementById('sc2-s1').textContent=d2+' hours on '+(set==='low'?'high':'low');
+  document.getElementById('sc2-s2').textContent='cut by half';
+  document.getElementById('sc2-s3').textContent='last hour';
+  document.getElementById('sc2-note').textContent='The conversion is a table, not a formula - these bands are the standard published ranges, quoted as midpoints. Three rules carry the dish: cut liquids by half because the lid seals and nothing evaporates; add dairy, seafood and fresh herbs in the last hour or they curdle and dissolve; and never lift the lid - each peek costs about twenty minutes of cooking. Cheap, tough cuts are the whole point of the machine - collagen needs the hours that expensive steaks would hate. Fill the pot between half and two-thirds; empty pots run hot and full pots run cold.';
+  document.title='Slow cooker: '+d1+' hours on '+set+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_slowcook',JSON.stringify({m:M.value,s:S.value}));}catch(e){}}
+[M,S].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('m')){M.value=qs.get('m');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_slowcook')||'null');if(m){if(m.m){M.value=m.m;}if(m.s){S.value=m.s;}}}catch(e){}}
+calc();
+document.getElementById('sc2-share').addEventListener('click',function(){
+  var txt='Oven '+M.value+' min converts to '+document.getElementById('sc2-out').textContent+' on '+S.value+' in the slow cooker. Convert yours:';
+  var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value);
+  if(navigator.share){navigator.share({title:'Slow cooker conversion',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my conversion';},1500);}
+});
+})();
+</script>
+"""
+
+PTOOPT = """<div class="tool" id="tt-pt">
+  <div class="fields">
+    <div class="field"><label for="pt-d">PTO days per year</label><input id="pt-d" type="number" min="1" max="60" value="15"></div>
+    <div class="field"><label for="pt-b">Breaks you want</label><select id="pt-b"><option value="2">2 long holidays</option><option value="3" selected>3 breaks</option><option value="4">4 mini-breaks</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pt-out">&#8211;</span><span class="result-unit">calendar days off, chained</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pt-s1">&#8211;</b><span>vs one naive block</span></div>
+    <div class="stat"><b id="pt-s2">&#8211;</b><span>weekends harvested</span></div>
+    <div class="stat"><b id="pt-s3">&#8211;</b><span>the Wednesday trick</span></div>
+  </div>
+  <div class="tool-note" id="pt-note"></div>
+  <button type="button" class="tool-btn" id="pt-share">Share my PTO math</button>
+</div>
+<script>(function(){
+var D=document.getElementById('pt-d'),B=document.getElementById('pt-b');
+function calc(){
+  var d=Math.max(1,parseFloat(D.value)||15),br=parseFloat(B.value)||3;
+  var per=Math.floor(d/br), use=per*br, weekend=br*2, cal=use+weekend;
+  var d1=use+2, d2=weekend;
+  document.getElementById('pt-out').textContent=cal;
+  document.getElementById('pt-s1').textContent=d1+' in one block';
+  document.getElementById('pt-s2').textContent=d2;
+  document.getElementById('pt-s3').textContent='+8 days for 1';
+  document.getElementById('pt-note').textContent='The chain rule: a PTO day only buys you a workday unless it touches a weekend - so split the allowance into breaks, each starting Monday and ending Friday, and the weekends on both ends ride free. Split fifteen days into three five-day breaks and you travel twenty-one calendar days. The extreme version is the Wednesday trick: a single Wednesday off bridges two weekends into nine days of coverage, which is why booking January flights for July is also on this page - the cheapest seats of the year sell while everyone else is writing resolutions.';
+  document.title=cal+' days off from '+Math.round(d)+' PTO - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_ptoopt',JSON.stringify({d:D.value,b:B.value}));}catch(e){}}
+[D,B].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('d')){D.value=qs.get('d');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_ptoopt')||'null');if(m){if(m.d){D.value=m.d;}if(m.b){B.value=m.b;}}}catch(e){}}
+calc();
+document.getElementById('pt-share').addEventListener('click',function(){
+  var txt=document.getElementById('pt-out').textContent+' calendar days off from '+D.value+' PTO - chain yours:';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
+  if(navigator.share){navigator.share({title:'PTO chaining',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my PTO math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -14920,6 +15012,8 @@ TOOLS = {
     "giftreturn": lambda args: GIFTRETURN,
     "icemelt": lambda args: ICEMELT,
     "homegym": lambda args: HOMEGYM,
+    "slowcook": lambda args: SLOWCOOK,
+    "ptoopt": lambda args: PTOOPT,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
