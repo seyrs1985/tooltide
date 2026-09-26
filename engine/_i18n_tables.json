@@ -1700,6 +1700,34 @@
    [
     "case.resultlbl",
     "结果"
+   ],
+   [
+    "dst.region",
+    "地区"
+   ],
+   [
+    "dst.pace",
+    "每日调整幅度"
+   ],
+   [
+    "dst.fallback",
+    "时钟回拨"
+   ],
+   [
+    "dst.starton",
+    "开始调整日"
+   ],
+   [
+    "dst.daysfrom",
+    "距今天数"
+   ],
+   [
+    "dst.bedtime",
+    "每日就寝调整"
+   ],
+   [
+    "share.share-my-shiftplan",
+    "分享我的调整计划"
    ]
   ],
   "es": [
@@ -3402,6 +3430,34 @@
    [
     "case.resultlbl",
     "Resultado"
+   ],
+   [
+    "dst.region",
+    "Región"
+   ],
+   [
+    "dst.pace",
+    "Ajuste por día"
+   ],
+   [
+    "dst.fallback",
+    "Atraso horario"
+   ],
+   [
+    "dst.starton",
+    "empezar a ajustar desde"
+   ],
+   [
+    "dst.daysfrom",
+    "días desde hoy"
+   ],
+   [
+    "dst.bedtime",
+    "cambio de hora de acostarse"
+   ],
+   [
+    "share.share-my-shiftplan",
+    "Compartir mi plan de ajuste"
    ]
   ],
   "pt": [
@@ -5104,6 +5160,34 @@
    [
     "case.resultlbl",
     "Resultado"
+   ],
+   [
+    "dst.region",
+    "Região"
+   ],
+   [
+    "dst.pace",
+    "Ajuste por dia"
+   ],
+   [
+    "dst.fallback",
+    "Atraso horário"
+   ],
+   [
+    "dst.starton",
+    "começar a ajustar em"
+   ],
+   [
+    "dst.daysfrom",
+    "dias a partir de hoje"
+   ],
+   [
+    "dst.bedtime",
+    "ajuste diário de horário"
+   ],
+   [
+    "share.share-my-shiftplan",
+    "Compartir meu plano de ajuste"
    ]
   ],
   "ru": [
@@ -6806,6 +6890,34 @@
    [
     "case.resultlbl",
     "Результат"
+   ],
+   [
+    "dst.region",
+    "Регион"
+   ],
+   [
+    "dst.pace",
+    "Сдвиг в день"
+   ],
+   [
+    "dst.fallback",
+    "Перевод часов"
+   ],
+   [
+    "dst.starton",
+    "начать сдвигать с"
+   ],
+   [
+    "dst.daysfrom",
+    "дней с сегодняшнего дня"
+   ],
+   [
+    "dst.bedtime",
+    "сдвиг отхода ко сну daily"
+   ],
+   [
+    "share.share-my-shiftplan",
+    "Поделиться планом перестройки"
    ]
   ],
   "ja": [
@@ -8508,6 +8620,34 @@
    [
     "case.resultlbl",
     "結果"
+   ],
+   [
+    "dst.region",
+    "地域"
+   ],
+   [
+    "dst.pace",
+    "1日のずらし幅"
+   ],
+   [
+    "dst.fallback",
+    "時計が戻る"
+   ],
+   [
+    "dst.starton",
+    "調整開始日"
+   ],
+   [
+    "dst.daysfrom",
+    "今日からの日数"
+   ],
+   [
+    "dst.bedtime",
+    "就寝時刻の毎日のずらし"
+   ],
+   [
+    "share.share-my-shiftplan",
+    "自分の調整プランを共有"
    ]
   ],
   "ko": [
@@ -10210,6 +10350,34 @@
    [
     "case.resultlbl",
     "결과"
+   ],
+   [
+    "dst.region",
+    "지역"
+   ],
+   [
+    "dst.pace",
+    "하루 조정 폭"
+   ],
+   [
+    "dst.fallback",
+    "시계 백워드"
+   ],
+   [
+    "dst.starton",
+    "조정 시작일"
+   ],
+   [
+    "dst.daysfrom",
+    "오늘부터 일수"
+   ],
+   [
+    "dst.bedtime",
+    "매일 취침 조정"
+   ],
+   [
+    "share.share-my-shiftplan",
+    "내 조정 계획 공유"
    ]
   ],
   "de": [
@@ -11912,6 +12080,34 @@
    [
     "case.resultlbl",
     "Ergebnis"
+   ],
+   [
+    "dst.region",
+    "Region"
+   ],
+   [
+    "dst.pace",
+    "Anpassung pro Tag"
+   ],
+   [
+    "dst.fallback",
+    "Uhren zurückstellen"
+   ],
+   [
+    "dst.starton",
+    "Beginn der Umstellung"
+   ],
+   [
+    "dst.daysfrom",
+    "Tage ab heute"
+   ],
+   [
+    "dst.bedtime",
+    "tägliche Bettzeit-Verschiebung"
+   ],
+   [
+    "share.share-my-shiftplan",
+    "Meinen Umstellungsplan teilen"
    ]
   ],
   "fr": [
@@ -13614,6 +13810,34 @@
    [
     "case.resultlbl",
     "Résultat"
+   ],
+   [
+    "dst.region",
+    "Région"
+   ],
+   [
+    "dst.pace",
+    "Décalage par jour"
+   ],
+   [
+    "dst.fallback",
+    "Recul des horloges"
+   ],
+   [
+    "dst.starton",
+    "commencer le décalage le"
+   ],
+   [
+    "dst.daysfrom",
+    "jours à partir d aujourd hui"
+   ],
+   [
+    "dst.bedtime",
+    "décalage du coucher daily"
+   ],
+   [
+    "share.share-my-shiftplan",
+    "Partager mon plan de décalage"
    ]
   ],
   "id": [
@@ -15316,6 +15540,34 @@
    [
     "case.resultlbl",
     "Hasil"
+   ],
+   [
+    "dst.region",
+    "Wilayah"
+   ],
+   [
+    "dst.pace",
+    "Pergeseran per hari"
+   ],
+   [
+    "dst.fallback",
+    "Jam dimundurkan"
+   ],
+   [
+    "dst.starton",
+    "mulai geser pada"
+   ],
+   [
+    "dst.daysfrom",
+    "hari dari hari ini"
+   ],
+   [
+    "dst.bedtime",
+    "pergeseran jam tidur harian"
+   ],
+   [
+    "share.share-my-shiftplan",
+    "Bagikan rencana pergeseran saya"
    ]
   ]
  }

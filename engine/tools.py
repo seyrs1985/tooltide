@@ -11269,17 +11269,17 @@ document.getElementById('pseed-share').addEventListener('click',function(){
 
 DSTPLAN = """<div class="tool" id="tt-dst">
   <div class="fields">
-    <div class="field"><label for="dst-r">Region</label><select id="dst-r"><option value="US" selected>US / Canada - Nov 1</option><option value="EU">Europe - Oct 25</option></select></div>
-    <div class="field"><label for="dst-p">Shift pace per day</label><select id="dst-p"><option value="10">10 min - gentle</option><option value="15" selected>15 min - standard</option><option value="20">20 min - brisk</option></select></div>
+    <div class="field"><label for="dst-r" data-i18n="dst.region">Region</label><select id="dst-r"><option value="US" selected>US / Canada - Nov 1</option><option value="EU">Europe - Oct 25</option></select></div>
+    <div class="field"><label for="dst-p" data-i18n="dst.pace">Shift pace per day</label><select id="dst-p"><option value="10">10 min - gentle</option><option value="15" selected>15 min - standard</option><option value="20">20 min - brisk</option></select></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dst-out">&#8211;</span><span class="result-unit">clocks fall back</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dst-out">&#8211;</span><span class="result-unit" data-i18n="dst.fallback">clocks fall back</span></div>
   <div class="stats">
-    <div class="stat"><b id="dst-s1">&#8211;</b><span>start shifting on</span></div>
-    <div class="stat"><b id="dst-s2">&#8211;</b><span>days from today</span></div>
-    <div class="stat"><b id="dst-s3">&#8211;</b><span>bedtime shift daily</span></div>
+    <div class="stat"><b id="dst-s1">&#8211;</b><span> data-i18n="dst.starton">start shifting on</span></div>
+    <div class="stat"><b id="dst-s2">&#8211;</b><span> data-i18n="dst.daysfrom">days from today</span></div>
+    <div class="stat"><b id="dst-s3">&#8211;</b><span> data-i18n="dst.bedtime">bedtime shift daily</span></div>
   </div>
   <div class="tool-note" id="dst-note"></div>
-  <button type="button" class="tool-btn" id="dst-share">Share my shift plan</button>
+  <button type="button" class="tool-btn" id="dst-share" data-i18n="share.share-my-shiftplan">Share my shift plan</button>
 </div>
 <script>(function(){
 var R=document.getElementById('dst-r'),P=document.getElementById('dst-p');
@@ -11302,7 +11302,7 @@ function calc(){
   document.getElementById('dst-s2').textContent=days;
   document.getElementById('dst-s3').textContent='+'+pace+' min';
   document.getElementById('dst-note').textContent='Falling back gives the hour back, but bodies still drift: the plan is to move bedtime and wake time '+pace+' minutes later each day for '+shiftDays+' days, so Sunday morning lands on schedule instead of in the dark. Phones update themselves; the microwave, the car clock and the toaster do not. The week hurts most for small kids, pets on a feeding clock and anyone commuting at dawn - start them on the plan, and take the spare hour Sunday morning as a gift, not a mandate.';
-  document.title='Fall back '+cs+' - ToolDune';
+  document.title=TT('dst.fallback','Fall back ')+cs+' - ToolDune';
 }
 function save(){try{localStorage.setItem('tt_dst',JSON.stringify({r:R.value,p:P.value}));}catch(e){}}
 R.addEventListener('change',function(){calc();save();});P.addEventListener('change',function(){calc();save();});
