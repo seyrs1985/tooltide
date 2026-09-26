@@ -26,7 +26,7 @@
 - 拼接前自查三件套(分享文案变量/三元括号配平/未定义标识符)——R106(2处)+R107(1处)拼接前拦截;check_site 只拦语法,拦不住未定义变量这类运行时错。
 - 渲染器 JS 写完**必跑 check_site**(R93 LOREM `\n` 转义、R99 jetlag 三元优先级、R100 meattime 闭包变量三次实证);build 后 grep 抽查新页文案防草稿残留混入。
 - **渲染器 JS 禁用 `\uXXXX` 转义写 emoji(R120 实证)**:tools.py 是 Python 源码,字符串里的 `\uD83C` 会在 Python 编译期解析成孤立代理对,炸 build 的 UTF-8 写盘(UnicodeEncodeError: surrogates not allowed,check_site 与 ast 都拦不住)——直接写真实 emoji 字符,tools.py 是 UTF-8;HTML 占位符用 `&#x...;` 实体。
-- 注入脚本三引号模板同理(R121):`\'` 的反斜杠会被 Python 吃掉,JS 拿到裸撇号炸语法(check_site 按设计拦截)——含撇号的 SEO 文案一律走 repr 生成的 pages.py 区,JS 字符串内避免撇号或改措辞;R120 禁 u 转义规则 R121 全程验证有效。
+- 注入脚本三引号模板同理(R121):`\'` 的反斜杠会被 Python 吃掉,JS 拿到裸撇号炸语法(check_site 按设计拦截)——含撇号的 SEO 文案一律走 repr 生成的 pages.py 区,JS 字符串内避免撇号或改措辞;R120 禁 u 转义规则 R121 全程验证有效。**脚本自身的文档字符串/注释里字面反斜杠u 同罪**(R125 SyntaxError 实证),注释措辞写"反斜杠u"即可。
 - i18n 管线:_i18n_tables.json 补键(9 译文语言 zh/es/pt/ru/ja/ko/de/fr/id 全有;en 基准靠代码 fallback,以 i18n_audit.py 通过为准)→`python engine/_gen_i18n.py`→i18n_audit.py;**i18n.js 是生成物绝不手编**;脚本批量接线后必须 curl 直连抽查渲染结果(i18n R17 教训:属性错位成合法但可见的垃圾串,check_site 与审计都拦不住)。
 
 ## 3. 构建、部署与排障
@@ -34,6 +34,7 @@
 - deploy.sh 每次运行会重写 .gitignore——自定义忽略项必须写进 deploy.sh 的 heredoc。
 - push 被拒等 30s 重试一次;仍败留本地 commit 下轮捎上(该模式连续多轮零丢失);401/403 记"待凭证"。
 - 裸 git 操作需代理 env(HTTP(S)_PROXY=http://127.0.0.1:7890);GitHub 封锁窗判定:站点 200+git 败=等 60s 重试,fetch 128=实锤封锁。
+- **宪法第 2 步 pull --rebase 必须用 deploy.sh 同源地址**(L105:`git config tooltide.owner`+REPO=tooltide),禁止猜仓库名——误拉异构库(如 github.io 旧库)症状=rebase 数百 pick 全量重放;处置=杀进程→删残留 .git/index.lock→`rebase --abort`→按同源地址重拉(R125 实证,耽误 10 分钟)。
 - 部署后复验:curl https://tooldune.com/ 与本轮新页均 200;SW CACHE 名带构建戳,每次部署访客资产自动刷新。
 - deploy.sh 报 rebase failed/diverged 先分诊(R111 实证清树误报):git status 必须净→token URL fetch→`git rev-list --left-right --count main...FETCH_HEAD`;若远端领先=0 即伪阳性(代理瞬断干扰rebase),直接push即可,切勿重置/强制合并;6/6未跑时补 curl 复验+手动 python engine/ping_indexnow.py。
 
