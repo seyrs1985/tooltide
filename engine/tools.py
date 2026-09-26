@@ -10989,6 +10989,149 @@ document.getElementById('bmoon-share').addEventListener('click',function(){
 </script>
 """
 
+FIREWOOD = """<div class="tool" id="tt-fw">
+  <div class="fields">
+    <div class="field"><label for="fw-a">Heated area (sq ft)</label><input type="number" id="fw-a" min="100" max="10000" step="50" placeholder="1000"></div>
+    <div class="field"><label for="fw-c">Climate</label><select id="fw-c"><option value="2">Mild winters</option><option value="3" selected>Moderate winters</option><option value="4.5">Cold winters</option></select></div>
+    <div class="field"><label for="fw-s">Species</label><select id="fw-s"><option value="26" selected>Seasoned hardwood (oak, maple)</option><option value="15">Seasoned softwood (pine, fir)</option></select></div>
+    <div class="field"><label for="fw-p">Price per cord ($)</label><input type="number" id="fw-p" min="50" max="900" step="10" placeholder="280"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fw-out">&#8211;</span><span class="result-unit">cords for the winter</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fw-s1">&#8211;</b><span>total wood cost</span></div>
+    <div class="stat"><b id="fw-s2">&#8211;</b><span>$ per million Btu</span></div>
+    <div class="stat"><b id="fw-s3">&#8211;</b><span>same heat, electric</span></div>
+  </div>
+  <div class="tool-note" id="fw-note"></div>
+  <button type="button" class="tool-btn" id="fw-share">Share my winter wood estimate</button>
+</div>
+<script>(function(){
+var F=['fw-a','fw-c','fw-s','fw-p'].map(function(id){return document.getElementById(id);});
+function calc(){
+  var a=parseFloat(F[0].value),c=parseFloat(F[1].value),btu=parseFloat(F[2].value),p=parseFloat(F[3].value);
+  if(!(a>0)||!(p>0)||!(btu>0)){return;}
+  var cords=a/1000*c, cost=cords*p, mbtu=cords*btu;
+  var perMbtu=mbtu>0?cost/mbtu:0, elec=293*0.15;
+  document.getElementById('fw-out').textContent=(Math.round(cords*10)/10);
+  document.getElementById('fw-s1').textContent='$'+Math.round(cost);
+  document.getElementById('fw-s2').textContent='$'+(Math.round(perMbtu*10)/10);
+  document.getElementById('fw-s3').textContent='$'+Math.round(elec);
+  document.getElementById('fw-note').textContent='Rule of thumb: cords per 1000 sq ft of floor, for wood as a main or heavy supplementary heat in a reasonably tight house. The honest part most firewood pages skip: the sticker price of a cord is not the price of wood heat - your labor is hauling, stacking and a year of seasoning, and electric resistive heat at 15 cents per kWh delivers the same million Btu for about $44 with zero labor. Wood wins on cost per heat unit if your time is cheap to you; gas and oil win on convenience. Split and stack now - seasoned wood is bought a season early.';
+  document.title=Math.round(cords*10)/10+' cords - Firewood Calculator - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_fw',JSON.stringify({a:F[0].value,c:F[1].value,s:F[2].value,p:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['a','c','s','p'],pre=false;
+ks.forEach(function(kk,i){var v=new URLSearchParams(location.search).get(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_fw')||'null');if(m){ks.forEach(function(kk,i){if(m[kk]!==undefined&&m[kk]!==''){F[i].value=m[kk];}});}}catch(e){}}
+calc();
+document.getElementById('fw-share').addEventListener('click',function(){
+  var txt='Heating '+F[0].value+' sq ft takes about '+document.getElementById('fw-out').textContent+' cords of wood (~$'+document.getElementById('fw-s1').textContent+') this winter. Estimate yours:';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Firewood estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my winter wood estimate';},1500);}
+});
+})();
+</script>
+"""
+
+FIREPITVS = """<div class="tool" id="tt-fph">
+  <div class="fields">
+    <div class="field"><label for="fph-w">Wood bundle price ($)</label><input type="number" id="fph-w" min="2" max="30" step="0.5" placeholder="8"></div>
+    <div class="field"><label for="fph-p">Propane tank refill ($)</label><input type="number" id="fph-p" min="5" max="80" step="1" placeholder="25"></div>
+    <div class="field"><label for="fph-e">Electricity rate ($/kWh)</label><input type="number" id="fph-e" min="0.03" max="0.8" step="0.01" placeholder="0.15"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fph-out">&#8211;</span><span class="result-unit">cheapest per hour</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fph-s1">&#8211;</b><span>wood fire pit / hour</span></div>
+    <div class="stat"><b id="fph-s2">&#8211;</b><span>propane heater / hour</span></div>
+    <div class="stat"><b id="fph-s3">&#8211;</b><span>electric infrared / hour</span></div>
+  </div>
+  <div class="tool-note" id="fph-note"></div>
+  <button type="button" class="tool-btn" id="fph-share">Share the per-hour math</button>
+</div>
+<script>(function(){
+var F=['fph-w','fph-p','fph-e'].map(function(id){return document.getElementById(id);});
+function calc(){
+  var w=parseFloat(F[0].value),p=parseFloat(F[1].value),e=parseFloat(F[2].value);
+  if(!(w>0)||!(p>0)||!(e>0)){return;}
+  var wh=w/1.5, ph=p/10.75, eh=1.5*e;
+  var r=Math.round, opts=[['wood',r(wh*100)/100],['propane',r(ph*100)/100],['electric',r(eh*100)/100]];
+  opts.sort(function(a,b){return a[1]-b[1];});
+  document.getElementById('fph-out').textContent=opts[0][0]+' ($'+opts[0][1]+'/h)';
+  document.getElementById('fph-s1').textContent='$'+r(wh*100)/100;
+  document.getElementById('fph-s2').textContent='$'+r(ph*100)/100;
+  document.getElementById('fph-s3').textContent='$'+r(eh*100)/100;
+  document.getElementById('fph-note').textContent='The assumptions are on the table: a store bundle (about 0.75 cubic ft) burns roughly 1.5 hours in a fire pit; a 20-lb propane tank holds about 430,000 Btu and a patio heater drinks 40,000 Btu per hour, so one tank is roughly 10.7 hours; electric infrared runs 1500 watts. Electric is always the cheapest heat but it warms a person, not a party - propane warms a 12-ft circle, and wood sells ambience at many times the price of electricity. You are allowed to buy atmosphere; price it honestly.';
+  document.title='Wood $'+r(wh*100)/100+'/h vs propane $'+r(ph*100)/100+'/h - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_fph',JSON.stringify({w:F[0].value,p:F[1].value,e:F[2].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['w','p','e'],pre=false;
+ks.forEach(function(kk,i){var v=new URLSearchParams(location.search).get(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_fph')||'null');if(m){ks.forEach(function(kk,i){if(m[kk]!==undefined&&m[kk]!==''){F[i].value=m[kk];}});}}catch(e){}}
+calc();
+document.getElementById('fph-share').addEventListener('click',function(){
+  var txt='Backyard heat per hour: wood fire pit '+document.getElementById('fph-s1').textContent+', propane patio heater '+document.getElementById('fph-s2').textContent+', electric infrared '+document.getElementById('fph-s3').textContent+'. Do your own math:';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Fire pit vs patio heater',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the per-hour math';},1500);}
+});
+})();
+</script>
+"""
+
+SEASONING = """<div class="tool" id="tt-fs">
+  <div class="fields">
+    <div class="field"><label for="fs-d">Split date</label><input type="date" id="fs-d"></div>
+    <div class="field"><label for="fs-s">Species</label><select id="fs-s"><option value="12">Oak - 12 months</option><option value="6">Ash - 6 months</option><option value="6.5">Pine/fir - 6-7 months</option><option value="9">Birch - 9 months</option></select></div>
+    <div class="field"><label for="fs-l">Stack length (ft)</label><input type="number" id="fs-l" min="1" max="60" step="1" placeholder="8"></div>
+    <div class="field"><label for="fs-h">Stack height (ft)</label><input type="number" id="fs-h" min="1" max="8" step="0.5" placeholder="4"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fs-out">&#8211;</span><span class="result-unit">ready to burn</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fs-s1">&#8211;</b><span>cords in stack</span></div>
+    <div class="stat"><b id="fs-s2">&#8211;</b><span>months to season</span></div>
+    <div class="stat"><b id="fs-s3">&#8211;</b><span>hiss test</span></div>
+  </div>
+  <div class="tool-note" id="fs-note"></div>
+  <button type="button" class="tool-btn" id="fs-share">Share my seasoning date</button>
+</div>
+<script>(function(){
+var F=['fs-d','fs-s','fs-l','fs-h'].map(function(id){return document.getElementById(id);});
+function calc(){
+  if(!F[0].value){return;}
+  var d=new Date(F[0].value+'T12:00:00Z'),mo=parseFloat(F[1].value),l=parseFloat(F[2].value),h=parseFloat(F[3].value);
+  if(isNaN(d.getTime())||!(mo>0)||!(l>0)||!(h>0)){return;}
+  var ready=new Date(d.getTime());ready.setMonth(ready.getMonth()+Math.ceil(mo));
+  var cords=l*h*4/128;
+  var names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var rs=names[ready.getMonth()]+' '+ready.getUTCFullYear();
+  document.getElementById('fs-out').textContent=rs;
+  document.getElementById('fs-s1').textContent=(Math.round(cords*100)/100);
+  document.getElementById('fs-s2').textContent=Math.ceil(mo);
+  document.getElementById('fs-s3').textContent='hiss = still wet';
+  document.getElementById('fs-note').textContent='Seasoned means under 20 percent moisture, and the signs beat any calendar: split ends turn grey and crack, bark loosens, two logs knocked together clack instead of thud - and a log that hisses while burning is a wet log burning your money. Stack off the ground, cover only the top so wind can pull moisture through the sides, and split early: a whole round seasons far slower than split pieces, which is why the oak you split today becomes the fire you burn next winter.';
+  document.title='Ready by '+rs+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_fs',JSON.stringify({d:F[0].value,s:F[1].value,l:F[2].value,h:F[3].value}));}catch(e){}}
+F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var ks=['d','s','l','h'],pre=false;
+ks.forEach(function(kk,i){var v=new URLSearchParams(location.search).get(kk);if(v!==null){F[i].value=v;pre=true;}});
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_fs')||'null');if(m){ks.forEach(function(kk,i){if(m[kk]!==undefined&&m[kk]!==''){F[i].value=m[kk];}});}}catch(e){}}
+if(!F[0].value){F[0].value=iso(new Date());}
+function iso(dt){return dt.toISOString().slice(0,10);}
+calc();
+document.getElementById('fs-share').addEventListener('click',function(){
+  var txt='My wood stack holds '+document.getElementById('fs-s1').textContent+' cords and seasons ready by '+document.getElementById('fs-out').textContent+'. Plan yours:';
+  var url=location.origin+location.pathname+'?'+ks.map(function(kk,i){return kk+'='+encodeURIComponent(F[i].value);}).join('&');
+  if(navigator.share){navigator.share({title:'Firewood seasoning',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my seasoning date';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -12071,6 +12214,9 @@ TOOLS = {
     "moonphase": lambda args: MOONPHASE,
     "fullmooncal": lambda args: FULLMOONCAL,
     "bdaymoon": lambda args: BDAYMOON,
+    "firewood": lambda args: FIREWOOD,
+    "firepitvs": lambda args: FIREPITVS,
+    "seasoning": lambda args: SEASONING,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,

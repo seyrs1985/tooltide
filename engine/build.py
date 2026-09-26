@@ -28,6 +28,7 @@ YEAR = TODAY.year
 TOOL_EMOJI = {
     "countdown": "⏳", "datediff": "📅", "age": "🎂", "percent": "📊",
     "moonphase": "🌕", "fullmooncal": "🌖", "bdaymoon": "🌙",
+    "firewood": "🔥", "firepitvs": "♨️", "seasoning": "🌲",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",
