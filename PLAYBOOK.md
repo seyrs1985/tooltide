@@ -26,6 +26,7 @@
 - 拼接前自查三件套(分享文案变量/三元括号配平/未定义标识符)——R106(2处)+R107(1处)拼接前拦截;check_site 只拦语法,拦不住未定义变量这类运行时错。
 - 渲染器 JS 写完**必跑 check_site**(R93 LOREM `\n` 转义、R99 jetlag 三元优先级、R100 meattime 闭包变量三次实证);build 后 grep 抽查新页文案防草稿残留混入。
 - **渲染器 JS 禁用 `\uXXXX` 转义写 emoji(R120 实证)**:tools.py 是 Python 源码,字符串里的 `\uD83C` 会在 Python 编译期解析成孤立代理对,炸 build 的 UTF-8 写盘(UnicodeEncodeError: surrogates not allowed,check_site 与 ast 都拦不住)——直接写真实 emoji 字符,tools.py 是 UTF-8;HTML 占位符用 `&#x...;` 实体。
+- 注入脚本三引号模板同理(R121):`\'` 的反斜杠会被 Python 吃掉,JS 拿到裸撇号炸语法(check_site 按设计拦截)——含撇号的 SEO 文案一律走 repr 生成的 pages.py 区,JS 字符串内避免撇号或改措辞;R120 禁 u 转义规则 R121 全程验证有效。
 - i18n 管线:_i18n_tables.json 补键(9 译文语言 zh/es/pt/ru/ja/ko/de/fr/id 全有;en 基准靠代码 fallback,以 i18n_audit.py 通过为准)→`python engine/_gen_i18n.py`→i18n_audit.py;**i18n.js 是生成物绝不手编**;脚本批量接线后必须 curl 直连抽查渲染结果(i18n R17 教训:属性错位成合法但可见的垃圾串,check_site 与审计都拦不住)。
 
 ## 3. 构建、部署与排障
