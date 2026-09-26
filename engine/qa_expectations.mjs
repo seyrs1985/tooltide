@@ -89,6 +89,13 @@ export const TESTS = [
   // inch-fraction: mixed fraction "1-3/4" = 1 + 3/4 = 1.75 inches
   { slug: "inch-fraction-calculator", want: 1.75,
     js: `const m=set('if-frac','1-3/4'); return m||get('if-out');` },
+  // ---- patrol-added (round 4, 2026-09-27) ----
+  // wedding-budget: total = round((guests*(catering+bar) + flat) * 1.1); 100*(85+25)+11500 = 22500*1.1 = 24750
+  { slug: "wedding-budget-calculator", want: 24750,
+    js: `let m=set('wd-g','100'); if(m)return m; m=set('wd-c','85'); if(m)return m; m=set('wd-b','25'); if(m)return m; m=set('wd-f','11500'); return m||get('wd-out');` },
+  // rain-barrel: gal = round(roof * 0.623 gal/sqft/inch * 0.85 harvest efficiency); 1000*0.623*0.85 = 529.55 -> 530
+  { slug: "rain-barrel-calculator", want: 530,
+    js: `const m=set('rb-r','1000'); return m||get('rb-out');` },
 ];
 
 export function verify(t, raw) {
