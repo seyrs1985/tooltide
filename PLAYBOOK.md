@@ -19,7 +19,7 @@
 ## 2. 扩页套路(每页)
 - pages.py 新条目必须在 `def PAGES()` 函数体内(4 空格缩进,列 0 会 IndentationError);新页 **append 到列表尾部**(首页 #new 模块依赖 append 序=上架序,勿插中间)。
 - 标准流程:Write 注入脚本 engine/_inject_roundN.py(渲染器块)+_spliceN.py(ast.parse 校验后锚点 replace,repr 生成 dict 防手写括号错;页尾锚点 `# Index metadata used by build`)→build→check_site→i18n_audit。
-- 新渲染器必须同步 build.py `TOOL_EMOJI` 映射(check_site 逐页硬闸门,漏了直接拦部署);emoji 选老码位防 Win10 豆腐块。
+- 新渲染器必须同步 build.py `TOOL_EMOJI` 映射(check_site 逐页硬闸门,漏了直接拦部署);emoji 选老码位防 Win10 豆腐块扳手 🔧 是保留字——check_site 把它当 TOOL_EMOJI 缺失的兜底指纹全站拦截,且会经相关工具卡片连坐殃及他页(R139,4 文件 1 原因)。
 - 每页标配 4 钩子:document.title 结果钩子 / tt_ 前缀输入记忆 / URL 参数携带状态 / WebShare 分享(降级剪贴板);倒计时页另见 LESSONS #9。
 - 一器多页用 `__VAR__` 参数注入(范例 petage 渲染器 __SPECIES__),SEO 分页、逻辑单源。
 - 倒计时族已饱和但「date 输入规划器」是新回访钩子形态(R104 movetl 验证):date 输入+天数 title+localStorage,用户每周自动回访,适用搬家/考试/截稿等一切有截止日的事。
