@@ -10815,6 +10815,180 @@ document.getElementById('co2-share').addEventListener('click',function(){
 </script>
 """
 
+MOONPHASE = """<div class="tool" id="tt-moon">
+  <div class="fields">
+    <div class="field"><label for="moon-d">Date</label><input type="date" id="moon-d"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="moon-emo">&#x1F311;</span><span class="result-unit" id="moon-name">&#8211;</span></div>
+  <div class="stats">
+    <div class="stat"><b id="moon-s1">&#8211;</b><span>illuminated</span></div>
+    <div class="stat"><b id="moon-s2">&#8211;</b><span>moon age (days)</span></div>
+    <div class="stat"><b id="moon-s3">&#8211;</b><span>next full moon</span></div>
+  </div>
+  <div class="tool-note" id="moon-note"></div>
+  <button type="button" class="tool-btn" id="moon-share">Share tonight&#8217;s moon</button>
+</div>
+<script>(function(){
+var SYN=29.530588853,EPO=2451550.1;
+function jd(d){return d.getTime()/86400000+2440587.5;}
+function mage(dt){var a=(jd(dt)-EPO)%SYN;if(a<0)a+=SYN;return a;}
+function mill(a){return Math.round((1-Math.cos(2*Math.PI*a/SYN))/2*1000)/10;}
+function memoji(a){var i=Math.floor(a/SYN*8+0.5)%8;return ['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'][i];}
+function mname(a){var i=Math.floor(a/SYN*8+0.5)%8;return ['New Moon','Waxing Crescent','First Quarter','Waxing Gibbous','Full Moon','Waning Gibbous','Last Quarter','Waning Crescent'][i];}
+function nfull(dt){var a=mage(dt),d=(14.7654-a+SYN)%SYN;if(d<0.3)d+=SYN;return new Date(dt.getTime()+d*86400000);}
+function nnew(dt){var a=mage(dt),d=(SYN-a)%SYN;if(d<0.3)d+=SYN;return new Date(dt.getTime()+d*86400000);}
+function pdate(dt){return dt.toUTCString().slice(5,11)+' '+dt.getUTCFullYear();}
+function iso(dt){return dt.toISOString().slice(0,10);}
+var D=document.getElementById('moon-d');
+function calc(){
+  if(!D.value){return;}
+  var dt=new Date(D.value+'T12:00:00Z');
+  if(isNaN(dt.getTime())){return;}
+  var a=mage(dt),il=mill(a),em=memoji(a),nm=mname(a);
+  document.getElementById('moon-emo').textContent=em;
+  document.getElementById('moon-name').textContent=nm;
+  document.getElementById('moon-s1').textContent=il+'%';
+  document.getElementById('moon-s2').textContent=Math.round(a*10)/10;
+  document.getElementById('moon-s3').textContent=pdate(nfull(dt));
+  document.getElementById('moon-note').textContent='A mean-synodic estimate computed live from a fixed epoch: the 29.5306-day cycle counted from the reference new moon of 6 Jan 2000. It can drift up to about a day from official almanac times because the orbit is elliptical and the Moon speeds up and slows down. Almanac and observatory tables win for minute-precise times; this page wins for any date, instantly, with the math on the table instead of a frozen table of someone else\u2019s year.';
+  document.title=em+' '+nm+' ('+il+'% lit) - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_moon',D.value);}catch(e){}}
+D.addEventListener('input',function(){calc();save();});
+var pre=false;
+var q=new URLSearchParams(location.search).get('d');
+if(q){D.value=q;pre=true;}
+if(!pre){try{var m=localStorage.getItem('tt_moon');if(m){D.value=m;pre=true;}}catch(e){}}
+if(!pre){D.value=iso(new Date());}
+calc();
+document.getElementById('moon-share').addEventListener('click',function(){
+  var em=document.getElementById('moon-emo').textContent;
+  var txt='The moon on '+D.value+': '+em+' '+document.getElementById('moon-name').textContent+' ('+document.getElementById('moon-s1').textContent+' lit). Check any date:';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
+  if(navigator.share){navigator.share({title:'Moon phase',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share tonight\u2019s moon';},1500);}
+});
+})();
+</script>
+"""
+
+FULLMOONCAL = """<div class="tool" id="tt-fmc">
+  <div class="fields">
+    <div class="field"><label for="fmc-y">Year</label><input type="number" id="fmc-y" min="1900" max="2100" step="1"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="fmc-out">&#8211;</span><span class="result-unit">full moons that year</span></div>
+  <div class="stats">
+    <div class="stat"><b id="fmc-s1">&#8211;</b><span>first</span></div>
+    <div class="stat"><b id="fmc-s2">&#8211;</b><span>last</span></div>
+    <div class="stat"><b id="fmc-s3">&#8211;</b><span>extra moon?</span></div>
+  </div>
+  <ol id="fmc-list"></ol>
+  <div class="tool-note" id="fmc-note"></div>
+  <button type="button" class="tool-btn" id="fmc-share">Share this year&#8217;s full moons</button>
+</div>
+<script>(function(){
+var SYN=29.530588853,EPO=2451550.1;
+function jd(d){return d.getTime()/86400000+2440587.5;}
+function mage(dt){var a=(jd(dt)-EPO)%SYN;if(a<0)a+=SYN;return a;}
+function mill(a){return Math.round((1-Math.cos(2*Math.PI*a/SYN))/2*1000)/10;}
+function memoji(a){var i=Math.floor(a/SYN*8+0.5)%8;return ['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'][i];}
+function mname(a){var i=Math.floor(a/SYN*8+0.5)%8;return ['New Moon','Waxing Crescent','First Quarter','Waxing Gibbous','Full Moon','Waning Gibbous','Last Quarter','Waning Crescent'][i];}
+function nfull(dt){var a=mage(dt),d=(14.7654-a+SYN)%SYN;if(d<0.3)d+=SYN;return new Date(dt.getTime()+d*86400000);}
+function nnew(dt){var a=mage(dt),d=(SYN-a)%SYN;if(d<0.3)d+=SYN;return new Date(dt.getTime()+d*86400000);}
+function pdate(dt){return dt.toUTCString().slice(5,11)+' '+dt.getUTCFullYear();}
+function iso(dt){return dt.toISOString().slice(0,10);}
+var Y=document.getElementById('fmc-y');
+function calc(){
+  var y=parseInt(Y.value,10);
+  if(!(y>=1900&&y<=2100)){return;}
+  var d0=new Date(Date.UTC(y,0,1)),a=mage(d0),d=(14.7654-a+SYN)%SYN;
+  if(d<0.3){d+=SYN;}
+  var t=d0.getTime()+d*86400000,out=[],n=0;
+  while(new Date(t).getUTCFullYear()===y&&n<14){out.push(new Date(t));t+=SYN*86400000;n++;}
+  document.getElementById('fmc-out').textContent=out.length;
+  document.getElementById('fmc-s1').textContent=pdate(out[0]);
+  document.getElementById('fmc-s2').textContent=pdate(out[out.length-1]);
+  document.getElementById('fmc-s3').textContent=out.length>12?'yes - blue moon year':'no';
+  var L=document.getElementById('fmc-list');L.innerHTML='';
+  out.forEach(function(dt){var li=document.createElement('li');li.textContent=pdate(dt);L.appendChild(li);});
+  document.getElementById('fmc-note').textContent='Printed almanac tables freeze the year they were printed; this list is computed for any year you type from the same 29.5306-day cycle, so it carries the same about-a-day tolerance - an observatory table wins for minute-precise or eclipse-adjacent dates. Most years get twelve full moons; thirteen when a cycle lands in the first days of January, which is where blue moon years come from.';
+  document.title='Full Moons '+y+' ('+out.length+') - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_fmcy',Y.value);}catch(e){}}
+Y.addEventListener('input',function(){calc();save();});
+var pre=false;
+var q=new URLSearchParams(location.search).get('y');
+if(q){Y.value=q;pre=true;}
+if(!pre){try{var m=localStorage.getItem('tt_fmcy');if(m){Y.value=m;pre=true;}}catch(e){}}
+if(!pre){Y.value=String(new Date().getUTCFullYear());}
+calc();
+document.getElementById('fmc-share').addEventListener('click',function(){
+  var txt='There are '+document.getElementById('fmc-out').textContent+' full moons in '+Y.value+' - first on '+document.getElementById('fmc-s1').textContent+'. Every full moon, any year:';
+  var url=location.origin+location.pathname+'?y='+encodeURIComponent(Y.value);
+  if(navigator.share){navigator.share({title:'Full moon calendar',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share this year\u2019s full moons';},1500);}
+});
+})();
+</script>
+"""
+
+BDAYMOON = """<div class="tool" id="tt-bm">
+  <div class="fields">
+    <div class="field"><label for="bmoon-d">Your birth date</label><input type="date" id="bmoon-d"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="bmoon-emo">&#x1F311;</span><span class="result-unit" id="bmoon-name">&#8211;</span></div>
+  <div class="stats">
+    <div class="stat"><b id="bmoon-s1">&#8211;</b><span>illuminated that day</span></div>
+    <div class="stat"><b id="bmoon-s2">&#8211;</b><span>moon age (days)</span></div>
+    <div class="stat"><b id="bmoon-s3">&#8211;</b><span>next full moon after</span></div>
+  </div>
+  <div class="tool-note" id="bmoon-note"></div>
+  <button type="button" class="tool-btn" id="bmoon-share">Share my birthday moon</button>
+</div>
+<script>(function(){
+var SYN=29.530588853,EPO=2451550.1;
+function jd(d){return d.getTime()/86400000+2440587.5;}
+function mage(dt){var a=(jd(dt)-EPO)%SYN;if(a<0)a+=SYN;return a;}
+function mill(a){return Math.round((1-Math.cos(2*Math.PI*a/SYN))/2*1000)/10;}
+function memoji(a){var i=Math.floor(a/SYN*8+0.5)%8;return ['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'][i];}
+function mname(a){var i=Math.floor(a/SYN*8+0.5)%8;return ['New Moon','Waxing Crescent','First Quarter','Waxing Gibbous','Full Moon','Waning Gibbous','Last Quarter','Waning Crescent'][i];}
+function nfull(dt){var a=mage(dt),d=(14.7654-a+SYN)%SYN;if(d<0.3)d+=SYN;return new Date(dt.getTime()+d*86400000);}
+function nnew(dt){var a=mage(dt),d=(SYN-a)%SYN;if(d<0.3)d+=SYN;return new Date(dt.getTime()+d*86400000);}
+function pdate(dt){return dt.toUTCString().slice(5,11)+' '+dt.getUTCFullYear();}
+function iso(dt){return dt.toISOString().slice(0,10);}
+var D=document.getElementById('bmoon-d');
+function calc(){
+  if(!D.value){return;}
+  var dt=new Date(D.value+'T12:00:00Z');
+  if(isNaN(dt.getTime())){return;}
+  var a=mage(dt),il=mill(a),em=memoji(a),nm=mname(a);
+  document.getElementById('bmoon-emo').textContent=em;
+  document.getElementById('bmoon-name').textContent='Born under a '+nm+' moon';
+  document.getElementById('bmoon-s1').textContent=il+'%';
+  document.getElementById('bmoon-s2').textContent=Math.round(a*10)/10;
+  document.getElementById('bmoon-s3').textContent=pdate(nfull(dt));
+  document.getElementById('bmoon-note').textContent='The moon you were born under depends only on the date, not your birth time or location - everyone born that day shares the phase, within about a day of tolerance from the mean-synodic estimate (same 29.5306-day cycle counted from the reference new moon of 6 Jan 2000). Roughly one person in eight shares your lunar emoji, which is exactly the group-chat fact the share button is for.';
+  document.title='Born under '+em+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_bday',D.value);}catch(e){}}
+D.addEventListener('input',function(){calc();save();});
+var pre=false;
+var q=new URLSearchParams(location.search).get('d');
+if(q){D.value=q;pre=true;}
+if(!pre){try{var m=localStorage.getItem('tt_bday');if(m){D.value=m;pre=true;}}catch(e){}}
+calc();
+document.getElementById('bmoon-share').addEventListener('click',function(){
+  if(!D.value){return;}
+  var em=document.getElementById('bmoon-emo').textContent;
+  var txt='I was born under '+em+' '+document.getElementById('bmoon-name').textContent.replace('Born under a ','').replace(' moon','')+' ('+document.getElementById('bmoon-s1').textContent+' lit). Find yours:';
+  var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
+  if(navigator.share){navigator.share({title:'Birthday moon',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my birthday moon';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -11894,6 +12068,9 @@ TOOLS = {
     "foodwaste": lambda args: FOODWASTE,
     "xmastree": lambda args: XMASTREE,
     "carryon": lambda args: CARRYON,
+    "moonphase": lambda args: MOONPHASE,
+    "fullmooncal": lambda args: FULLMOONCAL,
+    "bdaymoon": lambda args: BDAYMOON,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
