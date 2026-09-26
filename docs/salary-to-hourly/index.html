@@ -80,6 +80,9 @@
 var yr=document.getElementById('sal-yr'),hr=document.getElementById('sal-hr');
 var hpw=document.getElementById('sal-hpw'),wpy=document.getElementById('sal-wpy');
 var lock=false;
+try{var S=JSON.parse(localStorage.getItem('tt_sal')||'null');if(S){if(S.yr){yr.value=S.yr;}if(S.hr){hr.value=S.hr;}if(S.hpw){hpw.value=S.hpw;}if(S.wpy){wpy.value=S.wpy;}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('y')){yr.value=qs.get('y');runY();}if(qs.get('h')){hr.value=qs.get('h');runH();}
+if(yr.value){runY();}else if(hr.value){runH();}
 function hoursPerYear(){return (parseFloat(hpw.value)||0)*(parseFloat(wpy.value)||0);}
 function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:2});}
 function runY(){
@@ -90,6 +93,8 @@ function runY(){
   document.getElementById('sal-w').textContent=money(y/wpy.value);
   document.getElementById('sal-d').textContent=money(y/wpy.value/5);
   document.getElementById('sal-h').textContent=money(y/h);
+  document.title='$'+Math.round(y).toLocaleString()+' a year = '+money(y/h)+'/hour - ToolDune';
+  try{localStorage.setItem('tt_sal',JSON.stringify({yr:yr.value,hpw:hpw.value,wpy:wpy.value}));}catch(e){}
   lock=false;
 }
 function runH(){
@@ -101,6 +106,8 @@ function runH(){
   document.getElementById('sal-w').textContent=money(y/wpy.value);
   document.getElementById('sal-d').textContent=money(y/wpy.value/5);
   document.getElementById('sal-h').textContent=money(r);
+  document.title=money(r)+'/hour = $'+Math.round(y).toLocaleString()+' a year - ToolDune';
+  try{localStorage.setItem('tt_sal',JSON.stringify({hr:hr.value,hpw:hpw.value,wpy:wpy.value}));}catch(e){}
   lock=false;
 }
 yr.addEventListener('input',runY);

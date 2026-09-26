@@ -265,6 +265,8 @@ PERCENT = """
 <script>(function(){
 var A;try{A=JSON.parse('__ARGS__');}catch(e){A={};}
 var mode=(A&&A.default)?A.default:0;
+try{var S=JSON.parse(localStorage.getItem('tt_percent')||'null');if(S){if(typeof S.m==='number'){mode=S.m;}if(S.v){for(var k in S.v){var el0=document.getElementById(k);if(el0){el0.value=S.v[k];}}}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('m')){mode=parseInt(qs.get('m'),10)||0;}
 var chips=document.querySelectorAll('#tt-pc .chip');
 chips.forEach(function(c){c.classList.toggle('active',+c.dataset.t===mode);});
 document.querySelectorAll('#tt-pc .pane').forEach(function(p){p.style.display=+p.dataset.p===mode?'block':'none';});
@@ -290,7 +292,8 @@ function run(){
     document.getElementById('p2-r').textContent=r===null?'–':(fmt(Math.abs(r))+'% '+(r>=0?'increase':'decrease'));
     f.textContent=(r!==null)?('Formula: ('+b+' − '+a+') ÷ '+Math.abs(a)+' × 100 = '+fmt(r)+'%'):'';}
 }
-['p0-a','p0-b','p1-a','p1-b','p2-a','p2-b'].forEach(function(id){document.getElementById(id).addEventListener('input',run);});
+function save(){try{var v={};['p0-a','p0-b','p1-a','p1-b','p2-a','p2-b'].forEach(function(id){var el=document.getElementById(id);if(el.value){v[id]=el.value;}});localStorage.setItem('tt_percent',JSON.stringify({m:mode,v:v}));}catch(e){}}
+['p0-a','p0-b','p1-a','p1-b','p2-a','p2-b'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){run();var f=document.getElementById('pc-formula').textContent;if(f){document.title=f.replace('Formula: ','')+' - ToolDune';}save();});});
 run();
 })();</script>
 """
@@ -321,6 +324,8 @@ TIP = """
 <script>(function(){
 var pct=18;
 var bill=document.getElementById('tip-bill'),split=document.getElementById('tip-split'),custom=document.getElementById('tip-custom');
+try{var S=JSON.parse(localStorage.getItem('tt_tip')||'null');if(S){if(S.b){bill.value=S.b;}if(S.n){split.value=S.n;}if(S.p){pct=S.p;var hit=document.querySelector('#tt-tip .chip[data-v="'+S.p+'"]');if(hit){document.querySelectorAll('#tt-tip .chip').forEach(function(x){x.classList.toggle('active',x===hit);});}else{custom.value=S.p;}}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('b')){bill.value=qs.get('b');}if(qs.get('p')){pct=parseFloat(qs.get('p'))||18;}
 document.querySelectorAll('#tt-tip .chip').forEach(function(c){c.addEventListener('click',function(){
   pct=+c.dataset.v;custom.value='';
   document.querySelectorAll('#tt-tip .chip').forEach(function(x){x.classList.toggle('active',x===c);});
@@ -340,6 +345,8 @@ function run(){
   document.getElementById('tip-total').textContent=money(total);
   document.getElementById('tip-pp').textContent=money(total/n);
   document.getElementById('tip-tipp').textContent=money(tip/n);
+  if(b>0){document.title='Tip '+money(tip)+' on $'+b+' - total '+money(total)+' - ToolDune';}
+  try{localStorage.setItem('tt_tip',JSON.stringify({b:bill.value,n:split.value,p:pct}));}catch(e){}
 }
 bill.addEventListener('input',run);split.addEventListener('input',run);run();
 })();</script>
@@ -417,8 +424,14 @@ function run(){
   document.getElementById('rt-words').textContent=w.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('rt-chars').textContent=t.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
+try{var S=JSON.parse(localStorage.getItem('tt_rt')||'null');if(S){if(S.t){document.getElementById('rt-txt').value=S.t.length>20000?S.t.slice(0,20000):S.t;}if(S.s){document.getElementById('rt-speed').value=S.s;}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('sp')){document.getElementById('rt-speed').value=qs.get('sp');}
 document.getElementById('rt-txt').addEventListener('input',run);
-document.getElementById('rt-speed').addEventListener('change',run);run();
+document.getElementById('rt-speed').addEventListener('change',run);
+function rtMem(){try{localStorage.setItem('tt_rt',JSON.stringify({t:document.getElementById('rt-txt').value.slice(0,20000),s:document.getElementById('rt-speed').value}));}catch(e){}}
+document.getElementById('rt-txt').addEventListener('input',function(){rtMem();var w=document.getElementById('rt-words').textContent;document.title=(w&&w!=='0')?(w+' words: '+document.getElementById('rt-read').textContent+' read - ToolDune'):'Reading Time Calculator - ToolDune';});
+document.getElementById('rt-speed').addEventListener('change',rtMem);
+run();
 })();</script>
 """
 
@@ -452,7 +465,9 @@ function run(){
   var m=w/225;
   document.getElementById('wc-rt').textContent=m<1?Math.max(1,Math.round(m*60))+' '+T('wc.sec','sec'):(Math.round(m*10)/10)+' '+T('wc.min','min');
 }
+try{var S=JSON.parse(localStorage.getItem('tt_wc')||'null');if(S&&S.t){var tv=S.t.length>20000?S.t.slice(0,20000):S.t;document.getElementById('wc-txt').value=tv;}}catch(e){}
 document.getElementById('wc-txt').addEventListener('input',run);run();
+document.getElementById('wc-txt').addEventListener('input',function(){try{var t=document.getElementById('wc-txt').value;localStorage.setItem('tt_wc',JSON.stringify({t:t.length>20000?t.slice(0,20000):t}));}catch(e){}var w=document.getElementById('wc-w').textContent;document.title=(w&&w!=='0')?(w+' words - ToolDune'):'Word Counter - ToolDune';});
 })();</script>
 """
 
@@ -493,7 +508,11 @@ var F={
  alt:function(t){var n=0;return t.split('').map(function(ch){return /[a-z]/i.test(ch)?(n++%2?ch.toLowerCase():ch.toUpperCase()):ch;}).join('');}
 };
 var inp=document.getElementById('case-in'),out=document.getElementById('case-out');
-document.querySelectorAll('#tt-case .chip').forEach(function(c){c.addEventListener('click',function(){out.value=F[c.dataset.c](inp.value);});});
+var LAST='upper';
+try{var S=JSON.parse(localStorage.getItem('tt_case')||'null');if(S){if(S.t){inp.value=S.t.length>20000?S.t.slice(0,20000):S.t;}if(S.m&&F[S.m]){LAST=S.m;}}}catch(e){}
+document.querySelectorAll('#tt-case .chip').forEach(function(c){c.addEventListener('click',function(){out.value=F[c.dataset.c](inp.value);LAST=c.dataset.c;try{localStorage.setItem('tt_case',JSON.stringify({m:LAST,t:inp.value.slice(0,20000)}));}catch(e){}document.title='Case: '+LAST+' - ToolDune';});});
+document.getElementById('case-in').addEventListener('input',function(){out.value=F[LAST](inp.value);try{localStorage.setItem('tt_case',JSON.stringify({m:LAST,t:inp.value.slice(0,20000)}));}catch(e){}});
+if(inp.value){out.value=F[LAST](inp.value);document.title='Case: '+LAST+' - ToolDune';}
 document.getElementById('case-copy').addEventListener('click',function(){
   out.select();document.execCommand('copy');
   var b=document.getElementById('case-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);
@@ -1513,6 +1532,9 @@ SALARY = """
 var yr=document.getElementById('sal-yr'),hr=document.getElementById('sal-hr');
 var hpw=document.getElementById('sal-hpw'),wpy=document.getElementById('sal-wpy');
 var lock=false;
+try{var S=JSON.parse(localStorage.getItem('tt_sal')||'null');if(S){if(S.yr){yr.value=S.yr;}if(S.hr){hr.value=S.hr;}if(S.hpw){hpw.value=S.hpw;}if(S.wpy){wpy.value=S.wpy;}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('y')){yr.value=qs.get('y');runY();}if(qs.get('h')){hr.value=qs.get('h');runH();}
+if(yr.value){runY();}else if(hr.value){runH();}
 function hoursPerYear(){return (parseFloat(hpw.value)||0)*(parseFloat(wpy.value)||0);}
 function money(n){return '$'+n.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US',{maximumFractionDigits:2});}
 function runY(){
@@ -1523,6 +1545,8 @@ function runY(){
   document.getElementById('sal-w').textContent=money(y/wpy.value);
   document.getElementById('sal-d').textContent=money(y/wpy.value/5);
   document.getElementById('sal-h').textContent=money(y/h);
+  document.title='$'+Math.round(y).toLocaleString()+' a year = '+money(y/h)+'/hour - ToolDune';
+  try{localStorage.setItem('tt_sal',JSON.stringify({yr:yr.value,hpw:hpw.value,wpy:wpy.value}));}catch(e){}
   lock=false;
 }
 function runH(){
@@ -1534,6 +1558,8 @@ function runH(){
   document.getElementById('sal-w').textContent=money(y/wpy.value);
   document.getElementById('sal-d').textContent=money(y/wpy.value/5);
   document.getElementById('sal-h').textContent=money(r);
+  document.title=money(r)+'/hour = $'+Math.round(y).toLocaleString()+' a year - ToolDune';
+  try{localStorage.setItem('tt_sal',JSON.stringify({hr:hr.value,hpw:hpw.value,wpy:wpy.value}));}catch(e){}
   lock=false;
 }
 yr.addEventListener('input',runY);

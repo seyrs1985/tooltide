@@ -83,6 +83,8 @@
 <script>(function(){
 var pct=18;
 var bill=document.getElementById('tip-bill'),split=document.getElementById('tip-split'),custom=document.getElementById('tip-custom');
+try{var S=JSON.parse(localStorage.getItem('tt_tip')||'null');if(S){if(S.b){bill.value=S.b;}if(S.n){split.value=S.n;}if(S.p){pct=S.p;var hit=document.querySelector('#tt-tip .chip[data-v="'+S.p+'"]');if(hit){document.querySelectorAll('#tt-tip .chip').forEach(function(x){x.classList.toggle('active',x===hit);});}else{custom.value=S.p;}}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('b')){bill.value=qs.get('b');}if(qs.get('p')){pct=parseFloat(qs.get('p'))||18;}
 document.querySelectorAll('#tt-tip .chip').forEach(function(c){c.addEventListener('click',function(){
   pct=+c.dataset.v;custom.value='';
   document.querySelectorAll('#tt-tip .chip').forEach(function(x){x.classList.toggle('active',x===c);});
@@ -102,6 +104,8 @@ function run(){
   document.getElementById('tip-total').textContent=money(total);
   document.getElementById('tip-pp').textContent=money(total/n);
   document.getElementById('tip-tipp').textContent=money(tip/n);
+  if(b>0){document.title='Tip '+money(tip)+' on $'+b+' - total '+money(total)+' - ToolDune';}
+  try{localStorage.setItem('tt_tip',JSON.stringify({b:bill.value,n:split.value,p:pct}));}catch(e){}
 }
 bill.addEventListener('input',run);split.addEventListener('input',run);run();
 })();</script>

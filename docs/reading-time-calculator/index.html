@@ -89,8 +89,14 @@ function run(){
   document.getElementById('rt-words').textContent=w.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
   document.getElementById('rt-chars').textContent=t.length.toLocaleString((typeof window!=='undefined'&&window.ttLang)?window.ttLang():'en-US');
 }
+try{var S=JSON.parse(localStorage.getItem('tt_rt')||'null');if(S){if(S.t){document.getElementById('rt-txt').value=S.t.length>20000?S.t.slice(0,20000):S.t;}if(S.s){document.getElementById('rt-speed').value=S.s;}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('sp')){document.getElementById('rt-speed').value=qs.get('sp');}
 document.getElementById('rt-txt').addEventListener('input',run);
-document.getElementById('rt-speed').addEventListener('change',run);run();
+document.getElementById('rt-speed').addEventListener('change',run);
+function rtMem(){try{localStorage.setItem('tt_rt',JSON.stringify({t:document.getElementById('rt-txt').value.slice(0,20000),s:document.getElementById('rt-speed').value}));}catch(e){}}
+document.getElementById('rt-txt').addEventListener('input',function(){rtMem();var w=document.getElementById('rt-words').textContent;document.title=(w&&w!=='0')?(w+' words: '+document.getElementById('rt-read').textContent+' read - ToolDune'):'Reading Time Calculator - ToolDune';});
+document.getElementById('rt-speed').addEventListener('change',rtMem);
+run();
 })();</script>
 
   <section class="seo-block"><h2 data-i18n="tool.howto">How to use</h2><ol class="howto"><li>Paste or type your text into the box — the estimate updates as you type.</li><li>Read the silent-reading time for article labels, or the speaking time for scripts and speeches.</li><li>Adjust with the speed dropdown if you read faster or slower than average.</li></ol></section>

@@ -86,6 +86,8 @@
 <script>(function(){
 var A;try{A=JSON.parse('{}');}catch(e){A={};}
 var mode=(A&&A.default)?A.default:0;
+try{var S=JSON.parse(localStorage.getItem('tt_percent')||'null');if(S){if(typeof S.m==='number'){mode=S.m;}if(S.v){for(var k in S.v){var el0=document.getElementById(k);if(el0){el0.value=S.v[k];}}}}}catch(e){}
+var qs=new URLSearchParams(location.search);if(qs.get('m')){mode=parseInt(qs.get('m'),10)||0;}
 var chips=document.querySelectorAll('#tt-pc .chip');
 chips.forEach(function(c){c.classList.toggle('active',+c.dataset.t===mode);});
 document.querySelectorAll('#tt-pc .pane').forEach(function(p){p.style.display=+p.dataset.p===mode?'block':'none';});
@@ -111,7 +113,8 @@ function run(){
     document.getElementById('p2-r').textContent=r===null?'–':(fmt(Math.abs(r))+'% '+(r>=0?'increase':'decrease'));
     f.textContent=(r!==null)?('Formula: ('+b+' − '+a+') ÷ '+Math.abs(a)+' × 100 = '+fmt(r)+'%'):'';}
 }
-['p0-a','p0-b','p1-a','p1-b','p2-a','p2-b'].forEach(function(id){document.getElementById(id).addEventListener('input',run);});
+function save(){try{var v={};['p0-a','p0-b','p1-a','p1-b','p2-a','p2-b'].forEach(function(id){var el=document.getElementById(id);if(el.value){v[id]=el.value;}});localStorage.setItem('tt_percent',JSON.stringify({m:mode,v:v}));}catch(e){}}
+['p0-a','p0-b','p1-a','p1-b','p2-a','p2-b'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){run();var f=document.getElementById('pc-formula').textContent;if(f){document.title=f.replace('Formula: ','')+' - ToolDune';}save();});});
 run();
 })();</script>
 

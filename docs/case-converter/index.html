@@ -94,7 +94,11 @@ var F={
  alt:function(t){var n=0;return t.split('').map(function(ch){return /[a-z]/i.test(ch)?(n++%2?ch.toLowerCase():ch.toUpperCase()):ch;}).join('');}
 };
 var inp=document.getElementById('case-in'),out=document.getElementById('case-out');
-document.querySelectorAll('#tt-case .chip').forEach(function(c){c.addEventListener('click',function(){out.value=F[c.dataset.c](inp.value);});});
+var LAST='upper';
+try{var S=JSON.parse(localStorage.getItem('tt_case')||'null');if(S){if(S.t){inp.value=S.t.length>20000?S.t.slice(0,20000):S.t;}if(S.m&&F[S.m]){LAST=S.m;}}}catch(e){}
+document.querySelectorAll('#tt-case .chip').forEach(function(c){c.addEventListener('click',function(){out.value=F[c.dataset.c](inp.value);LAST=c.dataset.c;try{localStorage.setItem('tt_case',JSON.stringify({m:LAST,t:inp.value.slice(0,20000)}));}catch(e){}document.title='Case: '+LAST+' - ToolDune';});});
+document.getElementById('case-in').addEventListener('input',function(){out.value=F[LAST](inp.value);try{localStorage.setItem('tt_case',JSON.stringify({m:LAST,t:inp.value.slice(0,20000)}));}catch(e){}});
+if(inp.value){out.value=F[LAST](inp.value);document.title='Case: '+LAST+' - ToolDune';}
 document.getElementById('case-copy').addEventListener('click',function(){
   out.select();document.execCommand('copy');
   var b=document.getElementById('case-copy');b.textContent=TT('ui.copied','Copied!');setTimeout(function(){b.textContent=TT('ui.copy','Copy');},1200);

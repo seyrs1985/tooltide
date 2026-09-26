@@ -87,7 +87,9 @@ function run(){
   var m=w/225;
   document.getElementById('wc-rt').textContent=m<1?Math.max(1,Math.round(m*60))+' '+T('wc.sec','sec'):(Math.round(m*10)/10)+' '+T('wc.min','min');
 }
+try{var S=JSON.parse(localStorage.getItem('tt_wc')||'null');if(S&&S.t){var tv=S.t.length>20000?S.t.slice(0,20000):S.t;document.getElementById('wc-txt').value=tv;}}catch(e){}
 document.getElementById('wc-txt').addEventListener('input',run);run();
+document.getElementById('wc-txt').addEventListener('input',function(){try{var t=document.getElementById('wc-txt').value;localStorage.setItem('tt_wc',JSON.stringify({t:t.length>20000?t.slice(0,20000):t}));}catch(e){}var w=document.getElementById('wc-w').textContent;document.title=(w&&w!=='0')?(w+' words - ToolDune'):'Word Counter - ToolDune';});
 })();</script>
 
   <section class="seo-block"><h2 data-i18n="tool.howto">How to use</h2><ol class="howto"><li>Paste your text into the box — statistics update on every keystroke.</li><li>Check words against your limit; check characters-with-spaces for platforms that count them.</li><li>Clear the box to start over; your text never leaves your device.</li></ol></section>
