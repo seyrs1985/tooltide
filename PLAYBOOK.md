@@ -40,6 +40,7 @@
 - 裸 git 操作需代理 env(HTTP(S)_PROXY=http://127.0.0.1:7890);GitHub 封锁窗判定:站点 200+git 败=等 60s 重试,fetch 128=实锤封锁。
 - **宪法第 2 步 pull --rebase 必须用 deploy.sh 同源地址**(L105:`git config tooltide.owner`+REPO=tooltide),禁止猜仓库名——误拉异构库(如 github.io 旧库)症状=rebase 数百 pick 全量重放;处置=杀进程→删残留 .git/index.lock→`rebase --abort`→按同源地址重拉(R125 实证,耽误 10 分钟)。
 - 部署后复验:curl https://tooldune.com/ 与本轮新页均 200;SW CACHE 名带构建戳,每次部署访客资产自动刷新。
+- 并发流水线已四条(growth/i18n/UX/页面质量Agent):deploy 中途失败先查 STATUS 等文件是否被并发线写入,代提交后 fetch+rev-list 分诊、直接补 push,勿盲目重跑整个 deploy.sh(R158 实证:QA线并发写入触发 rebase failed,其随后的 pull+push 捎带完成全部推送零丢失)。
 - deploy.sh 报 rebase failed/diverged 先分诊(R111 实证清树误报):git status 必须净→token URL fetch→`git rev-list --left-right --count main...FETCH_HEAD`;若远端领先=0 即伪阳性(代理瞬断干扰rebase),直接push即可,切勿重置/强制合并;6/6未跑时补 curl 复验+手动 python engine/ping_indexnow.py。
 
 ## 4. 数据与收入
