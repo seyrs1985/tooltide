@@ -14588,6 +14588,138 @@ document.getElementById('lf-share').addEventListener('click',function(){
 </script>
 """
 
+SALINER = """<div class="tool" id="tt-srn">
+  <div class="fields">
+    <div class="field"><label for="srn-w">Rinse bottle water (ml)</label><select id="srn-w"><option value="240" selected>240 ml - squeeze bottle</option><option value="500">500 ml - neti pot, twice</option><option value="1000">1000 ml - big rinse</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="srn-out">&#8211;</span><span class="result-unit">grams of salt</span></div>
+  <div class="stats">
+    <div class="stat"><b id="srn-s1">&#8211;</b><span>baking soda (g)</span></div>
+    <div class="stat"><b id="srn-s2">&#8211;</b><span>teaspoons of salt</span></div>
+    <div class="stat"><b id="srn-s3">&#8211;</b><span>water rule</span></div>
+  </div>
+  <div class="tool-note" id="srn-note"></div>
+  <button type="button" class="tool-btn" id="srn-share">Share my rinse recipe</button>
+</div>
+<script>(function(){
+var W=document.getElementById('srn-w');
+function calc(){
+  var w=parseFloat(W.value)||240;
+  var salt=w*0.0094, soda=w*0.0042, tsp=Math.round(salt/5.7*10)/10;
+  var d1=Math.round(salt*100)/100, d2=Math.round(soda*100)/100;
+  document.getElementById('srn-out').textContent=d1;
+  document.getElementById('srn-s1').textContent=d2;
+  document.getElementById('srn-s2').textContent=tsp;
+  document.getElementById('srn-s3').textContent='boiled or distilled';
+  document.getElementById('srn-note').textContent='The safety rule comes first because it is the only fatal one on this page: the water must be boiled for a minute and cooled, or distilled - never straight from the tap, a lake or a shower. The mix is pharmacy-standard: about 9.4 grams of non-iodized salt per liter, plus baking soda to buffer the sting, which is exactly what the commercial packets contain at a heavy markup. Iodized table salt stings and carries anti-caking agents you do not want up there. During allergy season a daily rinse after being outside clears the pollen before it sets up inflammation - it is the cheapest allergy treatment with the best evidence-to-cost ratio on the shelf.';
+  document.title='Sinus rinse: '+d1+' g salt for '+Math.round(w)+' ml - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_saliner',JSON.stringify({w:W.value}));}catch(e){}}
+W.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_saliner')||'null');if(m&&m.w){W.value=m.w;}}catch(e){}}
+calc();
+document.getElementById('srn-share').addEventListener('click',function(){
+  var txt='My sinus rinse: '+document.getElementById('srn-out').textContent+' g salt + '+document.getElementById('srn-s1').textContent+' g baking soda in '+W.value+' ml. Mix yours:';
+  var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value);
+  if(navigator.share){navigator.share({title:'Sinus rinse recipe',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my rinse recipe';},1500);}
+});
+})();
+</script>
+"""
+
+RAINBARREL = """<div class="tool" id="tt-rb">
+  <div class="fields">
+    <div class="field"><label for="rb-r">Roof area feeding the barrel (sq ft)</label><input id="rb-r" type="number" min="100" max="10000" value="1200"></div>
+    <div class="field"><label for="rb-b">Barrels hooked up (55 gal each)</label><input id="rb-b" type="number" min="1" max="20" value="2"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="rb-out">&#8211;</span><span class="result-unit">gallons per inch of rain</span></div>
+  <div class="stats">
+    <div class="stat"><b id="rb-s1">&#8211;</b><span>barrels that overflow</span></div>
+    <div class="stat"><b id="rb-s2">&#8211;</b><span>season harvest, 15 in of rain</span></div>
+    <div class="stat"><b id="rb-s3">&#8211;</b><span>the mosquito rule</span></div>
+  </div>
+  <div class="tool-note" id="rb-note"></div>
+  <button type="button" class="tool-btn" id="rb-share">Share my harvest math</button>
+</div>
+<script>(function(){
+var Rr=document.getElementById('rb-r'),B=document.getElementById('rb-b');
+function calc(){
+  var roof=parseFloat(Rr.value)||1200,bars=Math.max(1,Math.round(parseFloat(B.value)||2));
+  var gal=roof*0.623*0.85, fills=gal/(bars*55), season=gal*15;
+  var d1=Math.round(gal), d2=Math.ceil(fills);
+  document.getElementById('rb-out').textContent=d1;
+  document.getElementById('rb-s1').textContent=d2+'x over';
+  document.getElementById('rb-s2').textContent=Math.round(season)+' gal';
+  document.getElementById('rb-s3').textContent='screened lid';
+  document.getElementById('rb-note').textContent='The shock of this math is the point: one inch of rain on an ordinary roof harvests hundreds of gallons, which is why the barrel overflows almost immediately and the overflow hose needs a plan - route it back to the garden beds, not the foundation. Two rules keep the barrel a blessing: a screened self-closing lid so mosquitoes cannot breed in it, and the honest note that rainwater is soft and neutral - better for plants than most tap water, which is why the garden notices the switch before you do. Raised on cinder blocks for gravity pressure at the spigot, and check local rules once - most places are fine and a few old statutes are still on the books.';
+  document.title='Rain harvest: '+d1+' gal per inch of rain - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_rainbarrel',JSON.stringify({r:Rr.value,b:B.value}));}catch(e){}}
+[Rr,B].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('r')){Rr.value=qs.get('r');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_rainbarrel')||'null');if(m){if(m.r){Rr.value=m.r;}if(m.b){B.value=m.b;}}}catch(e){}}
+calc();
+document.getElementById('rb-share').addEventListener('click',function(){
+  var txt='My roof harvests '+document.getElementById('rb-out').textContent+' gallons per inch of rain. Run yours:';
+  var url=location.origin+location.pathname+'?r='+encodeURIComponent(Rr.value);
+  if(navigator.share){navigator.share({title:'Rain barrel harvest',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my harvest math';},1500);}
+});
+})();
+</script>
+"""
+
+GRASSSEED = """<div class="tool" id="tt-gs">
+  <div class="fields">
+    <div class="field"><label for="gs-a">Bare patch area (sq ft)</label><input id="gs-a" type="number" min="10" max="20000" value="200"></div>
+    <div class="field"><label for="gs-t">Seeding style</label><select id="gs-t"><option value="5" selected>Bare ground - 5 lb/1000</option><option value="2.5">Overseeding thin lawn - 2.5 lb/1000</option></select></div>
+    <div class="field"><label for="gs-p">Price per lb of seed</label><input id="gs-p" type="number" min="2" value="6"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gs-out">&#8211;</span><span class="result-unit">pounds of seed</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gs-s1">&#8211;</b><span>seed cost</span></div>
+    <div class="stat"><b id="gs-s2">&#8211;</b><span>sprouts in</span></div>
+    <div class="stat"><b id="gs-s3">&#8211;</b><span>first mow in</span></div>
+  </div>
+  <div class="tool-note" id="gs-note"></div>
+  <button type="button" class="tool-btn" id="gs-share">Share my seed math</button>
+</div>
+<script>(function(){
+var A=document.getElementById('gs-a'),T=document.getElementById('gs-t'),P=document.getElementById('gs-p');
+function calc(){
+  var a=parseFloat(A.value)||200,rate=parseFloat(T.value)||5,p=parseFloat(P.value)||6;
+  var lb=a/1000*rate, cost=lb*p;
+  var d1=Math.round(lb*10)/10, d2=Math.round(cost*100)/100;
+  document.getElementById('gs-out').textContent=d1;
+  document.getElementById('gs-s1').textContent='$'+d2;
+  document.getElementById('gs-s2').textContent='5-14 days';
+  document.getElementById('gs-s3').textContent='3-4 weeks';
+  document.getElementById('gs-note').textContent='The two rules that decide patch success: seed-to-soil contact - rake the seed in lightly so it stops being bird food - and water twice a day, ten minutes, until sprouts show, then taper. The honest calendar note: spring seeding fights crabgrass pre-emergent, which kills grass seed just as enthusiastically as weeds - you cannot have both the barrier and the patch, so pick one. Fall remains the better season for cool-season grass on every measure, and the first mow waits until the new blades reach three inches.';
+  document.title='Patch: '+d1+' lb of seed - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_grassseed',JSON.stringify({a:A.value,t:T.value,p:P.value}));}catch(e){}}
+[A,T,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_grassseed')||'null');if(m){if(m.a){A.value=m.a;}if(m.t){T.value=m.t;}if(m.p){P.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('gs-share').addEventListener('click',function(){
+  var txt='My bare patch takes '+document.getElementById('gs-out').textContent+' lb of seed. Run yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'Grass seed math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my seed math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -15768,6 +15900,9 @@ TOOLS = {
     "gutter": lambda args: GUTTER,
     "airpur": lambda args: AIRPUR,
     "lawnfert": lambda args: LAWNFERT,
+    "saliner": lambda args: SALINER,
+    "rainbarrel": lambda args: RAINBARREL,
+    "grassseed": lambda args: GRASSSEED,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
