@@ -55,6 +55,7 @@ TOOL_EMOJI = {
     "wedding": "💍",
     "gutter": "🍂", "airpur": "🍃", "lawnfert": "🌿",
     "saliner": "🌊", "rainbarrel": "☔", "grassseed": "🌱",
+    "deckstain": "🎨", "compostr": "♻",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

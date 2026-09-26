@@ -14720,6 +14720,94 @@ document.getElementById('gs-share').addEventListener('click',function(){
 </script>
 """
 
+DECKSTAIN = """<div class="tool" id="tt-dst">
+  <div class="fields">
+    <div class="field"><label for="dst-a">Deck floor area (sq ft)</label><input id="dst-a" type="number" min="20" max="5000" value="300"></div>
+    <div class="field"><label for="dst-r">Railing linear feet</label><input id="dst-r" type="number" min="0" max="500" value="40"></div>
+    <div class="field"><label for="dst-c">Coats</label><select id="dst-c"><option value="1">1 coat - refresh</option><option value="2" selected>2 coats - bare wood</option></select></div>
+    <div class="field"><label for="dst-p">Price per gallon</label><input id="dst-p" type="number" min="10" value="35"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dst-out">&#8211;</span><span class="result-unit">gallons of stain</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dst-s1">&#8211;</b><span>total cost</span></div>
+    <div class="stat"><b id="dst-s2">&#8211;</b><span>brushing hours</span></div>
+    <div class="stat"><b id="dst-s3">&#8211;</b><span>redo cycle</span></div>
+  </div>
+  <div class="tool-note" id="dst-note"></div>
+  <button type="button" class="tool-btn" id="dst-share">Share my stain math</button>
+</div>
+<script>(function(){
+var A=document.getElementById('dst-a'),R=document.getElementById('dst-r'),C=document.getElementById('dst-c'),P=document.getElementById('dst-p');
+function calc(){
+  var a=parseFloat(A.value)||300,r=parseFloat(R.value)||0,c=parseFloat(C.value)||2,p=parseFloat(P.value)||35;
+  var area=a+r*2, gal=Math.ceil(area*c/350), cost=gal*p, hrs=Math.round(area*c/120);
+  var d1=Math.round(cost), d2=hrs;
+  document.getElementById('dst-out').textContent=gal;
+  document.getElementById('dst-s1').textContent='$'+d1;
+  document.getElementById('dst-s2').textContent=d2;
+  document.getElementById('dst-s3').textContent='2-3 years';
+  document.getElementById('dst-note').textContent='The rule the aisle forgets: stain covers about 350 square feet per gallon per coat, and rough or thirsty bare wood drinks a first coat faster than the label admits - hence two coats on anything gray. The prep is the part that decides whether the job lasts its 2-3 year cycle: pressure-wash first, because stain over gray dead fibers peels with them, and the forecast needs two dry days either side. Transparent shows grain and fades fastest, solid hides and lasts longest, and the middle semi-transparent is the neighborhood default for a reason.';
+  document.title='Deck stain: '+gal+' gallons, $'+d1+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_deckstain',JSON.stringify({a:A.value,r:R.value,c:C.value,p:P.value}));}catch(e){}}
+[A,R,C,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_deckstain')||'null');if(m){if(m.a){A.value=m.a;}if(m.r){R.value=m.r;}if(m.c){C.value=m.c;}if(m.p){P.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('dst-share').addEventListener('click',function(){
+  var txt='My deck takes '+document.getElementById('dst-out').textContent+' gallons of stain - about '+document.getElementById('dst-s2').textContent+' brushing hours. Run yours:';
+  var url=location.origin+location.pathname+'?a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'Deck stain math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my stain math';},1500);}
+});
+})();
+</script>
+"""
+
+COMPOSTR = """<div class="tool" id="tt-cpr">
+  <div class="fields">
+    <div class="field"><label for="cpr-g">Kitchen scraps per week (gallons)</label><input id="cpr-g" type="number" min="0.5" max="20" step="0.5" value="3"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="cpr-out">&#8211;</span><span class="result-unit">gallons of browns weekly</span></div>
+  <div class="stats">
+    <div class="stat"><b id="cpr-s1">&#8211;</b><span>bin size that fits</span></div>
+    <div class="stat"><b id="cpr-s2">&#8211;</b><span>finished compost in</span></div>
+    <div class="stat"><b id="cpr-s3">&#8211;</b><span>browns that are free</span></div>
+  </div>
+  <div class="tool-note" id="cpr-note"></div>
+  <button type="button" class="tool-btn" id="cpr-share">Share my compost ratio</button>
+</div>
+<script>(function(){
+var G=document.getElementById('cpr-g');
+function calc(){
+  var g=parseFloat(G.value)||3, browns=g*2, bin=(g+browns)*3;
+  var d1=Math.round(browns*10)/10, d2=Math.round(bin);
+  document.getElementById('cpr-out').textContent=d1;
+  document.getElementById('cpr-s1').textContent=d2+'+ gallons';
+  document.getElementById('cpr-s2').textContent='2-3 months';
+  document.getElementById('cpr-s3').textContent='dead leaves, cardboard';
+  document.getElementById('cpr-note').textContent='The recipe is two parts brown for every one part green, by volume - kitchen scraps are green, and dry leaves plus shredded cardboard are the browns that keep the pile from becoming a slime event. Smell is the diagnostic: ammonia or sour means add browns and turn; nothing happening means it is too dry, wet it like a wrung sponge. No meat, dairy or cooked food - those invite rats, not microbes. Turn weekly for compost in two to three months, or never turn a static pile and wait a season; both work, one is a hobby and the other is a habit.';
+  document.title='Compost: '+d1+' gal browns per week - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_compostr',JSON.stringify({g:G.value}));}catch(e){}}
+G.addEventListener('input',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('g')){G.value=qs.get('g');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_compostr')||'null');if(m&&m.g){G.value=m.g;}}catch(e){}}
+calc();
+document.getElementById('cpr-share').addEventListener('click',function(){
+  var txt='My kitchen bucket needs '+document.getElementById('cpr-out').textContent+' gallons of browns a week. Balance yours:';
+  var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value);
+  if(navigator.share){navigator.share({title:'Compost ratio',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my compost ratio';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -15903,6 +15991,8 @@ TOOLS = {
     "saliner": lambda args: SALINER,
     "rainbarrel": lambda args: RAINBARREL,
     "grassseed": lambda args: GRASSSEED,
+    "deckstain": lambda args: DECKSTAIN,
+    "compostr": lambda args: COMPOSTR,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
