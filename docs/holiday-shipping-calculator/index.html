@@ -72,15 +72,17 @@
   </div>
   <div class="tool-note" id="sh2-note"></div>
   <button type="button" class="tool-btn" id="sh2-share">Share this deadline</button>
+  <button type="button" class="tool-btn" id="sh2-ics">Add to calendar (.ics)</button>
 </div>
 <script>(function(){
 var F=['sh2-d','sh2-r'].map(function(id){return document.getElementById(id);});
 var OUT=document.getElementById('sh2-out');
+var lastPost=null;
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function fmt(n){return n<10?'0'+n:''+n;}
 function calc(){
   var dv=F[0].value,transit=parseFloat(F[1].value);
-  if(!dv){OUT.textContent='–';['sh2-s1','sh2-s2','sh2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sh2-note').textContent='';document.title='Holiday Shipping Calculator - ToolDune';return;}
+  if(!dv){OUT.textContent='–';['sh2-s1','sh2-s2','sh2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sh2-note').textContent='';document.title='Holiday Shipping Calculator - ToolDune';lastPost=null;return;}
   var arrive=new Date(dv+'T12:00:00');
   var buffer=transit*0.5;
   var post=new Date(arrive.getTime()-(transit+buffer)*86400000);
@@ -91,6 +93,7 @@ function calc(){
   document.getElementById('sh2-s3').textContent=fmt(order.getDate())+'.'+fmt(order.getMonth()+1)+'.';
   document.getElementById('sh2-note').textContent='The arithmetic adds a half-transit buffer because December networks run at maximum: sorting hubs overflow, weather compounds, and the courier’s “usually three days” quietly becomes four at exactly the moment it cannot. The online-order row subtracts a further week - warehouse handling and pick-pack time ride on top of transit, and the last safe order date is the one the shop advertises, which everyone else also read. Practical padding: ship earlier than proud, insure anything replaceable, photograph fragile packing, and remember the recipient is not home on the 25th - a safe delivery spot or a pickup point saves the surprise nobody wants. Hand-delivered and digital gifts keep no calendar; every other parcel is a bet against the network, and the buffer is the stake that wins it.';
   document.title='Post by '+OUT.textContent+' - ToolDune';
+  lastPost=post;
 }
 function save(){try{localStorage.setItem('tt_shipdead',JSON.stringify({d:F[0].value,r:F[1].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -98,6 +101,17 @@ var pre=false;
 [['d',F[0]],['r',F[1]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
 if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_shipdead')||'null');if(mem){F[0].value=mem.d||'';F[1].value=mem.r||'3';}}catch(e){}}
 calc();
+function ymdSD(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('sh2-ics').addEventListener('click',function(){
+  if(!lastPost){return;}
+  var end=new Date(lastPost.getTime()+86400000);
+  var NL=String.fromCharCode(13,10);
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN'+NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'@tooldune.com'+NL+'DTSTAMP:'+ymdSD(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymdSD(lastPost)+NL+'DTEND;VALUE=DATE:'+ymdSD(end)+NL+'SUMMARY:Last safe day to post the package'+NL+'DESCRIPTION:Includes the peak-season half-transit buffer. Plan by tooldune.com'+NL+'END:VEVENT'+NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='shipping-deadline.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add to calendar (.ics)';},1500);
+});
 document.getElementById('sh2-share').addEventListener('click',function(){
   var txt='Post by '+OUT.textContent+' for Christmas delivery. Set your deadline (free, no sign-up):';
   var url=location.origin+location.pathname+'?d='+F[0].value+'&r='+F[1].value;

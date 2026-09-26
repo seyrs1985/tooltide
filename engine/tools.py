@@ -11693,11 +11693,13 @@ CACTUSBLOOM = """<div class="tool" id="tt-cb">
   </div>
   <div class="tool-note" id="cb-note"></div>
   <button type="button" class="tool-btn" id="cb-share">Share my bloom plan</button>
+  <button type="button" class="tool-btn" id="cb-ics">Add to calendar (.ics)</button>
 </div>
 <script>(function(){
 var D=document.getElementById('cb-d');
+var lastSt=null;
 function calc(){
-  var v=D.value;if(!v){return;}
+  var v=D.value;if(!v){lastSt=null;return;}
   var p=v.split('-');
   var t=new Date(parseInt(p[0],10),parseInt(p[1],10)-1,parseInt(p[2],10));
   var now=new Date();var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
@@ -11712,6 +11714,7 @@ function calc(){
   document.getElementById('cb-s3').textContent='13 h';
   document.getElementById('cb-note').textContent='Count back eight weeks from your target and run long nights from that date: 13 hours of total darkness every night - a closet, a spare room, or a cardboard box over the plant - with bright days, cool nights between 13 and 18 C, and water only when the top inch of soil dries. Buds appear around week four, tiny beads at the branch tips. Once buds are pea size, move the plant to a bright window and stop moving it altogether: a turned pot drops buds, and a kitchen with evening lights is the classic bloom killer.';
   document.title='Start dark nights on '+sd+' - ToolDune';
+  lastSt=st;
 }
 function save(){try{localStorage.setItem('tt_cactusbloom',JSON.stringify({d:D.value}));}catch(e){}}
 D.addEventListener('change',function(){calc();save();});
@@ -11720,6 +11723,17 @@ var qs=new URLSearchParams(location.search);
 if(qs.get('d')){D.value=qs.get('d');pre=true;}
 if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_cactusbloom')||'null');if(m&&m.d){D.value=m.d;pre=true;}}catch(e){}}
 calc();
+function ymdCB(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('cb-ics').addEventListener('click',function(){
+  if(!lastSt){return;}
+  var end=new Date(lastSt.getTime()+86400000);
+  var NL=String.fromCharCode(13,10);
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN'+NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'@tooldune.com'+NL+'DTSTAMP:'+ymdCB(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymdCB(lastSt)+NL+'DTEND;VALUE=DATE:'+ymdCB(end)+NL+'SUMMARY:Start long nights for Christmas cactus blooms'+NL+'DESCRIPTION:13 hours of total darkness nightly for 8 weeks. Plan by tooldune.com'+NL+'END:VEVENT'+NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='cactus-bloom-schedule.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add to calendar (.ics)';},1500);
+});
 document.getElementById('cb-share').addEventListener('click',function(){
   var txt='For blooms by '+D.value+', the long-night treatment starts '+document.getElementById('cb-out').textContent+' - 13 h of darkness a night for 8 weeks. Plan yours:';
   var url=location.origin+location.pathname+'?d='+encodeURIComponent(D.value);
@@ -13586,15 +13600,17 @@ SHIPDEAD = """<div class="tool" id="tt-sh2">
   </div>
   <div class="tool-note" id="sh2-note"></div>
   <button type="button" class="tool-btn" id="sh2-share">Share this deadline</button>
+  <button type="button" class="tool-btn" id="sh2-ics">Add to calendar (.ics)</button>
 </div>
 <script>(function(){
 var F=['sh2-d','sh2-r'].map(function(id){return document.getElementById(id);});
 var OUT=document.getElementById('sh2-out');
+var lastPost=null;
 function qs(k){return new URLSearchParams(location.search).get(k);}
 function fmt(n){return n<10?'0'+n:''+n;}
 function calc(){
   var dv=F[0].value,transit=parseFloat(F[1].value);
-  if(!dv){OUT.textContent='–';['sh2-s1','sh2-s2','sh2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sh2-note').textContent='';document.title='Holiday Shipping Calculator - ToolDune';return;}
+  if(!dv){OUT.textContent='–';['sh2-s1','sh2-s2','sh2-s3'].forEach(function(id){document.getElementById(id).textContent='–';});document.getElementById('sh2-note').textContent='';document.title='Holiday Shipping Calculator - ToolDune';lastPost=null;return;}
   var arrive=new Date(dv+'T12:00:00');
   var buffer=transit*0.5;
   var post=new Date(arrive.getTime()-(transit+buffer)*86400000);
@@ -13605,6 +13621,7 @@ function calc(){
   document.getElementById('sh2-s3').textContent=fmt(order.getDate())+'.'+fmt(order.getMonth()+1)+'.';
   document.getElementById('sh2-note').textContent='The arithmetic adds a half-transit buffer because December networks run at maximum: sorting hubs overflow, weather compounds, and the courier\u2019s \u201cusually three days\u201d quietly becomes four at exactly the moment it cannot. The online-order row subtracts a further week - warehouse handling and pick-pack time ride on top of transit, and the last safe order date is the one the shop advertises, which everyone else also read. Practical padding: ship earlier than proud, insure anything replaceable, photograph fragile packing, and remember the recipient is not home on the 25th - a safe delivery spot or a pickup point saves the surprise nobody wants. Hand-delivered and digital gifts keep no calendar; every other parcel is a bet against the network, and the buffer is the stake that wins it.';
   document.title='Post by '+OUT.textContent+' - ToolDune';
+  lastPost=post;
 }
 function save(){try{localStorage.setItem('tt_shipdead',JSON.stringify({d:F[0].value,r:F[1].value}));}catch(e){}}
 F.forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
@@ -13612,6 +13629,17 @@ var pre=false;
 [['d',F[0]],['r',F[1]]].forEach(function(x){var v=qs(x[0]);if(v!==null){x[1].value=v;pre=true;}});
 if(!pre){try{var mem=JSON.parse(localStorage.getItem('tt_shipdead')||'null');if(mem){F[0].value=mem.d||'';F[1].value=mem.r||'3';}}catch(e){}}
 calc();
+function ymdSD(dt){function p(n){return (n<10?'0':'')+n;}return ''+dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate());}
+document.getElementById('sh2-ics').addEventListener('click',function(){
+  if(!lastPost){return;}
+  var end=new Date(lastPost.getTime()+86400000);
+  var NL=String.fromCharCode(13,10);
+  var ics='BEGIN:VCALENDAR'+NL+'VERSION:2.0'+NL+'PRODID:-//ToolDune//EN'+NL+'BEGIN:VEVENT'+NL+'UID:'+Date.now()+'@tooldune.com'+NL+'DTSTAMP:'+ymdSD(new Date())+'T120000Z'+NL+'DTSTART;VALUE=DATE:'+ymdSD(lastPost)+NL+'DTEND;VALUE=DATE:'+ymdSD(end)+NL+'SUMMARY:Last safe day to post the package'+NL+'DESCRIPTION:Includes the peak-season half-transit buffer. Plan by tooldune.com'+NL+'END:VEVENT'+NL+'END:VCALENDAR';
+  var a=document.createElement('a');a.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);a.download='shipping-deadline.ics';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  this.textContent='Calendar file downloaded';
+  var b=this;setTimeout(function(){b.textContent='Add to calendar (.ics)';},1500);
+});
 document.getElementById('sh2-share').addEventListener('click',function(){
   var txt='Post by '+OUT.textContent+' for Christmas delivery. Set your deadline (free, no sign-up):';
   var url=location.origin+location.pathname+'?d='+F[0].value+'&r='+F[1].value;
