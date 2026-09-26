@@ -13808,17 +13808,17 @@ document.getElementById('sc2-share').addEventListener('click',function(){
 
 PTOOPT = """<div class="tool" id="tt-pt">
   <div class="fields">
-    <div class="field"><label for="pt-d">PTO days per year</label><input id="pt-d" type="number" min="1" max="60" value="15"></div>
-    <div class="field"><label for="pt-b">Breaks you want</label><select id="pt-b"><option value="2">2 long holidays</option><option value="3" selected>3 breaks</option><option value="4">4 mini-breaks</option></select></div>
+    <div class="field"><label for="pt-d" data-i18n="pt.daysperyear">PTO days per year</label><input id="pt-d" type="number" min="1" max="60" value="15"></div>
+    <div class="field"><label for="pt-b" data-i18n="pt.breakswant">Breaks you want</label><select id="pt-b"><option value="2">2 long holidays</option><option value="3" selected>3 breaks</option><option value="4">4 mini-breaks</option></select></div>
   </div>
-  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pt-out">&#8211;</span><span class="result-unit">calendar days off, chained</span></div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pt-out">&#8211;</span><span class="result-unit" data-i18n="pt.chained">calendar days off, chained</span></div>
   <div class="stats">
-    <div class="stat"><b id="pt-s1">&#8211;</b><span>vs one naive block</span></div>
-    <div class="stat"><b id="pt-s2">&#8211;</b><span>weekends harvested</span></div>
-    <div class="stat"><b id="pt-s3">&#8211;</b><span>the Wednesday trick</span></div>
+    <div class="stat"><b id="pt-s1">&#8211;</b><span data-i18n="pt.vsnaive">vs one naive block</span></div>
+    <div class="stat"><b id="pt-s2">&#8211;</b><span data-i18n="pt.weekendsharv">weekends harvested</span></div>
+    <div class="stat"><b id="pt-s3">&#8211;</b><span data-i18n="pt.wedtrick">the Wednesday trick</span></div>
   </div>
   <div class="tool-note" id="pt-note"></div>
-  <button type="button" class="tool-btn" id="pt-share">Share my PTO math</button>
+  <button type="button" class="tool-btn" id="pt-share" data-i18n="share.share-my-ptomath">Share my PTO math</button>
 </div>
 <script>(function(){
 var D=document.getElementById('pt-d'),B=document.getElementById('pt-b');
