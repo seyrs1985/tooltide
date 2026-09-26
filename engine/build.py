@@ -29,6 +29,7 @@ TOOL_EMOJI = {
     "countdown": "⏳", "datediff": "📅", "age": "🎂", "percent": "📊",
     "moonphase": "🌕", "fullmooncal": "🌖", "bdaymoon": "🌙",
     "firewood": "🔥", "firepitvs": "♨️", "seasoning": "🌲",
+    "pumpkinpie": "🎃", "carvetiming": "🍂", "seedroast": "🌰",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

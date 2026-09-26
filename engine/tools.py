@@ -11132,6 +11132,141 @@ document.getElementById('fs-share').addEventListener('click',function(){
 </script>
 """
 
+PUMPKINPIE = """<div class="tool" id="tt-ppie">
+  <div class="fields">
+    <div class="field"><label for="ppie-g">Guests</label><input type="number" id="ppie-g" min="1" max="200" step="1" placeholder="10"></div>
+    <div class="field"><label for="ppie-s">Slices per guest</label><select id="ppie-s"><option value="1" selected>1 slice (polite)</option><option value="1.5">1.5 slices (holiday)</option><option value="2">2 slices (seconds expected)</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ppie-out">&#8211;</span><span class="result-unit">9-inch pies</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ppie-s1">&#8211;</b><span>cups of puree</span></div>
+    <div class="stat"><b id="ppie-s2">&#8211;</b><span>15-oz cans</span></div>
+    <div class="stat"><b id="ppie-s3">&#8211;</b><span>eggs + sugar (cups)</span></div>
+  </div>
+  <div class="tool-note" id="ppie-note"></div>
+  <button type="button" class="tool-btn" id="ppie-share">Share the pie math</button>
+</div>
+<script>(function(){
+var G=document.getElementById('ppie-g'),S=document.getElementById('ppie-s');
+function calc(){
+  var g=parseFloat(G.value),sp=parseFloat(S.value);
+  if(!(g>0)){return;}
+  var slices=g*sp, pies=Math.ceil(slices/8), cups=pies*2, cans=Math.ceil(cups/1.75);
+  document.getElementById('ppie-out').textContent=pies;
+  document.getElementById('ppie-s1').textContent=cups;
+  document.getElementById('ppie-s2').textContent=cans;
+  document.getElementById('ppie-s3').textContent=pies*2+' + '+pies*0.75;
+  document.getElementById('ppie-note').textContent='One 9-inch pie feeds 8 polite slices, needs 2 cups of puree, 2 eggs, 3/4 cup sugar and 1 cup evaporated milk. A 15-oz can holds about 1.75 cups, so the can count rounds up - leftover puree freezes fine. Buy baking pumpkins, not carving ones: a 3-4 lb sugar pumpkin roasts down to roughly 2 cups with better flavor, but canned puree has standardized moisture and is the honest choice for first-timers - a watery filling is the number one soggy-crust cause.';
+  document.title=pies+' pies - Pumpkin Pie Calculator - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_ppie',JSON.stringify({g:G.value,s:S.value}));}catch(e){}}
+G.addEventListener('input',function(){calc();save();});S.addEventListener('change',function(){calc();save();});
+var pre=false;
+var q=new URLSearchParams(location.search).get('g');
+if(q){G.value=q;pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_ppie')||'null');if(m&&m.g){G.value=m.g;S.value=m.s||S.value;pre=true;}}catch(e){}}
+calc();
+document.getElementById('ppie-share').addEventListener('click',function(){
+  var txt=G.value+' guests need '+document.getElementById('ppie-out').textContent+' pumpkin pies ('+document.getElementById('ppie-s2').textContent+' cans of puree). Plan yours:';
+  var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value);
+  if(navigator.share){navigator.share({title:'Pumpkin pie math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the pie math';},1500);}
+});
+})();
+</script>
+"""
+
+CARVETIMING = """<div class="tool" id="tt-carve">
+  <div class="fields">
+    <div class="field"><label for="carve-m">Preservation method</label><select id="carve-m"><option value="4">None - leave it be</option><option value="6">Petroleum jelly on cuts</option><option value="5">Bleach-water spray</option><option value="7">Fridge nights, porch days</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="carve-out">&#8211;</span><span class="result-unit">is your carving day</span></div>
+  <div class="stats">
+    <div class="stat"><b id="carve-s1">&#8211;</b><span>days fresh once cut</span></div>
+    <div class="stat"><b id="carve-s2">&#8211;</b><span>days until Halloween</span></div>
+    <div class="stat"><b id="carve-s3">&#8211;</b><span>if carved today</span></div>
+  </div>
+  <div class="tool-note" id="carve-note"></div>
+  <button type="button" class="tool-btn" id="carve-share">Share my carving date</button>
+</div>
+<script>(function(){
+var M=document.getElementById('carve-m');
+function calc(){
+  var fresh=parseFloat(M.value),now=new Date(),y=now.getUTCFullYear();
+  var hall=new Date(Date.UTC(y,9,31));
+  if(now.getTime()>hall.getTime()){hall=new Date(Date.UTC(y+1,9,31));}
+  var days=Math.ceil((hall.getTime()-now.getTime())/86400000);
+  var carve=new Date(hall.getTime()-fresh*86400000);
+  var names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var cs=names[carve.getUTCMonth()]+' '+carve.getUTCDate();
+  document.getElementById('carve-out').textContent=cs;
+  document.getElementById('carve-s1').textContent='about '+fresh;
+  document.getElementById('carve-s2').textContent=days;
+  document.getElementById('carve-s3').textContent=days>fresh?'too early':'go tonight';
+  document.getElementById('carve-note').textContent='A carved pumpkin is produce, not a prop: cut faces dry, sag and grow fuzz within days, and every method here stretches rather than immortalizes - the fridge-night rhythm is the strongest, petroleum jelly seals moisture into the cuts, bleach spray slows the fuzz but washes off in rain. Whole uncarved pumpkins hold for weeks on a cool porch, so the honest strategy is buy late, carve on the date above, and keep the lid on when the Jack-o-lantern is not on duty.';
+  document.title='Carve on '+cs+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_carve',M.value);}catch(e){}}
+M.addEventListener('change',function(){calc();save();});
+var pre=false;
+var q=new URLSearchParams(location.search).get('m');
+if(q){M.value=q;pre=true;}
+if(!pre){try{var m=localStorage.getItem('tt_carve');if(m){M.value=m;pre=true;}}catch(e){}}
+calc();
+document.getElementById('carve-share').addEventListener('click',function(){
+  var txt='Carve the Jack-o-lantern on '+document.getElementById('carve-out').textContent+' so it is fresh for Halloween. Plan yours:';
+  var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value);
+  if(navigator.share){navigator.share({title:'Pumpkin carving timing',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my carving date';},1500);}
+});
+})();
+</script>
+"""
+
+SEEDSROAST = """<div class="tool" id="tt-pseed">
+  <div class="fields">
+    <div class="field"><label for="pseed-w">Pumpkin weight (lbs)</label><input type="number" id="pseed-w" min="1" max="60" step="0.5" placeholder="5"></div>
+    <div class="field"><label for="pseed-r">Electricity... just kidding - oven type</label><select id="pseed-r"><option value="300" selected>300 F - slow and even</option><option value="350">350 F - faster, less even</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="pseed-out">&#8211;</span><span class="result-unit">cups of seeds</span></div>
+  <div class="stats">
+    <div class="stat"><b id="pseed-s1">&#8211;</b><span>snack servings</span></div>
+    <div class="stat"><b id="pseed-s2">&#8211;</b><span>roast minutes</span></div>
+    <div class="stat"><b id="pseed-s3">&#8211;</b><span>oil + salt</span></div>
+  </div>
+  <div class="tool-note" id="pseed-note"></div>
+  <button type="button" class="tool-btn" id="pseed-share">Share the seed math</button>
+</div>
+<script>(function(){
+var W=document.getElementById('pseed-w'),T=document.getElementById('pseed-r');
+function calc(){
+  var w=parseFloat(W.value),t=parseInt(T.value,10);
+  if(!(w>0)){return;}
+  var cups=w*0.15, serv=Math.floor(cups/0.25), mins=t===300?'30-35':'22-28';
+  document.getElementById('pseed-out').textContent=(Math.round(cups*100)/100);
+  document.getElementById('pseed-s1').textContent=serv;
+  document.getElementById('pseed-s2').textContent=mins;
+  document.getElementById('pseed-s3').textContent=Math.ceil(cups)+' tbsp + pinch';
+  document.getElementById('pseed-note').textContent='Yield rule of thumb: about a quarter cup of seeds per pumpkin pound, cleaned and dried. The step most recipes skip and the difference it makes: simmer the clean seeds 10 minutes in salted water, drain and dry overnight if you can - they crisp evenly instead of steaming. Toss with a tablespoon of oil and a pinch of salt per cup, single layer, and stir once mid-roast. Carve-pumpkin seeds and sugar-pumpkin seeds roast the same; the pumpkin does not care about its purpose.';
+  document.title=Math.round(cups*100)/100+' cups - Pumpkin Seeds - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_pseed',JSON.stringify({w:W.value,r:T.value}));}catch(e){}}
+W.addEventListener('input',function(){calc();save();});T.addEventListener('change',function(){calc();save();});
+var pre=false;
+var q=new URLSearchParams(location.search).get('w');
+if(q){W.value=q;pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_pseed')||'null');if(m&&m.w){W.value=m.w;T.value=m.r||T.value;pre=true;}}catch(e){}}
+calc();
+document.getElementById('pseed-share').addEventListener('click',function(){
+  var txt='A '+W.value+'-lb pumpkin yields about '+document.getElementById('pseed-out').textContent+' cups of seeds - roast at '+T.value+' F. Do your own:';
+  var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value);
+  if(navigator.share){navigator.share({title:'Pumpkin seed math',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share the seed math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -12217,6 +12352,9 @@ TOOLS = {
     "firewood": lambda args: FIREWOOD,
     "firepitvs": lambda args: FIREPITVS,
     "seasoning": lambda args: SEASONING,
+    "pumpkinpie": lambda args: PUMPKINPIE,
+    "carvetiming": lambda args: CARVETIMING,
+    "seedroast": lambda args: SEEDSROAST,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
