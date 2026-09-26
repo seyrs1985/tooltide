@@ -49,6 +49,7 @@ TOOL_EMOJI = {
     "giftreturn": "🔁", "icemelt": "❄", "homegym": "🏠",
     "slowcook": "🍲", "ptoopt": "📅",
     "minpay": "♾", "mealprep": "🍱", "oiltank": "⛽",
+    "homeded": "📎", "setaside": "💼", "charmile": "🚶",
     "tip": "💵", "discount": "🏷️", "readingtime": "📖", "wordcounter": "🔤",
     "case": "🔠", "aspect": "🖥️", "unitconv": "🔄", "typing": "⌨️",
     "names": "🎲", "password": "🔐",

@@ -13991,6 +13991,140 @@ document.getElementById('ot-share').addEventListener('click',function(){
 </script>
 """
 
+HOMEDED = """<div class="tool" id="tt-hod">
+  <div class="fields">
+    <div class="field"><label for="hod-s">Office area (sq ft)</label><input id="hod-s" type="number" min="5" max="2000" value="120"></div>
+    <div class="field"><label for="hod-r">Monthly rent or housing cost</label><input id="hod-r" type="number" min="0" value="1800"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hod-out">&#8211;</span><span class="result-unit">simplified deduction</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hod-s1">&#8211;</b><span>actual method estimate</span></div>
+    <div class="stat"><b id="hod-s2">&#8211;</b><span>the better method</span></div>
+    <div class="stat"><b id="hod-s3">&#8211;</b><span>cap status</span></div>
+  </div>
+  <div class="tool-note" id="hod-note"></div>
+  <button type="button" class="tool-btn" id="hod-share">Share my office math</button>
+</div>
+<script>(function(){
+var S=document.getElementById('hod-s'),R=document.getElementById('hod-r');
+function calc(){
+  var s=parseFloat(S.value)||0,rent=parseFloat(R.value)||0;
+  var simp=Math.min(s,300)*5, pct=s>0?Math.min(100,s/900*100):0, actual=rent*12*(pct/100);
+  var d1=Math.round(actual);
+  var better=simp>=actual?'Simplified':'Actual expenses';
+  var capped=s>300?'capped at 300 sq ft':'under the cap';
+  document.getElementById('hod-out').textContent='$'+Math.round(simp);
+  document.getElementById('hod-s1').textContent='$'+d1;
+  document.getElementById('hod-s2').textContent=better;
+  document.getElementById('hod-s3').textContent=capped;
+  document.getElementById('hod-note').textContent='The simplified method is 5 dollars per square foot with a 300 square foot ceiling - no receipts, five minutes on the form. The actual method multiplies your real rent, utilities and insurance by the office share of the home, and wins whenever the space is large or the rent is high; it wants receipts and a year of records. Two gates decide everything before the math: the space must be used regularly AND exclusively for work - a desk in the living room fails the exclusive test - and since 2018, W-2 employees working from home cannot claim it at all. This is a self-employed and freelance deduction only.';
+  document.title='Home office: $'+Math.round(simp)+' simplified - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_homeded',JSON.stringify({s:S.value,r:R.value}));}catch(e){}}
+[S,R].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('s')){S.value=qs.get('s');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_homeded')||'null');if(m){if(m.s){S.value=m.s;}if(m.r){R.value=m.r;}}}catch(e){}}
+calc();
+document.getElementById('hod-share').addEventListener('click',function(){
+  var txt='My home office deducts $'+document.getElementById('hod-out').textContent+' the simple way. Run yours:';
+  var url=location.origin+location.pathname+'?s='+encodeURIComponent(S.value);
+  if(navigator.share){navigator.share({title:'Home office deduction',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my office math';},1500);}
+});
+})();
+</script>
+"""
+
+SETASIDE = """<div class="tool" id="tt-sas">
+  <div class="fields">
+    <div class="field"><label for="sas-i">Expected 1099 income this year</label><input id="sas-i" type="number" min="400" value="50000"></div>
+    <div class="field"><label for="sas-b">Your income tax bracket (%)</label><select id="sas-b"><option value="12">12%</option><option value="22" selected>22%</option><option value="24">24%</option><option value="32">32%</option><option value="35">35%</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="sas-out">&#8211;</span><span class="result-unit">of each payment to set aside</span></div>
+  <div class="stats">
+    <div class="stat"><b id="sas-s1">&#8211;</b><span>self-employment tax</span></div>
+    <div class="stat"><b id="sas-s2">&#8211;</b><span>quarterly payment, roughly</span></div>
+    <div class="stat"><b id="sas-s3">&#8211;</b><span>quarter due dates</span></div>
+  </div>
+  <div class="tool-note" id="sas-note"></div>
+  <button type="button" class="tool-btn" id="sas-share">Share my set-aside rate</button>
+</div>
+<script>(function(){
+var I=document.getElementById('sas-i'),B=document.getElementById('sas-b');
+function calc(){
+  var inc=parseFloat(I.value)||0,br=parseFloat(B.value)||22;
+  var se=inc*0.9235*0.153, incTax=inc*br/100, total=se+incTax, pct=inc>0?total/inc*100:0;
+  var d1=Math.round(se), d2=Math.round(total/4), d3=Math.round(pct);
+  document.getElementById('sas-out').textContent=d3+'%';
+  document.getElementById('sas-s1').textContent='$'+d1;
+  document.getElementById('sas-s2').textContent='$'+d2;
+  document.getElementById('sas-s3').textContent='Apr Jun Sep Jan';
+  document.getElementById('sas-note').textContent='Self-employed income pays both halves of Social Security and Medicare - 15.3 percent on 92.35 percent of net profit, the discount acknowledging the employer half you now pay yourself. Stack your income bracket on top and the set-aside lands near the percentage shown; move that slice to a separate account the day each client payment lands. The quarterly dates are April, June, September and January - and the safe-harbor rule is the amateur-to-pro line: pay 100 percent of last year total tax across the quarters and the underpayment penalty cannot touch you, even if this year doubles.';
+  document.title='Set aside '+d3+'% of 1099 income - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_setaside',JSON.stringify({i:I.value,b:B.value}));}catch(e){}}
+[I,B].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('i')){I.value=qs.get('i');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_setaside')||'null');if(m){if(m.i){I.value=m.i;}if(m.b){B.value=m.b;}}}catch(e){}}
+calc();
+document.getElementById('sas-share').addEventListener('click',function(){
+  var txt='Freelancers should set aside about '+document.getElementById('sas-out').textContent+' of each payment. Run yours:';
+  var url=location.origin+location.pathname+'?i='+encodeURIComponent(I.value);
+  if(navigator.share){navigator.share({title:'Self-employment tax set-aside',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my set-aside rate';},1500);}
+});
+})();
+</script>
+"""
+
+CHARMILE = """<div class="tool" id="tt-chm">
+  <div class="fields">
+    <div class="field"><label for="chm-m">Volunteer miles driven this year</label><input id="chm-m" type="number" min="0" value="200"></div>
+    <div class="field"><label for="chm-p">Parking and tolls paid</label><input id="chm-p" type="number" min="0" value="15"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="chm-out">&#8211;</span><span class="result-unit">charitable mileage deduction</span></div>
+  <div class="stats">
+    <div class="stat"><b id="chm-s1">&#8211;</b><span>the statutory rate</span></div>
+    <div class="stat"><b id="chm-s2">&#8211;</b><span>what does not count</span></div>
+    <div class="stat"><b id="chm-s3">&#8211;</b><span>the record that survives audit</span></div>
+  </div>
+  <div class="tool-note" id="chm-note"></div>
+  <button type="button" class="tool-btn" id="chm-share">Share my mileage math</button>
+</div>
+<script>(function(){
+var M=document.getElementById('chm-m'),P2=document.getElementById('chm-p');
+function calc(){
+  var mi=parseFloat(M.value)||0,pk=parseFloat(P2.value)||0;
+  var ded=mi*0.14+pk;
+  var d1=Math.round(ded*100)/100;
+  document.getElementById('chm-out').textContent='$'+d1;
+  document.getElementById('chm-s1').textContent='14 cents a mile';
+  document.getElementById('chm-s2').textContent='your commute';
+  document.getElementById('chm-s3').textContent='a dated log';
+  document.getElementById('chm-note').textContent='Volunteer driving deducts at a statutory 14 cents a mile - a rate the IRS has frozen for years while business rates climbed, which is the honest reason this deduction stays modest. Only miles for a qualified 501(c)(3) count, your commute to regular volunteer duty does not, and parking or tolls add on top. The record that survives an audit is boring and unbeatable: a dated log with destination, purpose and miles - written the same week, not reconstructed in April. And itemizers only: like the giving itself, this rides on Schedule A.';
+  document.title='Charitable miles: $'+d1+' deduction - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_charmile',JSON.stringify({m:M.value,p:P2.value}));}catch(e){}}
+[M,P2].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('m')){M.value=qs.get('m');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_charmile')||'null');if(m){if(m.m){M.value=m.m;}if(m.p){P2.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('chm-share').addEventListener('click',function(){
+  var txt='My volunteer miles deduct $'+document.getElementById('chm-out').textContent+'. Log yours:';
+  var url=location.origin+location.pathname+'?m='+encodeURIComponent(M.value);
+  if(navigator.share){navigator.share({title:'Charitable miles',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my mileage math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -15158,6 +15292,9 @@ TOOLS = {
     "minpay": lambda args: MINPAY,
     "mealprep": lambda args: MEALPREP,
     "oiltank": lambda args: OILTANK,
+    "homeded": lambda args: HOMEDED,
+    "setaside": lambda args: SETASIDE,
+    "charmile": lambda args: CHARMILE,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
