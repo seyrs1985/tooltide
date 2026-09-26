@@ -13850,6 +13850,147 @@ document.getElementById('pt-share').addEventListener('click',function(){
 </script>
 """
 
+MINPAY = """<div class="tool" id="tt-mp">
+  <div class="fields">
+    <div class="field"><label for="mp-b">Card balance</label><input id="mp-b" type="number" min="100" value="3000"></div>
+    <div class="field"><label for="mp-a">APR (%)</label><input id="mp-a" type="number" min="0" max="40" step="0.5" value="22"></div>
+    <div class="field"><label for="mp-f">What you pay monthly instead</label><input id="mp-f" type="number" min="10" value="150"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="mp-out">&#8211;</span><span class="result-unit">interest saved by paying more</span></div>
+  <div class="stats">
+    <div class="stat"><b id="mp-s1">&#8211;</b><span>years at minimum only</span></div>
+    <div class="stat"><b id="mp-s2">&#8211;</b><span>interest at minimum only</span></div>
+    <div class="stat"><b id="mp-s3">&#8211;</b><span>months at your payment</span></div>
+  </div>
+  <div class="tool-note" id="mp-note"></div>
+  <button type="button" class="tool-btn" id="mp-share">Share my payoff math</button>
+</div>
+<script>(function(){
+var B=document.getElementById('mp-b'),A=document.getElementById('mp-a'),F=document.getElementById('mp-f');
+function calc(){
+  var bal=parseFloat(B.value)||0,apr=(parseFloat(A.value)||0)/1200,fixed=parseFloat(F.value)||0;
+  var b1=bal,mi=0,mn=0,guard=0;
+  while(b1>0.5&&guard<1200){var int1=b1*apr;var pay=Math.max(25,b1*0.02);if(pay<=int1){mi=Infinity;break;}b1=b1+int1-pay;mi+=int1;mn++;guard++;}
+  var b2=bal,fi=0,fn=0,guard2=0;
+  while(b2>0.5&&guard2<1200){var int2=b2*apr;b2=b2+int2-fixed;fi+=int2;fn++;guard2++;if(fixed<=int2){fi=Infinity;break;}}
+  var y1=mn/12, saved=(isFinite(mi)&&isFinite(fi))?(mi-fi):null;
+  var d1=Math.round(y1*10)/10, d2=Math.round(mi), d3=Math.round(saved);
+  document.getElementById('mp-out').textContent=(saved!==null&&saved>0)?('$'+d3):'see note';
+  document.getElementById('mp-s1').textContent=d1;
+  document.getElementById('mp-s2').textContent='$'+d2;
+  document.getElementById('mp-s3').textContent=fn;
+  document.getElementById('mp-note').textContent='The minimum is engineered, not helpful: at a 22 percent APR the interest alone eats most of a 2 percent minimum, so the balance barely moves for years - that is the business model working exactly as designed. The comparison line above is the same card paid at your fixed amount instead. Two moves that beat willpower: anything above the minimum goes entirely to principal, and a 0 percent balance-transfer card moves the balance for a one-time 3 percent fee - cheaper than a year of interest if you actually clear it inside the window.';
+  document.title='Minimum payment costs $'+d2+' in interest - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_minpay',JSON.stringify({b:B.value,a:A.value,f:F.value}));}catch(e){}}
+[B,A,F].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('b')){B.value=qs.get('b');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_minpay')||'null');if(m){if(m.b){B.value=m.b;}if(m.a){A.value=m.a;}if(m.f){F.value=m.f;}}}catch(e){}}
+calc();
+document.getElementById('mp-share').addEventListener('click',function(){
+  var txt='My card would charge $'+document.getElementById('mp-s2').textContent+' in interest on minimums. The fixed-payment math:';
+  var url=location.origin+location.pathname+'?b='+encodeURIComponent(B.value);
+  if(navigator.share){navigator.share({title:'Minimum payment trap',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my payoff math';},1500);}
+});
+})();
+</script>
+"""
+
+MEALPREP = """<div class="tool" id="tt-mpp">
+  <div class="fields">
+    <div class="field"><label for="mpp-w">Meals to cover per week</label><input id="mpp-w" type="number" min="1" max="21" value="5"></div>
+    <div class="field"><label for="mpp-p">Portions per batch</label><input id="mpp-p" type="number" min="1" max="20" value="4"></div>
+    <div class="field"><label for="mpp-c">Batch ingredient cost</label><input id="mpp-c" type="number" min="2" value="12"></div>
+    <div class="field"><label for="mpp-t">Your takeout cost per meal</label><input id="mpp-t" type="number" min="3" value="14"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="mpp-out">&#8211;</span><span class="result-unit">per meal, home batch</span></div>
+  <div class="stats">
+    <div class="stat"><b id="mpp-s1">&#8211;</b><span>saved per week</span></div>
+    <div class="stat"><b id="mpp-s2">&#8211;</b><span>batches to cook weekly</span></div>
+    <div class="stat"><b id="mpp-s3">&#8211;</b><span>year saving, 48 weeks</span></div>
+  </div>
+  <div class="tool-note" id="mpp-note"></div>
+  <button type="button" class="tool-btn" id="mpp-share">Share my prep math</button>
+</div>
+<script>(function(){
+var W=document.getElementById('mpp-w'),P=document.getElementById('mpp-p'),C=document.getElementById('mpp-c'),T=document.getElementById('mpp-t');
+function calc(){
+  var w=Math.max(1,Math.round(parseFloat(W.value)||5)),p=Math.max(1,parseFloat(P.value)||4),c=parseFloat(C.value)||12,t=parseFloat(T.value)||14;
+  var per=c/p, batches=Math.ceil(w/p), save=(t-per)*w, year=save*48;
+  var d1=Math.round(per*100)/100, d2=Math.round(save*10)/10, d3=Math.round(year);
+  document.getElementById('mpp-out').textContent='$'+d1;
+  document.getElementById('mpp-s1').textContent='$'+d2;
+  document.getElementById('mpp-s2').textContent=batches;
+  document.getElementById('mpp-s3').textContent='$'+d3;
+  document.getElementById('mpp-note').textContent='The takeout number is the honest one: fee, tip and tax add roughly a third on top of the menu price, which is why the comparison looks so lopsided. The honest counterweight is batch fatigue - five identical dinners by Wednesday kills the habit, so freeze half the batch and run two different recipes per week. A 2 hour Sunday cook covers the working week; the containers are a one-time cost and the freezer is the cheat code. January is when this math actually gets done - the same week the card statement from December arrives, which is not a coincidence.';
+  document.title='Batch meals: $'+d1+' each vs takeout - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_mealprep',JSON.stringify({w:W.value,p:P.value,c:C.value,t:T.value}));}catch(e){}}
+[W,P,C,T].forEach(function(el){el.addEventListener('input',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_mealprep')||'null');if(m){if(m.w){W.value=m.w;}if(m.p){P.value=m.p;}if(m.c){C.value=m.c;}if(m.t){T.value=m.t;}}}catch(e){}}
+calc();
+document.getElementById('mpp-share').addEventListener('click',function(){
+  var txt='Batch cooking brings my meals to $'+document.getElementById('mpp-out').textContent+' each - saving $'+document.getElementById('mpp-s1').textContent+' a week. Run yours:';
+  var url=location.origin+location.pathname+'?w='+encodeURIComponent(W.value);
+  if(navigator.share){navigator.share({title:'Meal prep economics',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my prep math';},1500);}
+});
+})();
+</script>
+"""
+
+OILTANK = """<div class="tool" id="tt-ot">
+  <div class="fields">
+    <div class="field"><label for="ot-s">Tank size (gallons)</label><select id="ot-s"><option value="275" selected>275 - basement</option><option value="330">330 - underground</option><option value="500">500 - large</option></select></div>
+    <div class="field"><label for="ot-g">Gauge reading (%)</label><input id="ot-g" type="number" min="0" max="100" value="50"></div>
+    <div class="field"><label for="ot-b">Winter burn rate (gallons/day)</label><input id="ot-b" type="number" min="0.5" step="0.5" value="5"></div>
+    <div class="field"><label for="ot-p">Price per gallon</label><input id="ot-p" type="number" min="1" step="0.05" value="3.50"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ot-out">&#8211;</span><span class="result-unit">days of heat left</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ot-s1">&#8211;</b><span>usable gallons now</span></div>
+    <div class="stat"><b id="ot-s2">&#8211;</b><span>refill to full costs</span></div>
+    <div class="stat"><b id="ot-s3">&#8211;</b><span>order-by gauge</span></div>
+  </div>
+  <div class="tool-note" id="ot-note"></div>
+  <button type="button" class="tool-btn" id="ot-share">Share my tank math</button>
+</div>
+<script>(function(){
+var S=document.getElementById('ot-s'),G=document.getElementById('ot-g'),B=document.getElementById('ot-b'),P=document.getElementById('ot-p');
+function calc(){
+  var size=parseFloat(S.value)||275,pct=Math.min(100,Math.max(0,parseFloat(G.value)||0)),burn=Math.max(0.5,parseFloat(B.value)||5),p=parseFloat(P.value)||3.5;
+  var usable=size*pct/100*0.9, days=burn>0?usable/burn:0, missing=size*0.9-usable, cost=missing*p;
+  var d1=Math.round(usable), d2=Math.round(cost), d3=Math.round(days);
+  document.getElementById('ot-out').textContent=d3;
+  document.getElementById('ot-s1').textContent=d1+' gal';
+  document.getElementById('ot-s2').textContent='$'+d2;
+  document.getElementById('ot-s3').textContent='about 33%';
+  document.getElementById('ot-note').textContent='Two gauge truths: the tank never holds its rated number - a 275 gallon basement tank takes about 240 usable gallons because of the pickup line - and the gauge is a float, not an instrument, so read it as a hint. Order at one third, not on empty: winter delivery queues stretch, emergency fills carry surcharges, and a run-dry line needs a bleed before the burner restarts. Burn rate is the number worth knowing - track it across a cold week and you can predict your own tank better than the delivery company can.';
+  document.title=days+' days of heating oil left - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_oiltank',JSON.stringify({s:S.value,g:G.value,b:B.value,p:P.value}));}catch(e){}}
+[S,G,B,P].forEach(function(el){el.addEventListener('input',function(){calc();save();});el.addEventListener('change',function(){calc();save();});});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('g')){G.value=qs.get('g');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_oiltank')||'null');if(m){if(m.s){S.value=m.s;}if(m.g){G.value=m.g;}if(m.b){B.value=m.b;}if(m.p){P.value=m.p;}}}catch(e){}}
+calc();
+document.getElementById('ot-share').addEventListener('click',function(){
+  var txt='My tank has '+document.getElementById('ot-out').textContent+' days of heat left. Run yours:';
+  var url=location.origin+location.pathname+'?g='+encodeURIComponent(G.value);
+  if(navigator.share){navigator.share({title:'Heating oil tank',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my tank math';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -15014,6 +15155,9 @@ TOOLS = {
     "homegym": lambda args: HOMEGYM,
     "slowcook": lambda args: SLOWCOOK,
     "ptoopt": lambda args: PTOOPT,
+    "minpay": lambda args: MINPAY,
+    "mealprep": lambda args: MEALPREP,
+    "oiltank": lambda args: OILTANK,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
