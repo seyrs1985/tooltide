@@ -99,13 +99,13 @@ for (const slug of slugs) {
       await send("Runtime.enable"); await send("Page.enable");
       await send("Page.navigate", { url });
       await sleep(900);
-      const r = await send("Runtime.evaluate", { expression: PROBE, returnByValue: true });
-      Object.assign(rec, JSON.parse(r.result?.value ?? "{}"));
       const rule = strictAll ? EXPECTS.find(t => t.slug === slug) : null;
-      if (rule) {
+      if (rule) { // strict asserts FIRST, on the pristine DOM — the generic probe mutates page state
         const sr = await send("Runtime.evaluate", { expression: STRICT_DRV(rule.js), returnByValue: true });
         rec.strict = verify(rule, sr.result?.value);
       }
+      const r = await send("Runtime.evaluate", { expression: PROBE, returnByValue: true });
+      Object.assign(rec, JSON.parse(r.result?.value ?? "{}"));
     } catch (e) { rec.consoleErrors.push("PATROL-ERR:" + e.message.slice(0, 200)); }
     rec.consoleErrors = consoleErrs.slice(0, 5);
     rec.ok = rec.consoleErrors.length === 0 && rec.title && !rec.overflow && rec.interacted !== false && rec.btnOk !== false
