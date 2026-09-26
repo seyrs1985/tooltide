@@ -491,7 +491,14 @@ zh:{
  "dn.taxsaved":"分项扣减时的省税额",
  "dn.daysleft":"距年底天数",
  "dn.receiptrule":"该金额的收据规则",
- "share.share-my-givingmath":"分享我的捐赠计算"
+ "share.share-my-givingmath":"分享我的捐赠计算",
+ "slowcook.ovenmin":"食谱中的烤箱时间（分钟）",
+ "slowcook.setting":"慢炖锅档位",
+ "slowcook.incooker":"慢炖锅烹饪时间",
+ "slowcook.othersetting":"另一档位时间",
+ "slowcook.liquid":"食谱中的液体量",
+ "slowcook.dairy":"乳制品与海鲜后放",
+ "share.share-my-conversion":"分享我的换算结果"
 },
 es:{
  "skip":"Saltar al contenido",
@@ -963,7 +970,14 @@ es:{
  "dn.taxsaved":"ahorro si detalla",
  "dn.daysleft":"días restantes del año",
  "dn.receiptrule":"regla de recibo en tu monto",
- "share.share-my-givingmath":"Compartir mi cálculo de donación"
+ "share.share-my-givingmath":"Compartir mi cálculo de donación",
+ "slowcook.ovenmin":"Tiempo de horno en la receta (minutos)",
+ "slowcook.setting":"Ajuste de la olla lenta",
+ "slowcook.incooker":"en la olla lenta",
+ "slowcook.othersetting":"el otro ajuste",
+ "slowcook.liquid":"líquido en la receta",
+ "slowcook.dairy":"lácteos y mariscos van al final",
+ "share.share-my-conversion":"Compartir mi conversión"
 },
 pt:{
  "skip":"Pular para o conteúdo",
@@ -1435,7 +1449,14 @@ pt:{
  "dn.taxsaved":"economia se detalhar",
  "dn.daysleft":"dias restantes do ano",
  "dn.receiptrule":"regra de recibo no seu valor",
- "share.share-my-givingmath":"Compartir meu cálculo de doação"
+ "share.share-my-givingmath":"Compartir meu cálculo de doação",
+ "slowcook.ovenmin":"Tempo de forno na receita (minutos)",
+ "slowcook.setting":"Ajuste da panela lenta",
+ "slowcook.incooker":"na panela lenta",
+ "slowcook.othersetting":"a outra configuração",
+ "slowcook.liquid":"líquido na receita",
+ "slowcook.dairy":"laticínios e frutos do mar vão por último",
+ "share.share-my-conversion":"Compartir minha conversão"
 },
 ru:{
  "skip":"Перейти к содержимому",
@@ -1907,7 +1928,14 @@ ru:{
  "dn.taxsaved":"экономия при детализации",
  "dn.daysleft":"дней до конца года",
  "dn.receiptrule":"правило квитанции для вашей суммы",
- "share.share-my-givingmath":"Поделиться моим расчётом пожертвования"
+ "share.share-my-givingmath":"Поделиться моим расчётом пожертвования",
+ "slowcook.ovenmin":"Время в духовке по рецепту (мин)",
+ "slowcook.setting":"Режим мультиварки",
+ "slowcook.incooker":"в мультиварке",
+ "slowcook.othersetting":"другой режим",
+ "slowcook.liquid":"жидкость в рецепте",
+ "slowcook.dairy":"молочное и морепродукты в конце",
+ "share.share-my-conversion":"Поделиться моим пересчётом"
 },
 ja:{
  "skip":"本文へスキップ",
@@ -2379,7 +2407,14 @@ ja:{
  "dn.taxsaved":"明細採用時の節税額",
  "dn.daysleft":"今年の残り日数",
  "dn.receiptrule":"その金額の領収書ルール",
- "share.share-my-givingmath":"自分の寄付計算を共有"
+ "share.share-my-givingmath":"自分の寄付計算を共有",
+ "slowcook.ovenmin":"レシピのオーブン時間（分）",
+ "slowcook.setting":"スロークッカーの設定",
+ "slowcook.incooker":"スロークッカーでの時間",
+ "slowcook.othersetting":"もう一方の設定",
+ "slowcook.liquid":"レシピの液体",
+ "slowcook.dairy":"乳製品と魚介は後から",
+ "share.share-my-conversion":"自分の換算を共有"
 },
 ko:{
  "skip":"본문으로 건너뛰기",
@@ -2851,7 +2886,14 @@ ko:{
  "dn.taxsaved":"항목 공제 시 절세액",
  "dn.daysleft":"올해 남은 일수",
  "dn.receiptrule":"금액별 영수증 규칙",
- "share.share-my-givingmath":"내 기부 계산 공유"
+ "share.share-my-givingmath":"내 기부 계산 공유",
+ "slowcook.ovenmin":"레시피의 오븐 시간 (분)",
+ "slowcook.setting":"슬로우쿠커 설정",
+ "slowcook.incooker":"슬로우쿠커에서",
+ "slowcook.othersetting":"다른 설정",
+ "slowcook.liquid":"레시피의 액체",
+ "slowcook.dairy":"유제품과 해산물은 마지막에",
+ "share.share-my-conversion":"내 변환 공유"
 },
 de:{
  "skip":"Zum Inhalt springen",
@@ -3323,7 +3365,14 @@ de:{
  "dn.taxsaved":"Ersparnis bei Einzelaufstellung",
  "dn.daysleft":"Tage bis Jahresende",
  "dn.receiptrule":"Quittungsregel für Ihren Betrag",
- "share.share-my-givingmath":"Meine Spendenrechnung teilen"
+ "share.share-my-givingmath":"Meine Spendenrechnung teilen",
+ "slowcook.ovenmin":"Ofenzeit im Rezept (Minuten)",
+ "slowcook.setting":"Einstellung des Schongarsers",
+ "slowcook.incooker":"im Schongarer",
+ "slowcook.othersetting":"die andere Einstellung",
+ "slowcook.liquid":"Flüssigkeit im Rezept",
+ "slowcook.dairy":"Milchprodukte und Meeresfrüchte zuletzt",
+ "share.share-my-conversion":"Meine Umrechnung teilen"
 },
 fr:{
  "skip":"Aller au contenu",
@@ -3795,7 +3844,14 @@ fr:{
  "dn.taxsaved":"économie si vous détaillez",
  "dn.daysleft":"jours restants cette année",
  "dn.receiptrule":"règle de reçu à votre montant",
- "share.share-my-givingmath":"Partager mon calcul de don"
+ "share.share-my-givingmath":"Partager mon calcul de don",
+ "slowcook.ovenmin":"Temps au four dans la recette (minutes)",
+ "slowcook.setting":"Réglage de la mijoteuse",
+ "slowcook.incooker":"dans la mijoteuse",
+ "slowcook.othersetting":"l autre réglage",
+ "slowcook.liquid":"liquide dans la recette",
+ "slowcook.dairy":"produits laitiers et fruits de mer à la fin",
+ "share.share-my-conversion":"Partager ma conversion"
 },
 id:{
  "skip":"Lewati ke konten",
@@ -4267,7 +4323,14 @@ id:{
  "dn.taxsaved":"penghematan jika merinci",
  "dn.daysleft":"hari tersisa tahun ini",
  "dn.receiptrule":"aturan kwitansi sesuai jumlah Anda",
- "share.share-my-givingmath":"Bagikan hitungan donasi saya"
+ "share.share-my-givingmath":"Bagikan hitungan donasi saya",
+ "slowcook.ovenmin":"Waktu oven dalam resep (menit)",
+ "slowcook.setting":"Pengaturan slow cooker",
+ "slowcook.incooker":"di slow cooker",
+ "slowcook.othersetting":"pengaturan lainnya",
+ "slowcook.liquid":"cairan dalam resep",
+ "slowcook.dairy":"susu dan seafood dimasukkan terakhir",
+ "share.share-my-conversion":"Bagikan konversi saya"
 }
 };
 function detect(){
