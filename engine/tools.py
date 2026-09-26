@@ -11267,6 +11267,61 @@ document.getElementById('pseed-share').addEventListener('click',function(){
 </script>
 """
 
+DSTPLAN = """<div class="tool" id="tt-dst">
+  <div class="fields">
+    <div class="field"><label for="dst-r">Region</label><select id="dst-r"><option value="US" selected>US / Canada - Nov 1</option><option value="EU">Europe - Oct 25</option></select></div>
+    <div class="field"><label for="dst-p">Shift pace per day</label><select id="dst-p"><option value="10">10 min - gentle</option><option value="15" selected>15 min - standard</option><option value="20">20 min - brisk</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="dst-out">&#8211;</span><span class="result-unit">clocks fall back</span></div>
+  <div class="stats">
+    <div class="stat"><b id="dst-s1">&#8211;</b><span>start shifting on</span></div>
+    <div class="stat"><b id="dst-s2">&#8211;</b><span>days from today</span></div>
+    <div class="stat"><b id="dst-s3">&#8211;</b><span>bedtime shift daily</span></div>
+  </div>
+  <div class="tool-note" id="dst-note"></div>
+  <button type="button" class="tool-btn" id="dst-share">Share my shift plan</button>
+</div>
+<script>(function(){
+var R=document.getElementById('dst-r'),P=document.getElementById('dst-p');
+function changeDate(y,region){var d;
+  if(region==='US'){d=new Date(Date.UTC(y,10,1));d=new Date(d.getTime()+((7-d.getUTCDay())%7)*86400000);}
+  else{d=new Date(Date.UTC(y,9,31));d=new Date(d.getTime()-d.getUTCDay()*86400000);}
+  return d;}
+function calc(){
+  var region=R.value,pace=parseInt(P.value,10),now=new Date(),y=now.getUTCFullYear();
+  var cd=changeDate(y,region);
+  if(cd.getTime()<now.getTime()){cd=changeDate(y+1,region);}
+  var days=Math.ceil((cd.getTime()-new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate())).getTime())/86400000);
+  var shiftDays=Math.ceil(60/pace);
+  var st=new Date(cd.getTime()-shiftDays*86400000);
+  var names=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var cs=names[cd.getUTCMonth()]+' '+cd.getUTCDate()+', '+cd.getUTCFullYear();
+  var ss=names[st.getUTCMonth()]+' '+st.getUTCDate();
+  document.getElementById('dst-out').textContent=cs;
+  document.getElementById('dst-s1').textContent=ss;
+  document.getElementById('dst-s2').textContent=days;
+  document.getElementById('dst-s3').textContent='+'+pace+' min';
+  document.getElementById('dst-note').textContent='Falling back gives the hour back, but bodies still drift: the plan is to move bedtime and wake time '+pace+' minutes later each day for '+shiftDays+' days, so Sunday morning lands on schedule instead of in the dark. Phones update themselves; the microwave, the car clock and the toaster do not. The week hurts most for small kids, pets on a feeding clock and anyone commuting at dawn - start them on the plan, and take the spare hour Sunday morning as a gift, not a mandate.';
+  document.title='Fall back '+cs+' - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_dst',JSON.stringify({r:R.value,p:P.value}));}catch(e){}}
+R.addEventListener('change',function(){calc();save();});P.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('r')){R.value=qs.get('r');pre=true;}
+if(qs.get('p')){P.value=qs.get('p');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_dst')||'null');if(m){if(m.r){R.value=m.r;}if(m.p){P.value=m.p;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('dst-share').addEventListener('click',function(){
+  var txt='Clocks fall back '+document.getElementById('dst-out').textContent+' - start shifting bedtime '+P.value+' min later on '+document.getElementById('dst-s1').textContent+'. Plan yours:';
+  var url=location.origin+location.pathname+'?r='+encodeURIComponent(R.value)+'&p='+encodeURIComponent(P.value);
+  if(navigator.share){navigator.share({title:'Daylight saving sleep plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my shift plan';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -12355,6 +12410,7 @@ TOOLS = {
     "pumpkinpie": lambda args: PUMPKINPIE,
     "carvetiming": lambda args: CARVETIMING,
     "seedroast": lambda args: SEEDSROAST,
+    "dstsleep": lambda args: DSTPLAN,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
