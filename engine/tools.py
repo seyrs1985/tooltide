@@ -11726,6 +11726,175 @@ document.getElementById('po-share').addEventListener('click',function(){
 </script>
 """
 
+UPSRUN = """<div class="tool" id="tt-ups">
+  <div class="fields">
+    <div class="field"><label for="ups-va">UPS capacity</label><select id="ups-va"><option value="300">300 VA</option><option value="450">450 VA</option><option value="600">600 VA</option><option value="850">850 VA</option><option value="1000" selected>1000 VA</option><option value="1500">1500 VA</option><option value="2200">2200 VA</option></select></div>
+    <div class="field"><label for="ups-w">Load on the UPS (watts)</label><input id="ups-w" type="number" min="10" max="3000" value="180"></div>
+    <div class="field"><label for="ups-age">Battery age</label><select id="ups-age"><option value="1" selected>Under 1 year</option><option value="0.85">1 to 3 years</option><option value="0.7">Over 3 years</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="ups-out">&#8211;</span><span class="result-unit">minutes of runtime</span></div>
+  <div class="stats">
+    <div class="stat"><b id="ups-s1">&#8211;</b><span>power ceiling</span></div>
+    <div class="stat"><b id="ups-s2">&#8211;</b><span>load vs ceiling</span></div>
+    <div class="stat"><b id="ups-s3">&#8211;</b><span>battery age factor</span></div>
+  </div>
+  <div class="tool-note" id="ups-note"></div>
+  <button type="button" class="tool-btn" id="ups-share">Share my runtime estimate</button>
+</div>
+<script>(function(){
+var VA=document.getElementById('ups-va'),W=document.getElementById('ups-w'),A=document.getElementById('ups-age');
+function calc(){
+  var va=parseInt(VA.value,10),w=parseFloat(W.value),af=parseFloat(A.value);
+  if(!(w>0)){w=10;}
+  var wmax=Math.round(va*0.6),pct=Math.round(w/wmax*100);
+  document.getElementById('ups-s1').textContent=wmax+' W';
+  document.getElementById('ups-s2').textContent=pct+'%';
+  document.getElementById('ups-s3').textContent=af;
+  if(w>wmax){
+    document.getElementById('ups-out').textContent='over cap';
+    document.getElementById('ups-note').textContent='This load is '+pct+'% of what the UPS can even power, so it will cut out immediately. Move some devices to a wall socket or step up to a bigger unit - no battery lasts when the inverter is already at its ceiling.';
+    document.title='UPS over capacity - ToolDune';
+    return;
+  }
+  var min=Math.round(va*7.65/w*af);
+  document.getElementById('ups-out').textContent=min;
+  document.getElementById('ups-note').textContent='The model: consumer UPS units carry roughly 0.15 Wh of battery per VA of rating and about 85% of it is deliverable, stretched or shrunk by battery age. Treat the answer as plus or minus a third - runtime is set by the battery, not the VA badge. A 3-year-old battery has already lost a chunk of itself, so run the self-test twice a year. For a work setup the target is not hours - it is 5 to 10 clean minutes to save everything and shut down; the generator or the outage plan covers the rest.';
+  document.title='UPS about '+min+' min at '+Math.round(w)+' W - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_ups',JSON.stringify({v:VA.value,w:W.value,a:A.value}));}catch(e){}}
+VA.addEventListener('change',function(){calc();save();});
+W.addEventListener('input',function(){calc();save();});
+A.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('va')){VA.value=qs.get('va');pre=true;}
+if(qs.get('w')){W.value=qs.get('w');pre=true;}
+if(qs.get('a')){A.value=qs.get('a');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_ups')||'null');if(m){if(m.v){VA.value=m.v;}if(m.w){W.value=m.w;}if(m.a){A.value=m.a;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('ups-share').addEventListener('click',function(){
+  var txt='My UPS should hold about '+document.getElementById('ups-out').textContent+' minutes at '+W.value+' W. Estimate yours:';
+  var url=location.origin+location.pathname+'?va='+encodeURIComponent(VA.value)+'&w='+encodeURIComponent(W.value)+'&a='+encodeURIComponent(A.value);
+  if(navigator.share){navigator.share({title:'UPS runtime estimate',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my runtime estimate';},1500);}
+});
+})();
+</script>
+"""
+
+GENFUEL = """<div class="tool" id="tt-genfuel">
+  <div class="fields">
+    <div class="field"><label for="gf-kw">Generator size</label><select id="gf-kw"><option value="2">2000 W inverter</option><option value="3.5">3500 W</option><option value="5" selected>5000 W</option><option value="7.5">7500 W</option><option value="10">10000 W</option></select></div>
+    <div class="field"><label for="gf-load">Average load</label><select id="gf-load"><option value="0.25">25% - fridge and lights</option><option value="0.5" selected>50% - fridge, lights, TV</option><option value="0.75">75% - plus space heater</option><option value="1">100% - everything it has</option></select></div>
+    <div class="field"><label for="gf-h">Outage hours to cover</label><input id="gf-h" type="number" min="1" max="240" value="24"></div>
+    <div class="field"><label for="gf-p">Gas price per gallon</label><input id="gf-p" type="number" min="0.5" step="0.05" value="3.20"></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="gf-out">&#8211;</span><span class="result-unit">gallons to have on hand</span></div>
+  <div class="stats">
+    <div class="stat"><b id="gf-s1">&#8211;</b><span>burn rate per hour</span></div>
+    <div class="stat"><b id="gf-s2">&#8211;</b><span>fuel cost for the outage</span></div>
+    <div class="stat"><b id="gf-s3">&#8211;</b><span>5-gallon cans to fill</span></div>
+  </div>
+  <div class="tool-note" id="gf-note"></div>
+  <button type="button" class="tool-btn" id="gf-share">Share my fuel plan</button>
+</div>
+<script>(function(){
+var KW=document.getElementById('gf-kw'),LD=document.getElementById('gf-load'),H=document.getElementById('gf-h'),P=document.getElementById('gf-p');
+function calc(){
+  var kw=parseFloat(KW.value),ld=parseFloat(LD.value),h=parseFloat(H.value),p=parseFloat(P.value);
+  if(!(h>0)){h=1;}
+  if(!(p>0)){p=0;}
+  var gph=kw*ld*0.18,gal=gph*h,cost=gal*p,cans=Math.ceil(gal/5);
+  var g1=Math.round(gal*10)/10,g2=Math.round(cost*10)/10;
+  document.getElementById('gf-out').textContent=g1;
+  document.getElementById('gf-s1').textContent=(Math.round(gph*100)/100)+' gal/h';
+  document.getElementById('gf-s2').textContent='$'+g2;
+  document.getElementById('gf-s3').textContent=cans;
+  document.getElementById('gf-note').textContent='The burn rate is the field rule of thumb - kilowatts times load times 0.18 gallons per hour - and real tanks land within a quarter of it either way. An inverter model in eco mode can halve it at light load; an old contractor unit under the same load drinks more. Store no more than 5 gallons of gasoline and rotate it with stabilizer, never refuel a hot or running generator, keep the unit 20 feet from the house, and never backfeed power into a wall outlet - the line workers downstream are the reason.';
+  document.title='Generator fuel: '+g1+' gal over '+h+' h ($'+g2+') - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_genfuel',JSON.stringify({k:KW.value,l:LD.value,h:H.value,p:P.value}));}catch(e){}}
+KW.addEventListener('change',function(){calc();save();});
+LD.addEventListener('change',function(){calc();save();});
+H.addEventListener('input',function(){calc();save();});
+P.addEventListener('input',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('k')){KW.value=qs.get('k');pre=true;}
+if(qs.get('l')){LD.value=qs.get('l');pre=true;}
+if(qs.get('h')){H.value=qs.get('h');pre=true;}
+if(qs.get('p')){P.value=qs.get('p');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_genfuel')||'null');if(m){if(m.k){KW.value=m.k;}if(m.l){LD.value=m.l;}if(m.h){H.value=m.h;}if(m.p){P.value=m.p;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('gf-share').addEventListener('click',function(){
+  var txt='Covering '+H.value+' hours takes about '+document.getElementById('gf-out').textContent+' gallons of gas for my generator. Plan yours:';
+  var url=location.origin+location.pathname+'?k='+encodeURIComponent(KW.value)+'&l='+encodeURIComponent(LD.value)+'&h='+encodeURIComponent(H.value)+'&p='+encodeURIComponent(P.value);
+  if(navigator.share){navigator.share({title:'Generator fuel plan',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my fuel plan';},1500);}
+});
+})();
+</script>
+"""
+
+HEATCMP = """<div class="tool" id="tt-hcmp">
+  <div class="fields">
+    <div class="field"><label for="hc-e">Electric price per kWh</label><input id="hc-e" type="number" min="0.01" step="0.01" value="0.17"></div>
+    <div class="field"><label for="hc-g">Gas price per therm</label><input id="hc-g" type="number" min="0.1" step="0.05" value="1.60"></div>
+    <div class="field"><label for="hc-f">Furnace efficiency</label><select id="hc-f"><option value="0.8">80% - older unit</option><option value="0.9">90% - standard</option><option value="0.95" selected>95% - modern condensing</option></select></div>
+    <div class="field"><label for="hc-c">Heat pump COP</label><select id="hc-c"><option value="2">2.0 - deep cold</option><option value="2.5">2.5 - cold climate</option><option value="3" selected>3.0 - typical</option><option value="3.5">3.5 - mild climate</option></select></div>
+  </div>
+  <div class="result" aria-live="polite" aria-atomic="true"><span class="result-num" id="hc-out">&#8211;</span><span class="result-unit">cheapest heat source</span></div>
+  <div class="stats">
+    <div class="stat"><b id="hc-s1">&#8211;</b><span>electric resistance</span></div>
+    <div class="stat"><b id="hc-s2">&#8211;</b><span>gas furnace</span></div>
+    <div class="stat"><b id="hc-s3">&#8211;</b><span>heat pump</span></div>
+  </div>
+  <div class="tool-note" id="hc-note"></div>
+  <button type="button" class="tool-btn" id="hc-share">Share my heat verdict</button>
+</div>
+<script>(function(){
+var E=document.getElementById('hc-e'),Gp=document.getElementById('hc-g'),F=document.getElementById('hc-f'),C=document.getElementById('hc-c');
+function calc(){
+  var e=parseFloat(E.value),g=parseFloat(Gp.value),f=parseFloat(F.value),c=parseFloat(C.value);
+  if(!(e>0)){e=0.01;}
+  if(!(g>0)){g=0.01;}
+  var r1=e*293.07, r2=g*10/f, r3=r1/c;
+  var d1=Math.round(r1*10)/10, d2=Math.round(r2*10)/10, d3=Math.round(r3*10)/10;
+  var names=['Electric resistance','Gas furnace','Heat pump'];
+  var vals=[r1,r2,r3];
+  var best=vals.indexOf(Math.min(r1,r2,r3));
+  var worst=Math.max(r1,r2,r3);
+  var ratio=Math.round(worst/Math.min(r1,r2,r3)*10)/10;
+  document.getElementById('hc-out').textContent=names[best];
+  document.getElementById('hc-s1').textContent='$'+d1;
+  document.getElementById('hc-s2').textContent='$'+d2;
+  document.getElementById('hc-s3').textContent='$'+d3;
+  document.getElementById('hc-note').textContent='Each figure is the cost of one million BTU of delivered heat at your rates - the only fair comparison, because electricity is sold in kWh and gas in therms. Resistance electric is 100% efficient but carries the worst fuel price per heat unit; the gas figure divides by furnace efficiency, so an 80% unit pays 25% more than its nameplate suggests; the heat pump divides by its COP, the one lever in home heating that beats fuel physics outright. Use the all-in rate from your bill - delivery charges move the verdict more than the thermostat does. In mild weather the pump also cools, which is the part the gas bill never repays.';
+  document.title='Heating: '+names[best]+' wins, up to '+ratio+'x cheaper - ToolDune';
+}
+function save(){try{localStorage.setItem('tt_hcmp',JSON.stringify({e:E.value,g:Gp.value,f:F.value,c:C.value}));}catch(e){}}
+E.addEventListener('input',function(){calc();save();});
+Gp.addEventListener('input',function(){calc();save();});
+F.addEventListener('change',function(){calc();save();});
+C.addEventListener('change',function(){calc();save();});
+var pre=false;
+var qs=new URLSearchParams(location.search);
+if(qs.get('e')){E.value=qs.get('e');pre=true;}
+if(qs.get('g')){Gp.value=qs.get('g');pre=true;}
+if(qs.get('f')){F.value=qs.get('f');pre=true;}
+if(qs.get('c')){C.value=qs.get('c');pre=true;}
+if(!pre){try{var m=JSON.parse(localStorage.getItem('tt_hcmp')||'null');if(m){if(m.e){E.value=m.e;}if(m.g){Gp.value=m.g;}if(m.f){F.value=m.f;}if(m.c){C.value=m.c;}pre=true;}}catch(e){}}
+calc();
+document.getElementById('hc-share').addEventListener('click',function(){
+  var txt='At my rates, '+document.getElementById('hc-out').textContent+' is the cheapest heat - see all three numbers:';
+  var url=location.origin+location.pathname+'?e='+encodeURIComponent(E.value)+'&g='+encodeURIComponent(Gp.value)+'&f='+encodeURIComponent(F.value)+'&c='+encodeURIComponent(C.value);
+  if(navigator.share){navigator.share({title:'Electric vs gas heating',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt+' '+url);this.textContent='Copied!';var b=this;setTimeout(function(){b.textContent='Share my heat verdict';},1500);}
+});
+})();
+</script>
+"""
+
 STOPDIST = """<div class="tool" id="tt-sd">
   <div class="fields">
     <div class="field"><label for="sd-v">Speed (km/h)</label><input type="number" id="sd-v" min="10" max="200" step="5" placeholder="100"></div>
@@ -12823,6 +12992,9 @@ TOOLS = {
     "heatcost": lambda args: HEATCOST,
     "gensize": lambda args: GENSIZE,
     "outagefood": lambda args: OUTAGEFOOD,
+    "upsruntime": lambda args: UPSRUN,
+    "genfuel": lambda args: GENFUEL,
+    "heatcmp": lambda args: HEATCMP,
     "stopdist": lambda args: STOPDIST,
     "followdist": lambda args: FOLLOWDIST,
     "wintertire": lambda args: WINTERTIRE,
